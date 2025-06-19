@@ -269,6 +269,14 @@ module Stripe
         attr_reader :request_three_d_secure
       end
       class CardPresent < Stripe::StripeObject; end
+      class Klarna < Stripe::StripeObject
+        # The currency of the setup intent. Three letter ISO currency code.
+        sig { returns(T.nilable(String)) }
+        attr_reader :currency
+        # Preferred locale of the Klarna checkout page that the customer is redirected to.
+        sig { returns(T.nilable(String)) }
+        attr_reader :preferred_locale
+      end
       class Link < Stripe::StripeObject
         # [Deprecated] This is a legacy parameter that no longer has any function.
         sig { returns(T.nilable(String)) }
@@ -384,6 +392,9 @@ module Stripe
       # Attribute for field card_present
       sig { returns(CardPresent) }
       attr_reader :card_present
+      # Attribute for field klarna
+      sig { returns(Klarna) }
+      attr_reader :klarna
       # Attribute for field link
       sig { returns(Link) }
       attr_reader :link
@@ -1454,6 +1465,99 @@ module Stripe
           ); end
         end
         class CardPresent < Stripe::RequestParams; end
+        class Klarna < Stripe::RequestParams
+          class OnDemand < Stripe::RequestParams
+            # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :average_amount
+            # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :maximum_amount
+            # The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :minimum_amount
+            # Interval at which the customer is making purchases
+            sig { returns(T.nilable(String)) }
+            attr_accessor :purchase_interval
+            # The number of `purchase_interval` between charges
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :purchase_interval_count
+            sig {
+              params(average_amount: T.nilable(Integer), maximum_amount: T.nilable(Integer), minimum_amount: T.nilable(Integer), purchase_interval: T.nilable(String), purchase_interval_count: T.nilable(Integer)).void
+             }
+            def initialize(
+              average_amount: nil,
+              maximum_amount: nil,
+              minimum_amount: nil,
+              purchase_interval: nil,
+              purchase_interval_count: nil
+            ); end
+          end
+          class Subscription < Stripe::RequestParams
+            class NextBilling < Stripe::RequestParams
+              # The amount of the next charge for the subscription.
+              sig { returns(Integer) }
+              attr_accessor :amount
+              # The date of the next charge for the subscription in YYYY-MM-DD format.
+              sig { returns(String) }
+              attr_accessor :date
+              sig { params(amount: Integer, date: String).void }
+              def initialize(amount: nil, date: nil); end
+            end
+            # Unit of time between subscription charges.
+            sig { returns(String) }
+            attr_accessor :interval
+            # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :interval_count
+            # Name for subscription.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :name
+            # Describes the upcoming charge for this subscription.
+            sig {
+              returns(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::Subscription::NextBilling)
+             }
+            attr_accessor :next_billing
+            # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+            sig { returns(String) }
+            attr_accessor :reference
+            sig {
+              params(interval: String, interval_count: T.nilable(Integer), name: T.nilable(String), next_billing: ::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::Subscription::NextBilling, reference: String).void
+             }
+            def initialize(
+              interval: nil,
+              interval_count: nil,
+              name: nil,
+              next_billing: nil,
+              reference: nil
+            ); end
+          end
+          # The currency of the SetupIntent. Three letter ISO currency code.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :currency
+          # On-demand details if setting up a payment method for on-demand payments.
+          sig {
+            returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::OnDemand))
+           }
+          attr_accessor :on_demand
+          # Preferred language of the Klarna authorization page that the customer is redirected to
+          sig { returns(T.nilable(String)) }
+          attr_accessor :preferred_locale
+          # Subscription details if setting up or charging a subscription
+          sig {
+            returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::Subscription]))))
+           }
+          attr_accessor :subscriptions
+          sig {
+            params(currency: T.nilable(String), on_demand: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::Subscription])))).void
+           }
+          def initialize(
+            currency: nil,
+            on_demand: nil,
+            preferred_locale: nil,
+            subscriptions: nil
+          ); end
+        end
         class Link < Stripe::RequestParams
           # [Deprecated] This is a legacy parameter that no longer has any function.
           sig { returns(T.nilable(String)) }
@@ -1656,6 +1760,11 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::CardPresent))
          }
         attr_accessor :card_present
+        # If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
+        sig {
+          returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna))
+         }
+        attr_accessor :klarna
         # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         sig { returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Link)) }
         attr_accessor :link
@@ -1678,7 +1787,7 @@ module Stripe
          }
         attr_accessor :us_bank_account
         sig {
-          params(acss_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::CardPresent), link: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Payto), sepa_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::UsBankAccount)).void
+          params(acss_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Payto), sepa_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::UsBankAccount)).void
          }
         def initialize(
           acss_debit: nil,
@@ -1686,6 +1795,7 @@ module Stripe
           bacs_debit: nil,
           card: nil,
           card_present: nil,
+          klarna: nil,
           link: nil,
           paypal: nil,
           payto: nil,
@@ -2655,6 +2765,99 @@ module Stripe
           ); end
         end
         class CardPresent < Stripe::RequestParams; end
+        class Klarna < Stripe::RequestParams
+          class OnDemand < Stripe::RequestParams
+            # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :average_amount
+            # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :maximum_amount
+            # The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :minimum_amount
+            # Interval at which the customer is making purchases
+            sig { returns(T.nilable(String)) }
+            attr_accessor :purchase_interval
+            # The number of `purchase_interval` between charges
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :purchase_interval_count
+            sig {
+              params(average_amount: T.nilable(Integer), maximum_amount: T.nilable(Integer), minimum_amount: T.nilable(Integer), purchase_interval: T.nilable(String), purchase_interval_count: T.nilable(Integer)).void
+             }
+            def initialize(
+              average_amount: nil,
+              maximum_amount: nil,
+              minimum_amount: nil,
+              purchase_interval: nil,
+              purchase_interval_count: nil
+            ); end
+          end
+          class Subscription < Stripe::RequestParams
+            class NextBilling < Stripe::RequestParams
+              # The amount of the next charge for the subscription.
+              sig { returns(Integer) }
+              attr_accessor :amount
+              # The date of the next charge for the subscription in YYYY-MM-DD format.
+              sig { returns(String) }
+              attr_accessor :date
+              sig { params(amount: Integer, date: String).void }
+              def initialize(amount: nil, date: nil); end
+            end
+            # Unit of time between subscription charges.
+            sig { returns(String) }
+            attr_accessor :interval
+            # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :interval_count
+            # Name for subscription.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :name
+            # Describes the upcoming charge for this subscription.
+            sig {
+              returns(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::Subscription::NextBilling)
+             }
+            attr_accessor :next_billing
+            # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+            sig { returns(String) }
+            attr_accessor :reference
+            sig {
+              params(interval: String, interval_count: T.nilable(Integer), name: T.nilable(String), next_billing: ::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::Subscription::NextBilling, reference: String).void
+             }
+            def initialize(
+              interval: nil,
+              interval_count: nil,
+              name: nil,
+              next_billing: nil,
+              reference: nil
+            ); end
+          end
+          # The currency of the SetupIntent. Three letter ISO currency code.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :currency
+          # On-demand details if setting up a payment method for on-demand payments.
+          sig {
+            returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::OnDemand))
+           }
+          attr_accessor :on_demand
+          # Preferred language of the Klarna authorization page that the customer is redirected to
+          sig { returns(T.nilable(String)) }
+          attr_accessor :preferred_locale
+          # Subscription details if setting up or charging a subscription
+          sig {
+            returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::Subscription]))))
+           }
+          attr_accessor :subscriptions
+          sig {
+            params(currency: T.nilable(String), on_demand: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::Subscription])))).void
+           }
+          def initialize(
+            currency: nil,
+            on_demand: nil,
+            preferred_locale: nil,
+            subscriptions: nil
+          ); end
+        end
         class Link < Stripe::RequestParams
           # [Deprecated] This is a legacy parameter that no longer has any function.
           sig { returns(T.nilable(String)) }
@@ -2857,6 +3060,11 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::CardPresent))
          }
         attr_accessor :card_present
+        # If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
+        sig {
+          returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna))
+         }
+        attr_accessor :klarna
         # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         sig { returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Link)) }
         attr_accessor :link
@@ -2879,7 +3087,7 @@ module Stripe
          }
         attr_accessor :us_bank_account
         sig {
-          params(acss_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::CardPresent), link: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Payto), sepa_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::UsBankAccount)).void
+          params(acss_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Payto), sepa_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::UsBankAccount)).void
          }
         def initialize(
           acss_debit: nil,
@@ -2887,6 +3095,7 @@ module Stripe
           bacs_debit: nil,
           card: nil,
           card_present: nil,
+          klarna: nil,
           link: nil,
           paypal: nil,
           payto: nil,
@@ -3868,6 +4077,99 @@ module Stripe
           ); end
         end
         class CardPresent < Stripe::RequestParams; end
+        class Klarna < Stripe::RequestParams
+          class OnDemand < Stripe::RequestParams
+            # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :average_amount
+            # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :maximum_amount
+            # The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :minimum_amount
+            # Interval at which the customer is making purchases
+            sig { returns(T.nilable(String)) }
+            attr_accessor :purchase_interval
+            # The number of `purchase_interval` between charges
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :purchase_interval_count
+            sig {
+              params(average_amount: T.nilable(Integer), maximum_amount: T.nilable(Integer), minimum_amount: T.nilable(Integer), purchase_interval: T.nilable(String), purchase_interval_count: T.nilable(Integer)).void
+             }
+            def initialize(
+              average_amount: nil,
+              maximum_amount: nil,
+              minimum_amount: nil,
+              purchase_interval: nil,
+              purchase_interval_count: nil
+            ); end
+          end
+          class Subscription < Stripe::RequestParams
+            class NextBilling < Stripe::RequestParams
+              # The amount of the next charge for the subscription.
+              sig { returns(Integer) }
+              attr_accessor :amount
+              # The date of the next charge for the subscription in YYYY-MM-DD format.
+              sig { returns(String) }
+              attr_accessor :date
+              sig { params(amount: Integer, date: String).void }
+              def initialize(amount: nil, date: nil); end
+            end
+            # Unit of time between subscription charges.
+            sig { returns(String) }
+            attr_accessor :interval
+            # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :interval_count
+            # Name for subscription.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :name
+            # Describes the upcoming charge for this subscription.
+            sig {
+              returns(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::Subscription::NextBilling)
+             }
+            attr_accessor :next_billing
+            # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+            sig { returns(String) }
+            attr_accessor :reference
+            sig {
+              params(interval: String, interval_count: T.nilable(Integer), name: T.nilable(String), next_billing: ::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::Subscription::NextBilling, reference: String).void
+             }
+            def initialize(
+              interval: nil,
+              interval_count: nil,
+              name: nil,
+              next_billing: nil,
+              reference: nil
+            ); end
+          end
+          # The currency of the SetupIntent. Three letter ISO currency code.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :currency
+          # On-demand details if setting up a payment method for on-demand payments.
+          sig {
+            returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::OnDemand))
+           }
+          attr_accessor :on_demand
+          # Preferred language of the Klarna authorization page that the customer is redirected to
+          sig { returns(T.nilable(String)) }
+          attr_accessor :preferred_locale
+          # Subscription details if setting up or charging a subscription
+          sig {
+            returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::Subscription]))))
+           }
+          attr_accessor :subscriptions
+          sig {
+            params(currency: T.nilable(String), on_demand: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::Subscription])))).void
+           }
+          def initialize(
+            currency: nil,
+            on_demand: nil,
+            preferred_locale: nil,
+            subscriptions: nil
+          ); end
+        end
         class Link < Stripe::RequestParams
           # [Deprecated] This is a legacy parameter that no longer has any function.
           sig { returns(T.nilable(String)) }
@@ -4070,6 +4372,11 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::CardPresent))
          }
         attr_accessor :card_present
+        # If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
+        sig {
+          returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna))
+         }
+        attr_accessor :klarna
         # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         sig { returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Link)) }
         attr_accessor :link
@@ -4094,7 +4401,7 @@ module Stripe
          }
         attr_accessor :us_bank_account
         sig {
-          params(acss_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::CardPresent), link: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Payto), sepa_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount)).void
+          params(acss_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Payto), sepa_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount)).void
          }
         def initialize(
           acss_debit: nil,
@@ -4102,6 +4409,7 @@ module Stripe
           bacs_debit: nil,
           card: nil,
           card_present: nil,
+          klarna: nil,
           link: nil,
           paypal: nil,
           payto: nil,

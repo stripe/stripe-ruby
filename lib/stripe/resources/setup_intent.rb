@@ -229,6 +229,13 @@ module Stripe
 
       class CardPresent < Stripe::StripeObject; end
 
+      class Klarna < Stripe::StripeObject
+        # The currency of the setup intent. Three letter ISO currency code.
+        attr_reader :currency
+        # Preferred locale of the Klarna checkout page that the customer is redirected to.
+        attr_reader :preferred_locale
+      end
+
       class Link < Stripe::StripeObject
         # [Deprecated] This is a legacy parameter that no longer has any function.
         attr_reader :persistent_token
@@ -319,6 +326,8 @@ module Stripe
       attr_reader :card
       # Attribute for field card_present
       attr_reader :card_present
+      # Attribute for field klarna
+      attr_reader :klarna
       # Attribute for field link
       attr_reader :link
       # Attribute for field paypal
@@ -1270,6 +1279,88 @@ module Stripe
 
         class CardPresent < Stripe::RequestParams; end
 
+        class Klarna < Stripe::RequestParams
+          class OnDemand < Stripe::RequestParams
+            # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :average_amount
+            # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :maximum_amount
+            # The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :minimum_amount
+            # Interval at which the customer is making purchases
+            attr_accessor :purchase_interval
+            # The number of `purchase_interval` between charges
+            attr_accessor :purchase_interval_count
+
+            def initialize(
+              average_amount: nil,
+              maximum_amount: nil,
+              minimum_amount: nil,
+              purchase_interval: nil,
+              purchase_interval_count: nil
+            )
+              @average_amount = average_amount
+              @maximum_amount = maximum_amount
+              @minimum_amount = minimum_amount
+              @purchase_interval = purchase_interval
+              @purchase_interval_count = purchase_interval_count
+            end
+          end
+
+          class Subscription < Stripe::RequestParams
+            class NextBilling < Stripe::RequestParams
+              # The amount of the next charge for the subscription.
+              attr_accessor :amount
+              # The date of the next charge for the subscription in YYYY-MM-DD format.
+              attr_accessor :date
+
+              def initialize(amount: nil, date: nil)
+                @amount = amount
+                @date = date
+              end
+            end
+            # Unit of time between subscription charges.
+            attr_accessor :interval
+            # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+            attr_accessor :interval_count
+            # Name for subscription.
+            attr_accessor :name
+            # Describes the upcoming charge for this subscription.
+            attr_accessor :next_billing
+            # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+            attr_accessor :reference
+
+            def initialize(
+              interval: nil,
+              interval_count: nil,
+              name: nil,
+              next_billing: nil,
+              reference: nil
+            )
+              @interval = interval
+              @interval_count = interval_count
+              @name = name
+              @next_billing = next_billing
+              @reference = reference
+            end
+          end
+          # The currency of the SetupIntent. Three letter ISO currency code.
+          attr_accessor :currency
+          # On-demand details if setting up a payment method for on-demand payments.
+          attr_accessor :on_demand
+          # Preferred language of the Klarna authorization page that the customer is redirected to
+          attr_accessor :preferred_locale
+          # Subscription details if setting up or charging a subscription
+          attr_accessor :subscriptions
+
+          def initialize(currency: nil, on_demand: nil, preferred_locale: nil, subscriptions: nil)
+            @currency = currency
+            @on_demand = on_demand
+            @preferred_locale = preferred_locale
+            @subscriptions = subscriptions
+          end
+        end
+
         class Link < Stripe::RequestParams
           # [Deprecated] This is a legacy parameter that no longer has any function.
           attr_accessor :persistent_token
@@ -1450,6 +1541,8 @@ module Stripe
         attr_accessor :card
         # If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
         attr_accessor :card_present
+        # If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
+        attr_accessor :klarna
         # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         attr_accessor :link
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
@@ -1467,6 +1560,7 @@ module Stripe
           bacs_debit: nil,
           card: nil,
           card_present: nil,
+          klarna: nil,
           link: nil,
           paypal: nil,
           payto: nil,
@@ -1478,6 +1572,7 @@ module Stripe
           @bacs_debit = bacs_debit
           @card = card
           @card_present = card_present
+          @klarna = klarna
           @link = link
           @paypal = paypal
           @payto = payto
@@ -2424,6 +2519,88 @@ module Stripe
 
         class CardPresent < Stripe::RequestParams; end
 
+        class Klarna < Stripe::RequestParams
+          class OnDemand < Stripe::RequestParams
+            # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :average_amount
+            # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :maximum_amount
+            # The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :minimum_amount
+            # Interval at which the customer is making purchases
+            attr_accessor :purchase_interval
+            # The number of `purchase_interval` between charges
+            attr_accessor :purchase_interval_count
+
+            def initialize(
+              average_amount: nil,
+              maximum_amount: nil,
+              minimum_amount: nil,
+              purchase_interval: nil,
+              purchase_interval_count: nil
+            )
+              @average_amount = average_amount
+              @maximum_amount = maximum_amount
+              @minimum_amount = minimum_amount
+              @purchase_interval = purchase_interval
+              @purchase_interval_count = purchase_interval_count
+            end
+          end
+
+          class Subscription < Stripe::RequestParams
+            class NextBilling < Stripe::RequestParams
+              # The amount of the next charge for the subscription.
+              attr_accessor :amount
+              # The date of the next charge for the subscription in YYYY-MM-DD format.
+              attr_accessor :date
+
+              def initialize(amount: nil, date: nil)
+                @amount = amount
+                @date = date
+              end
+            end
+            # Unit of time between subscription charges.
+            attr_accessor :interval
+            # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+            attr_accessor :interval_count
+            # Name for subscription.
+            attr_accessor :name
+            # Describes the upcoming charge for this subscription.
+            attr_accessor :next_billing
+            # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+            attr_accessor :reference
+
+            def initialize(
+              interval: nil,
+              interval_count: nil,
+              name: nil,
+              next_billing: nil,
+              reference: nil
+            )
+              @interval = interval
+              @interval_count = interval_count
+              @name = name
+              @next_billing = next_billing
+              @reference = reference
+            end
+          end
+          # The currency of the SetupIntent. Three letter ISO currency code.
+          attr_accessor :currency
+          # On-demand details if setting up a payment method for on-demand payments.
+          attr_accessor :on_demand
+          # Preferred language of the Klarna authorization page that the customer is redirected to
+          attr_accessor :preferred_locale
+          # Subscription details if setting up or charging a subscription
+          attr_accessor :subscriptions
+
+          def initialize(currency: nil, on_demand: nil, preferred_locale: nil, subscriptions: nil)
+            @currency = currency
+            @on_demand = on_demand
+            @preferred_locale = preferred_locale
+            @subscriptions = subscriptions
+          end
+        end
+
         class Link < Stripe::RequestParams
           # [Deprecated] This is a legacy parameter that no longer has any function.
           attr_accessor :persistent_token
@@ -2604,6 +2781,8 @@ module Stripe
         attr_accessor :card
         # If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
         attr_accessor :card_present
+        # If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
+        attr_accessor :klarna
         # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         attr_accessor :link
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
@@ -2621,6 +2800,7 @@ module Stripe
           bacs_debit: nil,
           card: nil,
           card_present: nil,
+          klarna: nil,
           link: nil,
           paypal: nil,
           payto: nil,
@@ -2632,6 +2812,7 @@ module Stripe
           @bacs_debit = bacs_debit
           @card = card
           @card_present = card_present
+          @klarna = klarna
           @link = link
           @paypal = paypal
           @payto = payto
@@ -3577,6 +3758,88 @@ module Stripe
 
         class CardPresent < Stripe::RequestParams; end
 
+        class Klarna < Stripe::RequestParams
+          class OnDemand < Stripe::RequestParams
+            # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :average_amount
+            # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :maximum_amount
+            # The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :minimum_amount
+            # Interval at which the customer is making purchases
+            attr_accessor :purchase_interval
+            # The number of `purchase_interval` between charges
+            attr_accessor :purchase_interval_count
+
+            def initialize(
+              average_amount: nil,
+              maximum_amount: nil,
+              minimum_amount: nil,
+              purchase_interval: nil,
+              purchase_interval_count: nil
+            )
+              @average_amount = average_amount
+              @maximum_amount = maximum_amount
+              @minimum_amount = minimum_amount
+              @purchase_interval = purchase_interval
+              @purchase_interval_count = purchase_interval_count
+            end
+          end
+
+          class Subscription < Stripe::RequestParams
+            class NextBilling < Stripe::RequestParams
+              # The amount of the next charge for the subscription.
+              attr_accessor :amount
+              # The date of the next charge for the subscription in YYYY-MM-DD format.
+              attr_accessor :date
+
+              def initialize(amount: nil, date: nil)
+                @amount = amount
+                @date = date
+              end
+            end
+            # Unit of time between subscription charges.
+            attr_accessor :interval
+            # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+            attr_accessor :interval_count
+            # Name for subscription.
+            attr_accessor :name
+            # Describes the upcoming charge for this subscription.
+            attr_accessor :next_billing
+            # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+            attr_accessor :reference
+
+            def initialize(
+              interval: nil,
+              interval_count: nil,
+              name: nil,
+              next_billing: nil,
+              reference: nil
+            )
+              @interval = interval
+              @interval_count = interval_count
+              @name = name
+              @next_billing = next_billing
+              @reference = reference
+            end
+          end
+          # The currency of the SetupIntent. Three letter ISO currency code.
+          attr_accessor :currency
+          # On-demand details if setting up a payment method for on-demand payments.
+          attr_accessor :on_demand
+          # Preferred language of the Klarna authorization page that the customer is redirected to
+          attr_accessor :preferred_locale
+          # Subscription details if setting up or charging a subscription
+          attr_accessor :subscriptions
+
+          def initialize(currency: nil, on_demand: nil, preferred_locale: nil, subscriptions: nil)
+            @currency = currency
+            @on_demand = on_demand
+            @preferred_locale = preferred_locale
+            @subscriptions = subscriptions
+          end
+        end
+
         class Link < Stripe::RequestParams
           # [Deprecated] This is a legacy parameter that no longer has any function.
           attr_accessor :persistent_token
@@ -3757,6 +4020,8 @@ module Stripe
         attr_accessor :card
         # If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
         attr_accessor :card_present
+        # If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
+        attr_accessor :klarna
         # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         attr_accessor :link
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
@@ -3774,6 +4039,7 @@ module Stripe
           bacs_debit: nil,
           card: nil,
           card_present: nil,
+          klarna: nil,
           link: nil,
           paypal: nil,
           payto: nil,
@@ -3785,6 +4051,7 @@ module Stripe
           @bacs_debit = bacs_debit
           @card = card
           @card_present = card_present
+          @klarna = klarna
           @link = link
           @paypal = paypal
           @payto = payto

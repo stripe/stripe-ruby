@@ -1173,6 +1173,43 @@ module Stripe
           end
 
           class Klarna < Stripe::RequestParams
+            class Subscription < Stripe::RequestParams
+              class NextBilling < Stripe::RequestParams
+                # The amount of the next charge for the subscription.
+                attr_accessor :amount
+                # The date of the next charge for the subscription in YYYY-MM-DD format.
+                attr_accessor :date
+
+                def initialize(amount: nil, date: nil)
+                  @amount = amount
+                  @date = date
+                end
+              end
+              # Unit of time between subscription charges.
+              attr_accessor :interval
+              # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+              attr_accessor :interval_count
+              # Name for subscription.
+              attr_accessor :name
+              # Describes the upcoming charge for this subscription.
+              attr_accessor :next_billing
+              # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+              attr_accessor :reference
+
+              def initialize(
+                interval: nil,
+                interval_count: nil,
+                name: nil,
+                next_billing: nil,
+                reference: nil
+              )
+                @interval = interval
+                @interval_count = interval_count
+                @name = name
+                @next_billing = next_billing
+                @reference = reference
+              end
+            end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1181,9 +1218,12 @@ module Stripe
             #
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
+            # Subscription details if the Checkout Session sets up a future subscription.
+            attr_accessor :subscriptions
 
-            def initialize(setup_future_usage: nil)
+            def initialize(setup_future_usage: nil, subscriptions: nil)
               @setup_future_usage = setup_future_usage
+              @subscriptions = subscriptions
             end
           end
 

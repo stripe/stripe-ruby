@@ -4249,12 +4249,78 @@ module Stripe
         end
 
         class Klarna < Stripe::RequestParams
+          class OnDemand < Stripe::RequestParams
+            # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :average_amount
+            # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :maximum_amount
+            # The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :minimum_amount
+            # Interval at which the customer is making purchases
+            attr_accessor :purchase_interval
+            # The number of `purchase_interval` between charges
+            attr_accessor :purchase_interval_count
+
+            def initialize(
+              average_amount: nil,
+              maximum_amount: nil,
+              minimum_amount: nil,
+              purchase_interval: nil,
+              purchase_interval_count: nil
+            )
+              @average_amount = average_amount
+              @maximum_amount = maximum_amount
+              @minimum_amount = minimum_amount
+              @purchase_interval = purchase_interval
+              @purchase_interval_count = purchase_interval_count
+            end
+          end
+
+          class Subscription < Stripe::RequestParams
+            class NextBilling < Stripe::RequestParams
+              # The amount of the next charge for the subscription.
+              attr_accessor :amount
+              # The date of the next charge for the subscription in YYYY-MM-DD format.
+              attr_accessor :date
+
+              def initialize(amount: nil, date: nil)
+                @amount = amount
+                @date = date
+              end
+            end
+            # Unit of time between subscription charges.
+            attr_accessor :interval
+            # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+            attr_accessor :interval_count
+            # Name for subscription.
+            attr_accessor :name
+            # Describes the upcoming charge for this subscription.
+            attr_accessor :next_billing
+            # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+            attr_accessor :reference
+
+            def initialize(
+              interval: nil,
+              interval_count: nil,
+              name: nil,
+              next_billing: nil,
+              reference: nil
+            )
+              @interval = interval
+              @interval_count = interval_count
+              @name = name
+              @next_billing = next_billing
+              @reference = reference
+            end
+          end
           # Controls when the funds are captured from the customer's account.
           #
           # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
           #
           # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
           attr_accessor :capture_method
+          # On-demand details if setting up or charging an on-demand payment.
+          attr_accessor :on_demand
           # Preferred language of the Klarna authorization page that the customer is redirected to
           attr_accessor :preferred_locale
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4267,11 +4333,21 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Subscription details if setting up or charging a subscription.
+          attr_accessor :subscriptions
 
-          def initialize(capture_method: nil, preferred_locale: nil, setup_future_usage: nil)
+          def initialize(
+            capture_method: nil,
+            on_demand: nil,
+            preferred_locale: nil,
+            setup_future_usage: nil,
+            subscriptions: nil
+          )
             @capture_method = capture_method
+            @on_demand = on_demand
             @preferred_locale = preferred_locale
             @setup_future_usage = setup_future_usage
+            @subscriptions = subscriptions
           end
         end
 
@@ -7742,12 +7818,78 @@ module Stripe
         end
 
         class Klarna < Stripe::RequestParams
+          class OnDemand < Stripe::RequestParams
+            # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :average_amount
+            # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :maximum_amount
+            # The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :minimum_amount
+            # Interval at which the customer is making purchases
+            attr_accessor :purchase_interval
+            # The number of `purchase_interval` between charges
+            attr_accessor :purchase_interval_count
+
+            def initialize(
+              average_amount: nil,
+              maximum_amount: nil,
+              minimum_amount: nil,
+              purchase_interval: nil,
+              purchase_interval_count: nil
+            )
+              @average_amount = average_amount
+              @maximum_amount = maximum_amount
+              @minimum_amount = minimum_amount
+              @purchase_interval = purchase_interval
+              @purchase_interval_count = purchase_interval_count
+            end
+          end
+
+          class Subscription < Stripe::RequestParams
+            class NextBilling < Stripe::RequestParams
+              # The amount of the next charge for the subscription.
+              attr_accessor :amount
+              # The date of the next charge for the subscription in YYYY-MM-DD format.
+              attr_accessor :date
+
+              def initialize(amount: nil, date: nil)
+                @amount = amount
+                @date = date
+              end
+            end
+            # Unit of time between subscription charges.
+            attr_accessor :interval
+            # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+            attr_accessor :interval_count
+            # Name for subscription.
+            attr_accessor :name
+            # Describes the upcoming charge for this subscription.
+            attr_accessor :next_billing
+            # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+            attr_accessor :reference
+
+            def initialize(
+              interval: nil,
+              interval_count: nil,
+              name: nil,
+              next_billing: nil,
+              reference: nil
+            )
+              @interval = interval
+              @interval_count = interval_count
+              @name = name
+              @next_billing = next_billing
+              @reference = reference
+            end
+          end
           # Controls when the funds are captured from the customer's account.
           #
           # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
           #
           # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
           attr_accessor :capture_method
+          # On-demand details if setting up or charging an on-demand payment.
+          attr_accessor :on_demand
           # Preferred language of the Klarna authorization page that the customer is redirected to
           attr_accessor :preferred_locale
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -7760,11 +7902,21 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Subscription details if setting up or charging a subscription.
+          attr_accessor :subscriptions
 
-          def initialize(capture_method: nil, preferred_locale: nil, setup_future_usage: nil)
+          def initialize(
+            capture_method: nil,
+            on_demand: nil,
+            preferred_locale: nil,
+            setup_future_usage: nil,
+            subscriptions: nil
+          )
             @capture_method = capture_method
+            @on_demand = on_demand
             @preferred_locale = preferred_locale
             @setup_future_usage = setup_future_usage
+            @subscriptions = subscriptions
           end
         end
 
@@ -12006,12 +12158,78 @@ module Stripe
         end
 
         class Klarna < Stripe::RequestParams
+          class OnDemand < Stripe::RequestParams
+            # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :average_amount
+            # The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :maximum_amount
+            # The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+            attr_accessor :minimum_amount
+            # Interval at which the customer is making purchases
+            attr_accessor :purchase_interval
+            # The number of `purchase_interval` between charges
+            attr_accessor :purchase_interval_count
+
+            def initialize(
+              average_amount: nil,
+              maximum_amount: nil,
+              minimum_amount: nil,
+              purchase_interval: nil,
+              purchase_interval_count: nil
+            )
+              @average_amount = average_amount
+              @maximum_amount = maximum_amount
+              @minimum_amount = minimum_amount
+              @purchase_interval = purchase_interval
+              @purchase_interval_count = purchase_interval_count
+            end
+          end
+
+          class Subscription < Stripe::RequestParams
+            class NextBilling < Stripe::RequestParams
+              # The amount of the next charge for the subscription.
+              attr_accessor :amount
+              # The date of the next charge for the subscription in YYYY-MM-DD format.
+              attr_accessor :date
+
+              def initialize(amount: nil, date: nil)
+                @amount = amount
+                @date = date
+              end
+            end
+            # Unit of time between subscription charges.
+            attr_accessor :interval
+            # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+            attr_accessor :interval_count
+            # Name for subscription.
+            attr_accessor :name
+            # Describes the upcoming charge for this subscription.
+            attr_accessor :next_billing
+            # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+            attr_accessor :reference
+
+            def initialize(
+              interval: nil,
+              interval_count: nil,
+              name: nil,
+              next_billing: nil,
+              reference: nil
+            )
+              @interval = interval
+              @interval_count = interval_count
+              @name = name
+              @next_billing = next_billing
+              @reference = reference
+            end
+          end
           # Controls when the funds are captured from the customer's account.
           #
           # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
           #
           # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
           attr_accessor :capture_method
+          # On-demand details if setting up or charging an on-demand payment.
+          attr_accessor :on_demand
           # Preferred language of the Klarna authorization page that the customer is redirected to
           attr_accessor :preferred_locale
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -12024,11 +12242,21 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Subscription details if setting up or charging a subscription.
+          attr_accessor :subscriptions
 
-          def initialize(capture_method: nil, preferred_locale: nil, setup_future_usage: nil)
+          def initialize(
+            capture_method: nil,
+            on_demand: nil,
+            preferred_locale: nil,
+            setup_future_usage: nil,
+            subscriptions: nil
+          )
             @capture_method = capture_method
+            @on_demand = on_demand
             @preferred_locale = preferred_locale
             @setup_future_usage = setup_future_usage
+            @subscriptions = subscriptions
           end
         end
 

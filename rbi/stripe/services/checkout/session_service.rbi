@@ -1193,6 +1193,45 @@ module Stripe
             def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class Klarna < Stripe::RequestParams
+            class Subscription < Stripe::RequestParams
+              class NextBilling < Stripe::RequestParams
+                # The amount of the next charge for the subscription.
+                sig { returns(Integer) }
+                attr_accessor :amount
+                # The date of the next charge for the subscription in YYYY-MM-DD format.
+                sig { returns(String) }
+                attr_accessor :date
+                sig { params(amount: Integer, date: String).void }
+                def initialize(amount: nil, date: nil); end
+              end
+              # Unit of time between subscription charges.
+              sig { returns(String) }
+              attr_accessor :interval
+              # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+              sig { returns(T.nilable(Integer)) }
+              attr_accessor :interval_count
+              # Name for subscription.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :name
+              # Describes the upcoming charge for this subscription.
+              sig {
+                returns(::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::Klarna::Subscription::NextBilling)
+               }
+              attr_accessor :next_billing
+              # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+              sig { returns(String) }
+              attr_accessor :reference
+              sig {
+                params(interval: String, interval_count: T.nilable(Integer), name: T.nilable(String), next_billing: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::Klarna::Subscription::NextBilling, reference: String).void
+               }
+              def initialize(
+                interval: nil,
+                interval_count: nil,
+                name: nil,
+                next_billing: nil,
+                reference: nil
+              ); end
+            end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1202,8 +1241,15 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             attr_accessor :setup_future_usage
-            sig { params(setup_future_usage: T.nilable(String)).void }
-            def initialize(setup_future_usage: nil); end
+            # Subscription details if the Checkout Session sets up a future subscription.
+            sig {
+              returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::Klarna::Subscription]))))
+             }
+            attr_accessor :subscriptions
+            sig {
+              params(setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::Klarna::Subscription])))).void
+             }
+            def initialize(setup_future_usage: nil, subscriptions: nil); end
           end
           class Konbini < Stripe::RequestParams
             # The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.

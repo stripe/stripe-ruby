@@ -67,6 +67,7 @@ module Stripe
       class Card < Stripe::StripeObject; end
       class Cashapp < Stripe::StripeObject; end
       class KakaoPay < Stripe::StripeObject; end
+      class Klarna < Stripe::StripeObject; end
       class KrCard < Stripe::StripeObject; end
       class Link < Stripe::StripeObject; end
       class NaverPay < Stripe::StripeObject; end
@@ -144,6 +145,9 @@ module Stripe
       # Attribute for field kakao_pay
       sig { returns(KakaoPay) }
       attr_reader :kakao_pay
+      # Attribute for field klarna
+      sig { returns(Klarna) }
+      attr_reader :klarna
       # Attribute for field kr_card
       sig { returns(KrCard) }
       attr_reader :kr_card

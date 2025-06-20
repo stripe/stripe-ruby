@@ -464,6 +464,7 @@ module Stripe
         attr_reader :cashtag
       end
 
+      class Crypto < Stripe::StripeObject; end
       class CustomerBalance < Stripe::StripeObject; end
 
       class Eps < Stripe::StripeObject
@@ -766,6 +767,8 @@ module Stripe
       attr_reader :card_present
       # Attribute for field cashapp
       attr_reader :cashapp
+      # Attribute for field crypto
+      attr_reader :crypto
       # The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
       attr_reader :customer
       # Attribute for field customer_account
@@ -994,6 +997,7 @@ module Stripe
         end
 
         class Cashapp < Stripe::RequestParams; end
+        class Crypto < Stripe::RequestParams; end
         class CustomerBalance < Stripe::RequestParams; end
 
         class Eps < Stripe::RequestParams
@@ -1277,6 +1281,8 @@ module Stripe
         attr_accessor :boleto
         # If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         attr_accessor :cashapp
+        # If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        attr_accessor :crypto
         # If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
         attr_accessor :customer_balance
         # If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
@@ -1384,6 +1390,7 @@ module Stripe
           blik: nil,
           boleto: nil,
           cashapp: nil,
+          crypto: nil,
           customer_balance: nil,
           eps: nil,
           fpx: nil,
@@ -1445,6 +1452,7 @@ module Stripe
           @blik = blik
           @boleto = boleto
           @cashapp = cashapp
+          @crypto = crypto
           @customer_balance = customer_balance
           @eps = eps
           @fpx = fpx

@@ -482,6 +482,20 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :cashtag
       end
+      class Crypto < Stripe::StripeObject
+        # The wallet address of the customer.
+        sig { returns(String) }
+        attr_reader :buyer_address
+        # The blockchain network that the transaction was sent on.
+        sig { returns(String) }
+        attr_reader :network
+        # The token currency that the transaction was sent with.
+        sig { returns(String) }
+        attr_reader :token_currency
+        # The blockchain transaction hash of the crypto payment.
+        sig { returns(String) }
+        attr_reader :transaction_hash
+      end
       class Custom < Stripe::StripeObject
         # Display name for the custom (user-defined) payment method type used to make this payment.
         sig { returns(String) }
@@ -1135,6 +1149,9 @@ module Stripe
       # Attribute for field cashapp
       sig { returns(Cashapp) }
       attr_reader :cashapp
+      # Attribute for field crypto
+      sig { returns(Crypto) }
+      attr_reader :crypto
       # Custom Payment Methods represent Payment Method types not modeled directly in
       # the Stripe API. This resource consists of details about the custom payment method
       # used for this payment attempt.

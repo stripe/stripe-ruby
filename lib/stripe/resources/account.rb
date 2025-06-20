@@ -126,6 +126,8 @@ module Stripe
       attr_reader :cartes_bancaires_payments
       # The status of the Cash App Pay capability of the account, or whether the account can directly process Cash App Pay payments.
       attr_reader :cashapp_payments
+      # The status of the Crypto capability of the account, or whether the account can directly process Crypto payments.
+      attr_reader :crypto_payments
       # The status of the EPS payments capability of the account, or whether the account can directly process EPS charges.
       attr_reader :eps_payments
       # The status of the FPX payments capability of the account, or whether the account can directly process FPX charges.
@@ -989,6 +991,15 @@ module Stripe
           end
         end
 
+        class CryptoPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class EpsPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -1517,6 +1528,8 @@ module Stripe
         attr_accessor :cartes_bancaires_payments
         # The cashapp_payments capability.
         attr_accessor :cashapp_payments
+        # The crypto_payments capability.
+        attr_accessor :crypto_payments
         # The eps_payments capability.
         attr_accessor :eps_payments
         # The fpx_payments capability.
@@ -1646,6 +1659,7 @@ module Stripe
           card_payments: nil,
           cartes_bancaires_payments: nil,
           cashapp_payments: nil,
+          crypto_payments: nil,
           eps_payments: nil,
           fpx_payments: nil,
           gb_bank_transfer_payments: nil,
@@ -1719,6 +1733,7 @@ module Stripe
           @card_payments = card_payments
           @cartes_bancaires_payments = cartes_bancaires_payments
           @cashapp_payments = cashapp_payments
+          @crypto_payments = crypto_payments
           @eps_payments = eps_payments
           @fpx_payments = fpx_payments
           @gb_bank_transfer_payments = gb_bank_transfer_payments
@@ -3289,6 +3304,15 @@ module Stripe
           end
         end
 
+        class CryptoPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class EpsPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3817,6 +3841,8 @@ module Stripe
         attr_accessor :cartes_bancaires_payments
         # The cashapp_payments capability.
         attr_accessor :cashapp_payments
+        # The crypto_payments capability.
+        attr_accessor :crypto_payments
         # The eps_payments capability.
         attr_accessor :eps_payments
         # The fpx_payments capability.
@@ -3946,6 +3972,7 @@ module Stripe
           card_payments: nil,
           cartes_bancaires_payments: nil,
           cashapp_payments: nil,
+          crypto_payments: nil,
           eps_payments: nil,
           fpx_payments: nil,
           gb_bank_transfer_payments: nil,
@@ -4019,6 +4046,7 @@ module Stripe
           @card_payments = card_payments
           @cartes_bancaires_payments = cartes_bancaires_payments
           @cashapp_payments = cashapp_payments
+          @crypto_payments = crypto_payments
           @eps_payments = eps_payments
           @fpx_payments = fpx_payments
           @gb_bank_transfer_payments = gb_bank_transfer_payments

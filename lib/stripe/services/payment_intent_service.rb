@@ -958,6 +958,7 @@ module Stripe
         end
 
         class Cashapp < Stripe::RequestParams; end
+        class Crypto < Stripe::RequestParams; end
         class CustomerBalance < Stripe::RequestParams; end
 
         class Eps < Stripe::RequestParams
@@ -1241,6 +1242,8 @@ module Stripe
         attr_accessor :boleto
         # If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         attr_accessor :cashapp
+        # If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        attr_accessor :crypto
         # If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
         attr_accessor :customer_balance
         # If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
@@ -1348,6 +1351,7 @@ module Stripe
           blik: nil,
           boleto: nil,
           cashapp: nil,
+          crypto: nil,
           customer_balance: nil,
           eps: nil,
           fpx: nil,
@@ -1409,6 +1413,7 @@ module Stripe
           @blik = blik
           @boleto = boleto
           @cashapp = cashapp
+          @crypto = crypto
           @customer_balance = customer_balance
           @eps = eps
           @fpx = fpx
@@ -2080,6 +2085,23 @@ module Stripe
 
           def initialize(capture_method: nil, setup_future_usage: nil)
             @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Crypto < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
             @setup_future_usage = setup_future_usage
           end
         end
@@ -3190,6 +3212,8 @@ module Stripe
         attr_accessor :card_present
         # If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
         attr_accessor :cashapp
+        # If this is a `crypto` PaymentMethod, this sub-hash contains details about the Crypto payment method options.
+        attr_accessor :crypto
         # If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
         attr_accessor :customer_balance
         # If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
@@ -3291,6 +3315,7 @@ module Stripe
           card: nil,
           card_present: nil,
           cashapp: nil,
+          crypto: nil,
           customer_balance: nil,
           eps: nil,
           fpx: nil,
@@ -3349,6 +3374,7 @@ module Stripe
           @card = card
           @card_present = card_present
           @cashapp = cashapp
+          @crypto = crypto
           @customer_balance = customer_balance
           @eps = eps
           @fpx = fpx
@@ -4539,6 +4565,7 @@ module Stripe
         end
 
         class Cashapp < Stripe::RequestParams; end
+        class Crypto < Stripe::RequestParams; end
         class CustomerBalance < Stripe::RequestParams; end
 
         class Eps < Stripe::RequestParams
@@ -4822,6 +4849,8 @@ module Stripe
         attr_accessor :boleto
         # If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         attr_accessor :cashapp
+        # If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        attr_accessor :crypto
         # If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
         attr_accessor :customer_balance
         # If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
@@ -4929,6 +4958,7 @@ module Stripe
           blik: nil,
           boleto: nil,
           cashapp: nil,
+          crypto: nil,
           customer_balance: nil,
           eps: nil,
           fpx: nil,
@@ -4990,6 +5020,7 @@ module Stripe
           @blik = blik
           @boleto = boleto
           @cashapp = cashapp
+          @crypto = crypto
           @customer_balance = customer_balance
           @eps = eps
           @fpx = fpx
@@ -5661,6 +5692,23 @@ module Stripe
 
           def initialize(capture_method: nil, setup_future_usage: nil)
             @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Crypto < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
             @setup_future_usage = setup_future_usage
           end
         end
@@ -6771,6 +6819,8 @@ module Stripe
         attr_accessor :card_present
         # If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
         attr_accessor :cashapp
+        # If this is a `crypto` PaymentMethod, this sub-hash contains details about the Crypto payment method options.
+        attr_accessor :crypto
         # If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
         attr_accessor :customer_balance
         # If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
@@ -6872,6 +6922,7 @@ module Stripe
           card: nil,
           card_present: nil,
           cashapp: nil,
+          crypto: nil,
           customer_balance: nil,
           eps: nil,
           fpx: nil,
@@ -6930,6 +6981,7 @@ module Stripe
           @card = card
           @card_present = card_present
           @cashapp = cashapp
+          @crypto = crypto
           @customer_balance = customer_balance
           @eps = eps
           @fpx = fpx
@@ -8879,6 +8931,7 @@ module Stripe
         end
 
         class Cashapp < Stripe::RequestParams; end
+        class Crypto < Stripe::RequestParams; end
         class CustomerBalance < Stripe::RequestParams; end
 
         class Eps < Stripe::RequestParams
@@ -9162,6 +9215,8 @@ module Stripe
         attr_accessor :boleto
         # If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         attr_accessor :cashapp
+        # If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        attr_accessor :crypto
         # If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
         attr_accessor :customer_balance
         # If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
@@ -9269,6 +9324,7 @@ module Stripe
           blik: nil,
           boleto: nil,
           cashapp: nil,
+          crypto: nil,
           customer_balance: nil,
           eps: nil,
           fpx: nil,
@@ -9330,6 +9386,7 @@ module Stripe
           @blik = blik
           @boleto = boleto
           @cashapp = cashapp
+          @crypto = crypto
           @customer_balance = customer_balance
           @eps = eps
           @fpx = fpx
@@ -10001,6 +10058,23 @@ module Stripe
 
           def initialize(capture_method: nil, setup_future_usage: nil)
             @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Crypto < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
             @setup_future_usage = setup_future_usage
           end
         end
@@ -11111,6 +11185,8 @@ module Stripe
         attr_accessor :card_present
         # If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
         attr_accessor :cashapp
+        # If this is a `crypto` PaymentMethod, this sub-hash contains details about the Crypto payment method options.
+        attr_accessor :crypto
         # If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
         attr_accessor :customer_balance
         # If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
@@ -11212,6 +11288,7 @@ module Stripe
           card: nil,
           card_present: nil,
           cashapp: nil,
+          crypto: nil,
           customer_balance: nil,
           eps: nil,
           fpx: nil,
@@ -11270,6 +11347,7 @@ module Stripe
           @card = card
           @card_present = card_present
           @cashapp = cashapp
+          @crypto = crypto
           @customer_balance = customer_balance
           @eps = eps
           @fpx = fpx

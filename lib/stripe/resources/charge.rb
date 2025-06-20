@@ -616,6 +616,17 @@ module Stripe
         attr_reader :cashtag
       end
 
+      class Crypto < Stripe::StripeObject
+        # The wallet address of the customer.
+        attr_reader :buyer_address
+        # The blockchain network that the transaction was sent on.
+        attr_reader :network
+        # The token currency that the transaction was sent with.
+        attr_reader :token_currency
+        # The blockchain transaction hash of the crypto payment.
+        attr_reader :transaction_hash
+      end
+
       class CustomerBalance < Stripe::StripeObject; end
 
       class Eps < Stripe::StripeObject
@@ -1129,6 +1140,8 @@ module Stripe
       attr_reader :card_present
       # Attribute for field cashapp
       attr_reader :cashapp
+      # Attribute for field crypto
+      attr_reader :crypto
       # Attribute for field customer_balance
       attr_reader :customer_balance
       # Attribute for field eps

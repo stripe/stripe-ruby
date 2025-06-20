@@ -17,12 +17,12 @@ module Stripe
           end
           class TransferData < Stripe::RequestParams
             # Amount in minor units that you want to transfer.
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             attr_accessor :amount
             # ID of the connected account where you want money to go.
             sig { returns(String) }
             attr_accessor :destination
-            sig { params(amount: Integer, destination: String).void }
+            sig { params(amount: T.nilable(Integer), destination: String).void }
             def initialize(amount: nil, destination: nil); end
           end
           # Amount you want to collect.

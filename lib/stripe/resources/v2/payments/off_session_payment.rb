@@ -26,8 +26,6 @@ module Stripe
         end
         # The amount you requested to be collected on the OSP upon creation.
         attr_reader :amount_requested
-        # Number of authorization attempts.
-        attr_reader :attempts
         # The frequency of the underlying payment that this OSP represents.
         attr_reader :cadence
         # ID of owning compartment.

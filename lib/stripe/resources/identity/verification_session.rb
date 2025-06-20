@@ -50,6 +50,13 @@ module Stripe
 
         class IdNumber < Stripe::StripeObject; end
 
+        class Matching < Stripe::StripeObject
+          # Strictness of the DOB matching policy to apply.
+          attr_reader :dob
+          # Strictness of the name matching policy to apply.
+          attr_reader :name
+        end
+
         class Phone < Stripe::StripeObject
           # Request one time password verification of `provided_details.phone`.
           attr_reader :require_verification
@@ -60,6 +67,8 @@ module Stripe
         attr_reader :email
         # Attribute for field id_number
         attr_reader :id_number
+        # Attribute for field matching
+        attr_reader :matching
         # Attribute for field phone
         attr_reader :phone
       end
@@ -74,6 +83,13 @@ module Stripe
       class Redaction < Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         attr_reader :status
+      end
+
+      class RelatedPerson < Stripe::StripeObject
+        # Token referencing the associated Account of the related Person resource.
+        attr_reader :account
+        # Token referencing the related Person resource.
+        attr_reader :person
       end
 
       class VerifiedOutputs < Stripe::StripeObject
@@ -227,6 +243,18 @@ module Stripe
             @phone = phone
           end
         end
+
+        class RelatedPerson < Stripe::RequestParams
+          # A token representing a connected account. If provided, the person parameter is also required and must be associated with the account.
+          attr_accessor :account
+          # A token referencing a Person resource that this verification is being used to verify.
+          attr_accessor :person
+
+          def initialize(account: nil, person: nil)
+            @account = account
+            @person = person
+          end
+        end
         # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
         attr_accessor :client_reference_id
         # Specifies which fields in the response should be expanded.
@@ -241,6 +269,8 @@ module Stripe
         attr_accessor :related_customer
         # Token referencing a Customer Account resource.
         attr_accessor :related_customer_account
+        # Tokens referencing a Person resource and it's associated account.
+        attr_accessor :related_person
         # The URL that the user will be redirected to upon completing the verification flow.
         attr_accessor :return_url
         # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
@@ -256,6 +286,7 @@ module Stripe
           provided_details: nil,
           related_customer: nil,
           related_customer_account: nil,
+          related_person: nil,
           return_url: nil,
           type: nil,
           verification_flow: nil
@@ -267,6 +298,7 @@ module Stripe
           @provided_details = provided_details
           @related_customer = related_customer
           @related_customer_account = related_customer_account
+          @related_person = related_person
           @return_url = return_url
           @type = type
           @verification_flow = verification_flow
@@ -381,6 +413,8 @@ module Stripe
       attr_reader :related_customer
       # Token referencing a Customer Account resource.
       attr_reader :related_customer_account
+      # Attribute for field related_person
+      attr_reader :related_person
       # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
       attr_reader :status
       # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.

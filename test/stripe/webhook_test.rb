@@ -63,6 +63,26 @@ module Stripe
           Stripe::Webhook.construct_event(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
         end
       end
+
+      should "can call refresh on Event data object" do
+        payload = {
+          id: "evt_123",
+          object: "event",
+          data: {
+            object: {
+              id: "cus_123",
+              object: "customer",
+            },
+          },
+        }.to_json
+
+        header = Test::WebhookHelpers.generate_header(payload: payload)
+        event = Stripe::Webhook.construct_event(payload, header, Test::WebhookHelpers::SECRET)
+        assert event.is_a?(Stripe::Event)
+
+        event.data.object.refresh
+        assert_equal("cus_123", event.data.object.id)
+      end
     end
 
     context ".verify_signature_header" do

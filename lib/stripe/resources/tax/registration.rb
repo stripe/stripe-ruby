@@ -637,6 +637,11 @@ module Stripe
           attr_reader :type
         end
 
+        class Ua < Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+        end
+
         class Ug < Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
@@ -884,6 +889,8 @@ module Stripe
         attr_reader :tr
         # Attribute for field tz
         attr_reader :tz
+        # Attribute for field ua
+        attr_reader :ua
         # Attribute for field ug
         attr_reader :ug
         # Attribute for field us
@@ -2049,6 +2056,15 @@ module Stripe
             end
           end
 
+          class Ua < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class Ug < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
@@ -2355,6 +2371,8 @@ module Stripe
           attr_accessor :tr
           # Options for the registration in TZ.
           attr_accessor :tz
+          # Options for the registration in UA.
+          attr_accessor :ua
           # Options for the registration in UG.
           attr_accessor :ug
           # Options for the registration in US.
@@ -2463,6 +2481,7 @@ module Stripe
             tj: nil,
             tr: nil,
             tz: nil,
+            ua: nil,
             ug: nil,
             us: nil,
             uy: nil,
@@ -2562,6 +2581,7 @@ module Stripe
             @tj = tj
             @tr = tr
             @tz = tz
+            @ua = ua
             @ug = ug
             @us = us
             @uy = uy

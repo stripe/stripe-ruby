@@ -1193,6 +1193,45 @@ module Stripe
             def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class Klarna < Stripe::RequestParams
+            class Subscription < Stripe::RequestParams
+              class NextBilling < Stripe::RequestParams
+                # The amount of the next charge for the subscription.
+                sig { returns(Integer) }
+                attr_accessor :amount
+                # The date of the next charge for the subscription in YYYY-MM-DD format.
+                sig { returns(String) }
+                attr_accessor :date
+                sig { params(amount: Integer, date: String).void }
+                def initialize(amount: nil, date: nil); end
+              end
+              # Unit of time between subscription charges.
+              sig { returns(String) }
+              attr_accessor :interval
+              # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+              sig { returns(T.nilable(Integer)) }
+              attr_accessor :interval_count
+              # Name for subscription.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :name
+              # Describes the upcoming charge for this subscription.
+              sig {
+                returns(::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::Klarna::Subscription::NextBilling)
+               }
+              attr_accessor :next_billing
+              # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+              sig { returns(String) }
+              attr_accessor :reference
+              sig {
+                params(interval: String, interval_count: T.nilable(Integer), name: T.nilable(String), next_billing: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::Klarna::Subscription::NextBilling, reference: String).void
+               }
+              def initialize(
+                interval: nil,
+                interval_count: nil,
+                name: nil,
+                next_billing: nil,
+                reference: nil
+              ); end
+            end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1202,8 +1241,15 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             attr_accessor :setup_future_usage
-            sig { params(setup_future_usage: T.nilable(String)).void }
-            def initialize(setup_future_usage: nil); end
+            # Subscription details if the Checkout Session sets up a future subscription.
+            sig {
+              returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::Klarna::Subscription]))))
+             }
+            attr_accessor :subscriptions
+            sig {
+              params(setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::Klarna::Subscription])))).void
+             }
+            def initialize(setup_future_usage: nil, subscriptions: nil); end
           end
           class Konbini < Stripe::RequestParams
             # The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
@@ -2051,6 +2097,13 @@ module Stripe
           def initialize(shipping_rate: nil, shipping_rate_data: nil); end
         end
         class SubscriptionData < Stripe::RequestParams
+          class BillingMode < Stripe::RequestParams
+            # Attribute for param field type
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
           class InvoiceSettings < Stripe::RequestParams
             class Issuer < Stripe::RequestParams
               # The connected account being referenced when `type` is `account`.
@@ -2107,7 +2160,9 @@ module Stripe
           sig { returns(T.nilable(Integer)) }
           attr_accessor :billing_cycle_anchor
           # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-          sig { returns(T.nilable(String)) }
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::BillingMode))
+           }
           attr_accessor :billing_mode
           # The tax rates that will apply to any subscription item that does not have
           # `tax_rates` set. Invoices created will have their `default_tax_rates` populated
@@ -2138,13 +2193,10 @@ module Stripe
             returns(T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::TransferData))
            }
           attr_accessor :transfer_data
-          # Unix timestamp representing the end of the trial period the customer
-          # will get before being charged for the first time. Has to be at least
-          # 48 hours in the future.
+          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :trial_end
-          # Integer representing the number of trial period days before the
-          # customer is charged for the first time. Has to be at least 1.
+          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :trial_period_days
           # Settings related to subscription trials.
@@ -2153,7 +2205,7 @@ module Stripe
            }
           attr_accessor :trial_settings
           sig {
-            params(application_fee_percent: T.nilable(Float), billing_cycle_anchor: T.nilable(Integer), billing_mode: T.nilable(String), default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), invoice_settings: T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::InvoiceSettings), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::TransferData), trial_end: T.nilable(Integer), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::TrialSettings)).void
+            params(application_fee_percent: T.nilable(Float), billing_cycle_anchor: T.nilable(Integer), billing_mode: T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::BillingMode), default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), invoice_settings: T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::InvoiceSettings), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::TransferData), trial_end: T.nilable(Integer), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::TrialSettings)).void
            }
           def initialize(
             application_fee_percent: nil,
@@ -2295,7 +2347,7 @@ module Stripe
           returns(T.nilable(::Stripe::Checkout::SessionService::CreateParams::InvoiceCreation))
          }
         attr_accessor :invoice_creation
-        # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices). The parameter is required for `payment` and `subscription` mode.
         #
         # For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
         #

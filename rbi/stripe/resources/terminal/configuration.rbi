@@ -5,6 +5,7 @@
 module Stripe
   module Terminal
     # A Configurations object represents how features should be configured for terminal readers.
+    # For information about how to use it, see the [Terminal configurations documentation](https://docs.stripe.com/terminal/fleet/configurations-overview).
     class Configuration < APIResource
       class BbposWiseposE < Stripe::StripeObject
         # A File ID representing an image to display on the reader

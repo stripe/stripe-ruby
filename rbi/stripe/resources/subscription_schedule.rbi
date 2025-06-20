@@ -7,6 +7,14 @@ module Stripe
   #
   # Related guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
   class SubscriptionSchedule < APIResource
+    class BillingMode < Stripe::StripeObject
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      sig { returns(String) }
+      attr_reader :type
+      # Details on when the current billing_mode was adopted.
+      sig { returns(Integer) }
+      attr_reader :updated_at
+    end
     class CurrentPhase < Stripe::StripeObject
       # The end of this phase of the subscription schedule.
       sig { returns(Integer) }
@@ -399,8 +407,8 @@ module Stripe
     # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
     sig { returns(String) }
     attr_reader :billing_behavior
-    # The [billing mode](/api/subscriptions/create#create_subscription-billing_mode) that will be used to process all future operations for the subscription schedule.
-    sig { returns(String) }
+    # The billing mode of the subscription.
+    sig { returns(BillingMode) }
     attr_reader :billing_mode
     # Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
@@ -594,6 +602,13 @@ module Stripe
       ); end
     end
     class CreateParams < Stripe::RequestParams
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        sig { returns(String) }
+        attr_accessor :type
+        sig { params(type: String).void }
+        def initialize(type: nil); end
+      end
       class DefaultSettings < Stripe::RequestParams
         class AutomaticTax < Stripe::RequestParams
           class Liability < Stripe::RequestParams
@@ -1263,7 +1278,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :billing_behavior
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionSchedule::CreateParams::BillingMode)) }
       attr_accessor :billing_mode
       # The identifier of the customer to create the subscription schedule for.
       sig { returns(T.nilable(String)) }
@@ -1296,7 +1311,7 @@ module Stripe
       sig { returns(T.nilable(T.any(Integer, String))) }
       attr_accessor :start_date
       sig {
-        params(billing_behavior: T.nilable(String), billing_mode: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), phases: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Prebilling), start_date: T.nilable(T.any(Integer, String))).void
+        params(billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::BillingMode), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), phases: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Prebilling), start_date: T.nilable(T.any(Integer, String))).void
        }
       def initialize(
         billing_behavior: nil,

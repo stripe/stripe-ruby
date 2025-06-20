@@ -82,15 +82,15 @@
   * Adds explicit field types for resources and parameters for methods, and add RBI static annotations for all resources and services
   ![image](https://github.com/user-attachments/assets/1b6cd994-d3ea-4f47-8487-f5c7b9ebf885)
   * See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations) for more details
-  
+
 * [#1543](https://github.com/stripe/stripe-ruby/pull/1543) Support for APIs in the new API version 2025-03-31.basil
 
   This release changes the pinned API version to `2025-03-31.basil`.
-  
+
   ### ⚠️ Breaking changes  due to changes in the Stripe API
 
   Please review details for the breaking changes and alternatives in the [Stripe API changelog](https://docs.stripe.com/changelog/basil) before upgrading.
-  
+
   * Remove support for resources `SubscriptionItemUsageRecordSummary` and `SubscriptionItemUsageRecord`
   * Remove support for `create` method on resource `SubscriptionItemUsageRecord`
   * Remove support for `list` method on resource `SubscriptionItemUsageRecordSummary`
@@ -100,16 +100,16 @@
   * [#1553](https://github.com/stripe/stripe-ruby/pull/1553) Remove public idempotent_replayed? method
     * ⚠️ Remove the `idempotent_replayed?` method on `StripeError`
       * The information is accessible indirectly via the raw response headers, `StripeResponse.http_headers`. For example, use `resource.last_response.http_headers['Idempotent-Replayed']`
-  
+
   ### Additions to the Stripe API
-  
+
   * Add support for new resource `InvoicePayment`
   * Add support for `list` and `retrieve` methods on resource `InvoicePayment`
-  
+
 
 ## 13.5.0 - 2025-02-24
 * [#1534](https://github.com/stripe/stripe-ruby/pull/1534) Update generated code
-  * Fixed `Stripe::InvoiceLineItem.update` method. 
+  * Fixed `Stripe::InvoiceLineItem.update` method.
 * [#1536](https://github.com/stripe/stripe-ruby/pull/1536) Fix InvoiceLineItem parent class
   * Fix bug where `Stripe::InvoiceLineItem` had the incorrect parent class, making it error when `update` was called
 * [#1533](https://github.com/stripe/stripe-ruby/pull/1533) add codeowners file
@@ -138,7 +138,7 @@
 * [#1500](https://github.com/stripe/stripe-ruby/pull/1500) This release changes the pinned API version to `2024-12-18.acacia`.
 
 * [#1507](https://github.com/stripe/stripe-ruby/pull/1507) Pass requestor to all deserialized objects including lists
-  
+
   * Fixes bug where `StripeObject` retrieved from lists could not be used to make requests, such as `refresh`
 
 ## 13.2.0 - 2024-11-20
@@ -161,24 +161,24 @@
 
 ## 13.0.2 - 2024-10-23
 * [#1473](https://github.com/stripe/stripe-ruby/pull/1473) Always return the result of APIResource#refresh in APIResource.retrieve
-  
+
   * Fix bug where we would not return the mutated `self` object when calling `APIResource.retrieve`
 
 ## 13.0.1 - 2024-10-18
 * [#1471](https://github.com/stripe/stripe-ruby/pull/1471) update object tags for meter-related classes
-  
+
   - fixes a bug where the `object` property of the `MeterEvent`, `MeterEventAdjustment`, and `MeterEventSession` didn't match the server.
 * [#1470](https://github.com/stripe/stripe-ruby/pull/1470) Cleaned up examples and added documentation
 
 ## 13.0.0 - 2024-10-01
 * [#1458](https://github.com/stripe/stripe-ruby/pull/1458) Support for APIs in the new API version 2024-09-30.acacia
-  
-  This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-09-30.acacia) and carefully review the API changes before upgrading.
-  
-  ### ⚠️ Breaking changes 
-  
+
+  This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Changelog](https://docs.stripe.com/changelog/acacia#2024-09-30.acacia) and carefully review the API changes before upgrading.
+
+  ### ⚠️ Breaking changes
+
   Please refer to our [migration guide for v13](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v13) for more information about the backwards incompatible changes.
-  
+
   #### ❗ `StripeClient` and related changes
   * Move `StripeClient` and requestor logic to `APIRequestor`.
     * `StripeClient#request` is still available, but is deprecated and will be removed. We encourage `StripeClient#raw_request` as a replacement (see other breaking changes for more detail).
@@ -186,21 +186,21 @@
       * No global config: you can simultaneously use multiple clients with different configuration options (such as API keys)
       * No extra API calls. All API endpoints can be accessed with a single method call. You don't have to call `retrieve` before doing an `update`.
       * No static methods. Much easier mocking.
-  
+
   #### Other breaking changes
-  
+
   * Adjust default values around retries for HTTP requests. You can use the old defaults by setting them explicitly. New values are:
     - max retries: `0` -> `2`
     - max retry delay (seconds) `2` -> `5`
   * Remove `StripeClient#connection_manager`. This was a legacy method from years ago.
-  * Singleton `retrieve` method now requires `params` to be passed as the first argument. Existing calls to singleton `retrieve` method with only `opts` argument will have to be updated to account for the addition of `params` argument. 
+  * Singleton `retrieve` method now requires `params` to be passed as the first argument. Existing calls to singleton `retrieve` method with only `opts` argument will have to be updated to account for the addition of `params` argument.
       ```ruby
       params = { expand: ["available"] }
       opts = { stripe_account: "acct_123" }
-  
+
       # ❌ No longer works
       Stripe::Balance.retrieve(opts)
-  
+
       # ✅ Correct way to call retrieve method
       Stripe::Balance.retrieve(params, opts)
       ```
@@ -209,7 +209,7 @@
       ```ruby
       # Instead of
       Stripe::APIResource.request(:get, "/v1/endpoint", params, opts)
-  
+
       # do
       client = Stripe::StripeClient.new(...)
       resp = client.raw_request(:get, "/v1/endpoint", params: params, opts: opts)
@@ -225,18 +225,18 @@
     # Before
     obj, api_key = StripeClient.execute_request(method, path, api_base: nil,
                                                 api_key: nil, headers: {}, params: {}, usage: [])
-  
+
     # is now, with base_address being one of [:api, :files, :connect, :meter_events]
-  
+
     obj, opts = APIRequestor.execute_request(method, path, base_address,
                                             params: {}, opts: {}, usage: [])
     puts(opts) # will output {api_key: "sk_test_123", stripe_account: "acct_123"}
     ```
-  
-   
+
+
   ### Additions
   * Add support for new Usage Billing APIs `Billing.MeterEvent`, `Billing.MeterEventAdjustments`, `Billing.MeterEventSession`, `Billing.MeterEventStream` and the new Events API `Core.Events` in the [v2 namespace ](https://docs.corp.stripe.com/api-v2-overview)
-  * Add method `parse_thin_event()` on the `StripeClient` class to parse [thin events](https://docs.corp.stripe.com/event-destinations#events-overview). 
+  * Add method `parse_thin_event()` on the `StripeClient` class to parse [thin events](https://docs.corp.stripe.com/event-destinations#events-overview).
 
 
 ## 12.6.0 - 2024-09-12
@@ -264,15 +264,15 @@
 
 * [#1433](https://github.com/stripe/stripe-ruby/pull/1433) Add usage to raw_request call
 * [#1431](https://github.com/stripe/stripe-ruby/pull/1431) Add `raw_request`
-  
+
   - Adds the ability to make raw requests to the Stripe API, by providing an HTTP method and url. This is an alternative to using `Stripe::APIResource.request(...)` to make custom requests, which is discouraged and will be broken in a future major version.
 
 ## 12.1.0 - 2024-07-05
 * [#1425](https://github.com/stripe/stripe-ruby/pull/1425) Update generated code
   * Add support for `add_lines`, `remove_lines`, and `update_lines` methods on resource `Invoice`
 * [#1420](https://github.com/stripe/stripe-ruby/pull/1420) Update static methods for delete/list on BankAccount/Card to throw NotImplementedError
-  * The below methods have been throwing `InvalidRequestError` because the urls used to make the requests have been buggy. Updating them to throw `NotImplementedError` instead just like their counterparts for update & retrieve because they cannot be implemented without the parent id. 
-  
+  * The below methods have been throwing `InvalidRequestError` because the urls used to make the requests have been buggy. Updating them to throw `NotImplementedError` instead just like their counterparts for update & retrieve because they cannot be implemented without the parent id.
+
   Methods affected | Use these instead in the context of payment method | Use these in the context of external accounts
   ------ | ------ | ----
   Stripe:: BankAccount.delete | Stripe::Customer.delete_source | Stripe::Account.delete_external_account
@@ -284,12 +284,12 @@
 
 ## 12.0.0 - 2024-06-24
 * [#1418](https://github.com/stripe/stripe-ruby/pull/1418) Add missing static method for verify on BankAccount
-* [#1419](https://github.com/stripe/stripe-ruby/pull/1419) 
-  
-  This release changes the pinned API version to 2024-06-20. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-06-20) and carefully review the API changes before upgrading.
+* [#1419](https://github.com/stripe/stripe-ruby/pull/1419)
+
+  This release changes the pinned API version to 2024-06-20. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-06-20) and carefully review the API changes before upgrading.
 
   ### Additions
-  
+
   * Add support for `finalize_amount` test helper method on resource `Issuing.Authorization`
 
 ## 11.7.0 - 2024-06-13
@@ -329,7 +329,7 @@
 ## 11.0.0 - 2024-04-10
 * [#1374](https://github.com/stripe/stripe-ruby/pull/1374)
 
-  * This release changes the pinned API version to `2024-04-10`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-04-10) and carefully review the API changes before upgrading.
+  * This release changes the pinned API version to `2024-04-10`. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-04-10) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
 
@@ -439,7 +439,7 @@
   * Add support for `create`, `list`, and `update` methods on resource `Registration`
 
 ## 10.0.0 - 2023-10-16
-* This release changes the pinned API version to `2023-10-16`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2023-10-16) and carefully review the API changes before upgrading `stripe-ruby`.
+* This release changes the pinned API version to `2023-10-16`. Please read the [API Changelog](https://docs.stripe.com/changelog/2023-10-16) and carefully review the API changes before upgrading `stripe-ruby`.
 * [#1283](https://github.com/stripe/stripe-ruby/pull/1283) Update generated code
   - Updated pinned API version
 * [#1281](https://github.com/stripe/stripe-ruby/pull/1281) Update generated code
@@ -563,7 +563,7 @@
 ## 8.0.0 - 2022-11-16
 * [#1144](https://github.com/stripe/stripe-ruby/pull/1144) Next major release changes
 
-Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-11-15.
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-11-15.
 
 "⚠️" symbol highlights breaking changes.
 
@@ -601,7 +601,7 @@ Breaking changes that arose during code generation of the library that we postpo
 
 ## 7.0.0 - 2022-08-02
 
-Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v7. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-08-01.
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v7. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-08-01.
 
 "⚠️" symbol highlights breaking changes.
 

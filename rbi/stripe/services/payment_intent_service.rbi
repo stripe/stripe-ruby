@@ -61,172 +61,6 @@ module Stripe
       ); end
     end
     class CreateParams < Stripe::RequestParams
-      class AmountDetails < Stripe::RequestParams
-        class LineItem < Stripe::RequestParams
-          class PaymentMethodOptions < Stripe::RequestParams
-            class Card < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class CardPresent < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class Klarna < Stripe::RequestParams
-              # URL to an image for the product. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :image_url
-              # URL to the product page. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :product_url
-              # Reference for the subscription this line item is for.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :subscription_reference
-              sig {
-                params(image_url: T.nilable(String), product_url: T.nilable(String), subscription_reference: T.nilable(String)).void
-               }
-              def initialize(image_url: nil, product_url: nil, subscription_reference: nil); end
-            end
-            class Paypal < Stripe::RequestParams
-              # Type of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :category
-              # Description of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :description
-              # The Stripe account ID of the connected account that sells the item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :sold_by
-              sig {
-                params(category: T.nilable(String), description: T.nilable(String), sold_by: T.nilable(String)).void
-               }
-              def initialize(category: nil, description: nil, sold_by: nil); end
-            end
-            # This sub-hash contains line item details that are specific to `card` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
-             }
-            attr_accessor :card
-            # This sub-hash contains line item details that are specific to `card_present` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
-             }
-            attr_accessor :card_present
-            # This sub-hash contains line item details that are specific to `klarna` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
-             }
-            attr_accessor :klarna
-            # This sub-hash contains line item details that are specific to `paypal` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
-             }
-            attr_accessor :paypal
-            sig {
-              params(card: T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna), paypal: T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal)).void
-             }
-            def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
-          end
-          class Tax < Stripe::RequestParams
-            # The total tax on an item. Non-negative integer.
-            sig { returns(Integer) }
-            attr_accessor :total_tax_amount
-            sig { params(total_tax_amount: Integer).void }
-            def initialize(total_tax_amount: nil); end
-          end
-          # The amount an item was discounted for. Positive integer.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :discount_amount
-          # Payment method-specific information for line items.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions))
-           }
-          attr_accessor :payment_method_options
-          # Unique identifier of the product. At most 12 characters long.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :product_code
-          # Name of the product. At most 100 characters long.
-          sig { returns(String) }
-          attr_accessor :product_name
-          # Number of items of the product. Positive integer.
-          sig { returns(Integer) }
-          attr_accessor :quantity
-          # Contains information about the tax on the item.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::Tax))
-           }
-          attr_accessor :tax
-          # Cost of the product. Non-negative integer.
-          sig { returns(Integer) }
-          attr_accessor :unit_cost
-          # A unit of measure for the line item, such as gallons, feet, meters, etc.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :unit_of_measure
-          sig {
-            params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
-           }
-          def initialize(
-            discount_amount: nil,
-            payment_method_options: nil,
-            product_code: nil,
-            product_name: nil,
-            quantity: nil,
-            tax: nil,
-            unit_cost: nil,
-            unit_of_measure: nil
-          ); end
-        end
-        class Shipping < Stripe::RequestParams
-          # Portion of the amount that is for shipping.
-          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-          attr_accessor :amount
-          # The postal code that represents the shipping source.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :from_postal_code
-          # The postal code that represents the shipping destination.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :to_postal_code
-          sig {
-            params(amount: T.nilable(T.nilable(T.any(String, Integer))), from_postal_code: T.nilable(T.nilable(String)), to_postal_code: T.nilable(T.nilable(String))).void
-           }
-          def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
-        end
-        class Tax < Stripe::RequestParams
-          # Total portion of the amount that is for tax.
-          sig { returns(Integer) }
-          attr_accessor :total_tax_amount
-          sig { params(total_tax_amount: Integer).void }
-          def initialize(total_tax_amount: nil); end
-        end
-        # The amount an item was discounted for.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-        attr_accessor :discount_amount
-        # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem]))))
-         }
-        attr_accessor :line_items
-        # Contains information about the shipping portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::AmountDetails::Shipping))))
-         }
-        attr_accessor :shipping
-        # Contains information about the tax portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::AmountDetails::Tax))))
-         }
-        attr_accessor :tax
-        sig {
-          params(discount_amount: T.nilable(T.nilable(T.any(String, Integer))), line_items: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::CreateParams::AmountDetails::LineItem]))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::AmountDetails::Shipping))), tax: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::AmountDetails::Tax)))).void
-         }
-        def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
-      end
       class AutomaticPaymentMethods < Stripe::RequestParams
         # Controls whether this PaymentIntent will accept redirect-based payment methods.
         #
@@ -3924,9 +3758,6 @@ module Stripe
       # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       sig { returns(Integer) }
       attr_accessor :amount
-      # Provides industry-specific information about the amount.
-      sig { returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails)) }
-      attr_accessor :amount_details
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :application_fee_amount
@@ -4065,11 +3896,10 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntentService::CreateParams::AmountDetails), application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntentService::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentService::CreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::MandateData))), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentService::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(amount: Integer, application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntentService::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentService::CreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::MandateData))), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentService::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         amount: nil,
-        amount_details: nil,
         application_fee_amount: nil,
         automatic_payment_methods: nil,
         capture_method: nil,
@@ -4119,172 +3949,6 @@ module Stripe
       def initialize(client_secret: nil, expand: nil); end
     end
     class UpdateParams < Stripe::RequestParams
-      class AmountDetails < Stripe::RequestParams
-        class LineItem < Stripe::RequestParams
-          class PaymentMethodOptions < Stripe::RequestParams
-            class Card < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class CardPresent < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class Klarna < Stripe::RequestParams
-              # URL to an image for the product. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :image_url
-              # URL to the product page. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :product_url
-              # Reference for the subscription this line item is for.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :subscription_reference
-              sig {
-                params(image_url: T.nilable(String), product_url: T.nilable(String), subscription_reference: T.nilable(String)).void
-               }
-              def initialize(image_url: nil, product_url: nil, subscription_reference: nil); end
-            end
-            class Paypal < Stripe::RequestParams
-              # Type of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :category
-              # Description of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :description
-              # The Stripe account ID of the connected account that sells the item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :sold_by
-              sig {
-                params(category: T.nilable(String), description: T.nilable(String), sold_by: T.nilable(String)).void
-               }
-              def initialize(category: nil, description: nil, sold_by: nil); end
-            end
-            # This sub-hash contains line item details that are specific to `card` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
-             }
-            attr_accessor :card
-            # This sub-hash contains line item details that are specific to `card_present` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
-             }
-            attr_accessor :card_present
-            # This sub-hash contains line item details that are specific to `klarna` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
-             }
-            attr_accessor :klarna
-            # This sub-hash contains line item details that are specific to `paypal` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
-             }
-            attr_accessor :paypal
-            sig {
-              params(card: T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna), paypal: T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal)).void
-             }
-            def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
-          end
-          class Tax < Stripe::RequestParams
-            # The total tax on an item. Non-negative integer.
-            sig { returns(Integer) }
-            attr_accessor :total_tax_amount
-            sig { params(total_tax_amount: Integer).void }
-            def initialize(total_tax_amount: nil); end
-          end
-          # The amount an item was discounted for. Positive integer.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :discount_amount
-          # Payment method-specific information for line items.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions))
-           }
-          attr_accessor :payment_method_options
-          # Unique identifier of the product. At most 12 characters long.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :product_code
-          # Name of the product. At most 100 characters long.
-          sig { returns(String) }
-          attr_accessor :product_name
-          # Number of items of the product. Positive integer.
-          sig { returns(Integer) }
-          attr_accessor :quantity
-          # Contains information about the tax on the item.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::Tax))
-           }
-          attr_accessor :tax
-          # Cost of the product. Non-negative integer.
-          sig { returns(Integer) }
-          attr_accessor :unit_cost
-          # A unit of measure for the line item, such as gallons, feet, meters, etc.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :unit_of_measure
-          sig {
-            params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
-           }
-          def initialize(
-            discount_amount: nil,
-            payment_method_options: nil,
-            product_code: nil,
-            product_name: nil,
-            quantity: nil,
-            tax: nil,
-            unit_cost: nil,
-            unit_of_measure: nil
-          ); end
-        end
-        class Shipping < Stripe::RequestParams
-          # Portion of the amount that is for shipping.
-          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-          attr_accessor :amount
-          # The postal code that represents the shipping source.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :from_postal_code
-          # The postal code that represents the shipping destination.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :to_postal_code
-          sig {
-            params(amount: T.nilable(T.nilable(T.any(String, Integer))), from_postal_code: T.nilable(T.nilable(String)), to_postal_code: T.nilable(T.nilable(String))).void
-           }
-          def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
-        end
-        class Tax < Stripe::RequestParams
-          # Total portion of the amount that is for tax.
-          sig { returns(Integer) }
-          attr_accessor :total_tax_amount
-          sig { params(total_tax_amount: Integer).void }
-          def initialize(total_tax_amount: nil); end
-        end
-        # The amount an item was discounted for.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-        attr_accessor :discount_amount
-        # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem]))))
-         }
-        attr_accessor :line_items
-        # Contains information about the shipping portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::AmountDetails::Shipping))))
-         }
-        attr_accessor :shipping
-        # Contains information about the tax portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::AmountDetails::Tax))))
-         }
-        attr_accessor :tax
-        sig {
-          params(discount_amount: T.nilable(T.nilable(T.any(String, Integer))), line_items: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::UpdateParams::AmountDetails::LineItem]))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::AmountDetails::Shipping))), tax: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::AmountDetails::Tax)))).void
-         }
-        def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
-      end
       class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
@@ -7942,11 +7606,6 @@ module Stripe
       # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
-      # Provides industry-specific information about the amount.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::AmountDetails))))
-       }
-      attr_accessor :amount_details
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
       attr_accessor :application_fee_amount
@@ -8044,11 +7703,10 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :transfer_group
       sig {
-        params(amount: T.nilable(Integer), amount_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::AmountDetails))), application_fee_amount: T.nilable(T.nilable(T.any(String, Integer))), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentService::UpdateParams::Hooks), mandate_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::MandateData), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::PaymentDetails))), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(T.nilable(String)), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::Shipping))), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::TransferData), transfer_group: T.nilable(String)).void
+        params(amount: T.nilable(Integer), application_fee_amount: T.nilable(T.nilable(T.any(String, Integer))), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentService::UpdateParams::Hooks), mandate_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::MandateData), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::PaymentDetails))), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(T.nilable(String)), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::Shipping))), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::TransferData), transfer_group: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
-        amount_details: nil,
         application_fee_amount: nil,
         capture_method: nil,
         currency: nil,
@@ -8125,172 +7783,6 @@ module Stripe
       def initialize(cancellation_reason: nil, expand: nil); end
     end
     class CaptureParams < Stripe::RequestParams
-      class AmountDetails < Stripe::RequestParams
-        class LineItem < Stripe::RequestParams
-          class PaymentMethodOptions < Stripe::RequestParams
-            class Card < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class CardPresent < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class Klarna < Stripe::RequestParams
-              # URL to an image for the product. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :image_url
-              # URL to the product page. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :product_url
-              # Reference for the subscription this line item is for.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :subscription_reference
-              sig {
-                params(image_url: T.nilable(String), product_url: T.nilable(String), subscription_reference: T.nilable(String)).void
-               }
-              def initialize(image_url: nil, product_url: nil, subscription_reference: nil); end
-            end
-            class Paypal < Stripe::RequestParams
-              # Type of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :category
-              # Description of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :description
-              # The Stripe account ID of the connected account that sells the item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :sold_by
-              sig {
-                params(category: T.nilable(String), description: T.nilable(String), sold_by: T.nilable(String)).void
-               }
-              def initialize(category: nil, description: nil, sold_by: nil); end
-            end
-            # This sub-hash contains line item details that are specific to `card` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
-             }
-            attr_accessor :card
-            # This sub-hash contains line item details that are specific to `card_present` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
-             }
-            attr_accessor :card_present
-            # This sub-hash contains line item details that are specific to `klarna` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
-             }
-            attr_accessor :klarna
-            # This sub-hash contains line item details that are specific to `paypal` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
-             }
-            attr_accessor :paypal
-            sig {
-              params(card: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna), paypal: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal)).void
-             }
-            def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
-          end
-          class Tax < Stripe::RequestParams
-            # The total tax on an item. Non-negative integer.
-            sig { returns(Integer) }
-            attr_accessor :total_tax_amount
-            sig { params(total_tax_amount: Integer).void }
-            def initialize(total_tax_amount: nil); end
-          end
-          # The amount an item was discounted for. Positive integer.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :discount_amount
-          # Payment method-specific information for line items.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions))
-           }
-          attr_accessor :payment_method_options
-          # Unique identifier of the product. At most 12 characters long.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :product_code
-          # Name of the product. At most 100 characters long.
-          sig { returns(String) }
-          attr_accessor :product_name
-          # Number of items of the product. Positive integer.
-          sig { returns(Integer) }
-          attr_accessor :quantity
-          # Contains information about the tax on the item.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::Tax))
-           }
-          attr_accessor :tax
-          # Cost of the product. Non-negative integer.
-          sig { returns(Integer) }
-          attr_accessor :unit_cost
-          # A unit of measure for the line item, such as gallons, feet, meters, etc.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :unit_of_measure
-          sig {
-            params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
-           }
-          def initialize(
-            discount_amount: nil,
-            payment_method_options: nil,
-            product_code: nil,
-            product_name: nil,
-            quantity: nil,
-            tax: nil,
-            unit_cost: nil,
-            unit_of_measure: nil
-          ); end
-        end
-        class Shipping < Stripe::RequestParams
-          # Portion of the amount that is for shipping.
-          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-          attr_accessor :amount
-          # The postal code that represents the shipping source.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :from_postal_code
-          # The postal code that represents the shipping destination.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :to_postal_code
-          sig {
-            params(amount: T.nilable(T.nilable(T.any(String, Integer))), from_postal_code: T.nilable(T.nilable(String)), to_postal_code: T.nilable(T.nilable(String))).void
-           }
-          def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
-        end
-        class Tax < Stripe::RequestParams
-          # Total portion of the amount that is for tax.
-          sig { returns(Integer) }
-          attr_accessor :total_tax_amount
-          sig { params(total_tax_amount: Integer).void }
-          def initialize(total_tax_amount: nil); end
-        end
-        # The amount an item was discounted for.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-        attr_accessor :discount_amount
-        # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem]))))
-         }
-        attr_accessor :line_items
-        # Contains information about the shipping portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CaptureParams::AmountDetails::Shipping))))
-         }
-        attr_accessor :shipping
-        # Contains information about the tax portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CaptureParams::AmountDetails::Tax))))
-         }
-        attr_accessor :tax
-        sig {
-          params(discount_amount: T.nilable(T.nilable(T.any(String, Integer))), line_items: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::CaptureParams::AmountDetails::LineItem]))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CaptureParams::AmountDetails::Shipping))), tax: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CaptureParams::AmountDetails::Tax)))).void
-         }
-        def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
-      end
       class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
@@ -9082,9 +8574,6 @@ module Stripe
         sig { params(amount: T.nilable(Integer)).void }
         def initialize(amount: nil); end
       end
-      # Provides industry-specific information about the amount.
-      sig { returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails)) }
-      attr_accessor :amount_details
       # The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Defaults to the full `amount_capturable` if it's not provided.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :amount_to_capture
@@ -9121,10 +8610,9 @@ module Stripe
       sig { returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::TransferData)) }
       attr_accessor :transfer_data
       sig {
-        params(amount_details: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AmountDetails), amount_to_capture: T.nilable(Integer), application_fee_amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), final_capture: T.nilable(T::Boolean), hooks: T.nilable(::Stripe::PaymentIntentService::CaptureParams::Hooks), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CaptureParams::PaymentDetails))), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CaptureParams::TransferData)).void
+        params(amount_to_capture: T.nilable(Integer), application_fee_amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), final_capture: T.nilable(T::Boolean), hooks: T.nilable(::Stripe::PaymentIntentService::CaptureParams::Hooks), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CaptureParams::PaymentDetails))), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CaptureParams::TransferData)).void
        }
       def initialize(
-        amount_details: nil,
         amount_to_capture: nil,
         application_fee_amount: nil,
         expand: nil,
@@ -9138,172 +8626,6 @@ module Stripe
       ); end
     end
     class ConfirmParams < Stripe::RequestParams
-      class AmountDetails < Stripe::RequestParams
-        class LineItem < Stripe::RequestParams
-          class PaymentMethodOptions < Stripe::RequestParams
-            class Card < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class CardPresent < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class Klarna < Stripe::RequestParams
-              # URL to an image for the product. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :image_url
-              # URL to the product page. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :product_url
-              # Reference for the subscription this line item is for.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :subscription_reference
-              sig {
-                params(image_url: T.nilable(String), product_url: T.nilable(String), subscription_reference: T.nilable(String)).void
-               }
-              def initialize(image_url: nil, product_url: nil, subscription_reference: nil); end
-            end
-            class Paypal < Stripe::RequestParams
-              # Type of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :category
-              # Description of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :description
-              # The Stripe account ID of the connected account that sells the item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :sold_by
-              sig {
-                params(category: T.nilable(String), description: T.nilable(String), sold_by: T.nilable(String)).void
-               }
-              def initialize(category: nil, description: nil, sold_by: nil); end
-            end
-            # This sub-hash contains line item details that are specific to `card` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
-             }
-            attr_accessor :card
-            # This sub-hash contains line item details that are specific to `card_present` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
-             }
-            attr_accessor :card_present
-            # This sub-hash contains line item details that are specific to `klarna` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
-             }
-            attr_accessor :klarna
-            # This sub-hash contains line item details that are specific to `paypal` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
-             }
-            attr_accessor :paypal
-            sig {
-              params(card: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna), paypal: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal)).void
-             }
-            def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
-          end
-          class Tax < Stripe::RequestParams
-            # The total tax on an item. Non-negative integer.
-            sig { returns(Integer) }
-            attr_accessor :total_tax_amount
-            sig { params(total_tax_amount: Integer).void }
-            def initialize(total_tax_amount: nil); end
-          end
-          # The amount an item was discounted for. Positive integer.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :discount_amount
-          # Payment method-specific information for line items.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions))
-           }
-          attr_accessor :payment_method_options
-          # Unique identifier of the product. At most 12 characters long.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :product_code
-          # Name of the product. At most 100 characters long.
-          sig { returns(String) }
-          attr_accessor :product_name
-          # Number of items of the product. Positive integer.
-          sig { returns(Integer) }
-          attr_accessor :quantity
-          # Contains information about the tax on the item.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::Tax))
-           }
-          attr_accessor :tax
-          # Cost of the product. Non-negative integer.
-          sig { returns(Integer) }
-          attr_accessor :unit_cost
-          # A unit of measure for the line item, such as gallons, feet, meters, etc.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :unit_of_measure
-          sig {
-            params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
-           }
-          def initialize(
-            discount_amount: nil,
-            payment_method_options: nil,
-            product_code: nil,
-            product_name: nil,
-            quantity: nil,
-            tax: nil,
-            unit_cost: nil,
-            unit_of_measure: nil
-          ); end
-        end
-        class Shipping < Stripe::RequestParams
-          # Portion of the amount that is for shipping.
-          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-          attr_accessor :amount
-          # The postal code that represents the shipping source.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :from_postal_code
-          # The postal code that represents the shipping destination.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :to_postal_code
-          sig {
-            params(amount: T.nilable(T.nilable(T.any(String, Integer))), from_postal_code: T.nilable(T.nilable(String)), to_postal_code: T.nilable(T.nilable(String))).void
-           }
-          def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
-        end
-        class Tax < Stripe::RequestParams
-          # Total portion of the amount that is for tax.
-          sig { returns(Integer) }
-          attr_accessor :total_tax_amount
-          sig { params(total_tax_amount: Integer).void }
-          def initialize(total_tax_amount: nil); end
-        end
-        # The amount an item was discounted for.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-        attr_accessor :discount_amount
-        # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem]))))
-         }
-        attr_accessor :line_items
-        # Contains information about the shipping portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::Shipping))))
-         }
-        attr_accessor :shipping
-        # Contains information about the tax portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::Tax))))
-         }
-        attr_accessor :tax
-        sig {
-          params(discount_amount: T.nilable(T.nilable(T.any(String, Integer))), line_items: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::LineItem]))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::Shipping))), tax: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::AmountDetails::Tax)))).void
-         }
-        def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
-      end
       class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
@@ -12967,11 +12289,6 @@ module Stripe
          }
         def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil); end
       end
-      # Provides industry-specific information about the amount.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::AmountDetails))))
-       }
-      attr_accessor :amount_details
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
       attr_accessor :application_fee_amount
@@ -13059,10 +12376,9 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(amount_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::AmountDetails))), application_fee_amount: T.nilable(T.nilable(T.any(String, Integer))), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::MandateData))), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails))), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::RadarOptions), receipt_email: T.nilable(T.nilable(String)), return_url: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::Shipping))), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(application_fee_amount: T.nilable(T.nilable(T.any(String, Integer))), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::MandateData))), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails))), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::RadarOptions), receipt_email: T.nilable(T.nilable(String)), return_url: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::Shipping))), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
-        amount_details: nil,
         application_fee_amount: nil,
         capture_method: nil,
         confirmation_token: nil,

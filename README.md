@@ -60,13 +60,14 @@ value:
 
 ```ruby
 require 'stripe'
-Stripe.api_key = 'sk_test_...'
+
+client = Stripe::StripeClient.new("sk_test_...")
 
 # list customers
-Stripe::Customer.list()
+customers = client.v1.customers.list()
 
-# retrieve single customer
-Stripe::Customer.retrieve('cus_123456789')
+# retrieve single customer 
+customer = client.v1.customers.retrieve('cus_123456789')
 ```
 
 ### Per-request Configuration
@@ -78,54 +79,17 @@ per-request key and/or account:
 ```ruby
 require "stripe"
 
-Stripe::Customer.list(
+client = Stripe::StripeClient.new("sk_test_...")
+
+client.v1.customers.list(
   {},
   {
     api_key: 'sk_test_...',
     stripe_account: 'acct_...',
     stripe_version: '2018-02-28',
-  }
-)
-
-Stripe::Customer.retrieve(
-  'cus_123456789',
-  {
-    api_key: 'sk_test_...',
-    stripe_account: 'acct_...',
-    stripe_version: '2018-02-28',
-  }
-)
-
-Stripe::Customer.retrieve(
-  {
-    id: 'cus_123456789',
-    expand: %w(balance_transaction)
-  },
-  {
-    stripe_version: '2018-02-28',
-    api_key: 'sk_test_...',
-  }
-)
-
-Stripe::Customer.capture(
-  'cus_123456789',
-  {},
-  {
-    stripe_version: '2018-02-28',
-    api_key: 'sk_test_...',
   }
 )
 ```
-
-Keep in mind that there are different method signatures depending on the action:
-
-- When operating on a collection (e.g. `.list`, `.create`) the method signature is
-  `method(params, opts)`.
-- When operating on resource (e.g. `.capture`, `.update`) the method signature is
-  `method(id, params, opts)`.
-- One exception is that `retrieve`, despite being an operation on a resource, has the signature
-  `retrieve(id, opts)`. In addition, it will accept a Hash for the `id` param but will extract the
-  `id` key out and use the others as options.
 
 ### StripeClient vs legacy pattern
 
@@ -138,7 +102,7 @@ Once the legacy pattern is deprecated, new API endpoints will only be accessible
 Both indexer and accessors can be used to retrieve values of resource properties.
 
 ```ruby
-customer = Stripe::Customer.retrieve('cus_123456789')
+customer = client.v1.customers.retrieve('cus_123456789')
 puts customer['id']
 puts customer.id
 ```
@@ -146,7 +110,7 @@ puts customer.id
 NOTE: If the resource property is not defined, the accessors will raise an exception, while the indexer will return `nil`.
 
 ```ruby
-customer = Stripe::Customer.retrieve('cus_123456789')
+customer = client.v1.customers.retrieve('cus_123456789')
 puts customer['unknown'] # nil
 puts customer.unknown # raises NoMethodError
 ```
@@ -156,7 +120,7 @@ puts customer.unknown # raises NoMethodError
 Get access to response objects by using the `last_response` property of the returned resource:
 
 ```ruby
-customer = Stripe::Customer.retrieve('cus_123456789')
+customer = client.v1.customers.retrieve('cus_123456789')
 
 print(customer.last_response.http_status) # to retrieve status code
 print(customer.last_response.http_headers) # to retrieve headers
@@ -388,7 +352,7 @@ If you:
 you can now use the `raw_request` method on `StripeClient`.
 
 ```ruby
-client = Stripe::StripeClient.new(...)
+client = Stripe::StripeClient.new('sk_test_...')
 resp = client.raw_request(:post, "/v1/beta_endpoint", params: {param: 123}, opts: {stripe_version: "2022-11-15; feature_beta=v3"})
 
 # (Optional) resp is a StripeResponse. You can use `Stripe.deserialize` to get a StripeObject.

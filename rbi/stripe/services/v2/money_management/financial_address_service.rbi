@@ -41,6 +41,7 @@ module Stripe
         # Create a new FinancialAddress for a FinancialAccount.
         #
         # ** raises FinancialAccountNotOpenError
+        # ** raises FeatureNotEnabledError
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAddressService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::FinancialAddress)
          }

@@ -44,6 +44,7 @@ module Stripe
         # Create a new FinancialAddress for a FinancialAccount.
         #
         # ** raises FinancialAccountNotOpenError
+        # ** raises FeatureNotEnabledError
         def create(params = {}, opts = {})
           request(
             method: :post,

@@ -11,7 +11,7 @@ module Stripe
           # Balance that can be used for money movement.
           sig { returns(T::Hash[String, Stripe::V2::Amount]) }
           attr_reader :available
-          # Balance of inbound funds that will later transition to the `cash` balance.
+          # Balance of inbound funds that will later transition to the `available` balance.
           sig { returns(T::Hash[String, Stripe::V2::Amount]) }
           attr_reader :inbound_pending
           # Balance of funds that are being used for a pending outbound money movement.
@@ -22,16 +22,6 @@ module Stripe
           # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
           sig { returns(String) }
           attr_reader :type
-        end
-        class StatusDetails < Stripe::StripeObject
-          class Closed < Stripe::StripeObject
-            # Attribute for field reason
-            sig { returns(String) }
-            attr_reader :reason
-          end
-          # Attribute for field closed
-          sig { returns(T.nilable(Closed)) }
-          attr_reader :closed
         end
         class Storage < Stripe::StripeObject
           # The currencies that this FinancialAccount can hold.
@@ -62,9 +52,6 @@ module Stripe
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         sig { returns(String) }
         attr_reader :status
-        # Attribute for field status_details
-        sig { returns(T.nilable(StatusDetails)) }
-        attr_reader :status_details
         # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
         sig { returns(T.nilable(Storage)) }
         attr_reader :storage

@@ -1582,6 +1582,14 @@ module Stripe
                 sig { returns(String) }
                 attr_reader :type
               end
+              class ProofOfAddress < Stripe::StripeObject
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                sig { returns(T::Array[String]) }
+                attr_reader :files
+                # The format of the document. Currently supports `files` only.
+                sig { returns(String) }
+                attr_reader :type
+              end
               class ProofOfRegistration < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
@@ -1619,6 +1627,9 @@ module Stripe
               # A document verifying the business.
               sig { returns(T.nilable(PrimaryVerification)) }
               attr_reader :primary_verification
+              # One or more documents that demonstrate proof of address.
+              sig { returns(T.nilable(ProofOfAddress)) }
+              attr_reader :proof_of_address
               # One or more documents showing the company’s proof of registration with the national business registry.
               sig { returns(T.nilable(ProofOfRegistration)) }
               attr_reader :proof_of_registration

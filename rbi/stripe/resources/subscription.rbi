@@ -43,6 +43,14 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       attr_reader :second
     end
+    class BillingMode < Stripe::StripeObject
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      sig { returns(String) }
+      attr_reader :type
+      # Details on when the current billing_mode was adopted.
+      sig { returns(Integer) }
+      attr_reader :updated_at
+    end
     class BillingThresholds < Stripe::StripeObject
       # Monetary threshold that triggers the subscription to create an invoice
       sig { returns(T.nilable(Integer)) }
@@ -265,13 +273,16 @@ module Stripe
     # The fixed values used to calculate the `billing_cycle_anchor`.
     sig { returns(T.nilable(BillingCycleAnchorConfig)) }
     attr_reader :billing_cycle_anchor_config
+    # The billing mode of the subscription.
+    sig { returns(BillingMode) }
+    attr_reader :billing_mode
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
     sig { returns(T.nilable(BillingThresholds)) }
     attr_reader :billing_thresholds
     # A date in the future at which the subscription will automatically get canceled
     sig { returns(T.nilable(Integer)) }
     attr_reader :cancel_at
-    # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. This field will be removed in a future API version. Please use `cancel_at` instead.
+    # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.
     sig { returns(T::Boolean) }
     attr_reader :cancel_at_period_end
     # If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will reflect the time of the most recent update request, not the end of the subscription period when the subscription is automatically moved to a canceled state.
@@ -388,7 +399,7 @@ module Stripe
     # Settings related to subscription trials.
     sig { returns(T.nilable(TrialSettings)) }
     attr_reader :trial_settings
-    # If the subscription has a trial, the beginning of that trial. For subsequent trials, this date remains as the start of the first ever trial on the subscription.
+    # If the subscription has a trial, the beginning of that trial.
     sig { returns(T.nilable(Integer)) }
     attr_reader :trial_start
     class CancelParams < Stripe::RequestParams
@@ -965,7 +976,7 @@ module Stripe
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :cancel_at_period_end
       # Details about why this subscription was cancelled
@@ -1334,6 +1345,13 @@ module Stripe
           params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
          }
         def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil); end
+      end
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        sig { returns(String) }
+        attr_accessor :type
+        sig { params(type: String).void }
+        def initialize(type: nil); end
       end
       class BillingThresholds < Stripe::RequestParams
         # Monetary threshold that triggers the subscription to advance to a new billing period
@@ -1737,10 +1755,10 @@ module Stripe
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
       sig { returns(T.nilable(T.nilable(T.any(String, Float)))) }
       attr_accessor :application_fee_percent
-      # Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
+      # Automatic tax settings for this subscription.
       sig { returns(T.nilable(::Stripe::Subscription::CreateParams::AutomaticTax)) }
       attr_accessor :automatic_tax
-      # For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+      # A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :backdate_start_date
       # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
@@ -1749,6 +1767,9 @@ module Stripe
       # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
       sig { returns(T.nilable(::Stripe::Subscription::CreateParams::BillingCycleAnchorConfig)) }
       attr_accessor :billing_cycle_anchor_config
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      sig { returns(T.nilable(::Stripe::Subscription::CreateParams::BillingMode)) }
+      attr_accessor :billing_mode
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
       sig {
         returns(T.nilable(T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::BillingThresholds))))
@@ -1757,7 +1778,7 @@ module Stripe
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :cancel_at_period_end
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
@@ -1847,7 +1868,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Subscription::CreateParams::TrialSettings)) }
       attr_accessor :trial_settings
       sig {
-        params(add_invoice_items: T.nilable(T::Array[::Stripe::Subscription::CreateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::Subscription::CreateParams::AutomaticTax), backdate_start_date: T.nilable(Integer), billing_cycle_anchor: T.nilable(Integer), billing_cycle_anchor_config: T.nilable(::Stripe::Subscription::CreateParams::BillingCycleAnchorConfig), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::BillingThresholds))), cancel_at: T.nilable(Integer), cancel_at_period_end: T.nilable(T::Boolean), collection_method: T.nilable(String), currency: T.nilable(String), customer: String, days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Subscription::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::Subscription::CreateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::Subscription::CreateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::Subscription::CreateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PendingInvoiceItemInterval))), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::Subscription::CreateParams::TransferData), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::Subscription::CreateParams::TrialSettings)).void
+        params(add_invoice_items: T.nilable(T::Array[::Stripe::Subscription::CreateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::Subscription::CreateParams::AutomaticTax), backdate_start_date: T.nilable(Integer), billing_cycle_anchor: T.nilable(Integer), billing_cycle_anchor_config: T.nilable(::Stripe::Subscription::CreateParams::BillingCycleAnchorConfig), billing_mode: T.nilable(::Stripe::Subscription::CreateParams::BillingMode), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::BillingThresholds))), cancel_at: T.nilable(Integer), cancel_at_period_end: T.nilable(T::Boolean), collection_method: T.nilable(String), currency: T.nilable(String), customer: String, days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Subscription::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::Subscription::CreateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::Subscription::CreateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::Subscription::CreateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PendingInvoiceItemInterval))), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::Subscription::CreateParams::TransferData), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::Subscription::CreateParams::TrialSettings)).void
        }
       def initialize(
         add_invoice_items: nil,
@@ -1856,6 +1877,7 @@ module Stripe
         backdate_start_date: nil,
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
+        billing_mode: nil,
         billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
@@ -1902,6 +1924,25 @@ module Stripe
         params(expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), page: T.nilable(String), query: String).void
        }
       def initialize(expand: nil, limit: nil, page: nil, query: nil); end
+    end
+    class MigrateParams < Stripe::RequestParams
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        sig { returns(String) }
+        attr_accessor :type
+        sig { params(type: String).void }
+        def initialize(type: nil); end
+      end
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      sig { returns(::Stripe::Subscription::MigrateParams::BillingMode) }
+      attr_accessor :billing_mode
+      # Specifies which fields in the response should be expanded.
+      sig { returns(T.nilable(T::Array[String])) }
+      attr_accessor :expand
+      sig {
+        params(billing_mode: ::Stripe::Subscription::MigrateParams::BillingMode, expand: T.nilable(T::Array[String])).void
+       }
+      def initialize(billing_mode: nil, expand: nil); end
     end
     class ResumeParams < Stripe::RequestParams
       # The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
@@ -1975,6 +2016,18 @@ module Stripe
       params(params: T.any(::Stripe::Subscription::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
+
+    # Upgrade the billing_mode of an existing subscription.
+    sig {
+      params(params: T.any(::Stripe::Subscription::MigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+     }
+    def migrate(params = {}, opts = {}); end
+
+    # Upgrade the billing_mode of an existing subscription.
+    sig {
+      params(subscription: String, params: T.any(::Stripe::Subscription::MigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+     }
+    def self.migrate(subscription, params = {}, opts = {}); end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     sig {

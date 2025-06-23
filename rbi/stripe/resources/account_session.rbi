@@ -14,10 +14,10 @@ module Stripe
     class Components < Stripe::StripeObject
       class AccountManagement < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
-          # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+          # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           attr_reader :external_account_collection
         end
@@ -30,10 +30,10 @@ module Stripe
       end
       class AccountOnboarding < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
-          # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+          # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           attr_reader :external_account_collection
         end
@@ -46,19 +46,19 @@ module Stripe
       end
       class Balances < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
-          # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+          # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           sig { returns(T::Boolean) }
           attr_reader :edit_payout_schedule
-          # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+          # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           attr_reader :external_account_collection
-          # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           sig { returns(T::Boolean) }
           attr_reader :instant_payouts
-          # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+          # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           sig { returns(T::Boolean) }
           attr_reader :standard_payouts
         end
@@ -74,13 +74,13 @@ module Stripe
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :capture_payments
-          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
           sig { returns(T::Boolean) }
           attr_reader :destination_on_behalf_of_charge_management
-          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :dispute_management
-          # Whether to allow sending refunds. This is `true` by default.
+          # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :refund_management
         end
@@ -102,10 +102,10 @@ module Stripe
       end
       class FinancialAccount < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
-          # Whether to allow external accounts to be linked for money transfer.
+          # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           attr_reader :external_account_collection
           # Whether to allow sending money.
@@ -168,7 +168,7 @@ module Stripe
           # Whether to allow cardholder management features.
           sig { returns(T::Boolean) }
           attr_reader :cardholder_management
-          # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts.
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
           # Whether to allow spend control management features.
@@ -184,10 +184,10 @@ module Stripe
       end
       class NotificationBanner < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
-          # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+          # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           attr_reader :external_account_collection
         end
@@ -203,13 +203,13 @@ module Stripe
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :capture_payments
-          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
           sig { returns(T::Boolean) }
           attr_reader :destination_on_behalf_of_charge_management
-          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :dispute_management
-          # Whether to allow sending refunds. This is `true` by default.
+          # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :refund_management
         end
@@ -222,13 +222,13 @@ module Stripe
       end
       class PaymentDisputes < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
           sig { returns(T::Boolean) }
           attr_reader :destination_on_behalf_of_charge_management
-          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :dispute_management
-          # Whether to allow sending refunds. This is `true` by default.
+          # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :refund_management
         end
@@ -244,13 +244,13 @@ module Stripe
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :capture_payments
-          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
           sig { returns(T::Boolean) }
           attr_reader :destination_on_behalf_of_charge_management
-          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :dispute_management
-          # Whether to allow sending refunds. This is `true` by default.
+          # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           attr_reader :refund_management
         end
@@ -263,19 +263,19 @@ module Stripe
       end
       class Payouts < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
-          # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+          # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           sig { returns(T::Boolean) }
           attr_reader :edit_payout_schedule
-          # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+          # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           attr_reader :external_account_collection
-          # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           sig { returns(T::Boolean) }
           attr_reader :instant_payouts
-          # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+          # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           sig { returns(T::Boolean) }
           attr_reader :standard_payouts
         end
@@ -391,10 +391,10 @@ module Stripe
       class Components < Stripe::RequestParams
         class AccountManagement < Stripe::RequestParams
           class Features < Stripe::RequestParams
-            # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+            # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
-            # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+            # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             sig {
@@ -420,10 +420,10 @@ module Stripe
         end
         class AccountOnboarding < Stripe::RequestParams
           class Features < Stripe::RequestParams
-            # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+            # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
-            # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+            # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             sig {
@@ -449,19 +449,19 @@ module Stripe
         end
         class Balances < Stripe::RequestParams
           class Features < Stripe::RequestParams
-            # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+            # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
-            # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+            # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :edit_payout_schedule
-            # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+            # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
-            # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+            # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :instant_payouts
-            # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+            # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :standard_payouts
             sig {
@@ -493,13 +493,13 @@ module Stripe
             # Whether to allow capturing and cancelling payment intents. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :capture_payments
-            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :destination_on_behalf_of_charge_management
-            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :dispute_management
-            # Whether to allow sending refunds. This is `true` by default.
+            # Whether sending refunds is enabled. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :refund_management
             sig {
@@ -542,10 +542,10 @@ module Stripe
         end
         class FinancialAccount < Stripe::RequestParams
           class Features < Stripe::RequestParams
-            # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+            # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
-            # Whether to allow external accounts to be linked for money transfer.
+            # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             # Whether to allow sending money.
@@ -646,7 +646,7 @@ module Stripe
             # Whether to allow cardholder management features.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :cardholder_management
-            # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts.
+            # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
             # Whether to allow spend control management features.
@@ -678,10 +678,10 @@ module Stripe
         end
         class NotificationBanner < Stripe::RequestParams
           class Features < Stripe::RequestParams
-            # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+            # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
-            # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+            # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             sig {
@@ -710,13 +710,13 @@ module Stripe
             # Whether to allow capturing and cancelling payment intents. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :capture_payments
-            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :destination_on_behalf_of_charge_management
-            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :dispute_management
-            # Whether to allow sending refunds. This is `true` by default.
+            # Whether sending refunds is enabled. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :refund_management
             sig {
@@ -744,13 +744,13 @@ module Stripe
         end
         class PaymentDisputes < Stripe::RequestParams
           class Features < Stripe::RequestParams
-            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :destination_on_behalf_of_charge_management
-            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :dispute_management
-            # Whether to allow sending refunds. This is `true` by default.
+            # Whether sending refunds is enabled. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :refund_management
             sig {
@@ -780,13 +780,13 @@ module Stripe
             # Whether to allow capturing and cancelling payment intents. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :capture_payments
-            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :destination_on_behalf_of_charge_management
-            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :dispute_management
-            # Whether to allow sending refunds. This is `true` by default.
+            # Whether sending refunds is enabled. This is `true` by default.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :refund_management
             sig {
@@ -814,19 +814,19 @@ module Stripe
         end
         class Payouts < Stripe::RequestParams
           class Features < Stripe::RequestParams
-            # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+            # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
-            # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+            # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :edit_payout_schedule
-            # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+            # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
-            # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+            # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :instant_payouts
-            # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+            # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :standard_payouts
             sig {
@@ -898,73 +898,73 @@ module Stripe
            }
           def initialize(enabled: nil, features: nil); end
         end
-        # Configuration for the account management embedded component.
+        # Configuration for the [account management](/connect/supported-embedded-components/account-management/) embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement))
          }
         attr_accessor :account_management
-        # Configuration for the account onboarding embedded component.
+        # Configuration for the [account onboarding](/connect/supported-embedded-components/account-onboarding/) embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding))
          }
         attr_accessor :account_onboarding
-        # Configuration for the balances embedded component.
+        # Configuration for the [balances](/connect/supported-embedded-components/balances/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances)) }
         attr_accessor :balances
-        # Configuration for the disputes list embedded component.
+        # Configuration for the [disputes list](/connect/supported-embedded-components/disputes-list/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList)) }
         attr_accessor :disputes_list
-        # Configuration for the documents embedded component.
+        # Configuration for the [documents](/connect/supported-embedded-components/documents/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents)) }
         attr_accessor :documents
-        # Configuration for the financial account embedded component.
+        # Configuration for the [financial account](/connect/supported-embedded-components/financial-account/) embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount))
          }
         attr_accessor :financial_account
-        # Configuration for the financial account transactions embedded component.
+        # Configuration for the [financial account transactions](/connect/supported-embedded-components/financial-account-transactions/) embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions))
          }
         attr_accessor :financial_account_transactions
-        # Configuration for the issuing card embedded component.
+        # Configuration for the [issuing card](/connect/supported-embedded-components/issuing-card/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard)) }
         attr_accessor :issuing_card
-        # Configuration for the issuing cards list embedded component.
+        # Configuration for the [issuing cards list](/connect/supported-embedded-components/issuing-cards-list/) embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList))
          }
         attr_accessor :issuing_cards_list
-        # Configuration for the notification banner embedded component.
+        # Configuration for the [notification banner](/connect/supported-embedded-components/notification-banner/) embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner))
          }
         attr_accessor :notification_banner
-        # Configuration for the payment details embedded component.
+        # Configuration for the [payment details](/connect/supported-embedded-components/payment-details/) embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails))
          }
         attr_accessor :payment_details
-        # Configuration for the payment disputes embedded component.
+        # Configuration for the [payment disputes](/connect/supported-embedded-components/payment-disputes/) embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDisputes))
          }
         attr_accessor :payment_disputes
-        # Configuration for the payments embedded component.
+        # Configuration for the [payments](/connect/supported-embedded-components/payments/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments)) }
         attr_accessor :payments
-        # Configuration for the payouts embedded component.
+        # Configuration for the [payouts](/connect/supported-embedded-components/payouts/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts)) }
         attr_accessor :payouts
-        # Configuration for the payouts list embedded component.
+        # Configuration for the [payouts list](/connect/supported-embedded-components/payouts-list/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList)) }
         attr_accessor :payouts_list
-        # Configuration for the tax registrations embedded component.
+        # Configuration for the [tax registrations](/connect/supported-embedded-components/tax-registrations/) embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations))
          }
         attr_accessor :tax_registrations
-        # Configuration for the tax settings embedded component.
+        # Configuration for the [tax settings](/connect/supported-embedded-components/tax-settings/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings)) }
         attr_accessor :tax_settings
         sig {

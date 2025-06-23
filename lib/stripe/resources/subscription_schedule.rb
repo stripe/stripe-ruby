@@ -15,6 +15,13 @@ module Stripe
       "subscription_schedule"
     end
 
+    class BillingMode < Stripe::StripeObject
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_reader :type
+      # Details on when the current billing_mode was adopted.
+      attr_reader :updated_at
+    end
+
     class CurrentPhase < Stripe::StripeObject
       # The end of this phase of the subscription schedule.
       attr_reader :end_date
@@ -351,6 +358,15 @@ module Stripe
     end
 
     class CreateParams < Stripe::RequestParams
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
+        end
+      end
+
       class DefaultSettings < Stripe::RequestParams
         class AutomaticTax < Stripe::RequestParams
           class Liability < Stripe::RequestParams
@@ -813,6 +829,8 @@ module Stripe
           @trial_end = trial_end
         end
       end
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_accessor :billing_mode
       # The identifier of the customer to create the subscription schedule for.
       attr_accessor :customer
       # Object representing the subscription schedule's default settings.
@@ -831,6 +849,7 @@ module Stripe
       attr_accessor :start_date
 
       def initialize(
+        billing_mode: nil,
         customer: nil,
         default_settings: nil,
         end_behavior: nil,
@@ -840,6 +859,7 @@ module Stripe
         phases: nil,
         start_date: nil
       )
+        @billing_mode = billing_mode
         @customer = customer
         @default_settings = default_settings
         @end_behavior = end_behavior
@@ -1376,6 +1396,8 @@ module Stripe
     end
     # ID of the Connect Application that created the schedule.
     attr_reader :application
+    # The billing mode of the subscription.
+    attr_reader :billing_mode
     # Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
     attr_reader :canceled_at
     # Time at which the subscription schedule was completed. Measured in seconds since the Unix epoch.

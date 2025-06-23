@@ -185,6 +185,7 @@ module Stripe
       end
 
       class Cashapp < Stripe::RequestParams; end
+      class Crypto < Stripe::RequestParams; end
       class CustomerBalance < Stripe::RequestParams; end
 
       class Eps < Stripe::RequestParams
@@ -405,6 +406,8 @@ module Stripe
       attr_accessor :card
       # If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
       attr_accessor :cashapp
+      # If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+      attr_accessor :crypto
       # The `Customer` to whom the original PaymentMethod is attached.
       attr_accessor :customer
       # If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
@@ -503,6 +506,7 @@ module Stripe
         boleto: nil,
         card: nil,
         cashapp: nil,
+        crypto: nil,
         customer: nil,
         customer_balance: nil,
         eps: nil,
@@ -560,6 +564,7 @@ module Stripe
         @boleto = boleto
         @card = card
         @cashapp = cashapp
+        @crypto = crypto
         @customer = customer
         @customer_balance = customer_balance
         @eps = eps

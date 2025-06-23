@@ -230,7 +230,7 @@ module Stripe
           attr_accessor :ownership_exemption_reason
           # The company's phone number (used for verification).
           attr_accessor :phone
-          # Attribute for param field registration_date
+          # When the business was incorporated or registered.
           attr_accessor :registration_date
           # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
           attr_accessor :registration_number

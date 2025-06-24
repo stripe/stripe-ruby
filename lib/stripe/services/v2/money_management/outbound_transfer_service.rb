@@ -135,6 +135,7 @@ module Stripe
         # Creates an OutboundTransfer.
         #
         # ** raises InsufficientFundsError
+        # ** raises FeatureNotEnabledError
         def create(params = {}, opts = {})
           request(
             method: :post,

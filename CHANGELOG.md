@@ -1,5 +1,8 @@
 # Changelog
 
+## 15.3.0-beta.2 - 2025-06-26
+* [#1623](https://github.com/stripe/stripe-ruby/pull/1623) Pull in OffSessionPayment changes for the May release
+
 ## 15.3.0-beta.1 - 2025-05-29
 This release changes the pinned API version to `2025-05-28.preview`.
 

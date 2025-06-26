@@ -6,9 +6,6 @@ module Stripe
     module Core
       module Vault
         class GbBankAccountService < StripeService
-          class AcknowledgeConfirmationOfPayeeParams < Stripe::RequestParams; end
-          class ArchiveParams < Stripe::RequestParams; end
-
           class CreateParams < Stripe::RequestParams
             class ConfirmationOfPayee < Stripe::RequestParams
               # The business type to be checked against. Legal entity information will be used if unspecified.
@@ -49,6 +46,10 @@ module Stripe
             end
           end
 
+          class RetrieveParams < Stripe::RequestParams; end
+          class AcknowledgeConfirmationOfPayeeParams < Stripe::RequestParams; end
+          class ArchiveParams < Stripe::RequestParams; end
+
           class InitiateConfirmationOfPayeeParams < Stripe::RequestParams
             # The business type to be checked against. Legal entity information will be used if unspecified.
             attr_accessor :business_type
@@ -60,8 +61,6 @@ module Stripe
               @name = name
             end
           end
-
-          class RetrieveParams < Stripe::RequestParams; end
 
           # Confirm that you have received the result of the Confirmation of Payee request, and that you are okay with
           # proceeding to pay out to this bank account despite the account not matching, partially matching, or the service

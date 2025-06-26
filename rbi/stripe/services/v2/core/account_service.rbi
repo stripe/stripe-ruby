@@ -7,12 +7,17 @@ module Stripe
     module Core
       class AccountService < StripeService
         attr_reader :persons
-        class CloseParams < Stripe::RequestParams
-          # Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
+        class ListParams < Stripe::RequestParams
+          # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
           sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :applied_configurations
-          sig { params(applied_configurations: T.nilable(T::Array[String])).void }
-          def initialize(applied_configurations: nil); end
+          # The upper limit on the number of accounts returned by the List Account request.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :limit
+          sig {
+            params(applied_configurations: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void
+           }
+          def initialize(applied_configurations: nil, limit: nil); end
         end
         class CreateParams < Stripe::RequestParams
           class Configuration < Stripe::RequestParams
@@ -1311,6 +1316,16 @@ module Stripe
                    }
                   def initialize(front_back: nil, type: nil); end
                 end
+                class ProofOfAddress < Stripe::RequestParams
+                  # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                  sig { returns(T::Array[String]) }
+                  attr_accessor :files
+                  # The format of the document. Currently supports `files` only.
+                  sig { returns(String) }
+                  attr_accessor :type
+                  sig { params(files: T::Array[String], type: String).void }
+                  def initialize(files: nil, type: nil); end
+                end
                 class ProofOfRegistration < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
@@ -1366,6 +1381,11 @@ module Stripe
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification))
                  }
                 attr_accessor :primary_verification
+                # One or more documents that demonstrate proof of address.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
+                 }
+                attr_accessor :proof_of_address
                 # One or more documents showing the company’s proof of registration with the national business registry.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
@@ -1377,7 +1397,7 @@ module Stripe
                  }
                 attr_accessor :proof_of_ultimate_beneficial_ownership
                 sig {
-                  params(bank_account_ownership_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification), primary_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification), proof_of_registration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
+                  params(bank_account_ownership_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification), primary_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification), proof_of_address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfAddress), proof_of_registration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
                  }
                 def initialize(
                   bank_account_ownership_verification: nil,
@@ -1387,6 +1407,7 @@ module Stripe
                   company_registration_verification: nil,
                   company_tax_id_verification: nil,
                   primary_verification: nil,
+                  proof_of_address: nil,
                   proof_of_registration: nil,
                   proof_of_ultimate_beneficial_ownership: nil
                 ); end
@@ -2146,18 +2167,6 @@ module Stripe
             include: nil,
             metadata: nil
           ); end
-        end
-        class ListParams < Stripe::RequestParams
-          # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
-          sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :applied_configurations
-          # The upper limit on the number of accounts returned by the List Account request.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
-          sig {
-            params(applied_configurations: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void
-           }
-          def initialize(applied_configurations: nil, limit: nil); end
         end
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.
@@ -3481,6 +3490,16 @@ module Stripe
                    }
                   def initialize(front_back: nil, type: nil); end
                 end
+                class ProofOfAddress < Stripe::RequestParams
+                  # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                  sig { returns(T::Array[String]) }
+                  attr_accessor :files
+                  # The format of the document. Currently supports `files` only.
+                  sig { returns(String) }
+                  attr_accessor :type
+                  sig { params(files: T::Array[String], type: String).void }
+                  def initialize(files: nil, type: nil); end
+                end
                 class ProofOfRegistration < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
@@ -3536,6 +3555,11 @@ module Stripe
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification)))
                  }
                 attr_accessor :primary_verification
+                # One or more documents that demonstrate proof of address.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
+                 }
+                attr_accessor :proof_of_address
                 # One or more documents showing the company’s proof of registration with the national business registry.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration)))
@@ -3547,7 +3571,7 @@ module Stripe
                  }
                 attr_accessor :proof_of_ultimate_beneficial_ownership
                 sig {
-                  params(bank_account_ownership_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification)), company_license: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyLicense)), company_memorandum_of_association: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation)), company_ministerial_decree: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree)), company_registration_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification)), company_tax_id_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification)), primary_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification)), proof_of_registration: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration)), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
+                  params(bank_account_ownership_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification)), company_license: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyLicense)), company_memorandum_of_association: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation)), company_ministerial_decree: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree)), company_registration_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification)), company_tax_id_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification)), primary_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification)), proof_of_address: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfAddress), proof_of_registration: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration)), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
                  }
                 def initialize(
                   bank_account_ownership_verification: nil,
@@ -3557,6 +3581,7 @@ module Stripe
                   company_registration_verification: nil,
                   company_tax_id_verification: nil,
                   primary_verification: nil,
+                  proof_of_address: nil,
                   proof_of_registration: nil,
                   proof_of_ultimate_beneficial_ownership: nil
                 ); end
@@ -4324,6 +4349,13 @@ module Stripe
             include: nil,
             metadata: nil
           ); end
+        end
+        class CloseParams < Stripe::RequestParams
+          # Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :applied_configurations
+          sig { params(applied_configurations: T.nilable(T::Array[String])).void }
+          def initialize(applied_configurations: nil); end
         end
         # Removes access to the Account and its associated resources.
         sig {

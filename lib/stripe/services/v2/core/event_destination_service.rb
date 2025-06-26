@@ -5,6 +5,18 @@ module Stripe
   module V2
     module Core
       class EventDestinationService < StripeService
+        class ListParams < Stripe::RequestParams
+          # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
+          attr_accessor :include
+          # The page size.
+          attr_accessor :limit
+
+          def initialize(include: nil, limit: nil)
+            @include = include
+            @limit = limit
+          end
+        end
+
         class CreateParams < Stripe::RequestParams
           class AmazonEventbridge < Stripe::RequestParams
             # The AWS account ID.
@@ -77,22 +89,6 @@ module Stripe
         end
 
         class DeleteParams < Stripe::RequestParams; end
-        class DisableParams < Stripe::RequestParams; end
-        class EnableParams < Stripe::RequestParams; end
-
-        class ListParams < Stripe::RequestParams
-          # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
-          attr_accessor :include
-          # The page size.
-          attr_accessor :limit
-
-          def initialize(include: nil, limit: nil)
-            @include = include
-            @limit = limit
-          end
-        end
-
-        class PingParams < Stripe::RequestParams; end
 
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.
@@ -141,6 +137,10 @@ module Stripe
             @webhook_endpoint = webhook_endpoint
           end
         end
+
+        class DisableParams < Stripe::RequestParams; end
+        class EnableParams < Stripe::RequestParams; end
+        class PingParams < Stripe::RequestParams; end
 
         # Create a new event destination.
         def create(params = {}, opts = {})

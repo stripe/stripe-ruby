@@ -1236,6 +1236,13 @@ module Stripe
                 attr_reader :type
               end
 
+              class ProofOfAddress < Stripe::StripeObject
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_reader :files
+                # The format of the document. Currently supports `files` only.
+                attr_reader :type
+              end
+
               class ProofOfRegistration < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
@@ -1263,6 +1270,8 @@ module Stripe
               attr_reader :company_tax_id_verification
               # A document verifying the business.
               attr_reader :primary_verification
+              # One or more documents that demonstrate proof of address.
+              attr_reader :proof_of_address
               # One or more documents showing the company’s proof of registration with the national business registry.
               attr_reader :proof_of_registration
               # One or more documents that demonstrate proof of ultimate beneficial ownership.

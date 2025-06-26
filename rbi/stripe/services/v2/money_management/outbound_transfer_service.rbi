@@ -6,7 +6,46 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundTransferService < StripeService
-        class CancelParams < Stripe::RequestParams; end
+        class ListParams < Stripe::RequestParams
+          # Filter for objects created at the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created
+          # Filter for objects created after the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created_gt
+          # Filter for objects created on or after the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created_gte
+          # Filter for objects created before the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created_lt
+          # Filter for objects created on or before the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created_lte
+          # The maximum number of results to return.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :limit
+          # Closed Enum. Only return OutboundTransfers with this status.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :status
+          sig {
+            params(created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer), status: T.nilable(T::Array[String])).void
+           }
+          def initialize(
+            created: nil,
+            created_gt: nil,
+            created_gte: nil,
+            created_lt: nil,
+            created_lte: nil,
+            limit: nil,
+            status: nil
+          ); end
+        end
         class CreateParams < Stripe::RequestParams
           class DeliveryOptions < Stripe::RequestParams
             # Open Enum. Method for bank account.
@@ -75,47 +114,8 @@ module Stripe
             to: nil
           ); end
         end
-        class ListParams < Stripe::RequestParams
-          # Filter for objects created at the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created
-          # Filter for objects created after the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created_gt
-          # Filter for objects created on or after the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created_gte
-          # Filter for objects created before the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created_lt
-          # Filter for objects created on or before the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created_lte
-          # The maximum number of results to return.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
-          # Closed Enum. Only return OutboundTransfers with this status.
-          sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :status
-          sig {
-            params(created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer), status: T.nilable(T::Array[String])).void
-           }
-          def initialize(
-            created: nil,
-            created_gt: nil,
-            created_gte: nil,
-            created_lt: nil,
-            created_lte: nil,
-            limit: nil,
-            status: nil
-          ); end
-        end
         class RetrieveParams < Stripe::RequestParams; end
+        class CancelParams < Stripe::RequestParams; end
         # Cancels an OutboundTransfer. Only processing OutboundTransfers can be canceled.
         #
         # ** raises AlreadyCanceledError
@@ -128,6 +128,7 @@ module Stripe
         # Creates an OutboundTransfer.
         #
         # ** raises InsufficientFundsError
+        # ** raises FeatureNotEnabledError
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundTransfer)
          }

@@ -5,7 +5,14 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundSetupIntentService < StripeService
-        class CancelParams < Stripe::RequestParams; end
+        class ListParams < Stripe::RequestParams
+          # The page size.
+          attr_accessor :limit
+
+          def initialize(limit: nil)
+            @limit = limit
+          end
+        end
 
         class CreateParams < Stripe::RequestParams
           class PayoutMethodData < Stripe::RequestParams
@@ -84,15 +91,6 @@ module Stripe
           end
         end
 
-        class ListParams < Stripe::RequestParams
-          # The page size.
-          attr_accessor :limit
-
-          def initialize(limit: nil)
-            @limit = limit
-          end
-        end
-
         class RetrieveParams < Stripe::RequestParams; end
 
         class UpdateParams < Stripe::RequestParams
@@ -166,6 +164,8 @@ module Stripe
             @payout_method_data = payout_method_data
           end
         end
+
+        class CancelParams < Stripe::RequestParams; end
 
         # Cancel an OutboundSetupIntent object.
         def cancel(id, params = {}, opts = {})

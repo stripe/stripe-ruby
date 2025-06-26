@@ -6,7 +6,13 @@ module Stripe
   module V2
     module Payments
       class OffSessionPaymentService < StripeService
-        class CancelParams < Stripe::RequestParams; end
+        class ListParams < Stripe::RequestParams
+          # The page size limit, if not provided the default is 20.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :limit
+          sig { params(limit: T.nilable(Integer)).void }
+          def initialize(limit: nil); end
+        end
         class CreateParams < Stripe::RequestParams
           class RetryDetails < Stripe::RequestParams
             # How you want Stripe to retry the payment.
@@ -17,12 +23,12 @@ module Stripe
           end
           class TransferData < Stripe::RequestParams
             # Amount in minor units that you want to transfer.
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             attr_accessor :amount
             # ID of the connected account where you want money to go.
             sig { returns(String) }
             attr_accessor :destination
-            sig { params(amount: Integer, destination: String).void }
+            sig { params(amount: T.nilable(Integer), destination: String).void }
             def initialize(amount: nil, destination: nil); end
           end
           # Amount you want to collect.
@@ -79,14 +85,8 @@ module Stripe
             transfer_data: nil
           ); end
         end
-        class ListParams < Stripe::RequestParams
-          # The page size limit, if not provided the default is 20.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
-          sig { params(limit: T.nilable(Integer)).void }
-          def initialize(limit: nil); end
-        end
         class RetrieveParams < Stripe::RequestParams; end
+        class CancelParams < Stripe::RequestParams; end
         # Cancel OSP.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Payments::OffSessionPaymentService::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Payments::OffSessionPayment)

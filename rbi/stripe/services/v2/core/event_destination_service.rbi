@@ -6,6 +6,16 @@ module Stripe
   module V2
     module Core
       class EventDestinationService < StripeService
+        class ListParams < Stripe::RequestParams
+          # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :include
+          # The page size.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :limit
+          sig { params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void }
+          def initialize(include: nil, limit: nil); end
+        end
         class CreateParams < Stripe::RequestParams
           class AmazonEventbridge < Stripe::RequestParams
             # The AWS account ID.
@@ -79,19 +89,6 @@ module Stripe
           ); end
         end
         class DeleteParams < Stripe::RequestParams; end
-        class DisableParams < Stripe::RequestParams; end
-        class EnableParams < Stripe::RequestParams; end
-        class ListParams < Stripe::RequestParams
-          # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
-          sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :include
-          # The page size.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
-          sig { params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void }
-          def initialize(include: nil, limit: nil); end
-        end
-        class PingParams < Stripe::RequestParams; end
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.
           sig { returns(T.nilable(T::Array[String])) }
@@ -139,6 +136,9 @@ module Stripe
             webhook_endpoint: nil
           ); end
         end
+        class DisableParams < Stripe::RequestParams; end
+        class EnableParams < Stripe::RequestParams; end
+        class PingParams < Stripe::RequestParams; end
         # Create a new event destination.
         sig {
           params(params: T.any(::Stripe::V2::Core::EventDestinationService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::EventDestination)

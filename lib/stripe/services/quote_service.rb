@@ -820,6 +820,15 @@ module Stripe
           end
         end
 
+        class BillingMode < Stripe::RequestParams
+          # Attribute for param field type
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
         class Prebilling < Stripe::RequestParams
           # This is used to determine the number of billing cycles to prebill.
           attr_accessor :iterations

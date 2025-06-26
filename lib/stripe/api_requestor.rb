@@ -854,6 +854,8 @@ module Stripe
         TemporarySessionExpiredError.new(error_data[:message], **opts)
       when "financial_account_not_open"
         FinancialAccountNotOpenError.new(error_data[:message], **opts)
+      when "feature_not_enabled"
+        FeatureNotEnabledError.new(error_data[:message], **opts)
       when "blocked_by_stripe"
         BlockedByStripeError.new(error_data[:message], **opts)
       when "already_canceled"
@@ -866,8 +868,6 @@ module Stripe
         QuotaExceededError.new(error_data[:message], **opts)
       when "recipient_not_notifiable"
         RecipientNotNotifiableError.new(error_data[:message], **opts)
-      when "feature_not_enabled"
-        FeatureNotEnabledError.new(error_data[:message], **opts)
       when "invalid_payout_method"
         InvalidPayoutMethodError.new(error_data[:message], **opts)
       when "controlled_by_dashboard"

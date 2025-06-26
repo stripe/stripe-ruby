@@ -4,10 +4,10 @@
 # typed: true
 module Stripe
   class V2Services < StripeService
+    attr_reader :billing
     attr_reader :core
     attr_reader :money_management
-    attr_reader :billing
-    attr_reader :test_helpers
     attr_reader :payments
+    attr_reader :test_helpers
   end
 end

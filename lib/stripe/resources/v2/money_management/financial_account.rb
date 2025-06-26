@@ -14,7 +14,7 @@ module Stripe
         class Balance < Stripe::StripeObject
           # Balance that can be used for money movement.
           attr_reader :available
-          # Balance of inbound funds that will later transition to the `cash` balance.
+          # Balance of inbound funds that will later transition to the `available` balance.
           attr_reader :inbound_pending
           # Balance of funds that are being used for a pending outbound money movement.
           attr_reader :outbound_pending
@@ -35,10 +35,10 @@ module Stripe
         attr_reader :country
         # Time at which the object was created.
         attr_reader :created
-        # Attribute for field description
-        attr_reader :description
         # Unique identifier for the object.
         attr_reader :id
+        # Metadata associated with the FinancialAccount
+        attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.

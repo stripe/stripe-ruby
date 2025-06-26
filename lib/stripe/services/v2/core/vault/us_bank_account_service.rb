@@ -6,8 +6,6 @@ module Stripe
     module Core
       module Vault
         class UsBankAccountService < StripeService
-          class ArchiveParams < Stripe::RequestParams; end
-
           class CreateParams < Stripe::RequestParams
             # The account number of the bank account.
             attr_accessor :account_number
@@ -44,6 +42,8 @@ module Stripe
               @routing_number = routing_number
             end
           end
+
+          class ArchiveParams < Stripe::RequestParams; end
 
           # Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
           # Archived USBankAccount objects cannot be used as outbound destinations

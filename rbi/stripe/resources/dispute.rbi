@@ -245,6 +245,9 @@ module Stripe
       # The number of times evidence has been submitted. Typically, you may only submit evidence once.
       sig { returns(Integer) }
       attr_reader :submission_count
+      # Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
+      sig { returns(String) }
+      attr_reader :submission_method
     end
     class PaymentMethodDetails < Stripe::StripeObject
       class AmazonPay < Stripe::StripeObject

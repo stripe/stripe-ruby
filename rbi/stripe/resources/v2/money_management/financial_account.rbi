@@ -11,7 +11,7 @@ module Stripe
           # Balance that can be used for money movement.
           sig { returns(T::Hash[String, Stripe::V2::Amount]) }
           attr_reader :available
-          # Balance of inbound funds that will later transition to the `cash` balance.
+          # Balance of inbound funds that will later transition to the `available` balance.
           sig { returns(T::Hash[String, Stripe::V2::Amount]) }
           attr_reader :inbound_pending
           # Balance of funds that are being used for a pending outbound money movement.
@@ -37,12 +37,12 @@ module Stripe
         # Time at which the object was created.
         sig { returns(String) }
         attr_reader :created
-        # Attribute for field description
-        sig { returns(T.nilable(String)) }
-        attr_reader :description
         # Unique identifier for the object.
         sig { returns(String) }
         attr_reader :id
+        # Metadata associated with the FinancialAccount
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         attr_reader :object

@@ -6,6 +6,15 @@ module Stripe
     module Core
       module Accounts
         class PersonService < StripeService
+          class ListParams < Stripe::RequestParams
+            # The upper limit on the number of accounts returned by the List Account request.
+            attr_accessor :limit
+
+            def initialize(limit: nil)
+              @limit = limit
+            end
+          end
+
           class CreateParams < Stripe::RequestParams
             class AdditionalAddress < Stripe::RequestParams
               # City, district, suburb, town, or village.
@@ -490,16 +499,6 @@ module Stripe
           end
 
           class DeleteParams < Stripe::RequestParams; end
-
-          class ListParams < Stripe::RequestParams
-            # The upper limit on the number of accounts returned by the List Account request.
-            attr_accessor :limit
-
-            def initialize(limit: nil)
-              @limit = limit
-            end
-          end
-
           class RetrieveParams < Stripe::RequestParams; end
 
           class UpdateParams < Stripe::RequestParams

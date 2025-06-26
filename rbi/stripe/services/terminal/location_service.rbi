@@ -52,7 +52,7 @@ module Stripe
         sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :configuration_overrides
         # A name for the location.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :display_name
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
@@ -61,7 +61,7 @@ module Stripe
         sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
         attr_accessor :metadata
         sig {
-          params(address: T.nilable(::Stripe::Terminal::LocationService::UpdateParams::Address), configuration_overrides: T.nilable(T.nilable(String)), display_name: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+          params(address: T.nilable(::Stripe::Terminal::LocationService::UpdateParams::Address), configuration_overrides: T.nilable(T.nilable(String)), display_name: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
          }
         def initialize(
           address: nil,

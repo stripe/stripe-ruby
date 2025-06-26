@@ -201,6 +201,14 @@ module Stripe
       attr_reader :finalized_at
     end
     class SubscriptionData < Stripe::StripeObject
+      class BillingMode < Stripe::StripeObject
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        sig { returns(String) }
+        attr_reader :type
+      end
+      # The billing mode of the quote.
+      sig { returns(BillingMode) }
+      attr_reader :billing_mode
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       sig { returns(T.nilable(String)) }
       attr_reader :description
@@ -570,10 +578,20 @@ module Stripe
         ); end
       end
       class SubscriptionData < Stripe::RequestParams
+        class BillingMode < Stripe::RequestParams
+          # Attribute for param field type
+          sig { returns(String) }
+          attr_accessor :type
+          sig { params(type: String).void }
+          def initialize(type: nil); end
+        end
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        sig { returns(T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode)) }
+        attr_accessor :billing_mode
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         sig { returns(T.nilable(String)) }
         attr_accessor :description
-        # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
+        # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
         sig { returns(T.nilable(T.nilable(T.any(String, T.any(String, Integer))))) }
         attr_accessor :effective_date
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
@@ -583,9 +601,10 @@ module Stripe
         sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :trial_period_days
         sig {
-          params(description: T.nilable(String), effective_date: T.nilable(T.nilable(T.any(String, T.any(String, Integer)))), metadata: T.nilable(T::Hash[String, String]), trial_period_days: T.nilable(T.nilable(T.any(String, Integer)))).void
+          params(billing_mode: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode), description: T.nilable(String), effective_date: T.nilable(T.nilable(T.any(String, T.any(String, Integer)))), metadata: T.nilable(T::Hash[String, String]), trial_period_days: T.nilable(T.nilable(T.any(String, Integer)))).void
          }
         def initialize(
+          billing_mode: nil,
           description: nil,
           effective_date: nil,
           metadata: nil,
@@ -850,7 +869,7 @@ module Stripe
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :description
-        # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
+        # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
         sig { returns(T.nilable(T.nilable(T.any(String, T.any(String, Integer))))) }
         attr_accessor :effective_date
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.

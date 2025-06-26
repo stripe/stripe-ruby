@@ -122,6 +122,15 @@ module Stripe
     end
 
     class CreateParams < Stripe::RequestParams
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
+        end
+      end
+
       class DefaultSettings < Stripe::RequestParams
         class AutomaticTax < Stripe::RequestParams
           class Liability < Stripe::RequestParams
@@ -584,6 +593,8 @@ module Stripe
           @trial_end = trial_end
         end
       end
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_accessor :billing_mode
       # The identifier of the customer to create the subscription schedule for.
       attr_accessor :customer
       # Object representing the subscription schedule's default settings.
@@ -602,6 +613,7 @@ module Stripe
       attr_accessor :start_date
 
       def initialize(
+        billing_mode: nil,
         customer: nil,
         default_settings: nil,
         end_behavior: nil,
@@ -611,6 +623,7 @@ module Stripe
         phases: nil,
         start_date: nil
       )
+        @billing_mode = billing_mode
         @customer = customer
         @default_settings = default_settings
         @end_behavior = end_behavior

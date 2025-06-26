@@ -112,15 +112,51 @@ module Stripe
           attr_reader :metadata
         end
 
+        class CollectPaymentMethod < Stripe::StripeObject
+          class CollectConfig < Stripe::StripeObject
+            class Tipping < Stripe::StripeObject
+              # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+              attr_reader :amount_eligible
+            end
+            # Enable customer-initiated cancellation when processing this payment.
+            attr_reader :enable_customer_cancellation
+            # Override showing a tipping selection screen on this transaction.
+            attr_reader :skip_tipping
+            # Represents a per-transaction tipping configuration
+            attr_reader :tipping
+          end
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :collect_config
+          # Most recent PaymentIntent processed by the reader.
+          attr_reader :payment_intent
+          # PaymentMethod objects represent your customer's payment instruments.
+          # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+          # Customer objects to store instrument details for future payments.
+          #
+          # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+          attr_reader :payment_method
+        end
+
+        class ConfirmPaymentIntent < Stripe::StripeObject
+          class ConfirmConfig < Stripe::StripeObject
+            # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
+            attr_reader :return_url
+          end
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :confirm_config
+          # Most recent PaymentIntent processed by the reader.
+          attr_reader :payment_intent
+        end
+
         class ProcessPaymentIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
             class Tipping < Stripe::StripeObject
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
             end
-            # Enable customer initiated cancellation when processing this payment.
+            # Enable customer-initiated cancellation when processing this payment.
             attr_reader :enable_customer_cancellation
-            # If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+            # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
             attr_reader :return_url
             # Override showing a tipping selection screen on this transaction.
             attr_reader :skip_tipping
@@ -135,7 +171,7 @@ module Stripe
 
         class ProcessSetupIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
-            # Enable customer initiated cancellation when processing this SetupIntent.
+            # Enable customer-initiated cancellation when processing this SetupIntent.
             attr_reader :enable_customer_cancellation
           end
           # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
@@ -148,7 +184,7 @@ module Stripe
 
         class RefundPayment < Stripe::StripeObject
           class RefundPaymentConfig < Stripe::StripeObject
-            # Enable customer initiated cancellation when refunding this payment.
+            # Enable customer-initiated cancellation when refunding this payment.
             attr_reader :enable_customer_cancellation
           end
           # The amount being refunded.
@@ -197,6 +233,10 @@ module Stripe
         end
         # Represents a reader action to collect customer inputs
         attr_reader :collect_inputs
+        # Represents a reader action to collect a payment method
+        attr_reader :collect_payment_method
+        # Represents a reader action to confirm a payment
+        attr_reader :confirm_payment_intent
         # Failure code, only set if status is `failed`.
         attr_reader :failure_code
         # Detailed failure message, only set if status is `failed`.
@@ -394,6 +434,74 @@ module Stripe
           @expand = expand
           @inputs = inputs
           @metadata = metadata
+        end
+      end
+
+      class CollectPaymentMethodParams < Stripe::RequestParams
+        class CollectConfig < Stripe::RequestParams
+          class Tipping < Stripe::RequestParams
+            # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+            attr_accessor :amount_eligible
+
+            def initialize(amount_eligible: nil)
+              @amount_eligible = amount_eligible
+            end
+          end
+          # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+          attr_accessor :allow_redisplay
+          # Enables cancel button on transaction screens.
+          attr_accessor :enable_customer_cancellation
+          # Override showing a tipping selection screen on this transaction.
+          attr_accessor :skip_tipping
+          # Tipping configuration for this transaction.
+          attr_accessor :tipping
+
+          def initialize(
+            allow_redisplay: nil,
+            enable_customer_cancellation: nil,
+            skip_tipping: nil,
+            tipping: nil
+          )
+            @allow_redisplay = allow_redisplay
+            @enable_customer_cancellation = enable_customer_cancellation
+            @skip_tipping = skip_tipping
+            @tipping = tipping
+          end
+        end
+        # Configuration overrides.
+        attr_accessor :collect_config
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # PaymentIntent ID.
+        attr_accessor :payment_intent
+
+        def initialize(collect_config: nil, expand: nil, payment_intent: nil)
+          @collect_config = collect_config
+          @expand = expand
+          @payment_intent = payment_intent
+        end
+      end
+
+      class ConfirmPaymentIntentParams < Stripe::RequestParams
+        class ConfirmConfig < Stripe::RequestParams
+          # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+          attr_accessor :return_url
+
+          def initialize(return_url: nil)
+            @return_url = return_url
+          end
+        end
+        # Configuration overrides.
+        attr_accessor :confirm_config
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # PaymentIntent ID.
+        attr_accessor :payment_intent
+
+        def initialize(confirm_config: nil, expand: nil, payment_intent: nil)
+          @confirm_config = confirm_config
+          @expand = expand
+          @payment_intent = payment_intent
         end
       end
 
@@ -691,6 +799,46 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      def collect_payment_method(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      def self.collect_payment_method(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Finalizes a payment on a Reader.
+      def confirm_payment_intent(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Finalizes a payment on a Reader.
+      def self.confirm_payment_intent(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )

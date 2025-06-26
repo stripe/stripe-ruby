@@ -317,6 +317,15 @@ module Stripe
           end
         end
 
+        class CryptoPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class EpsPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -726,6 +735,8 @@ module Stripe
         attr_accessor :cartes_bancaires_payments
         # The cashapp_payments capability.
         attr_accessor :cashapp_payments
+        # The crypto_payments capability.
+        attr_accessor :crypto_payments
         # The eps_payments capability.
         attr_accessor :eps_payments
         # The fpx_payments capability.
@@ -828,6 +839,7 @@ module Stripe
           card_payments: nil,
           cartes_bancaires_payments: nil,
           cashapp_payments: nil,
+          crypto_payments: nil,
           eps_payments: nil,
           fpx_payments: nil,
           gb_bank_transfer_payments: nil,
@@ -887,6 +899,7 @@ module Stripe
           @card_payments = card_payments
           @cartes_bancaires_payments = cartes_bancaires_payments
           @cashapp_payments = cashapp_payments
+          @crypto_payments = crypto_payments
           @eps_payments = eps_payments
           @fpx_payments = fpx_payments
           @gb_bank_transfer_payments = gb_bank_transfer_payments
@@ -1329,6 +1342,15 @@ module Stripe
           end
         end
 
+        class ProofOfAddress < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          attr_accessor :files
+
+          def initialize(files: nil)
+            @files = files
+          end
+        end
+
         class ProofOfRegistration < Stripe::RequestParams
           # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
           attr_accessor :files
@@ -1358,6 +1380,8 @@ module Stripe
         attr_accessor :company_registration_verification
         # One or more documents that demonstrate proof of a company's tax ID.
         attr_accessor :company_tax_id_verification
+        # One or more documents that demonstrate proof of address.
+        attr_accessor :proof_of_address
         # One or more documents showing the company’s proof of registration with the national business registry.
         attr_accessor :proof_of_registration
         # One or more documents that demonstrate proof of ultimate beneficial ownership.
@@ -1370,6 +1394,7 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
+          proof_of_address: nil,
           proof_of_registration: nil,
           proof_of_ultimate_beneficial_ownership: nil
         )
@@ -1379,6 +1404,7 @@ module Stripe
           @company_ministerial_decree = company_ministerial_decree
           @company_registration_verification = company_registration_verification
           @company_tax_id_verification = company_tax_id_verification
+          @proof_of_address = proof_of_address
           @proof_of_registration = proof_of_registration
           @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
         end
@@ -1824,14 +1850,27 @@ module Stripe
             attr_accessor :interval
             # The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
             attr_accessor :monthly_anchor
+            # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
+            attr_accessor :monthly_payout_days
             # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
             attr_accessor :weekly_anchor
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            attr_accessor :weekly_payout_days
 
-            def initialize(delay_days: nil, interval: nil, monthly_anchor: nil, weekly_anchor: nil)
+            def initialize(
+              delay_days: nil,
+              interval: nil,
+              monthly_anchor: nil,
+              monthly_payout_days: nil,
+              weekly_anchor: nil,
+              weekly_payout_days: nil
+            )
               @delay_days = delay_days
               @interval = interval
               @monthly_anchor = monthly_anchor
+              @monthly_payout_days = monthly_payout_days
               @weekly_anchor = weekly_anchor
+              @weekly_payout_days = weekly_payout_days
             end
           end
           # A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](/connect/account-balances).
@@ -2338,6 +2377,15 @@ module Stripe
           end
         end
 
+        class CryptoPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class EpsPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -2747,6 +2795,8 @@ module Stripe
         attr_accessor :cartes_bancaires_payments
         # The cashapp_payments capability.
         attr_accessor :cashapp_payments
+        # The crypto_payments capability.
+        attr_accessor :crypto_payments
         # The eps_payments capability.
         attr_accessor :eps_payments
         # The fpx_payments capability.
@@ -2849,6 +2899,7 @@ module Stripe
           card_payments: nil,
           cartes_bancaires_payments: nil,
           cashapp_payments: nil,
+          crypto_payments: nil,
           eps_payments: nil,
           fpx_payments: nil,
           gb_bank_transfer_payments: nil,
@@ -2908,6 +2959,7 @@ module Stripe
           @card_payments = card_payments
           @cartes_bancaires_payments = cartes_bancaires_payments
           @cashapp_payments = cashapp_payments
+          @crypto_payments = crypto_payments
           @eps_payments = eps_payments
           @fpx_payments = fpx_payments
           @gb_bank_transfer_payments = gb_bank_transfer_payments
@@ -3231,7 +3283,7 @@ module Stripe
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
-        # Attribute for param field registration_date
+        # When the business was incorporated or registered.
         attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         attr_accessor :registration_number
@@ -3394,6 +3446,15 @@ module Stripe
           end
         end
 
+        class ProofOfAddress < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          attr_accessor :files
+
+          def initialize(files: nil)
+            @files = files
+          end
+        end
+
         class ProofOfRegistration < Stripe::RequestParams
           # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
           attr_accessor :files
@@ -3423,6 +3484,8 @@ module Stripe
         attr_accessor :company_registration_verification
         # One or more documents that demonstrate proof of a company's tax ID.
         attr_accessor :company_tax_id_verification
+        # One or more documents that demonstrate proof of address.
+        attr_accessor :proof_of_address
         # One or more documents showing the company’s proof of registration with the national business registry.
         attr_accessor :proof_of_registration
         # One or more documents that demonstrate proof of ultimate beneficial ownership.
@@ -3435,6 +3498,7 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
+          proof_of_address: nil,
           proof_of_registration: nil,
           proof_of_ultimate_beneficial_ownership: nil
         )
@@ -3444,6 +3508,7 @@ module Stripe
           @company_ministerial_decree = company_ministerial_decree
           @company_registration_verification = company_registration_verification
           @company_tax_id_verification = company_tax_id_verification
+          @proof_of_address = proof_of_address
           @proof_of_registration = proof_of_registration
           @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
         end
@@ -3886,14 +3951,27 @@ module Stripe
             attr_accessor :interval
             # The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
             attr_accessor :monthly_anchor
+            # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
+            attr_accessor :monthly_payout_days
             # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
             attr_accessor :weekly_anchor
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            attr_accessor :weekly_payout_days
 
-            def initialize(delay_days: nil, interval: nil, monthly_anchor: nil, weekly_anchor: nil)
+            def initialize(
+              delay_days: nil,
+              interval: nil,
+              monthly_anchor: nil,
+              monthly_payout_days: nil,
+              weekly_anchor: nil,
+              weekly_payout_days: nil
+            )
               @delay_days = delay_days
               @interval = interval
               @monthly_anchor = monthly_anchor
+              @monthly_payout_days = monthly_payout_days
               @weekly_anchor = weekly_anchor
+              @weekly_payout_days = weekly_payout_days
             end
           end
           # A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](/connect/account-balances).

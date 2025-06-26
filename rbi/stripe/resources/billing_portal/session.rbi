@@ -87,7 +87,7 @@ module Stripe
             sig { returns(Integer) }
             attr_reader :quantity
           end
-          # The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+          # The coupon or promotion code to apply to this subscription update.
           sig { returns(T.nilable(T::Array[Discount])) }
           attr_reader :discounts
           # The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
@@ -249,7 +249,7 @@ module Stripe
                }
               def initialize(id: nil, price: nil, quantity: nil); end
             end
-            # The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+            # The coupon or promotion code to apply to this subscription update.
             sig {
               returns(T.nilable(T::Array[::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm::Discount]))
              }

@@ -323,7 +323,7 @@ module Stripe
         sig { params(shipping_rate: T.nilable(String)).void }
         def initialize(shipping_rate: nil); end
       end
-      # The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+      # The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
@@ -341,7 +341,7 @@ module Stripe
       # ID of the invoice.
       sig { returns(String) }
       attr_accessor :invoice
-      # Line items that make up the credit note.
+      # Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       sig { returns(T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Line])) }
       attr_accessor :lines
       # The credit note's memo appears on the credit note PDF.
@@ -362,7 +362,7 @@ module Stripe
       # Refunds to link to this credit note.
       sig { returns(T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Refund])) }
       attr_accessor :refunds
-      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       sig { returns(T.nilable(::Stripe::CreditNote::CreateParams::ShippingCost)) }
       attr_accessor :shipping_cost
       sig {
@@ -476,7 +476,7 @@ module Stripe
         sig { params(shipping_rate: T.nilable(String)).void }
         def initialize(shipping_rate: nil); end
       end
-      # The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+      # The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
@@ -494,7 +494,7 @@ module Stripe
       # ID of the invoice.
       sig { returns(String) }
       attr_accessor :invoice
-      # Line items that make up the credit note.
+      # Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       sig { returns(T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Line])) }
       attr_accessor :lines
       # The credit note's memo appears on the credit note PDF.
@@ -515,7 +515,7 @@ module Stripe
       # Refunds to link to this credit note.
       sig { returns(T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Refund])) }
       attr_accessor :refunds
-      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       sig { returns(T.nilable(::Stripe::CreditNote::PreviewParams::ShippingCost)) }
       attr_accessor :shipping_cost
       sig {
@@ -614,7 +614,7 @@ module Stripe
         sig { params(shipping_rate: T.nilable(String)).void }
         def initialize(shipping_rate: nil); end
       end
-      # The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+      # The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
@@ -638,7 +638,7 @@ module Stripe
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :limit
-      # Line items that make up the credit note.
+      # Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       sig { returns(T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line])) }
       attr_accessor :lines
       # The credit note's memo appears on the credit note PDF.
@@ -659,7 +659,7 @@ module Stripe
       # Refunds to link to this credit note.
       sig { returns(T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Refund])) }
       attr_accessor :refunds
-      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       sig { returns(T.nilable(::Stripe::CreditNote::ListPreviewLineItemsParams::ShippingCost)) }
       attr_accessor :shipping_cost
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.

@@ -123,7 +123,7 @@ module Stripe
                 # For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
                 # One of `month`.
                 attr_accessor :interval
-                # Type of installment plan, one of `fixed_count`.
+                # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                 attr_accessor :type
 
                 def initialize(count: nil, interval: nil, type: nil)
@@ -770,7 +770,7 @@ module Stripe
                 # For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
                 # One of `month`.
                 attr_accessor :interval
-                # Type of installment plan, one of `fixed_count`.
+                # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                 attr_accessor :type
 
                 def initialize(count: nil, interval: nil, type: nil)
@@ -2110,6 +2110,15 @@ module Stripe
       end
 
       class ScheduleDetails < Stripe::RequestParams
+        class BillingMode < Stripe::RequestParams
+          # Attribute for param field type
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
         class Phase < Stripe::RequestParams
           class AddInvoiceItem < Stripe::RequestParams
             class Discount < Stripe::RequestParams
@@ -2463,6 +2472,8 @@ module Stripe
             @trial_end = trial_end
           end
         end
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        attr_accessor :billing_mode
         # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
         attr_accessor :end_behavior
         # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
@@ -2470,7 +2481,8 @@ module Stripe
         # In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
         attr_accessor :proration_behavior
 
-        def initialize(end_behavior: nil, phases: nil, proration_behavior: nil)
+        def initialize(billing_mode: nil, end_behavior: nil, phases: nil, proration_behavior: nil)
+          @billing_mode = billing_mode
           @end_behavior = end_behavior
           @phases = phases
           @proration_behavior = proration_behavior
@@ -2478,6 +2490,15 @@ module Stripe
       end
 
       class SubscriptionDetails < Stripe::RequestParams
+        class BillingMode < Stripe::RequestParams
+          # Attribute for param field type
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
         class Item < Stripe::RequestParams
           class BillingThresholds < Stripe::RequestParams
             # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
@@ -2595,9 +2616,11 @@ module Stripe
         end
         # For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         attr_accessor :billing_cycle_anchor
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        attr_accessor :billing_mode
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
         attr_accessor :cancel_now
@@ -2618,6 +2641,7 @@ module Stripe
 
         def initialize(
           billing_cycle_anchor: nil,
+          billing_mode: nil,
           cancel_at: nil,
           cancel_at_period_end: nil,
           cancel_now: nil,
@@ -2630,6 +2654,7 @@ module Stripe
           trial_end: nil
         )
           @billing_cycle_anchor = billing_cycle_anchor
+          @billing_mode = billing_mode
           @cancel_at = cancel_at
           @cancel_at_period_end = cancel_at_period_end
           @cancel_now = cancel_now

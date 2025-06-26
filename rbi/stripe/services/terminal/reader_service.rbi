@@ -204,6 +204,79 @@ module Stripe
          }
         def initialize(expand: nil, inputs: nil, metadata: nil); end
       end
+      class CollectPaymentMethodParams < Stripe::RequestParams
+        class CollectConfig < Stripe::RequestParams
+          class Tipping < Stripe::RequestParams
+            # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount_eligible
+            sig { params(amount_eligible: T.nilable(Integer)).void }
+            def initialize(amount_eligible: nil); end
+          end
+          # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :allow_redisplay
+          # Enables cancel button on transaction screens.
+          sig { returns(T.nilable(T::Boolean)) }
+          attr_accessor :enable_customer_cancellation
+          # Override showing a tipping selection screen on this transaction.
+          sig { returns(T.nilable(T::Boolean)) }
+          attr_accessor :skip_tipping
+          # Tipping configuration for this transaction.
+          sig {
+            returns(T.nilable(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig::Tipping))
+           }
+          attr_accessor :tipping
+          sig {
+            params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig::Tipping)).void
+           }
+          def initialize(
+            allow_redisplay: nil,
+            enable_customer_cancellation: nil,
+            skip_tipping: nil,
+            tipping: nil
+          ); end
+        end
+        # Configuration overrides.
+        sig {
+          returns(T.nilable(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig))
+         }
+        attr_accessor :collect_config
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :expand
+        # PaymentIntent ID.
+        sig { returns(String) }
+        attr_accessor :payment_intent
+        sig {
+          params(collect_config: T.nilable(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig), expand: T.nilable(T::Array[String]), payment_intent: String).void
+         }
+        def initialize(collect_config: nil, expand: nil, payment_intent: nil); end
+      end
+      class ConfirmPaymentIntentParams < Stripe::RequestParams
+        class ConfirmConfig < Stripe::RequestParams
+          # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :return_url
+          sig { params(return_url: T.nilable(String)).void }
+          def initialize(return_url: nil); end
+        end
+        # Configuration overrides.
+        sig {
+          returns(T.nilable(::Stripe::Terminal::ReaderService::ConfirmPaymentIntentParams::ConfirmConfig))
+         }
+        attr_accessor :confirm_config
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :expand
+        # PaymentIntent ID.
+        sig { returns(String) }
+        attr_accessor :payment_intent
+        sig {
+          params(confirm_config: T.nilable(::Stripe::Terminal::ReaderService::ConfirmPaymentIntentParams::ConfirmConfig), expand: T.nilable(T::Array[String]), payment_intent: String).void
+         }
+        def initialize(confirm_config: nil, expand: nil, payment_intent: nil); end
+      end
       class ProcessPaymentIntentParams < Stripe::RequestParams
         class ProcessConfig < Stripe::RequestParams
           class Tipping < Stripe::RequestParams
@@ -396,6 +469,18 @@ module Stripe
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderService::CollectInputsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
        }
       def collect_inputs(reader, params = {}, opts = {}); end
+
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
+       }
+      def collect_payment_method(reader, params = {}, opts = {}); end
+
+      # Finalizes a payment on a Reader.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderService::ConfirmPaymentIntentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
+       }
+      def confirm_payment_intent(reader, params = {}, opts = {}); end
 
       # Creates a new Reader object.
       sig {

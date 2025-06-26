@@ -108,7 +108,7 @@ module Stripe
                }
               def initialize(id: nil, price: nil, quantity: nil); end
             end
-            # The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+            # The coupon or promotion code to apply to this subscription update.
             sig {
               returns(T.nilable(T::Array[::Stripe::BillingPortal::SessionService::CreateParams::FlowData::SubscriptionUpdateConfirm::Discount]))
              }

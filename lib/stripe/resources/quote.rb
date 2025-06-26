@@ -167,6 +167,12 @@ module Stripe
     end
 
     class SubscriptionData < Stripe::StripeObject
+      class BillingMode < Stripe::StripeObject
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        attr_reader :type
+      end
+      # The billing mode of the quote.
+      attr_reader :billing_mode
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_reader :description
       # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
@@ -412,16 +418,33 @@ module Stripe
       end
 
       class SubscriptionData < Stripe::RequestParams
+        class BillingMode < Stripe::RequestParams
+          # Attribute for param field type
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        attr_accessor :billing_mode
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         attr_accessor :description
-        # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
+        # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
         attr_accessor :effective_date
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         attr_accessor :metadata
         # Integer representing the number of trial period days before the customer is charged for the first time.
         attr_accessor :trial_period_days
 
-        def initialize(description: nil, effective_date: nil, metadata: nil, trial_period_days: nil)
+        def initialize(
+          billing_mode: nil,
+          description: nil,
+          effective_date: nil,
+          metadata: nil,
+          trial_period_days: nil
+        )
+          @billing_mode = billing_mode
           @description = description
           @effective_date = effective_date
           @metadata = metadata
@@ -681,7 +704,7 @@ module Stripe
       class SubscriptionData < Stripe::RequestParams
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         attr_accessor :description
-        # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
+        # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
         attr_accessor :effective_date
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         attr_accessor :metadata

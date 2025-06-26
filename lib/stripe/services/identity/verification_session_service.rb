@@ -103,6 +103,18 @@ module Stripe
             @phone = phone
           end
         end
+
+        class RelatedPerson < Stripe::RequestParams
+          # A token representing a connected account. If provided, the person parameter is also required and must be associated with the account.
+          attr_accessor :account
+          # A token referencing a Person resource that this verification is being used to verify.
+          attr_accessor :person
+
+          def initialize(account: nil, person: nil)
+            @account = account
+            @person = person
+          end
+        end
         # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
         attr_accessor :client_reference_id
         # Specifies which fields in the response should be expanded.
@@ -115,6 +127,8 @@ module Stripe
         attr_accessor :provided_details
         # Customer ID
         attr_accessor :related_customer
+        # Tokens referencing a Person resource and it's associated account.
+        attr_accessor :related_person
         # The URL that the user will be redirected to upon completing the verification flow.
         attr_accessor :return_url
         # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
@@ -129,6 +143,7 @@ module Stripe
           options: nil,
           provided_details: nil,
           related_customer: nil,
+          related_person: nil,
           return_url: nil,
           type: nil,
           verification_flow: nil
@@ -139,6 +154,7 @@ module Stripe
           @options = options
           @provided_details = provided_details
           @related_customer = related_customer
+          @related_person = related_person
           @return_url = return_url
           @type = type
           @verification_flow = verification_flow

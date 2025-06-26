@@ -1161,6 +1161,43 @@ module Stripe
           end
 
           class Klarna < Stripe::RequestParams
+            class Subscription < Stripe::RequestParams
+              class NextBilling < Stripe::RequestParams
+                # The amount of the next charge for the subscription.
+                attr_accessor :amount
+                # The date of the next charge for the subscription in YYYY-MM-DD format.
+                attr_accessor :date
+
+                def initialize(amount: nil, date: nil)
+                  @amount = amount
+                  @date = date
+                end
+              end
+              # Unit of time between subscription charges.
+              attr_accessor :interval
+              # The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+              attr_accessor :interval_count
+              # Name for subscription.
+              attr_accessor :name
+              # Describes the upcoming charge for this subscription.
+              attr_accessor :next_billing
+              # A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+              attr_accessor :reference
+
+              def initialize(
+                interval: nil,
+                interval_count: nil,
+                name: nil,
+                next_billing: nil,
+                reference: nil
+              )
+                @interval = interval
+                @interval_count = interval_count
+                @name = name
+                @next_billing = next_billing
+                @reference = reference
+              end
+            end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1169,9 +1206,12 @@ module Stripe
             #
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
+            # Subscription details if the Checkout Session sets up a future subscription.
+            attr_accessor :subscriptions
 
-            def initialize(setup_future_usage: nil)
+            def initialize(setup_future_usage: nil, subscriptions: nil)
               @setup_future_usage = setup_future_usage
+              @subscriptions = subscriptions
             end
           end
 
@@ -1854,6 +1894,15 @@ module Stripe
         end
 
         class SubscriptionData < Stripe::RequestParams
+          class BillingMode < Stripe::RequestParams
+            # Attribute for param field type
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class InvoiceSettings < Stripe::RequestParams
             class Issuer < Stripe::RequestParams
               # The connected account being referenced when `type` is `account`.
@@ -1906,6 +1955,8 @@ module Stripe
           attr_accessor :application_fee_percent
           # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
           attr_accessor :billing_cycle_anchor
+          # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+          attr_accessor :billing_mode
           # The tax rates that will apply to any subscription item that does not have
           # `tax_rates` set. Invoices created will have their `default_tax_rates` populated
           # from the subscription.
@@ -1924,12 +1975,9 @@ module Stripe
           attr_accessor :proration_behavior
           # If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
           attr_accessor :transfer_data
-          # Unix timestamp representing the end of the trial period the customer
-          # will get before being charged for the first time. Has to be at least
-          # 48 hours in the future.
+          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
           attr_accessor :trial_end
-          # Integer representing the number of trial period days before the
-          # customer is charged for the first time. Has to be at least 1.
+          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
           attr_accessor :trial_period_days
           # Settings related to subscription trials.
           attr_accessor :trial_settings
@@ -1937,6 +1985,7 @@ module Stripe
           def initialize(
             application_fee_percent: nil,
             billing_cycle_anchor: nil,
+            billing_mode: nil,
             default_tax_rates: nil,
             description: nil,
             invoice_settings: nil,
@@ -1950,6 +1999,7 @@ module Stripe
           )
             @application_fee_percent = application_fee_percent
             @billing_cycle_anchor = billing_cycle_anchor
+            @billing_mode = billing_mode
             @default_tax_rates = default_tax_rates
             @description = description
             @invoice_settings = invoice_settings
@@ -2053,7 +2103,7 @@ module Stripe
         attr_accessor :expires_at
         # Generate a post-purchase Invoice for one-time payments.
         attr_accessor :invoice_creation
-        # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices). The parameter is required for `payment` and `subscription` mode.
         #
         # For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
         #

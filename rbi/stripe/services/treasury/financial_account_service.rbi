@@ -42,15 +42,19 @@ module Stripe
         # An object ID cursor for use in pagination.
         sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
+        # Only return FinancialAccounts that have the given status: `open` or `closed`
+        sig { returns(T.nilable(String)) }
+        attr_accessor :status
         sig {
-          params(created: T.nilable(T.any(::Stripe::Treasury::FinancialAccountService::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+          params(created: T.nilable(T.any(::Stripe::Treasury::FinancialAccountService::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
          }
         def initialize(
           created: nil,
           ending_before: nil,
           expand: nil,
           limit: nil,
-          starting_after: nil
+          starting_after: nil,
+          status: nil
         ); end
       end
       class CreateParams < Stripe::RequestParams

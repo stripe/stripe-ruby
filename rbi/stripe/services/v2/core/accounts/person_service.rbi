@@ -7,6 +7,13 @@ module Stripe
     module Core
       module Accounts
         class PersonService < StripeService
+          class ListParams < Stripe::RequestParams
+            # The upper limit on the number of accounts returned by the List Account request.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :limit
+            sig { params(limit: T.nilable(Integer)).void }
+            def initialize(limit: nil); end
+          end
           class CreateParams < Stripe::RequestParams
             class AdditionalAddress < Stripe::RequestParams
               # City, district, suburb, town, or village.
@@ -522,13 +529,6 @@ module Stripe
             ); end
           end
           class DeleteParams < Stripe::RequestParams; end
-          class ListParams < Stripe::RequestParams
-            # The upper limit on the number of accounts returned by the List Account request.
-            sig { returns(T.nilable(Integer)) }
-            attr_accessor :limit
-            sig { params(limit: T.nilable(Integer)).void }
-            def initialize(limit: nil); end
-          end
           class RetrieveParams < Stripe::RequestParams; end
           class UpdateParams < Stripe::RequestParams
             class AdditionalAddress < Stripe::RequestParams

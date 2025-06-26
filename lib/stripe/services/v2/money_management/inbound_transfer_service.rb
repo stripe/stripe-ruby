@@ -5,6 +5,42 @@ module Stripe
   module V2
     module MoneyManagement
       class InboundTransferService < StripeService
+        class ListParams < Stripe::RequestParams
+          # Filter for objects created at the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          attr_accessor :created
+          # Filter for objects created after the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          attr_accessor :created_gt
+          # Filter for objects created on or after the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          attr_accessor :created_gte
+          # Filter for objects created before the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          attr_accessor :created_lt
+          # Filter for objects created on or before the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          attr_accessor :created_lte
+          # The page limit.
+          attr_accessor :limit
+
+          def initialize(
+            created: nil,
+            created_gt: nil,
+            created_gte: nil,
+            created_lt: nil,
+            created_lte: nil,
+            limit: nil
+          )
+            @created = created
+            @created_gt = created_gt
+            @created_gte = created_gte
+            @created_lt = created_lt
+            @created_lte = created_lte
+            @limit = limit
+          end
+        end
+
         class CreateParams < Stripe::RequestParams
           class From < Stripe::RequestParams
             # An optional currency field used to specify which currency is debited from the Payment Method.
@@ -44,42 +80,6 @@ module Stripe
             @description = description
             @from = from
             @to = to
-          end
-        end
-
-        class ListParams < Stripe::RequestParams
-          # Filter for objects created at the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          attr_accessor :created
-          # Filter for objects created after the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          attr_accessor :created_gt
-          # Filter for objects created on or after the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          attr_accessor :created_gte
-          # Filter for objects created before the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          attr_accessor :created_lt
-          # Filter for objects created on or before the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          attr_accessor :created_lte
-          # The page limit.
-          attr_accessor :limit
-
-          def initialize(
-            created: nil,
-            created_gt: nil,
-            created_gte: nil,
-            created_lt: nil,
-            created_lte: nil,
-            limit: nil
-          )
-            @created = created
-            @created_gt = created_gt
-            @created_gte = created_gte
-            @created_lt = created_lt
-            @created_lte = created_lte
-            @limit = limit
           end
         end
 

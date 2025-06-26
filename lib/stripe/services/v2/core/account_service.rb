@@ -12,12 +12,15 @@ module Stripe
           @persons = Stripe::V2::Core::Accounts::PersonService.new(@requestor)
         end
 
-        class CloseParams < Stripe::RequestParams
-          # Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
+        class ListParams < Stripe::RequestParams
+          # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
           attr_accessor :applied_configurations
+          # The upper limit on the number of accounts returned by the List Account request.
+          attr_accessor :limit
 
-          def initialize(applied_configurations: nil)
+          def initialize(applied_configurations: nil, limit: nil)
             @applied_configurations = applied_configurations
+            @limit = limit
           end
         end
 
@@ -2045,18 +2048,6 @@ module Stripe
             @identity = identity
             @include = include
             @metadata = metadata
-          end
-        end
-
-        class ListParams < Stripe::RequestParams
-          # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
-          attr_accessor :applied_configurations
-          # The upper limit on the number of accounts returned by the List Account request.
-          attr_accessor :limit
-
-          def initialize(applied_configurations: nil, limit: nil)
-            @applied_configurations = applied_configurations
-            @limit = limit
           end
         end
 
@@ -4107,6 +4098,15 @@ module Stripe
             @identity = identity
             @include = include
             @metadata = metadata
+          end
+        end
+
+        class CloseParams < Stripe::RequestParams
+          # Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
+          attr_accessor :applied_configurations
+
+          def initialize(applied_configurations: nil)
+            @applied_configurations = applied_configurations
           end
         end
 

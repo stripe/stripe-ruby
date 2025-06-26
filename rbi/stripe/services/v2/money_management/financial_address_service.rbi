@@ -6,16 +6,6 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAddressService < StripeService
-        class CreateParams < Stripe::RequestParams
-          # Open Enum. The currency the FinancialAddress should support. Currently, only the `usd` and `gbp` values are supported.
-          sig { returns(String) }
-          attr_accessor :currency
-          # The ID of the FinancialAccount the new FinancialAddress should be associated with.
-          sig { returns(String) }
-          attr_accessor :financial_account
-          sig { params(currency: String, financial_account: String).void }
-          def initialize(currency: nil, financial_account: nil); end
-        end
         class ListParams < Stripe::RequestParams
           # The ID of the FinancialAccount for which FinancialAddresses are to be returned.
           sig { returns(T.nilable(String)) }
@@ -30,6 +20,16 @@ module Stripe
             params(financial_account: T.nilable(String), include: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void
            }
           def initialize(financial_account: nil, include: nil, limit: nil); end
+        end
+        class CreateParams < Stripe::RequestParams
+          # Open Enum. The currency the FinancialAddress should support. Currently, only the `usd` and `gbp` values are supported.
+          sig { returns(String) }
+          attr_accessor :currency
+          # The ID of the FinancialAccount the new FinancialAddress should be associated with.
+          sig { returns(String) }
+          attr_accessor :financial_account
+          sig { params(currency: String, financial_account: String).void }
+          def initialize(currency: nil, financial_account: nil); end
         end
         class RetrieveParams < Stripe::RequestParams
           # Open Enum. A list of fields to reveal in the FinancialAddresses returned.

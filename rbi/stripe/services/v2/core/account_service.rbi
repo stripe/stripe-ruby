@@ -7,12 +7,17 @@ module Stripe
     module Core
       class AccountService < StripeService
         attr_reader :persons
-        class CloseParams < Stripe::RequestParams
-          # Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
+        class ListParams < Stripe::RequestParams
+          # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
           sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :applied_configurations
-          sig { params(applied_configurations: T.nilable(T::Array[String])).void }
-          def initialize(applied_configurations: nil); end
+          # The upper limit on the number of accounts returned by the List Account request.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :limit
+          sig {
+            params(applied_configurations: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void
+           }
+          def initialize(applied_configurations: nil, limit: nil); end
         end
         class CreateParams < Stripe::RequestParams
           class Configuration < Stripe::RequestParams
@@ -2162,18 +2167,6 @@ module Stripe
             include: nil,
             metadata: nil
           ); end
-        end
-        class ListParams < Stripe::RequestParams
-          # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
-          sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :applied_configurations
-          # The upper limit on the number of accounts returned by the List Account request.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
-          sig {
-            params(applied_configurations: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void
-           }
-          def initialize(applied_configurations: nil, limit: nil); end
         end
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.
@@ -4356,6 +4349,13 @@ module Stripe
             include: nil,
             metadata: nil
           ); end
+        end
+        class CloseParams < Stripe::RequestParams
+          # Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :applied_configurations
+          sig { params(applied_configurations: T.nilable(T::Array[String])).void }
+          def initialize(applied_configurations: nil); end
         end
         # Removes access to the Account and its associated resources.
         sig {

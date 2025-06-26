@@ -5,7 +5,14 @@ module Stripe
   module V2
     module Payments
       class OffSessionPaymentService < StripeService
-        class CancelParams < Stripe::RequestParams; end
+        class ListParams < Stripe::RequestParams
+          # The page size limit, if not provided the default is 20.
+          attr_accessor :limit
+
+          def initialize(limit: nil)
+            @limit = limit
+          end
+        end
 
         class CreateParams < Stripe::RequestParams
           class RetryDetails < Stripe::RequestParams
@@ -78,16 +85,8 @@ module Stripe
           end
         end
 
-        class ListParams < Stripe::RequestParams
-          # The page size limit, if not provided the default is 20.
-          attr_accessor :limit
-
-          def initialize(limit: nil)
-            @limit = limit
-          end
-        end
-
         class RetrieveParams < Stripe::RequestParams; end
+        class CancelParams < Stripe::RequestParams; end
 
         # Cancel OSP.
         def cancel(id, params = {}, opts = {})

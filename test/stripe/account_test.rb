@@ -5,7 +5,7 @@ require File.expand_path("../test_helper", __dir__)
 module Stripe
   class AccountTest < Test::Unit::TestCase
     should "be listable" do
-      accounts = Stripe::Account.list
+      accounts = Stripe::V1::Account.list
       assert_requested :get, "#{Stripe.api_base}/v1/accounts"
       assert accounts.data.is_a?(Array)
       assert accounts.data[0].is_a?(Stripe::Account)

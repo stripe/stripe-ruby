@@ -44,6 +44,13 @@ module Stripe
       attr_reader :second
     end
 
+    class BillingMode < Stripe::StripeObject
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_reader :type
+      # Details on when the current billing_mode was adopted.
+      attr_reader :updated_at
+    end
+
     class BillingThresholds < Stripe::StripeObject
       # Monetary threshold that triggers the subscription to create an invoice
       attr_reader :amount_gte
@@ -747,7 +754,7 @@ module Stripe
       attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
       attr_accessor :cancel_at_period_end
       # Details about why this subscription was cancelled
       attr_accessor :cancellation_details
@@ -1102,6 +1109,15 @@ module Stripe
           @minute = minute
           @month = month
           @second = second
+        end
+      end
+
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
         end
       end
 
@@ -1481,19 +1497,21 @@ module Stripe
       attr_accessor :add_invoice_items
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
       attr_accessor :application_fee_percent
-      # Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
+      # Automatic tax settings for this subscription.
       attr_accessor :automatic_tax
-      # For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+      # A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
       attr_accessor :backdate_start_date
       # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
       attr_accessor :billing_cycle_anchor
       # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
       attr_accessor :billing_cycle_anchor_config
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_accessor :billing_mode
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
       attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
       attr_accessor :cancel_at_period_end
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
       attr_accessor :collection_method
@@ -1561,6 +1579,7 @@ module Stripe
         backdate_start_date: nil,
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
+        billing_mode: nil,
         billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
@@ -1595,6 +1614,7 @@ module Stripe
         @backdate_start_date = backdate_start_date
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_cycle_anchor_config = billing_cycle_anchor_config
+        @billing_mode = billing_mode
         @billing_thresholds = billing_thresholds
         @cancel_at = cancel_at
         @cancel_at_period_end = cancel_at_period_end
@@ -1643,6 +1663,26 @@ module Stripe
       end
     end
 
+    class MigrateParams < Stripe::RequestParams
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
+        end
+      end
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_accessor :billing_mode
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(billing_mode: nil, expand: nil)
+        @billing_mode = billing_mode
+        @expand = expand
+      end
+    end
+
     class ResumeParams < Stripe::RequestParams
       # The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_accessor :billing_cycle_anchor
@@ -1675,11 +1715,13 @@ module Stripe
     attr_reader :billing_cycle_anchor
     # The fixed values used to calculate the `billing_cycle_anchor`.
     attr_reader :billing_cycle_anchor_config
+    # The billing mode of the subscription.
+    attr_reader :billing_mode
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
     attr_reader :billing_thresholds
     # A date in the future at which the subscription will automatically get canceled
     attr_reader :cancel_at
-    # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. This field will be removed in a future API version. Please use `cancel_at` instead.
+    # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.
     attr_reader :cancel_at_period_end
     # If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will reflect the time of the most recent update request, not the end of the subscription period when the subscription is automatically moved to a canceled state.
     attr_reader :canceled_at
@@ -1759,7 +1801,7 @@ module Stripe
     attr_reader :trial_end
     # Settings related to subscription trials.
     attr_reader :trial_settings
-    # If the subscription has a trial, the beginning of that trial. For subsequent trials, this date remains as the start of the first ever trial on the subscription.
+    # If the subscription has a trial, the beginning of that trial.
     attr_reader :trial_start
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -1824,6 +1866,26 @@ module Stripe
     # By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/subscriptions", params: params, opts: opts)
+    end
+
+    # Upgrade the billing_mode of an existing subscription.
+    def migrate(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/migrate", { subscription: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Upgrade the billing_mode of an existing subscription.
+    def self.migrate(subscription, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/migrate", { subscription: CGI.escape(subscription) }),
+        params: params,
+        opts: opts
+      )
     end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.

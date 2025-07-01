@@ -23,7 +23,7 @@ module Stripe
             # Controls whether or not the Payment Element shows saved payment methods. This parameter defaults to `disabled`.
             sig { returns(T.nilable(String)) }
             attr_accessor :payment_method_redisplay
-            # Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `3`.
+            # Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `3`. The maximum redisplay limit is `10`.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :payment_method_redisplay_limit
             # Controls whether the Payment Element displays the option to remove a saved payment method. This parameter defaults to `disabled`.

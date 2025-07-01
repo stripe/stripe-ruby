@@ -8100,11 +8100,11 @@ module Stripe
           value: 96,
         },
         from: {
-          currency: "currency",
+          currency: "usd",
           payment_method: "payment_method",
         },
         to: {
-          currency: "currency",
+          currency: "usd",
           financial_account: "financial_account",
         },
       })
@@ -8128,7 +8128,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_expires_at":"1970-01-18T15:15:29.586Z","lock_status":"active","rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"to_currency"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
+        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_expires_at":"1970-01-18T15:15:29.586Z","lock_status":"active","rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"usd"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8139,11 +8139,11 @@ module Stripe
           value: 96,
         },
         from: {
-          currency: "currency",
+          currency: "usd",
           financial_account: "financial_account",
         },
         to: {
-          currency: "currency",
+          currency: "usd",
           payout_method: "payout_method",
           recipient: "recipient",
         },
@@ -8155,7 +8155,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes/id_123"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_expires_at":"1970-01-18T15:15:29.586Z","lock_status":"active","rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"to_currency"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
+        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_expires_at":"1970-01-18T15:15:29.586Z","lock_status":"active","rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"usd"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8192,11 +8192,11 @@ module Stripe
           value: 96,
         },
         from: {
-          currency: "currency",
+          currency: "usd",
           financial_account: "financial_account",
         },
         to: {
-          currency: "currency",
+          currency: "usd",
           payout_method: "payout_method",
           recipient: "recipient",
         },
@@ -8323,11 +8323,11 @@ module Stripe
           value: 96,
         },
         from: {
-          currency: "currency",
+          currency: "usd",
           financial_account: "financial_account",
         },
         to: {
-          currency: "currency",
+          currency: "usd",
           payout_method: "payout_method",
         },
       })
@@ -8734,7 +8734,7 @@ module Stripe
             value: 96,
           },
           from: {
-            currency: "currency",
+            currency: "usd",
             financial_account: "financial_account",
           },
           to: { recipient: "recipient" },
@@ -8773,7 +8773,7 @@ module Stripe
             value: 96,
           },
           from: {
-            currency: "currency",
+            currency: "usd",
             financial_account: "financial_account",
           },
           to: { recipient: "recipient" },

@@ -188,8 +188,6 @@ module Stripe
 
         client = StripeClient.new("test_123")
 
-
-
         opts = {
           api_key: "sk_test_456",
           stripe_version: "2019-12-03",

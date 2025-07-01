@@ -145,7 +145,7 @@ module Stripe
           @shipping_rate = shipping_rate
         end
       end
-      # The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+      # The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       attr_accessor :amount
       # The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
       attr_accessor :credit_amount
@@ -157,7 +157,7 @@ module Stripe
       attr_accessor :expand
       # ID of the invoice.
       attr_accessor :invoice
-      # Line items that make up the credit note.
+      # Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       attr_accessor :lines
       # The credit note's memo appears on the credit note PDF.
       attr_accessor :memo
@@ -171,7 +171,7 @@ module Stripe
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
       attr_accessor :refunds
-      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       attr_accessor :shipping_cost
 
       def initialize(
@@ -309,7 +309,7 @@ module Stripe
           @shipping_rate = shipping_rate
         end
       end
-      # The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+      # The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       attr_accessor :amount
       # The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
       attr_accessor :credit_amount
@@ -321,7 +321,7 @@ module Stripe
       attr_accessor :expand
       # ID of the invoice.
       attr_accessor :invoice
-      # Line items that make up the credit note.
+      # Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       attr_accessor :lines
       # The credit note's memo appears on the credit note PDF.
       attr_accessor :memo
@@ -335,7 +335,7 @@ module Stripe
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
       attr_accessor :refunds
-      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+      # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
       attr_accessor :shipping_cost
 
       def initialize(

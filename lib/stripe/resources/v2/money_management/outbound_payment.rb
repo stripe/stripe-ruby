@@ -106,7 +106,7 @@ module Stripe
         attr_reader :receipt_url
         # Details about the OutboundPayment notification settings for recipient.
         attr_reader :recipient_notification
-        # The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer).
+        # The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer). It will default to `STRIPE` if not set on the account settings.
         attr_reader :statement_descriptor
         # Closed Enum. Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`.
         # An OutboundPayment is `processing` if it has been created and is processing.

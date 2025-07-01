@@ -168,6 +168,9 @@ module Stripe
   class FinancialAccountNotOpenError < StripeError
   end
 
+  class FeatureNotEnabledError < StripeError
+  end
+
   class BlockedByStripeError < StripeError
   end
 
@@ -184,9 +187,6 @@ module Stripe
   end
 
   class RecipientNotNotifiableError < StripeError
-  end
-
-  class FeatureNotEnabledError < StripeError
   end
 
   class InvalidPayoutMethodError < StripeError

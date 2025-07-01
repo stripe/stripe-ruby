@@ -89,7 +89,7 @@ module Stripe
     # The connected account that originates the event.
     sig { returns(String) }
     attr_reader :account
-    # The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.
+    # The Stripe API version used to render `data` when the event was created. The contents of `data` never change, so this value remains static regardless of the API version currently in use. This property is populated only for events created on or after October 31, 2014.
     sig { returns(T.nilable(String)) }
     attr_reader :api_version
     # Authentication context needed to fetch the event or related object.

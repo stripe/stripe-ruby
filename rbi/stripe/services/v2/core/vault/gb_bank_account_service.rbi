@@ -7,8 +7,6 @@ module Stripe
     module Core
       module Vault
         class GbBankAccountService < StripeService
-          class AcknowledgeConfirmationOfPayeeParams < Stripe::RequestParams; end
-          class ArchiveParams < Stripe::RequestParams; end
           class CreateParams < Stripe::RequestParams
             class ConfirmationOfPayee < Stripe::RequestParams
               # The business type to be checked against. Legal entity information will be used if unspecified.
@@ -52,6 +50,9 @@ module Stripe
               sort_code: nil
             ); end
           end
+          class RetrieveParams < Stripe::RequestParams; end
+          class AcknowledgeConfirmationOfPayeeParams < Stripe::RequestParams; end
+          class ArchiveParams < Stripe::RequestParams; end
           class InitiateConfirmationOfPayeeParams < Stripe::RequestParams
             # The business type to be checked against. Legal entity information will be used if unspecified.
             sig { returns(T.nilable(String)) }
@@ -62,7 +63,6 @@ module Stripe
             sig { params(business_type: T.nilable(String), name: T.nilable(String)).void }
             def initialize(business_type: nil, name: nil); end
           end
-          class RetrieveParams < Stripe::RequestParams; end
           # Confirm that you have received the result of the Confirmation of Payee request, and that you are okay with
           # proceeding to pay out to this bank account despite the account not matching, partially matching, or the service
           # being unavailable. Once you confirm this, you will be able to send OutboundPayments, but this may lead to

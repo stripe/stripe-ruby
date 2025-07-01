@@ -6,7 +6,13 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundSetupIntentService < StripeService
-        class CancelParams < Stripe::RequestParams; end
+        class ListParams < Stripe::RequestParams
+          # The page size.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :limit
+          sig { params(limit: T.nilable(Integer)).void }
+          def initialize(limit: nil); end
+        end
         class CreateParams < Stripe::RequestParams
           class PayoutMethodData < Stripe::RequestParams
             class BankAccount < Stripe::RequestParams
@@ -90,13 +96,6 @@ module Stripe
            }
           def initialize(payout_method: nil, payout_method_data: nil, usage_intent: nil); end
         end
-        class ListParams < Stripe::RequestParams
-          # The page size.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
-          sig { params(limit: T.nilable(Integer)).void }
-          def initialize(limit: nil); end
-        end
         class RetrieveParams < Stripe::RequestParams; end
         class UpdateParams < Stripe::RequestParams
           class PayoutMethodData < Stripe::RequestParams
@@ -178,6 +177,7 @@ module Stripe
            }
           def initialize(payout_method: nil, payout_method_data: nil); end
         end
+        class CancelParams < Stripe::RequestParams; end
         # Cancel an OutboundSetupIntent object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundSetupIntentService::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundSetupIntent)

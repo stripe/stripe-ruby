@@ -226,11 +226,11 @@ module Stripe
             @tipping = tipping
           end
         end
-        # Configuration overrides
+        # Configuration overrides.
         attr_accessor :collect_config
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-        # PaymentIntent ID
+        # PaymentIntent ID.
         attr_accessor :payment_intent
 
         def initialize(collect_config: nil, expand: nil, payment_intent: nil)
@@ -249,11 +249,11 @@ module Stripe
             @return_url = return_url
           end
         end
-        # Configuration overrides
+        # Configuration overrides.
         attr_accessor :confirm_config
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-        # PaymentIntent ID
+        # PaymentIntent ID.
         attr_accessor :payment_intent
 
         def initialize(confirm_config: nil, expand: nil, payment_intent: nil)

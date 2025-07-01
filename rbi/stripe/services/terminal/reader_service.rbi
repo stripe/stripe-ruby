@@ -237,7 +237,7 @@ module Stripe
             tipping: nil
           ); end
         end
-        # Configuration overrides
+        # Configuration overrides.
         sig {
           returns(T.nilable(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig))
          }
@@ -245,7 +245,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        # PaymentIntent ID
+        # PaymentIntent ID.
         sig { returns(String) }
         attr_accessor :payment_intent
         sig {
@@ -261,7 +261,7 @@ module Stripe
           sig { params(return_url: T.nilable(String)).void }
           def initialize(return_url: nil); end
         end
-        # Configuration overrides
+        # Configuration overrides.
         sig {
           returns(T.nilable(::Stripe::Terminal::ReaderService::ConfirmPaymentIntentParams::ConfirmConfig))
          }
@@ -269,7 +269,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        # PaymentIntent ID
+        # PaymentIntent ID.
         sig { returns(String) }
         attr_accessor :payment_intent
         sig {

@@ -363,6 +363,11 @@ module Stripe
         sig { returns(T.nilable(BillUntil)) }
         attr_reader :bill_until
       end
+      class BillingMode < Stripe::StripeObject
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        sig { returns(String) }
+        attr_reader :type
+      end
       class Prebilling < Stripe::StripeObject
         # Attribute for field iterations
         sig { returns(Integer) }
@@ -377,8 +382,8 @@ module Stripe
       # Whether the subscription will always start a new billing period when the quote is accepted.
       sig { returns(T.nilable(String)) }
       attr_reader :billing_cycle_anchor
-      # The [billing mode](/api/subscriptions/create#create_subscription-billing_mode) that will be set on the subscription once the quote is accepted.
-      sig { returns(String) }
+      # The billing mode of the quote.
+      sig { returns(BillingMode) }
       attr_reader :billing_mode
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       sig { returns(T.nilable(String)) }
@@ -1533,6 +1538,13 @@ module Stripe
            }
           def initialize(bill_from: nil, bill_until: nil); end
         end
+        class BillingMode < Stripe::RequestParams
+          # Attribute for param field type
+          sig { returns(String) }
+          attr_accessor :type
+          sig { params(type: String).void }
+          def initialize(type: nil); end
+        end
         class Prebilling < Stripe::RequestParams
           # This is used to determine the number of billing cycles to prebill.
           sig { returns(Integer) }
@@ -1552,7 +1564,7 @@ module Stripe
         sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :billing_cycle_anchor
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode)) }
         attr_accessor :billing_mode
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         sig { returns(T.nilable(String)) }
@@ -1587,7 +1599,7 @@ module Stripe
         sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :trial_period_days
         sig {
-          params(bill_on_acceptance: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillOnAcceptance), billing_behavior: T.nilable(String), billing_cycle_anchor: T.nilable(T.nilable(String)), billing_mode: T.nilable(String), description: T.nilable(String), effective_date: T.nilable(T.nilable(T.any(String, T.any(String, Integer)))), end_behavior: T.nilable(String), from_subscription: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), prebilling: T.nilable(T.nilable(T.any(String, ::Stripe::Quote::CreateParams::SubscriptionData::Prebilling))), proration_behavior: T.nilable(String), trial_period_days: T.nilable(T.nilable(T.any(String, Integer)))).void
+          params(bill_on_acceptance: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillOnAcceptance), billing_behavior: T.nilable(String), billing_cycle_anchor: T.nilable(T.nilable(String)), billing_mode: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode), description: T.nilable(String), effective_date: T.nilable(T.nilable(T.any(String, T.any(String, Integer)))), end_behavior: T.nilable(String), from_subscription: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), prebilling: T.nilable(T.nilable(T.any(String, ::Stripe::Quote::CreateParams::SubscriptionData::Prebilling))), proration_behavior: T.nilable(String), trial_period_days: T.nilable(T.nilable(T.any(String, Integer)))).void
          }
         def initialize(
           bill_on_acceptance: nil,

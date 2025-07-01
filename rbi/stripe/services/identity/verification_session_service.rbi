@@ -113,6 +113,16 @@ module Stripe
           sig { params(email: T.nilable(String), phone: T.nilable(String)).void }
           def initialize(email: nil, phone: nil); end
         end
+        class RelatedPerson < Stripe::RequestParams
+          # A token representing a connected account. If provided, the person parameter is also required and must be associated with the account.
+          sig { returns(String) }
+          attr_accessor :account
+          # A token referencing a Person resource that this verification is being used to verify.
+          sig { returns(String) }
+          attr_accessor :person
+          sig { params(account: String, person: String).void }
+          def initialize(account: nil, person: nil); end
+        end
         # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
         sig { returns(T.nilable(String)) }
         attr_accessor :client_reference_id
@@ -138,6 +148,11 @@ module Stripe
         # Token referencing a Customer Account resource.
         sig { returns(T.nilable(String)) }
         attr_accessor :related_customer_account
+        # Tokens referencing a Person resource and it's associated account.
+        sig {
+          returns(T.nilable(::Stripe::Identity::VerificationSessionService::CreateParams::RelatedPerson))
+         }
+        attr_accessor :related_person
         # The URL that the user will be redirected to upon completing the verification flow.
         sig { returns(T.nilable(String)) }
         attr_accessor :return_url
@@ -148,7 +163,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :verification_flow
         sig {
-          params(client_reference_id: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionService::CreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionService::CreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String)).void
+          params(client_reference_id: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionService::CreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionService::CreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(::Stripe::Identity::VerificationSessionService::CreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String)).void
          }
         def initialize(
           client_reference_id: nil,
@@ -158,6 +173,7 @@ module Stripe
           provided_details: nil,
           related_customer: nil,
           related_customer_account: nil,
+          related_person: nil,
           return_url: nil,
           type: nil,
           verification_flow: nil

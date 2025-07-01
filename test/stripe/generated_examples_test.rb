@@ -7542,25 +7542,89 @@ module Stripe
       )
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints/we_xxxxxxxxxxxxx"
     end
-    should "Test v2 core account post (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123/close").to_return(
-        body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null,"livemode":true}',
+    should "Test v2 billing meter event adjustment post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_adjustments"
+      ).to_return(
+        body: '{"cancel":{"identifier":"identifier"},"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","id":"obj_123","object":"v2.billing.meter_event_adjustment","status":"complete","type":"cancel","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      account = client.v2.core.accounts.close("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123/close"
+      meter_event_adjustment = client.v2.billing.meter_event_adjustments.create({
+        cancel: { identifier: "identifier" },
+        event_name: "event_name",
+        type: "cancel",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_adjustments"
     end
-    should "Test v2 core account post 2 (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
-        body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null,"livemode":true}',
+    should "Test v2 billing meter event session post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session").to_return(
+        body: '{"authentication_token":"authentication_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","object":"v2.billing.meter_event_session","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      account = client.v2.core.accounts.create
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts"
+      meter_event_session = client.v2.billing.meter_event_session.create
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session"
+    end
+    should "Test v2 billing meter event stream post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
+      ).to_return(body: "{}", status: 200)
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      empty_object = client.v2.billing.meter_event_stream.create({
+        events: [
+          {
+            event_name: "event_name",
+            identifier: "identifier",
+            payload: { undefined: "payload" },
+            timestamp: "1970-01-01T15:18:46.294Z",
+          },
+        ],
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
+    end
+    should "Test v2 billing meter event post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","identifier":"identifier","object":"v2.billing.meter_event","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      meter_event = client.v2.billing.meter_events.create({
+        event_name: "event_name",
+        payload: { undefined: "payload" },
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events"
+    end
+    should "Test v2 core account link post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links").to_return(
+        body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","object":"v2.core.account_link","url":"url","use_case":{"type":"account_onboarding","account_onboarding":null,"account_update":null},"livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_link = client.v2.core.account_links.create({
+        account: "account",
+        use_case: {
+          type: "account_onboarding",
+          account_onboarding: {
+            configurations: ["recipient"],
+            refresh_url: "refresh_url",
+            return_url: "return_url",
+          },
+          account_update: {
+            configurations: ["recipient"],
+            refresh_url: "refresh_url",
+            return_url: "return_url",
+          },
+        },
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links"
     end
     should "Test v2 core account get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
@@ -7572,6 +7636,16 @@ module Stripe
       accounts = client.v2.core.accounts.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts"
     end
+    should "Test v2 core account post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
+        body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null,"livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account = client.v2.core.accounts.create
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts"
+    end
     should "Test v2 core account get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123").to_return(
         body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null,"livemode":true}',
@@ -7582,7 +7656,7 @@ module Stripe
       account = client.v2.core.accounts.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123"
     end
-    should "Test v2 core account post 3 (service)" do
+    should "Test v2 core account post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123").to_return(
         body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null,"livemode":true}',
         status: 200
@@ -7591,6 +7665,29 @@ module Stripe
 
       account = client.v2.core.accounts.update("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123"
+    end
+    should "Test v2 core account post 3 (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123/close").to_return(
+        body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null,"livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account = client.v2.core.accounts.close("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123/close"
+    end
+    should "Test v2 core accounts person get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons"
+      ).to_return(
+        body: '{"data":[{"account":"account","additional_addresses":null,"additional_names":null,"additional_terms_of_service":null,"address":null,"created":"1970-01-12T21:42:34.472Z","date_of_birth":null,"documents":null,"email":null,"given_name":null,"id":"obj_123","id_numbers":null,"legal_gender":null,"metadata":null,"nationalities":null,"object":"v2.core.account_person","phone":null,"political_exposure":null,"relationship":null,"script_addresses":null,"script_names":null,"surname":null,"updated":"1970-01-03T17:07:10.277Z","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      persons = client.v2.core.accounts.persons.list("account_id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons"
     end
     should "Test v2 core accounts person post (service)" do
       stub_request(
@@ -7618,19 +7715,6 @@ module Stripe
       deleted = client.v2.core.accounts.persons.delete("account_id_123", "id_123")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons/id_123"
     end
-    should "Test v2 core accounts person get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons"
-      ).to_return(
-        body: '{"data":[{"account":"account","additional_addresses":null,"additional_names":null,"additional_terms_of_service":null,"address":null,"created":"1970-01-12T21:42:34.472Z","date_of_birth":null,"documents":null,"email":null,"given_name":null,"id":"obj_123","id_numbers":null,"legal_gender":null,"metadata":null,"nationalities":null,"object":"v2.core.account_person","phone":null,"political_exposure":null,"relationship":null,"script_addresses":null,"script_names":null,"surname":null,"updated":"1970-01-03T17:07:10.277Z","livemode":true}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      persons = client.v2.core.accounts.persons.list("account_id_123")
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons"
-    end
     should "Test v2 core accounts person get 2 (service)" do
       stub_request(
         :get,
@@ -7657,30 +7741,15 @@ module Stripe
       person = client.v2.core.accounts.persons.update("account_id_123", "id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons/id_123"
     end
-    should "Test v2 core account link post (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links").to_return(
-        body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","object":"v2.core.account_link","url":"url","use_case":{"type":"account_onboarding","account_onboarding":null,"account_update":null},"livemode":true}',
+    should "Test v2 core event destination get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations").to_return(
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true,"amazon_eventbridge":null,"webhook_endpoint":null}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      account_link = client.v2.core.account_links.create({
-        account: "account",
-        use_case: {
-          type: "account_onboarding",
-          account_onboarding: {
-            configurations: ["recipient"],
-            refresh_url: "refresh_url",
-            return_url: "return_url",
-          },
-          account_update: {
-            configurations: ["recipient"],
-            refresh_url: "refresh_url",
-            return_url: "return_url",
-          },
-        },
-      })
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_links"
+      event_destinations = client.v2.core.event_destinations.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations"
     end
     should "Test v2 core event destination post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations").to_return(
@@ -7710,7 +7779,30 @@ module Stripe
       deleted = client.v2.core.event_destinations.delete("id_123")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
     end
+    should "Test v2 core event destination get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true,"amazon_eventbridge":null,"webhook_endpoint":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      event_destination = client.v2.core.event_destinations.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
+    end
     should "Test v2 core event destination post 2 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true,"amazon_eventbridge":null,"webhook_endpoint":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      event_destination = client.v2.core.event_destinations.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
+    end
+    should "Test v2 core event destination post 3 (service)" do
       stub_request(
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/disable"
@@ -7723,7 +7815,7 @@ module Stripe
       event_destination = client.v2.core.event_destinations.disable("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/disable"
     end
-    should "Test v2 core event destination post 3 (service)" do
+    should "Test v2 core event destination post 4 (service)" do
       stub_request(
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/enable"
@@ -7736,17 +7828,7 @@ module Stripe
       event_destination = client.v2.core.event_destinations.enable("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/enable"
     end
-    should "Test v2 core event destination get (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations").to_return(
-        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true,"amazon_eventbridge":null,"webhook_endpoint":null}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      event_destinations = client.v2.core.event_destinations.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations"
-    end
-    should "Test v2 core event destination post 4 (service)" do
+    should "Test v2 core event destination post 5 (service)" do
       stub_request(
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/ping"
@@ -7758,29 +7840,6 @@ module Stripe
 
       event = client.v2.core.event_destinations.ping("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/ping"
-    end
-    should "Test v2 core event destination get 2 (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true,"amazon_eventbridge":null,"webhook_endpoint":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      event_destination = client.v2.core.event_destinations.retrieve("id_123")
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
-    end
-    should "Test v2 core event destination post 5 (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
-      ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","livemode":true,"amazon_eventbridge":null,"webhook_endpoint":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      event_destination = client.v2.core.event_destinations.update("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
     end
     should "Test v2 core event get (service)" do
       stub_request(
@@ -7806,32 +7865,6 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/id_123"
     end
     should "Test v2 core vault gb bank account post (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee"
-      ).to_return(
-        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      gb_bank_account = client.v2.core.vault.gb_bank_accounts.acknowledge_confirmation_of_payee("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee"
-    end
-    should "Test v2 core vault gb bank account post 2 (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/archive"
-      ).to_return(
-        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      gb_bank_account = client.v2.core.vault.gb_bank_accounts.archive("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/archive"
-    end
-    should "Test v2 core vault gb bank account post 3 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts").to_return(
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code","livemode":true}',
         status: 200
@@ -7843,19 +7876,6 @@ module Stripe
         sort_code: "sort_code",
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts"
-    end
-    should "Test v2 core vault gb bank account post 4 (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee"
-      ).to_return(
-        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      gb_bank_account = client.v2.core.vault.gb_bank_accounts.initiate_confirmation_of_payee("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee"
     end
     should "Test v2 core vault gb bank account get (service)" do
       stub_request(
@@ -7870,20 +7890,46 @@ module Stripe
       gb_bank_account = client.v2.core.vault.gb_bank_accounts.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123"
     end
-    should "Test v2 core vault us bank account post (service)" do
+    should "Test v2 core vault gb bank account post 2 (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee"
       ).to_return(
-        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","fedwire_routing_number":null,"id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","routing_number":null,"livemode":true}',
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      us_bank_account = client.v2.core.vault.us_bank_accounts.archive("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
+      gb_bank_account = client.v2.core.vault.gb_bank_accounts.acknowledge_confirmation_of_payee("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee"
     end
-    should "Test v2 core vault us bank account post 2 (service)" do
+    should "Test v2 core vault gb bank account post 3 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/archive"
+      ).to_return(
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      gb_bank_account = client.v2.core.vault.gb_bank_accounts.archive("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/archive"
+    end
+    should "Test v2 core vault gb bank account post 4 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee"
+      ).to_return(
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      gb_bank_account = client.v2.core.vault.gb_bank_accounts.initiate_confirmation_of_payee("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee"
+    end
+    should "Test v2 core vault us bank account post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","fedwire_routing_number":null,"id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","routing_number":null,"livemode":true}',
         status: 200
@@ -7908,7 +7954,7 @@ module Stripe
       us_bank_account = client.v2.core.vault.us_bank_accounts.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123"
     end
-    should "Test v2 core vault us bank account post 3 (service)" do
+    should "Test v2 core vault us bank account post 2 (service)" do
       stub_request(
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123"
@@ -7920,6 +7966,19 @@ module Stripe
 
       us_bank_account = client.v2.core.vault.us_bank_accounts.update("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123"
+    end
+    should "Test v2 core vault us bank account post 3 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
+      ).to_return(
+        body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","fedwire_routing_number":null,"id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","routing_number":null,"livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      us_bank_account = client.v2.core.vault.us_bank_accounts.archive("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
     end
     should "Test v2 money management adjustment get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/adjustments").to_return(
@@ -7949,7 +8008,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts"
       ).to_return(
-        body: '{"data":[{"balance":{"available":{"undefined":{"currency":"USD","value":35}},"inbound_pending":{"undefined":{"currency":"USD","value":11}},"outbound_pending":{"undefined":{"currency":"USD","value":60}}},"country":"ec","created":"1970-01-12T21:42:34.472Z","description":null,"id":"obj_123","object":"v2.money_management.financial_account","other":null,"status":"closed","storage":null,"type":"other","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"balance":{"available":{"undefined":{"currency":"USD","value":35}},"inbound_pending":{"undefined":{"currency":"USD","value":11}},"outbound_pending":{"undefined":{"currency":"USD","value":60}}},"country":"af","created":"1970-01-12T21:42:34.472Z","id":"obj_123","metadata":null,"object":"v2.money_management.financial_account","other":null,"status":"closed","storage":null,"type":"other","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7962,13 +8021,26 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
       ).to_return(
-        body: '{"balance":{"available":{"undefined":{"currency":"USD","value":35}},"inbound_pending":{"undefined":{"currency":"USD","value":11}},"outbound_pending":{"undefined":{"currency":"USD","value":60}}},"country":"ec","created":"1970-01-12T21:42:34.472Z","description":null,"id":"obj_123","object":"v2.money_management.financial_account","other":null,"status":"closed","storage":null,"type":"other","livemode":true}',
+        body: '{"balance":{"available":{"undefined":{"currency":"USD","value":35}},"inbound_pending":{"undefined":{"currency":"USD","value":11}},"outbound_pending":{"undefined":{"currency":"USD","value":60}}},"country":"af","created":"1970-01-12T21:42:34.472Z","id":"obj_123","metadata":null,"object":"v2.money_management.financial_account","other":null,"status":"closed","storage":null,"type":"other","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
       financial_account = client.v2.money_management.financial_accounts.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
+    end
+    should "Test v2 money management financial address get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
+      ).to_return(
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","credentials":null,"currency":"stn","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.financial_address","status":"failed","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      financial_addresses = client.v2.money_management.financial_addresses.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
     end
     should "Test v2 money management financial address post (service)" do
       stub_request(
@@ -7986,19 +8058,6 @@ module Stripe
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
     end
-    should "Test v2 money management financial address get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
-      ).to_return(
-        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","credentials":null,"currency":"stn","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.financial_address","status":"failed","livemode":true}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      financial_addresses = client.v2.money_management.financial_addresses.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
-    end
     should "Test v2 money management financial address get 2 (service)" do
       stub_request(
         :get,
@@ -8011,6 +8070,19 @@ module Stripe
 
       financial_address = client.v2.money_management.financial_addresses.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses/id_123"
+    end
+    should "Test v2 money management inbound transfer get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers"
+      ).to_return(
+        body: '{"data":[{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{"currency":"USD","value":55},"payment_method":{"type":"type","us_bank_account":null}},"id":"obj_123","object":"v2.money_management.inbound_transfer","receipt_url":null,"to":{"credited":{"currency":"USD","value":68},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed","bank_debit_failed":null,"bank_debit_processing":null,"bank_debit_queued":null,"bank_debit_returned":null,"bank_debit_succeeded":null}],"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      inbound_transfers = client.v2.money_management.inbound_transfers.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers"
     end
     should "Test v2 money management inbound transfer post (service)" do
       stub_request(
@@ -8028,28 +8100,15 @@ module Stripe
           value: 96,
         },
         from: {
-          currency: "currency",
+          currency: "usd",
           payment_method: "payment_method",
         },
         to: {
-          currency: "currency",
+          currency: "usd",
           financial_account: "financial_account",
         },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers"
-    end
-    should "Test v2 money management inbound transfer get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers"
-      ).to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{"currency":"USD","value":55},"payment_method":{"type":"type","us_bank_account":null}},"id":"obj_123","object":"v2.money_management.inbound_transfer","receipt_url":null,"to":{"credited":{"currency":"USD","value":68},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed","bank_debit_failed":null,"bank_debit_processing":null,"bank_debit_queued":null,"bank_debit_returned":null,"bank_debit_succeeded":null}],"livemode":true}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      inbound_transfers = client.v2.money_management.inbound_transfers.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers"
     end
     should "Test v2 money management inbound transfer get 2 (service)" do
       stub_request(
@@ -8064,20 +8123,60 @@ module Stripe
       inbound_transfer = client.v2.money_management.inbound_transfers.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers/id_123"
     end
-    should "Test v2 money management outbound payment post (service)" do
+    should "Test v2 money management outbound payment quote post (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_payment","outbound_payment_quote":null,"receipt_url":null,"recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending","value":null},"livemode":true}',
+        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_expires_at":"1970-01-18T15:15:29.586Z","lock_status":"active","rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"usd"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      outbound_payment = client.v2.money_management.outbound_payments.cancel("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
+      outbound_payment_quote = client.v2.money_management.outbound_payment_quotes.create({
+        amount: {
+          currency: "USD",
+          value: 96,
+        },
+        from: {
+          currency: "usd",
+          financial_account: "financial_account",
+        },
+        to: {
+          currency: "usd",
+          payout_method: "payout_method",
+          recipient: "recipient",
+        },
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes"
     end
-    should "Test v2 money management outbound payment post 2 (service)" do
+    should "Test v2 money management outbound payment quote get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes/id_123"
+      ).to_return(
+        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_expires_at":"1970-01-18T15:15:29.586Z","lock_status":"active","rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"usd"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      outbound_payment_quote = client.v2.money_management.outbound_payment_quotes.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes/id_123"
+    end
+    should "Test v2 money management outbound payment get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
+      ).to_return(
+        body: '{"data":[{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_payment","outbound_payment_quote":null,"receipt_url":null,"recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending","value":null},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      outbound_payments = client.v2.money_management.outbound_payments.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
+    end
+    should "Test v2 money management outbound payment post (service)" do
       stub_request(
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
@@ -8093,29 +8192,16 @@ module Stripe
           value: 96,
         },
         from: {
-          currency: "currency",
+          currency: "usd",
           financial_account: "financial_account",
         },
         to: {
-          currency: "currency",
+          currency: "usd",
           payout_method: "payout_method",
           recipient: "recipient",
         },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
-    end
-    should "Test v2 money management outbound payment get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
-      ).to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_payment","outbound_payment_quote":null,"receipt_url":null,"recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending","value":null},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      outbound_payments = client.v2.money_management.outbound_payments.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
     end
     should "Test v2 money management outbound payment get 2 (service)" do
       stub_request(
@@ -8130,60 +8216,98 @@ module Stripe
       outbound_payment = client.v2.money_management.outbound_payments.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123"
     end
-    should "Test v2 money management outbound payment quote post (service)" do
+    should "Test v2 money management outbound payment post 2 (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes"
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_expires_at":"1970-01-18T15:15:29.586Z","lock_status":"active","rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"to_currency"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
+        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_payment","outbound_payment_quote":null,"receipt_url":null,"recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending","value":null},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      outbound_payment_quote = client.v2.money_management.outbound_payment_quotes.create({
-        amount: {
-          currency: "USD",
-          value: 96,
-        },
-        from: {
-          currency: "currency",
-          financial_account: "financial_account",
-        },
-        to: {
-          currency: "currency",
-          payout_method: "payout_method",
-          recipient: "recipient",
-        },
-      })
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes"
+      outbound_payment = client.v2.money_management.outbound_payments.cancel("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
     end
-    should "Test v2 money management outbound payment quote get (service)" do
+    should "Test v2 money management outbound setup intent get (service)" do
       stub_request(
         :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes/id_123"
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_payout_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"lock_duration":"five_minutes","lock_expires_at":"1970-01-18T15:15:29.586Z","lock_status":"active","rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"to_currency"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"livemode":true}',
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      outbound_payment_quote = client.v2.money_management.outbound_payment_quotes.retrieve("id_123")
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes/id_123"
+      outbound_setup_intents = client.v2.money_management.outbound_setup_intents.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
     end
-    should "Test v2 money management outbound transfer post (service)" do
+    should "Test v2 money management outbound setup intent post (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers/id_123/cancel"
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
       ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_transfer","receipt_url":null,"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending","value":null},"livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      outbound_transfer = client.v2.money_management.outbound_transfers.cancel("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers/id_123/cancel"
+      outbound_setup_intent = client.v2.money_management.outbound_setup_intents.create
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
     end
-    should "Test v2 money management outbound transfer post 2 (service)" do
+    should "Test v2 money management outbound setup intent get 2 (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      outbound_setup_intent = client.v2.money_management.outbound_setup_intents.retrieve("id_123")
+      assert_requested :get,  "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
+    end
+    should "Test v2 money management outbound setup intent post 2 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      outbound_setup_intent = client.v2.money_management.outbound_setup_intents.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
+    end
+    should "Test v2 money management outbound setup intent post 3 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123/cancel"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      outbound_setup_intent = client.v2.money_management.outbound_setup_intents.cancel("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123/cancel"
+    end
+    should "Test v2 money management outbound transfer get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers"
+      ).to_return(
+        body: '{"data":[{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_transfer","receipt_url":null,"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending","value":null},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      outbound_transfers = client.v2.money_management.outbound_transfers.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers"
+    end
+    should "Test v2 money management outbound transfer post (service)" do
       stub_request(
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers"
@@ -8199,28 +8323,15 @@ module Stripe
           value: 96,
         },
         from: {
-          currency: "currency",
+          currency: "usd",
           financial_account: "financial_account",
         },
         to: {
-          currency: "currency",
+          currency: "usd",
           payout_method: "payout_method",
         },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers"
-    end
-    should "Test v2 money management outbound transfer get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers"
-      ).to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_transfer","receipt_url":null,"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending","value":null},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      outbound_transfers = client.v2.money_management.outbound_transfers.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers"
     end
     should "Test v2 money management outbound transfer get 2 (service)" do
       stub_request(
@@ -8235,83 +8346,18 @@ module Stripe
       outbound_transfer = client.v2.money_management.outbound_transfers.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers/id_123"
     end
-    should "Test v2 money management outbound setup intent post (service)" do
+    should "Test v2 money management outbound transfer post 2 (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123/cancel"
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers/id_123/cancel"
       ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}',
+        body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_transfer","receipt_url":null,"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending","value":null},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      outbound_setup_intent = client.v2.money_management.outbound_setup_intents.cancel("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123/cancel"
-    end
-    should "Test v2 money management outbound setup intent post 2 (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
-      ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      outbound_setup_intent = client.v2.money_management.outbound_setup_intents.create
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
-    end
-    should "Test v2 money management outbound setup intent get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
-      ).to_return(
-        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      outbound_setup_intents = client.v2.money_management.outbound_setup_intents.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
-    end
-    should "Test v2 money management outbound setup intent get 2 (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
-      ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      outbound_setup_intent = client.v2.money_management.outbound_setup_intents.retrieve("id_123")
-      assert_requested :get,  "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
-    end
-    should "Test v2 money management outbound setup intent post 3 (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
-      ).to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment","livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      outbound_setup_intent = client.v2.money_management.outbound_setup_intents.update("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
-    end
-    should "Test v2 money management payout method post (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/archive"
-      ).to_return(
-        body: '{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      payout_method = client.v2.money_management.payout_methods.archive("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/archive"
+      outbound_transfer = client.v2.money_management.outbound_transfers.cancel("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers/id_123/cancel"
     end
     should "Test v2 money management payout method get (service)" do
       stub_request(
@@ -8338,6 +8384,19 @@ module Stripe
 
       payout_method = client.v2.money_management.payout_methods.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123"
+    end
+    should "Test v2 money management payout method post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/archive"
+      ).to_return(
+        body: '{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"livemode":true,"bank_account":null,"card":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      payout_method = client.v2.money_management.payout_methods.archive("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/archive"
     end
     should "Test v2 money management payout method post 2 (service)" do
       stub_request(
@@ -8417,29 +8476,6 @@ module Stripe
       received_debit = client.v2.money_management.received_debits.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debits/id_123"
     end
-    should "Test v2 money management transaction get (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions").to_return(
-        body: '{"data":[{"amount":{"currency":"USD","value":96},"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"category":"return","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"outbound_payment","adjustment":null,"fee_transaction":null,"inbound_transfer":null,"outbound_payment":null,"outbound_transfer":null,"received_credit":null,"received_debit":null},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{"posted_at":null,"void_at":null},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      transactions = client.v2.money_management.transactions.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions"
-    end
-    should "Test v2 money management transaction get 2 (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
-      ).to_return(
-        body: '{"amount":{"currency":"USD","value":96},"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"category":"return","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"outbound_payment","adjustment":null,"fee_transaction":null,"inbound_transfer":null,"outbound_payment":null,"outbound_transfer":null,"received_credit":null,"received_debit":null},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{"posted_at":null,"void_at":null},"livemode":true}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      transaction = client.v2.money_management.transactions.retrieve("id_123")
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
-    end
     should "Test v2 money management transaction entry get (service)" do
       stub_request(
         :get,
@@ -8466,64 +8502,83 @@ module Stripe
       transaction_entry = client.v2.money_management.transaction_entries.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transaction_entries/id_123"
     end
-    should "Test v2 billing meter event session post (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session").to_return(
-        body: '{"authentication_token":"authentication_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","object":"v2.billing.meter_event_session","livemode":true}',
+    should "Test v2 money management transaction get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions").to_return(
+        body: '{"data":[{"amount":{"currency":"USD","value":96},"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"category":"return","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"outbound_payment","adjustment":null,"fee_transaction":null,"inbound_transfer":null,"outbound_payment":null,"outbound_transfer":null,"received_credit":null,"received_debit":null},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{"posted_at":null,"void_at":null},"livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      meter_event_session = client.v2.billing.meter_event_session.create
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session"
+      transactions = client.v2.money_management.transactions.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions"
     end
-    should "Test v2 billing meter event adjustment post (service)" do
+    should "Test v2 money management transaction get 2 (service)" do
       stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_adjustments"
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
       ).to_return(
-        body: '{"cancel":{"identifier":"identifier"},"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","id":"obj_123","object":"v2.billing.meter_event_adjustment","status":"complete","type":"cancel","livemode":true}',
+        body: '{"amount":{"currency":"USD","value":96},"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"category":"return","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"outbound_payment","adjustment":null,"fee_transaction":null,"inbound_transfer":null,"outbound_payment":null,"outbound_transfer":null,"received_credit":null,"received_debit":null},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{"posted_at":null,"void_at":null},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      meter_event_adjustment = client.v2.billing.meter_event_adjustments.create({
-        cancel: { identifier: "identifier" },
-        event_name: "event_name",
-        type: "cancel",
-      })
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_adjustments"
+      transaction = client.v2.money_management.transactions.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
     end
-    should "Test v2 billing meter event stream post (service)" do
+    should "Test v2 payments off session payment get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments").to_return(
+        body: '{"data":[{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","failure_reason":null,"id":"obj_123","last_authorization_attempt_error":null,"latest_payment_attempt_record":null,"livemode":true,"metadata":{"undefined":"metadata"},"object":"v2.payments.off_session_payment","on_behalf_of":null,"payment_method":"payment_method","payment_record":null,"retry_details":{"attempts":542738246,"retry_strategy":"none"},"statement_descriptor":null,"statement_descriptor_suffix":null,"status":"pending","test_clock":null,"transfer_data":null}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      off_session_payments = client.v2.payments.off_session_payments.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments"
+    end
+    should "Test v2 payments off session payment post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments").to_return(
+        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","failure_reason":null,"id":"obj_123","last_authorization_attempt_error":null,"latest_payment_attempt_record":null,"livemode":true,"metadata":{"undefined":"metadata"},"object":"v2.payments.off_session_payment","on_behalf_of":null,"payment_method":"payment_method","payment_record":null,"retry_details":{"attempts":542738246,"retry_strategy":"none"},"statement_descriptor":null,"statement_descriptor_suffix":null,"status":"pending","test_clock":null,"transfer_data":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      off_session_payment = client.v2.payments.off_session_payments.create({
+        amount: {
+          currency: "USD",
+          value: 96,
+        },
+        cadence: "unscheduled",
+        customer: "customer",
+        metadata: { undefined: "metadata" },
+        payment_method: "payment_method",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments"
+    end
+    should "Test v2 payments off session payment get 2 (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123"
+      ).to_return(
+        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","failure_reason":null,"id":"obj_123","last_authorization_attempt_error":null,"latest_payment_attempt_record":null,"livemode":true,"metadata":{"undefined":"metadata"},"object":"v2.payments.off_session_payment","on_behalf_of":null,"payment_method":"payment_method","payment_record":null,"retry_details":{"attempts":542738246,"retry_strategy":"none"},"statement_descriptor":null,"statement_descriptor_suffix":null,"status":"pending","test_clock":null,"transfer_data":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      off_session_payment = client.v2.payments.off_session_payments.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123"
+    end
+    should "Test v2 payments off session payment post 2 (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
-      ).to_return(body: "{}", status: 200)
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      empty_object = client.v2.billing.meter_event_stream.create({
-        events: [
-          {
-            event_name: "event_name",
-            identifier: "identifier",
-            payload: { undefined: "payload" },
-            timestamp: "1970-01-01T15:18:46.294Z",
-          },
-        ],
-      })
-      assert_requested :post, "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
-    end
-    should "Test v2 billing meter event post (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","identifier":"identifier","object":"v2.billing.meter_event","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z","livemode":true}',
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/cancel"
+      ).to_return(
+        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","failure_reason":null,"id":"obj_123","last_authorization_attempt_error":null,"latest_payment_attempt_record":null,"livemode":true,"metadata":{"undefined":"metadata"},"object":"v2.payments.off_session_payment","on_behalf_of":null,"payment_method":"payment_method","payment_record":null,"retry_details":{"attempts":542738246,"retry_strategy":"none"},"statement_descriptor":null,"statement_descriptor_suffix":null,"status":"pending","test_clock":null,"transfer_data":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      meter_event = client.v2.billing.meter_events.create({
-        event_name: "event_name",
-        payload: { undefined: "payload" },
-      })
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events"
+      off_session_payment = client.v2.payments.off_session_payments.cancel("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/cancel"
     end
     should "Test v2 test helpers financial address post (service)" do
       stub_request(
@@ -8560,61 +8615,6 @@ module Stripe
       financial_address_generated_microdeposits = client.v2.test_helpers.financial_addresses.generate_microdeposits("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/test_helpers/financial_addresses/id_123/generate_microdeposits"
     end
-    should "Test v2 payments off session payment post (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/cancel"
-      ).to_return(
-        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","failure_reason":null,"id":"obj_123","last_authorization_attempt_error":null,"latest_payment_attempt_record":null,"livemode":true,"metadata":{"undefined":"metadata"},"object":"v2.payments.off_session_payment","on_behalf_of":null,"payment_method":"payment_method","payment_record":null,"retry_details":{"attempts":542738246,"retry_strategy":"none"},"statement_descriptor":null,"statement_descriptor_suffix":null,"status":"pending","test_clock":null,"transfer_data":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payment = client.v2.payments.off_session_payments.cancel("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/cancel"
-    end
-    should "Test v2 payments off session payment post 2 (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments").to_return(
-        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","failure_reason":null,"id":"obj_123","last_authorization_attempt_error":null,"latest_payment_attempt_record":null,"livemode":true,"metadata":{"undefined":"metadata"},"object":"v2.payments.off_session_payment","on_behalf_of":null,"payment_method":"payment_method","payment_record":null,"retry_details":{"attempts":542738246,"retry_strategy":"none"},"statement_descriptor":null,"statement_descriptor_suffix":null,"status":"pending","test_clock":null,"transfer_data":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payment = client.v2.payments.off_session_payments.create({
-        amount: {
-          currency: "USD",
-          value: 96,
-        },
-        cadence: "unscheduled",
-        customer: "customer",
-        metadata: { undefined: "metadata" },
-        payment_method: "payment_method",
-      })
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments"
-    end
-    should "Test v2 payments off session payment get (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments").to_return(
-        body: '{"data":[{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","failure_reason":null,"id":"obj_123","last_authorization_attempt_error":null,"latest_payment_attempt_record":null,"livemode":true,"metadata":{"undefined":"metadata"},"object":"v2.payments.off_session_payment","on_behalf_of":null,"payment_method":"payment_method","payment_record":null,"retry_details":{"attempts":542738246,"retry_strategy":"none"},"statement_descriptor":null,"statement_descriptor_suffix":null,"status":"pending","test_clock":null,"transfer_data":null}],"next_page_url":null,"previous_page_url":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payments = client.v2.payments.off_session_payments.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments"
-    end
-    should "Test v2 payments off session payment get 2 (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123"
-      ).to_return(
-        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","failure_reason":null,"id":"obj_123","last_authorization_attempt_error":null,"latest_payment_attempt_record":null,"livemode":true,"metadata":{"undefined":"metadata"},"object":"v2.payments.off_session_payment","on_behalf_of":null,"payment_method":"payment_method","payment_record":null,"retry_details":{"attempts":542738246,"retry_strategy":"none"},"statement_descriptor":null,"statement_descriptor_suffix":null,"status":"pending","test_clock":null,"transfer_data":null}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payment = client.v2.payments.off_session_payments.retrieve("id_123")
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123"
-    end
     should "Test temporary session expired error (service)" do
       stub_request(
         :post,
@@ -8648,6 +8648,24 @@ module Stripe
       client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::FinancialAccountNotOpenError do
+        financial_address = client.v2.money_management.financial_addresses.create({
+          currency: "stn",
+          financial_account: "financial_account",
+        })
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
+    end
+    should "Test feature not enabled error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
+      ).to_return(
+        body: '{"error":{"type":"feature_not_enabled","code":"storer_capability_missing"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::FeatureNotEnabledError do
         financial_address = client.v2.money_management.financial_addresses.create({
           currency: "stn",
           financial_account: "financial_account",
@@ -8704,7 +8722,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
       ).to_return(
-        body: '{"error":{"type":"insufficient_funds","code":"outbound_payment_insufficient_funds"}}',
+        body: '{"error":{"type":"insufficient_funds","code":"insufficient_funds"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8716,7 +8734,7 @@ module Stripe
             value: 96,
           },
           from: {
-            currency: "currency",
+            currency: "usd",
             financial_account: "financial_account",
           },
           to: { recipient: "recipient" },
@@ -8726,7 +8744,7 @@ module Stripe
     end
     should "Test quota exceeded error (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
-        body: '{"error":{"type":"quota_exceeded","code":"outbound_payment_recipient_amount_limit_exceeded"}}',
+        body: '{"error":{"type":"quota_exceeded","code":"recipient_amount_limit_exceeded"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8743,7 +8761,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
       ).to_return(
-        body: '{"error":{"type":"recipient_not_notifiable","code":"outbound_payment_recipient_email_does_not_exist"}}',
+        body: '{"error":{"type":"recipient_not_notifiable","code":"recipient_email_does_not_exist"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8755,32 +8773,7 @@ module Stripe
             value: 96,
           },
           from: {
-            currency: "currency",
-            financial_account: "financial_account",
-          },
-          to: { recipient: "recipient" },
-        })
-      end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
-    end
-    should "Test feature not enabled error (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
-      ).to_return(
-        body: '{"error":{"type":"feature_not_enabled","code":"outbound_payment_recipient_feature_not_active"}}',
-        status: 400
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      assert_raises Stripe::FeatureNotEnabledError do
-        outbound_payment = client.v2.money_management.outbound_payments.create({
-          amount: {
-            currency: "USD",
-            value: 96,
-          },
-          from: {
-            currency: "currency",
+            currency: "usd",
             financial_account: "financial_account",
           },
           to: { recipient: "recipient" },

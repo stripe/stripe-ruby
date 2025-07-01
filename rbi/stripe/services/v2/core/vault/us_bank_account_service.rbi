@@ -7,7 +7,6 @@ module Stripe
     module Core
       module Vault
         class UsBankAccountService < StripeService
-          class ArchiveParams < Stripe::RequestParams; end
           class CreateParams < Stripe::RequestParams
             # The account number of the bank account.
             sig { returns(String) }
@@ -44,6 +43,7 @@ module Stripe
              }
             def initialize(fedwire_routing_number: nil, routing_number: nil); end
           end
+          class ArchiveParams < Stripe::RequestParams; end
           # Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
           # Archived USBankAccount objects cannot be used as outbound destinations
           # and will not appear in the outbound destination list.

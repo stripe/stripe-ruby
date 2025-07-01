@@ -6,6 +6,42 @@ module Stripe
   module V2
     module MoneyManagement
       class InboundTransferService < StripeService
+        class ListParams < Stripe::RequestParams
+          # Filter for objects created at the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created
+          # Filter for objects created after the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created_gt
+          # Filter for objects created on or after the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created_gte
+          # Filter for objects created before the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created_lt
+          # Filter for objects created on or before the specified timestamp.
+          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :created_lte
+          # The page limit.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :limit
+          sig {
+            params(created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer)).void
+           }
+          def initialize(
+            created: nil,
+            created_gt: nil,
+            created_gte: nil,
+            created_lt: nil,
+            created_lte: nil,
+            limit: nil
+          ); end
+        end
         class CreateParams < Stripe::RequestParams
           class From < Stripe::RequestParams
             # An optional currency field used to specify which currency is debited from the Payment Method.
@@ -44,42 +80,6 @@ module Stripe
             params(amount: Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams::From, to: ::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams::To).void
            }
           def initialize(amount: nil, description: nil, from: nil, to: nil); end
-        end
-        class ListParams < Stripe::RequestParams
-          # Filter for objects created at the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created
-          # Filter for objects created after the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created_gt
-          # Filter for objects created on or after the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created_gte
-          # Filter for objects created before the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created_lt
-          # Filter for objects created on or before the specified timestamp.
-          # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :created_lte
-          # The page limit.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
-          sig {
-            params(created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer)).void
-           }
-          def initialize(
-            created: nil,
-            created_gt: nil,
-            created_gte: nil,
-            created_lt: nil,
-            created_lte: nil,
-            limit: nil
-          ); end
         end
         class RetrieveParams < Stripe::RequestParams; end
         # InboundTransfers APIs are used to create, retrieve or list InboundTransfers.

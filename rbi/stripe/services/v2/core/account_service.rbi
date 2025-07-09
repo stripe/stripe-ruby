@@ -1027,6 +1027,180 @@ module Stripe
                }
               def initialize(capabilities: nil); end
             end
+            class Storer < Stripe::RequestParams
+              class Capabilities < Stripe::RequestParams
+                class FinancialAddresses < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    attr_accessor :requested
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
+                   }
+                  attr_accessor :bank_accounts
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil); end
+                end
+                class HoldsCurrencies < Stripe::RequestParams
+                  class Gbp < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    attr_accessor :requested
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can hold storage-type funds on Stripe in GBP.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
+                   }
+                  attr_accessor :gbp
+                  sig {
+                    params(gbp: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).void
+                   }
+                  def initialize(gbp: nil); end
+                end
+                class InboundTransfers < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    attr_accessor :requested
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can pull funds from an external bank account owned by yourself to a FinancialAccount.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
+                   }
+                  attr_accessor :bank_accounts
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil); end
+                end
+                class OutboundPayments < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    attr_accessor :requested
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  class Cards < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    attr_accessor :requested
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  class FinancialAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    attr_accessor :requested
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can send funds from a FinancialAccount to a bank account owned by someone else.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
+                   }
+                  attr_accessor :bank_accounts
+                  # Can send funds from a FinancialAccount to a debit card owned by someone else.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
+                   }
+                  attr_accessor :cards
+                  # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
+                   }
+                  attr_accessor :financial_accounts
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil, cards: nil, financial_accounts: nil); end
+                end
+                class OutboundTransfers < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    attr_accessor :requested
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  class FinancialAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    attr_accessor :requested
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can send funds from a FinancialAccount to a bank account owned by yourself.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
+                   }
+                  attr_accessor :bank_accounts
+                  # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
+                   }
+                  attr_accessor :financial_accounts
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts), financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil, financial_accounts: nil); end
+                end
+                # Can provision a financial address to credit/debit a FinancialAccount.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses))
+                 }
+                attr_accessor :financial_addresses
+                # Can hold storage-type funds on Stripe.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
+                 }
+                attr_accessor :holds_currencies
+                # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers))
+                 }
+                attr_accessor :inbound_transfers
+                # Can send funds from a FinancialAccount to a destination owned by someone else.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments))
+                 }
+                attr_accessor :outbound_payments
+                # Can send funds from a FinancialAccount to a destination owned by yourself.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers))
+                 }
+                attr_accessor :outbound_transfers
+                sig {
+                  params(financial_addresses: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses), holds_currencies: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers)).void
+                 }
+                def initialize(
+                  financial_addresses: nil,
+                  holds_currencies: nil,
+                  inbound_transfers: nil,
+                  outbound_payments: nil,
+                  outbound_transfers: nil
+                ); end
+              end
+              # Capabilities to request on the Storer Configuration.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities))
+               }
+              attr_accessor :capabilities
+              sig {
+                params(capabilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities)).void
+               }
+              def initialize(capabilities: nil); end
+            end
             # The Customer Configuration allows the Account to be used in inbound payment flows.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer))
@@ -1042,10 +1216,15 @@ module Stripe
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient))
              }
             attr_accessor :recipient
+            # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
             sig {
-              params(customer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer), merchant: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant), recipient: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient)).void
+              returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer))
              }
-            def initialize(customer: nil, merchant: nil, recipient: nil); end
+            attr_accessor :storer
+            sig {
+              params(customer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer), merchant: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant), recipient: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient), storer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer)).void
+             }
+            def initialize(customer: nil, merchant: nil, recipient: nil, storer: nil); end
           end
           class Defaults < Stripe::RequestParams
             class Responsibilities < Stripe::RequestParams
@@ -3197,6 +3376,180 @@ module Stripe
                }
               def initialize(capabilities: nil, default_outbound_destination: nil); end
             end
+            class Storer < Stripe::RequestParams
+              class Capabilities < Stripe::RequestParams
+                class FinancialAddresses < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    attr_accessor :requested
+                    sig { params(requested: T.nilable(T::Boolean)).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
+                   }
+                  attr_accessor :bank_accounts
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil); end
+                end
+                class HoldsCurrencies < Stripe::RequestParams
+                  class Gbp < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    attr_accessor :requested
+                    sig { params(requested: T.nilable(T::Boolean)).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can hold storage-type funds on Stripe in GBP.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
+                   }
+                  attr_accessor :gbp
+                  sig {
+                    params(gbp: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).void
+                   }
+                  def initialize(gbp: nil); end
+                end
+                class InboundTransfers < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    attr_accessor :requested
+                    sig { params(requested: T.nilable(T::Boolean)).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can pull funds from an external bank account owned by yourself to a FinancialAccount.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
+                   }
+                  attr_accessor :bank_accounts
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil); end
+                end
+                class OutboundPayments < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    attr_accessor :requested
+                    sig { params(requested: T.nilable(T::Boolean)).void }
+                    def initialize(requested: nil); end
+                  end
+                  class Cards < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    attr_accessor :requested
+                    sig { params(requested: T.nilable(T::Boolean)).void }
+                    def initialize(requested: nil); end
+                  end
+                  class FinancialAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    attr_accessor :requested
+                    sig { params(requested: T.nilable(T::Boolean)).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can send funds from a FinancialAccount to a bank account owned by someone else.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
+                   }
+                  attr_accessor :bank_accounts
+                  # Can send funds from a FinancialAccount to a debit card owned by someone else.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
+                   }
+                  attr_accessor :cards
+                  # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
+                   }
+                  attr_accessor :financial_accounts
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil, cards: nil, financial_accounts: nil); end
+                end
+                class OutboundTransfers < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    attr_accessor :requested
+                    sig { params(requested: T.nilable(T::Boolean)).void }
+                    def initialize(requested: nil); end
+                  end
+                  class FinancialAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    attr_accessor :requested
+                    sig { params(requested: T.nilable(T::Boolean)).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Can send funds from a FinancialAccount to a bank account owned by yourself.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
+                   }
+                  attr_accessor :bank_accounts
+                  # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
+                   }
+                  attr_accessor :financial_accounts
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts), financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil, financial_accounts: nil); end
+                end
+                # Can provision a financial address to credit/debit a FinancialAccount.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses))
+                 }
+                attr_accessor :financial_addresses
+                # Can hold storage-type funds on Stripe.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
+                 }
+                attr_accessor :holds_currencies
+                # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers))
+                 }
+                attr_accessor :inbound_transfers
+                # Can send funds from a FinancialAccount to a destination owned by someone else.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments))
+                 }
+                attr_accessor :outbound_payments
+                # Can send funds from a FinancialAccount to a destination owned by yourself.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers))
+                 }
+                attr_accessor :outbound_transfers
+                sig {
+                  params(financial_addresses: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses), holds_currencies: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers)).void
+                 }
+                def initialize(
+                  financial_addresses: nil,
+                  holds_currencies: nil,
+                  inbound_transfers: nil,
+                  outbound_payments: nil,
+                  outbound_transfers: nil
+                ); end
+              end
+              # Capabilities to request on the Storer Configuration.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities))
+               }
+              attr_accessor :capabilities
+              sig {
+                params(capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities)).void
+               }
+              def initialize(capabilities: nil); end
+            end
             # The Customer Configuration allows the Account to be charged.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer))
@@ -3212,10 +3565,15 @@ module Stripe
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient))
              }
             attr_accessor :recipient
+            # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
             sig {
-              params(customer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer), merchant: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant), recipient: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient)).void
+              returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer))
              }
-            def initialize(customer: nil, merchant: nil, recipient: nil); end
+            attr_accessor :storer
+            sig {
+              params(customer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer), merchant: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant), recipient: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient), storer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer)).void
+             }
+            def initialize(customer: nil, merchant: nil, recipient: nil, storer: nil); end
           end
           class Defaults < Stripe::RequestParams
             class Responsibilities < Stripe::RequestParams

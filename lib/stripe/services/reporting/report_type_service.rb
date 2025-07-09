@@ -7,29 +7,25 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       # Returns a full list of Report Types.
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: "/v1/reporting/report_types",
+          path: '/v1/reporting/report_types',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -37,10 +33,10 @@ module Stripe
       def retrieve(report_type, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/reporting/report_types/%<report_type>s", { report_type: CGI.escape(report_type) }),
+          path: format('/v1/reporting/report_types/%<report_type>s', {:report_type => CGI.escape(report_type)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

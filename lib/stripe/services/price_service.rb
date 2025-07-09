@@ -13,7 +13,6 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
-
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -21,7 +20,6 @@ module Stripe
           @lte = lte
         end
       end
-
       class Recurring < Stripe::RequestParams
         # Filter by billing frequency. Either `day`, `week`, `month` or `year`.
         attr_accessor :interval
@@ -29,7 +27,6 @@ module Stripe
         attr_accessor :meter
         # Filter by the usage type for this price. Can be either `metered` or `licensed`.
         attr_accessor :usage_type
-
         def initialize(interval: nil, meter: nil, usage_type: nil)
           @interval = interval
           @meter = meter
@@ -58,7 +55,6 @@ module Stripe
       attr_accessor :starting_after
       # Only return prices of type `recurring` or `one_time`.
       attr_accessor :type
-
       def initialize(
         active: nil,
         created: nil,
@@ -85,7 +81,6 @@ module Stripe
         @type = type
       end
     end
-
     class CreateParams < Stripe::RequestParams
       class CurrencyOptions < Stripe::RequestParams
         class CustomUnitAmount < Stripe::RequestParams
@@ -97,7 +92,6 @@ module Stripe
           attr_accessor :minimum
           # The starting unit amount which can be updated by the customer.
           attr_accessor :preset
-
           def initialize(enabled: nil, maximum: nil, minimum: nil, preset: nil)
             @enabled = enabled
             @maximum = maximum
@@ -105,7 +99,6 @@ module Stripe
             @preset = preset
           end
         end
-
         class Tier < Stripe::RequestParams
           # The flat billing amount for an entire tier, regardless of the number of units in the tier.
           attr_accessor :flat_amount
@@ -117,7 +110,6 @@ module Stripe
           attr_accessor :unit_amount_decimal
           # Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
           attr_accessor :up_to
-
           def initialize(
             flat_amount: nil,
             flat_amount_decimal: nil,
@@ -142,7 +134,6 @@ module Stripe
         attr_accessor :unit_amount
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         attr_accessor :unit_amount_decimal
-
         def initialize(
           custom_unit_amount: nil,
           tax_behavior: nil,
@@ -157,7 +148,6 @@ module Stripe
           @unit_amount_decimal = unit_amount_decimal
         end
       end
-
       class CustomUnitAmount < Stripe::RequestParams
         # Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
         attr_accessor :enabled
@@ -167,7 +157,6 @@ module Stripe
         attr_accessor :minimum
         # The starting unit amount which can be updated by the customer.
         attr_accessor :preset
-
         def initialize(enabled: nil, maximum: nil, minimum: nil, preset: nil)
           @enabled = enabled
           @maximum = maximum
@@ -175,7 +164,6 @@ module Stripe
           @preset = preset
         end
       end
-
       class ProductData < Stripe::RequestParams
         # Whether the product is currently available for purchase. Defaults to `true`.
         attr_accessor :active
@@ -193,7 +181,6 @@ module Stripe
         attr_accessor :tax_code
         # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
         attr_accessor :unit_label
-
         def initialize(
           active: nil,
           id: nil,
@@ -212,7 +199,6 @@ module Stripe
           @unit_label = unit_label
         end
       end
-
       class Recurring < Stripe::RequestParams
         # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         attr_accessor :interval
@@ -224,7 +210,6 @@ module Stripe
         attr_accessor :trial_period_days
         # Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
         attr_accessor :usage_type
-
         def initialize(
           interval: nil,
           interval_count: nil,
@@ -239,7 +224,6 @@ module Stripe
           @usage_type = usage_type
         end
       end
-
       class Tier < Stripe::RequestParams
         # The flat billing amount for an entire tier, regardless of the number of units in the tier.
         attr_accessor :flat_amount
@@ -251,7 +235,6 @@ module Stripe
         attr_accessor :unit_amount_decimal
         # Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
         attr_accessor :up_to
-
         def initialize(
           flat_amount: nil,
           flat_amount_decimal: nil,
@@ -266,13 +249,11 @@ module Stripe
           @up_to = up_to
         end
       end
-
       class TransformQuantity < Stripe::RequestParams
         # Divide usage by this number.
         attr_accessor :divide_by
         # After division, either round the result `up` or `down`.
         attr_accessor :round
-
         def initialize(divide_by: nil, round: nil)
           @divide_by = divide_by
           @round = round
@@ -316,7 +297,6 @@ module Stripe
       attr_accessor :unit_amount
       # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
       attr_accessor :unit_amount_decimal
-
       def initialize(
         active: nil,
         billing_scheme: nil,
@@ -359,16 +339,13 @@ module Stripe
         @unit_amount_decimal = unit_amount_decimal
       end
     end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class UpdateParams < Stripe::RequestParams
       class CurrencyOptions < Stripe::RequestParams
         class CustomUnitAmount < Stripe::RequestParams
@@ -380,7 +357,6 @@ module Stripe
           attr_accessor :minimum
           # The starting unit amount which can be updated by the customer.
           attr_accessor :preset
-
           def initialize(enabled: nil, maximum: nil, minimum: nil, preset: nil)
             @enabled = enabled
             @maximum = maximum
@@ -388,7 +364,6 @@ module Stripe
             @preset = preset
           end
         end
-
         class Tier < Stripe::RequestParams
           # The flat billing amount for an entire tier, regardless of the number of units in the tier.
           attr_accessor :flat_amount
@@ -400,7 +375,6 @@ module Stripe
           attr_accessor :unit_amount_decimal
           # Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
           attr_accessor :up_to
-
           def initialize(
             flat_amount: nil,
             flat_amount_decimal: nil,
@@ -425,7 +399,6 @@ module Stripe
         attr_accessor :unit_amount
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         attr_accessor :unit_amount_decimal
-
         def initialize(
           custom_unit_amount: nil,
           tax_behavior: nil,
@@ -440,7 +413,6 @@ module Stripe
           @unit_amount_decimal = unit_amount_decimal
         end
       end
-
       class MigrateTo < Stripe::RequestParams
         # The behavior controlling the point in the subscription lifecycle after which to migrate the price. Currently must be `at_cycle_end`.
         attr_accessor :behavior
@@ -448,7 +420,6 @@ module Stripe
         attr_accessor :effective_after
         # The ID of the price object.
         attr_accessor :price
-
         def initialize(behavior: nil, effective_after: nil, price: nil)
           @behavior = behavior
           @effective_after = effective_after
@@ -473,7 +444,6 @@ module Stripe
       attr_accessor :tax_behavior
       # If set to true, will atomically remove the lookup key from the existing price, and assign it to this price.
       attr_accessor :transfer_lookup_key
-
       def initialize(
         active: nil,
         currency_options: nil,
@@ -496,7 +466,6 @@ module Stripe
         @transfer_lookup_key = transfer_lookup_key
       end
     end
-
     class SearchParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
@@ -506,7 +475,6 @@ module Stripe
       attr_accessor :page
       # The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for prices](https://stripe.com/docs/search#query-fields-for-prices).
       attr_accessor :query
-
       def initialize(expand: nil, limit: nil, page: nil, query: nil)
         @expand = expand
         @limit = limit
@@ -514,25 +482,24 @@ module Stripe
         @query = query
       end
     end
-
     # Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
     def create(params = {}, opts = {})
-      request(method: :post, path: "/v1/prices", params: params, opts: opts, base_address: :api)
+      request(method: :post, path: '/v1/prices', params: params, opts: opts, base_address: :api)
     end
 
     # Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
     def list(params = {}, opts = {})
-      request(method: :get, path: "/v1/prices", params: params, opts: opts, base_address: :api)
+      request(method: :get, path: '/v1/prices', params: params, opts: opts, base_address: :api)
     end
 
     # Retrieves the price with the given ID.
     def retrieve(price, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/prices/%<price>s", { price: CGI.escape(price) }),
+        path: format('/v1/prices/%<price>s', {:price => CGI.escape(price)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -543,10 +510,10 @@ module Stripe
     def search(params = {}, opts = {})
       request(
         method: :get,
-        path: "/v1/prices/search",
+        path: '/v1/prices/search',
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -554,10 +521,10 @@ module Stripe
     def update(price, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/prices/%<price>s", { price: CGI.escape(price) }),
+        path: format('/v1/prices/%<price>s', {:price => CGI.escape(price)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

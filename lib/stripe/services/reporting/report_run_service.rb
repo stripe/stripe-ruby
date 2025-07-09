@@ -14,7 +14,6 @@ module Stripe
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
-
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
             @gt = gt
             @gte = gte
@@ -32,7 +31,6 @@ module Stripe
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
-
         def initialize(
           created: nil,
           ending_before: nil,
@@ -47,7 +45,6 @@ module Stripe
           @starting_after = starting_after
         end
       end
-
       class CreateParams < Stripe::RequestParams
         class Parameters < Stripe::RequestParams
           # The set of report columns to include in the report output. If omitted, the Report Type is run with its default column set.
@@ -66,7 +63,6 @@ module Stripe
           attr_accessor :reporting_category
           # Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
           attr_accessor :timezone
-
           def initialize(
             columns: nil,
             connected_account: nil,
@@ -93,31 +89,27 @@ module Stripe
         attr_accessor :parameters
         # The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`.
         attr_accessor :report_type
-
         def initialize(expand: nil, parameters: nil, report_type: nil)
           @expand = expand
           @parameters = parameters
           @report_type = report_type
         end
       end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       # Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: "/v1/reporting/report_runs",
+          path: '/v1/reporting/report_runs',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -125,10 +117,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: "/v1/reporting/report_runs",
+          path: '/v1/reporting/report_runs',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -136,10 +128,10 @@ module Stripe
       def retrieve(report_run, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/reporting/report_runs/%<report_run>s", { report_run: CGI.escape(report_run) }),
+          path: format('/v1/reporting/report_runs/%<report_run>s', {:report_run => CGI.escape(report_run)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

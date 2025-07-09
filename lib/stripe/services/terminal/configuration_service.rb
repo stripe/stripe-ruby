@@ -5,56 +5,45 @@ module Stripe
   module Terminal
     class ConfigurationService < StripeService
       class DeleteParams < Stripe::RequestParams; end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       class UpdateParams < Stripe::RequestParams
         class BbposWiseposE < Stripe::RequestParams
           # A File ID representing an image to display on the reader
           attr_accessor :splashscreen
-
           def initialize(splashscreen: nil)
             @splashscreen = splashscreen
           end
         end
-
         class Offline < Stripe::RequestParams
           # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
           attr_accessor :enabled
-
           def initialize(enabled: nil)
             @enabled = enabled
           end
         end
-
         class RebootWindow < Stripe::RequestParams
           # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
           attr_accessor :end_hour
           # Integer between 0 to 23 that represents the start hour of the reboot time window.
           attr_accessor :start_hour
-
           def initialize(end_hour: nil, start_hour: nil)
             @end_hour = end_hour
             @start_hour = start_hour
           end
         end
-
         class StripeS700 < Stripe::RequestParams
           # A File ID representing an image you would like displayed on the reader.
           attr_accessor :splashscreen
-
           def initialize(splashscreen: nil)
             @splashscreen = splashscreen
           end
         end
-
         class Tipping < Stripe::RequestParams
           class Aud < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
@@ -63,14 +52,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Cad < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -78,14 +65,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Chf < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -93,14 +78,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Czk < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -108,14 +91,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Dkk < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -123,14 +104,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Eur < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -138,14 +117,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Gbp < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -153,14 +130,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Hkd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -168,14 +143,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Jpy < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -183,14 +156,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Myr < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -198,14 +169,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Nok < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -213,14 +182,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Nzd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -228,14 +195,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Pln < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -243,14 +208,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Sek < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -258,14 +221,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Sgd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -273,14 +234,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Usd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -288,7 +247,6 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
@@ -327,7 +285,6 @@ module Stripe
           attr_accessor :sgd
           # Tipping configuration for USD
           attr_accessor :usd
-
           def initialize(
             aud: nil,
             cad: nil,
@@ -364,16 +321,13 @@ module Stripe
             @usd = usd
           end
         end
-
         class VerifoneP400 < Stripe::RequestParams
           # A File ID representing an image you would like displayed on the reader.
           attr_accessor :splashscreen
-
           def initialize(splashscreen: nil)
             @splashscreen = splashscreen
           end
         end
-
         class Wifi < Stripe::RequestParams
           class EnterpriseEapPeap < Stripe::RequestParams
             # A File ID representing a PEM file containing the server certificate
@@ -384,7 +338,6 @@ module Stripe
             attr_accessor :ssid
             # Username for connecting to the WiFi network
             attr_accessor :username
-
             def initialize(ca_certificate_file: nil, password: nil, ssid: nil, username: nil)
               @ca_certificate_file = ca_certificate_file
               @password = password
@@ -392,7 +345,6 @@ module Stripe
               @username = username
             end
           end
-
           class EnterpriseEapTls < Stripe::RequestParams
             # A File ID representing a PEM file containing the server certificate
             attr_accessor :ca_certificate_file
@@ -404,7 +356,6 @@ module Stripe
             attr_accessor :private_key_file_password
             # Name of the WiFi network
             attr_accessor :ssid
-
             def initialize(
               ca_certificate_file: nil,
               client_certificate_file: nil,
@@ -419,13 +370,11 @@ module Stripe
               @ssid = ssid
             end
           end
-
           class PersonalPsk < Stripe::RequestParams
             # Password for connecting to the WiFi network
             attr_accessor :password
             # Name of the WiFi network
             attr_accessor :ssid
-
             def initialize(password: nil, ssid: nil)
               @password = password
               @ssid = ssid
@@ -439,7 +388,6 @@ module Stripe
           attr_accessor :personal_psk
           # Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
           attr_accessor :type
-
           def initialize(
             enterprise_eap_peap: nil,
             enterprise_eap_tls: nil,
@@ -470,7 +418,6 @@ module Stripe
         attr_accessor :verifone_p400
         # Configurations for connecting to a WiFi network.
         attr_accessor :wifi
-
         def initialize(
           bbpos_wisepos_e: nil,
           expand: nil,
@@ -493,7 +440,6 @@ module Stripe
           @wifi = wifi
         end
       end
-
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
@@ -505,7 +451,6 @@ module Stripe
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
-
         def initialize(
           ending_before: nil,
           expand: nil,
@@ -520,47 +465,38 @@ module Stripe
           @starting_after = starting_after
         end
       end
-
       class CreateParams < Stripe::RequestParams
         class BbposWiseposE < Stripe::RequestParams
           # A File ID representing an image to display on the reader
           attr_accessor :splashscreen
-
           def initialize(splashscreen: nil)
             @splashscreen = splashscreen
           end
         end
-
         class Offline < Stripe::RequestParams
           # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
           attr_accessor :enabled
-
           def initialize(enabled: nil)
             @enabled = enabled
           end
         end
-
         class RebootWindow < Stripe::RequestParams
           # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
           attr_accessor :end_hour
           # Integer between 0 to 23 that represents the start hour of the reboot time window.
           attr_accessor :start_hour
-
           def initialize(end_hour: nil, start_hour: nil)
             @end_hour = end_hour
             @start_hour = start_hour
           end
         end
-
         class StripeS700 < Stripe::RequestParams
           # A File ID representing an image you would like displayed on the reader.
           attr_accessor :splashscreen
-
           def initialize(splashscreen: nil)
             @splashscreen = splashscreen
           end
         end
-
         class Tipping < Stripe::RequestParams
           class Aud < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
@@ -569,14 +505,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Cad < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -584,14 +518,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Chf < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -599,14 +531,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Czk < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -614,14 +544,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Dkk < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -629,14 +557,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Eur < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -644,14 +570,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Gbp < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -659,14 +583,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Hkd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -674,14 +596,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Jpy < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -689,14 +609,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Myr < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -704,14 +622,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Nok < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -719,14 +635,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Nzd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -734,14 +648,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Pln < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -749,14 +661,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Sek < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -764,14 +674,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Sgd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -779,14 +687,12 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
               @smart_tip_threshold = smart_tip_threshold
             end
           end
-
           class Usd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -794,7 +700,6 @@ module Stripe
             attr_accessor :percentages
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
-
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
               @fixed_amounts = fixed_amounts
               @percentages = percentages
@@ -833,7 +738,6 @@ module Stripe
           attr_accessor :sgd
           # Tipping configuration for USD
           attr_accessor :usd
-
           def initialize(
             aud: nil,
             cad: nil,
@@ -870,16 +774,13 @@ module Stripe
             @usd = usd
           end
         end
-
         class VerifoneP400 < Stripe::RequestParams
           # A File ID representing an image you would like displayed on the reader.
           attr_accessor :splashscreen
-
           def initialize(splashscreen: nil)
             @splashscreen = splashscreen
           end
         end
-
         class Wifi < Stripe::RequestParams
           class EnterpriseEapPeap < Stripe::RequestParams
             # A File ID representing a PEM file containing the server certificate
@@ -890,7 +791,6 @@ module Stripe
             attr_accessor :ssid
             # Username for connecting to the WiFi network
             attr_accessor :username
-
             def initialize(ca_certificate_file: nil, password: nil, ssid: nil, username: nil)
               @ca_certificate_file = ca_certificate_file
               @password = password
@@ -898,7 +798,6 @@ module Stripe
               @username = username
             end
           end
-
           class EnterpriseEapTls < Stripe::RequestParams
             # A File ID representing a PEM file containing the server certificate
             attr_accessor :ca_certificate_file
@@ -910,7 +809,6 @@ module Stripe
             attr_accessor :private_key_file_password
             # Name of the WiFi network
             attr_accessor :ssid
-
             def initialize(
               ca_certificate_file: nil,
               client_certificate_file: nil,
@@ -925,13 +823,11 @@ module Stripe
               @ssid = ssid
             end
           end
-
           class PersonalPsk < Stripe::RequestParams
             # Password for connecting to the WiFi network
             attr_accessor :password
             # Name of the WiFi network
             attr_accessor :ssid
-
             def initialize(password: nil, ssid: nil)
               @password = password
               @ssid = ssid
@@ -945,7 +841,6 @@ module Stripe
           attr_accessor :personal_psk
           # Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
           attr_accessor :type
-
           def initialize(
             enterprise_eap_peap: nil,
             enterprise_eap_tls: nil,
@@ -976,7 +871,6 @@ module Stripe
         attr_accessor :verifone_p400
         # Configurations for connecting to a WiFi network.
         attr_accessor :wifi
-
         def initialize(
           bbpos_wisepos_e: nil,
           expand: nil,
@@ -999,15 +893,14 @@ module Stripe
           @wifi = wifi
         end
       end
-
       # Creates a new Configuration object.
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: "/v1/terminal/configurations",
+          path: '/v1/terminal/configurations',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -1015,10 +908,10 @@ module Stripe
       def delete(configuration, params = {}, opts = {})
         request(
           method: :delete,
-          path: format("/v1/terminal/configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+          path: format('/v1/terminal/configurations/%<configuration>s', {:configuration => CGI.escape(configuration)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -1026,10 +919,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: "/v1/terminal/configurations",
+          path: '/v1/terminal/configurations',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -1037,10 +930,10 @@ module Stripe
       def retrieve(configuration, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/terminal/configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+          path: format('/v1/terminal/configurations/%<configuration>s', {:configuration => CGI.escape(configuration)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -1048,10 +941,10 @@ module Stripe
       def update(configuration, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/terminal/configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+          path: format('/v1/terminal/configurations/%<configuration>s', {:configuration => CGI.escape(configuration)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

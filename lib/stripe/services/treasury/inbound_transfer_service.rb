@@ -17,7 +17,6 @@ module Stripe
         attr_accessor :starting_after
         # Only return InboundTransfers that have the given status: `processing`, `succeeded`, `failed` or `canceled`.
         attr_accessor :status
-
         def initialize(
           ending_before: nil,
           expand: nil,
@@ -34,7 +33,6 @@ module Stripe
           @status = status
         end
       end
-
       class CreateParams < Stripe::RequestParams
         # Amount (in cents) to be transferred.
         attr_accessor :amount
@@ -52,7 +50,6 @@ module Stripe
         attr_accessor :origin_payment_method
         # The complete description that appears on your customers' statements. Maximum 10 characters.
         attr_accessor :statement_descriptor
-
         def initialize(
           amount: nil,
           currency: nil,
@@ -73,33 +70,28 @@ module Stripe
           @statement_descriptor = statement_descriptor
         end
       end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       class CancelParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       # Cancels an InboundTransfer.
       def cancel(inbound_transfer, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/treasury/inbound_transfers/%<inbound_transfer>s/cancel", { inbound_transfer: CGI.escape(inbound_transfer) }),
+          path: format('/v1/treasury/inbound_transfers/%<inbound_transfer>s/cancel', {:inbound_transfer => CGI.escape(inbound_transfer)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -107,10 +99,10 @@ module Stripe
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: "/v1/treasury/inbound_transfers",
+          path: '/v1/treasury/inbound_transfers',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -118,10 +110,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: "/v1/treasury/inbound_transfers",
+          path: '/v1/treasury/inbound_transfers',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -129,10 +121,10 @@ module Stripe
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/treasury/inbound_transfers/%<id>s", { id: CGI.escape(id) }),
+          path: format('/v1/treasury/inbound_transfers/%<id>s', {:id => CGI.escape(id)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

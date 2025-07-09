@@ -3,10 +3,10 @@
 
 module Stripe
   class ReportingService < StripeService
-    attr_reader :report_runs, :report_types
-
+    attr_reader :report_runs
+    attr_reader :report_types
     def initialize(requestor)
-      super
+      super(requestor)
       @report_runs = Stripe::Reporting::ReportRunService.new(@requestor)
       @report_types = Stripe::Reporting::ReportTypeService.new(@requestor)
     end

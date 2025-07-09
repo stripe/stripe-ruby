@@ -165,10 +165,16 @@ module Stripe
   class TemporarySessionExpiredError < StripeError
   end
 
-  class FinancialAccountNotOpenError < StripeError
+  class NonZeroBalanceError < StripeError
+  end
+
+  class AlreadyExistsError < StripeError
   end
 
   class FeatureNotEnabledError < StripeError
+  end
+
+  class FinancialAccountNotOpenError < StripeError
   end
 
   class BlockedByStripeError < StripeError

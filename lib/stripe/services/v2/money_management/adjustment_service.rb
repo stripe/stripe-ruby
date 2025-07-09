@@ -25,7 +25,6 @@ module Stripe
           attr_accessor :created_lte
           # The page limit.
           attr_accessor :limit
-
           def initialize(
             adjusted_flow: nil,
             created: nil,
@@ -44,17 +43,15 @@ module Stripe
             @limit = limit
           end
         end
-
         class RetrieveParams < Stripe::RequestParams; end
-
         # Returns a list of Adjustments that match the provided filters.
         def list(params = {}, opts = {})
           request(
             method: :get,
-            path: "/v2/money_management/adjustments",
+            path: '/v2/money_management/adjustments',
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -62,10 +59,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format("/v2/money_management/adjustments/%<id>s", { id: CGI.escape(id) }),
+            path: format('/v2/money_management/adjustments/%<id>s', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
       end

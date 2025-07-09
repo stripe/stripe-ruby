@@ -6,24 +6,20 @@ module Stripe
     module Core
       class AccountService < StripeService
         attr_reader :persons
-
         def initialize(requestor)
-          super
+          super(requestor)
           @persons = Stripe::V2::Core::Accounts::PersonService.new(@requestor)
         end
-
         class ListParams < Stripe::RequestParams
           # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
           attr_accessor :applied_configurations
           # The upper limit on the number of accounts returned by the List Account request.
           attr_accessor :limit
-
           def initialize(applied_configurations: nil, limit: nil)
             @applied_configurations = applied_configurations
             @limit = limit
           end
         end
-
         class CreateParams < Stripe::RequestParams
           class Configuration < Stripe::RequestParams
             class Customer < Stripe::RequestParams
@@ -34,14 +30,12 @@ module Stripe
                 attr_accessor :ip_address
                 # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 attr_accessor :location_source
-
                 def initialize(exempt: nil, ip_address: nil, location_source: nil)
                   @exempt = exempt
                   @ip_address = ip_address
                   @location_source = location_source
                 end
               end
-
               class Billing < Stripe::RequestParams
                 class Invoice < Stripe::RequestParams
                   class CustomField < Stripe::RequestParams
@@ -49,19 +43,16 @@ module Stripe
                     attr_accessor :name
                     # The value of the custom field. This may be up to 140 characters. When updating, pass an empty string to remove previously-defined values.
                     attr_accessor :value
-
                     def initialize(name: nil, value: nil)
                       @name = name
                       @value = value
                     end
                   end
-
                   class Rendering < Stripe::RequestParams
                     # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
                     attr_accessor :amount_tax_display
                     # ID of the invoice rendering template to use for future invoices.
                     attr_accessor :template
-
                     def initialize(amount_tax_display: nil, template: nil)
                       @amount_tax_display = amount_tax_display
                       @template = template
@@ -77,7 +68,6 @@ module Stripe
                   attr_accessor :prefix
                   # Default options for invoice PDF rendering for this customer.
                   attr_accessor :rendering
-
                   def initialize(
                     custom_fields: nil,
                     footer: nil,
@@ -94,29 +84,24 @@ module Stripe
                 end
                 # Default settings used on invoices for this customer.
                 attr_accessor :invoice
-
                 def initialize(invoice: nil)
                   @invoice = invoice
                 end
               end
-
               class Capabilities < Stripe::RequestParams
                 class AutomaticIndirectTax < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
                 # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions. Uses the `location_source` field.
                 attr_accessor :automatic_indirect_tax
-
                 def initialize(automatic_indirect_tax: nil)
                   @automatic_indirect_tax = automatic_indirect_tax
                 end
               end
-
               class Shipping < Stripe::RequestParams
                 class Address < Stripe::RequestParams
                   # City, district, suburb, town, or village.
@@ -131,7 +116,6 @@ module Stripe
                   attr_accessor :postal_code
                   # State, county, province, or region.
                   attr_accessor :state
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -154,7 +138,6 @@ module Stripe
                 attr_accessor :name
                 # Customer phone (including extension).
                 attr_accessor :phone
-
                 def initialize(address: nil, name: nil, phone: nil)
                   @address = address
                   @name = name
@@ -171,7 +154,6 @@ module Stripe
               attr_accessor :shipping
               # ID of the test clock to attach to the customer. Can only be set on testmode Accounts, and when the Customer Configuration is first set on an Account.
               attr_accessor :test_clock
-
               def initialize(
                 automatic_indirect_tax: nil,
                 billing: nil,
@@ -186,17 +168,14 @@ module Stripe
                 @test_clock = test_clock
               end
             end
-
             class Merchant < Stripe::RequestParams
               class BacsDebitPayments < Stripe::RequestParams
                 # Display name for Bacs debit payments.
                 attr_accessor :display_name
-
                 def initialize(display_name: nil)
                   @display_name = display_name
                 end
               end
-
               class Branding < Stripe::RequestParams
                 # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
                 attr_accessor :icon
@@ -206,7 +185,6 @@ module Stripe
                 attr_accessor :primary_color
                 # A CSS hex color value representing the secondary branding color for the merchant.
                 attr_accessor :secondary_color
-
                 def initialize(icon: nil, logo: nil, primary_color: nil, secondary_color: nil)
                   @icon = icon
                   @logo = logo
@@ -214,399 +192,311 @@ module Stripe
                   @secondary_color = secondary_color
                 end
               end
-
               class Capabilities < Stripe::RequestParams
                 class AchDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AcssDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AffirmPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AfterpayClearpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AlmaPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AmazonPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AuBecsDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class BacsDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class BancontactPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class BlikPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class BoletoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class CardPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class CartesBancairesPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class CashappPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class EpsPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class FpxPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class GbBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class GrabpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class IdealPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class JcbPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class JpBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class KakaoPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class KlarnaPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class KonbiniPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class KrCardPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class LinkPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class MobilepayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class MultibancoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class MxBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class NaverPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class OxxoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class P24Payments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class PayByBankPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class PaycoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class PaynowPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class PromptpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class RevolutPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class SamsungPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class SepaBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class SepaDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class SwishPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class TwintPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class UsBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class ZipPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
@@ -699,7 +589,6 @@ module Stripe
                 attr_accessor :us_bank_transfer_payments
                 # Allow the merchant to process Zip payments.
                 attr_accessor :zip_payments
-
                 def initialize(
                   ach_debit_payments: nil,
                   acss_debit_payments: nil,
@@ -792,14 +681,12 @@ module Stripe
                   @zip_payments = zip_payments
                 end
               end
-
               class CardPayments < Stripe::RequestParams
                 class DeclineOn < Stripe::RequestParams
                   # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
                   attr_accessor :avs_failure
                   # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
                   attr_accessor :cvc_failure
-
                   def initialize(avs_failure: nil, cvc_failure: nil)
                     @avs_failure = avs_failure
                     @cvc_failure = cvc_failure
@@ -807,24 +694,20 @@ module Stripe
                 end
                 # Automatically declines certain charge types regardless of whether the card issuer accepted or declined the charge.
                 attr_accessor :decline_on
-
                 def initialize(decline_on: nil)
                   @decline_on = decline_on
                 end
               end
-
               class StatementDescriptor < Stripe::RequestParams
                 # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
                 attr_accessor :descriptor
                 # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
                 attr_accessor :prefix
-
                 def initialize(descriptor: nil, prefix: nil)
                   @descriptor = descriptor
                   @prefix = prefix
                 end
               end
-
               class Support < Stripe::RequestParams
                 class Address < Stripe::RequestParams
                   # City, district, suburb, town, or village.
@@ -841,7 +724,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -868,7 +750,6 @@ module Stripe
                 attr_accessor :phone
                 # A publicly available website for handling support issues.
                 attr_accessor :url
-
                 def initialize(address: nil, email: nil, phone: nil, url: nil)
                   @address = address
                   @email = email
@@ -890,7 +771,6 @@ module Stripe
               attr_accessor :statement_descriptor
               # Publicly available contact information for sending support issues to.
               attr_accessor :support
-
               def initialize(
                 bacs_debit_payments: nil,
                 branding: nil,
@@ -909,23 +789,19 @@ module Stripe
                 @support = support
               end
             end
-
             class Recipient < Stripe::RequestParams
               class Capabilities < Stripe::RequestParams
                 class BankAccounts < Stripe::RequestParams
                   class Local < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
-
                     def initialize(requested: nil)
                       @requested = requested
                     end
                   end
-
                   class Wire < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
-
                     def initialize(requested: nil)
                       @requested = requested
                     end
@@ -934,34 +810,28 @@ module Stripe
                   attr_accessor :local
                   # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                   attr_accessor :wire
-
                   def initialize(local: nil, wire: nil)
                     @local = local
                     @wire = wire
                   end
                 end
-
                 class Cards < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class StripeBalance < Stripe::RequestParams
                   class StripeTransfers < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
-
                     def initialize(requested: nil)
                       @requested = requested
                     end
                   end
                   # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                   attr_accessor :stripe_transfers
-
                   def initialize(stripe_transfers: nil)
                     @stripe_transfers = stripe_transfers
                   end
@@ -972,7 +842,6 @@ module Stripe
                 attr_accessor :cards
                 # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
                 attr_accessor :stripe_balance
-
                 def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil)
                   @bank_accounts = bank_accounts
                   @cards = cards
@@ -981,7 +850,138 @@ module Stripe
               end
               # Capabilities to be requested on the Recipient Configuration.
               attr_accessor :capabilities
-
+              def initialize(capabilities: nil)
+                @capabilities = capabilities
+              end
+            end
+            class Storer < Stripe::RequestParams
+              class Capabilities < Stripe::RequestParams
+                class FinancialAddresses < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
+                  attr_accessor :bank_accounts
+                  def initialize(bank_accounts: nil)
+                    @bank_accounts = bank_accounts
+                  end
+                end
+                class HoldsCurrencies < Stripe::RequestParams
+                  class Gbp < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can hold storage-type funds on Stripe in GBP.
+                  attr_accessor :gbp
+                  def initialize(gbp: nil)
+                    @gbp = gbp
+                  end
+                end
+                class InboundTransfers < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can pull funds from an external bank account owned by yourself to a FinancialAccount.
+                  attr_accessor :bank_accounts
+                  def initialize(bank_accounts: nil)
+                    @bank_accounts = bank_accounts
+                  end
+                end
+                class OutboundPayments < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  class Cards < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  class FinancialAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can send funds from a FinancialAccount to a bank account owned by someone else.
+                  attr_accessor :bank_accounts
+                  # Can send funds from a FinancialAccount to a debit card owned by someone else.
+                  attr_accessor :cards
+                  # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
+                  attr_accessor :financial_accounts
+                  def initialize(bank_accounts: nil, cards: nil, financial_accounts: nil)
+                    @bank_accounts = bank_accounts
+                    @cards = cards
+                    @financial_accounts = financial_accounts
+                  end
+                end
+                class OutboundTransfers < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  class FinancialAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can send funds from a FinancialAccount to a bank account owned by yourself.
+                  attr_accessor :bank_accounts
+                  # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
+                  attr_accessor :financial_accounts
+                  def initialize(bank_accounts: nil, financial_accounts: nil)
+                    @bank_accounts = bank_accounts
+                    @financial_accounts = financial_accounts
+                  end
+                end
+                # Can provision a financial address to credit/debit a FinancialAccount.
+                attr_accessor :financial_addresses
+                # Can hold storage-type funds on Stripe.
+                attr_accessor :holds_currencies
+                # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+                attr_accessor :inbound_transfers
+                # Can send funds from a FinancialAccount to a destination owned by someone else.
+                attr_accessor :outbound_payments
+                # Can send funds from a FinancialAccount to a destination owned by yourself.
+                attr_accessor :outbound_transfers
+                def initialize(
+                  financial_addresses: nil,
+                  holds_currencies: nil,
+                  inbound_transfers: nil,
+                  outbound_payments: nil,
+                  outbound_transfers: nil
+                )
+                  @financial_addresses = financial_addresses
+                  @holds_currencies = holds_currencies
+                  @inbound_transfers = inbound_transfers
+                  @outbound_payments = outbound_payments
+                  @outbound_transfers = outbound_transfers
+                end
+              end
+              # Capabilities to request on the Storer Configuration.
+              attr_accessor :capabilities
               def initialize(capabilities: nil)
                 @capabilities = capabilities
               end
@@ -992,21 +992,21 @@ module Stripe
             attr_accessor :merchant
             # The Recipient Configuration allows the Account to receive funds.
             attr_accessor :recipient
-
-            def initialize(customer: nil, merchant: nil, recipient: nil)
+            # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
+            attr_accessor :storer
+            def initialize(customer: nil, merchant: nil, recipient: nil, storer: nil)
               @customer = customer
               @merchant = merchant
               @recipient = recipient
+              @storer = storer
             end
           end
-
           class Defaults < Stripe::RequestParams
             class Responsibilities < Stripe::RequestParams
               # A value indicating the party responsible for collecting fees from this account.
               attr_accessor :fees_collector
               # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
               attr_accessor :losses_collector
-
               def initialize(fees_collector: nil, losses_collector: nil)
                 @fees_collector = fees_collector
                 @losses_collector = losses_collector
@@ -1018,14 +1018,12 @@ module Stripe
             attr_accessor :locales
             # Default responsibilities held by either Stripe or the platform.
             attr_accessor :responsibilities
-
             def initialize(currency: nil, locales: nil, responsibilities: nil)
               @currency = currency
               @locales = locales
               @responsibilities = responsibilities
             end
           end
-
           class Identity < Stripe::RequestParams
             class Attestations < Stripe::RequestParams
               class DirectorshipDeclaration < Stripe::RequestParams
@@ -1035,14 +1033,12 @@ module Stripe
                 attr_accessor :ip
                 # The user agent of the browser from which the director attestation was made.
                 attr_accessor :user_agent
-
                 def initialize(date: nil, ip: nil, user_agent: nil)
                   @date = date
                   @ip = ip
                   @user_agent = user_agent
                 end
               end
-
               class OwnershipDeclaration < Stripe::RequestParams
                 # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
@@ -1050,14 +1046,12 @@ module Stripe
                 attr_accessor :ip
                 # The user agent of the browser from which the beneficial owner attestation was made.
                 attr_accessor :user_agent
-
                 def initialize(date: nil, ip: nil, user_agent: nil)
                   @date = date
                   @ip = ip
                   @user_agent = user_agent
                 end
               end
-
               class PersonsProvided < Stripe::RequestParams
                 # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
                 attr_accessor :directors
@@ -1067,7 +1061,6 @@ module Stripe
                 attr_accessor :owners
                 # Reason for why the company is exempt from providing ownership information.
                 attr_accessor :ownership_exemption_reason
-
                 def initialize(
                   directors: nil,
                   executives: nil,
@@ -1080,7 +1073,6 @@ module Stripe
                   @ownership_exemption_reason = ownership_exemption_reason
                 end
               end
-
               class TermsOfService < Stripe::RequestParams
                 class Account < Stripe::RequestParams
                   # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -1089,7 +1081,6 @@ module Stripe
                   attr_accessor :ip
                   # The user agent of the browser from which the Account's representative accepted the terms of service.
                   attr_accessor :user_agent
-
                   def initialize(date: nil, ip: nil, user_agent: nil)
                     @date = date
                     @ip = ip
@@ -1098,7 +1089,6 @@ module Stripe
                 end
                 # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
                 attr_accessor :account
-
                 def initialize(account: nil)
                   @account = account
                 end
@@ -1111,7 +1101,6 @@ module Stripe
               attr_accessor :persons_provided
               # Attestations of accepted terms of service agreements.
               attr_accessor :terms_of_service
-
               def initialize(
                 directorship_declaration: nil,
                 ownership_declaration: nil,
@@ -1124,7 +1113,6 @@ module Stripe
                 @terms_of_service = terms_of_service
               end
             end
-
             class BusinessDetails < Stripe::RequestParams
               class Address < Stripe::RequestParams
                 # City, district, suburb, town, or village.
@@ -1141,7 +1129,6 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
-
                 def initialize(
                   city: nil,
                   country: nil,
@@ -1160,99 +1147,83 @@ module Stripe
                   @town = town
                 end
               end
-
               class AnnualRevenue < Stripe::RequestParams
                 # A non-negative integer representing the amount in the smallest currency unit.
                 attr_accessor :amount
                 # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
                 attr_accessor :fiscal_year_end
-
                 def initialize(amount: nil, fiscal_year_end: nil)
                   @amount = amount
                   @fiscal_year_end = fiscal_year_end
                 end
               end
-
               class Documents < Stripe::RequestParams
                 class BankAccountOwnershipVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyLicense < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyMemorandumOfAssociation < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyMinisterialDecree < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyRegistrationVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyTaxIdVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class PrimaryVerification < Stripe::RequestParams
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :back
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :front
-
                     def initialize(back: nil, front: nil)
                       @back = back
                       @front = front
@@ -1262,43 +1233,36 @@ module Stripe
                   attr_accessor :front_back
                   # The format of the verification document. Currently supports `front_back` only.
                   attr_accessor :type
-
                   def initialize(front_back: nil, type: nil)
                     @front_back = front_back
                     @type = type
                   end
                 end
-
                 class ProofOfAddress < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class ProofOfRegistration < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
@@ -1324,7 +1288,6 @@ module Stripe
                 attr_accessor :proof_of_registration
                 # One or more documents that demonstrate proof of ultimate beneficial ownership.
                 attr_accessor :proof_of_ultimate_beneficial_ownership
-
                 def initialize(
                   bank_account_ownership_verification: nil,
                   company_license: nil,
@@ -1349,7 +1312,6 @@ module Stripe
                   @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
                 end
               end
-
               class IdNumber < Stripe::RequestParams
                 # The registrar of the ID number (Only valid for DE ID number types).
                 attr_accessor :registrar
@@ -1357,23 +1319,19 @@ module Stripe
                 attr_accessor :type
                 # The value of the ID number.
                 attr_accessor :value
-
                 def initialize(registrar: nil, type: nil, value: nil)
                   @registrar = registrar
                   @type = type
                   @value = value
                 end
               end
-
               class MonthlyEstimatedRevenue < Stripe::RequestParams
                 # A non-negative integer representing the amount in the smallest currency unit.
                 attr_accessor :amount
-
                 def initialize(amount: nil)
                   @amount = amount
                 end
               end
-
               class ScriptAddresses < Stripe::RequestParams
                 class Kana < Stripe::RequestParams
                   # City, district, suburb, town, or village.
@@ -1390,7 +1348,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -1409,7 +1366,6 @@ module Stripe
                     @town = town
                   end
                 end
-
                 class Kanji < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   attr_accessor :city
@@ -1425,7 +1381,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -1448,27 +1403,22 @@ module Stripe
                 attr_accessor :kana
                 # Kanji Address.
                 attr_accessor :kanji
-
                 def initialize(kana: nil, kanji: nil)
                   @kana = kana
                   @kanji = kanji
                 end
               end
-
               class ScriptNames < Stripe::RequestParams
                 class Kana < Stripe::RequestParams
                   # Registered name of the business.
                   attr_accessor :registered_name
-
                   def initialize(registered_name: nil)
                     @registered_name = registered_name
                   end
                 end
-
                 class Kanji < Stripe::RequestParams
                   # Registered name of the business.
                   attr_accessor :registered_name
-
                   def initialize(registered_name: nil)
                     @registered_name = registered_name
                   end
@@ -1477,7 +1427,6 @@ module Stripe
                 attr_accessor :kana
                 # Kanji name.
                 attr_accessor :kanji
-
                 def initialize(kana: nil, kanji: nil)
                   @kana = kana
                   @kanji = kanji
@@ -1511,7 +1460,6 @@ module Stripe
               attr_accessor :structure
               # The business's publicly available website.
               attr_accessor :url
-
               def initialize(
                 address: nil,
                 annual_revenue: nil,
@@ -1544,7 +1492,6 @@ module Stripe
                 @url = url
               end
             end
-
             class Individual < Stripe::RequestParams
               class AdditionalAddress < Stripe::RequestParams
                 # City, district, suburb, town, or village.
@@ -1563,7 +1510,6 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
-
                 def initialize(
                   city: nil,
                   country: nil,
@@ -1584,7 +1530,6 @@ module Stripe
                   @town = town
                 end
               end
-
               class AdditionalName < Stripe::RequestParams
                 # The person's full name.
                 attr_accessor :full_name
@@ -1594,7 +1539,6 @@ module Stripe
                 attr_accessor :purpose
                 # The person's last or family name.
                 attr_accessor :surname
-
                 def initialize(full_name: nil, given_name: nil, purpose: nil, surname: nil)
                   @full_name = full_name
                   @given_name = given_name
@@ -1602,7 +1546,6 @@ module Stripe
                   @surname = surname
                 end
               end
-
               class Address < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
@@ -1618,7 +1561,6 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
-
                 def initialize(
                   city: nil,
                   country: nil,
@@ -1637,7 +1579,6 @@ module Stripe
                   @town = town
                 end
               end
-
               class DateOfBirth < Stripe::RequestParams
                 # The day of birth.
                 attr_accessor :day
@@ -1645,46 +1586,39 @@ module Stripe
                 attr_accessor :month
                 # The year of birth.
                 attr_accessor :year
-
                 def initialize(day: nil, month: nil, year: nil)
                   @day = day
                   @month = month
                   @year = year
                 end
               end
-
               class Documents < Stripe::RequestParams
                 class CompanyAuthorization < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class Passport < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class PrimaryVerification < Stripe::RequestParams
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :back
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :front
-
                     def initialize(back: nil, front: nil)
                       @back = back
                       @front = front
@@ -1694,20 +1628,17 @@ module Stripe
                   attr_accessor :front_back
                   # The format of the verification document. Currently supports `front_back` only.
                   attr_accessor :type
-
                   def initialize(front_back: nil, type: nil)
                     @front_back = front_back
                     @type = type
                   end
                 end
-
                 class SecondaryVerification < Stripe::RequestParams
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :back
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :front
-
                     def initialize(back: nil, front: nil)
                       @back = back
                       @front = front
@@ -1717,19 +1648,16 @@ module Stripe
                   attr_accessor :front_back
                   # The format of the verification document. Currently supports `front_back` only.
                   attr_accessor :type
-
                   def initialize(front_back: nil, type: nil)
                     @front_back = front_back
                     @type = type
                   end
                 end
-
                 class Visa < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
@@ -1745,7 +1673,6 @@ module Stripe
                 attr_accessor :secondary_verification
                 # One or more documents showing the person’s visa required for living in the country where they are residing.
                 attr_accessor :visa
-
                 def initialize(
                   company_authorization: nil,
                   passport: nil,
@@ -1760,19 +1687,16 @@ module Stripe
                   @visa = visa
                 end
               end
-
               class IdNumber < Stripe::RequestParams
                 # The ID number type of an individual.
                 attr_accessor :type
                 # The value of the ID number.
                 attr_accessor :value
-
                 def initialize(type: nil, value: nil)
                   @type = type
                   @value = value
                 end
               end
-
               class Relationship < Stripe::RequestParams
                 # Whether the person is a director of the account's identity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
                 attr_accessor :director
@@ -1784,7 +1708,6 @@ module Stripe
                 attr_accessor :percent_ownership
                 # The person's title (e.g., CEO, Support Engineer).
                 attr_accessor :title
-
                 def initialize(
                   director: nil,
                   executive: nil,
@@ -1799,7 +1722,6 @@ module Stripe
                   @title = title
                 end
               end
-
               class ScriptAddresses < Stripe::RequestParams
                 class Kana < Stripe::RequestParams
                   # City, district, suburb, town, or village.
@@ -1816,7 +1738,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -1835,7 +1756,6 @@ module Stripe
                     @town = town
                   end
                 end
-
                 class Kanji < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   attr_accessor :city
@@ -1851,7 +1771,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -1874,32 +1793,27 @@ module Stripe
                 attr_accessor :kana
                 # Kanji Address.
                 attr_accessor :kanji
-
                 def initialize(kana: nil, kanji: nil)
                   @kana = kana
                   @kanji = kanji
                 end
               end
-
               class ScriptNames < Stripe::RequestParams
                 class Kana < Stripe::RequestParams
                   # The person's first or given name.
                   attr_accessor :given_name
                   # The person's last or family name.
                   attr_accessor :surname
-
                   def initialize(given_name: nil, surname: nil)
                     @given_name = given_name
                     @surname = surname
                   end
                 end
-
                 class Kanji < Stripe::RequestParams
                   # The person's first or given name.
                   attr_accessor :given_name
                   # The person's last or family name.
                   attr_accessor :surname
-
                   def initialize(given_name: nil, surname: nil)
                     @given_name = given_name
                     @surname = surname
@@ -1909,7 +1823,6 @@ module Stripe
                 attr_accessor :kana
                 # Persons name in kanji script.
                 attr_accessor :kanji
-
                 def initialize(kana: nil, kanji: nil)
                   @kana = kana
                   @kanji = kanji
@@ -1949,7 +1862,6 @@ module Stripe
               attr_accessor :script_names
               # The individual's last name.
               attr_accessor :surname
-
               def initialize(
                 additional_addresses: nil,
                 additional_names: nil,
@@ -1998,7 +1910,6 @@ module Stripe
             attr_accessor :entity_type
             # Information about the person represented by the account.
             attr_accessor :individual
-
             def initialize(
               attestations: nil,
               business_details: nil,
@@ -2029,7 +1940,6 @@ module Stripe
           attr_accessor :include
           # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
-
           def initialize(
             configuration: nil,
             contact_email: nil,
@@ -2050,16 +1960,13 @@ module Stripe
             @metadata = metadata
           end
         end
-
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.
           attr_accessor :include
-
           def initialize(include: nil)
             @include = include
           end
         end
-
         class UpdateParams < Stripe::RequestParams
           class Configuration < Stripe::RequestParams
             class Customer < Stripe::RequestParams
@@ -2072,7 +1979,6 @@ module Stripe
                 attr_accessor :location_source
                 # A per-request flag that indicates when Stripe should validate the customer tax location - defaults to 'auto'.
                 attr_accessor :validate_location
-
                 def initialize(
                   exempt: nil,
                   ip_address: nil,
@@ -2085,7 +1991,6 @@ module Stripe
                   @validate_location = validate_location
                 end
               end
-
               class Billing < Stripe::RequestParams
                 class Invoice < Stripe::RequestParams
                   class CustomField < Stripe::RequestParams
@@ -2093,19 +1998,16 @@ module Stripe
                     attr_accessor :name
                     # The value of the custom field. This may be up to 140 characters. When updating, pass an empty string to remove previously-defined values.
                     attr_accessor :value
-
                     def initialize(name: nil, value: nil)
                       @name = name
                       @value = value
                     end
                   end
-
                   class Rendering < Stripe::RequestParams
                     # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
                     attr_accessor :amount_tax_display
                     # ID of the invoice rendering template to use for future invoices.
                     attr_accessor :template
-
                     def initialize(amount_tax_display: nil, template: nil)
                       @amount_tax_display = amount_tax_display
                       @template = template
@@ -2121,7 +2023,6 @@ module Stripe
                   attr_accessor :prefix
                   # Default options for invoice PDF rendering for this customer.
                   attr_accessor :rendering
-
                   def initialize(
                     custom_fields: nil,
                     footer: nil,
@@ -2140,30 +2041,25 @@ module Stripe
                 attr_accessor :default_payment_method
                 # Default settings used on invoices for this customer.
                 attr_accessor :invoice
-
                 def initialize(default_payment_method: nil, invoice: nil)
                   @default_payment_method = default_payment_method
                   @invoice = invoice
                 end
               end
-
               class Capabilities < Stripe::RequestParams
                 class AutomaticIndirectTax < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
                 # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions. Uses the `location_source` field.
                 attr_accessor :automatic_indirect_tax
-
                 def initialize(automatic_indirect_tax: nil)
                   @automatic_indirect_tax = automatic_indirect_tax
                 end
               end
-
               class Shipping < Stripe::RequestParams
                 class Address < Stripe::RequestParams
                   # City, district, suburb, town, or village.
@@ -2178,7 +2074,6 @@ module Stripe
                   attr_accessor :postal_code
                   # State, county, province, or region.
                   attr_accessor :state
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -2201,7 +2096,6 @@ module Stripe
                 attr_accessor :name
                 # Customer phone (including extension).
                 attr_accessor :phone
-
                 def initialize(address: nil, name: nil, phone: nil)
                   @address = address
                   @name = name
@@ -2218,7 +2112,6 @@ module Stripe
               attr_accessor :shipping
               # ID of the test clock to attach to the customer. Can only be set on testmode Accounts, and when the Customer Configuration is first set on an Account.
               attr_accessor :test_clock
-
               def initialize(
                 automatic_indirect_tax: nil,
                 billing: nil,
@@ -2233,17 +2126,14 @@ module Stripe
                 @test_clock = test_clock
               end
             end
-
             class Merchant < Stripe::RequestParams
               class BacsDebitPayments < Stripe::RequestParams
                 # Display name for Bacs debit payments.
                 attr_accessor :display_name
-
                 def initialize(display_name: nil)
                   @display_name = display_name
                 end
               end
-
               class Branding < Stripe::RequestParams
                 # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
                 attr_accessor :icon
@@ -2253,7 +2143,6 @@ module Stripe
                 attr_accessor :primary_color
                 # A CSS hex color value representing the secondary branding color for the merchant.
                 attr_accessor :secondary_color
-
                 def initialize(icon: nil, logo: nil, primary_color: nil, secondary_color: nil)
                   @icon = icon
                   @logo = logo
@@ -2261,399 +2150,311 @@ module Stripe
                   @secondary_color = secondary_color
                 end
               end
-
               class Capabilities < Stripe::RequestParams
                 class AchDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AcssDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AffirmPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AfterpayClearpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AlmaPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AmazonPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class AuBecsDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class BacsDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class BancontactPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class BlikPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class BoletoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class CardPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class CartesBancairesPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class CashappPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class EpsPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class FpxPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class GbBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class GrabpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class IdealPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class JcbPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class JpBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class KakaoPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class KlarnaPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class KonbiniPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class KrCardPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class LinkPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class MobilepayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class MultibancoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class MxBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class NaverPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class OxxoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class P24Payments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class PayByBankPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class PaycoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class PaynowPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class PromptpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class RevolutPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class SamsungPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class SepaBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class SepaDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class SwishPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class TwintPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class UsBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class ZipPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
@@ -2746,7 +2547,6 @@ module Stripe
                 attr_accessor :us_bank_transfer_payments
                 # Allow the merchant to process Zip payments.
                 attr_accessor :zip_payments
-
                 def initialize(
                   ach_debit_payments: nil,
                   acss_debit_payments: nil,
@@ -2839,14 +2639,12 @@ module Stripe
                   @zip_payments = zip_payments
                 end
               end
-
               class CardPayments < Stripe::RequestParams
                 class DeclineOn < Stripe::RequestParams
                   # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
                   attr_accessor :avs_failure
                   # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
                   attr_accessor :cvc_failure
-
                   def initialize(avs_failure: nil, cvc_failure: nil)
                     @avs_failure = avs_failure
                     @cvc_failure = cvc_failure
@@ -2854,24 +2652,20 @@ module Stripe
                 end
                 # Automatically declines certain charge types regardless of whether the card issuer accepted or declined the charge.
                 attr_accessor :decline_on
-
                 def initialize(decline_on: nil)
                   @decline_on = decline_on
                 end
               end
-
               class StatementDescriptor < Stripe::RequestParams
                 # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
                 attr_accessor :descriptor
                 # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
                 attr_accessor :prefix
-
                 def initialize(descriptor: nil, prefix: nil)
                   @descriptor = descriptor
                   @prefix = prefix
                 end
               end
-
               class Support < Stripe::RequestParams
                 class Address < Stripe::RequestParams
                   # City, district, suburb, town, or village.
@@ -2888,7 +2682,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -2915,7 +2708,6 @@ module Stripe
                 attr_accessor :phone
                 # A publicly available website for handling support issues.
                 attr_accessor :url
-
                 def initialize(address: nil, email: nil, phone: nil, url: nil)
                   @address = address
                   @email = email
@@ -2937,7 +2729,6 @@ module Stripe
               attr_accessor :statement_descriptor
               # Publicly available contact information for sending support issues to.
               attr_accessor :support
-
               def initialize(
                 bacs_debit_payments: nil,
                 branding: nil,
@@ -2956,23 +2747,19 @@ module Stripe
                 @support = support
               end
             end
-
             class Recipient < Stripe::RequestParams
               class Capabilities < Stripe::RequestParams
                 class BankAccounts < Stripe::RequestParams
                   class Local < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
-
                     def initialize(requested: nil)
                       @requested = requested
                     end
                   end
-
                   class Wire < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
-
                     def initialize(requested: nil)
                       @requested = requested
                     end
@@ -2981,34 +2768,28 @@ module Stripe
                   attr_accessor :local
                   # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                   attr_accessor :wire
-
                   def initialize(local: nil, wire: nil)
                     @local = local
                     @wire = wire
                   end
                 end
-
                 class Cards < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
-
                   def initialize(requested: nil)
                     @requested = requested
                   end
                 end
-
                 class StripeBalance < Stripe::RequestParams
                   class StripeTransfers < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
-
                     def initialize(requested: nil)
                       @requested = requested
                     end
                   end
                   # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                   attr_accessor :stripe_transfers
-
                   def initialize(stripe_transfers: nil)
                     @stripe_transfers = stripe_transfers
                   end
@@ -3019,7 +2800,6 @@ module Stripe
                 attr_accessor :cards
                 # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
                 attr_accessor :stripe_balance
-
                 def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil)
                   @bank_accounts = bank_accounts
                   @cards = cards
@@ -3030,10 +2810,141 @@ module Stripe
               attr_accessor :capabilities
               # The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination.
               attr_accessor :default_outbound_destination
-
               def initialize(capabilities: nil, default_outbound_destination: nil)
                 @capabilities = capabilities
                 @default_outbound_destination = default_outbound_destination
+              end
+            end
+            class Storer < Stripe::RequestParams
+              class Capabilities < Stripe::RequestParams
+                class FinancialAddresses < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
+                  attr_accessor :bank_accounts
+                  def initialize(bank_accounts: nil)
+                    @bank_accounts = bank_accounts
+                  end
+                end
+                class HoldsCurrencies < Stripe::RequestParams
+                  class Gbp < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can hold storage-type funds on Stripe in GBP.
+                  attr_accessor :gbp
+                  def initialize(gbp: nil)
+                    @gbp = gbp
+                  end
+                end
+                class InboundTransfers < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can pull funds from an external bank account owned by yourself to a FinancialAccount.
+                  attr_accessor :bank_accounts
+                  def initialize(bank_accounts: nil)
+                    @bank_accounts = bank_accounts
+                  end
+                end
+                class OutboundPayments < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  class Cards < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  class FinancialAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can send funds from a FinancialAccount to a bank account owned by someone else.
+                  attr_accessor :bank_accounts
+                  # Can send funds from a FinancialAccount to a debit card owned by someone else.
+                  attr_accessor :cards
+                  # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
+                  attr_accessor :financial_accounts
+                  def initialize(bank_accounts: nil, cards: nil, financial_accounts: nil)
+                    @bank_accounts = bank_accounts
+                    @cards = cards
+                    @financial_accounts = financial_accounts
+                  end
+                end
+                class OutboundTransfers < Stripe::RequestParams
+                  class BankAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  class FinancialAccounts < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can send funds from a FinancialAccount to a bank account owned by yourself.
+                  attr_accessor :bank_accounts
+                  # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
+                  attr_accessor :financial_accounts
+                  def initialize(bank_accounts: nil, financial_accounts: nil)
+                    @bank_accounts = bank_accounts
+                    @financial_accounts = financial_accounts
+                  end
+                end
+                # Can provision a financial address to credit/debit a FinancialAccount.
+                attr_accessor :financial_addresses
+                # Can hold storage-type funds on Stripe.
+                attr_accessor :holds_currencies
+                # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+                attr_accessor :inbound_transfers
+                # Can send funds from a FinancialAccount to a destination owned by someone else.
+                attr_accessor :outbound_payments
+                # Can send funds from a FinancialAccount to a destination owned by yourself.
+                attr_accessor :outbound_transfers
+                def initialize(
+                  financial_addresses: nil,
+                  holds_currencies: nil,
+                  inbound_transfers: nil,
+                  outbound_payments: nil,
+                  outbound_transfers: nil
+                )
+                  @financial_addresses = financial_addresses
+                  @holds_currencies = holds_currencies
+                  @inbound_transfers = inbound_transfers
+                  @outbound_payments = outbound_payments
+                  @outbound_transfers = outbound_transfers
+                end
+              end
+              # Capabilities to request on the Storer Configuration.
+              attr_accessor :capabilities
+              def initialize(capabilities: nil)
+                @capabilities = capabilities
               end
             end
             # The Customer Configuration allows the Account to be charged.
@@ -3042,21 +2953,21 @@ module Stripe
             attr_accessor :merchant
             # The Recipient Configuration allows the Account to receive funds.
             attr_accessor :recipient
-
-            def initialize(customer: nil, merchant: nil, recipient: nil)
+            # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
+            attr_accessor :storer
+            def initialize(customer: nil, merchant: nil, recipient: nil, storer: nil)
               @customer = customer
               @merchant = merchant
               @recipient = recipient
+              @storer = storer
             end
           end
-
           class Defaults < Stripe::RequestParams
             class Responsibilities < Stripe::RequestParams
               # A value indicating the party responsible for collecting fees from this account.
               attr_accessor :fees_collector
               # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
               attr_accessor :losses_collector
-
               def initialize(fees_collector: nil, losses_collector: nil)
                 @fees_collector = fees_collector
                 @losses_collector = losses_collector
@@ -3068,14 +2979,12 @@ module Stripe
             attr_accessor :locales
             # Default responsibilities held by either Stripe or the platform.
             attr_accessor :responsibilities
-
             def initialize(currency: nil, locales: nil, responsibilities: nil)
               @currency = currency
               @locales = locales
               @responsibilities = responsibilities
             end
           end
-
           class Identity < Stripe::RequestParams
             class Attestations < Stripe::RequestParams
               class DirectorshipDeclaration < Stripe::RequestParams
@@ -3085,14 +2994,12 @@ module Stripe
                 attr_accessor :ip
                 # The user agent of the browser from which the director attestation was made.
                 attr_accessor :user_agent
-
                 def initialize(date: nil, ip: nil, user_agent: nil)
                   @date = date
                   @ip = ip
                   @user_agent = user_agent
                 end
               end
-
               class OwnershipDeclaration < Stripe::RequestParams
                 # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
@@ -3100,14 +3007,12 @@ module Stripe
                 attr_accessor :ip
                 # The user agent of the browser from which the beneficial owner attestation was made.
                 attr_accessor :user_agent
-
                 def initialize(date: nil, ip: nil, user_agent: nil)
                   @date = date
                   @ip = ip
                   @user_agent = user_agent
                 end
               end
-
               class PersonsProvided < Stripe::RequestParams
                 # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
                 attr_accessor :directors
@@ -3117,7 +3022,6 @@ module Stripe
                 attr_accessor :owners
                 # Reason for why the company is exempt from providing ownership information.
                 attr_accessor :ownership_exemption_reason
-
                 def initialize(
                   directors: nil,
                   executives: nil,
@@ -3130,7 +3034,6 @@ module Stripe
                   @ownership_exemption_reason = ownership_exemption_reason
                 end
               end
-
               class TermsOfService < Stripe::RequestParams
                 class Account < Stripe::RequestParams
                   # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -3139,7 +3042,6 @@ module Stripe
                   attr_accessor :ip
                   # The user agent of the browser from which the Account's representative accepted the terms of service.
                   attr_accessor :user_agent
-
                   def initialize(date: nil, ip: nil, user_agent: nil)
                     @date = date
                     @ip = ip
@@ -3148,7 +3050,6 @@ module Stripe
                 end
                 # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
                 attr_accessor :account
-
                 def initialize(account: nil)
                   @account = account
                 end
@@ -3161,7 +3062,6 @@ module Stripe
               attr_accessor :persons_provided
               # Attestations of accepted terms of service agreements.
               attr_accessor :terms_of_service
-
               def initialize(
                 directorship_declaration: nil,
                 ownership_declaration: nil,
@@ -3174,7 +3074,6 @@ module Stripe
                 @terms_of_service = terms_of_service
               end
             end
-
             class BusinessDetails < Stripe::RequestParams
               class Address < Stripe::RequestParams
                 # City, district, suburb, town, or village.
@@ -3191,7 +3090,6 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
-
                 def initialize(
                   city: nil,
                   country: nil,
@@ -3210,99 +3108,83 @@ module Stripe
                   @town = town
                 end
               end
-
               class AnnualRevenue < Stripe::RequestParams
                 # A non-negative integer representing the amount in the smallest currency unit.
                 attr_accessor :amount
                 # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
                 attr_accessor :fiscal_year_end
-
                 def initialize(amount: nil, fiscal_year_end: nil)
                   @amount = amount
                   @fiscal_year_end = fiscal_year_end
                 end
               end
-
               class Documents < Stripe::RequestParams
                 class BankAccountOwnershipVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyLicense < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyMemorandumOfAssociation < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyMinisterialDecree < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyRegistrationVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class CompanyTaxIdVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class PrimaryVerification < Stripe::RequestParams
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :back
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :front
-
                     def initialize(back: nil, front: nil)
                       @back = back
                       @front = front
@@ -3312,43 +3194,36 @@ module Stripe
                   attr_accessor :front_back
                   # The format of the verification document. Currently supports `front_back` only.
                   attr_accessor :type
-
                   def initialize(front_back: nil, type: nil)
                     @front_back = front_back
                     @type = type
                   end
                 end
-
                 class ProofOfAddress < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class ProofOfRegistration < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
@@ -3374,7 +3249,6 @@ module Stripe
                 attr_accessor :proof_of_registration
                 # One or more documents that demonstrate proof of ultimate beneficial ownership.
                 attr_accessor :proof_of_ultimate_beneficial_ownership
-
                 def initialize(
                   bank_account_ownership_verification: nil,
                   company_license: nil,
@@ -3399,7 +3273,6 @@ module Stripe
                   @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
                 end
               end
-
               class IdNumber < Stripe::RequestParams
                 # The registrar of the ID number (Only valid for DE ID number types).
                 attr_accessor :registrar
@@ -3407,23 +3280,19 @@ module Stripe
                 attr_accessor :type
                 # The value of the ID number.
                 attr_accessor :value
-
                 def initialize(registrar: nil, type: nil, value: nil)
                   @registrar = registrar
                   @type = type
                   @value = value
                 end
               end
-
               class MonthlyEstimatedRevenue < Stripe::RequestParams
                 # A non-negative integer representing the amount in the smallest currency unit.
                 attr_accessor :amount
-
                 def initialize(amount: nil)
                   @amount = amount
                 end
               end
-
               class ScriptAddresses < Stripe::RequestParams
                 class Kana < Stripe::RequestParams
                   # City, district, suburb, town, or village.
@@ -3440,7 +3309,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -3459,7 +3327,6 @@ module Stripe
                     @town = town
                   end
                 end
-
                 class Kanji < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   attr_accessor :city
@@ -3475,7 +3342,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -3498,27 +3364,22 @@ module Stripe
                 attr_accessor :kana
                 # Kanji Address.
                 attr_accessor :kanji
-
                 def initialize(kana: nil, kanji: nil)
                   @kana = kana
                   @kanji = kanji
                 end
               end
-
               class ScriptNames < Stripe::RequestParams
                 class Kana < Stripe::RequestParams
                   # Registered name of the business.
                   attr_accessor :registered_name
-
                   def initialize(registered_name: nil)
                     @registered_name = registered_name
                   end
                 end
-
                 class Kanji < Stripe::RequestParams
                   # Registered name of the business.
                   attr_accessor :registered_name
-
                   def initialize(registered_name: nil)
                     @registered_name = registered_name
                   end
@@ -3527,7 +3388,6 @@ module Stripe
                 attr_accessor :kana
                 # Kanji name.
                 attr_accessor :kanji
-
                 def initialize(kana: nil, kanji: nil)
                   @kana = kana
                   @kanji = kanji
@@ -3561,7 +3421,6 @@ module Stripe
               attr_accessor :structure
               # The business's publicly available website.
               attr_accessor :url
-
               def initialize(
                 address: nil,
                 annual_revenue: nil,
@@ -3594,7 +3453,6 @@ module Stripe
                 @url = url
               end
             end
-
             class Individual < Stripe::RequestParams
               class AdditionalAddress < Stripe::RequestParams
                 # City, district, suburb, town, or village.
@@ -3613,7 +3471,6 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
-
                 def initialize(
                   city: nil,
                   country: nil,
@@ -3634,7 +3491,6 @@ module Stripe
                   @town = town
                 end
               end
-
               class AdditionalName < Stripe::RequestParams
                 # The person's full name.
                 attr_accessor :full_name
@@ -3644,7 +3500,6 @@ module Stripe
                 attr_accessor :purpose
                 # The person's last or family name.
                 attr_accessor :surname
-
                 def initialize(full_name: nil, given_name: nil, purpose: nil, surname: nil)
                   @full_name = full_name
                   @given_name = given_name
@@ -3652,7 +3507,6 @@ module Stripe
                   @surname = surname
                 end
               end
-
               class Address < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
@@ -3668,7 +3522,6 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
-
                 def initialize(
                   city: nil,
                   country: nil,
@@ -3687,7 +3540,6 @@ module Stripe
                   @town = town
                 end
               end
-
               class DateOfBirth < Stripe::RequestParams
                 # The day of the birth.
                 attr_accessor :day
@@ -3695,46 +3547,39 @@ module Stripe
                 attr_accessor :month
                 # The year of birth.
                 attr_accessor :year
-
                 def initialize(day: nil, month: nil, year: nil)
                   @day = day
                   @month = month
                   @year = year
                 end
               end
-
               class Documents < Stripe::RequestParams
                 class CompanyAuthorization < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class Passport < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
                   end
                 end
-
                 class PrimaryVerification < Stripe::RequestParams
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :back
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :front
-
                     def initialize(back: nil, front: nil)
                       @back = back
                       @front = front
@@ -3744,20 +3589,17 @@ module Stripe
                   attr_accessor :front_back
                   # The format of the verification document. Currently supports `front_back` only.
                   attr_accessor :type
-
                   def initialize(front_back: nil, type: nil)
                     @front_back = front_back
                     @type = type
                   end
                 end
-
                 class SecondaryVerification < Stripe::RequestParams
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :back
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     attr_accessor :front
-
                     def initialize(back: nil, front: nil)
                       @back = back
                       @front = front
@@ -3767,19 +3609,16 @@ module Stripe
                   attr_accessor :front_back
                   # The format of the verification document. Currently supports `front_back` only.
                   attr_accessor :type
-
                   def initialize(front_back: nil, type: nil)
                     @front_back = front_back
                     @type = type
                   end
                 end
-
                 class Visa < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   attr_accessor :files
                   # The format of the document. Currently supports `files` only.
                   attr_accessor :type
-
                   def initialize(files: nil, type: nil)
                     @files = files
                     @type = type
@@ -3795,7 +3634,6 @@ module Stripe
                 attr_accessor :secondary_verification
                 # One or more documents showing the person’s visa required for living in the country where they are residing.
                 attr_accessor :visa
-
                 def initialize(
                   company_authorization: nil,
                   passport: nil,
@@ -3810,19 +3648,16 @@ module Stripe
                   @visa = visa
                 end
               end
-
               class IdNumber < Stripe::RequestParams
                 # The ID number type of an individual.
                 attr_accessor :type
                 # The value of the ID number.
                 attr_accessor :value
-
                 def initialize(type: nil, value: nil)
                   @type = type
                   @value = value
                 end
               end
-
               class Relationship < Stripe::RequestParams
                 # Whether the person is a director of the account's identity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
                 attr_accessor :director
@@ -3834,7 +3669,6 @@ module Stripe
                 attr_accessor :percent_ownership
                 # The person's title (e.g., CEO, Support Engineer).
                 attr_accessor :title
-
                 def initialize(
                   director: nil,
                   executive: nil,
@@ -3849,7 +3683,6 @@ module Stripe
                   @title = title
                 end
               end
-
               class ScriptAddresses < Stripe::RequestParams
                 class Kana < Stripe::RequestParams
                   # City, district, suburb, town, or village.
@@ -3866,7 +3699,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -3885,7 +3717,6 @@ module Stripe
                     @town = town
                   end
                 end
-
                 class Kanji < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   attr_accessor :city
@@ -3901,7 +3732,6 @@ module Stripe
                   attr_accessor :state
                   # Town or cho-me.
                   attr_accessor :town
-
                   def initialize(
                     city: nil,
                     country: nil,
@@ -3924,32 +3754,27 @@ module Stripe
                 attr_accessor :kana
                 # Kanji Address.
                 attr_accessor :kanji
-
                 def initialize(kana: nil, kanji: nil)
                   @kana = kana
                   @kanji = kanji
                 end
               end
-
               class ScriptNames < Stripe::RequestParams
                 class Kana < Stripe::RequestParams
                   # The person's first or given name.
                   attr_accessor :given_name
                   # The person's last or family name.
                   attr_accessor :surname
-
                   def initialize(given_name: nil, surname: nil)
                     @given_name = given_name
                     @surname = surname
                   end
                 end
-
                 class Kanji < Stripe::RequestParams
                   # The person's first or given name.
                   attr_accessor :given_name
                   # The person's last or family name.
                   attr_accessor :surname
-
                   def initialize(given_name: nil, surname: nil)
                     @given_name = given_name
                     @surname = surname
@@ -3959,7 +3784,6 @@ module Stripe
                 attr_accessor :kana
                 # Persons name in kanji script.
                 attr_accessor :kanji
-
                 def initialize(kana: nil, kanji: nil)
                   @kana = kana
                   @kanji = kanji
@@ -3999,7 +3823,6 @@ module Stripe
               attr_accessor :script_names
               # The individual's last name.
               attr_accessor :surname
-
               def initialize(
                 additional_addresses: nil,
                 additional_names: nil,
@@ -4048,7 +3871,6 @@ module Stripe
             attr_accessor :entity_type
             # Information about the individual represented by the Account. This property is `null` unless `entity_type` is set to `individual`.
             attr_accessor :individual
-
             def initialize(
               attestations: nil,
               business_details: nil,
@@ -4079,7 +3901,6 @@ module Stripe
           attr_accessor :include
           # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
-
           def initialize(
             configuration: nil,
             contact_email: nil,
@@ -4100,24 +3921,21 @@ module Stripe
             @metadata = metadata
           end
         end
-
         class CloseParams < Stripe::RequestParams
           # Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
           attr_accessor :applied_configurations
-
           def initialize(applied_configurations: nil)
             @applied_configurations = applied_configurations
           end
         end
-
         # Removes access to the Account and its associated resources.
         def close(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v2/core/accounts/%<id>s/close", { id: CGI.escape(id) }),
+            path: format('/v2/core/accounts/%<id>s/close', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -4125,10 +3943,10 @@ module Stripe
         def create(params = {}, opts = {})
           request(
             method: :post,
-            path: "/v2/core/accounts",
+            path: '/v2/core/accounts',
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -4136,10 +3954,10 @@ module Stripe
         def list(params = {}, opts = {})
           request(
             method: :get,
-            path: "/v2/core/accounts",
+            path: '/v2/core/accounts',
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -4147,10 +3965,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format("/v2/core/accounts/%<id>s", { id: CGI.escape(id) }),
+            path: format('/v2/core/accounts/%<id>s', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -4158,10 +3976,10 @@ module Stripe
         def update(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v2/core/accounts/%<id>s", { id: CGI.escape(id) }),
+            path: format('/v2/core/accounts/%<id>s', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
       end

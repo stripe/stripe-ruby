@@ -16,7 +16,6 @@ module Stripe
       attr_accessor :starting_after
       # An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
       attr_accessor :type
-
       def initialize(
         customer: nil,
         ending_before: nil,
@@ -33,7 +32,6 @@ module Stripe
         @type = type
       end
     end
-
     class CreateParams < Stripe::RequestParams
       class AcssDebit < Stripe::RequestParams
         # Customer's bank account number.
@@ -42,47 +40,39 @@ module Stripe
         attr_accessor :institution_number
         # Transit number of the customer's bank.
         attr_accessor :transit_number
-
         def initialize(account_number: nil, institution_number: nil, transit_number: nil)
           @account_number = account_number
           @institution_number = institution_number
           @transit_number = transit_number
         end
       end
-
       class Affirm < Stripe::RequestParams; end
       class AfterpayClearpay < Stripe::RequestParams; end
       class Alipay < Stripe::RequestParams; end
       class Alma < Stripe::RequestParams; end
       class AmazonPay < Stripe::RequestParams; end
-
       class AuBecsDebit < Stripe::RequestParams
         # The account number for the bank account.
         attr_accessor :account_number
         # Bank-State-Branch number of the bank account.
         attr_accessor :bsb_number
-
         def initialize(account_number: nil, bsb_number: nil)
           @account_number = account_number
           @bsb_number = bsb_number
         end
       end
-
       class BacsDebit < Stripe::RequestParams
         # Account number of the bank account that the funds will be debited from.
         attr_accessor :account_number
         # Sort code of the bank account. (e.g., `10-20-30`)
         attr_accessor :sort_code
-
         def initialize(account_number: nil, sort_code: nil)
           @account_number = account_number
           @sort_code = sort_code
         end
       end
-
       class Bancontact < Stripe::RequestParams; end
       class Billie < Stripe::RequestParams; end
-
       class BillingDetails < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -97,7 +87,6 @@ module Stripe
           attr_accessor :postal_code
           # State, county, province, or region.
           attr_accessor :state
-
           def initialize(
             city: nil,
             country: nil,
@@ -124,7 +113,6 @@ module Stripe
         attr_accessor :phone
         # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         attr_accessor :tax_id
-
         def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
           @address = address
           @email = email
@@ -133,23 +121,18 @@ module Stripe
           @tax_id = tax_id
         end
       end
-
       class Blik < Stripe::RequestParams; end
-
       class Boleto < Stripe::RequestParams
         # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
         attr_accessor :tax_id
-
         def initialize(tax_id: nil)
           @tax_id = tax_id
         end
       end
-
       class Card < Stripe::RequestParams
         class Networks < Stripe::RequestParams
           # The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
           attr_accessor :preferred
-
           def initialize(preferred: nil)
             @preferred = preferred
           end
@@ -166,7 +149,6 @@ module Stripe
         attr_accessor :number
         # For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format card: {token: "tok_visa"}.
         attr_accessor :token
-
         def initialize(
           cvc: nil,
           exp_month: nil,
@@ -183,57 +165,45 @@ module Stripe
           @token = token
         end
       end
-
       class Cashapp < Stripe::RequestParams; end
       class Crypto < Stripe::RequestParams; end
       class CustomerBalance < Stripe::RequestParams; end
-
       class Eps < Stripe::RequestParams
         # The customer's bank.
         attr_accessor :bank
-
         def initialize(bank: nil)
           @bank = bank
         end
       end
-
       class Fpx < Stripe::RequestParams
         # Account holder type for FPX transaction
         attr_accessor :account_holder_type
         # The customer's bank.
         attr_accessor :bank
-
         def initialize(account_holder_type: nil, bank: nil)
           @account_holder_type = account_holder_type
           @bank = bank
         end
       end
-
       class Giropay < Stripe::RequestParams; end
       class Gopay < Stripe::RequestParams; end
       class Grabpay < Stripe::RequestParams; end
-
       class IdBankTransfer < Stripe::RequestParams
         # Bank where the account is held.
         attr_accessor :bank
-
         def initialize(bank: nil)
           @bank = bank
         end
       end
-
       class Ideal < Stripe::RequestParams
         # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         attr_accessor :bank
-
         def initialize(bank: nil)
           @bank = bank
         end
       end
-
       class InteracPresent < Stripe::RequestParams; end
       class KakaoPay < Stripe::RequestParams; end
-
       class Klarna < Stripe::RequestParams
         class Dob < Stripe::RequestParams
           # The day of birth, between 1 and 31.
@@ -242,7 +212,6 @@ module Stripe
           attr_accessor :month
           # The four-digit year of birth.
           attr_accessor :year
-
           def initialize(day: nil, month: nil, year: nil)
             @day = day
             @month = month
@@ -251,28 +220,23 @@ module Stripe
         end
         # Customer's date of birth
         attr_accessor :dob
-
         def initialize(dob: nil)
           @dob = dob
         end
       end
-
       class Konbini < Stripe::RequestParams; end
       class KrCard < Stripe::RequestParams; end
       class Link < Stripe::RequestParams; end
       class MbWay < Stripe::RequestParams; end
       class Mobilepay < Stripe::RequestParams; end
       class Multibanco < Stripe::RequestParams; end
-
       class NaverPay < Stripe::RequestParams
         # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         attr_accessor :funding
-
         def initialize(funding: nil)
           @funding = funding
         end
       end
-
       class NzBankAccount < Stripe::RequestParams
         # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
         attr_accessor :account_holder_name
@@ -286,7 +250,6 @@ module Stripe
         attr_accessor :reference
         # The suffix of the bank account number.
         attr_accessor :suffix
-
         def initialize(
           account_holder_name: nil,
           account_number: nil,
@@ -303,23 +266,18 @@ module Stripe
           @suffix = suffix
         end
       end
-
       class Oxxo < Stripe::RequestParams; end
-
       class P24 < Stripe::RequestParams
         # The customer's bank.
         attr_accessor :bank
-
         def initialize(bank: nil)
           @bank = bank
         end
       end
-
       class PayByBank < Stripe::RequestParams; end
       class Payco < Stripe::RequestParams; end
       class Paynow < Stripe::RequestParams; end
       class Paypal < Stripe::RequestParams; end
-
       class Payto < Stripe::RequestParams
         # The account number for the bank account.
         attr_accessor :account_number
@@ -327,27 +285,22 @@ module Stripe
         attr_accessor :bsb_number
         # The PayID alias for the bank account.
         attr_accessor :pay_id
-
         def initialize(account_number: nil, bsb_number: nil, pay_id: nil)
           @account_number = account_number
           @bsb_number = bsb_number
           @pay_id = pay_id
         end
       end
-
       class Pix < Stripe::RequestParams; end
       class Promptpay < Stripe::RequestParams; end
       class Qris < Stripe::RequestParams; end
-
       class RadarOptions < Stripe::RequestParams
         # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         attr_accessor :session
-
         def initialize(session: nil)
           @session = session
         end
       end
-
       class Rechnung < Stripe::RequestParams
         class Dob < Stripe::RequestParams
           # The day of birth, between 1 and 31.
@@ -356,7 +309,6 @@ module Stripe
           attr_accessor :month
           # The four-digit year of birth.
           attr_accessor :year
-
           def initialize(day: nil, month: nil, year: nil)
             @day = day
             @month = month
@@ -365,51 +317,40 @@ module Stripe
         end
         # Customer's date of birth
         attr_accessor :dob
-
         def initialize(dob: nil)
           @dob = dob
         end
       end
-
       class RevolutPay < Stripe::RequestParams; end
       class SamsungPay < Stripe::RequestParams; end
       class Satispay < Stripe::RequestParams; end
-
       class SepaDebit < Stripe::RequestParams
         # IBAN of the bank account.
         attr_accessor :iban
-
         def initialize(iban: nil)
           @iban = iban
         end
       end
-
       class Shopeepay < Stripe::RequestParams; end
-
       class Sofort < Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
         attr_accessor :country
-
         def initialize(country: nil)
           @country = country
         end
       end
-
       class StripeBalance < Stripe::RequestParams
         # The connected account ID whose Stripe balance to use as the source of payment
         attr_accessor :account
         # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         attr_accessor :source_type
-
         def initialize(account: nil, source_type: nil)
           @account = account
           @source_type = source_type
         end
       end
-
       class Swish < Stripe::RequestParams; end
       class Twint < Stripe::RequestParams; end
-
       class UsBankAccount < Stripe::RequestParams
         # Account holder type: individual or company.
         attr_accessor :account_holder_type
@@ -421,7 +362,6 @@ module Stripe
         attr_accessor :financial_connections_account
         # Routing number of the bank account.
         attr_accessor :routing_number
-
         def initialize(
           account_holder_type: nil,
           account_number: nil,
@@ -436,7 +376,6 @@ module Stripe
           @routing_number = routing_number
         end
       end
-
       class WechatPay < Stripe::RequestParams; end
       class Zip < Stripe::RequestParams; end
       # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
@@ -569,7 +508,6 @@ module Stripe
       attr_accessor :wechat_pay
       # If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
       attr_accessor :zip
-
       def initialize(
         acss_debit: nil,
         affirm: nil,
@@ -704,16 +642,13 @@ module Stripe
         @zip = zip
       end
     end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class UpdateParams < Stripe::RequestParams
       class BillingDetails < Stripe::RequestParams
         class Address < Stripe::RequestParams
@@ -729,7 +664,6 @@ module Stripe
           attr_accessor :postal_code
           # State, county, province, or region.
           attr_accessor :state
-
           def initialize(
             city: nil,
             country: nil,
@@ -756,7 +690,6 @@ module Stripe
         attr_accessor :phone
         # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         attr_accessor :tax_id
-
         def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
           @address = address
           @email = email
@@ -765,12 +698,10 @@ module Stripe
           @tax_id = tax_id
         end
       end
-
       class Card < Stripe::RequestParams
         class Networks < Stripe::RequestParams
           # The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
           attr_accessor :preferred
-
           def initialize(preferred: nil)
             @preferred = preferred
           end
@@ -781,17 +712,14 @@ module Stripe
         attr_accessor :exp_year
         # Contains information about card networks used to process the payment.
         attr_accessor :networks
-
         def initialize(exp_month: nil, exp_year: nil, networks: nil)
           @exp_month = exp_month
           @exp_year = exp_year
           @networks = networks
         end
       end
-
       class Link < Stripe::RequestParams; end
       class PayByBank < Stripe::RequestParams; end
-
       class Payto < Stripe::RequestParams
         # The account number for the bank account.
         attr_accessor :account_number
@@ -799,20 +727,17 @@ module Stripe
         attr_accessor :bsb_number
         # The PayID alias for the bank account.
         attr_accessor :pay_id
-
         def initialize(account_number: nil, bsb_number: nil, pay_id: nil)
           @account_number = account_number
           @bsb_number = bsb_number
           @pay_id = pay_id
         end
       end
-
       class UsBankAccount < Stripe::RequestParams
         # Bank account holder type.
         attr_accessor :account_holder_type
         # Bank account type.
         attr_accessor :account_type
-
         def initialize(account_holder_type: nil, account_type: nil)
           @account_holder_type = account_holder_type
           @account_type = account_type
@@ -836,7 +761,6 @@ module Stripe
       attr_accessor :payto
       # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
       attr_accessor :us_bank_account
-
       def initialize(
         allow_redisplay: nil,
         billing_details: nil,
@@ -859,7 +783,6 @@ module Stripe
         @us_bank_account = us_bank_account
       end
     end
-
     class AttachParams < Stripe::RequestParams
       # The ID of the customer to which to attach the PaymentMethod.
       attr_accessor :customer
@@ -867,23 +790,19 @@ module Stripe
       attr_accessor :customer_account
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(customer: nil, customer_account: nil, expand: nil)
         @customer = customer
         @customer_account = customer_account
         @expand = expand
       end
     end
-
     class DetachParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     # Attaches a PaymentMethod object to a Customer.
     #
     # To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://docs.stripe.com/docs/api/setup_intents)
@@ -900,10 +819,10 @@ module Stripe
     def attach(payment_method, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/attach", { payment_method: CGI.escape(payment_method) }),
+        path: format('/v1/payment_methods/%<payment_method>s/attach', {:payment_method => CGI.escape(payment_method)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -913,10 +832,10 @@ module Stripe
     def create(params = {}, opts = {})
       request(
         method: :post,
-        path: "/v1/payment_methods",
+        path: '/v1/payment_methods',
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -924,10 +843,10 @@ module Stripe
     def detach(payment_method, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/detach", { payment_method: CGI.escape(payment_method) }),
+        path: format('/v1/payment_methods/%<payment_method>s/detach', {:payment_method => CGI.escape(payment_method)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -935,10 +854,10 @@ module Stripe
     def list(params = {}, opts = {})
       request(
         method: :get,
-        path: "/v1/payment_methods",
+        path: '/v1/payment_methods',
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -946,10 +865,10 @@ module Stripe
     def retrieve(payment_method, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_methods/%<payment_method>s", { payment_method: CGI.escape(payment_method) }),
+        path: format('/v1/payment_methods/%<payment_method>s', {:payment_method => CGI.escape(payment_method)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -957,10 +876,10 @@ module Stripe
     def update(payment_method, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s", { payment_method: CGI.escape(payment_method) }),
+        path: format('/v1/payment_methods/%<payment_method>s', {:payment_method => CGI.escape(payment_method)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

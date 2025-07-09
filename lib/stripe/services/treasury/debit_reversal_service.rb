@@ -21,7 +21,6 @@ module Stripe
         attr_accessor :starting_after
         # Only return DebitReversals for a given status.
         attr_accessor :status
-
         def initialize(
           ending_before: nil,
           expand: nil,
@@ -42,7 +41,6 @@ module Stripe
           @status = status
         end
       end
-
       class CreateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
@@ -50,31 +48,27 @@ module Stripe
         attr_accessor :metadata
         # The ReceivedDebit to reverse.
         attr_accessor :received_debit
-
         def initialize(expand: nil, metadata: nil, received_debit: nil)
           @expand = expand
           @metadata = metadata
           @received_debit = received_debit
         end
       end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       # Reverses a ReceivedDebit and creates a DebitReversal object.
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: "/v1/treasury/debit_reversals",
+          path: '/v1/treasury/debit_reversals',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -82,10 +76,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: "/v1/treasury/debit_reversals",
+          path: '/v1/treasury/debit_reversals',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -93,10 +87,10 @@ module Stripe
       def retrieve(debit_reversal, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/treasury/debit_reversals/%<debit_reversal>s", { debit_reversal: CGI.escape(debit_reversal) }),
+          path: format('/v1/treasury/debit_reversals/%<debit_reversal>s', {:debit_reversal => CGI.escape(debit_reversal)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

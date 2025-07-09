@@ -4,45 +4,37 @@
 module Stripe
   class SourceService < StripeService
     attr_reader :transactions
-
     def initialize(requestor)
-      super
+      super(requestor)
       @transactions = Stripe::SourceTransactionService.new(@requestor)
     end
-
     class DetachParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class RetrieveParams < Stripe::RequestParams
       # The client secret of the source. Required if a publishable key is used to retrieve the source.
       attr_accessor :client_secret
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(client_secret: nil, expand: nil)
         @client_secret = client_secret
         @expand = expand
       end
     end
-
     class UpdateParams < Stripe::RequestParams
       class Mandate < Stripe::RequestParams
         class Acceptance < Stripe::RequestParams
           class Offline < Stripe::RequestParams
             # An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
             attr_accessor :contact_email
-
             def initialize(contact_email: nil)
               @contact_email = contact_email
             end
           end
-
           class Online < Stripe::RequestParams
             # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
             attr_accessor :date
@@ -50,7 +42,6 @@ module Stripe
             attr_accessor :ip
             # The user agent of the browser from which the mandate was accepted or refused by the customer.
             attr_accessor :user_agent
-
             def initialize(date: nil, ip: nil, user_agent: nil)
               @date = date
               @ip = ip
@@ -71,7 +62,6 @@ module Stripe
           attr_accessor :type
           # The user agent of the browser from which the mandate was accepted or refused by the customer.
           attr_accessor :user_agent
-
           def initialize(
             date: nil,
             ip: nil,
@@ -100,7 +90,6 @@ module Stripe
         attr_accessor :interval
         # The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
         attr_accessor :notification_method
-
         def initialize(
           acceptance: nil,
           amount: nil,
@@ -115,7 +104,6 @@ module Stripe
           @notification_method = notification_method
         end
       end
-
       class Owner < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -130,7 +118,6 @@ module Stripe
           attr_accessor :postal_code
           # State, county, province, or region.
           attr_accessor :state
-
           def initialize(
             city: nil,
             country: nil,
@@ -155,7 +142,6 @@ module Stripe
         attr_accessor :name
         # Owner's phone number.
         attr_accessor :phone
-
         def initialize(address: nil, email: nil, name: nil, phone: nil)
           @address = address
           @email = email
@@ -163,7 +149,6 @@ module Stripe
           @phone = phone
         end
       end
-
       class SourceOrder < Stripe::RequestParams
         class Item < Stripe::RequestParams
           # Attribute for param field amount
@@ -178,7 +163,6 @@ module Stripe
           attr_accessor :quantity
           # Attribute for param field type
           attr_accessor :type
-
           def initialize(
             amount: nil,
             currency: nil,
@@ -195,7 +179,6 @@ module Stripe
             @type = type
           end
         end
-
         class Shipping < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -210,7 +193,6 @@ module Stripe
             attr_accessor :postal_code
             # State, county, province, or region.
             attr_accessor :state
-
             def initialize(
               city: nil,
               country: nil,
@@ -237,7 +219,6 @@ module Stripe
           attr_accessor :phone
           # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
           attr_accessor :tracking_number
-
           def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil)
             @address = address
             @carrier = carrier
@@ -250,7 +231,6 @@ module Stripe
         attr_accessor :items
         # Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
         attr_accessor :shipping
-
         def initialize(items: nil, shipping: nil)
           @items = items
           @shipping = shipping
@@ -268,7 +248,6 @@ module Stripe
       attr_accessor :owner
       # Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
       attr_accessor :source_order
-
       def initialize(
         amount: nil,
         expand: nil,
@@ -285,19 +264,16 @@ module Stripe
         @source_order = source_order
       end
     end
-
     class CreateParams < Stripe::RequestParams
       class Mandate < Stripe::RequestParams
         class Acceptance < Stripe::RequestParams
           class Offline < Stripe::RequestParams
             # An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
             attr_accessor :contact_email
-
             def initialize(contact_email: nil)
               @contact_email = contact_email
             end
           end
-
           class Online < Stripe::RequestParams
             # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
             attr_accessor :date
@@ -305,7 +281,6 @@ module Stripe
             attr_accessor :ip
             # The user agent of the browser from which the mandate was accepted or refused by the customer.
             attr_accessor :user_agent
-
             def initialize(date: nil, ip: nil, user_agent: nil)
               @date = date
               @ip = ip
@@ -326,7 +301,6 @@ module Stripe
           attr_accessor :type
           # The user agent of the browser from which the mandate was accepted or refused by the customer.
           attr_accessor :user_agent
-
           def initialize(
             date: nil,
             ip: nil,
@@ -355,7 +329,6 @@ module Stripe
         attr_accessor :interval
         # The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
         attr_accessor :notification_method
-
         def initialize(
           acceptance: nil,
           amount: nil,
@@ -370,7 +343,6 @@ module Stripe
           @notification_method = notification_method
         end
       end
-
       class Owner < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -385,7 +357,6 @@ module Stripe
           attr_accessor :postal_code
           # State, county, province, or region.
           attr_accessor :state
-
           def initialize(
             city: nil,
             country: nil,
@@ -410,7 +381,6 @@ module Stripe
         attr_accessor :name
         # Owner's phone number.
         attr_accessor :phone
-
         def initialize(address: nil, email: nil, name: nil, phone: nil)
           @address = address
           @email = email
@@ -418,25 +388,20 @@ module Stripe
           @phone = phone
         end
       end
-
       class Receiver < Stripe::RequestParams
         # The method Stripe should use to request information needed to process a refund or mispayment. Either `email` (an email is sent directly to the customer) or `manual` (a `source.refund_attributes_required` event is sent to your webhooks endpoint). Refer to each payment method's documentation to learn which refund attributes may be required.
         attr_accessor :refund_attributes_method
-
         def initialize(refund_attributes_method: nil)
           @refund_attributes_method = refund_attributes_method
         end
       end
-
       class Redirect < Stripe::RequestParams
         # The URL you provide to redirect the customer back to you after they authenticated their payment. It can use your application URI scheme in the context of a mobile application.
         attr_accessor :return_url
-
         def initialize(return_url: nil)
           @return_url = return_url
         end
       end
-
       class SourceOrder < Stripe::RequestParams
         class Item < Stripe::RequestParams
           # Attribute for param field amount
@@ -451,7 +416,6 @@ module Stripe
           attr_accessor :quantity
           # Attribute for param field type
           attr_accessor :type
-
           def initialize(
             amount: nil,
             currency: nil,
@@ -468,7 +432,6 @@ module Stripe
             @type = type
           end
         end
-
         class Shipping < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -483,7 +446,6 @@ module Stripe
             attr_accessor :postal_code
             # State, county, province, or region.
             attr_accessor :state
-
             def initialize(
               city: nil,
               country: nil,
@@ -510,7 +472,6 @@ module Stripe
           attr_accessor :phone
           # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
           attr_accessor :tracking_number
-
           def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil)
             @address = address
             @carrier = carrier
@@ -523,7 +484,6 @@ module Stripe
         attr_accessor :items
         # Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
         attr_accessor :shipping
-
         def initialize(items: nil, shipping: nil)
           @items = items
           @shipping = shipping
@@ -561,7 +521,6 @@ module Stripe
       attr_accessor :type
       # Attribute for param field usage
       attr_accessor :usage
-
       def initialize(
         amount: nil,
         currency: nil,
@@ -598,32 +557,29 @@ module Stripe
         @usage = usage
       end
     end
-
     class VerifyParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The values needed to verify the source.
       attr_accessor :values
-
       def initialize(expand: nil, values: nil)
         @expand = expand
         @values = values
       end
     end
-
     # Creates a new source object.
     def create(params = {}, opts = {})
-      request(method: :post, path: "/v1/sources", params: params, opts: opts, base_address: :api)
+      request(method: :post, path: '/v1/sources', params: params, opts: opts, base_address: :api)
     end
 
     # Delete a specified source for a given customer.
     def detach(customer, id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/customers/%<customer>s/sources/%<id>s", { customer: CGI.escape(customer), id: CGI.escape(id) }),
+        path: format('/v1/customers/%<customer>s/sources/%<id>s', {:customer => CGI.escape(customer), :id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -631,10 +587,10 @@ module Stripe
     def retrieve(source, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/sources/%<source>s", { source: CGI.escape(source) }),
+        path: format('/v1/sources/%<source>s', {:source => CGI.escape(source)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -644,10 +600,10 @@ module Stripe
     def update(source, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/sources/%<source>s", { source: CGI.escape(source) }),
+        path: format('/v1/sources/%<source>s', {:source => CGI.escape(source)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -655,10 +611,10 @@ module Stripe
     def verify(source, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/sources/%<source>s/verify", { source: CGI.escape(source) }),
+        path: format('/v1/sources/%<source>s/verify', {:source => CGI.escape(source)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

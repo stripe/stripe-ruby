@@ -14,7 +14,6 @@ module Stripe
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
-
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
             @gt = gt
             @gte = gte
@@ -38,7 +37,6 @@ module Stripe
         attr_accessor :starting_after
         # Only return OutboundPayments that have the given status: `processing`, `failed`, `posted`, `returned`, or `canceled`.
         attr_accessor :status
-
         def initialize(
           created: nil,
           customer: nil,
@@ -59,7 +57,6 @@ module Stripe
           @status = status
         end
       end
-
       class CreateParams < Stripe::RequestParams
         class DestinationPaymentMethodData < Stripe::RequestParams
           class BillingDetails < Stripe::RequestParams
@@ -76,7 +73,6 @@ module Stripe
               attr_accessor :postal_code
               # State, county, province, or region.
               attr_accessor :state
-
               def initialize(
                 city: nil,
                 country: nil,
@@ -101,7 +97,6 @@ module Stripe
             attr_accessor :name
             # Billing phone number (including extension).
             attr_accessor :phone
-
             def initialize(address: nil, email: nil, name: nil, phone: nil)
               @address = address
               @email = email
@@ -109,7 +104,6 @@ module Stripe
               @phone = phone
             end
           end
-
           class UsBankAccount < Stripe::RequestParams
             # Account holder type: individual or company.
             attr_accessor :account_holder_type
@@ -121,7 +115,6 @@ module Stripe
             attr_accessor :financial_connections_account
             # Routing number of the bank account.
             attr_accessor :routing_number
-
             def initialize(
               account_holder_type: nil,
               account_number: nil,
@@ -146,7 +139,6 @@ module Stripe
           attr_accessor :type
           # Required hash if type is set to `us_bank_account`.
           attr_accessor :us_bank_account
-
           def initialize(
             billing_details: nil,
             financial_account: nil,
@@ -161,30 +153,25 @@ module Stripe
             @us_bank_account = us_bank_account
           end
         end
-
         class DestinationPaymentMethodOptions < Stripe::RequestParams
           class UsBankAccount < Stripe::RequestParams
             # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
             attr_accessor :network
-
             def initialize(network: nil)
               @network = network
             end
           end
           # Optional fields for `us_bank_account`.
           attr_accessor :us_bank_account
-
           def initialize(us_bank_account: nil)
             @us_bank_account = us_bank_account
           end
         end
-
         class EndUserDetails < Stripe::RequestParams
           # IP address of the user initiating the OutboundPayment. Must be supplied if `present` is set to `true`.
           attr_accessor :ip_address
           # `True` if the OutboundPayment creation request is being made on behalf of an end user by a platform. Otherwise, `false`.
           attr_accessor :present
-
           def initialize(ip_address: nil, present: nil)
             @ip_address = ip_address
             @present = present
@@ -214,7 +201,6 @@ module Stripe
         attr_accessor :metadata
         # The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. The default value is "payment".
         attr_accessor :statement_descriptor
-
         def initialize(
           amount: nil,
           currency: nil,
@@ -243,33 +229,28 @@ module Stripe
           @statement_descriptor = statement_descriptor
         end
       end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       class CancelParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       # Cancel an OutboundPayment.
       def cancel(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/treasury/outbound_payments/%<id>s/cancel", { id: CGI.escape(id) }),
+          path: format('/v1/treasury/outbound_payments/%<id>s/cancel', {:id => CGI.escape(id)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -277,10 +258,10 @@ module Stripe
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: "/v1/treasury/outbound_payments",
+          path: '/v1/treasury/outbound_payments',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -288,10 +269,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: "/v1/treasury/outbound_payments",
+          path: '/v1/treasury/outbound_payments',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -299,10 +280,10 @@ module Stripe
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/treasury/outbound_payments/%<id>s", { id: CGI.escape(id) }),
+          path: format('/v1/treasury/outbound_payments/%<id>s', {:id => CGI.escape(id)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

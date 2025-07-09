@@ -14,7 +14,6 @@ module Stripe
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
-
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
             @gt = gt
             @gte = gte
@@ -22,7 +21,6 @@ module Stripe
             @lte = lte
           end
         end
-
         class EffectiveAt < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           attr_accessor :gt
@@ -32,7 +30,6 @@ module Stripe
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
-
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
             @gt = gt
             @gte = gte
@@ -58,7 +55,6 @@ module Stripe
         attr_accessor :starting_after
         # Only return TransactionEntries associated with this Transaction.
         attr_accessor :transaction
-
         def initialize(
           created: nil,
           effective_at: nil,
@@ -81,24 +77,21 @@ module Stripe
           @transaction = transaction
         end
       end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       # Retrieves a list of TransactionEntry objects.
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: "/v1/treasury/transaction_entries",
+          path: '/v1/treasury/transaction_entries',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -106,10 +99,10 @@ module Stripe
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/treasury/transaction_entries/%<id>s", { id: CGI.escape(id) }),
+          path: format('/v1/treasury/transaction_entries/%<id>s', {:id => CGI.escape(id)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

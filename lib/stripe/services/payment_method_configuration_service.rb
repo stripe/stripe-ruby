@@ -14,7 +14,6 @@ module Stripe
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-
       def initialize(
         application: nil,
         ending_before: nil,
@@ -29,972 +28,801 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
     class CreateParams < Stripe::RequestParams
       class AcssDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Affirm < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class AfterpayClearpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Alipay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Alma < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class AmazonPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class ApplePay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class ApplePayLater < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class AuBecsDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class BacsDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Bancontact < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Billie < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Blik < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Boleto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Card < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class CartesBancaires < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Cashapp < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class CustomerBalance < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Eps < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Fpx < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Giropay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class GooglePay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Gopay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Grabpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class IdBankTransfer < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Ideal < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Jcb < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class KakaoPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Klarna < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Konbini < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class KrCard < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Link < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Mobilepay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Multibanco < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class NaverPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class NzBankAccount < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Oxxo < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class P24 < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class PayByBank < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Payco < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Paynow < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Paypal < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Payto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Pix < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Promptpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Qris < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class RevolutPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class SamsungPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Satispay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class SepaDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Shopeepay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Sofort < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Swish < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Twint < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class UsBankAccount < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class WechatPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Zip < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
@@ -1119,7 +947,6 @@ module Stripe
       attr_accessor :wechat_pay
       # Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
       attr_accessor :zip
-
       def initialize(
         acss_debit: nil,
         affirm: nil,
@@ -1244,981 +1071,808 @@ module Stripe
         @zip = zip
       end
     end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class UpdateParams < Stripe::RequestParams
       class AcssDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Affirm < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class AfterpayClearpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Alipay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Alma < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class AmazonPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class ApplePay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class ApplePayLater < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class AuBecsDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class BacsDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Bancontact < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Billie < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Blik < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Boleto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Card < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class CartesBancaires < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Cashapp < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class CustomerBalance < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Eps < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Fpx < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Giropay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class GooglePay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Gopay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Grabpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class IdBankTransfer < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Ideal < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Jcb < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class KakaoPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Klarna < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Konbini < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class KrCard < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Link < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Mobilepay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Multibanco < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class NaverPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class NzBankAccount < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Oxxo < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class P24 < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class PayByBank < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Payco < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Paynow < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Paypal < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Payto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Pix < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Promptpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Qris < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class RevolutPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class SamsungPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Satispay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class SepaDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Shopeepay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Sofort < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Swish < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Twint < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class UsBankAccount < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class WechatPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
       end
-
       class Zip < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
-
           def initialize(preference: nil)
             @preference = preference
           end
         end
         # Whether or not the payment method should be displayed.
         attr_accessor :display_preference
-
         def initialize(display_preference: nil)
           @display_preference = display_preference
         end
@@ -2343,7 +1997,6 @@ module Stripe
       attr_accessor :wechat_pay
       # Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
       attr_accessor :zip
-
       def initialize(
         acss_debit: nil,
         active: nil,
@@ -2468,15 +2121,14 @@ module Stripe
         @zip = zip
       end
     end
-
     # Creates a payment method configuration
     def create(params = {}, opts = {})
       request(
         method: :post,
-        path: "/v1/payment_method_configurations",
+        path: '/v1/payment_method_configurations',
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -2484,10 +2136,10 @@ module Stripe
     def list(params = {}, opts = {})
       request(
         method: :get,
-        path: "/v1/payment_method_configurations",
+        path: '/v1/payment_method_configurations',
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -2495,10 +2147,10 @@ module Stripe
     def retrieve(configuration, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_method_configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+        path: format('/v1/payment_method_configurations/%<configuration>s', {:configuration => CGI.escape(configuration)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -2506,10 +2158,10 @@ module Stripe
     def update(configuration, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_method_configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+        path: format('/v1/payment_method_configurations/%<configuration>s', {:configuration => CGI.escape(configuration)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

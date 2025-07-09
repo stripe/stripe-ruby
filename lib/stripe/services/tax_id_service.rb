@@ -4,16 +4,13 @@
 module Stripe
   class TaxIdService < StripeService
     class DeleteParams < Stripe::RequestParams; end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class ListParams < Stripe::RequestParams
       class Owner < Stripe::RequestParams
         # Account the tax ID belongs to. Required when `type=account`
@@ -24,7 +21,6 @@ module Stripe
         attr_accessor :customer_account
         # Type of owner referenced.
         attr_accessor :type
-
         def initialize(account: nil, customer: nil, customer_account: nil, type: nil)
           @account = account
           @customer = customer
@@ -42,7 +38,6 @@ module Stripe
       attr_accessor :owner
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-
       def initialize(ending_before: nil, expand: nil, limit: nil, owner: nil, starting_after: nil)
         @ending_before = ending_before
         @expand = expand
@@ -51,7 +46,6 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
     class CreateParams < Stripe::RequestParams
       class Owner < Stripe::RequestParams
         # Account the tax ID belongs to. Required when `type=account`
@@ -62,7 +56,6 @@ module Stripe
         attr_accessor :customer_account
         # Type of owner referenced.
         attr_accessor :type
-
         def initialize(account: nil, customer: nil, customer_account: nil, type: nil)
           @account = account
           @customer = customer
@@ -78,7 +71,6 @@ module Stripe
       attr_accessor :type
       # Value of the tax ID.
       attr_accessor :value
-
       def initialize(expand: nil, owner: nil, type: nil, value: nil)
         @expand = expand
         @owner = owner
@@ -86,36 +78,35 @@ module Stripe
         @value = value
       end
     end
-
     # Creates a new account or customer tax_id object.
     def create(params = {}, opts = {})
-      request(method: :post, path: "/v1/tax_ids", params: params, opts: opts, base_address: :api)
+      request(method: :post, path: '/v1/tax_ids', params: params, opts: opts, base_address: :api)
     end
 
     # Deletes an existing account or customer tax_id object.
     def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/tax_ids/%<id>s", { id: CGI.escape(id) }),
+        path: format('/v1/tax_ids/%<id>s', {:id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
     # Returns a list of tax IDs.
     def list(params = {}, opts = {})
-      request(method: :get, path: "/v1/tax_ids", params: params, opts: opts, base_address: :api)
+      request(method: :get, path: '/v1/tax_ids', params: params, opts: opts, base_address: :api)
     end
 
     # Retrieves an account or customer tax_id object.
     def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/tax_ids/%<id>s", { id: CGI.escape(id) }),
+        path: format('/v1/tax_ids/%<id>s', {:id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

@@ -23,7 +23,6 @@ module Stripe
           attr_accessor :created_lte
           # The page limit.
           attr_accessor :limit
-
           def initialize(
             created: nil,
             created_gt: nil,
@@ -40,7 +39,6 @@ module Stripe
             @limit = limit
           end
         end
-
         class CreateParams < Stripe::RequestParams
           class From < Stripe::RequestParams
             # An optional currency field used to specify which currency is debited from the Payment Method.
@@ -48,19 +46,16 @@ module Stripe
             attr_accessor :currency
             # ID of the Payment Method using which IBT will be made.
             attr_accessor :payment_method
-
             def initialize(currency: nil, payment_method: nil)
               @currency = currency
               @payment_method = payment_method
             end
           end
-
           class To < Stripe::RequestParams
             # The currency in which funds will land in.
             attr_accessor :currency
             # The FinancialAccount that funds will land in.
             attr_accessor :financial_account
-
             def initialize(currency: nil, financial_account: nil)
               @currency = currency
               @financial_account = financial_account
@@ -74,7 +69,6 @@ module Stripe
           attr_accessor :from
           # Object containing details about where the funds will land.
           attr_accessor :to
-
           def initialize(amount: nil, description: nil, from: nil, to: nil)
             @amount = amount
             @description = description
@@ -82,19 +76,17 @@ module Stripe
             @to = to
           end
         end
-
         class RetrieveParams < Stripe::RequestParams; end
-
         # InboundTransfers APIs are used to create, retrieve or list InboundTransfers.
         #
         # ** raises BlockedByStripeError
         def create(params = {}, opts = {})
           request(
             method: :post,
-            path: "/v2/money_management/inbound_transfers",
+            path: '/v2/money_management/inbound_transfers',
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -102,10 +94,10 @@ module Stripe
         def list(params = {}, opts = {})
           request(
             method: :get,
-            path: "/v2/money_management/inbound_transfers",
+            path: '/v2/money_management/inbound_transfers',
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -113,10 +105,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format("/v2/money_management/inbound_transfers/%<id>s", { id: CGI.escape(id) }),
+            path: format('/v2/money_management/inbound_transfers/%<id>s', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
       end

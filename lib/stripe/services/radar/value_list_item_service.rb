@@ -5,16 +5,13 @@ module Stripe
   module Radar
     class ValueListItemService < StripeService
       class DeleteParams < Stripe::RequestParams; end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
@@ -25,7 +22,6 @@ module Stripe
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
-
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
             @gt = gt
             @gte = gte
@@ -47,7 +43,6 @@ module Stripe
         attr_accessor :value
         # Identifier for the parent value list this item belongs to.
         attr_accessor :value_list
-
         def initialize(
           created: nil,
           ending_before: nil,
@@ -66,7 +61,6 @@ module Stripe
           @value_list = value_list
         end
       end
-
       class CreateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
@@ -74,22 +68,20 @@ module Stripe
         attr_accessor :value
         # The identifier of the value list which the created item will be added to.
         attr_accessor :value_list
-
         def initialize(expand: nil, value: nil, value_list: nil)
           @expand = expand
           @value = value
           @value_list = value_list
         end
       end
-
       # Creates a new ValueListItem object, which is added to the specified parent value list.
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: "/v1/radar/value_list_items",
+          path: '/v1/radar/value_list_items',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -97,10 +89,10 @@ module Stripe
       def delete(item, params = {}, opts = {})
         request(
           method: :delete,
-          path: format("/v1/radar/value_list_items/%<item>s", { item: CGI.escape(item) }),
+          path: format('/v1/radar/value_list_items/%<item>s', {:item => CGI.escape(item)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -108,10 +100,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: "/v1/radar/value_list_items",
+          path: '/v1/radar/value_list_items',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -119,10 +111,10 @@ module Stripe
       def retrieve(item, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/radar/value_list_items/%<item>s", { item: CGI.escape(item) }),
+          path: format('/v1/radar/value_list_items/%<item>s', {:item => CGI.escape(item)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

@@ -25,6 +25,23 @@ module Stripe
           attr_reader :type
         end
 
+        class StatusDetails < Stripe::StripeObject
+          class Closed < Stripe::StripeObject
+            class ForwardingSettings < Stripe::StripeObject
+              # The address to send forwarded payments to.
+              attr_reader :payment_method
+              # The address to send forwarded payouts to.
+              attr_reader :payout_method
+            end
+            # Attribute for field forwarding_settings
+            attr_reader :forwarding_settings
+            # Attribute for field reason
+            attr_reader :reason
+          end
+          # Attribute for field closed
+          attr_reader :closed
+        end
+
         class Storage < Stripe::StripeObject
           # The currencies that this FinancialAccount can hold.
           attr_reader :holds_currencies
@@ -45,6 +62,8 @@ module Stripe
         attr_reader :other
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         attr_reader :status
+        # Attribute for field status_details
+        attr_reader :status_details
         # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
         attr_reader :storage
         # Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.

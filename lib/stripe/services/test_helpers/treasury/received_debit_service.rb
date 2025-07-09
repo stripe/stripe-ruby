@@ -14,7 +14,6 @@ module Stripe
               attr_accessor :account_number
               # The bank account's routing number.
               attr_accessor :routing_number
-
               def initialize(account_holder_name: nil, account_number: nil, routing_number: nil)
                 @account_holder_name = account_holder_name
                 @account_number = account_number
@@ -25,18 +24,15 @@ module Stripe
             attr_accessor :type
             # Optional fields for `us_bank_account`.
             attr_accessor :us_bank_account
-
             def initialize(type: nil, us_bank_account: nil)
               @type = type
               @us_bank_account = us_bank_account
             end
           end
-
           class NetworkDetails < Stripe::RequestParams
             class Ach < Stripe::RequestParams
               # Addenda record data associated with this ReceivedDebit.
               attr_accessor :addenda
-
               def initialize(addenda: nil)
                 @addenda = addenda
               end
@@ -45,7 +41,6 @@ module Stripe
             attr_accessor :ach
             # The type of flow that originated the ReceivedDebit.
             attr_accessor :type
-
             def initialize(ach: nil, type: nil)
               @ach = ach
               @type = type
@@ -67,7 +62,6 @@ module Stripe
           attr_accessor :network
           # Details about the network used for the ReceivedDebit.
           attr_accessor :network_details
-
           def initialize(
             amount: nil,
             currency: nil,
@@ -88,15 +82,14 @@ module Stripe
             @network_details = network_details
           end
         end
-
         # Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
         def create(params = {}, opts = {})
           request(
             method: :post,
-            path: "/v1/test_helpers/treasury/received_debits",
+            path: '/v1/test_helpers/treasury/received_debits',
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
       end

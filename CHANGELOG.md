@@ -1,5 +1,14 @@
 # Changelog
 
+## 15.4.0-beta.2 - 2025-07-09
+* [#1625](https://github.com/stripe/stripe-ruby/pull/1625) Pull in V2 FinancialAccount changes for June release
+  * Add support for `close` and `create` methods on resource `V2::MoneyManagement::FinancialAccount`
+  * Add support for `storer` on `V2::Core::Account::Configuration`, `V2::Core::Account::CreateParams::Configuration`, and `V2::Core::Account::UpdateParams::Configuration`
+  * Add support for `status_details` on `V2::MoneyManagement::FinancialAccount`
+  * Add support for `status` on `V2::MoneyManagement::FinancialAccount::ListParams`
+  * Add support for thin events `V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent` and `V2CoreAccountIncludingConfigurationStorerUpdatedEvent` with related object `V2::Core::Account`
+  * Add support for error types `AlreadyExistsError` and `NonZeroBalanceError`
+
 ## 15.4.0-beta.1 - 2025-07-01
 * [#1607](https://github.com/stripe/stripe-ruby/pull/1607) Update generated code for beta
   * Change type of `Checkout::Session::CreateParams::SubscriptionDatum.billing_mode`, `Invoice::CreatePreviewParams::ScheduleDetail.billing_mode`, `Invoice::CreatePreviewParams::SubscriptionDetail.billing_mode`, `Quote::CreateParams::SubscriptionDatum.billing_mode`, `Quote::SubscriptionDatum.billing_mode`, `Subscription::CreateParams.billing_mode`, and `SubscriptionSchedule::CreateParams.billing_mode` from `enum('classic'|'flexible')` to `billing_mode`

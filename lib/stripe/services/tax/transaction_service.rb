@@ -5,21 +5,17 @@ module Stripe
   module Tax
     class TransactionService < StripeService
       attr_reader :line_items
-
       def initialize(requestor)
-        super
+        super(requestor)
         @line_items = Stripe::Tax::TransactionLineItemService.new(@requestor)
       end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       class CreateFromCalculationParams < Stripe::RequestParams
         # Tax Calculation ID to be used as input when creating the transaction.
         attr_accessor :calculation
@@ -31,7 +27,6 @@ module Stripe
         attr_accessor :posted_at
         # A custom order or sale identifier, such as 'myOrder_123'. Must be unique across all transactions, including reversals.
         attr_accessor :reference
-
         def initialize(calculation: nil, expand: nil, metadata: nil, posted_at: nil, reference: nil)
           @calculation = calculation
           @expand = expand
@@ -40,7 +35,6 @@ module Stripe
           @reference = reference
         end
       end
-
       class CreateReversalParams < Stripe::RequestParams
         class LineItem < Stripe::RequestParams
           # The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
@@ -55,7 +49,6 @@ module Stripe
           attr_accessor :quantity
           # A custom identifier for this line item in the reversal transaction, such as 'L1-refund'.
           attr_accessor :reference
-
           def initialize(
             amount: nil,
             amount_tax: nil,
@@ -72,13 +65,11 @@ module Stripe
             @reference = reference
           end
         end
-
         class ShippingCost < Stripe::RequestParams
           # The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
           attr_accessor :amount
           # The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
           attr_accessor :amount_tax
-
           def initialize(amount: nil, amount_tax: nil)
             @amount = amount
             @amount_tax = amount_tax
@@ -100,7 +91,6 @@ module Stripe
         attr_accessor :reference
         # The shipping cost to reverse.
         attr_accessor :shipping_cost
-
         def initialize(
           expand: nil,
           flat_amount: nil,
@@ -121,15 +111,14 @@ module Stripe
           @shipping_cost = shipping_cost
         end
       end
-
       # Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
       def create_from_calculation(params = {}, opts = {})
         request(
           method: :post,
-          path: "/v1/tax/transactions/create_from_calculation",
+          path: '/v1/tax/transactions/create_from_calculation',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -137,10 +126,10 @@ module Stripe
       def create_reversal(params = {}, opts = {})
         request(
           method: :post,
-          path: "/v1/tax/transactions/create_reversal",
+          path: '/v1/tax/transactions/create_reversal',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -148,10 +137,10 @@ module Stripe
       def retrieve(transaction, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/tax/transactions/%<transaction>s", { transaction: CGI.escape(transaction) }),
+          path: format('/v1/tax/transactions/%<transaction>s', {:transaction => CGI.escape(transaction)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

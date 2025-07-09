@@ -21,6 +21,10 @@ module Stripe
         V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
         V2CoreAccountIncludingConfigurationRecipientUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
+        V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent,
+        V2CoreAccountIncludingConfigurationStorerUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationStorerUpdatedEvent,
         V2CoreAccountIncludingDefaultsUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingDefaultsUpdatedEvent,
         V2CoreAccountIncludingIdentityUpdatedEvent.lookup_type =>

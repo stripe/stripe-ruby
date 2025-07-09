@@ -4,12 +4,10 @@
 module Stripe
   class PaymentLinkService < StripeService
     attr_reader :line_items
-
     def initialize(requestor)
-      super
+      super(requestor)
       @line_items = Stripe::PaymentLinkLineItemService.new(@requestor)
     end
-
     class ListParams < Stripe::RequestParams
       # Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links).
       attr_accessor :active
@@ -21,7 +19,6 @@ module Stripe
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-
       def initialize(active: nil, ending_before: nil, expand: nil, limit: nil, starting_after: nil)
         @active = active
         @ending_before = ending_before
@@ -30,22 +27,18 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
     class CreateParams < Stripe::RequestParams
       class AfterCompletion < Stripe::RequestParams
         class HostedConfirmation < Stripe::RequestParams
           # A custom message to display to the customer after the purchase is complete.
           attr_accessor :custom_message
-
           def initialize(custom_message: nil)
             @custom_message = custom_message
           end
         end
-
         class Redirect < Stripe::RequestParams
           # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
           attr_accessor :url
-
           def initialize(url: nil)
             @url = url
           end
@@ -56,21 +49,18 @@ module Stripe
         attr_accessor :redirect
         # The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
         attr_accessor :type
-
         def initialize(hosted_confirmation: nil, redirect: nil, type: nil)
           @hosted_confirmation = hosted_confirmation
           @redirect = redirect
           @type = type
         end
       end
-
       class AutomaticTax < Stripe::RequestParams
         class Liability < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
           # Type of the account referenced in the request.
           attr_accessor :type
-
           def initialize(account: nil, type: nil)
             @account = account
             @type = type
@@ -82,19 +72,16 @@ module Stripe
         attr_accessor :enabled
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_accessor :liability
-
         def initialize(enabled: nil, liability: nil)
           @enabled = enabled
           @liability = liability
         end
       end
-
       class ConsentCollection < Stripe::RequestParams
         class PaymentMethodReuseAgreement < Stripe::RequestParams
           # Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
           # defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
           attr_accessor :position
-
           def initialize(position: nil)
             @position = position
           end
@@ -108,14 +95,12 @@ module Stripe
         # If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
         # There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
         attr_accessor :terms_of_service
-
         def initialize(payment_method_reuse_agreement: nil, promotions: nil, terms_of_service: nil)
           @payment_method_reuse_agreement = payment_method_reuse_agreement
           @promotions = promotions
           @terms_of_service = terms_of_service
         end
       end
-
       class CustomField < Stripe::RequestParams
         class Dropdown < Stripe::RequestParams
           class Option < Stripe::RequestParams
@@ -123,7 +108,6 @@ module Stripe
             attr_accessor :label
             # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
             attr_accessor :value
-
             def initialize(label: nil, value: nil)
               @label = label
               @value = value
@@ -133,25 +117,21 @@ module Stripe
           attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
-
           def initialize(default_value: nil, options: nil)
             @default_value = default_value
             @options = options
           end
         end
-
         class Label < Stripe::RequestParams
           # Custom text for the label, displayed to the customer. Up to 50 characters.
           attr_accessor :custom
           # The type of the label.
           attr_accessor :type
-
           def initialize(custom: nil, type: nil)
             @custom = custom
             @type = type
           end
         end
-
         class Numeric < Stripe::RequestParams
           # The value that will pre-fill the field on the payment page.
           attr_accessor :default_value
@@ -159,14 +139,12 @@ module Stripe
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
-
           def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
             @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
         end
-
         class Text < Stripe::RequestParams
           # The value that will pre-fill the field on the payment page.
           attr_accessor :default_value
@@ -174,7 +152,6 @@ module Stripe
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
-
           def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
             @default_value = default_value
             @maximum_length = maximum_length
@@ -195,7 +172,6 @@ module Stripe
         attr_accessor :text
         # The type of the field.
         attr_accessor :type
-
         def initialize(
           dropdown: nil,
           key: nil,
@@ -214,39 +190,31 @@ module Stripe
           @type = type
         end
       end
-
       class CustomText < Stripe::RequestParams
         class AfterSubmit < Stripe::RequestParams
           # Text may be up to 1200 characters in length.
           attr_accessor :message
-
           def initialize(message: nil)
             @message = message
           end
         end
-
         class ShippingAddress < Stripe::RequestParams
           # Text may be up to 1200 characters in length.
           attr_accessor :message
-
           def initialize(message: nil)
             @message = message
           end
         end
-
         class Submit < Stripe::RequestParams
           # Text may be up to 1200 characters in length.
           attr_accessor :message
-
           def initialize(message: nil)
             @message = message
           end
         end
-
         class TermsOfServiceAcceptance < Stripe::RequestParams
           # Text may be up to 1200 characters in length.
           attr_accessor :message
-
           def initialize(message: nil)
             @message = message
           end
@@ -259,7 +227,6 @@ module Stripe
         attr_accessor :submit
         # Custom text that should be displayed in place of the default terms of service agreement text.
         attr_accessor :terms_of_service_acceptance
-
         def initialize(
           after_submit: nil,
           shipping_address: nil,
@@ -272,7 +239,6 @@ module Stripe
           @terms_of_service_acceptance = terms_of_service_acceptance
         end
       end
-
       class InvoiceCreation < Stripe::RequestParams
         class InvoiceData < Stripe::RequestParams
           class CustomField < Stripe::RequestParams
@@ -280,29 +246,24 @@ module Stripe
             attr_accessor :name
             # The value of the custom field. This may be up to 140 characters.
             attr_accessor :value
-
             def initialize(name: nil, value: nil)
               @name = name
               @value = value
             end
           end
-
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
-
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
             end
           end
-
           class RenderingOptions < Stripe::RequestParams
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             attr_accessor :amount_tax_display
-
             def initialize(amount_tax_display: nil)
               @amount_tax_display = amount_tax_display
             end
@@ -321,7 +282,6 @@ module Stripe
           attr_accessor :metadata
           # Default options for invoice PDF rendering for this customer.
           attr_accessor :rendering_options
-
           def initialize(
             account_tax_ids: nil,
             custom_fields: nil,
@@ -344,13 +304,11 @@ module Stripe
         attr_accessor :enabled
         # Invoice PDF configuration.
         attr_accessor :invoice_data
-
         def initialize(enabled: nil, invoice_data: nil)
           @enabled = enabled
           @invoice_data = invoice_data
         end
       end
-
       class LineItem < Stripe::RequestParams
         class AdjustableQuantity < Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative Integer.
@@ -359,7 +317,6 @@ module Stripe
           attr_accessor :maximum
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
           attr_accessor :minimum
-
           def initialize(enabled: nil, maximum: nil, minimum: nil)
             @enabled = enabled
             @maximum = maximum
@@ -372,14 +329,12 @@ module Stripe
         attr_accessor :price
         # The quantity of the line item being purchased.
         attr_accessor :quantity
-
         def initialize(adjustable_quantity: nil, price: nil, quantity: nil)
           @adjustable_quantity = adjustable_quantity
           @price = price
           @quantity = quantity
         end
       end
-
       class OptionalItem < Stripe::RequestParams
         class AdjustableQuantity < Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -388,7 +343,6 @@ module Stripe
           attr_accessor :maximum
           # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
           attr_accessor :minimum
-
           def initialize(enabled: nil, maximum: nil, minimum: nil)
             @enabled = enabled
             @maximum = maximum
@@ -401,14 +355,12 @@ module Stripe
         attr_accessor :price
         # The initial quantity of the line item created when a customer chooses to add this optional item to their order.
         attr_accessor :quantity
-
         def initialize(adjustable_quantity: nil, price: nil, quantity: nil)
           @adjustable_quantity = adjustable_quantity
           @price = price
           @quantity = quantity
         end
       end
-
       class PaymentIntentData < Stripe::RequestParams
         # Controls when the funds will be captured from the customer's account.
         attr_accessor :capture_method
@@ -436,7 +388,6 @@ module Stripe
         attr_accessor :statement_descriptor_suffix
         # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         attr_accessor :transfer_group
-
         def initialize(
           capture_method: nil,
           description: nil,
@@ -455,52 +406,42 @@ module Stripe
           @transfer_group = transfer_group
         end
       end
-
       class PhoneNumberCollection < Stripe::RequestParams
         # Set to `true` to enable phone number collection.
         attr_accessor :enabled
-
         def initialize(enabled: nil)
           @enabled = enabled
         end
       end
-
       class Restrictions < Stripe::RequestParams
         class CompletedSessions < Stripe::RequestParams
           # The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
           attr_accessor :limit
-
           def initialize(limit: nil)
             @limit = limit
           end
         end
         # Configuration for the `completed_sessions` restriction type.
         attr_accessor :completed_sessions
-
         def initialize(completed_sessions: nil)
           @completed_sessions = completed_sessions
         end
       end
-
       class ShippingAddressCollection < Stripe::RequestParams
         # An array of two-letter ISO country codes representing which countries Checkout should provide as options for
         # shipping locations.
         attr_accessor :allowed_countries
-
         def initialize(allowed_countries: nil)
           @allowed_countries = allowed_countries
         end
       end
-
       class ShippingOption < Stripe::RequestParams
         # The ID of the Shipping Rate to use for this shipping option.
         attr_accessor :shipping_rate
-
         def initialize(shipping_rate: nil)
           @shipping_rate = shipping_rate
         end
       end
-
       class SubscriptionData < Stripe::RequestParams
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
@@ -508,7 +449,6 @@ module Stripe
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
-
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -516,24 +456,20 @@ module Stripe
           end
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_accessor :issuer
-
           def initialize(issuer: nil)
             @issuer = issuer
           end
         end
-
         class TrialSettings < Stripe::RequestParams
           class EndBehavior < Stripe::RequestParams
             # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
             attr_accessor :missing_payment_method
-
             def initialize(missing_payment_method: nil)
               @missing_payment_method = missing_payment_method
             end
           end
           # Defines how the subscription should behave when the user's free trial ends.
           attr_accessor :end_behavior
-
           def initialize(end_behavior: nil)
             @end_behavior = end_behavior
           end
@@ -548,7 +484,6 @@ module Stripe
         attr_accessor :trial_period_days
         # Settings related to subscription trials.
         attr_accessor :trial_settings
-
         def initialize(
           description: nil,
           invoice_settings: nil,
@@ -563,19 +498,16 @@ module Stripe
           @trial_settings = trial_settings
         end
       end
-
       class TaxIdCollection < Stripe::RequestParams
         # Enable tax ID collection during checkout. Defaults to `false`.
         attr_accessor :enabled
         # Describes whether a tax ID is required during checkout. Defaults to `never`.
         attr_accessor :required
-
         def initialize(enabled: nil, required: nil)
           @enabled = enabled
           @required = required
         end
       end
-
       class TransferData < Stripe::RequestParams
         # The amount that will be transferred automatically when a charge succeeds.
         attr_accessor :amount
@@ -584,7 +516,6 @@ module Stripe
         # to the destination account. The ID of the resulting transfer will be
         # returned on the successful charge's `transfer` field.
         attr_accessor :destination
-
         def initialize(amount: nil, destination: nil)
           @amount = amount
           @destination = destination
@@ -656,7 +587,6 @@ module Stripe
       attr_accessor :tax_id_collection
       # The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
       attr_accessor :transfer_data
-
       def initialize(
         after_completion: nil,
         allow_promotion_codes: nil,
@@ -719,31 +649,25 @@ module Stripe
         @transfer_data = transfer_data
       end
     end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class UpdateParams < Stripe::RequestParams
       class AfterCompletion < Stripe::RequestParams
         class HostedConfirmation < Stripe::RequestParams
           # A custom message to display to the customer after the purchase is complete.
           attr_accessor :custom_message
-
           def initialize(custom_message: nil)
             @custom_message = custom_message
           end
         end
-
         class Redirect < Stripe::RequestParams
           # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
           attr_accessor :url
-
           def initialize(url: nil)
             @url = url
           end
@@ -754,21 +678,18 @@ module Stripe
         attr_accessor :redirect
         # The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
         attr_accessor :type
-
         def initialize(hosted_confirmation: nil, redirect: nil, type: nil)
           @hosted_confirmation = hosted_confirmation
           @redirect = redirect
           @type = type
         end
       end
-
       class AutomaticTax < Stripe::RequestParams
         class Liability < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
           # Type of the account referenced in the request.
           attr_accessor :type
-
           def initialize(account: nil, type: nil)
             @account = account
             @type = type
@@ -780,13 +701,11 @@ module Stripe
         attr_accessor :enabled
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_accessor :liability
-
         def initialize(enabled: nil, liability: nil)
           @enabled = enabled
           @liability = liability
         end
       end
-
       class CustomField < Stripe::RequestParams
         class Dropdown < Stripe::RequestParams
           class Option < Stripe::RequestParams
@@ -794,7 +713,6 @@ module Stripe
             attr_accessor :label
             # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
             attr_accessor :value
-
             def initialize(label: nil, value: nil)
               @label = label
               @value = value
@@ -804,25 +722,21 @@ module Stripe
           attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
-
           def initialize(default_value: nil, options: nil)
             @default_value = default_value
             @options = options
           end
         end
-
         class Label < Stripe::RequestParams
           # Custom text for the label, displayed to the customer. Up to 50 characters.
           attr_accessor :custom
           # The type of the label.
           attr_accessor :type
-
           def initialize(custom: nil, type: nil)
             @custom = custom
             @type = type
           end
         end
-
         class Numeric < Stripe::RequestParams
           # The value that will pre-fill the field on the payment page.
           attr_accessor :default_value
@@ -830,14 +744,12 @@ module Stripe
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
-
           def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
             @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
         end
-
         class Text < Stripe::RequestParams
           # The value that will pre-fill the field on the payment page.
           attr_accessor :default_value
@@ -845,7 +757,6 @@ module Stripe
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
-
           def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
             @default_value = default_value
             @maximum_length = maximum_length
@@ -866,7 +777,6 @@ module Stripe
         attr_accessor :text
         # The type of the field.
         attr_accessor :type
-
         def initialize(
           dropdown: nil,
           key: nil,
@@ -885,39 +795,31 @@ module Stripe
           @type = type
         end
       end
-
       class CustomText < Stripe::RequestParams
         class AfterSubmit < Stripe::RequestParams
           # Text may be up to 1200 characters in length.
           attr_accessor :message
-
           def initialize(message: nil)
             @message = message
           end
         end
-
         class ShippingAddress < Stripe::RequestParams
           # Text may be up to 1200 characters in length.
           attr_accessor :message
-
           def initialize(message: nil)
             @message = message
           end
         end
-
         class Submit < Stripe::RequestParams
           # Text may be up to 1200 characters in length.
           attr_accessor :message
-
           def initialize(message: nil)
             @message = message
           end
         end
-
         class TermsOfServiceAcceptance < Stripe::RequestParams
           # Text may be up to 1200 characters in length.
           attr_accessor :message
-
           def initialize(message: nil)
             @message = message
           end
@@ -930,7 +832,6 @@ module Stripe
         attr_accessor :submit
         # Custom text that should be displayed in place of the default terms of service agreement text.
         attr_accessor :terms_of_service_acceptance
-
         def initialize(
           after_submit: nil,
           shipping_address: nil,
@@ -943,7 +844,6 @@ module Stripe
           @terms_of_service_acceptance = terms_of_service_acceptance
         end
       end
-
       class InvoiceCreation < Stripe::RequestParams
         class InvoiceData < Stripe::RequestParams
           class CustomField < Stripe::RequestParams
@@ -951,29 +851,24 @@ module Stripe
             attr_accessor :name
             # The value of the custom field. This may be up to 140 characters.
             attr_accessor :value
-
             def initialize(name: nil, value: nil)
               @name = name
               @value = value
             end
           end
-
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
-
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
             end
           end
-
           class RenderingOptions < Stripe::RequestParams
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             attr_accessor :amount_tax_display
-
             def initialize(amount_tax_display: nil)
               @amount_tax_display = amount_tax_display
             end
@@ -992,7 +887,6 @@ module Stripe
           attr_accessor :metadata
           # Default options for invoice PDF rendering for this customer.
           attr_accessor :rendering_options
-
           def initialize(
             account_tax_ids: nil,
             custom_fields: nil,
@@ -1015,13 +909,11 @@ module Stripe
         attr_accessor :enabled
         # Invoice PDF configuration.
         attr_accessor :invoice_data
-
         def initialize(enabled: nil, invoice_data: nil)
           @enabled = enabled
           @invoice_data = invoice_data
         end
       end
-
       class LineItem < Stripe::RequestParams
         class AdjustableQuantity < Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative Integer.
@@ -1030,7 +922,6 @@ module Stripe
           attr_accessor :maximum
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
           attr_accessor :minimum
-
           def initialize(enabled: nil, maximum: nil, minimum: nil)
             @enabled = enabled
             @maximum = maximum
@@ -1043,14 +934,12 @@ module Stripe
         attr_accessor :id
         # The quantity of the line item being purchased.
         attr_accessor :quantity
-
         def initialize(adjustable_quantity: nil, id: nil, quantity: nil)
           @adjustable_quantity = adjustable_quantity
           @id = id
           @quantity = quantity
         end
       end
-
       class PaymentIntentData < Stripe::RequestParams
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
@@ -1064,7 +953,6 @@ module Stripe
         attr_accessor :statement_descriptor_suffix
         # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         attr_accessor :transfer_group
-
         def initialize(
           description: nil,
           metadata: nil,
@@ -1079,43 +967,35 @@ module Stripe
           @transfer_group = transfer_group
         end
       end
-
       class PhoneNumberCollection < Stripe::RequestParams
         # Set to `true` to enable phone number collection.
         attr_accessor :enabled
-
         def initialize(enabled: nil)
           @enabled = enabled
         end
       end
-
       class Restrictions < Stripe::RequestParams
         class CompletedSessions < Stripe::RequestParams
           # The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
           attr_accessor :limit
-
           def initialize(limit: nil)
             @limit = limit
           end
         end
         # Configuration for the `completed_sessions` restriction type.
         attr_accessor :completed_sessions
-
         def initialize(completed_sessions: nil)
           @completed_sessions = completed_sessions
         end
       end
-
       class ShippingAddressCollection < Stripe::RequestParams
         # An array of two-letter ISO country codes representing which countries Checkout should provide as options for
         # shipping locations.
         attr_accessor :allowed_countries
-
         def initialize(allowed_countries: nil)
           @allowed_countries = allowed_countries
         end
       end
-
       class SubscriptionData < Stripe::RequestParams
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
@@ -1123,7 +1003,6 @@ module Stripe
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
-
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -1131,24 +1010,20 @@ module Stripe
           end
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_accessor :issuer
-
           def initialize(issuer: nil)
             @issuer = issuer
           end
         end
-
         class TrialSettings < Stripe::RequestParams
           class EndBehavior < Stripe::RequestParams
             # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
             attr_accessor :missing_payment_method
-
             def initialize(missing_payment_method: nil)
               @missing_payment_method = missing_payment_method
             end
           end
           # Defines how the subscription should behave when the user's free trial ends.
           attr_accessor :end_behavior
-
           def initialize(end_behavior: nil)
             @end_behavior = end_behavior
           end
@@ -1161,7 +1036,6 @@ module Stripe
         attr_accessor :trial_period_days
         # Settings related to subscription trials.
         attr_accessor :trial_settings
-
         def initialize(
           invoice_settings: nil,
           metadata: nil,
@@ -1174,13 +1048,11 @@ module Stripe
           @trial_settings = trial_settings
         end
       end
-
       class TaxIdCollection < Stripe::RequestParams
         # Enable tax ID collection during checkout. Defaults to `false`.
         attr_accessor :enabled
         # Describes whether a tax ID is required during checkout. Defaults to `never`.
         attr_accessor :required
-
         def initialize(enabled: nil, required: nil)
           @enabled = enabled
           @required = required
@@ -1236,7 +1108,6 @@ module Stripe
       attr_accessor :subscription_data
       # Controls tax ID collection during checkout.
       attr_accessor :tax_id_collection
-
       def initialize(
         active: nil,
         after_completion: nil,
@@ -1285,15 +1156,14 @@ module Stripe
         @tax_id_collection = tax_id_collection
       end
     end
-
     # Creates a payment link.
     def create(params = {}, opts = {})
       request(
         method: :post,
-        path: "/v1/payment_links",
+        path: '/v1/payment_links',
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -1301,10 +1171,10 @@ module Stripe
     def list(params = {}, opts = {})
       request(
         method: :get,
-        path: "/v1/payment_links",
+        path: '/v1/payment_links',
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -1312,10 +1182,10 @@ module Stripe
     def retrieve(payment_link, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_links/%<payment_link>s", { payment_link: CGI.escape(payment_link) }),
+        path: format('/v1/payment_links/%<payment_link>s', {:payment_link => CGI.escape(payment_link)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -1323,10 +1193,10 @@ module Stripe
     def update(payment_link, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_links/%<payment_link>s", { payment_link: CGI.escape(payment_link) }),
+        path: format('/v1/payment_links/%<payment_link>s', {:payment_link => CGI.escape(payment_link)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

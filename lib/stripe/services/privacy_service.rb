@@ -4,9 +4,8 @@
 module Stripe
   class PrivacyService < StripeService
     attr_reader :redaction_jobs
-
     def initialize(requestor)
-      super
+      super(requestor)
       @redaction_jobs = Stripe::Privacy::RedactionJobService.new(@requestor)
     end
   end

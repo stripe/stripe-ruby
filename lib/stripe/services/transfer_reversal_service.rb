@@ -12,7 +12,6 @@ module Stripe
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-
       def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil)
         @ending_before = ending_before
         @expand = expand
@@ -20,7 +19,6 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
     class CreateParams < Stripe::RequestParams
       # A positive integer in cents (or local equivalent) representing how much of this transfer to reverse. Can only reverse up to the unreversed amount remaining of the transfer. Partial transfer reversals are only allowed for transfers to Stripe Accounts. Defaults to the entire transfer amount.
       attr_accessor :amount
@@ -32,7 +30,6 @@ module Stripe
       attr_accessor :metadata
       # Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed.
       attr_accessor :refund_application_fee
-
       def initialize(
         amount: nil,
         description: nil,
@@ -47,28 +44,23 @@ module Stripe
         @refund_application_fee = refund_application_fee
       end
     end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class UpdateParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-
       def initialize(expand: nil, metadata: nil)
         @expand = expand
         @metadata = metadata
       end
     end
-
     # When you create a new reversal, you must specify a transfer to create it on.
     #
     # When reversing transfers, you can optionally reverse part of the transfer. You can do so as many times as you wish until the entire transfer has been reversed.
@@ -77,10 +69,10 @@ module Stripe
     def create(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/transfers/%<id>s/reversals", { id: CGI.escape(id) }),
+        path: format('/v1/transfers/%<id>s/reversals', {:id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -88,10 +80,10 @@ module Stripe
     def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/transfers/%<id>s/reversals", { id: CGI.escape(id) }),
+        path: format('/v1/transfers/%<id>s/reversals', {:id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -99,10 +91,10 @@ module Stripe
     def retrieve(transfer, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/transfers/%<transfer>s/reversals/%<id>s", { transfer: CGI.escape(transfer), id: CGI.escape(id) }),
+        path: format('/v1/transfers/%<transfer>s/reversals/%<id>s', {:transfer => CGI.escape(transfer), :id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -112,10 +104,10 @@ module Stripe
     def update(transfer, id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/transfers/%<transfer>s/reversals/%<id>s", { transfer: CGI.escape(transfer), id: CGI.escape(id) }),
+        path: format('/v1/transfers/%<transfer>s/reversals/%<id>s', {:transfer => CGI.escape(transfer), :id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

@@ -4,16 +4,13 @@
 module Stripe
   class ProductFeatureService < StripeService
     class DeleteParams < Stripe::RequestParams; end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
@@ -23,7 +20,6 @@ module Stripe
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-
       def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil)
         @ending_before = ending_before
         @expand = expand
@@ -31,27 +27,24 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
     class CreateParams < Stripe::RequestParams
       # The ID of the [Feature](https://stripe.com/docs/api/entitlements/feature) object attached to this product.
       attr_accessor :entitlement_feature
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(entitlement_feature: nil, expand: nil)
         @entitlement_feature = entitlement_feature
         @expand = expand
       end
     end
-
     # Creates a product_feature, which represents a feature attachment to a product
     def create(product, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/products/%<product>s/features", { product: CGI.escape(product) }),
+        path: format('/v1/products/%<product>s/features', {:product => CGI.escape(product)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -59,10 +52,10 @@ module Stripe
     def delete(product, id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/products/%<product>s/features/%<id>s", { product: CGI.escape(product), id: CGI.escape(id) }),
+        path: format('/v1/products/%<product>s/features/%<id>s', {:product => CGI.escape(product), :id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -70,10 +63,10 @@ module Stripe
     def list(product, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/products/%<product>s/features", { product: CGI.escape(product) }),
+        path: format('/v1/products/%<product>s/features', {:product => CGI.escape(product)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -81,10 +74,10 @@ module Stripe
     def retrieve(product, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/products/%<product>s/features/%<id>s", { product: CGI.escape(product), id: CGI.escape(id) }),
+        path: format('/v1/products/%<product>s/features/%<id>s', {:product => CGI.escape(product), :id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

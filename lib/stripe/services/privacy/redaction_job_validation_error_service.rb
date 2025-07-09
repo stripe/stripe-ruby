@@ -13,7 +13,6 @@ module Stripe
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
-
         def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil)
           @ending_before = ending_before
           @expand = expand
@@ -21,15 +20,14 @@ module Stripe
           @starting_after = starting_after
         end
       end
-
       # Returns a list of validation errors for the specified redaction job.
       def list(job, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/privacy/redaction_jobs/%<job>s/validation_errors", { job: CGI.escape(job) }),
+          path: format('/v1/privacy/redaction_jobs/%<job>s/validation_errors', {:job => CGI.escape(job)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

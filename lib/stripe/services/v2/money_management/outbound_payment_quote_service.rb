@@ -9,24 +9,20 @@ module Stripe
           class DeliveryOptions < Stripe::RequestParams
             # Open Enum. Method for bank account.
             attr_accessor :bank_account
-
             def initialize(bank_account: nil)
               @bank_account = bank_account
             end
           end
-
           class From < Stripe::RequestParams
             # Describes the FinancialAccount's currency drawn from.
             attr_accessor :currency
             # The FinancialAccount that funds were pulled from.
             attr_accessor :financial_account
-
             def initialize(currency: nil, financial_account: nil)
               @currency = currency
               @financial_account = financial_account
             end
           end
-
           class To < Stripe::RequestParams
             # Describes the currency to send to the recipient.
             # If included, this currency must match a currency supported by the destination.
@@ -40,7 +36,6 @@ module Stripe
             attr_accessor :payout_method
             # To which account the OutboundPayment is sent.
             attr_accessor :recipient
-
             def initialize(currency: nil, payout_method: nil, recipient: nil)
               @currency = currency
               @payout_method = payout_method
@@ -55,7 +50,6 @@ module Stripe
           attr_accessor :from
           # Request details about the recipient of an OutboundPaymentQuote.
           attr_accessor :to
-
           def initialize(amount: nil, delivery_options: nil, from: nil, to: nil)
             @amount = amount
             @delivery_options = delivery_options
@@ -63,19 +57,17 @@ module Stripe
             @to = to
           end
         end
-
         class RetrieveParams < Stripe::RequestParams; end
-
         # Creates an OutboundPaymentQuote usable in an OutboundPayment.
         #
         # ** raises FeatureNotEnabledError
         def create(params = {}, opts = {})
           request(
             method: :post,
-            path: "/v2/money_management/outbound_payment_quotes",
+            path: '/v2/money_management/outbound_payment_quotes',
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -83,10 +75,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format("/v2/money_management/outbound_payment_quotes/%<id>s", { id: CGI.escape(id) }),
+            path: format('/v2/money_management/outbound_payment_quotes/%<id>s', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
       end

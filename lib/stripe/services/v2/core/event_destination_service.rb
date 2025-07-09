@@ -10,30 +10,25 @@ module Stripe
           attr_accessor :include
           # The page size.
           attr_accessor :limit
-
           def initialize(include: nil, limit: nil)
             @include = include
             @limit = limit
           end
         end
-
         class CreateParams < Stripe::RequestParams
           class AmazonEventbridge < Stripe::RequestParams
             # The AWS account ID.
             attr_accessor :aws_account_id
             # The region of the AWS event source.
             attr_accessor :aws_region
-
             def initialize(aws_account_id: nil, aws_region: nil)
               @aws_account_id = aws_account_id
               @aws_region = aws_region
             end
           end
-
           class WebhookEndpoint < Stripe::RequestParams
             # The URL of the webhook endpoint.
             attr_accessor :url
-
             def initialize(url: nil)
               @url = url
             end
@@ -60,7 +55,6 @@ module Stripe
           attr_accessor :amazon_eventbridge
           # Webhook endpoint configuration.
           attr_accessor :webhook_endpoint
-
           def initialize(
             description: nil,
             enabled_events: nil,
@@ -87,23 +81,18 @@ module Stripe
             @webhook_endpoint = webhook_endpoint
           end
         end
-
         class DeleteParams < Stripe::RequestParams; end
-
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.
           attr_accessor :include
-
           def initialize(include: nil)
             @include = include
           end
         end
-
         class UpdateParams < Stripe::RequestParams
           class WebhookEndpoint < Stripe::RequestParams
             # The URL of the webhook endpoint.
             attr_accessor :url
-
             def initialize(url: nil)
               @url = url
             end
@@ -120,7 +109,6 @@ module Stripe
           attr_accessor :name
           # Webhook endpoint configuration.
           attr_accessor :webhook_endpoint
-
           def initialize(
             description: nil,
             enabled_events: nil,
@@ -137,19 +125,17 @@ module Stripe
             @webhook_endpoint = webhook_endpoint
           end
         end
-
         class DisableParams < Stripe::RequestParams; end
         class EnableParams < Stripe::RequestParams; end
         class PingParams < Stripe::RequestParams; end
-
         # Create a new event destination.
         def create(params = {}, opts = {})
           request(
             method: :post,
-            path: "/v2/core/event_destinations",
+            path: '/v2/core/event_destinations',
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -157,10 +143,10 @@ module Stripe
         def delete(id, params = {}, opts = {})
           request(
             method: :delete,
-            path: format("/v2/core/event_destinations/%<id>s", { id: CGI.escape(id) }),
+            path: format('/v2/core/event_destinations/%<id>s', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -168,10 +154,10 @@ module Stripe
         def disable(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v2/core/event_destinations/%<id>s/disable", { id: CGI.escape(id) }),
+            path: format('/v2/core/event_destinations/%<id>s/disable', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -179,10 +165,10 @@ module Stripe
         def enable(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v2/core/event_destinations/%<id>s/enable", { id: CGI.escape(id) }),
+            path: format('/v2/core/event_destinations/%<id>s/enable', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -190,10 +176,10 @@ module Stripe
         def list(params = {}, opts = {})
           request(
             method: :get,
-            path: "/v2/core/event_destinations",
+            path: '/v2/core/event_destinations',
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -201,10 +187,10 @@ module Stripe
         def ping(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v2/core/event_destinations/%<id>s/ping", { id: CGI.escape(id) }),
+            path: format('/v2/core/event_destinations/%<id>s/ping', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -212,10 +198,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format("/v2/core/event_destinations/%<id>s", { id: CGI.escape(id) }),
+            path: format('/v2/core/event_destinations/%<id>s', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
 
@@ -223,10 +209,10 @@ module Stripe
         def update(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v2/core/event_destinations/%<id>s", { id: CGI.escape(id) }),
+            path: format('/v2/core/event_destinations/%<id>s', {:id => CGI.escape(id)}),
             params: params,
             opts: opts,
-            base_address: :api
+            base_address: :api,
           )
         end
       end

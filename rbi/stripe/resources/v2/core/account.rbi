@@ -1389,6 +1389,214 @@ module Stripe
             sig { returns(T.nilable(DefaultOutboundDestination)) }
             attr_reader :default_outbound_destination
           end
+          class Storer < Stripe::StripeObject
+            class Capabilities < Stripe::StripeObject
+              class FinancialAddresses < Stripe::StripeObject
+                class BankAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
+                # Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
+                sig { returns(T.nilable(BankAccounts)) }
+                attr_reader :bank_accounts
+              end
+              class HoldsCurrencies < Stripe::StripeObject
+                class Gbp < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
+                # Can hold storage-type funds on Stripe in GBP.
+                sig { returns(T.nilable(Gbp)) }
+                attr_reader :gbp
+              end
+              class InboundTransfers < Stripe::StripeObject
+                class BankAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
+                # Can pull funds from an external bank account, owned by yourself, to a FinancialAccount.
+                sig { returns(T.nilable(BankAccounts)) }
+                attr_reader :bank_accounts
+              end
+              class OutboundPayments < Stripe::StripeObject
+                class BankAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
+                class Cards < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
+                class FinancialAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
+                # Can send funds from a FinancialAccount to a bank account, owned by someone else.
+                sig { returns(T.nilable(BankAccounts)) }
+                attr_reader :bank_accounts
+                # Can send funds from a FinancialAccount to a debit card, owned by someone else.
+                sig { returns(T.nilable(Cards)) }
+                attr_reader :cards
+                # Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
+                sig { returns(T.nilable(FinancialAccounts)) }
+                attr_reader :financial_accounts
+              end
+              class OutboundTransfers < Stripe::StripeObject
+                class BankAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
+                class FinancialAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
+                # Can send funds from a FinancialAccount, to a bank account, owned by yourself.
+                sig { returns(T.nilable(BankAccounts)) }
+                attr_reader :bank_accounts
+                # Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
+                sig { returns(T.nilable(FinancialAccounts)) }
+                attr_reader :financial_accounts
+              end
+              # Can provision a financial address to credit/debit a FinancialAccount.
+              sig { returns(T.nilable(FinancialAddresses)) }
+              attr_reader :financial_addresses
+              # Can hold storage-type funds on Stripe.
+              sig { returns(T.nilable(HoldsCurrencies)) }
+              attr_reader :holds_currencies
+              # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+              sig { returns(T.nilable(InboundTransfers)) }
+              attr_reader :inbound_transfers
+              # Can send funds from a FinancialAccount to a destination owned by someone else.
+              sig { returns(T.nilable(OutboundPayments)) }
+              attr_reader :outbound_payments
+              # Can send funds from a FinancialAccount to a destination owned by yourself.
+              sig { returns(T.nilable(OutboundTransfers)) }
+              attr_reader :outbound_transfers
+            end
+            # Capabilities that have been requested on the Storer Configuration.
+            sig { returns(T.nilable(Capabilities)) }
+            attr_reader :capabilities
+          end
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           sig { returns(T.nilable(Customer)) }
           attr_reader :customer
@@ -1398,6 +1606,9 @@ module Stripe
           # The Recipient Configuration allows the Account to receive funds.
           sig { returns(T.nilable(Recipient)) }
           attr_reader :recipient
+          # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
+          sig { returns(T.nilable(Storer)) }
+          attr_reader :storer
         end
         class Defaults < Stripe::StripeObject
           class Responsibilities < Stripe::StripeObject

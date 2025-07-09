@@ -852,10 +852,14 @@ module Stripe
       # switch cases: The beginning of the section generated from our OpenAPI spec
       when "temporary_session_expired"
         TemporarySessionExpiredError.new(error_data[:message], **opts)
-      when "financial_account_not_open"
-        FinancialAccountNotOpenError.new(error_data[:message], **opts)
+      when "non_zero_balance"
+        NonZeroBalanceError.new(error_data[:message], **opts)
+      when "already_exists"
+        AlreadyExistsError.new(error_data[:message], **opts)
       when "feature_not_enabled"
         FeatureNotEnabledError.new(error_data[:message], **opts)
+      when "financial_account_not_open"
+        FinancialAccountNotOpenError.new(error_data[:message], **opts)
       when "blocked_by_stripe"
         BlockedByStripeError.new(error_data[:message], **opts)
       when "already_canceled"

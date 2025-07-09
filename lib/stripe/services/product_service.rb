@@ -4,33 +4,26 @@
 module Stripe
   class ProductService < StripeService
     attr_reader :features
-
     def initialize(requestor)
-      super
+      super(requestor)
       @features = Stripe::ProductFeatureService.new(@requestor)
     end
-
     class DeleteParams < Stripe::RequestParams; end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class UpdateParams < Stripe::RequestParams
       class MarketingFeature < Stripe::RequestParams
         # The marketing feature name. Up to 80 characters long.
         attr_accessor :name
-
         def initialize(name: nil)
           @name = name
         end
       end
-
       class PackageDimensions < Stripe::RequestParams
         # Height, in inches. Maximum precision is 2 decimal places.
         attr_accessor :height
@@ -40,7 +33,6 @@ module Stripe
         attr_accessor :weight
         # Width, in inches. Maximum precision is 2 decimal places.
         attr_accessor :width
-
         def initialize(height: nil, length: nil, weight: nil, width: nil)
           @height = height
           @length = length
@@ -79,7 +71,6 @@ module Stripe
       attr_accessor :unit_label
       # A URL of a publicly-accessible webpage for this product.
       attr_accessor :url
-
       def initialize(
         active: nil,
         default_price: nil,
@@ -112,7 +103,6 @@ module Stripe
         @url = url
       end
     end
-
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
@@ -123,7 +113,6 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
-
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -151,7 +140,6 @@ module Stripe
       attr_accessor :type
       # Only return products with the given url.
       attr_accessor :url
-
       def initialize(
         active: nil,
         created: nil,
@@ -176,7 +164,6 @@ module Stripe
         @url = url
       end
     end
-
     class CreateParams < Stripe::RequestParams
       class DefaultPriceData < Stripe::RequestParams
         class CurrencyOptions < Stripe::RequestParams
@@ -189,7 +176,6 @@ module Stripe
             attr_accessor :minimum
             # The starting unit amount which can be updated by the customer.
             attr_accessor :preset
-
             def initialize(enabled: nil, maximum: nil, minimum: nil, preset: nil)
               @enabled = enabled
               @maximum = maximum
@@ -197,7 +183,6 @@ module Stripe
               @preset = preset
             end
           end
-
           class Tier < Stripe::RequestParams
             # The flat billing amount for an entire tier, regardless of the number of units in the tier.
             attr_accessor :flat_amount
@@ -209,7 +194,6 @@ module Stripe
             attr_accessor :unit_amount_decimal
             # Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
             attr_accessor :up_to
-
             def initialize(
               flat_amount: nil,
               flat_amount_decimal: nil,
@@ -234,7 +218,6 @@ module Stripe
           attr_accessor :unit_amount
           # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
           attr_accessor :unit_amount_decimal
-
           def initialize(
             custom_unit_amount: nil,
             tax_behavior: nil,
@@ -249,7 +232,6 @@ module Stripe
             @unit_amount_decimal = unit_amount_decimal
           end
         end
-
         class CustomUnitAmount < Stripe::RequestParams
           # Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
           attr_accessor :enabled
@@ -259,7 +241,6 @@ module Stripe
           attr_accessor :minimum
           # The starting unit amount which can be updated by the customer.
           attr_accessor :preset
-
           def initialize(enabled: nil, maximum: nil, minimum: nil, preset: nil)
             @enabled = enabled
             @maximum = maximum
@@ -267,13 +248,11 @@ module Stripe
             @preset = preset
           end
         end
-
         class Recurring < Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
           attr_accessor :interval_count
-
           def initialize(interval: nil, interval_count: nil)
             @interval = interval
             @interval_count = interval_count
@@ -295,7 +274,6 @@ module Stripe
         attr_accessor :unit_amount
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         attr_accessor :unit_amount_decimal
-
         def initialize(
           currency: nil,
           currency_options: nil,
@@ -316,16 +294,13 @@ module Stripe
           @unit_amount_decimal = unit_amount_decimal
         end
       end
-
       class MarketingFeature < Stripe::RequestParams
         # The marketing feature name. Up to 80 characters long.
         attr_accessor :name
-
         def initialize(name: nil)
           @name = name
         end
       end
-
       class PackageDimensions < Stripe::RequestParams
         # Height, in inches. Maximum precision is 2 decimal places.
         attr_accessor :height
@@ -335,7 +310,6 @@ module Stripe
         attr_accessor :weight
         # Width, in inches. Maximum precision is 2 decimal places.
         attr_accessor :width
-
         def initialize(height: nil, length: nil, weight: nil, width: nil)
           @height = height
           @length = length
@@ -378,7 +352,6 @@ module Stripe
       attr_accessor :unit_label
       # A URL of a publicly-accessible webpage for this product.
       attr_accessor :url
-
       def initialize(
         active: nil,
         default_price_data: nil,
@@ -415,7 +388,6 @@ module Stripe
         @url = url
       end
     end
-
     class SearchParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
@@ -425,7 +397,6 @@ module Stripe
       attr_accessor :page
       # The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for products](https://stripe.com/docs/search#query-fields-for-products).
       attr_accessor :query
-
       def initialize(expand: nil, limit: nil, page: nil, query: nil)
         @expand = expand
         @limit = limit
@@ -433,36 +404,35 @@ module Stripe
         @query = query
       end
     end
-
     # Creates a new product object.
     def create(params = {}, opts = {})
-      request(method: :post, path: "/v1/products", params: params, opts: opts, base_address: :api)
+      request(method: :post, path: '/v1/products', params: params, opts: opts, base_address: :api)
     end
 
     # Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
     def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/products/%<id>s", { id: CGI.escape(id) }),
+        path: format('/v1/products/%<id>s', {:id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
     # Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
     def list(params = {}, opts = {})
-      request(method: :get, path: "/v1/products", params: params, opts: opts, base_address: :api)
+      request(method: :get, path: '/v1/products', params: params, opts: opts, base_address: :api)
     end
 
     # Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.
     def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/products/%<id>s", { id: CGI.escape(id) }),
+        path: format('/v1/products/%<id>s', {:id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -473,10 +443,10 @@ module Stripe
     def search(params = {}, opts = {})
       request(
         method: :get,
-        path: "/v1/products/search",
+        path: '/v1/products/search',
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -484,10 +454,10 @@ module Stripe
     def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/products/%<id>s", { id: CGI.escape(id) }),
+        path: format('/v1/products/%<id>s', {:id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

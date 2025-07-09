@@ -12,7 +12,6 @@ module Stripe
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-
       def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil)
         @ending_before = ending_before
         @expand = expand
@@ -20,29 +19,26 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     # A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
     def list(params = {}, opts = {})
-      request(method: :get, path: "/v1/tax_codes", params: params, opts: opts, base_address: :api)
+      request(method: :get, path: '/v1/tax_codes', params: params, opts: opts, base_address: :api)
     end
 
     # Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.
     def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/tax_codes/%<id>s", { id: CGI.escape(id) }),
+        path: format('/v1/tax_codes/%<id>s', {:id => CGI.escape(id)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

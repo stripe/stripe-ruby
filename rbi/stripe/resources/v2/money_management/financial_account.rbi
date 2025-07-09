@@ -23,6 +23,27 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class StatusDetails < Stripe::StripeObject
+          class Closed < Stripe::StripeObject
+            class ForwardingSettings < Stripe::StripeObject
+              # The address to send forwarded payments to.
+              sig { returns(T.nilable(String)) }
+              attr_reader :payment_method
+              # The address to send forwarded payouts to.
+              sig { returns(T.nilable(String)) }
+              attr_reader :payout_method
+            end
+            # Attribute for field forwarding_settings
+            sig { returns(T.nilable(ForwardingSettings)) }
+            attr_reader :forwarding_settings
+            # Attribute for field reason
+            sig { returns(String) }
+            attr_reader :reason
+          end
+          # Attribute for field closed
+          sig { returns(T.nilable(Closed)) }
+          attr_reader :closed
+        end
         class Storage < Stripe::StripeObject
           # The currencies that this FinancialAccount can hold.
           sig { returns(T::Array[String]) }
@@ -52,6 +73,9 @@ module Stripe
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         sig { returns(String) }
         attr_reader :status
+        # Attribute for field status_details
+        sig { returns(T.nilable(StatusDetails)) }
+        attr_reader :status_details
         # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
         sig { returns(T.nilable(Storage)) }
         attr_reader :storage

@@ -13,7 +13,6 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
-
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -35,7 +34,6 @@ module Stripe
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-
       def initialize(
         active: nil,
         created: nil,
@@ -54,7 +52,6 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
     class CreateParams < Stripe::RequestParams
       # Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
       attr_accessor :active
@@ -78,7 +75,6 @@ module Stripe
       attr_accessor :state
       # The high-level tax type, such as `vat` or `sales_tax`.
       attr_accessor :tax_type
-
       def initialize(
         active: nil,
         country: nil,
@@ -105,16 +101,13 @@ module Stripe
         @tax_type = tax_type
       end
     end
-
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       def initialize(expand: nil)
         @expand = expand
       end
     end
-
     class UpdateParams < Stripe::RequestParams
       # Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
       attr_accessor :active
@@ -134,7 +127,6 @@ module Stripe
       attr_accessor :state
       # The high-level tax type, such as `vat` or `sales_tax`.
       attr_accessor :tax_type
-
       def initialize(
         active: nil,
         country: nil,
@@ -157,25 +149,24 @@ module Stripe
         @tax_type = tax_type
       end
     end
-
     # Creates a new tax rate.
     def create(params = {}, opts = {})
-      request(method: :post, path: "/v1/tax_rates", params: params, opts: opts, base_address: :api)
+      request(method: :post, path: '/v1/tax_rates', params: params, opts: opts, base_address: :api)
     end
 
     # Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
     def list(params = {}, opts = {})
-      request(method: :get, path: "/v1/tax_rates", params: params, opts: opts, base_address: :api)
+      request(method: :get, path: '/v1/tax_rates', params: params, opts: opts, base_address: :api)
     end
 
     # Retrieves a tax rate with the given ID
     def retrieve(tax_rate, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/tax_rates/%<tax_rate>s", { tax_rate: CGI.escape(tax_rate) }),
+        path: format('/v1/tax_rates/%<tax_rate>s', {:tax_rate => CGI.escape(tax_rate)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
 
@@ -183,10 +174,10 @@ module Stripe
     def update(tax_rate, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/tax_rates/%<tax_rate>s", { tax_rate: CGI.escape(tax_rate) }),
+        path: format('/v1/tax_rates/%<tax_rate>s', {:tax_rate => CGI.escape(tax_rate)}),
         params: params,
         opts: opts,
-        base_address: :api
+        base_address: :api,
       )
     end
   end

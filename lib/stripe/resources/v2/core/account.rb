@@ -1079,12 +1079,176 @@ module Stripe
             # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard.
             attr_reader :default_outbound_destination
           end
+
+          class Storer < Stripe::StripeObject
+            class Capabilities < Stripe::StripeObject
+              class FinancialAddresses < Stripe::StripeObject
+                class BankAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+                end
+                # Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
+                attr_reader :bank_accounts
+              end
+
+              class HoldsCurrencies < Stripe::StripeObject
+                class Gbp < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+                end
+                # Can hold storage-type funds on Stripe in GBP.
+                attr_reader :gbp
+              end
+
+              class InboundTransfers < Stripe::StripeObject
+                class BankAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+                end
+                # Can pull funds from an external bank account, owned by yourself, to a FinancialAccount.
+                attr_reader :bank_accounts
+              end
+
+              class OutboundPayments < Stripe::StripeObject
+                class BankAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+                end
+
+                class Cards < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+                end
+
+                class FinancialAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+                end
+                # Can send funds from a FinancialAccount to a bank account, owned by someone else.
+                attr_reader :bank_accounts
+                # Can send funds from a FinancialAccount to a debit card, owned by someone else.
+                attr_reader :cards
+                # Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
+                attr_reader :financial_accounts
+              end
+
+              class OutboundTransfers < Stripe::StripeObject
+                class BankAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+                end
+
+                class FinancialAccounts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  attr_reader :requested
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  attr_reader :status_details
+                end
+                # Can send funds from a FinancialAccount, to a bank account, owned by yourself.
+                attr_reader :bank_accounts
+                # Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
+                attr_reader :financial_accounts
+              end
+              # Can provision a financial address to credit/debit a FinancialAccount.
+              attr_reader :financial_addresses
+              # Can hold storage-type funds on Stripe.
+              attr_reader :holds_currencies
+              # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+              attr_reader :inbound_transfers
+              # Can send funds from a FinancialAccount to a destination owned by someone else.
+              attr_reader :outbound_payments
+              # Can send funds from a FinancialAccount to a destination owned by yourself.
+              attr_reader :outbound_transfers
+            end
+            # Capabilities that have been requested on the Storer Configuration.
+            attr_reader :capabilities
+          end
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           attr_reader :customer
           # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
           attr_reader :merchant
           # The Recipient Configuration allows the Account to receive funds.
           attr_reader :recipient
+          # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
+          attr_reader :storer
         end
 
         class Defaults < Stripe::StripeObject

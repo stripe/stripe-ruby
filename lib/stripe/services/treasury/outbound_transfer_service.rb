@@ -17,7 +17,6 @@ module Stripe
         attr_accessor :starting_after
         # Only return OutboundTransfers that have the given status: `processing`, `canceled`, `failed`, `posted`, or `returned`.
         attr_accessor :status
-
         def initialize(
           ending_before: nil,
           expand: nil,
@@ -34,42 +33,35 @@ module Stripe
           @status = status
         end
       end
-
       class CreateParams < Stripe::RequestParams
         class DestinationPaymentMethodData < Stripe::RequestParams
           # Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
           attr_accessor :financial_account
           # The type of the destination.
           attr_accessor :type
-
           def initialize(financial_account: nil, type: nil)
             @financial_account = financial_account
             @type = type
           end
         end
-
         class DestinationPaymentMethodOptions < Stripe::RequestParams
           class UsBankAccount < Stripe::RequestParams
             # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
             attr_accessor :network
-
             def initialize(network: nil)
               @network = network
             end
           end
           # Optional fields for `us_bank_account`.
           attr_accessor :us_bank_account
-
           def initialize(us_bank_account: nil)
             @us_bank_account = us_bank_account
           end
         end
-
         class NetworkDetails < Stripe::RequestParams
           class Ach < Stripe::RequestParams
             # Addenda record data associated with this OutboundTransfer.
             attr_accessor :addenda
-
             def initialize(addenda: nil)
               @addenda = addenda
             end
@@ -78,7 +70,6 @@ module Stripe
           attr_accessor :ach
           # The type of flow that originated the OutboundTransfer.
           attr_accessor :type
-
           def initialize(ach: nil, type: nil)
             @ach = ach
             @type = type
@@ -106,7 +97,6 @@ module Stripe
         attr_accessor :network_details
         # Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer".
         attr_accessor :statement_descriptor
-
         def initialize(
           amount: nil,
           currency: nil,
@@ -133,33 +123,28 @@ module Stripe
           @statement_descriptor = statement_descriptor
         end
       end
-
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       class CancelParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         def initialize(expand: nil)
           @expand = expand
         end
       end
-
       # An OutboundTransfer can be canceled if the funds have not yet been paid out.
       def cancel(outbound_transfer, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/treasury/outbound_transfers/%<outbound_transfer>s/cancel", { outbound_transfer: CGI.escape(outbound_transfer) }),
+          path: format('/v1/treasury/outbound_transfers/%<outbound_transfer>s/cancel', {:outbound_transfer => CGI.escape(outbound_transfer)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -167,10 +152,10 @@ module Stripe
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: "/v1/treasury/outbound_transfers",
+          path: '/v1/treasury/outbound_transfers',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -178,10 +163,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: "/v1/treasury/outbound_transfers",
+          path: '/v1/treasury/outbound_transfers',
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
 
@@ -189,10 +174,10 @@ module Stripe
       def retrieve(outbound_transfer, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/treasury/outbound_transfers/%<outbound_transfer>s", { outbound_transfer: CGI.escape(outbound_transfer) }),
+          path: format('/v1/treasury/outbound_transfers/%<outbound_transfer>s', {:outbound_transfer => CGI.escape(outbound_transfer)}),
           params: params,
           opts: opts,
-          base_address: :api
+          base_address: :api,
         )
       end
     end

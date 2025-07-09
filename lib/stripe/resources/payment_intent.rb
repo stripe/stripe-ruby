@@ -2044,6 +2044,159 @@ module Stripe
     end
 
     class CreateParams < Stripe::RequestParams
+      class AmountDetails < Stripe::RequestParams
+        class LineItem < Stripe::RequestParams
+          class PaymentMethodOptions < Stripe::RequestParams
+            class Card < Stripe::RequestParams
+              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+              attr_accessor :commodity_code
+
+              def initialize(commodity_code: nil)
+                @commodity_code = commodity_code
+              end
+            end
+
+            class CardPresent < Stripe::RequestParams
+              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+              attr_accessor :commodity_code
+
+              def initialize(commodity_code: nil)
+                @commodity_code = commodity_code
+              end
+            end
+
+            class Klarna < Stripe::RequestParams
+              # URL to an image for the product. Max length, 4096 characters.
+              attr_accessor :image_url
+              # URL to the product page. Max length, 4096 characters.
+              attr_accessor :product_url
+              # Reference for the subscription this line item is for.
+              attr_accessor :subscription_reference
+
+              def initialize(image_url: nil, product_url: nil, subscription_reference: nil)
+                @image_url = image_url
+                @product_url = product_url
+                @subscription_reference = subscription_reference
+              end
+            end
+
+            class Paypal < Stripe::RequestParams
+              # Type of the line item.
+              attr_accessor :category
+              # Description of the line item.
+              attr_accessor :description
+              # The Stripe account ID of the connected account that sells the item.
+              attr_accessor :sold_by
+
+              def initialize(category: nil, description: nil, sold_by: nil)
+                @category = category
+                @description = description
+                @sold_by = sold_by
+              end
+            end
+            # This sub-hash contains line item details that are specific to `card` payment method."
+            attr_accessor :card
+            # This sub-hash contains line item details that are specific to `card_present` payment method."
+            attr_accessor :card_present
+            # This sub-hash contains line item details that are specific to `klarna` payment method."
+            attr_accessor :klarna
+            # This sub-hash contains line item details that are specific to `paypal` payment method."
+            attr_accessor :paypal
+
+            def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil)
+              @card = card
+              @card_present = card_present
+              @klarna = klarna
+              @paypal = paypal
+            end
+          end
+
+          class Tax < Stripe::RequestParams
+            # The total tax on an item. Non-negative integer.
+            attr_accessor :total_tax_amount
+
+            def initialize(total_tax_amount: nil)
+              @total_tax_amount = total_tax_amount
+            end
+          end
+          # The amount an item was discounted for. Positive integer.
+          attr_accessor :discount_amount
+          # Payment method-specific information for line items.
+          attr_accessor :payment_method_options
+          # Unique identifier of the product. At most 12 characters long.
+          attr_accessor :product_code
+          # Name of the product. At most 100 characters long.
+          attr_accessor :product_name
+          # Number of items of the product. Positive integer.
+          attr_accessor :quantity
+          # Contains information about the tax on the item.
+          attr_accessor :tax
+          # Cost of the product. Non-negative integer.
+          attr_accessor :unit_cost
+          # A unit of measure for the line item, such as gallons, feet, meters, etc.
+          attr_accessor :unit_of_measure
+
+          def initialize(
+            discount_amount: nil,
+            payment_method_options: nil,
+            product_code: nil,
+            product_name: nil,
+            quantity: nil,
+            tax: nil,
+            unit_cost: nil,
+            unit_of_measure: nil
+          )
+            @discount_amount = discount_amount
+            @payment_method_options = payment_method_options
+            @product_code = product_code
+            @product_name = product_name
+            @quantity = quantity
+            @tax = tax
+            @unit_cost = unit_cost
+            @unit_of_measure = unit_of_measure
+          end
+        end
+
+        class Shipping < Stripe::RequestParams
+          # Portion of the amount that is for shipping.
+          attr_accessor :amount
+          # The postal code that represents the shipping source.
+          attr_accessor :from_postal_code
+          # The postal code that represents the shipping destination.
+          attr_accessor :to_postal_code
+
+          def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil)
+            @amount = amount
+            @from_postal_code = from_postal_code
+            @to_postal_code = to_postal_code
+          end
+        end
+
+        class Tax < Stripe::RequestParams
+          # Total portion of the amount that is for tax.
+          attr_accessor :total_tax_amount
+
+          def initialize(total_tax_amount: nil)
+            @total_tax_amount = total_tax_amount
+          end
+        end
+        # The amount an item was discounted for.
+        attr_accessor :discount_amount
+        # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        attr_accessor :line_items
+        # Contains information about the shipping portion of the amount.
+        attr_accessor :shipping
+        # Contains information about the tax portion of the amount.
+        attr_accessor :tax
+
+        def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil)
+          @discount_amount = discount_amount
+          @line_items = line_items
+          @shipping = shipping
+          @tax = tax
+        end
+      end
+
       class AutomaticPaymentMethods < Stripe::RequestParams
         # Controls whether this PaymentIntent will accept redirect-based payment methods.
         #
@@ -3928,7 +4081,7 @@ module Stripe
           attr_accessor :capture_method
           # A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
           attr_accessor :cvc_token
-          # Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+          # Installment configuration for payments attempted on this PaymentIntent.
           #
           # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
           attr_accessor :installments
@@ -5483,6 +5636,8 @@ module Stripe
       end
       # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       attr_accessor :amount
+      # Provides industry-specific information about the amount.
+      attr_accessor :amount_details
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # When you enable this parameter, this PaymentIntent accepts payment methods that you enable in the Dashboard and that are compatible with this PaymentIntent's other parameters.
@@ -5583,6 +5738,7 @@ module Stripe
 
       def initialize(
         amount: nil,
+        amount_details: nil,
         application_fee_amount: nil,
         automatic_payment_methods: nil,
         capture_method: nil,
@@ -5621,6 +5777,7 @@ module Stripe
         use_stripe_sdk: nil
       )
         @amount = amount
+        @amount_details = amount_details
         @application_fee_amount = application_fee_amount
         @automatic_payment_methods = automatic_payment_methods
         @capture_method = capture_method
@@ -5661,6 +5818,159 @@ module Stripe
     end
 
     class UpdateParams < Stripe::RequestParams
+      class AmountDetails < Stripe::RequestParams
+        class LineItem < Stripe::RequestParams
+          class PaymentMethodOptions < Stripe::RequestParams
+            class Card < Stripe::RequestParams
+              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+              attr_accessor :commodity_code
+
+              def initialize(commodity_code: nil)
+                @commodity_code = commodity_code
+              end
+            end
+
+            class CardPresent < Stripe::RequestParams
+              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+              attr_accessor :commodity_code
+
+              def initialize(commodity_code: nil)
+                @commodity_code = commodity_code
+              end
+            end
+
+            class Klarna < Stripe::RequestParams
+              # URL to an image for the product. Max length, 4096 characters.
+              attr_accessor :image_url
+              # URL to the product page. Max length, 4096 characters.
+              attr_accessor :product_url
+              # Reference for the subscription this line item is for.
+              attr_accessor :subscription_reference
+
+              def initialize(image_url: nil, product_url: nil, subscription_reference: nil)
+                @image_url = image_url
+                @product_url = product_url
+                @subscription_reference = subscription_reference
+              end
+            end
+
+            class Paypal < Stripe::RequestParams
+              # Type of the line item.
+              attr_accessor :category
+              # Description of the line item.
+              attr_accessor :description
+              # The Stripe account ID of the connected account that sells the item.
+              attr_accessor :sold_by
+
+              def initialize(category: nil, description: nil, sold_by: nil)
+                @category = category
+                @description = description
+                @sold_by = sold_by
+              end
+            end
+            # This sub-hash contains line item details that are specific to `card` payment method."
+            attr_accessor :card
+            # This sub-hash contains line item details that are specific to `card_present` payment method."
+            attr_accessor :card_present
+            # This sub-hash contains line item details that are specific to `klarna` payment method."
+            attr_accessor :klarna
+            # This sub-hash contains line item details that are specific to `paypal` payment method."
+            attr_accessor :paypal
+
+            def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil)
+              @card = card
+              @card_present = card_present
+              @klarna = klarna
+              @paypal = paypal
+            end
+          end
+
+          class Tax < Stripe::RequestParams
+            # The total tax on an item. Non-negative integer.
+            attr_accessor :total_tax_amount
+
+            def initialize(total_tax_amount: nil)
+              @total_tax_amount = total_tax_amount
+            end
+          end
+          # The amount an item was discounted for. Positive integer.
+          attr_accessor :discount_amount
+          # Payment method-specific information for line items.
+          attr_accessor :payment_method_options
+          # Unique identifier of the product. At most 12 characters long.
+          attr_accessor :product_code
+          # Name of the product. At most 100 characters long.
+          attr_accessor :product_name
+          # Number of items of the product. Positive integer.
+          attr_accessor :quantity
+          # Contains information about the tax on the item.
+          attr_accessor :tax
+          # Cost of the product. Non-negative integer.
+          attr_accessor :unit_cost
+          # A unit of measure for the line item, such as gallons, feet, meters, etc.
+          attr_accessor :unit_of_measure
+
+          def initialize(
+            discount_amount: nil,
+            payment_method_options: nil,
+            product_code: nil,
+            product_name: nil,
+            quantity: nil,
+            tax: nil,
+            unit_cost: nil,
+            unit_of_measure: nil
+          )
+            @discount_amount = discount_amount
+            @payment_method_options = payment_method_options
+            @product_code = product_code
+            @product_name = product_name
+            @quantity = quantity
+            @tax = tax
+            @unit_cost = unit_cost
+            @unit_of_measure = unit_of_measure
+          end
+        end
+
+        class Shipping < Stripe::RequestParams
+          # Portion of the amount that is for shipping.
+          attr_accessor :amount
+          # The postal code that represents the shipping source.
+          attr_accessor :from_postal_code
+          # The postal code that represents the shipping destination.
+          attr_accessor :to_postal_code
+
+          def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil)
+            @amount = amount
+            @from_postal_code = from_postal_code
+            @to_postal_code = to_postal_code
+          end
+        end
+
+        class Tax < Stripe::RequestParams
+          # Total portion of the amount that is for tax.
+          attr_accessor :total_tax_amount
+
+          def initialize(total_tax_amount: nil)
+            @total_tax_amount = total_tax_amount
+          end
+        end
+        # The amount an item was discounted for.
+        attr_accessor :discount_amount
+        # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        attr_accessor :line_items
+        # Contains information about the shipping portion of the amount.
+        attr_accessor :shipping
+        # Contains information about the tax portion of the amount.
+        attr_accessor :tax
+
+        def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil)
+          @discount_amount = discount_amount
+          @line_items = line_items
+          @shipping = shipping
+          @tax = tax
+        end
+      end
+
       class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
@@ -7523,7 +7833,7 @@ module Stripe
           attr_accessor :capture_method
           # A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
           attr_accessor :cvc_token
-          # Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+          # Installment configuration for payments attempted on this PaymentIntent.
           #
           # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
           attr_accessor :installments
@@ -9057,6 +9367,8 @@ module Stripe
       end
       # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       attr_accessor :amount
+      # Provides industry-specific information about the amount.
+      attr_accessor :amount_details
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Controls when the funds will be captured from the customer's account.
@@ -9128,6 +9440,7 @@ module Stripe
 
       def initialize(
         amount: nil,
+        amount_details: nil,
         application_fee_amount: nil,
         capture_method: nil,
         currency: nil,
@@ -9154,6 +9467,7 @@ module Stripe
         transfer_group: nil
       )
         @amount = amount
+        @amount_details = amount_details
         @application_fee_amount = application_fee_amount
         @capture_method = capture_method
         @currency = currency
@@ -9231,6 +9545,159 @@ module Stripe
     end
 
     class CaptureParams < Stripe::RequestParams
+      class AmountDetails < Stripe::RequestParams
+        class LineItem < Stripe::RequestParams
+          class PaymentMethodOptions < Stripe::RequestParams
+            class Card < Stripe::RequestParams
+              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+              attr_accessor :commodity_code
+
+              def initialize(commodity_code: nil)
+                @commodity_code = commodity_code
+              end
+            end
+
+            class CardPresent < Stripe::RequestParams
+              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+              attr_accessor :commodity_code
+
+              def initialize(commodity_code: nil)
+                @commodity_code = commodity_code
+              end
+            end
+
+            class Klarna < Stripe::RequestParams
+              # URL to an image for the product. Max length, 4096 characters.
+              attr_accessor :image_url
+              # URL to the product page. Max length, 4096 characters.
+              attr_accessor :product_url
+              # Reference for the subscription this line item is for.
+              attr_accessor :subscription_reference
+
+              def initialize(image_url: nil, product_url: nil, subscription_reference: nil)
+                @image_url = image_url
+                @product_url = product_url
+                @subscription_reference = subscription_reference
+              end
+            end
+
+            class Paypal < Stripe::RequestParams
+              # Type of the line item.
+              attr_accessor :category
+              # Description of the line item.
+              attr_accessor :description
+              # The Stripe account ID of the connected account that sells the item.
+              attr_accessor :sold_by
+
+              def initialize(category: nil, description: nil, sold_by: nil)
+                @category = category
+                @description = description
+                @sold_by = sold_by
+              end
+            end
+            # This sub-hash contains line item details that are specific to `card` payment method."
+            attr_accessor :card
+            # This sub-hash contains line item details that are specific to `card_present` payment method."
+            attr_accessor :card_present
+            # This sub-hash contains line item details that are specific to `klarna` payment method."
+            attr_accessor :klarna
+            # This sub-hash contains line item details that are specific to `paypal` payment method."
+            attr_accessor :paypal
+
+            def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil)
+              @card = card
+              @card_present = card_present
+              @klarna = klarna
+              @paypal = paypal
+            end
+          end
+
+          class Tax < Stripe::RequestParams
+            # The total tax on an item. Non-negative integer.
+            attr_accessor :total_tax_amount
+
+            def initialize(total_tax_amount: nil)
+              @total_tax_amount = total_tax_amount
+            end
+          end
+          # The amount an item was discounted for. Positive integer.
+          attr_accessor :discount_amount
+          # Payment method-specific information for line items.
+          attr_accessor :payment_method_options
+          # Unique identifier of the product. At most 12 characters long.
+          attr_accessor :product_code
+          # Name of the product. At most 100 characters long.
+          attr_accessor :product_name
+          # Number of items of the product. Positive integer.
+          attr_accessor :quantity
+          # Contains information about the tax on the item.
+          attr_accessor :tax
+          # Cost of the product. Non-negative integer.
+          attr_accessor :unit_cost
+          # A unit of measure for the line item, such as gallons, feet, meters, etc.
+          attr_accessor :unit_of_measure
+
+          def initialize(
+            discount_amount: nil,
+            payment_method_options: nil,
+            product_code: nil,
+            product_name: nil,
+            quantity: nil,
+            tax: nil,
+            unit_cost: nil,
+            unit_of_measure: nil
+          )
+            @discount_amount = discount_amount
+            @payment_method_options = payment_method_options
+            @product_code = product_code
+            @product_name = product_name
+            @quantity = quantity
+            @tax = tax
+            @unit_cost = unit_cost
+            @unit_of_measure = unit_of_measure
+          end
+        end
+
+        class Shipping < Stripe::RequestParams
+          # Portion of the amount that is for shipping.
+          attr_accessor :amount
+          # The postal code that represents the shipping source.
+          attr_accessor :from_postal_code
+          # The postal code that represents the shipping destination.
+          attr_accessor :to_postal_code
+
+          def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil)
+            @amount = amount
+            @from_postal_code = from_postal_code
+            @to_postal_code = to_postal_code
+          end
+        end
+
+        class Tax < Stripe::RequestParams
+          # Total portion of the amount that is for tax.
+          attr_accessor :total_tax_amount
+
+          def initialize(total_tax_amount: nil)
+            @total_tax_amount = total_tax_amount
+          end
+        end
+        # The amount an item was discounted for.
+        attr_accessor :discount_amount
+        # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        attr_accessor :line_items
+        # Contains information about the shipping portion of the amount.
+        attr_accessor :shipping
+        # Contains information about the tax portion of the amount.
+        attr_accessor :tax
+
+        def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil)
+          @discount_amount = discount_amount
+          @line_items = line_items
+          @shipping = shipping
+          @tax = tax
+        end
+      end
+
       class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
@@ -9969,6 +10436,8 @@ module Stripe
           @amount = amount
         end
       end
+      # Provides industry-specific information about the amount.
+      attr_accessor :amount_details
       # The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Defaults to the full `amount_capturable` if it's not provided.
       attr_accessor :amount_to_capture
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
@@ -9994,6 +10463,7 @@ module Stripe
       attr_accessor :transfer_data
 
       def initialize(
+        amount_details: nil,
         amount_to_capture: nil,
         application_fee_amount: nil,
         expand: nil,
@@ -10005,6 +10475,7 @@ module Stripe
         statement_descriptor_suffix: nil,
         transfer_data: nil
       )
+        @amount_details = amount_details
         @amount_to_capture = amount_to_capture
         @application_fee_amount = application_fee_amount
         @expand = expand
@@ -10019,6 +10490,159 @@ module Stripe
     end
 
     class ConfirmParams < Stripe::RequestParams
+      class AmountDetails < Stripe::RequestParams
+        class LineItem < Stripe::RequestParams
+          class PaymentMethodOptions < Stripe::RequestParams
+            class Card < Stripe::RequestParams
+              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+              attr_accessor :commodity_code
+
+              def initialize(commodity_code: nil)
+                @commodity_code = commodity_code
+              end
+            end
+
+            class CardPresent < Stripe::RequestParams
+              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+              attr_accessor :commodity_code
+
+              def initialize(commodity_code: nil)
+                @commodity_code = commodity_code
+              end
+            end
+
+            class Klarna < Stripe::RequestParams
+              # URL to an image for the product. Max length, 4096 characters.
+              attr_accessor :image_url
+              # URL to the product page. Max length, 4096 characters.
+              attr_accessor :product_url
+              # Reference for the subscription this line item is for.
+              attr_accessor :subscription_reference
+
+              def initialize(image_url: nil, product_url: nil, subscription_reference: nil)
+                @image_url = image_url
+                @product_url = product_url
+                @subscription_reference = subscription_reference
+              end
+            end
+
+            class Paypal < Stripe::RequestParams
+              # Type of the line item.
+              attr_accessor :category
+              # Description of the line item.
+              attr_accessor :description
+              # The Stripe account ID of the connected account that sells the item.
+              attr_accessor :sold_by
+
+              def initialize(category: nil, description: nil, sold_by: nil)
+                @category = category
+                @description = description
+                @sold_by = sold_by
+              end
+            end
+            # This sub-hash contains line item details that are specific to `card` payment method."
+            attr_accessor :card
+            # This sub-hash contains line item details that are specific to `card_present` payment method."
+            attr_accessor :card_present
+            # This sub-hash contains line item details that are specific to `klarna` payment method."
+            attr_accessor :klarna
+            # This sub-hash contains line item details that are specific to `paypal` payment method."
+            attr_accessor :paypal
+
+            def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil)
+              @card = card
+              @card_present = card_present
+              @klarna = klarna
+              @paypal = paypal
+            end
+          end
+
+          class Tax < Stripe::RequestParams
+            # The total tax on an item. Non-negative integer.
+            attr_accessor :total_tax_amount
+
+            def initialize(total_tax_amount: nil)
+              @total_tax_amount = total_tax_amount
+            end
+          end
+          # The amount an item was discounted for. Positive integer.
+          attr_accessor :discount_amount
+          # Payment method-specific information for line items.
+          attr_accessor :payment_method_options
+          # Unique identifier of the product. At most 12 characters long.
+          attr_accessor :product_code
+          # Name of the product. At most 100 characters long.
+          attr_accessor :product_name
+          # Number of items of the product. Positive integer.
+          attr_accessor :quantity
+          # Contains information about the tax on the item.
+          attr_accessor :tax
+          # Cost of the product. Non-negative integer.
+          attr_accessor :unit_cost
+          # A unit of measure for the line item, such as gallons, feet, meters, etc.
+          attr_accessor :unit_of_measure
+
+          def initialize(
+            discount_amount: nil,
+            payment_method_options: nil,
+            product_code: nil,
+            product_name: nil,
+            quantity: nil,
+            tax: nil,
+            unit_cost: nil,
+            unit_of_measure: nil
+          )
+            @discount_amount = discount_amount
+            @payment_method_options = payment_method_options
+            @product_code = product_code
+            @product_name = product_name
+            @quantity = quantity
+            @tax = tax
+            @unit_cost = unit_cost
+            @unit_of_measure = unit_of_measure
+          end
+        end
+
+        class Shipping < Stripe::RequestParams
+          # Portion of the amount that is for shipping.
+          attr_accessor :amount
+          # The postal code that represents the shipping source.
+          attr_accessor :from_postal_code
+          # The postal code that represents the shipping destination.
+          attr_accessor :to_postal_code
+
+          def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil)
+            @amount = amount
+            @from_postal_code = from_postal_code
+            @to_postal_code = to_postal_code
+          end
+        end
+
+        class Tax < Stripe::RequestParams
+          # Total portion of the amount that is for tax.
+          attr_accessor :total_tax_amount
+
+          def initialize(total_tax_amount: nil)
+            @total_tax_amount = total_tax_amount
+          end
+        end
+        # The amount an item was discounted for.
+        attr_accessor :discount_amount
+        # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        attr_accessor :line_items
+        # Contains information about the shipping portion of the amount.
+        attr_accessor :shipping
+        # Contains information about the tax portion of the amount.
+        attr_accessor :tax
+
+        def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil)
+          @discount_amount = discount_amount
+          @line_items = line_items
+          @shipping = shipping
+          @tax = tax
+        end
+      end
+
       class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
@@ -11889,7 +12513,7 @@ module Stripe
           attr_accessor :capture_method
           # A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
           attr_accessor :cvc_token
-          # Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+          # Installment configuration for payments attempted on this PaymentIntent.
           #
           # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
           attr_accessor :installments
@@ -13421,6 +14045,8 @@ module Stripe
           @tracking_number = tracking_number
         end
       end
+      # Provides industry-specific information about the amount.
+      attr_accessor :amount_details
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Controls when the funds will be captured from the customer's account.
@@ -13480,6 +14106,7 @@ module Stripe
       attr_accessor :use_stripe_sdk
 
       def initialize(
+        amount_details: nil,
         application_fee_amount: nil,
         capture_method: nil,
         confirmation_token: nil,
@@ -13502,6 +14129,7 @@ module Stripe
         shipping: nil,
         use_stripe_sdk: nil
       )
+        @amount_details = amount_details
         @application_fee_amount = application_fee_amount
         @capture_method = capture_method
         @confirmation_token = confirmation_token
@@ -13916,6 +14544,7 @@ module Stripe
     # Confirm that your customer intends to pay with current or provided
     # payment method. Upon confirmation, the PaymentIntent will attempt to initiate
     # a payment.
+    #
     # If the selected payment method requires additional authentication steps, the
     # PaymentIntent will transition to the requires_action status and
     # suggest additional actions via next_action. If payment fails,
@@ -13923,18 +14552,22 @@ module Stripe
     # canceled status if the confirmation limit is reached. If
     # payment succeeds, the PaymentIntent will transition to the succeeded
     # status (or requires_capture, if capture_method is set to manual).
+    #
     # If the confirmation_method is automatic, payment may be attempted
     # using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
     # and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
     # After next_actions are handled by the client, no additional
     # confirmation is required to complete the payment.
+    #
     # If the confirmation_method is manual, all payment attempts must be
     # initiated using a secret key.
+    #
     # If any actions are required for the payment, the PaymentIntent will
     # return to the requires_confirmation state
     # after those actions are completed. Your server needs to then
     # explicitly re-confirm the PaymentIntent to initiate the next payment
     # attempt.
+    #
     # There is a variable upper limit on how many times a PaymentIntent can be confirmed.
     # After this limit is reached, any further calls to this endpoint will
     # transition the PaymentIntent to the canceled state.
@@ -13950,6 +14583,7 @@ module Stripe
     # Confirm that your customer intends to pay with current or provided
     # payment method. Upon confirmation, the PaymentIntent will attempt to initiate
     # a payment.
+    #
     # If the selected payment method requires additional authentication steps, the
     # PaymentIntent will transition to the requires_action status and
     # suggest additional actions via next_action. If payment fails,
@@ -13957,18 +14591,22 @@ module Stripe
     # canceled status if the confirmation limit is reached. If
     # payment succeeds, the PaymentIntent will transition to the succeeded
     # status (or requires_capture, if capture_method is set to manual).
+    #
     # If the confirmation_method is automatic, payment may be attempted
     # using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
     # and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
     # After next_actions are handled by the client, no additional
     # confirmation is required to complete the payment.
+    #
     # If the confirmation_method is manual, all payment attempts must be
     # initiated using a secret key.
+    #
     # If any actions are required for the payment, the PaymentIntent will
     # return to the requires_confirmation state
     # after those actions are completed. Your server needs to then
     # explicitly re-confirm the PaymentIntent to initiate the next payment
     # attempt.
+    #
     # There is a variable upper limit on how many times a PaymentIntent can be confirmed.
     # After this limit is reached, any further calls to this endpoint will
     # transition the PaymentIntent to the canceled state.

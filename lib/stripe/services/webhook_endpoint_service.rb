@@ -4,13 +4,16 @@
 module Stripe
   class WebhookEndpointService < StripeService
     class DeleteParams < Stripe::RequestParams; end
+
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       def initialize(expand: nil)
         @expand = expand
       end
     end
+
     class UpdateParams < Stripe::RequestParams
       # An optional description of what the webhook is used for.
       attr_accessor :description
@@ -24,6 +27,7 @@ module Stripe
       attr_accessor :metadata
       # The URL of the webhook endpoint.
       attr_accessor :url
+
       def initialize(
         description: nil,
         disabled: nil,
@@ -40,6 +44,7 @@ module Stripe
         @url = url
       end
     end
+
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
@@ -49,6 +54,7 @@ module Stripe
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
+
       def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil)
         @ending_before = ending_before
         @expand = expand
@@ -56,6 +62,7 @@ module Stripe
         @starting_after = starting_after
       end
     end
+
     class CreateParams < Stripe::RequestParams
       # Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
       attr_accessor :api_version
@@ -71,6 +78,7 @@ module Stripe
       attr_accessor :metadata
       # The URL of the webhook endpoint.
       attr_accessor :url
+
       def initialize(
         api_version: nil,
         connect: nil,
@@ -89,14 +97,15 @@ module Stripe
         @url = url
       end
     end
+
     # A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.
     def create(params = {}, opts = {})
       request(
         method: :post,
-        path: '/v1/webhook_endpoints',
+        path: "/v1/webhook_endpoints",
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -104,10 +113,10 @@ module Stripe
     def delete(webhook_endpoint, params = {}, opts = {})
       request(
         method: :delete,
-        path: format('/v1/webhook_endpoints/%<webhook_endpoint>s', {:webhook_endpoint => CGI.escape(webhook_endpoint)}),
+        path: format("/v1/webhook_endpoints/%<webhook_endpoint>s", { webhook_endpoint: CGI.escape(webhook_endpoint) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -115,10 +124,10 @@ module Stripe
     def list(params = {}, opts = {})
       request(
         method: :get,
-        path: '/v1/webhook_endpoints',
+        path: "/v1/webhook_endpoints",
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -126,10 +135,10 @@ module Stripe
     def retrieve(webhook_endpoint, params = {}, opts = {})
       request(
         method: :get,
-        path: format('/v1/webhook_endpoints/%<webhook_endpoint>s', {:webhook_endpoint => CGI.escape(webhook_endpoint)}),
+        path: format("/v1/webhook_endpoints/%<webhook_endpoint>s", { webhook_endpoint: CGI.escape(webhook_endpoint) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -137,10 +146,10 @@ module Stripe
     def update(webhook_endpoint, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/webhook_endpoints/%<webhook_endpoint>s', {:webhook_endpoint => CGI.escape(webhook_endpoint)}),
+        path: format("/v1/webhook_endpoints/%<webhook_endpoint>s", { webhook_endpoint: CGI.escape(webhook_endpoint) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
   end

@@ -13,6 +13,7 @@ module Stripe
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
+
         def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil)
           @ending_before = ending_before
           @expand = expand
@@ -20,14 +21,15 @@ module Stripe
           @starting_after = starting_after
         end
       end
+
       # Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
       def list(calculation, params = {}, opts = {})
         request(
           method: :get,
-          path: format('/v1/tax/calculations/%<calculation>s/line_items', {:calculation => CGI.escape(calculation)}),
+          path: format("/v1/tax/calculations/%<calculation>s/line_items", { calculation: CGI.escape(calculation) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

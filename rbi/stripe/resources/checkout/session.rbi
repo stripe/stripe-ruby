@@ -3411,6 +3411,11 @@ module Stripe
           # Permissions for updating the Checkout Session.
           sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions::Update)) }
           attr_accessor :update
+          # Determines which entity is allowed to update the discounts (coupons or promotion codes) that apply to this session.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically handle discount updates. If set to `server_only`, only your server is allowed to update discounts.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :update_discounts
           # Determines which entity is allowed to update the line items.
           #
           # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
@@ -3426,9 +3431,14 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :update_shipping_details
           sig {
-            params(update: T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions::Update), update_line_items: T.nilable(String), update_shipping_details: T.nilable(String)).void
+            params(update: T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions::Update), update_discounts: T.nilable(String), update_line_items: T.nilable(String), update_shipping_details: T.nilable(String)).void
            }
-          def initialize(update: nil, update_line_items: nil, update_shipping_details: nil); end
+          def initialize(
+            update: nil,
+            update_discounts: nil,
+            update_line_items: nil,
+            update_shipping_details: nil
+          ); end
         end
         class PhoneNumberCollection < Stripe::RequestParams
           # Set to `true` to enable phone number collection.
@@ -3599,7 +3609,7 @@ module Stripe
         end
         class SubscriptionData < Stripe::RequestParams
           class BillingMode < Stripe::RequestParams
-            # Attribute for param field type
+            # Controls the calculation and orchestration of prorations and invoices for subscriptions.
             sig { returns(String) }
             attr_accessor :type
             sig { params(type: String).void }
@@ -4064,6 +4074,51 @@ module Stripe
            }
           def initialize(shipping_details: nil); end
         end
+        class Discount < Stripe::RequestParams
+          class CouponData < Stripe::RequestParams
+            # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount_off
+            # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+            sig { returns(T.nilable(String)) }
+            attr_accessor :currency
+            # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :duration
+            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+            attr_accessor :metadata
+            # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :name
+            # A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+            sig { returns(T.nilable(Float)) }
+            attr_accessor :percent_off
+            sig {
+              params(amount_off: T.nilable(Integer), currency: T.nilable(String), duration: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), percent_off: T.nilable(Float)).void
+             }
+            def initialize(
+              amount_off: nil,
+              currency: nil,
+              duration: nil,
+              metadata: nil,
+              name: nil,
+              percent_off: nil
+            ); end
+          end
+          # The ID of the [Coupon](https://stripe.com/docs/api/coupons) to apply to this Session. One of `coupon` or `coupon_data` is required when updating discounts.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :coupon
+          # Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::Discount::CouponData))
+           }
+          attr_accessor :coupon_data
+          sig {
+            params(coupon: T.nilable(String), coupon_data: T.nilable(::Stripe::Checkout::Session::UpdateParams::Discount::CouponData)).void
+           }
+          def initialize(coupon: nil, coupon_data: nil); end
+        end
         class LineItem < Stripe::RequestParams
           class AdjustableQuantity < Stripe::RequestParams
             # Set to true if the quantity can be adjusted to any positive integer. Setting to false will remove any previously specified constraints on quantity.
@@ -4308,9 +4363,26 @@ module Stripe
            }
           def initialize(shipping_rate: nil, shipping_rate_data: nil); end
         end
+        class SubscriptionData < Stripe::RequestParams
+          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :trial_end
+          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+          attr_accessor :trial_period_days
+          sig {
+            params(trial_end: T.nilable(Integer), trial_period_days: T.nilable(T.nilable(T.any(String, Integer)))).void
+           }
+          def initialize(trial_end: nil, trial_period_days: nil); end
+        end
         # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         sig { returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::CollectedInformation)) }
         attr_accessor :collected_information
+        # List of coupons and promotion codes attached to the Checkout Session.
+        sig {
+          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::Session::UpdateParams::Discount]))))
+         }
+        attr_accessor :discounts
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
@@ -4337,15 +4409,20 @@ module Stripe
           returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::Session::UpdateParams::ShippingOption]))))
          }
         attr_accessor :shipping_options
+        # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
+        sig { returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::SubscriptionData)) }
+        attr_accessor :subscription_data
         sig {
-          params(collected_information: T.nilable(::Stripe::Checkout::Session::UpdateParams::CollectedInformation), expand: T.nilable(T::Array[String]), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::UpdateParams::LineItem]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), shipping_options: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::Session::UpdateParams::ShippingOption])))).void
+          params(collected_information: T.nilable(::Stripe::Checkout::Session::UpdateParams::CollectedInformation), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::Session::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::UpdateParams::LineItem]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), shipping_options: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::Session::UpdateParams::ShippingOption]))), subscription_data: T.nilable(::Stripe::Checkout::Session::UpdateParams::SubscriptionData)).void
          }
         def initialize(
           collected_information: nil,
+          discounts: nil,
           expand: nil,
           line_items: nil,
           metadata: nil,
-          shipping_options: nil
+          shipping_options: nil,
+          subscription_data: nil
         ); end
       end
       class ListLineItemsParams < Stripe::RequestParams

@@ -442,7 +442,7 @@ module Stripe
 
     class CreateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Attribute for param field type
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
         attr_accessor :type
 
         def initialize(type: nil)

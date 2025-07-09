@@ -19,6 +19,7 @@ module Stripe
         attr_accessor :starting_after
         # Only return CreditReversals for a given status.
         attr_accessor :status
+
         def initialize(
           ending_before: nil,
           expand: nil,
@@ -37,6 +38,7 @@ module Stripe
           @status = status
         end
       end
+
       class CreateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
@@ -44,27 +46,31 @@ module Stripe
         attr_accessor :metadata
         # The ReceivedCredit to reverse.
         attr_accessor :received_credit
+
         def initialize(expand: nil, metadata: nil, received_credit: nil)
           @expand = expand
           @metadata = metadata
           @received_credit = received_credit
         end
       end
+
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         def initialize(expand: nil)
           @expand = expand
         end
       end
+
       # Reverses a ReceivedCredit and creates a CreditReversal object.
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: '/v1/treasury/credit_reversals',
+          path: "/v1/treasury/credit_reversals",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -72,10 +78,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: '/v1/treasury/credit_reversals',
+          path: "/v1/treasury/credit_reversals",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -83,10 +89,10 @@ module Stripe
       def retrieve(credit_reversal, params = {}, opts = {})
         request(
           method: :get,
-          path: format('/v1/treasury/credit_reversals/%<credit_reversal>s', {:credit_reversal => CGI.escape(credit_reversal)}),
+          path: format("/v1/treasury/credit_reversals/%<credit_reversal>s", { credit_reversal: CGI.escape(credit_reversal) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

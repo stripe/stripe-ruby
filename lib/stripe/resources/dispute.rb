@@ -196,7 +196,7 @@ module Stripe
       end
 
       class Card < Stripe::StripeObject
-        # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # The type of dispute opened. Different case types may have varying fees and financial impact.
         attr_reader :case_type

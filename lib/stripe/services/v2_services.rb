@@ -3,13 +3,10 @@
 
 module Stripe
   class V2Services < StripeService
-    attr_reader :billing
-    attr_reader :core
-    attr_reader :money_management
-    attr_reader :payments
-    attr_reader :test_helpers
+    attr_reader :billing, :core, :money_management, :payments, :test_helpers
+
     def initialize(requestor)
-      super(requestor)
+      super
       @billing = Stripe::V2::BillingService.new(@requestor)
       @core = Stripe::V2::CoreService.new(@requestor)
       @money_management = Stripe::V2::MoneyManagementService.new(@requestor)

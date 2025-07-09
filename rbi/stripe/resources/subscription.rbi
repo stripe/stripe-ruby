@@ -1555,7 +1555,7 @@ module Stripe
         def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil); end
       end
       class BillingMode < Stripe::RequestParams
-        # Attribute for param field type
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
         sig { returns(String) }
         attr_accessor :type
         sig { params(type: String).void }

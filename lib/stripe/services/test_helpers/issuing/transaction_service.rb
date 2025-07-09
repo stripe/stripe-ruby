@@ -10,11 +10,13 @@ module Stripe
           attr_accessor :expand
           # The total amount to attempt to refund. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_accessor :refund_amount
+
           def initialize(expand: nil, refund_amount: nil)
             @expand = expand
             @refund_amount = refund_amount
           end
         end
+
         class CreateForceCaptureParams < Stripe::RequestParams
           class MerchantData < Stripe::RequestParams
             # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
@@ -35,6 +37,7 @@ module Stripe
             attr_accessor :terminal_id
             # URL provided by the merchant on a 3DS request
             attr_accessor :url
+
             def initialize(
               category: nil,
               city: nil,
@@ -57,6 +60,7 @@ module Stripe
               @url = url
             end
           end
+
           class PurchaseDetails < Stripe::RequestParams
             class Fleet < Stripe::RequestParams
               class CardholderPromptData < Stripe::RequestParams
@@ -70,6 +74,7 @@ module Stripe
                 attr_accessor :user_id
                 # Vehicle number.
                 attr_accessor :vehicle_number
+
                 def initialize(
                   driver_id: nil,
                   odometer: nil,
@@ -84,26 +89,32 @@ module Stripe
                   @vehicle_number = vehicle_number
                 end
               end
+
               class ReportedBreakdown < Stripe::RequestParams
                 class Fuel < Stripe::RequestParams
                   # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
                   attr_accessor :gross_amount_decimal
+
                   def initialize(gross_amount_decimal: nil)
                     @gross_amount_decimal = gross_amount_decimal
                   end
                 end
+
                 class NonFuel < Stripe::RequestParams
                   # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
                   attr_accessor :gross_amount_decimal
+
                   def initialize(gross_amount_decimal: nil)
                     @gross_amount_decimal = gross_amount_decimal
                   end
                 end
+
                 class Tax < Stripe::RequestParams
                   # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   attr_accessor :local_amount_decimal
                   # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   attr_accessor :national_amount_decimal
+
                   def initialize(local_amount_decimal: nil, national_amount_decimal: nil)
                     @local_amount_decimal = local_amount_decimal
                     @national_amount_decimal = national_amount_decimal
@@ -115,6 +126,7 @@ module Stripe
                 attr_accessor :non_fuel
                 # Information about tax included in this transaction.
                 attr_accessor :tax
+
                 def initialize(fuel: nil, non_fuel: nil, tax: nil)
                   @fuel = fuel
                   @non_fuel = non_fuel
@@ -129,6 +141,7 @@ module Stripe
               attr_accessor :reported_breakdown
               # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
               attr_accessor :service_type
+
               def initialize(
                 cardholder_prompt_data: nil,
                 purchase_type: nil,
@@ -141,6 +154,7 @@ module Stripe
                 @service_type = service_type
               end
             end
+
             class Flight < Stripe::RequestParams
               class Segment < Stripe::RequestParams
                 # The three-letter IATA airport code of the flight's destination.
@@ -155,6 +169,7 @@ module Stripe
                 attr_accessor :service_class
                 # Whether a stopover is allowed on this flight.
                 attr_accessor :stopover_allowed
+
                 def initialize(
                   arrival_airport_code: nil,
                   carrier: nil,
@@ -181,6 +196,7 @@ module Stripe
               attr_accessor :segments
               # The travel agency that issued the ticket.
               attr_accessor :travel_agency
+
               def initialize(
                 departure_at: nil,
                 passenger_name: nil,
@@ -195,6 +211,7 @@ module Stripe
                 @travel_agency = travel_agency
               end
             end
+
             class Fuel < Stripe::RequestParams
               # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
               attr_accessor :industry_product_code
@@ -206,6 +223,7 @@ module Stripe
               attr_accessor :unit
               # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
               attr_accessor :unit_cost_decimal
+
               def initialize(
                 industry_product_code: nil,
                 quantity_decimal: nil,
@@ -220,16 +238,19 @@ module Stripe
                 @unit_cost_decimal = unit_cost_decimal
               end
             end
+
             class Lodging < Stripe::RequestParams
               # The time of checking into the lodging.
               attr_accessor :check_in_at
               # The number of nights stayed at the lodging.
               attr_accessor :nights
+
               def initialize(check_in_at: nil, nights: nil)
                 @check_in_at = check_in_at
                 @nights = nights
               end
             end
+
             class Receipt < Stripe::RequestParams
               # Attribute for param field description
               attr_accessor :description
@@ -239,6 +260,7 @@ module Stripe
               attr_accessor :total
               # Attribute for param field unit_cost
               attr_accessor :unit_cost
+
               def initialize(description: nil, quantity: nil, total: nil, unit_cost: nil)
                 @description = description
                 @quantity = quantity
@@ -258,6 +280,7 @@ module Stripe
             attr_accessor :receipt
             # A merchant-specific order number.
             attr_accessor :reference
+
             def initialize(
               fleet: nil,
               flight: nil,
@@ -286,6 +309,7 @@ module Stripe
           attr_accessor :merchant_data
           # Additional purchase information that is optionally provided by the merchant.
           attr_accessor :purchase_details
+
           def initialize(
             amount: nil,
             card: nil,
@@ -302,6 +326,7 @@ module Stripe
             @purchase_details = purchase_details
           end
         end
+
         class CreateUnlinkedRefundParams < Stripe::RequestParams
           class MerchantData < Stripe::RequestParams
             # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
@@ -322,6 +347,7 @@ module Stripe
             attr_accessor :terminal_id
             # URL provided by the merchant on a 3DS request
             attr_accessor :url
+
             def initialize(
               category: nil,
               city: nil,
@@ -344,6 +370,7 @@ module Stripe
               @url = url
             end
           end
+
           class PurchaseDetails < Stripe::RequestParams
             class Fleet < Stripe::RequestParams
               class CardholderPromptData < Stripe::RequestParams
@@ -357,6 +384,7 @@ module Stripe
                 attr_accessor :user_id
                 # Vehicle number.
                 attr_accessor :vehicle_number
+
                 def initialize(
                   driver_id: nil,
                   odometer: nil,
@@ -371,26 +399,32 @@ module Stripe
                   @vehicle_number = vehicle_number
                 end
               end
+
               class ReportedBreakdown < Stripe::RequestParams
                 class Fuel < Stripe::RequestParams
                   # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
                   attr_accessor :gross_amount_decimal
+
                   def initialize(gross_amount_decimal: nil)
                     @gross_amount_decimal = gross_amount_decimal
                   end
                 end
+
                 class NonFuel < Stripe::RequestParams
                   # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
                   attr_accessor :gross_amount_decimal
+
                   def initialize(gross_amount_decimal: nil)
                     @gross_amount_decimal = gross_amount_decimal
                   end
                 end
+
                 class Tax < Stripe::RequestParams
                   # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   attr_accessor :local_amount_decimal
                   # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   attr_accessor :national_amount_decimal
+
                   def initialize(local_amount_decimal: nil, national_amount_decimal: nil)
                     @local_amount_decimal = local_amount_decimal
                     @national_amount_decimal = national_amount_decimal
@@ -402,6 +436,7 @@ module Stripe
                 attr_accessor :non_fuel
                 # Information about tax included in this transaction.
                 attr_accessor :tax
+
                 def initialize(fuel: nil, non_fuel: nil, tax: nil)
                   @fuel = fuel
                   @non_fuel = non_fuel
@@ -416,6 +451,7 @@ module Stripe
               attr_accessor :reported_breakdown
               # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
               attr_accessor :service_type
+
               def initialize(
                 cardholder_prompt_data: nil,
                 purchase_type: nil,
@@ -428,6 +464,7 @@ module Stripe
                 @service_type = service_type
               end
             end
+
             class Flight < Stripe::RequestParams
               class Segment < Stripe::RequestParams
                 # The three-letter IATA airport code of the flight's destination.
@@ -442,6 +479,7 @@ module Stripe
                 attr_accessor :service_class
                 # Whether a stopover is allowed on this flight.
                 attr_accessor :stopover_allowed
+
                 def initialize(
                   arrival_airport_code: nil,
                   carrier: nil,
@@ -468,6 +506,7 @@ module Stripe
               attr_accessor :segments
               # The travel agency that issued the ticket.
               attr_accessor :travel_agency
+
               def initialize(
                 departure_at: nil,
                 passenger_name: nil,
@@ -482,6 +521,7 @@ module Stripe
                 @travel_agency = travel_agency
               end
             end
+
             class Fuel < Stripe::RequestParams
               # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
               attr_accessor :industry_product_code
@@ -493,6 +533,7 @@ module Stripe
               attr_accessor :unit
               # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
               attr_accessor :unit_cost_decimal
+
               def initialize(
                 industry_product_code: nil,
                 quantity_decimal: nil,
@@ -507,16 +548,19 @@ module Stripe
                 @unit_cost_decimal = unit_cost_decimal
               end
             end
+
             class Lodging < Stripe::RequestParams
               # The time of checking into the lodging.
               attr_accessor :check_in_at
               # The number of nights stayed at the lodging.
               attr_accessor :nights
+
               def initialize(check_in_at: nil, nights: nil)
                 @check_in_at = check_in_at
                 @nights = nights
               end
             end
+
             class Receipt < Stripe::RequestParams
               # Attribute for param field description
               attr_accessor :description
@@ -526,6 +570,7 @@ module Stripe
               attr_accessor :total
               # Attribute for param field unit_cost
               attr_accessor :unit_cost
+
               def initialize(description: nil, quantity: nil, total: nil, unit_cost: nil)
                 @description = description
                 @quantity = quantity
@@ -545,6 +590,7 @@ module Stripe
             attr_accessor :receipt
             # A merchant-specific order number.
             attr_accessor :reference
+
             def initialize(
               fleet: nil,
               flight: nil,
@@ -573,6 +619,7 @@ module Stripe
           attr_accessor :merchant_data
           # Additional purchase information that is optionally provided by the merchant.
           attr_accessor :purchase_details
+
           def initialize(
             amount: nil,
             card: nil,
@@ -589,14 +636,15 @@ module Stripe
             @purchase_details = purchase_details
           end
         end
+
         # Allows the user to capture an arbitrary amount, also known as a forced capture.
         def create_force_capture(params = {}, opts = {})
           request(
             method: :post,
-            path: '/v1/test_helpers/issuing/transactions/create_force_capture',
+            path: "/v1/test_helpers/issuing/transactions/create_force_capture",
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -604,10 +652,10 @@ module Stripe
         def create_unlinked_refund(params = {}, opts = {})
           request(
             method: :post,
-            path: '/v1/test_helpers/issuing/transactions/create_unlinked_refund',
+            path: "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -615,10 +663,10 @@ module Stripe
         def refund(transaction, params = {}, opts = {})
           request(
             method: :post,
-            path: format('/v1/test_helpers/issuing/transactions/%<transaction>s/refund', {:transaction => CGI.escape(transaction)}),
+            path: format("/v1/test_helpers/issuing/transactions/%<transaction>s/refund", { transaction: CGI.escape(transaction) }),
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
       end

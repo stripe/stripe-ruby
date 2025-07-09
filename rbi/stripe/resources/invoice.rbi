@@ -1025,7 +1025,7 @@ module Stripe
                }
               def initialize(enabled: nil, plan: nil); end
             end
-            # Installment configuration for payments attempted on this invoice (Mexico Only).
+            # Installment configuration for payments attempted on this invoice.
             #
             # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
             sig {
@@ -1791,7 +1791,7 @@ module Stripe
                }
               def initialize(enabled: nil, plan: nil); end
             end
-            # Installment configuration for payments attempted on this invoice (Mexico Only).
+            # Installment configuration for payments attempted on this invoice.
             #
             # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
             sig {
@@ -2169,7 +2169,7 @@ module Stripe
       # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :application_fee_amount
-      # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+      # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :auto_advance
       # Settings for automatic tax lookup for this invoice.
@@ -3885,7 +3885,7 @@ module Stripe
           ); end
         end
         class BillingMode < Stripe::RequestParams
-          # Attribute for param field type
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
           sig { returns(String) }
           attr_accessor :type
           sig { params(type: String).void }
@@ -4531,7 +4531,7 @@ module Stripe
       end
       class SubscriptionDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Attribute for param field type
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
           sig { returns(String) }
           attr_accessor :type
           sig { params(type: String).void }

@@ -10,27 +10,33 @@ module Stripe
       attr_accessor :proration_behavior
       # If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
       attr_accessor :proration_date
+
       def initialize(clear_usage: nil, proration_behavior: nil, proration_date: nil)
         @clear_usage = clear_usage
         @proration_behavior = proration_behavior
         @proration_date = proration_date
       end
     end
+
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       def initialize(expand: nil)
         @expand = expand
       end
     end
+
     class UpdateParams < Stripe::RequestParams
       class BillingThresholds < Stripe::RequestParams
         # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         attr_accessor :usage_gte
+
         def initialize(usage_gte: nil)
           @usage_gte = usage_gte
         end
       end
+
       class Discount < Stripe::RequestParams
         class DiscountEnd < Stripe::RequestParams
           class Duration < Stripe::RequestParams
@@ -38,6 +44,7 @@ module Stripe
             attr_accessor :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_accessor :interval_count
+
             def initialize(interval: nil, interval_count: nil)
               @interval = interval
               @interval_count = interval_count
@@ -49,6 +56,7 @@ module Stripe
           attr_accessor :timestamp
           # The type of calculation made to determine when the discount ends.
           attr_accessor :type
+
           def initialize(duration: nil, timestamp: nil, type: nil)
             @duration = duration
             @timestamp = timestamp
@@ -63,6 +71,7 @@ module Stripe
         attr_accessor :discount_end
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
+
         def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
           @coupon = coupon
           @discount = discount
@@ -70,12 +79,14 @@ module Stripe
           @promotion_code = promotion_code
         end
       end
+
       class PriceData < Stripe::RequestParams
         class Recurring < Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
           attr_accessor :interval_count
+
           def initialize(interval: nil, interval_count: nil)
             @interval = interval
             @interval_count = interval_count
@@ -93,6 +104,7 @@ module Stripe
         attr_accessor :unit_amount
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         attr_accessor :unit_amount_decimal
+
         def initialize(
           currency: nil,
           product: nil,
@@ -141,6 +153,7 @@ module Stripe
       attr_accessor :quantity
       # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
       attr_accessor :tax_rates
+
       def initialize(
         billing_thresholds: nil,
         discounts: nil,
@@ -171,6 +184,7 @@ module Stripe
         @tax_rates = tax_rates
       end
     end
+
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
@@ -182,6 +196,7 @@ module Stripe
       attr_accessor :starting_after
       # The ID of the subscription whose items will be retrieved.
       attr_accessor :subscription
+
       def initialize(
         ending_before: nil,
         expand: nil,
@@ -196,14 +211,17 @@ module Stripe
         @subscription = subscription
       end
     end
+
     class CreateParams < Stripe::RequestParams
       class BillingThresholds < Stripe::RequestParams
         # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         attr_accessor :usage_gte
+
         def initialize(usage_gte: nil)
           @usage_gte = usage_gte
         end
       end
+
       class Discount < Stripe::RequestParams
         class DiscountEnd < Stripe::RequestParams
           class Duration < Stripe::RequestParams
@@ -211,6 +229,7 @@ module Stripe
             attr_accessor :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_accessor :interval_count
+
             def initialize(interval: nil, interval_count: nil)
               @interval = interval
               @interval_count = interval_count
@@ -222,6 +241,7 @@ module Stripe
           attr_accessor :timestamp
           # The type of calculation made to determine when the discount ends.
           attr_accessor :type
+
           def initialize(duration: nil, timestamp: nil, type: nil)
             @duration = duration
             @timestamp = timestamp
@@ -236,6 +256,7 @@ module Stripe
         attr_accessor :discount_end
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
+
         def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
           @coupon = coupon
           @discount = discount
@@ -243,12 +264,14 @@ module Stripe
           @promotion_code = promotion_code
         end
       end
+
       class PriceData < Stripe::RequestParams
         class Recurring < Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
           attr_accessor :interval_count
+
           def initialize(interval: nil, interval_count: nil)
             @interval = interval
             @interval_count = interval_count
@@ -266,6 +289,7 @@ module Stripe
         attr_accessor :unit_amount
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         attr_accessor :unit_amount_decimal
+
         def initialize(
           currency: nil,
           product: nil,
@@ -282,11 +306,13 @@ module Stripe
           @unit_amount_decimal = unit_amount_decimal
         end
       end
+
       class Trial < Stripe::RequestParams
         # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         attr_accessor :converts_to
         # Determines the type of trial for this item.
         attr_accessor :type
+
         def initialize(converts_to: nil, type: nil)
           @converts_to = converts_to
           @type = type
@@ -326,6 +352,7 @@ module Stripe
       attr_accessor :tax_rates
       # Options that configure the trial on the subscription item.
       attr_accessor :trial
+
       def initialize(
         billing_thresholds: nil,
         discounts: nil,
@@ -358,14 +385,15 @@ module Stripe
         @trial = trial
       end
     end
+
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     def create(params = {}, opts = {})
       request(
         method: :post,
-        path: '/v1/subscription_items',
+        path: "/v1/subscription_items",
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -373,10 +401,10 @@ module Stripe
     def delete(item, params = {}, opts = {})
       request(
         method: :delete,
-        path: format('/v1/subscription_items/%<item>s', {:item => CGI.escape(item)}),
+        path: format("/v1/subscription_items/%<item>s", { item: CGI.escape(item) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -384,10 +412,10 @@ module Stripe
     def list(params = {}, opts = {})
       request(
         method: :get,
-        path: '/v1/subscription_items',
+        path: "/v1/subscription_items",
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -395,10 +423,10 @@ module Stripe
     def retrieve(item, params = {}, opts = {})
       request(
         method: :get,
-        path: format('/v1/subscription_items/%<item>s', {:item => CGI.escape(item)}),
+        path: format("/v1/subscription_items/%<item>s", { item: CGI.escape(item) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -406,10 +434,10 @@ module Stripe
     def update(item, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/subscription_items/%<item>s', {:item => CGI.escape(item)}),
+        path: format("/v1/subscription_items/%<item>s", { item: CGI.escape(item) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
   end

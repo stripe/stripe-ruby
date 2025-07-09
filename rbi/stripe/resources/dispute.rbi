@@ -295,6 +295,14 @@ module Stripe
       sig { returns(String) }
       attr_reader :type
     end
+    class SmartDisputes < Stripe::StripeObject
+      # Evidence that could be provided to improve the SmartDisputes packet
+      sig { returns(T.nilable(T::Array[String])) }
+      attr_reader :recommended_evidence
+      # Smart Disputes auto representment packet availability status.
+      sig { returns(String) }
+      attr_reader :status
+    end
     # Disputed amount. Usually the amount of the charge, but it can differ (usually because of currency fluctuation or because only part of the order is disputed).
     sig { returns(Integer) }
     attr_reader :amount
@@ -346,6 +354,9 @@ module Stripe
     # Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).
     sig { returns(String) }
     attr_reader :reason
+    # Attribute for field smart_disputes
+    sig { returns(SmartDisputes) }
+    attr_reader :smart_disputes
     # Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, or `lost`.
     sig { returns(String) }
     attr_reader :status

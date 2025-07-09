@@ -3339,6 +3339,8 @@ module Stripe
         #
         # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
         attr_accessor :optional_items
+        # Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `embedded` or `custom`.
+        attr_accessor :origin_context
         # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
         attr_accessor :payment_intent_data
         # Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.
@@ -3435,6 +3437,7 @@ module Stripe
           metadata: nil,
           mode: nil,
           optional_items: nil,
+          origin_context: nil,
           payment_intent_data: nil,
           payment_method_collection: nil,
           payment_method_configuration: nil,
@@ -3481,6 +3484,7 @@ module Stripe
           @metadata = metadata
           @mode = mode
           @optional_items = optional_items
+          @origin_context = origin_context
           @payment_intent_data = payment_intent_data
           @payment_method_collection = payment_method_collection
           @payment_method_configuration = payment_method_configuration
@@ -3983,6 +3987,8 @@ module Stripe
       attr_reader :object
       # The optional items presented to the customer at checkout.
       attr_reader :optional_items
+      # Where the user is coming from. This informs the optimizations that are applied to the session.
+      attr_reader :origin_context
       # The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
       attr_reader :payment_intent
       # The ID of the Payment Link that created this Session.

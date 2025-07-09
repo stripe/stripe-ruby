@@ -6,10 +6,12 @@ module Stripe
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       def initialize(expand: nil)
         @expand = expand
       end
     end
+
     class CreateParams < Stripe::RequestParams
       class Account < Stripe::RequestParams
         class Company < Stripe::RequestParams
@@ -26,6 +28,7 @@ module Stripe
             attr_accessor :postal_code
             # State, county, province, or region.
             attr_accessor :state
+
             def initialize(
               city: nil,
               country: nil,
@@ -42,6 +45,7 @@ module Stripe
               @state = state
             end
           end
+
           class AddressKana < Stripe::RequestParams
             # City or ward.
             attr_accessor :city
@@ -57,6 +61,7 @@ module Stripe
             attr_accessor :state
             # Town or cho-me.
             attr_accessor :town
+
             def initialize(
               city: nil,
               country: nil,
@@ -75,6 +80,7 @@ module Stripe
               @town = town
             end
           end
+
           class AddressKanji < Stripe::RequestParams
             # City or ward.
             attr_accessor :city
@@ -90,6 +96,7 @@ module Stripe
             attr_accessor :state
             # Town or cho-me.
             attr_accessor :town
+
             def initialize(
               city: nil,
               country: nil,
@@ -108,6 +115,7 @@ module Stripe
               @town = town
             end
           end
+
           class DirectorshipDeclaration < Stripe::RequestParams
             # The Unix timestamp marking when the directorship declaration attestation was made.
             attr_accessor :date
@@ -115,12 +123,14 @@ module Stripe
             attr_accessor :ip
             # The user agent of the browser from which the directorship declaration attestation was made.
             attr_accessor :user_agent
+
             def initialize(date: nil, ip: nil, user_agent: nil)
               @date = date
               @ip = ip
               @user_agent = user_agent
             end
           end
+
           class OwnershipDeclaration < Stripe::RequestParams
             # The Unix timestamp marking when the beneficial owner attestation was made.
             attr_accessor :date
@@ -128,12 +138,14 @@ module Stripe
             attr_accessor :ip
             # The user agent of the browser from which the beneficial owner attestation was made.
             attr_accessor :user_agent
+
             def initialize(date: nil, ip: nil, user_agent: nil)
               @date = date
               @ip = ip
               @user_agent = user_agent
             end
           end
+
           class RegistrationDate < Stripe::RequestParams
             # The day of registration, between 1 and 31.
             attr_accessor :day
@@ -141,18 +153,21 @@ module Stripe
             attr_accessor :month
             # The four-digit year of registration.
             attr_accessor :year
+
             def initialize(day: nil, month: nil, year: nil)
               @day = day
               @month = month
               @year = year
             end
           end
+
           class Verification < Stripe::RequestParams
             class Document < Stripe::RequestParams
               # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_accessor :back
               # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_accessor :front
+
               def initialize(back: nil, front: nil)
                 @back = back
                 @front = front
@@ -160,6 +175,7 @@ module Stripe
             end
             # A document verifying the business.
             attr_accessor :document
+
             def initialize(document: nil)
               @document = document
             end
@@ -210,6 +226,7 @@ module Stripe
           attr_accessor :vat_id
           # Information on the verification state of the company.
           attr_accessor :verification
+
           def initialize(
             address: nil,
             address_kana: nil,
@@ -260,6 +277,7 @@ module Stripe
             @verification = verification
           end
         end
+
         class Individual < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -274,6 +292,7 @@ module Stripe
             attr_accessor :postal_code
             # State, county, province, or region.
             attr_accessor :state
+
             def initialize(
               city: nil,
               country: nil,
@@ -290,6 +309,7 @@ module Stripe
               @state = state
             end
           end
+
           class AddressKana < Stripe::RequestParams
             # City or ward.
             attr_accessor :city
@@ -305,6 +325,7 @@ module Stripe
             attr_accessor :state
             # Town or cho-me.
             attr_accessor :town
+
             def initialize(
               city: nil,
               country: nil,
@@ -323,6 +344,7 @@ module Stripe
               @town = town
             end
           end
+
           class AddressKanji < Stripe::RequestParams
             # City or ward.
             attr_accessor :city
@@ -338,6 +360,7 @@ module Stripe
             attr_accessor :state
             # Town or cho-me.
             attr_accessor :town
+
             def initialize(
               city: nil,
               country: nil,
@@ -356,6 +379,7 @@ module Stripe
               @town = town
             end
           end
+
           class Dob < Stripe::RequestParams
             # The day of birth, between 1 and 31.
             attr_accessor :day
@@ -363,12 +387,14 @@ module Stripe
             attr_accessor :month
             # The four-digit year of birth.
             attr_accessor :year
+
             def initialize(day: nil, month: nil, year: nil)
               @day = day
               @month = month
               @year = year
             end
           end
+
           class RegisteredAddress < Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
@@ -382,6 +408,7 @@ module Stripe
             attr_accessor :postal_code
             # State, county, province, or region.
             attr_accessor :state
+
             def initialize(
               city: nil,
               country: nil,
@@ -398,6 +425,7 @@ module Stripe
               @state = state
             end
           end
+
           class Relationship < Stripe::RequestParams
             # Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
             attr_accessor :director
@@ -409,6 +437,7 @@ module Stripe
             attr_accessor :percent_ownership
             # The person's title (e.g., CEO, Support Engineer).
             attr_accessor :title
+
             def initialize(
               director: nil,
               executive: nil,
@@ -423,22 +452,26 @@ module Stripe
               @title = title
             end
           end
+
           class Verification < Stripe::RequestParams
             class AdditionalDocument < Stripe::RequestParams
               # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_accessor :back
               # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_accessor :front
+
               def initialize(back: nil, front: nil)
                 @back = back
                 @front = front
               end
             end
+
             class Document < Stripe::RequestParams
               # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_accessor :back
               # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_accessor :front
+
               def initialize(back: nil, front: nil)
                 @back = back
                 @front = front
@@ -448,6 +481,7 @@ module Stripe
             attr_accessor :additional_document
             # An identifying document, either a passport or local ID card.
             attr_accessor :document
+
             def initialize(additional_document: nil, document: nil)
               @additional_document = additional_document
               @document = document
@@ -499,6 +533,7 @@ module Stripe
           attr_accessor :ssn_last_4
           # The individual's verification document information.
           attr_accessor :verification
+
           def initialize(
             address: nil,
             address_kana: nil,
@@ -557,6 +592,7 @@ module Stripe
         attr_accessor :individual
         # Whether the user described by the data in the token has been shown [the Stripe Connected Account Agreement](/connect/account-tokens#stripe-connected-account-agreement). When creating an account token to create a new Connect account, this value must be `true`.
         attr_accessor :tos_shown_and_accepted
+
         def initialize(
           business_type: nil,
           company: nil,
@@ -569,6 +605,7 @@ module Stripe
           @tos_shown_and_accepted = tos_shown_and_accepted
         end
       end
+
       class BankAccount < Stripe::RequestParams
         # The name of the person or business that owns the bank account. This field is required when attaching the bank account to a `Customer` object.
         attr_accessor :account_holder_name
@@ -586,6 +623,7 @@ module Stripe
         attr_accessor :payment_method
         # The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         attr_accessor :routing_number
+
         def initialize(
           account_holder_name: nil,
           account_holder_type: nil,
@@ -606,10 +644,12 @@ module Stripe
           @routing_number = routing_number
         end
       end
+
       class Card < Stripe::RequestParams
         class Networks < Stripe::RequestParams
           # The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
           attr_accessor :preferred
+
           def initialize(preferred: nil)
             @preferred = preferred
           end
@@ -640,6 +680,7 @@ module Stripe
         attr_accessor :networks
         # The card number, as a string without any separators.
         attr_accessor :number
+
         def initialize(
           address_city: nil,
           address_country: nil,
@@ -670,13 +711,16 @@ module Stripe
           @number = number
         end
       end
+
       class CvcUpdate < Stripe::RequestParams
         # The CVC value, in string form.
         attr_accessor :cvc
+
         def initialize(cvc: nil)
           @cvc = cvc
         end
       end
+
       class Person < Stripe::RequestParams
         class AdditionalTosAcceptances < Stripe::RequestParams
           class Account < Stripe::RequestParams
@@ -686,6 +730,7 @@ module Stripe
             attr_accessor :ip
             # The user agent of the browser from which the account representative accepted the service agreement.
             attr_accessor :user_agent
+
             def initialize(date: nil, ip: nil, user_agent: nil)
               @date = date
               @ip = ip
@@ -694,10 +739,12 @@ module Stripe
           end
           # Details on the legal guardian's acceptance of the main Stripe service agreement.
           attr_accessor :account
+
           def initialize(account: nil)
             @account = account
           end
         end
+
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
@@ -711,6 +758,7 @@ module Stripe
           attr_accessor :postal_code
           # State, county, province, or region.
           attr_accessor :state
+
           def initialize(
             city: nil,
             country: nil,
@@ -727,6 +775,7 @@ module Stripe
             @state = state
           end
         end
+
         class AddressKana < Stripe::RequestParams
           # City or ward.
           attr_accessor :city
@@ -742,6 +791,7 @@ module Stripe
           attr_accessor :state
           # Town or cho-me.
           attr_accessor :town
+
           def initialize(
             city: nil,
             country: nil,
@@ -760,6 +810,7 @@ module Stripe
             @town = town
           end
         end
+
         class AddressKanji < Stripe::RequestParams
           # City or ward.
           attr_accessor :city
@@ -775,6 +826,7 @@ module Stripe
           attr_accessor :state
           # Town or cho-me.
           attr_accessor :town
+
           def initialize(
             city: nil,
             country: nil,
@@ -793,6 +845,7 @@ module Stripe
             @town = town
           end
         end
+
         class Dob < Stripe::RequestParams
           # The day of birth, between 1 and 31.
           attr_accessor :day
@@ -800,30 +853,37 @@ module Stripe
           attr_accessor :month
           # The four-digit year of birth.
           attr_accessor :year
+
           def initialize(day: nil, month: nil, year: nil)
             @day = day
             @month = month
             @year = year
           end
         end
+
         class Documents < Stripe::RequestParams
           class CompanyAuthorization < Stripe::RequestParams
             # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
             attr_accessor :files
+
             def initialize(files: nil)
               @files = files
             end
           end
+
           class Passport < Stripe::RequestParams
             # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
             attr_accessor :files
+
             def initialize(files: nil)
               @files = files
             end
           end
+
           class Visa < Stripe::RequestParams
             # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
             attr_accessor :files
+
             def initialize(files: nil)
               @files = files
             end
@@ -834,12 +894,14 @@ module Stripe
           attr_accessor :passport
           # One or more documents showing the person's visa required for living in the country where they are residing.
           attr_accessor :visa
+
           def initialize(company_authorization: nil, passport: nil, visa: nil)
             @company_authorization = company_authorization
             @passport = passport
             @visa = visa
           end
         end
+
         class RegisteredAddress < Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
@@ -853,6 +915,7 @@ module Stripe
           attr_accessor :postal_code
           # State, county, province, or region.
           attr_accessor :state
+
           def initialize(
             city: nil,
             country: nil,
@@ -869,6 +932,7 @@ module Stripe
             @state = state
           end
         end
+
         class Relationship < Stripe::RequestParams
           # Whether the person is the authorizer of the account's representative.
           attr_accessor :authorizer
@@ -886,6 +950,7 @@ module Stripe
           attr_accessor :representative
           # The person's title (e.g., CEO, Support Engineer).
           attr_accessor :title
+
           def initialize(
             authorizer: nil,
             director: nil,
@@ -906,22 +971,26 @@ module Stripe
             @title = title
           end
         end
+
         class UsCfpbData < Stripe::RequestParams
           class EthnicityDetails < Stripe::RequestParams
             # The persons ethnicity
             attr_accessor :ethnicity
             # Please specify your origin, when other is selected.
             attr_accessor :ethnicity_other
+
             def initialize(ethnicity: nil, ethnicity_other: nil)
               @ethnicity = ethnicity
               @ethnicity_other = ethnicity_other
             end
           end
+
           class RaceDetails < Stripe::RequestParams
             # The persons race.
             attr_accessor :race
             # Please specify your race, when other is selected.
             attr_accessor :race_other
+
             def initialize(race: nil, race_other: nil)
               @race = race
               @race_other = race_other
@@ -933,28 +1002,33 @@ module Stripe
           attr_accessor :race_details
           # The persons self-identified gender
           attr_accessor :self_identified_gender
+
           def initialize(ethnicity_details: nil, race_details: nil, self_identified_gender: nil)
             @ethnicity_details = ethnicity_details
             @race_details = race_details
             @self_identified_gender = self_identified_gender
           end
         end
+
         class Verification < Stripe::RequestParams
           class AdditionalDocument < Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             attr_accessor :back
             # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             attr_accessor :front
+
             def initialize(back: nil, front: nil)
               @back = back
               @front = front
             end
           end
+
           class Document < Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             attr_accessor :back
             # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             attr_accessor :front
+
             def initialize(back: nil, front: nil)
               @back = back
               @front = front
@@ -964,6 +1038,7 @@ module Stripe
           attr_accessor :additional_document
           # An identifying document, either a passport or local ID card.
           attr_accessor :document
+
           def initialize(additional_document: nil, document: nil)
             @additional_document = additional_document
             @document = document
@@ -1023,6 +1098,7 @@ module Stripe
         attr_accessor :us_cfpb_data
         # The person's verification status.
         attr_accessor :verification
+
         def initialize(
           additional_tos_acceptances: nil,
           address: nil,
@@ -1081,9 +1157,11 @@ module Stripe
           @verification = verification
         end
       end
+
       class Pii < Stripe::RequestParams
         # The `id_number` for the PII, in string form.
         attr_accessor :id_number
+
         def initialize(id_number: nil)
           @id_number = id_number
         end
@@ -1104,6 +1182,7 @@ module Stripe
       attr_accessor :person
       # The PII this token represents.
       attr_accessor :pii
+
       def initialize(
         account: nil,
         bank_account: nil,
@@ -1124,20 +1203,21 @@ module Stripe
         @pii = pii
       end
     end
+
     # Creates a single-use token that represents a bank account's details.
     # You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://docs.stripe.com/api#accounts) where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
     def create(params = {}, opts = {})
-      request(method: :post, path: '/v1/tokens', params: params, opts: opts, base_address: :api)
+      request(method: :post, path: "/v1/tokens", params: params, opts: opts, base_address: :api)
     end
 
     # Retrieves the token with the given ID.
     def retrieve(token, params = {}, opts = {})
       request(
         method: :get,
-        path: format('/v1/tokens/%<token>s', {:token => CGI.escape(token)}),
+        path: format("/v1/tokens/%<token>s", { token: CGI.escape(token) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
   end

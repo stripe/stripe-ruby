@@ -13,6 +13,7 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
+
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -20,6 +21,7 @@ module Stripe
           @lte = lte
         end
       end
+
       class CompletedAt < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
@@ -29,6 +31,7 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
+
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -36,6 +39,7 @@ module Stripe
           @lte = lte
         end
       end
+
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
@@ -45,6 +49,7 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
+
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -52,6 +57,7 @@ module Stripe
           @lte = lte
         end
       end
+
       class ReleasedAt < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
@@ -61,6 +67,7 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
+
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -90,6 +97,7 @@ module Stripe
       attr_accessor :scheduled
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
+
       def initialize(
         canceled_at: nil,
         completed_at: nil,
@@ -116,14 +124,17 @@ module Stripe
         @starting_after = starting_after
       end
     end
+
     class CreateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
         # Attribute for param field type
         attr_accessor :type
+
         def initialize(type: nil)
           @type = type
         end
       end
+
       class DefaultSettings < Stripe::RequestParams
         class AutomaticTax < Stripe::RequestParams
           class Liability < Stripe::RequestParams
@@ -131,6 +142,7 @@ module Stripe
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
+
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -140,27 +152,32 @@ module Stripe
           attr_accessor :enabled
           # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
           attr_accessor :liability
+
           def initialize(enabled: nil, liability: nil)
             @enabled = enabled
             @liability = liability
           end
         end
+
         class BillingThresholds < Stripe::RequestParams
           # Monetary threshold that triggers the subscription to advance to a new billing period
           attr_accessor :amount_gte
           # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
           attr_accessor :reset_billing_cycle_anchor
+
           def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
             @amount_gte = amount_gte
             @reset_billing_cycle_anchor = reset_billing_cycle_anchor
           end
         end
+
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
+
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -172,17 +189,20 @@ module Stripe
           attr_accessor :days_until_due
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_accessor :issuer
+
           def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil)
             @account_tax_ids = account_tax_ids
             @days_until_due = days_until_due
             @issuer = issuer
           end
         end
+
         class TransferData < Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           attr_accessor :amount_percent
           # ID of an existing, connected Stripe account.
           attr_accessor :destination
+
           def initialize(amount_percent: nil, destination: nil)
             @amount_percent = amount_percent
             @destination = destination
@@ -208,6 +228,7 @@ module Stripe
         attr_accessor :on_behalf_of
         # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
         attr_accessor :transfer_data
+
         def initialize(
           application_fee_percent: nil,
           automatic_tax: nil,
@@ -232,6 +253,7 @@ module Stripe
           @transfer_data = transfer_data
         end
       end
+
       class Phase < Stripe::RequestParams
         class AddInvoiceItem < Stripe::RequestParams
           class Discount < Stripe::RequestParams
@@ -241,6 +263,7 @@ module Stripe
                 attr_accessor :interval
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                 attr_accessor :interval_count
+
                 def initialize(interval: nil, interval_count: nil)
                   @interval = interval
                   @interval_count = interval_count
@@ -252,6 +275,7 @@ module Stripe
               attr_accessor :timestamp
               # The type of calculation made to determine when the discount ends.
               attr_accessor :type
+
               def initialize(duration: nil, timestamp: nil, type: nil)
                 @duration = duration
                 @timestamp = timestamp
@@ -266,6 +290,7 @@ module Stripe
             attr_accessor :discount_end
             # ID of the promotion code to create a new discount for.
             attr_accessor :promotion_code
+
             def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
               @coupon = coupon
               @discount = discount
@@ -273,6 +298,7 @@ module Stripe
               @promotion_code = promotion_code
             end
           end
+
           class PriceData < Stripe::RequestParams
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
@@ -284,6 +310,7 @@ module Stripe
             attr_accessor :unit_amount
             # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
             attr_accessor :unit_amount_decimal
+
             def initialize(
               currency: nil,
               product: nil,
@@ -308,6 +335,7 @@ module Stripe
           attr_accessor :quantity
           # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
           attr_accessor :tax_rates
+
           def initialize(discounts: nil, price: nil, price_data: nil, quantity: nil, tax_rates: nil)
             @discounts = discounts
             @price = price
@@ -316,12 +344,14 @@ module Stripe
             @tax_rates = tax_rates
           end
         end
+
         class AutomaticTax < Stripe::RequestParams
           class Liability < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
+
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -331,21 +361,25 @@ module Stripe
           attr_accessor :enabled
           # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
           attr_accessor :liability
+
           def initialize(enabled: nil, liability: nil)
             @enabled = enabled
             @liability = liability
           end
         end
+
         class BillingThresholds < Stripe::RequestParams
           # Monetary threshold that triggers the subscription to advance to a new billing period
           attr_accessor :amount_gte
           # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
           attr_accessor :reset_billing_cycle_anchor
+
           def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
             @amount_gte = amount_gte
             @reset_billing_cycle_anchor = reset_billing_cycle_anchor
           end
         end
+
         class Discount < Stripe::RequestParams
           class DiscountEnd < Stripe::RequestParams
             class Duration < Stripe::RequestParams
@@ -353,6 +387,7 @@ module Stripe
               attr_accessor :interval
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               attr_accessor :interval_count
+
               def initialize(interval: nil, interval_count: nil)
                 @interval = interval
                 @interval_count = interval_count
@@ -364,6 +399,7 @@ module Stripe
             attr_accessor :timestamp
             # The type of calculation made to determine when the discount ends.
             attr_accessor :type
+
             def initialize(duration: nil, timestamp: nil, type: nil)
               @duration = duration
               @timestamp = timestamp
@@ -378,6 +414,7 @@ module Stripe
           attr_accessor :discount_end
           # ID of the promotion code to create a new discount for.
           attr_accessor :promotion_code
+
           def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
             @coupon = coupon
             @discount = discount
@@ -385,12 +422,14 @@ module Stripe
             @promotion_code = promotion_code
           end
         end
+
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
+
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -402,20 +441,24 @@ module Stripe
           attr_accessor :days_until_due
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_accessor :issuer
+
           def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil)
             @account_tax_ids = account_tax_ids
             @days_until_due = days_until_due
             @issuer = issuer
           end
         end
+
         class Item < Stripe::RequestParams
           class BillingThresholds < Stripe::RequestParams
             # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
             attr_accessor :usage_gte
+
             def initialize(usage_gte: nil)
               @usage_gte = usage_gte
             end
           end
+
           class Discount < Stripe::RequestParams
             class DiscountEnd < Stripe::RequestParams
               class Duration < Stripe::RequestParams
@@ -423,6 +466,7 @@ module Stripe
                 attr_accessor :interval
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                 attr_accessor :interval_count
+
                 def initialize(interval: nil, interval_count: nil)
                   @interval = interval
                   @interval_count = interval_count
@@ -434,6 +478,7 @@ module Stripe
               attr_accessor :timestamp
               # The type of calculation made to determine when the discount ends.
               attr_accessor :type
+
               def initialize(duration: nil, timestamp: nil, type: nil)
                 @duration = duration
                 @timestamp = timestamp
@@ -448,6 +493,7 @@ module Stripe
             attr_accessor :discount_end
             # ID of the promotion code to create a new discount for.
             attr_accessor :promotion_code
+
             def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
               @coupon = coupon
               @discount = discount
@@ -455,12 +501,14 @@ module Stripe
               @promotion_code = promotion_code
             end
           end
+
           class PriceData < Stripe::RequestParams
             class Recurring < Stripe::RequestParams
               # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
               attr_accessor :interval
               # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
               attr_accessor :interval_count
+
               def initialize(interval: nil, interval_count: nil)
                 @interval = interval
                 @interval_count = interval_count
@@ -478,6 +526,7 @@ module Stripe
             attr_accessor :unit_amount
             # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
             attr_accessor :unit_amount_decimal
+
             def initialize(
               currency: nil,
               product: nil,
@@ -494,11 +543,13 @@ module Stripe
               @unit_amount_decimal = unit_amount_decimal
             end
           end
+
           class Trial < Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             attr_accessor :converts_to
             # Determines the type of trial for this item.
             attr_accessor :type
+
             def initialize(converts_to: nil, type: nil)
               @converts_to = converts_to
               @type = type
@@ -522,6 +573,7 @@ module Stripe
           attr_accessor :tax_rates
           # Options that configure the trial on the subscription item.
           attr_accessor :trial
+
           def initialize(
             billing_thresholds: nil,
             discounts: nil,
@@ -544,33 +596,40 @@ module Stripe
             @trial = trial
           end
         end
+
         class PauseCollection < Stripe::RequestParams
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           attr_accessor :behavior
+
           def initialize(behavior: nil)
             @behavior = behavior
           end
         end
+
         class TransferData < Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           attr_accessor :amount_percent
           # ID of an existing, connected Stripe account.
           attr_accessor :destination
+
           def initialize(amount_percent: nil, destination: nil)
             @amount_percent = amount_percent
             @destination = destination
           end
         end
+
         class TrialSettings < Stripe::RequestParams
           class EndBehavior < Stripe::RequestParams
             # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
             attr_accessor :prorate_up_front
+
             def initialize(prorate_up_front: nil)
               @prorate_up_front = prorate_up_front
             end
           end
           # Defines how the subscription should behave when a trial ends.
           attr_accessor :end_behavior
+
           def initialize(end_behavior: nil)
             @end_behavior = end_behavior
           end
@@ -623,6 +682,7 @@ module Stripe
         attr_accessor :trial_end
         # Settings related to subscription trials.
         attr_accessor :trial_settings
+
         def initialize(
           add_invoice_items: nil,
           application_fee_percent: nil,
@@ -675,11 +735,13 @@ module Stripe
           @trial_settings = trial_settings
         end
       end
+
       class Prebilling < Stripe::RequestParams
         # This is used to determine the number of billing cycles to prebill.
         attr_accessor :iterations
         # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         attr_accessor :update_behavior
+
         def initialize(iterations: nil, update_behavior: nil)
           @iterations = iterations
           @update_behavior = update_behavior
@@ -709,6 +771,7 @@ module Stripe
       attr_accessor :prebilling
       # When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
       attr_accessor :start_date
+
       def initialize(
         billing_behavior: nil,
         billing_mode: nil,
@@ -737,13 +800,16 @@ module Stripe
         @start_date = start_date
       end
     end
+
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       def initialize(expand: nil)
         @expand = expand
       end
     end
+
     class UpdateParams < Stripe::RequestParams
       class DefaultSettings < Stripe::RequestParams
         class AutomaticTax < Stripe::RequestParams
@@ -752,6 +818,7 @@ module Stripe
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
+
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -761,27 +828,32 @@ module Stripe
           attr_accessor :enabled
           # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
           attr_accessor :liability
+
           def initialize(enabled: nil, liability: nil)
             @enabled = enabled
             @liability = liability
           end
         end
+
         class BillingThresholds < Stripe::RequestParams
           # Monetary threshold that triggers the subscription to advance to a new billing period
           attr_accessor :amount_gte
           # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
           attr_accessor :reset_billing_cycle_anchor
+
           def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
             @amount_gte = amount_gte
             @reset_billing_cycle_anchor = reset_billing_cycle_anchor
           end
         end
+
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
+
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -793,17 +865,20 @@ module Stripe
           attr_accessor :days_until_due
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_accessor :issuer
+
           def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil)
             @account_tax_ids = account_tax_ids
             @days_until_due = days_until_due
             @issuer = issuer
           end
         end
+
         class TransferData < Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           attr_accessor :amount_percent
           # ID of an existing, connected Stripe account.
           attr_accessor :destination
+
           def initialize(amount_percent: nil, destination: nil)
             @amount_percent = amount_percent
             @destination = destination
@@ -829,6 +904,7 @@ module Stripe
         attr_accessor :on_behalf_of
         # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
         attr_accessor :transfer_data
+
         def initialize(
           application_fee_percent: nil,
           automatic_tax: nil,
@@ -853,6 +929,7 @@ module Stripe
           @transfer_data = transfer_data
         end
       end
+
       class Phase < Stripe::RequestParams
         class AddInvoiceItem < Stripe::RequestParams
           class Discount < Stripe::RequestParams
@@ -862,6 +939,7 @@ module Stripe
                 attr_accessor :interval
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                 attr_accessor :interval_count
+
                 def initialize(interval: nil, interval_count: nil)
                   @interval = interval
                   @interval_count = interval_count
@@ -873,6 +951,7 @@ module Stripe
               attr_accessor :timestamp
               # The type of calculation made to determine when the discount ends.
               attr_accessor :type
+
               def initialize(duration: nil, timestamp: nil, type: nil)
                 @duration = duration
                 @timestamp = timestamp
@@ -887,6 +966,7 @@ module Stripe
             attr_accessor :discount_end
             # ID of the promotion code to create a new discount for.
             attr_accessor :promotion_code
+
             def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
               @coupon = coupon
               @discount = discount
@@ -894,6 +974,7 @@ module Stripe
               @promotion_code = promotion_code
             end
           end
+
           class PriceData < Stripe::RequestParams
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
@@ -905,6 +986,7 @@ module Stripe
             attr_accessor :unit_amount
             # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
             attr_accessor :unit_amount_decimal
+
             def initialize(
               currency: nil,
               product: nil,
@@ -929,6 +1011,7 @@ module Stripe
           attr_accessor :quantity
           # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
           attr_accessor :tax_rates
+
           def initialize(discounts: nil, price: nil, price_data: nil, quantity: nil, tax_rates: nil)
             @discounts = discounts
             @price = price
@@ -937,12 +1020,14 @@ module Stripe
             @tax_rates = tax_rates
           end
         end
+
         class AutomaticTax < Stripe::RequestParams
           class Liability < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
+
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -952,21 +1037,25 @@ module Stripe
           attr_accessor :enabled
           # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
           attr_accessor :liability
+
           def initialize(enabled: nil, liability: nil)
             @enabled = enabled
             @liability = liability
           end
         end
+
         class BillingThresholds < Stripe::RequestParams
           # Monetary threshold that triggers the subscription to advance to a new billing period
           attr_accessor :amount_gte
           # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
           attr_accessor :reset_billing_cycle_anchor
+
           def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
             @amount_gte = amount_gte
             @reset_billing_cycle_anchor = reset_billing_cycle_anchor
           end
         end
+
         class Discount < Stripe::RequestParams
           class DiscountEnd < Stripe::RequestParams
             class Duration < Stripe::RequestParams
@@ -974,6 +1063,7 @@ module Stripe
               attr_accessor :interval
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               attr_accessor :interval_count
+
               def initialize(interval: nil, interval_count: nil)
                 @interval = interval
                 @interval_count = interval_count
@@ -985,6 +1075,7 @@ module Stripe
             attr_accessor :timestamp
             # The type of calculation made to determine when the discount ends.
             attr_accessor :type
+
             def initialize(duration: nil, timestamp: nil, type: nil)
               @duration = duration
               @timestamp = timestamp
@@ -999,6 +1090,7 @@ module Stripe
           attr_accessor :discount_end
           # ID of the promotion code to create a new discount for.
           attr_accessor :promotion_code
+
           def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
             @coupon = coupon
             @discount = discount
@@ -1006,12 +1098,14 @@ module Stripe
             @promotion_code = promotion_code
           end
         end
+
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
             attr_accessor :type
+
             def initialize(account: nil, type: nil)
               @account = account
               @type = type
@@ -1023,20 +1117,24 @@ module Stripe
           attr_accessor :days_until_due
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_accessor :issuer
+
           def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil)
             @account_tax_ids = account_tax_ids
             @days_until_due = days_until_due
             @issuer = issuer
           end
         end
+
         class Item < Stripe::RequestParams
           class BillingThresholds < Stripe::RequestParams
             # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
             attr_accessor :usage_gte
+
             def initialize(usage_gte: nil)
               @usage_gte = usage_gte
             end
           end
+
           class Discount < Stripe::RequestParams
             class DiscountEnd < Stripe::RequestParams
               class Duration < Stripe::RequestParams
@@ -1044,6 +1142,7 @@ module Stripe
                 attr_accessor :interval
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                 attr_accessor :interval_count
+
                 def initialize(interval: nil, interval_count: nil)
                   @interval = interval
                   @interval_count = interval_count
@@ -1055,6 +1154,7 @@ module Stripe
               attr_accessor :timestamp
               # The type of calculation made to determine when the discount ends.
               attr_accessor :type
+
               def initialize(duration: nil, timestamp: nil, type: nil)
                 @duration = duration
                 @timestamp = timestamp
@@ -1069,6 +1169,7 @@ module Stripe
             attr_accessor :discount_end
             # ID of the promotion code to create a new discount for.
             attr_accessor :promotion_code
+
             def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
               @coupon = coupon
               @discount = discount
@@ -1076,12 +1177,14 @@ module Stripe
               @promotion_code = promotion_code
             end
           end
+
           class PriceData < Stripe::RequestParams
             class Recurring < Stripe::RequestParams
               # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
               attr_accessor :interval
               # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
               attr_accessor :interval_count
+
               def initialize(interval: nil, interval_count: nil)
                 @interval = interval
                 @interval_count = interval_count
@@ -1099,6 +1202,7 @@ module Stripe
             attr_accessor :unit_amount
             # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
             attr_accessor :unit_amount_decimal
+
             def initialize(
               currency: nil,
               product: nil,
@@ -1115,11 +1219,13 @@ module Stripe
               @unit_amount_decimal = unit_amount_decimal
             end
           end
+
           class Trial < Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             attr_accessor :converts_to
             # Determines the type of trial for this item.
             attr_accessor :type
+
             def initialize(converts_to: nil, type: nil)
               @converts_to = converts_to
               @type = type
@@ -1143,6 +1249,7 @@ module Stripe
           attr_accessor :tax_rates
           # Options that configure the trial on the subscription item.
           attr_accessor :trial
+
           def initialize(
             billing_thresholds: nil,
             discounts: nil,
@@ -1165,33 +1272,40 @@ module Stripe
             @trial = trial
           end
         end
+
         class PauseCollection < Stripe::RequestParams
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           attr_accessor :behavior
+
           def initialize(behavior: nil)
             @behavior = behavior
           end
         end
+
         class TransferData < Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           attr_accessor :amount_percent
           # ID of an existing, connected Stripe account.
           attr_accessor :destination
+
           def initialize(amount_percent: nil, destination: nil)
             @amount_percent = amount_percent
             @destination = destination
           end
         end
+
         class TrialSettings < Stripe::RequestParams
           class EndBehavior < Stripe::RequestParams
             # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
             attr_accessor :prorate_up_front
+
             def initialize(prorate_up_front: nil)
               @prorate_up_front = prorate_up_front
             end
           end
           # Defines how the subscription should behave when a trial ends.
           attr_accessor :end_behavior
+
           def initialize(end_behavior: nil)
             @end_behavior = end_behavior
           end
@@ -1246,6 +1360,7 @@ module Stripe
         attr_accessor :trial_end
         # Settings related to subscription trials.
         attr_accessor :trial_settings
+
         def initialize(
           add_invoice_items: nil,
           application_fee_percent: nil,
@@ -1300,11 +1415,13 @@ module Stripe
           @trial_settings = trial_settings
         end
       end
+
       class Prebilling < Stripe::RequestParams
         # This is used to determine the number of billing cycles to prebill.
         attr_accessor :iterations
         # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         attr_accessor :update_behavior
+
         def initialize(iterations: nil, update_behavior: nil)
           @iterations = iterations
           @update_behavior = update_behavior
@@ -1326,6 +1443,7 @@ module Stripe
       attr_accessor :prebilling
       # If the update changes the billing configuration (item price, quantity, etc.) of the current phase, indicates how prorations from this change should be handled. The default value is `create_prorations`.
       attr_accessor :proration_behavior
+
       def initialize(
         billing_behavior: nil,
         default_settings: nil,
@@ -1346,21 +1464,25 @@ module Stripe
         @proration_behavior = proration_behavior
       end
     end
+
     class AmendParams < Stripe::RequestParams
       class Amendment < Stripe::RequestParams
         class AmendmentEnd < Stripe::RequestParams
           class DiscountEnd < Stripe::RequestParams
             # The ID of a specific discount.
             attr_accessor :discount
+
             def initialize(discount: nil)
               @discount = discount
             end
           end
+
           class Duration < Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_accessor :interval_count
+
             def initialize(interval: nil, interval_count: nil)
               @interval = interval
               @interval_count = interval_count
@@ -1374,6 +1496,7 @@ module Stripe
           attr_accessor :timestamp
           # Select one of three ways to pass the `amendment_end`.
           attr_accessor :type
+
           def initialize(discount_end: nil, duration: nil, timestamp: nil, type: nil)
             @discount_end = discount_end
             @duration = duration
@@ -1381,17 +1504,21 @@ module Stripe
             @type = type
           end
         end
+
         class AmendmentStart < Stripe::RequestParams
           class AmendmentEnd < Stripe::RequestParams
             # The position of the previous amendment in the `amendments` array after which this amendment should begin. Indexes start from 0 and must be less than the index of the current amendment in the array.
             attr_accessor :index
+
             def initialize(index: nil)
               @index = index
             end
           end
+
           class DiscountEnd < Stripe::RequestParams
             # The ID of a specific discount.
             attr_accessor :discount
+
             def initialize(discount: nil)
               @discount = discount
             end
@@ -1404,6 +1531,7 @@ module Stripe
           attr_accessor :timestamp
           # Select one of three ways to pass the `amendment_start`.
           attr_accessor :type
+
           def initialize(amendment_end: nil, discount_end: nil, timestamp: nil, type: nil)
             @amendment_end = amendment_end
             @discount_end = discount_end
@@ -1411,11 +1539,13 @@ module Stripe
             @type = type
           end
         end
+
         class DiscountAction < Stripe::RequestParams
           class Add < Stripe::RequestParams
             class DiscountEnd < Stripe::RequestParams
               # The type of calculation made to determine when the discount ends.
               attr_accessor :type
+
               def initialize(type: nil)
                 @type = type
               end
@@ -1430,6 +1560,7 @@ module Stripe
             attr_accessor :index
             # The promotion code to redeem.
             attr_accessor :promotion_code
+
             def initialize(
               coupon: nil,
               discount: nil,
@@ -1444,6 +1575,7 @@ module Stripe
               @promotion_code = promotion_code
             end
           end
+
           class Remove < Stripe::RequestParams
             # The coupon code to remove from the `discounts` array.
             attr_accessor :coupon
@@ -1451,12 +1583,14 @@ module Stripe
             attr_accessor :discount
             # The ID of a promotion code to remove from the `discounts` array.
             attr_accessor :promotion_code
+
             def initialize(coupon: nil, discount: nil, promotion_code: nil)
               @coupon = coupon
               @discount = discount
               @promotion_code = promotion_code
             end
           end
+
           class Set < Stripe::RequestParams
             # The coupon code to replace the `discounts` array with.
             attr_accessor :coupon
@@ -1464,6 +1598,7 @@ module Stripe
             attr_accessor :discount
             # An ID of an existing promotion code to replace the `discounts` array with.
             attr_accessor :promotion_code
+
             def initialize(coupon: nil, discount: nil, promotion_code: nil)
               @coupon = coupon
               @discount = discount
@@ -1478,6 +1613,7 @@ module Stripe
           attr_accessor :set
           # Determines the type of discount action.
           attr_accessor :type
+
           def initialize(add: nil, remove: nil, set: nil, type: nil)
             @add = add
             @remove = remove
@@ -1485,6 +1621,7 @@ module Stripe
             @type = type
           end
         end
+
         class ItemAction < Stripe::RequestParams
           class Add < Stripe::RequestParams
             class Discount < Stripe::RequestParams
@@ -1494,6 +1631,7 @@ module Stripe
                   attr_accessor :interval
                   # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                   attr_accessor :interval_count
+
                   def initialize(interval: nil, interval_count: nil)
                     @interval = interval
                     @interval_count = interval_count
@@ -1505,6 +1643,7 @@ module Stripe
                 attr_accessor :timestamp
                 # The type of calculation made to determine when the discount ends.
                 attr_accessor :type
+
                 def initialize(duration: nil, timestamp: nil, type: nil)
                   @duration = duration
                   @timestamp = timestamp
@@ -1519,6 +1658,7 @@ module Stripe
               attr_accessor :discount_end
               # ID of the promotion code to create a new discount for.
               attr_accessor :promotion_code
+
               def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
                 @coupon = coupon
                 @discount = discount
@@ -1526,11 +1666,13 @@ module Stripe
                 @promotion_code = promotion_code
               end
             end
+
             class Trial < Stripe::RequestParams
               # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
               attr_accessor :converts_to
               # Determines the type of trial for this item.
               attr_accessor :type
+
               def initialize(converts_to: nil, type: nil)
                 @converts_to = converts_to
                 @type = type
@@ -1548,6 +1690,7 @@ module Stripe
             attr_accessor :tax_rates
             # Options that configure the trial on the subscription item.
             attr_accessor :trial
+
             def initialize(
               discounts: nil,
               metadata: nil,
@@ -1564,13 +1707,16 @@ module Stripe
               @trial = trial
             end
           end
+
           class Remove < Stripe::RequestParams
             # ID of a price to remove.
             attr_accessor :price
+
             def initialize(price: nil)
               @price = price
             end
           end
+
           class Set < Stripe::RequestParams
             class Discount < Stripe::RequestParams
               class DiscountEnd < Stripe::RequestParams
@@ -1579,6 +1725,7 @@ module Stripe
                   attr_accessor :interval
                   # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                   attr_accessor :interval_count
+
                   def initialize(interval: nil, interval_count: nil)
                     @interval = interval
                     @interval_count = interval_count
@@ -1590,6 +1737,7 @@ module Stripe
                 attr_accessor :timestamp
                 # The type of calculation made to determine when the discount ends.
                 attr_accessor :type
+
                 def initialize(duration: nil, timestamp: nil, type: nil)
                   @duration = duration
                   @timestamp = timestamp
@@ -1604,6 +1752,7 @@ module Stripe
               attr_accessor :discount_end
               # ID of the promotion code to create a new discount for.
               attr_accessor :promotion_code
+
               def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
                 @coupon = coupon
                 @discount = discount
@@ -1611,11 +1760,13 @@ module Stripe
                 @promotion_code = promotion_code
               end
             end
+
             class Trial < Stripe::RequestParams
               # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
               attr_accessor :converts_to
               # Determines the type of trial for this item.
               attr_accessor :type
+
               def initialize(converts_to: nil, type: nil)
                 @converts_to = converts_to
                 @type = type
@@ -1633,6 +1784,7 @@ module Stripe
             attr_accessor :tax_rates
             # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
             attr_accessor :trial
+
             def initialize(
               discounts: nil,
               metadata: nil,
@@ -1657,6 +1809,7 @@ module Stripe
           attr_accessor :set
           # Determines the type of item action.
           attr_accessor :type
+
           def initialize(add: nil, remove: nil, set: nil, type: nil)
             @add = add
             @remove = remove
@@ -1664,6 +1817,7 @@ module Stripe
             @type = type
           end
         end
+
         class MetadataAction < Stripe::RequestParams
           # Key-value pairs to add to schedule phase metadata. These values will merge with existing schedule phase metadata.
           attr_accessor :add
@@ -1673,6 +1827,7 @@ module Stripe
           attr_accessor :set
           # Select one of three ways to update phase-level `metadata` on subscription schedules.
           attr_accessor :type
+
           def initialize(add: nil, remove: nil, set: nil, type: nil)
             @add = add
             @remove = remove
@@ -1680,10 +1835,12 @@ module Stripe
             @type = type
           end
         end
+
         class SetPauseCollection < Stripe::RequestParams
           class Set < Stripe::RequestParams
             # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
             attr_accessor :behavior
+
             def initialize(behavior: nil)
               @behavior = behavior
             end
@@ -1692,21 +1849,25 @@ module Stripe
           attr_accessor :set
           # Determines the type of the pause_collection amendment.
           attr_accessor :type
+
           def initialize(set: nil, type: nil)
             @set = set
             @type = type
           end
         end
+
         class TrialSettings < Stripe::RequestParams
           class EndBehavior < Stripe::RequestParams
             # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
             attr_accessor :prorate_up_front
+
             def initialize(prorate_up_front: nil)
               @prorate_up_front = prorate_up_front
             end
           end
           # Defines how the subscription should behave when a trial ends.
           attr_accessor :end_behavior
+
           def initialize(end_behavior: nil)
             @end_behavior = end_behavior
           end
@@ -1731,6 +1892,7 @@ module Stripe
         attr_accessor :set_schedule_end
         # Settings related to subscription trials.
         attr_accessor :trial_settings
+
         def initialize(
           amendment_end: nil,
           amendment_start: nil,
@@ -1755,11 +1917,13 @@ module Stripe
           @trial_settings = trial_settings
         end
       end
+
       class Prebilling < Stripe::RequestParams
         class BillFrom < Stripe::RequestParams
           class AmendmentStart < Stripe::RequestParams
             # The position of the amendment in the `amendments` array with which prebilling should begin. Indexes start from 0 and must be less than the total number of supplied amendments.
             attr_accessor :index
+
             def initialize(index: nil)
               @index = index
             end
@@ -1770,25 +1934,30 @@ module Stripe
           attr_accessor :timestamp
           # Select one of several ways to pass the `bill_from` value.
           attr_accessor :type
+
           def initialize(amendment_start: nil, timestamp: nil, type: nil)
             @amendment_start = amendment_start
             @timestamp = timestamp
             @type = type
           end
         end
+
         class BillUntil < Stripe::RequestParams
           class AmendmentEnd < Stripe::RequestParams
             # The position of the amendment in the `amendments` array at which prebilling should end. Indexes start from 0 and must be less than the total number of supplied amendments.
             attr_accessor :index
+
             def initialize(index: nil)
               @index = index
             end
           end
+
           class Duration < Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_accessor :interval_count
+
             def initialize(interval: nil, interval_count: nil)
               @interval = interval
               @interval_count = interval_count
@@ -1802,6 +1971,7 @@ module Stripe
           attr_accessor :timestamp
           # Select one of several ways to pass the `bill_until` value.
           attr_accessor :type
+
           def initialize(amendment_end: nil, duration: nil, timestamp: nil, type: nil)
             @amendment_end = amendment_end
             @duration = duration
@@ -1817,6 +1987,7 @@ module Stripe
         attr_accessor :invoice_at
         # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         attr_accessor :update_behavior
+
         def initialize(bill_from: nil, bill_until: nil, invoice_at: nil, update_behavior: nil)
           @bill_from = bill_from
           @bill_until = bill_until
@@ -1824,9 +1995,11 @@ module Stripe
           @update_behavior = update_behavior
         end
       end
+
       class ScheduleSettings < Stripe::RequestParams
         # Behavior of the subscription schedule and underlying subscription when it ends.
         attr_accessor :end_behavior
+
         def initialize(end_behavior: nil)
           @end_behavior = end_behavior
         end
@@ -1842,6 +2015,7 @@ module Stripe
       attr_accessor :proration_behavior
       # Changes to apply to the subscription schedule.
       attr_accessor :schedule_settings
+
       def initialize(
         amendments: nil,
         expand: nil,
@@ -1856,6 +2030,7 @@ module Stripe
         @schedule_settings = schedule_settings
       end
     end
+
     class CancelParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
@@ -1863,30 +2038,34 @@ module Stripe
       attr_accessor :invoice_now
       # If the subscription schedule is `active`, indicates if the cancellation should be prorated. Defaults to `true`.
       attr_accessor :prorate
+
       def initialize(expand: nil, invoice_now: nil, prorate: nil)
         @expand = expand
         @invoice_now = invoice_now
         @prorate = prorate
       end
     end
+
     class ReleaseParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Keep any cancellation on the subscription that the schedule has set
       attr_accessor :preserve_cancel_date
+
       def initialize(expand: nil, preserve_cancel_date: nil)
         @expand = expand
         @preserve_cancel_date = preserve_cancel_date
       end
     end
+
     # Amends an existing subscription schedule.
     def amend(schedule, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s/amend', {:schedule => CGI.escape(schedule)}),
+        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(schedule) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -1894,10 +2073,10 @@ module Stripe
     def cancel(schedule, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s/cancel', {:schedule => CGI.escape(schedule)}),
+        path: format("/v1/subscription_schedules/%<schedule>s/cancel", { schedule: CGI.escape(schedule) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -1905,10 +2084,10 @@ module Stripe
     def create(params = {}, opts = {})
       request(
         method: :post,
-        path: '/v1/subscription_schedules',
+        path: "/v1/subscription_schedules",
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -1916,10 +2095,10 @@ module Stripe
     def list(params = {}, opts = {})
       request(
         method: :get,
-        path: '/v1/subscription_schedules',
+        path: "/v1/subscription_schedules",
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -1927,10 +2106,10 @@ module Stripe
     def release(schedule, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s/release', {:schedule => CGI.escape(schedule)}),
+        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(schedule) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -1938,10 +2117,10 @@ module Stripe
     def retrieve(schedule, params = {}, opts = {})
       request(
         method: :get,
-        path: format('/v1/subscription_schedules/%<schedule>s', {:schedule => CGI.escape(schedule)}),
+        path: format("/v1/subscription_schedules/%<schedule>s", { schedule: CGI.escape(schedule) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -1949,10 +2128,10 @@ module Stripe
     def update(schedule, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s', {:schedule => CGI.escape(schedule)}),
+        path: format("/v1/subscription_schedules/%<schedule>s", { schedule: CGI.escape(schedule) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
   end

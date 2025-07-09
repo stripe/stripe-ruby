@@ -20,6 +20,7 @@ module Stripe
           attr_accessor :limit
           # Filter for TransactionEntries belonging to a Transaction.
           attr_accessor :transaction
+
           def initialize(
             created: nil,
             created_gt: nil,
@@ -38,15 +39,17 @@ module Stripe
             @transaction = transaction
           end
         end
+
         class RetrieveParams < Stripe::RequestParams; end
+
         # Returns a list of TransactionEntries that match the provided filters.
         def list(params = {}, opts = {})
           request(
             method: :get,
-            path: '/v2/money_management/transaction_entries',
+            path: "/v2/money_management/transaction_entries",
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -54,10 +57,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format('/v2/money_management/transaction_entries/%<id>s', {:id => CGI.escape(id)}),
+            path: format("/v2/money_management/transaction_entries/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
       end

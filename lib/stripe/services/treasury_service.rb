@@ -3,18 +3,10 @@
 
 module Stripe
   class TreasuryService < StripeService
-    attr_reader :credit_reversals
-    attr_reader :debit_reversals
-    attr_reader :financial_accounts
-    attr_reader :inbound_transfers
-    attr_reader :outbound_payments
-    attr_reader :outbound_transfers
-    attr_reader :received_credits
-    attr_reader :received_debits
-    attr_reader :transactions
-    attr_reader :transaction_entries
+    attr_reader :credit_reversals, :debit_reversals, :financial_accounts, :inbound_transfers, :outbound_payments, :outbound_transfers, :received_credits, :received_debits, :transactions, :transaction_entries
+
     def initialize(requestor)
-      super(requestor)
+      super
       @credit_reversals = Stripe::Treasury::CreditReversalService.new(@requestor)
       @debit_reversals = Stripe::Treasury::DebitReversalService.new(@requestor)
       @financial_accounts = Stripe::Treasury::FinancialAccountService.new(@requestor)

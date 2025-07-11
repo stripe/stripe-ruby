@@ -375,6 +375,25 @@ module Stripe
         class IdBankTransfer < Stripe::StripeObject; end
         class Konbini < Stripe::StripeObject; end
         class SepaDebit < Stripe::StripeObject; end
+        class Upi < Stripe::StripeObject
+          class MandateOptions < Stripe::StripeObject
+            # Amount to be charged for future payments.
+            sig { returns(T.nilable(Integer)) }
+            attr_reader :amount
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            sig { returns(T.nilable(String)) }
+            attr_reader :amount_type
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            sig { returns(T.nilable(String)) }
+            attr_reader :description
+            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            sig { returns(T.nilable(Integer)) }
+            attr_reader :end_date
+          end
+          # Attribute for field mandate_options
+          sig { returns(MandateOptions) }
+          attr_reader :mandate_options
+        end
         class UsBankAccount < Stripe::StripeObject
           class FinancialConnections < Stripe::StripeObject
             class Filters < Stripe::StripeObject
@@ -423,6 +442,9 @@ module Stripe
         # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(SepaDebit)) }
         attr_reader :sepa_debit
+        # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(Upi)) }
+        attr_reader :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(UsBankAccount)) }
         attr_reader :us_bank_account

@@ -14,6 +14,7 @@ module Stripe
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
+
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
             @gt = gt
             @gte = gte
@@ -21,6 +22,7 @@ module Stripe
             @lte = lte
           end
         end
+
         class StatusTransitions < Stripe::RequestParams
           class PostedAt < Stripe::RequestParams
             # Minimum value to filter by (exclusive)
@@ -31,6 +33,7 @@ module Stripe
             attr_accessor :lt
             # Maximum value to filter by (inclusive)
             attr_accessor :lte
+
             def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
               @gt = gt
               @gte = gte
@@ -40,6 +43,7 @@ module Stripe
           end
           # Returns Transactions with `posted_at` within the specified range.
           attr_accessor :posted_at
+
           def initialize(posted_at: nil)
             @posted_at = posted_at
           end
@@ -62,6 +66,7 @@ module Stripe
         attr_accessor :status
         # A filter for the `status_transitions.posted_at` timestamp. When using this filter, `status=posted` and `order_by=posted_at` must also be specified.
         attr_accessor :status_transitions
+
         def initialize(
           created: nil,
           ending_before: nil,
@@ -84,21 +89,24 @@ module Stripe
           @status_transitions = status_transitions
         end
       end
+
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         def initialize(expand: nil)
           @expand = expand
         end
       end
+
       # Retrieves a list of Transaction objects.
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: '/v1/treasury/transactions',
+          path: "/v1/treasury/transactions",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -106,10 +114,10 @@ module Stripe
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format('/v1/treasury/transactions/%<id>s', {:id => CGI.escape(id)}),
+          path: format("/v1/treasury/transactions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

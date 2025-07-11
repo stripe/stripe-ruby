@@ -136,6 +136,7 @@ module Stripe
         SetupIntent.object_name => SetupIntent,
         ShippingRate.object_name => ShippingRate,
         Sigma::ScheduledQueryRun.object_name => Sigma::ScheduledQueryRun,
+        Sigma::Schema.object_name => Sigma::Schema,
         Source.object_name => Source,
         SourceMandateNotification.object_name => SourceMandateNotification,
         SourceTransaction.object_name => SourceTransaction,

@@ -8,23 +8,28 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # The page size limit, if not provided the default is 20.
           attr_accessor :limit
+
           def initialize(limit: nil)
             @limit = limit
           end
         end
+
         class CreateParams < Stripe::RequestParams
           class RetryDetails < Stripe::RequestParams
             # How you want Stripe to retry the payment.
             attr_accessor :retry_strategy
+
             def initialize(retry_strategy: nil)
               @retry_strategy = retry_strategy
             end
           end
+
           class TransferData < Stripe::RequestParams
             # Amount in minor units that you want to transfer.
             attr_accessor :amount
             # ID of the connected account where you want money to go.
             attr_accessor :destination
+
             def initialize(amount: nil, destination: nil)
               @amount = amount
               @destination = destination
@@ -52,6 +57,7 @@ module Stripe
           attr_accessor :test_clock
           # How you want to transfer the funds to your connected accounts.
           attr_accessor :transfer_data
+
           def initialize(
             amount: nil,
             cadence: nil,
@@ -78,16 +84,18 @@ module Stripe
             @transfer_data = transfer_data
           end
         end
+
         class RetrieveParams < Stripe::RequestParams; end
         class CancelParams < Stripe::RequestParams; end
+
         # Cancel OSP.
         def cancel(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format('/v2/payments/off_session_payments/%<id>s/cancel', {:id => CGI.escape(id)}),
+            path: format("/v2/payments/off_session_payments/%<id>s/cancel", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -95,10 +103,10 @@ module Stripe
         def create(params = {}, opts = {})
           request(
             method: :post,
-            path: '/v2/payments/off_session_payments',
+            path: "/v2/payments/off_session_payments",
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -106,10 +114,10 @@ module Stripe
         def list(params = {}, opts = {})
           request(
             method: :get,
-            path: '/v2/payments/off_session_payments',
+            path: "/v2/payments/off_session_payments",
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -117,10 +125,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format('/v2/payments/off_session_payments/%<id>s', {:id => CGI.escape(id)}),
+            path: format("/v2/payments/off_session_payments/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
       end

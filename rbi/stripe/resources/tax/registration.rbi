@@ -12,6 +12,14 @@ module Stripe
     class Registration < APIResource
       class CountryOptions < Stripe::StripeObject
         class Ae < Stripe::StripeObject
+          class Standard < Stripe::StripeObject
+            # Place of supply scheme used in an Default standard registration.
+            sig { returns(String) }
+            attr_reader :place_of_supply_scheme
+          end
+          # Attribute for field standard
+          sig { returns(Standard) }
+          attr_reader :standard
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -45,6 +53,14 @@ module Stripe
           attr_reader :type
         end
         class Au < Stripe::StripeObject
+          class Standard < Stripe::StripeObject
+            # Place of supply scheme used in an Default standard registration.
+            sig { returns(String) }
+            attr_reader :place_of_supply_scheme
+          end
+          # Attribute for field standard
+          sig { returns(Standard) }
+          attr_reader :standard
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -144,6 +160,14 @@ module Stripe
           attr_reader :type
         end
         class Ch < Stripe::StripeObject
+          class Standard < Stripe::StripeObject
+            # Place of supply scheme used in an Default standard registration.
+            sig { returns(String) }
+            attr_reader :place_of_supply_scheme
+          end
+          # Attribute for field standard
+          sig { returns(Standard) }
+          attr_reader :standard
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -293,6 +317,14 @@ module Stripe
           attr_reader :type
         end
         class Gb < Stripe::StripeObject
+          class Standard < Stripe::StripeObject
+            # Place of supply scheme used in an Default standard registration.
+            sig { returns(String) }
+            attr_reader :place_of_supply_scheme
+          end
+          # Attribute for field standard
+          sig { returns(Standard) }
+          attr_reader :standard
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -388,6 +420,14 @@ module Stripe
           attr_reader :type
         end
         class Jp < Stripe::StripeObject
+          class Standard < Stripe::StripeObject
+            # Place of supply scheme used in an Default standard registration.
+            sig { returns(String) }
+            attr_reader :place_of_supply_scheme
+          end
+          # Attribute for field standard
+          sig { returns(Standard) }
+          attr_reader :standard
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -528,6 +568,14 @@ module Stripe
           attr_reader :type
         end
         class No < Stripe::StripeObject
+          class Standard < Stripe::StripeObject
+            # Place of supply scheme used in an Default standard registration.
+            sig { returns(String) }
+            attr_reader :place_of_supply_scheme
+          end
+          # Attribute for field standard
+          sig { returns(Standard) }
+          attr_reader :standard
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -538,6 +586,14 @@ module Stripe
           attr_reader :type
         end
         class Nz < Stripe::StripeObject
+          class Standard < Stripe::StripeObject
+            # Place of supply scheme used in an Default standard registration.
+            sig { returns(String) }
+            attr_reader :place_of_supply_scheme
+          end
+          # Attribute for field standard
+          sig { returns(Standard) }
+          attr_reader :standard
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -625,6 +681,14 @@ module Stripe
           attr_reader :type
         end
         class Sg < Stripe::StripeObject
+          class Standard < Stripe::StripeObject
+            # Place of supply scheme used in an Default standard registration.
+            sig { returns(String) }
+            attr_reader :place_of_supply_scheme
+          end
+          # Attribute for field standard
+          sig { returns(Standard) }
+          attr_reader :standard
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -1120,18 +1184,46 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         class CountryOptions < Stripe::RequestParams
           class Ae < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ae::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ae::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Al < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Al::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Al::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Am < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -1141,11 +1233,25 @@ module Stripe
             def initialize(type: nil); end
           end
           class Ao < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ao::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ao::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class At < Stripe::RequestParams
             class Standard < Stripe::RequestParams
@@ -1169,18 +1275,46 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class Au < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Au::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Au::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Aw < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Aw::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Aw::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Az < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -1190,25 +1324,67 @@ module Stripe
             def initialize(type: nil); end
           end
           class Ba < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ba::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ba::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Bb < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bb::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bb::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Bd < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bd::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bd::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Be < Stripe::RequestParams
             class Standard < Stripe::RequestParams
@@ -1232,11 +1408,25 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class Bf < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bf::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bf::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Bg < Stripe::RequestParams
             class Standard < Stripe::RequestParams
@@ -1260,11 +1450,25 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class Bh < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bh::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bh::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Bj < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -1274,11 +1478,25 @@ module Stripe
             def initialize(type: nil); end
           end
           class Bs < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bs::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bs::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class By < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -1309,18 +1527,46 @@ module Stripe
             def initialize(province_standard: nil, type: nil); end
           end
           class Cd < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cd::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cd::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Ch < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ch::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ch::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Cl < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -1498,11 +1744,25 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class Et < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Et::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Et::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Fi < Stripe::RequestParams
             class Standard < Stripe::RequestParams
@@ -1547,11 +1807,25 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class Gb < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gb::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gb::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Ge < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -1561,11 +1835,25 @@ module Stripe
             def initialize(type: nil); end
           end
           class Gn < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gn::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gn::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Gr < Stripe::RequestParams
             class Standard < Stripe::RequestParams
@@ -1666,11 +1954,25 @@ module Stripe
             def initialize(type: nil); end
           end
           class Is < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Is::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Is::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class It < Stripe::RequestParams
             class Standard < Stripe::RequestParams
@@ -1694,11 +1996,25 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class Jp < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Jp::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Jp::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Ke < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -1820,25 +2136,67 @@ module Stripe
             def initialize(type: nil); end
           end
           class Me < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Me::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Me::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Mk < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mk::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mk::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Mr < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mr::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mr::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Mt < Stripe::RequestParams
             class Standard < Stripe::RequestParams
@@ -1904,11 +2262,25 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class No < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::No::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::No::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Np < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -1918,18 +2290,46 @@ module Stripe
             def initialize(type: nil); end
           end
           class Nz < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Nz::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Nz::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Om < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Om::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Om::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Pe < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -2009,11 +2409,25 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class Rs < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Rs::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Rs::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Ru < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -2051,11 +2465,25 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class Sg < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sg::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sg::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Si < Stripe::RequestParams
             class Standard < Stripe::RequestParams
@@ -2107,11 +2535,25 @@ module Stripe
             def initialize(type: nil); end
           end
           class Sr < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sr::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sr::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Th < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -2224,11 +2666,25 @@ module Stripe
             ); end
           end
           class Uy < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Uy::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Uy::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Uz < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -2245,11 +2701,25 @@ module Stripe
             def initialize(type: nil); end
           end
           class Za < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Za::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Za::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           class Zm < Stripe::RequestParams
             # Type of registration to be created in `country`.
@@ -2259,11 +2729,25 @@ module Stripe
             def initialize(type: nil); end
           end
           class Zw < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :place_of_supply_scheme
+              sig { params(place_of_supply_scheme: T.nilable(String)).void }
+              def initialize(place_of_supply_scheme: nil); end
+            end
+            # Options for the standard registration.
+            sig {
+              returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Zw::Standard))
+             }
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(standard: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Zw::Standard), type: String).void
+             }
+            def initialize(standard: nil, type: nil); end
           end
           # Options for the registration in AE.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ae)) }

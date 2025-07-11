@@ -5,5 +5,6 @@
 module Stripe
   class SigmaService < StripeService
     attr_reader :scheduled_query_runs
+    attr_reader :schemas
   end
 end

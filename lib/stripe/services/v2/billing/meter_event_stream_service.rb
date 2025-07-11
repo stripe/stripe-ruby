@@ -22,6 +22,7 @@ module Stripe
             # The time of the event. Must be within the past 35 calendar days or up to
             # 5 minutes in the future. Defaults to current timestamp if not specified.
             attr_accessor :timestamp
+
             def initialize(event_name: nil, identifier: nil, payload: nil, timestamp: nil)
               @event_name = event_name
               @identifier = identifier
@@ -31,20 +32,22 @@ module Stripe
           end
           # List of meter events to include in the request.
           attr_accessor :events
+
           def initialize(events: nil)
             @events = events
           end
         end
+
         # Creates meter events. Events are processed asynchronously, including validation. Requires a meter event session for authentication. Supports up to 10,000 requests per second in livemode. For even higher rate-limits, contact sales.
         #
         # ** raises TemporarySessionExpiredError
         def create(params = {}, opts = {})
           request(
             method: :post,
-            path: '/v2/billing/meter_event_stream',
+            path: "/v2/billing/meter_event_stream",
             params: params,
             opts: opts,
-            base_address: :meter_events,
+            base_address: :meter_events
           )
         end
       end

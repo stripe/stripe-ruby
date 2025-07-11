@@ -11,6 +11,7 @@ module Stripe
             attr_accessor :payments
             # List of transfers status to filter by.
             attr_accessor :transfers
+
             def initialize(payments: nil, transfers: nil)
               @payments = payments
               @transfers = transfers
@@ -20,14 +21,17 @@ module Stripe
           attr_accessor :limit
           # Usage status filter.
           attr_accessor :usage_status
+
           def initialize(limit: nil, usage_status: nil)
             @limit = limit
             @usage_status = usage_status
           end
         end
+
         class RetrieveParams < Stripe::RequestParams; end
         class ArchiveParams < Stripe::RequestParams; end
         class UnarchiveParams < Stripe::RequestParams; end
+
         # Archive a PayoutMethod object. Archived objects cannot be used as payout methods
         # and will not appear in the payout method list.
         #
@@ -36,10 +40,10 @@ module Stripe
         def archive(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format('/v2/money_management/payout_methods/%<id>s/archive', {:id => CGI.escape(id)}),
+            path: format("/v2/money_management/payout_methods/%<id>s/archive", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -47,10 +51,10 @@ module Stripe
         def list(params = {}, opts = {})
           request(
             method: :get,
-            path: '/v2/money_management/payout_methods',
+            path: "/v2/money_management/payout_methods",
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -60,10 +64,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format('/v2/money_management/payout_methods/%<id>s', {:id => CGI.escape(id)}),
+            path: format("/v2/money_management/payout_methods/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -74,10 +78,10 @@ module Stripe
         def unarchive(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format('/v2/money_management/payout_methods/%<id>s/unarchive', {:id => CGI.escape(id)}),
+            path: format("/v2/money_management/payout_methods/%<id>s/unarchive", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
       end

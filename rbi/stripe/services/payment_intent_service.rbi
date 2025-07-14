@@ -13163,172 +13163,6 @@ module Stripe
       ); end
     end
     class IncrementAuthorizationParams < Stripe::RequestParams
-      class AmountDetails < Stripe::RequestParams
-        class LineItem < Stripe::RequestParams
-          class PaymentMethodOptions < Stripe::RequestParams
-            class Card < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class CardPresent < Stripe::RequestParams
-              # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :commodity_code
-              sig { params(commodity_code: T.nilable(String)).void }
-              def initialize(commodity_code: nil); end
-            end
-            class Klarna < Stripe::RequestParams
-              # URL to an image for the product. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :image_url
-              # URL to the product page. Max length, 4096 characters.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :product_url
-              # Reference for the subscription this line item is for.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :subscription_reference
-              sig {
-                params(image_url: T.nilable(String), product_url: T.nilable(String), subscription_reference: T.nilable(String)).void
-               }
-              def initialize(image_url: nil, product_url: nil, subscription_reference: nil); end
-            end
-            class Paypal < Stripe::RequestParams
-              # Type of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :category
-              # Description of the line item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :description
-              # The Stripe account ID of the connected account that sells the item.
-              sig { returns(T.nilable(String)) }
-              attr_accessor :sold_by
-              sig {
-                params(category: T.nilable(String), description: T.nilable(String), sold_by: T.nilable(String)).void
-               }
-              def initialize(category: nil, description: nil, sold_by: nil); end
-            end
-            # This sub-hash contains line item details that are specific to `card` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card))
-             }
-            attr_accessor :card
-            # This sub-hash contains line item details that are specific to `card_present` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent))
-             }
-            attr_accessor :card_present
-            # This sub-hash contains line item details that are specific to `klarna` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna))
-             }
-            attr_accessor :klarna
-            # This sub-hash contains line item details that are specific to `paypal` payment method."
-            sig {
-              returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal))
-             }
-            attr_accessor :paypal
-            sig {
-              params(card: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Klarna), paypal: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Paypal)).void
-             }
-            def initialize(card: nil, card_present: nil, klarna: nil, paypal: nil); end
-          end
-          class Tax < Stripe::RequestParams
-            # The total tax on an item. Non-negative integer.
-            sig { returns(Integer) }
-            attr_accessor :total_tax_amount
-            sig { params(total_tax_amount: Integer).void }
-            def initialize(total_tax_amount: nil); end
-          end
-          # The amount an item was discounted for. Positive integer.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :discount_amount
-          # Payment method-specific information for line items.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions))
-           }
-          attr_accessor :payment_method_options
-          # Unique identifier of the product. At most 12 characters long.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :product_code
-          # Name of the product. At most 100 characters long.
-          sig { returns(String) }
-          attr_accessor :product_name
-          # Number of items of the product. Positive integer.
-          sig { returns(Integer) }
-          attr_accessor :quantity
-          # Contains information about the tax on the item.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::Tax))
-           }
-          attr_accessor :tax
-          # Cost of the product. Non-negative integer.
-          sig { returns(Integer) }
-          attr_accessor :unit_cost
-          # A unit of measure for the line item, such as gallons, feet, meters, etc.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :unit_of_measure
-          sig {
-            params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
-           }
-          def initialize(
-            discount_amount: nil,
-            payment_method_options: nil,
-            product_code: nil,
-            product_name: nil,
-            quantity: nil,
-            tax: nil,
-            unit_cost: nil,
-            unit_of_measure: nil
-          ); end
-        end
-        class Shipping < Stripe::RequestParams
-          # Portion of the amount that is for shipping.
-          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-          attr_accessor :amount
-          # The postal code that represents the shipping source.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :from_postal_code
-          # The postal code that represents the shipping destination.
-          sig { returns(T.nilable(T.nilable(String))) }
-          attr_accessor :to_postal_code
-          sig {
-            params(amount: T.nilable(T.nilable(T.any(String, Integer))), from_postal_code: T.nilable(T.nilable(String)), to_postal_code: T.nilable(T.nilable(String))).void
-           }
-          def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
-        end
-        class Tax < Stripe::RequestParams
-          # Total portion of the amount that is for tax.
-          sig { returns(Integer) }
-          attr_accessor :total_tax_amount
-          sig { params(total_tax_amount: Integer).void }
-          def initialize(total_tax_amount: nil); end
-        end
-        # The amount an item was discounted for.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
-        attr_accessor :discount_amount
-        # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem]))))
-         }
-        attr_accessor :line_items
-        # Contains information about the shipping portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::Shipping))))
-         }
-        attr_accessor :shipping
-        # Contains information about the tax portion of the amount.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::Tax))))
-         }
-        attr_accessor :tax
-        sig {
-          params(discount_amount: T.nilable(T.nilable(T.any(String, Integer))), line_items: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::LineItem]))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::Shipping))), tax: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails::Tax)))).void
-         }
-        def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
-      end
       class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
@@ -13358,18 +13192,6 @@ module Stripe
          }
         def initialize(inputs: nil); end
       end
-      class PaymentDetails < Stripe::RequestParams
-        # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
-        sig { returns(T.nilable(T.nilable(String))) }
-        attr_accessor :customer_reference
-        # A unique value assigned by the business to identify the transaction.
-        sig { returns(T.nilable(T.nilable(String))) }
-        attr_accessor :order_reference
-        sig {
-          params(customer_reference: T.nilable(T.nilable(String)), order_reference: T.nilable(T.nilable(String))).void
-         }
-        def initialize(customer_reference: nil, order_reference: nil); end
-      end
       class PaymentMethodOptions < Stripe::RequestParams
         class Card < Stripe::RequestParams
           # Request partial authorization on this PaymentIntent.
@@ -13398,11 +13220,6 @@ module Stripe
       # The updated total amount that you intend to collect from the cardholder. This amount must be greater than the currently authorized amount.
       sig { returns(Integer) }
       attr_accessor :amount
-      # Provides industry-specific information about the amount.
-      sig {
-        returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails))
-       }
-      attr_accessor :amount_details
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :application_fee_amount
@@ -13420,11 +13237,6 @@ module Stripe
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
-      # Provides industry-specific information about the charge.
-      sig {
-        returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::PaymentDetails))
-       }
-      attr_accessor :payment_details
       # Payment method-specific configuration for this PaymentIntent.
       sig {
         returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::PaymentMethodOptions))
@@ -13440,17 +13252,15 @@ module Stripe
        }
       attr_accessor :transfer_data
       sig {
-        params(amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AmountDetails), application_fee_amount: T.nilable(Integer), description: T.nilable(String), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::Hooks), metadata: T.nilable(T::Hash[String, String]), payment_details: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::PaymentDetails), payment_method_options: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::PaymentMethodOptions), statement_descriptor: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::TransferData)).void
+        params(amount: Integer, application_fee_amount: T.nilable(Integer), description: T.nilable(String), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::Hooks), metadata: T.nilable(T::Hash[String, String]), payment_method_options: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::PaymentMethodOptions), statement_descriptor: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::TransferData)).void
        }
       def initialize(
         amount: nil,
-        amount_details: nil,
         application_fee_amount: nil,
         description: nil,
         expand: nil,
         hooks: nil,
         metadata: nil,
-        payment_details: nil,
         payment_method_options: nil,
         statement_descriptor: nil,
         transfer_data: nil

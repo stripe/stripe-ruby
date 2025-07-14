@@ -1048,7 +1048,7 @@ module Stripe
       attr_accessor :auto_advance
       # Settings for automatic tax lookup for this invoice.
       attr_accessor :automatic_tax
-      # The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
+      # The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state. To turn off automatic finalization, set `auto_advance` to false.
       attr_accessor :automatically_finalizes_at
       # Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices.
       attr_accessor :collection_method
@@ -1791,7 +1791,7 @@ module Stripe
       attr_accessor :auto_advance
       # Settings for automatic tax lookup for this invoice.
       attr_accessor :automatic_tax
-      # The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
+      # The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state.
       attr_accessor :automatically_finalizes_at
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`.
       attr_accessor :collection_method

@@ -738,6 +738,18 @@ module Stripe
           end
         end
 
+        class Duration < Stripe::RequestParams
+          # Specifies phase duration. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The multiplier applied to the interval.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
@@ -971,6 +983,8 @@ module Stripe
         attr_accessor :description
         # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         attr_accessor :discounts
+        # The number of intervals the phase should last. If set, `end_date` must not be set.
+        attr_accessor :duration
         # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
         attr_accessor :end_date
         # All invoices will be billed using the specified settings.
@@ -1010,6 +1024,7 @@ module Stripe
           default_tax_rates: nil,
           description: nil,
           discounts: nil,
+          duration: nil,
           end_date: nil,
           invoice_settings: nil,
           items: nil,
@@ -1035,6 +1050,7 @@ module Stripe
           @default_tax_rates = default_tax_rates
           @description = description
           @discounts = discounts
+          @duration = duration
           @end_date = end_date
           @invoice_settings = invoice_settings
           @items = items
@@ -1405,6 +1421,18 @@ module Stripe
           end
         end
 
+        class Duration < Stripe::RequestParams
+          # Specifies phase duration. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The multiplier applied to the interval.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
@@ -1638,6 +1666,8 @@ module Stripe
         attr_accessor :description
         # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         attr_accessor :discounts
+        # The number of intervals the phase should last. If set, `end_date` must not be set.
+        attr_accessor :duration
         # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
         attr_accessor :end_date
         # All invoices will be billed using the specified settings.
@@ -1679,6 +1709,7 @@ module Stripe
           default_tax_rates: nil,
           description: nil,
           discounts: nil,
+          duration: nil,
           end_date: nil,
           invoice_settings: nil,
           items: nil,
@@ -1705,6 +1736,7 @@ module Stripe
           @default_tax_rates = default_tax_rates
           @description = description
           @discounts = discounts
+          @duration = duration
           @end_date = end_date
           @invoice_settings = invoice_settings
           @items = items

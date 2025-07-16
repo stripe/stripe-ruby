@@ -66,10 +66,10 @@ module Stripe
 
       class SettlementTiming < Stripe::RequestParams
         # The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](/connect/manage-payout-schedule).
-        attr_accessor :delay_days
+        attr_accessor :delay_days_override
 
-        def initialize(delay_days: nil)
-          @delay_days = delay_days
+        def initialize(delay_days_override: nil)
+          @delay_days_override = delay_days_override
         end
       end
       # A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](/connect/account-balances).

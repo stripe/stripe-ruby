@@ -355,7 +355,7 @@ module Stripe
         class AdjustableQuantity < Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative Integer.
           attr_accessor :enabled
-          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999999.
           attr_accessor :maximum
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
           attr_accessor :minimum
@@ -1096,7 +1096,7 @@ module Stripe
         class AdjustableQuantity < Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative Integer.
           attr_accessor :enabled
-          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999999.
           attr_accessor :maximum
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
           attr_accessor :minimum

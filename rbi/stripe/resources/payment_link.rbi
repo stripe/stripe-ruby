@@ -813,7 +813,7 @@ module Stripe
           # Set to true if the quantity can be adjusted to any non-negative Integer.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999999.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :maximum
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
@@ -906,7 +906,7 @@ module Stripe
          }
         attr_accessor :adjustable_quantity
         # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :price
         # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         sig { returns(T.nilable(::Stripe::PaymentLink::CreateParams::LineItem::PriceData)) }
@@ -915,7 +915,7 @@ module Stripe
         sig { returns(Integer) }
         attr_accessor :quantity
         sig {
-          params(adjustable_quantity: T.nilable(::Stripe::PaymentLink::CreateParams::LineItem::AdjustableQuantity), price: String, price_data: T.nilable(::Stripe::PaymentLink::CreateParams::LineItem::PriceData), quantity: Integer).void
+          params(adjustable_quantity: T.nilable(::Stripe::PaymentLink::CreateParams::LineItem::AdjustableQuantity), price: T.nilable(String), price_data: T.nilable(::Stripe::PaymentLink::CreateParams::LineItem::PriceData), quantity: Integer).void
          }
         def initialize(adjustable_quantity: nil, price: nil, price_data: nil, quantity: nil); end
       end
@@ -1560,7 +1560,7 @@ module Stripe
           # Set to true if the quantity can be adjusted to any non-negative Integer.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999999.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :maximum
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.

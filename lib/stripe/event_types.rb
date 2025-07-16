@@ -82,6 +82,7 @@ module Stripe
         V2MoneyManagementOutboundTransferReturnedEvent,
         V2MoneyManagementOutboundTransferUpdatedEvent.lookup_type =>
         V2MoneyManagementOutboundTransferUpdatedEvent,
+        V2MoneyManagementPayoutMethodUpdatedEvent.lookup_type => V2MoneyManagementPayoutMethodUpdatedEvent,
         V2MoneyManagementReceivedCreditAvailableEvent.lookup_type =>
         V2MoneyManagementReceivedCreditAvailableEvent,
         V2MoneyManagementReceivedCreditFailedEvent.lookup_type =>
@@ -101,7 +102,6 @@ module Stripe
         V2MoneyManagementReceivedDebitUpdatedEvent,
         V2MoneyManagementTransactionCreatedEvent.lookup_type => V2MoneyManagementTransactionCreatedEvent,
         V2MoneyManagementTransactionUpdatedEvent.lookup_type => V2MoneyManagementTransactionUpdatedEvent,
-        V2OffSessionPaymentRequiresCaptureEvent.lookup_type => V2OffSessionPaymentRequiresCaptureEvent,
         V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent.lookup_type =>
         V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
         V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent.lookup_type =>

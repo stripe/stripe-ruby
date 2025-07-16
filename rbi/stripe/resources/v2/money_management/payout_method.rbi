@@ -21,6 +21,9 @@ module Stripe
           # cannot be used as payout methods and will not appear in the payout method list.
           sig { returns(T::Boolean) }
           attr_reader :archived
+          # The type of bank account (checking or savings).
+          sig { returns(String) }
+          attr_reader :bank_account_type
           # The name of the bank this bank account is in. This field is populated automatically by Stripe.
           sig { returns(String) }
           attr_reader :bank_name

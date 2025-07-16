@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Off session payment canceled event definition.
+  # Sent immediately following a user's call to the Off-Session Payments cancel endpoint.
   class V2PaymentsOffSessionPaymentCanceledEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.payments.off_session_payment.canceled"

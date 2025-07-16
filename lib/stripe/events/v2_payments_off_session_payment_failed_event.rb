@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Off session payment failed event definition.
+  # Sent after a failed authorization if there are no retries remaining, or if the failure is unretryable.
   class V2PaymentsOffSessionPaymentFailedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.payments.off_session_payment.failed"

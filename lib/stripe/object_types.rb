@@ -34,6 +34,8 @@ module Stripe
         Billing::MeterEvent.object_name => Billing::MeterEvent,
         Billing::MeterEventAdjustment.object_name => Billing::MeterEventAdjustment,
         Billing::MeterEventSummary.object_name => Billing::MeterEventSummary,
+        Billing::MeterUsage.object_name => Billing::MeterUsage,
+        Billing::MeterUsageRow.object_name => Billing::MeterUsageRow,
         BillingPortal::Configuration.object_name => BillingPortal::Configuration,
         BillingPortal::Session.object_name => BillingPortal::Session,
         Capability.object_name => Capability,

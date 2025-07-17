@@ -158,6 +158,7 @@ module Stripe
         Terminal::Configuration.object_name => Terminal::Configuration,
         Terminal::ConnectionToken.object_name => Terminal::ConnectionToken,
         Terminal::Location.object_name => Terminal::Location,
+        Terminal::OnboardingLink.object_name => Terminal::OnboardingLink,
         Terminal::Reader.object_name => Terminal::Reader,
         Terminal::ReaderCollectedData.object_name => Terminal::ReaderCollectedData,
         TestHelpers::TestClock.object_name => TestHelpers::TestClock,

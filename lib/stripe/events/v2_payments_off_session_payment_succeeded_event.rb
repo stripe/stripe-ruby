@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Off session payment succeeded event definition.
+  # Sent immediately after a successful authorization.
   class V2PaymentsOffSessionPaymentSucceededEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.payments.off_session_payment.succeeded"

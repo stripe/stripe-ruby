@@ -5,17 +5,21 @@ module Stripe
   module Tax
     class CalculationService < StripeService
       attr_reader :line_items
+
       def initialize(requestor)
-        super(requestor)
+        super
         @line_items = Stripe::Tax::CalculationLineItemService.new(@requestor)
       end
+
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         def initialize(expand: nil)
           @expand = expand
         end
       end
+
       class CreateParams < Stripe::RequestParams
         class CustomerDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
@@ -31,6 +35,7 @@ module Stripe
             attr_accessor :postal_code
             # State, county, province, or region. We recommend sending [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code value when possible.
             attr_accessor :state
+
             def initialize(
               city: nil,
               country: nil,
@@ -47,11 +52,13 @@ module Stripe
               @state = state
             end
           end
+
           class TaxId < Stripe::RequestParams
             # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
             attr_accessor :type
             # Value of the tax ID.
             attr_accessor :value
+
             def initialize(type: nil, value: nil)
               @type = type
               @value = value
@@ -67,6 +74,7 @@ module Stripe
           attr_accessor :tax_ids
           # Overrides the tax calculation result to allow you to not collect tax from your customer. Use this if you've manually checked your customer's tax exemptions. Prefer providing the customer's `tax_ids` where possible, which automatically determines whether `reverse_charge` applies.
           attr_accessor :taxability_override
+
           def initialize(
             address: nil,
             address_source: nil,
@@ -81,6 +89,7 @@ module Stripe
             @taxability_override = taxability_override
           end
         end
+
         class LineItem < Stripe::RequestParams
           # A positive integer representing the line item's total price in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           # If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
@@ -97,6 +106,7 @@ module Stripe
           attr_accessor :tax_behavior
           # A [tax code](https://stripe.com/docs/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
           attr_accessor :tax_code
+
           def initialize(
             amount: nil,
             metadata: nil,
@@ -115,6 +125,7 @@ module Stripe
             @tax_code = tax_code
           end
         end
+
         class ShipFromDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -129,6 +140,7 @@ module Stripe
             attr_accessor :postal_code
             # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
             attr_accessor :state
+
             def initialize(
               city: nil,
               country: nil,
@@ -147,10 +159,12 @@ module Stripe
           end
           # The address from which the goods are being shipped from.
           attr_accessor :address
+
           def initialize(address: nil)
             @address = address
           end
         end
+
         class ShippingCost < Stripe::RequestParams
           # A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
           attr_accessor :amount
@@ -160,6 +174,7 @@ module Stripe
           attr_accessor :tax_behavior
           # The [tax code](https://stripe.com/docs/tax/tax-categories) used to calculate tax on shipping. If not provided, the default shipping tax code from your [Tax Settings](https://dashboard.stripe.com/settings/tax) is used.
           attr_accessor :tax_code
+
           def initialize(amount: nil, shipping_rate: nil, tax_behavior: nil, tax_code: nil)
             @amount = amount
             @shipping_rate = shipping_rate
@@ -183,6 +198,7 @@ module Stripe
         attr_accessor :shipping_cost
         # Timestamp of date at which the tax rules and rates in effect applies for the calculation. Measured in seconds since the Unix epoch. Can be up to 48 hours in the past, and up to 48 hours in the future.
         attr_accessor :tax_date
+
         def initialize(
           currency: nil,
           customer: nil,
@@ -203,14 +219,15 @@ module Stripe
           @tax_date = tax_date
         end
       end
+
       # Calculates tax based on the input and returns a Tax Calculation object.
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: '/v1/tax/calculations',
+          path: "/v1/tax/calculations",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -218,10 +235,10 @@ module Stripe
       def retrieve(calculation, params = {}, opts = {})
         request(
           method: :get,
-          path: format('/v1/tax/calculations/%<calculation>s', {:calculation => CGI.escape(calculation)}),
+          path: format("/v1/tax/calculations/%<calculation>s", { calculation: CGI.escape(calculation) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

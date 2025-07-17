@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Off session payment created event definition.
+  # Sent immediately following a user's call to the Off-Session Payments create endpoint.
   class V2PaymentsOffSessionPaymentCreatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.payments.off_session_payment.created"

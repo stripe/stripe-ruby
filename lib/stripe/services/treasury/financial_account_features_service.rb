@@ -8,23 +8,28 @@ module Stripe
         class CardIssuing < Stripe::RequestParams
           # Whether the FinancialAccount should have the Feature.
           attr_accessor :requested
+
           def initialize(requested: nil)
             @requested = requested
           end
         end
+
         class DepositInsurance < Stripe::RequestParams
           # Whether the FinancialAccount should have the Feature.
           attr_accessor :requested
+
           def initialize(requested: nil)
             @requested = requested
           end
         end
+
         class FinancialAddresses < Stripe::RequestParams
           class Aba < Stripe::RequestParams
             # Requested bank partner
             attr_accessor :bank
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
+
             def initialize(bank: nil, requested: nil)
               @bank = bank
               @requested = requested
@@ -32,42 +37,52 @@ module Stripe
           end
           # Adds an ABA FinancialAddress to the FinancialAccount.
           attr_accessor :aba
+
           def initialize(aba: nil)
             @aba = aba
           end
         end
+
         class InboundTransfers < Stripe::RequestParams
           class Ach < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
+
             def initialize(requested: nil)
               @requested = requested
             end
           end
           # Enables ACH Debits via the InboundTransfers API.
           attr_accessor :ach
+
           def initialize(ach: nil)
             @ach = ach
           end
         end
+
         class IntraStripeFlows < Stripe::RequestParams
           # Whether the FinancialAccount should have the Feature.
           attr_accessor :requested
+
           def initialize(requested: nil)
             @requested = requested
           end
         end
+
         class OutboundPayments < Stripe::RequestParams
           class Ach < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
+
             def initialize(requested: nil)
               @requested = requested
             end
           end
+
           class UsDomesticWire < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
+
             def initialize(requested: nil)
               @requested = requested
             end
@@ -76,22 +91,27 @@ module Stripe
           attr_accessor :ach
           # Enables US domestic wire transfers via the OutboundPayments API.
           attr_accessor :us_domestic_wire
+
           def initialize(ach: nil, us_domestic_wire: nil)
             @ach = ach
             @us_domestic_wire = us_domestic_wire
           end
         end
+
         class OutboundTransfers < Stripe::RequestParams
           class Ach < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
+
             def initialize(requested: nil)
               @requested = requested
             end
           end
+
           class UsDomesticWire < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
+
             def initialize(requested: nil)
               @requested = requested
             end
@@ -100,6 +120,7 @@ module Stripe
           attr_accessor :ach
           # Enables US domestic wire transfers via the OutboundTransfers API.
           attr_accessor :us_domestic_wire
+
           def initialize(ach: nil, us_domestic_wire: nil)
             @ach = ach
             @us_domestic_wire = us_domestic_wire
@@ -121,6 +142,7 @@ module Stripe
         attr_accessor :outbound_payments
         # Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
         attr_accessor :outbound_transfers
+
         def initialize(
           card_issuing: nil,
           deposit_insurance: nil,
@@ -141,21 +163,24 @@ module Stripe
           @outbound_transfers = outbound_transfers
         end
       end
+
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         def initialize(expand: nil)
           @expand = expand
         end
       end
+
       # Retrieves Features information associated with the FinancialAccount.
       def retrieve(financial_account, params = {}, opts = {})
         request(
           method: :get,
-          path: format('/v1/treasury/financial_accounts/%<financial_account>s/features', {:financial_account => CGI.escape(financial_account)}),
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -163,10 +188,10 @@ module Stripe
       def update(financial_account, params = {}, opts = {})
         request(
           method: :post,
-          path: format('/v1/treasury/financial_accounts/%<financial_account>s/features', {:financial_account => CGI.escape(financial_account)}),
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

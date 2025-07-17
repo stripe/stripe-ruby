@@ -5,85 +5,102 @@
 module Stripe
   module V2
     module Payments
-      # Off-session payment resource.
+      # OffSessionPayment resource.
       class OffSessionPayment < APIResource
         class RetryDetails < Stripe::StripeObject
           # Number of authorization attempts so far.
           sig { returns(Integer) }
           attr_reader :attempts
-          # How you want Stripe to retry the payment.
+          # Indicates the strategy for how you want Stripe to retry the payment.
           sig { returns(String) }
           attr_reader :retry_strategy
         end
         class TransferData < Stripe::StripeObject
-          # Amount in minor units that you want to transfer.
+          # The amount transferred to the destination account. This transfer will occur
+          # automatically after the payment succeeds. If no amount is specified, by default
+          # the entire payment amount is transferred to the destination account. The amount
+          # must be less than or equal to the
+          # [amount_requested](https://docs.corp.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
+          # and must be a positive integer representing how much to transfer in the smallest
+          # currency unit (e.g., 100 cents to charge $1.00).
           sig { returns(T.nilable(Integer)) }
           attr_reader :amount
-          # ID of the connected account where you want money to go.
+          # The account (if any) that the payment is attributed to for tax reporting, and
+          # where funds from the payment are transferred to after payment success.
           sig { returns(String) }
           attr_reader :destination
         end
-        # The amount you requested to be collected on the OSP upon creation.
+        # The “presentment amount” to be collected from the customer.
         sig { returns(Stripe::V2::Amount) }
         attr_reader :amount_requested
-        # The frequency of the underlying payment that this OSP represents.
+        # The frequency of the underlying payment.
         sig { returns(String) }
         attr_reader :cadence
-        # ID of owning compartment.
+        # ID of the owning compartment.
         sig { returns(String) }
         attr_reader :compartment_id
-        # Timestamp of creation.
+        # Creation time of the OffSessionPayment. Represented as a RFC 3339 date & time UTC
+        # value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
         attr_reader :created
-        # Customer owning the supplied payment method.
+        # ID of the Customer to which this OffSessionPayment belongs.
         sig { returns(String) }
         attr_reader :customer
-        # Reason why the OSP failed.
+        # The reason why the OffSessionPayment failed.
         sig { returns(T.nilable(String)) }
         attr_reader :failure_reason
-        # ID of the OSP.
+        # Unique identifier for the object..
         sig { returns(String) }
         attr_reader :id
-        # Last error returned by the financial partner for a failed authorization.
+        # The payment error encountered in the previous attempt to authorize the payment.
         sig { returns(T.nilable(String)) }
         attr_reader :last_authorization_attempt_error
         # Payment attempt record for the latest attempt, if one exists.
         sig { returns(T.nilable(String)) }
         attr_reader :latest_payment_attempt_record
-        # True if the txn is livemode, false otherwise.
+        # Has the value true if the object exists in live mode or the value false if the object exists in test mode.
         sig { returns(T::Boolean) }
         attr_reader :livemode
-        # Metadata you provided.
+        # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
+        # attach to an object. This can be useful for storing additional information about
+        # the object in a structured format. Learn more about
+        # [storing information in metadata](https://docs.corp.stripe.com/payments/payment-intents#storing-information-in-metadata).
         sig { returns(T::Hash[String, String]) }
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         attr_reader :object
-        # OBO, same as on the PI.
+        # The account (if any) for which the funds of the OffSessionPayment are intended.
         sig { returns(T.nilable(String)) }
         attr_reader :on_behalf_of
-        # ID of payment method.
+        # ID of the payment method used in this OffSessionPayment.
         sig { returns(String) }
         attr_reader :payment_method
-        # Payment record associated with the OSP. consistent across attempts.
+        # Payment record associated with the OffSessionPayment.
         sig { returns(T.nilable(String)) }
         attr_reader :payment_record
-        # Details about the OSP retries.
+        # Details about the OffSessionPayment retries.
         sig { returns(RetryDetails) }
         attr_reader :retry_details
-        # Statement descriptor you provided.
+        # Text that appears on the customer’s statement as the statement descriptor for a
+        # non-card charge. This value overrides the account’s default statement descriptor.
+        # For information about requirements, including the 22-character limit, see the
+        # [Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         sig { returns(T.nilable(String)) }
         attr_reader :statement_descriptor
-        # Statement descriptor suffix you provided, similar to that on the PI.
+        # Provides information about a card charge. Concatenated to the account’s
+        # [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
+        # to form the complete statement descriptor that appears on the customer’s statement.
         sig { returns(T.nilable(String)) }
         attr_reader :statement_descriptor_suffix
-        # Status of the OSP.
+        # Status of this OffSessionPayment, one of `pending`, `pending_retry`, `processing`,
+        # `failed`, `canceled`, `requires_capture`, or `succeeded`.
         sig { returns(String) }
         attr_reader :status
-        # Test clock to be used to advance the retry attempts.
+        # Test clock that can be used to advance the retry attempts in a sandbox.
         sig { returns(T.nilable(String)) }
         attr_reader :test_clock
-        # Instructions for the transfer to be made with this OSP after successful money movement.
+        # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
         sig { returns(T.nilable(TransferData)) }
         attr_reader :transfer_data
       end

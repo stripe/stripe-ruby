@@ -17,16 +17,16 @@ module Stripe
           # How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
           sig { returns(T.nilable(String)) }
           attr_accessor :interval
-          # The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :monthly_anchor
-          # The day of the week when available funds are paid out (required and applicable only if `interval` is `weekly`.)
-          sig { returns(T.nilable(String)) }
-          attr_accessor :weekly_anchor
+          # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_accessor :monthly_payout_days
+          # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :weekly_payout_days
           sig {
-            params(interval: T.nilable(String), monthly_anchor: T.nilable(Integer), weekly_anchor: T.nilable(String)).void
+            params(interval: T.nilable(String), monthly_payout_days: T.nilable(T::Array[Integer]), weekly_payout_days: T.nilable(T::Array[String])).void
            }
-          def initialize(interval: nil, monthly_anchor: nil, weekly_anchor: nil); end
+          def initialize(interval: nil, monthly_payout_days: nil, weekly_payout_days: nil); end
         end
         # Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](/connect/bank-transfers#payout-information) documentation.
         sig {

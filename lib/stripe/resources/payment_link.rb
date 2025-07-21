@@ -166,6 +166,8 @@ module Stripe
         class RenderingOptions < Stripe::StripeObject
           # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
           attr_reader :amount_tax_display
+          # ID of the invoice rendering template to be used for the generated invoice.
+          attr_reader :template
         end
         # The account tax IDs associated with the invoice.
         attr_reader :account_tax_ids
@@ -588,9 +590,12 @@ module Stripe
           class RenderingOptions < Stripe::RequestParams
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             attr_accessor :amount_tax_display
+            # ID of the invoice rendering template to use for this invoice.
+            attr_accessor :template
 
-            def initialize(amount_tax_display: nil)
+            def initialize(amount_tax_display: nil, template: nil)
               @amount_tax_display = amount_tax_display
+              @template = template
             end
           end
           # The account tax IDs associated with the invoice.
@@ -1320,9 +1325,12 @@ module Stripe
           class RenderingOptions < Stripe::RequestParams
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             attr_accessor :amount_tax_display
+            # ID of the invoice rendering template to use for this invoice.
+            attr_accessor :template
 
-            def initialize(amount_tax_display: nil)
+            def initialize(amount_tax_display: nil, template: nil)
               @amount_tax_display = amount_tax_display
+              @template = template
             end
           end
           # The account tax IDs associated with the invoice.

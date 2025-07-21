@@ -20,9 +20,9 @@ module Stripe
         # How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
         attr_reader :interval
         # The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
-        attr_reader :monthly_anchor
-        # The day of the week funds will be paid out, of the style 'monday', 'tuesday', etc. Only shown if `interval` is weekly.
-        attr_reader :weekly_anchor
+        attr_reader :monthly_payout_days
+        # The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
+        attr_reader :weekly_payout_days
       end
       # Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation for details.
       attr_reader :schedule
@@ -42,15 +42,15 @@ module Stripe
         class Schedule < Stripe::RequestParams
           # How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
           attr_accessor :interval
-          # The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
-          attr_accessor :monthly_anchor
-          # The day of the week when available funds are paid out (required and applicable only if `interval` is `weekly`.)
-          attr_accessor :weekly_anchor
+          # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
+          attr_accessor :monthly_payout_days
+          # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
+          attr_accessor :weekly_payout_days
 
-          def initialize(interval: nil, monthly_anchor: nil, weekly_anchor: nil)
+          def initialize(interval: nil, monthly_payout_days: nil, weekly_payout_days: nil)
             @interval = interval
-            @monthly_anchor = monthly_anchor
-            @weekly_anchor = weekly_anchor
+            @monthly_payout_days = monthly_payout_days
+            @weekly_payout_days = weekly_payout_days
           end
         end
         # Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](/connect/bank-transfers#payout-information) documentation.

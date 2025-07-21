@@ -310,8 +310,13 @@ module Stripe
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
             attr_accessor :amount_tax_display
-            sig { params(amount_tax_display: T.nilable(T.nilable(T.any(String, String)))).void }
-            def initialize(amount_tax_display: nil); end
+            # ID of the invoice rendering template to use for this invoice.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :template
+            sig {
+              params(amount_tax_display: T.nilable(T.nilable(T.any(String, String))), template: T.nilable(String)).void
+             }
+            def initialize(amount_tax_display: nil, template: nil); end
           end
           # The account tax IDs associated with the invoice.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
@@ -1074,8 +1079,13 @@ module Stripe
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
             attr_accessor :amount_tax_display
-            sig { params(amount_tax_display: T.nilable(T.nilable(T.any(String, String)))).void }
-            def initialize(amount_tax_display: nil); end
+            # ID of the invoice rendering template to use for this invoice.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :template
+            sig {
+              params(amount_tax_display: T.nilable(T.nilable(T.any(String, String))), template: T.nilable(String)).void
+             }
+            def initialize(amount_tax_display: nil, template: nil); end
           end
           # The account tax IDs associated with the invoice.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }

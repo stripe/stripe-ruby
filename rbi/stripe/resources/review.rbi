@@ -45,7 +45,7 @@ module Stripe
     # The charge associated with this review.
     sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
     attr_reader :charge
-    # The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, or `canceled`.
+    # The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, `canceled`, `payment_never_settled`, or `acknowledged`.
     sig { returns(T.nilable(String)) }
     attr_reader :closed_reason
     # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -75,7 +75,7 @@ module Stripe
     # The PaymentIntent ID associated with this review, if one exists.
     sig { returns(T.any(String, Stripe::PaymentIntent)) }
     attr_reader :payment_intent
-    # The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, or `canceled`.
+    # The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, `canceled`, `payment_never_settled`, or `acknowledged`.
     sig { returns(String) }
     attr_reader :reason
     # Information related to the browsing session of the user who initiated the payment.

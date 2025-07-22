@@ -200,7 +200,7 @@ module Stripe
       end
       class SubscriptionData < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Attribute for param field type
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
           sig { returns(String) }
           attr_accessor :type
           sig { params(type: String).void }

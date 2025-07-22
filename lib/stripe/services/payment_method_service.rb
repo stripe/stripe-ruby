@@ -834,7 +834,7 @@ module Stripe
       )
     end
 
-    # Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
+    # Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
     def update(payment_method, params = {}, opts = {})
       request(
         method: :post,

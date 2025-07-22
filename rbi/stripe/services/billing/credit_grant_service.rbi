@@ -49,7 +49,7 @@ module Stripe
             returns(T.nilable(::Stripe::Billing::CreditGrantService::CreateParams::Amount::Monetary))
            }
           attr_accessor :monetary
-          # Specify the type of this amount. We currently only support `monetary` billing credits.
+          # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
           attr_accessor :type
           sig {

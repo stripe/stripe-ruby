@@ -178,7 +178,7 @@ module Stripe
               end
               # The authorized amount
               attr_reader :amount_authorized
-              # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+              # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
               attr_reader :brand
               # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
               attr_reader :brand_product
@@ -360,7 +360,7 @@ module Stripe
           # Attribute for field visa_checkout
           attr_reader :visa_checkout
         end
-        # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # Checks on Card address and CVC if provided.
         attr_reader :checks
@@ -417,7 +417,7 @@ module Stripe
           # The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
           attr_reader :type
         end
-        # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
         attr_reader :brand_product

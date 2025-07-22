@@ -910,7 +910,7 @@ module Stripe
                }
               def initialize(enabled: nil, plan: nil); end
             end
-            # Installment configuration for payments attempted on this invoice (Mexico Only).
+            # Installment configuration for payments attempted on this invoice.
             #
             # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
             sig {
@@ -1277,7 +1277,7 @@ module Stripe
       # Settings for automatic tax lookup for this invoice.
       sig { returns(T.nilable(::Stripe::Invoice::UpdateParams::AutomaticTax)) }
       attr_accessor :automatic_tax
-      # The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
+      # The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state. To turn off automatic finalization, set `auto_advance` to false.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :automatically_finalizes_at
       # Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices.
@@ -1602,7 +1602,7 @@ module Stripe
                }
               def initialize(enabled: nil, plan: nil); end
             end
-            # Installment configuration for payments attempted on this invoice (Mexico Only).
+            # Installment configuration for payments attempted on this invoice.
             #
             # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
             sig {
@@ -1963,13 +1963,13 @@ module Stripe
       # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :application_fee_amount
-      # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+      # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :auto_advance
       # Settings for automatic tax lookup for this invoice.
       sig { returns(T.nilable(::Stripe::Invoice::CreateParams::AutomaticTax)) }
       attr_accessor :automatic_tax
-      # The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
+      # The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :automatically_finalizes_at
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`.
@@ -2982,7 +2982,7 @@ module Stripe
       end
       class ScheduleDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Attribute for param field type
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
           sig { returns(String) }
           attr_accessor :type
           sig { params(type: String).void }
@@ -3112,6 +3112,16 @@ module Stripe
               params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
              }
             def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+          end
+          class Duration < Stripe::RequestParams
+            # Specifies phase duration. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            attr_accessor :interval
+            # The multiplier applied to the interval.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :interval_count
+            sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+            def initialize(interval: nil, interval_count: nil); end
           end
           class InvoiceSettings < Stripe::RequestParams
             class Issuer < Stripe::RequestParams
@@ -3301,6 +3311,11 @@ module Stripe
             returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Discount]))))
            }
           attr_accessor :discounts
+          # The number of intervals the phase should last. If set, `end_date` must not be set.
+          sig {
+            returns(T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Duration))
+           }
+          attr_accessor :duration
           # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
           sig { returns(T.nilable(T.any(Integer, String))) }
           attr_accessor :end_date
@@ -3314,7 +3329,7 @@ module Stripe
             returns(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item])
            }
           attr_accessor :items
-          # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
+          # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :iterations
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -3341,7 +3356,7 @@ module Stripe
           sig { returns(T.nilable(T.any(Integer, String))) }
           attr_accessor :trial_end
           sig {
-            params(add_invoice_items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds))), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Discount]))), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_end: T.nilable(T.any(Integer, String))).void
+            params(add_invoice_items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds))), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Discount]))), duration: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_end: T.nilable(T.any(Integer, String))).void
            }
           def initialize(
             add_invoice_items: nil,
@@ -3355,6 +3370,7 @@ module Stripe
             default_tax_rates: nil,
             description: nil,
             discounts: nil,
+            duration: nil,
             end_date: nil,
             invoice_settings: nil,
             items: nil,
@@ -3396,7 +3412,7 @@ module Stripe
       end
       class SubscriptionDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Attribute for param field type
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
           sig { returns(String) }
           attr_accessor :type
           sig { params(type: String).void }
@@ -3533,7 +3549,7 @@ module Stripe
          }
         attr_accessor :billing_mode
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+        sig { returns(T.nilable(T.nilable(T.any(String, T.any(Integer, String))))) }
         attr_accessor :cancel_at
         # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         sig { returns(T.nilable(T::Boolean)) }
@@ -3565,7 +3581,7 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :trial_end
         sig {
-          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::BillingMode), cancel_at: T.nilable(T.nilable(T.any(String, Integer))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::BillingMode), cancel_at: T.nilable(T.nilable(T.any(String, T.any(Integer, String)))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
          }
         def initialize(
           billing_cycle_anchor: nil,

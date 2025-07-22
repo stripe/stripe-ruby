@@ -579,7 +579,7 @@ module Stripe
                 @plan = plan
               end
             end
-            # Installment configuration for payments attempted on this invoice (Mexico Only).
+            # Installment configuration for payments attempted on this invoice.
             #
             # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
             attr_accessor :installments
@@ -904,7 +904,7 @@ module Stripe
       attr_accessor :auto_advance
       # Settings for automatic tax lookup for this invoice.
       attr_accessor :automatic_tax
-      # The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
+      # The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state. To turn off automatic finalization, set `auto_advance` to false.
       attr_accessor :automatically_finalizes_at
       # Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices.
       attr_accessor :collection_method
@@ -1226,7 +1226,7 @@ module Stripe
                 @plan = plan
               end
             end
-            # Installment configuration for payments attempted on this invoice (Mexico Only).
+            # Installment configuration for payments attempted on this invoice.
             #
             # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
             attr_accessor :installments
@@ -1547,11 +1547,11 @@ module Stripe
       attr_accessor :account_tax_ids
       # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
       attr_accessor :application_fee_amount
-      # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+      # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
       attr_accessor :auto_advance
       # Settings for automatic tax lookup for this invoice.
       attr_accessor :automatic_tax
-      # The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
+      # The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state.
       attr_accessor :automatically_finalizes_at
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`.
       attr_accessor :collection_method
@@ -2547,7 +2547,7 @@ module Stripe
 
       class ScheduleDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Attribute for param field type
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
           attr_accessor :type
 
           def initialize(type: nil)
@@ -2671,6 +2671,18 @@ module Stripe
               @coupon = coupon
               @discount = discount
               @promotion_code = promotion_code
+            end
+          end
+
+          class Duration < Stripe::RequestParams
+            # Specifies phase duration. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The multiplier applied to the interval.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
             end
           end
 
@@ -2837,13 +2849,15 @@ module Stripe
           attr_accessor :description
           # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
           attr_accessor :discounts
+          # The number of intervals the phase should last. If set, `end_date` must not be set.
+          attr_accessor :duration
           # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
           attr_accessor :end_date
           # All invoices will be billed using the specified settings.
           attr_accessor :invoice_settings
           # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
           attr_accessor :items
-          # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
+          # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
           attr_accessor :iterations
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
           attr_accessor :metadata
@@ -2872,6 +2886,7 @@ module Stripe
             default_tax_rates: nil,
             description: nil,
             discounts: nil,
+            duration: nil,
             end_date: nil,
             invoice_settings: nil,
             items: nil,
@@ -2895,6 +2910,7 @@ module Stripe
             @default_tax_rates = default_tax_rates
             @description = description
             @discounts = discounts
+            @duration = duration
             @end_date = end_date
             @invoice_settings = invoice_settings
             @items = items
@@ -2927,7 +2943,7 @@ module Stripe
 
       class SubscriptionDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Attribute for param field type
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
           attr_accessor :type
 
           def initialize(type: nil)

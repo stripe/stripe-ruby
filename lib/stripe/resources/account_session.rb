@@ -116,6 +116,21 @@ module Stripe
         attr_reader :features
       end
 
+      class InstantPayoutsPromotion < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
+          attr_reader :disable_stripe_user_authentication
+          # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
+          attr_reader :external_account_collection
+          # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          attr_reader :instant_payouts
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
       class IssuingCard < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether to allow card management features.
@@ -270,6 +285,8 @@ module Stripe
       attr_reader :financial_account
       # Attribute for field financial_account_transactions
       attr_reader :financial_account_transactions
+      # Attribute for field instant_payouts_promotion
+      attr_reader :instant_payouts_promotion
       # Attribute for field issuing_card
       attr_reader :issuing_card
       # Attribute for field issuing_cards_list
@@ -472,6 +489,36 @@ module Stripe
 
             def initialize(card_spend_dispute_management: nil)
               @card_spend_dispute_management = card_spend_dispute_management
+            end
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
+        class InstantPayoutsPromotion < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+            # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
+            attr_accessor :disable_stripe_user_authentication
+            # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
+            attr_accessor :external_account_collection
+            # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+            attr_accessor :instant_payouts
+
+            def initialize(
+              disable_stripe_user_authentication: nil,
+              external_account_collection: nil,
+              instant_payouts: nil
+            )
+              @disable_stripe_user_authentication = disable_stripe_user_authentication
+              @external_account_collection = external_account_collection
+              @instant_payouts = instant_payouts
             end
           end
           # Whether the embedded component is enabled.
@@ -771,6 +818,8 @@ module Stripe
         attr_accessor :financial_account
         # Configuration for the [financial account transactions](/connect/supported-embedded-components/financial-account-transactions/) embedded component.
         attr_accessor :financial_account_transactions
+        # Configuration for the [instant payouts promotion](/connect/supported-embedded-components/instant-payouts-promotion/) embedded component.
+        attr_accessor :instant_payouts_promotion
         # Configuration for the [issuing card](/connect/supported-embedded-components/issuing-card/) embedded component.
         attr_accessor :issuing_card
         # Configuration for the [issuing cards list](/connect/supported-embedded-components/issuing-cards-list/) embedded component.
@@ -800,6 +849,7 @@ module Stripe
           documents: nil,
           financial_account: nil,
           financial_account_transactions: nil,
+          instant_payouts_promotion: nil,
           issuing_card: nil,
           issuing_cards_list: nil,
           notification_banner: nil,
@@ -818,6 +868,7 @@ module Stripe
           @documents = documents
           @financial_account = financial_account
           @financial_account_transactions = financial_account_transactions
+          @instant_payouts_promotion = instant_payouts_promotion
           @issuing_card = issuing_card
           @issuing_cards_list = issuing_cards_list
           @notification_banner = notification_banner

@@ -39,7 +39,25 @@ module Stripe
       end
 
       class Tipping < Stripe::StripeObject
+        class Aed < Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          attr_reader :smart_tip_threshold
+        end
+
         class Aud < Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          attr_reader :smart_tip_threshold
+        end
+
+        class Bgn < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -111,6 +129,15 @@ module Stripe
           attr_reader :smart_tip_threshold
         end
 
+        class Huf < Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          attr_reader :smart_tip_threshold
+        end
+
         class Jpy < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
@@ -156,6 +183,15 @@ module Stripe
           attr_reader :smart_tip_threshold
         end
 
+        class Ron < Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          attr_reader :smart_tip_threshold
+        end
+
         class Sek < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
@@ -182,8 +218,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
+        # Attribute for field aed
+        attr_reader :aed
         # Attribute for field aud
         attr_reader :aud
+        # Attribute for field bgn
+        attr_reader :bgn
         # Attribute for field cad
         attr_reader :cad
         # Attribute for field chf
@@ -198,6 +238,8 @@ module Stripe
         attr_reader :gbp
         # Attribute for field hkd
         attr_reader :hkd
+        # Attribute for field huf
+        attr_reader :huf
         # Attribute for field jpy
         attr_reader :jpy
         # Attribute for field myr
@@ -208,6 +250,8 @@ module Stripe
         attr_reader :nzd
         # Attribute for field pln
         attr_reader :pln
+        # Attribute for field ron
+        attr_reader :ron
         # Attribute for field sek
         attr_reader :sek
         # Attribute for field sgd
@@ -305,7 +349,37 @@ module Stripe
         end
 
         class Tipping < Stripe::RequestParams
+          class Aed < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Aud < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
+          class Bgn < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
             # Percentages displayed when collecting a tip
@@ -425,6 +499,21 @@ module Stripe
             end
           end
 
+          class Huf < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Jpy < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -500,6 +589,21 @@ module Stripe
             end
           end
 
+          class Ron < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Sek < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -544,8 +648,12 @@ module Stripe
               @smart_tip_threshold = smart_tip_threshold
             end
           end
+          # Tipping configuration for AED
+          attr_accessor :aed
           # Tipping configuration for AUD
           attr_accessor :aud
+          # Tipping configuration for BGN
+          attr_accessor :bgn
           # Tipping configuration for CAD
           attr_accessor :cad
           # Tipping configuration for CHF
@@ -560,6 +668,8 @@ module Stripe
           attr_accessor :gbp
           # Tipping configuration for HKD
           attr_accessor :hkd
+          # Tipping configuration for HUF
+          attr_accessor :huf
           # Tipping configuration for JPY
           attr_accessor :jpy
           # Tipping configuration for MYR
@@ -570,6 +680,8 @@ module Stripe
           attr_accessor :nzd
           # Tipping configuration for PLN
           attr_accessor :pln
+          # Tipping configuration for RON
+          attr_accessor :ron
           # Tipping configuration for SEK
           attr_accessor :sek
           # Tipping configuration for SGD
@@ -578,7 +690,9 @@ module Stripe
           attr_accessor :usd
 
           def initialize(
+            aed: nil,
             aud: nil,
+            bgn: nil,
             cad: nil,
             chf: nil,
             czk: nil,
@@ -586,16 +700,20 @@ module Stripe
             eur: nil,
             gbp: nil,
             hkd: nil,
+            huf: nil,
             jpy: nil,
             myr: nil,
             nok: nil,
             nzd: nil,
             pln: nil,
+            ron: nil,
             sek: nil,
             sgd: nil,
             usd: nil
           )
+            @aed = aed
             @aud = aud
+            @bgn = bgn
             @cad = cad
             @chf = chf
             @czk = czk
@@ -603,11 +721,13 @@ module Stripe
             @eur = eur
             @gbp = gbp
             @hkd = hkd
+            @huf = huf
             @jpy = jpy
             @myr = myr
             @nok = nok
             @nzd = nzd
             @pln = pln
+            @ron = ron
             @sek = sek
             @sgd = sgd
             @usd = usd
@@ -811,7 +931,37 @@ module Stripe
         end
 
         class Tipping < Stripe::RequestParams
+          class Aed < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Aud < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
+          class Bgn < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
             # Percentages displayed when collecting a tip
@@ -931,6 +1081,21 @@ module Stripe
             end
           end
 
+          class Huf < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Jpy < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -1006,6 +1171,21 @@ module Stripe
             end
           end
 
+          class Ron < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Sek < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -1050,8 +1230,12 @@ module Stripe
               @smart_tip_threshold = smart_tip_threshold
             end
           end
+          # Tipping configuration for AED
+          attr_accessor :aed
           # Tipping configuration for AUD
           attr_accessor :aud
+          # Tipping configuration for BGN
+          attr_accessor :bgn
           # Tipping configuration for CAD
           attr_accessor :cad
           # Tipping configuration for CHF
@@ -1066,6 +1250,8 @@ module Stripe
           attr_accessor :gbp
           # Tipping configuration for HKD
           attr_accessor :hkd
+          # Tipping configuration for HUF
+          attr_accessor :huf
           # Tipping configuration for JPY
           attr_accessor :jpy
           # Tipping configuration for MYR
@@ -1076,6 +1262,8 @@ module Stripe
           attr_accessor :nzd
           # Tipping configuration for PLN
           attr_accessor :pln
+          # Tipping configuration for RON
+          attr_accessor :ron
           # Tipping configuration for SEK
           attr_accessor :sek
           # Tipping configuration for SGD
@@ -1084,7 +1272,9 @@ module Stripe
           attr_accessor :usd
 
           def initialize(
+            aed: nil,
             aud: nil,
+            bgn: nil,
             cad: nil,
             chf: nil,
             czk: nil,
@@ -1092,16 +1282,20 @@ module Stripe
             eur: nil,
             gbp: nil,
             hkd: nil,
+            huf: nil,
             jpy: nil,
             myr: nil,
             nok: nil,
             nzd: nil,
             pln: nil,
+            ron: nil,
             sek: nil,
             sgd: nil,
             usd: nil
           )
+            @aed = aed
             @aud = aud
+            @bgn = bgn
             @cad = cad
             @chf = chf
             @czk = czk
@@ -1109,11 +1303,13 @@ module Stripe
             @eur = eur
             @gbp = gbp
             @hkd = hkd
+            @huf = huf
             @jpy = jpy
             @myr = myr
             @nok = nok
             @nzd = nzd
             @pln = pln
+            @ron = ron
             @sek = sek
             @sgd = sgd
             @usd = usd

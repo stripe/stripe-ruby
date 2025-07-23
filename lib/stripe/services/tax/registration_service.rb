@@ -15,6 +15,7 @@ module Stripe
         attr_accessor :starting_after
         # The status of the Tax Registration.
         attr_accessor :status
+
         def initialize(
           ending_before: nil,
           expand: nil,
@@ -29,40 +30,83 @@ module Stripe
           @status = status
         end
       end
+
       class CreateParams < Stripe::RequestParams
         class CountryOptions < Stripe::RequestParams
           class Ae < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Al < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Am < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Ao < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class At < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -71,57 +115,127 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Au < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Aw < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Az < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Ba < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Bb < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Bd < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Be < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -130,22 +244,38 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Bf < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Bg < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -154,43 +284,76 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Bh < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Bj < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Bs < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class By < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Ca < Stripe::RequestParams
             class ProvinceStandard < Stripe::RequestParams
               # Two-letter CA province code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               attr_accessor :province
+
               def initialize(province: nil)
                 @province = province
               end
@@ -199,64 +362,103 @@ module Stripe
             attr_accessor :province_standard
             # Type of registration to be created in Canada.
             attr_accessor :type
+
             def initialize(province_standard: nil, type: nil)
               @province_standard = province_standard
               @type = type
             end
           end
+
           class Cd < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Ch < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Cl < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Cm < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Co < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Cr < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Cv < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Cy < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -265,15 +467,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Cz < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -282,15 +487,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class De < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -299,15 +507,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Dk < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -316,22 +527,27 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Ec < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Ee < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -340,22 +556,27 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Eg < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Es < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -364,22 +585,38 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Et < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Fi < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -388,15 +625,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Fr < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -405,36 +645,67 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Gb < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Ge < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Gn < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Gr < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -443,15 +714,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Hr < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -460,15 +734,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Hu < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -477,22 +754,27 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Id < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Ie < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -501,29 +783,47 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class In < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Is < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class It < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -532,64 +832,92 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Jp < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Ke < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Kg < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Kh < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Kr < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Kz < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class La < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Lt < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -598,15 +926,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Lu < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -615,15 +946,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Lv < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -632,50 +966,96 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Ma < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Md < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Me < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Mk < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Mr < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Mt < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -684,36 +1064,45 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Mx < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class My < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Ng < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Nl < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -722,57 +1111,105 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class No < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Np < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Nz < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Om < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Pe < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Ph < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Pl < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -781,15 +1218,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Pt < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -798,15 +1238,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Ro < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -815,36 +1258,56 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Rs < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Ru < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Sa < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Se < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -853,22 +1316,38 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Sg < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Si < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -877,15 +1356,18 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Sk < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
               attr_accessor :place_of_supply_scheme
+
               def initialize(place_of_supply_scheme: nil)
                 @place_of_supply_scheme = place_of_supply_scheme
               end
@@ -894,88 +1376,122 @@ module Stripe
             attr_accessor :standard
             # Type of registration to be created in an EU country.
             attr_accessor :type
+
             def initialize(standard: nil, type: nil)
               @standard = standard
               @type = type
             end
           end
+
           class Sn < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Sr < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Th < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Tj < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Tr < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Tz < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Ua < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Ug < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Us < Stripe::RequestParams
             class LocalAmusementTax < Stripe::RequestParams
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago), `06613` (Bloomington), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), and `68081` (Schiller Park).
               attr_accessor :jurisdiction
+
               def initialize(jurisdiction: nil)
                 @jurisdiction = jurisdiction
               end
             end
+
             class LocalLeaseTax < Stripe::RequestParams
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago).
               attr_accessor :jurisdiction
+
               def initialize(jurisdiction: nil)
                 @jurisdiction = jurisdiction
               end
             end
+
             class StateSalesTax < Stripe::RequestParams
               class Election < Stripe::RequestParams
                 # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
                 attr_accessor :jurisdiction
                 # The type of the election for the state sales tax registration.
                 attr_accessor :type
+
                 def initialize(jurisdiction: nil, type: nil)
                   @jurisdiction = jurisdiction
                   @type = type
@@ -983,6 +1499,7 @@ module Stripe
               end
               # Elections for the state sales tax registration.
               attr_accessor :elections
+
               def initialize(elections: nil)
                 @elections = elections
               end
@@ -997,6 +1514,7 @@ module Stripe
             attr_accessor :state_sales_tax
             # Type of registration to be created in the US.
             attr_accessor :type
+
             def initialize(
               local_amusement_tax: nil,
               local_lease_tax: nil,
@@ -1011,45 +1529,90 @@ module Stripe
               @type = type
             end
           end
+
           class Uy < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Uz < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Vn < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Za < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
+
           class Zm < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
+
             def initialize(type: nil)
               @type = type
             end
           end
+
           class Zw < Stripe::RequestParams
+            class Standard < Stripe::RequestParams
+              # Place of supply scheme used in an standard registration.
+              attr_accessor :place_of_supply_scheme
+
+              def initialize(place_of_supply_scheme: nil)
+                @place_of_supply_scheme = place_of_supply_scheme
+              end
+            end
+            # Options for the standard registration.
+            attr_accessor :standard
             # Type of registration to be created in `country`.
             attr_accessor :type
-            def initialize(type: nil)
+
+            def initialize(standard: nil, type: nil)
+              @standard = standard
               @type = type
             end
           end
@@ -1251,6 +1814,7 @@ module Stripe
           attr_accessor :zm
           # Options for the registration in ZW.
           attr_accessor :zw
+
           def initialize(
             ae: nil,
             al: nil,
@@ -1463,6 +2027,7 @@ module Stripe
         attr_accessor :expand
         # If set, the Tax Registration stops being active at this time. If not set, the Tax Registration will be active indefinitely. Timestamp measured in seconds since the Unix epoch.
         attr_accessor :expires_at
+
         def initialize(
           active_from: nil,
           country: nil,
@@ -1477,13 +2042,16 @@ module Stripe
           @expires_at = expires_at
         end
       end
+
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         def initialize(expand: nil)
           @expand = expand
         end
       end
+
       class UpdateParams < Stripe::RequestParams
         # Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
         attr_accessor :active_from
@@ -1491,20 +2059,22 @@ module Stripe
         attr_accessor :expand
         # If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
         attr_accessor :expires_at
+
         def initialize(active_from: nil, expand: nil, expires_at: nil)
           @active_from = active_from
           @expand = expand
           @expires_at = expires_at
         end
       end
+
       # Creates a new Tax Registration object.
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: '/v1/tax/registrations',
+          path: "/v1/tax/registrations",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -1512,10 +2082,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: '/v1/tax/registrations',
+          path: "/v1/tax/registrations",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -1523,10 +2093,10 @@ module Stripe
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format('/v1/tax/registrations/%<id>s', {:id => CGI.escape(id)}),
+          path: format("/v1/tax/registrations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -1536,10 +2106,10 @@ module Stripe
       def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format('/v1/tax/registrations/%<id>s', {:id => CGI.escape(id)}),
+          path: format("/v1/tax/registrations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

@@ -90,7 +90,7 @@ module Stripe
           end
           # The monetary amount.
           attr_accessor :monetary
-          # Specify the type of this amount. We currently only support `monetary` billing credits.
+          # The type of this amount. We currently only support `monetary` billing credits.
           attr_accessor :type
 
           def initialize(monetary: nil, type: nil)

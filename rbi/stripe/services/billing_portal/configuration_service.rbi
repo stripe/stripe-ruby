@@ -118,14 +118,36 @@ module Stripe
           end
           class SubscriptionUpdate < Stripe::RequestParams
             class Product < Stripe::RequestParams
+              class AdjustableQuantity < Stripe::RequestParams
+                # Set to true if the quantity can be adjusted to any non-negative integer.
+                sig { returns(T::Boolean) }
+                attr_accessor :enabled
+                # The maximum quantity that can be set for the product.
+                sig { returns(T.nilable(Integer)) }
+                attr_accessor :maximum
+                # The minimum quantity that can be set for the product.
+                sig { returns(T.nilable(Integer)) }
+                attr_accessor :minimum
+                sig {
+                  params(enabled: T::Boolean, maximum: T.nilable(Integer), minimum: T.nilable(Integer)).void
+                 }
+                def initialize(enabled: nil, maximum: nil, minimum: nil); end
+              end
+              # Control whether the quantity of the product can be adjusted.
+              sig {
+                returns(T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity))
+               }
+              attr_accessor :adjustable_quantity
               # The list of price IDs for the product that a subscription can be updated to.
               sig { returns(T::Array[String]) }
               attr_accessor :prices
               # The product id.
               sig { returns(String) }
               attr_accessor :product
-              sig { params(prices: T::Array[String], product: String).void }
-              def initialize(prices: nil, product: nil); end
+              sig {
+                params(adjustable_quantity: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity), prices: T::Array[String], product: String).void
+               }
+              def initialize(adjustable_quantity: nil, prices: nil, product: nil); end
             end
             class ScheduleAtPeriodEnd < Stripe::RequestParams
               class Condition < Stripe::RequestParams
@@ -341,14 +363,36 @@ module Stripe
           end
           class SubscriptionUpdate < Stripe::RequestParams
             class Product < Stripe::RequestParams
+              class AdjustableQuantity < Stripe::RequestParams
+                # Set to true if the quantity can be adjusted to any non-negative integer.
+                sig { returns(T::Boolean) }
+                attr_accessor :enabled
+                # The maximum quantity that can be set for the product.
+                sig { returns(T.nilable(Integer)) }
+                attr_accessor :maximum
+                # The minimum quantity that can be set for the product.
+                sig { returns(T.nilable(Integer)) }
+                attr_accessor :minimum
+                sig {
+                  params(enabled: T::Boolean, maximum: T.nilable(Integer), minimum: T.nilable(Integer)).void
+                 }
+                def initialize(enabled: nil, maximum: nil, minimum: nil); end
+              end
+              # Control whether the quantity of the product can be adjusted.
+              sig {
+                returns(T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity))
+               }
+              attr_accessor :adjustable_quantity
               # The list of price IDs for the product that a subscription can be updated to.
               sig { returns(T::Array[String]) }
               attr_accessor :prices
               # The product id.
               sig { returns(String) }
               attr_accessor :product
-              sig { params(prices: T::Array[String], product: String).void }
-              def initialize(prices: nil, product: nil); end
+              sig {
+                params(adjustable_quantity: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::Product::AdjustableQuantity), prices: T::Array[String], product: String).void
+               }
+              def initialize(adjustable_quantity: nil, prices: nil, product: nil); end
             end
             class ScheduleAtPeriodEnd < Stripe::RequestParams
               class Condition < Stripe::RequestParams

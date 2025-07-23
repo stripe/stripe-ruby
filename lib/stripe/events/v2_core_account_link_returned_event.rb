@@ -3,9 +3,9 @@
 
 module Stripe
   # Occurs when the generated AccountLink is completed.
-  class V2CoreAccountLinkCompletedEvent < Stripe::V2::Event
+  class V2CoreAccountLinkReturnedEvent < Stripe::V2::Event
     def self.lookup_type
-      "v2.core.account_link.completed"
+      "v2.core.account_link.returned"
     end
     # There is additional data present for this event, accessible with the `data` property.
     # See the Stripe API docs for more information.

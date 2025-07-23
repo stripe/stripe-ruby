@@ -2,7 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Off session payment authorization attempt started event definition.
+  # Sent when our internal scheduling system kicks off an attempt at authorization, whether it's a
+  # retry or an initial authorization.
   class V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.payments.off_session_payment.authorization_attempt_started"

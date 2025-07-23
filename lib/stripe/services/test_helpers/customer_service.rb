@@ -13,6 +13,7 @@ module Stripe
         attr_accessor :expand
         # A description of the test funding. This simulates free-text references supplied by customers when making bank transfers to their cash balance. You can use this to test how Stripe's [reconciliation algorithm](https://stripe.com/docs/payments/customer-balance/reconciliation) applies to different user inputs.
         attr_accessor :reference
+
         def initialize(amount: nil, currency: nil, expand: nil, reference: nil)
           @amount = amount
           @currency = currency
@@ -20,14 +21,15 @@ module Stripe
           @reference = reference
         end
       end
+
       # Create an incoming testmode bank transfer
       def fund_cash_balance(customer, params = {}, opts = {})
         request(
           method: :post,
-          path: format('/v1/test_helpers/customers/%<customer>s/fund_cash_balance', {:customer => CGI.escape(customer)}),
+          path: format("/v1/test_helpers/customers/%<customer>s/fund_cash_balance", { customer: CGI.escape(customer) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

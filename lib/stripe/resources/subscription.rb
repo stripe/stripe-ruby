@@ -158,6 +158,21 @@ module Stripe
         class Konbini < Stripe::StripeObject; end
         class SepaDebit < Stripe::StripeObject; end
 
+        class Upi < Stripe::StripeObject
+          class MandateOptions < Stripe::StripeObject
+            # Amount to be charged for future payments.
+            attr_reader :amount
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            attr_reader :amount_type
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            attr_reader :description
+            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            attr_reader :end_date
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+        end
+
         class UsBankAccount < Stripe::StripeObject
           class FinancialConnections < Stripe::StripeObject
             class Filters < Stripe::StripeObject
@@ -192,6 +207,8 @@ module Stripe
         attr_reader :konbini
         # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
         attr_reader :sepa_debit
+        # This sub-hash contains details about the UPI payment method options to pass to invoices created by the subscription.
+        attr_reader :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         attr_reader :us_bank_account
       end
@@ -736,6 +753,32 @@ module Stripe
           class Konbini < Stripe::RequestParams; end
           class SepaDebit < Stripe::RequestParams; end
 
+          class Upi < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments.
+              attr_accessor :amount
+              # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+              attr_accessor :amount_type
+              # A description of the mandate or subscription that is meant to be displayed to the customer.
+              attr_accessor :description
+              # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+              attr_accessor :end_date
+
+              def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+                @amount = amount
+                @amount_type = amount_type
+                @description = description
+                @end_date = end_date
+              end
+            end
+            # Configuration options for setting up an eMandate
+            attr_accessor :mandate_options
+
+            def initialize(mandate_options: nil)
+              @mandate_options = mandate_options
+            end
+          end
+
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
               class Filters < Stripe::RequestParams
@@ -786,6 +829,8 @@ module Stripe
           attr_accessor :konbini
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
+          # This sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :upi
           # This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :us_bank_account
 
@@ -797,6 +842,7 @@ module Stripe
             id_bank_transfer: nil,
             konbini: nil,
             sepa_debit: nil,
+            upi: nil,
             us_bank_account: nil
           )
             @acss_debit = acss_debit
@@ -806,6 +852,7 @@ module Stripe
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
             @sepa_debit = sepa_debit
+            @upi = upi
             @us_bank_account = us_bank_account
           end
         end
@@ -929,7 +976,7 @@ module Stripe
       #
       # Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
       #
-      # Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+      # Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
       attr_accessor :payment_behavior
       # Payment settings to pass to invoices created by the subscription.
       attr_accessor :payment_settings
@@ -1286,7 +1333,7 @@ module Stripe
       end
 
       class BillingMode < Stripe::RequestParams
-        # Attribute for param field type
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
         attr_accessor :type
 
         def initialize(type: nil)
@@ -1615,6 +1662,32 @@ module Stripe
           class Konbini < Stripe::RequestParams; end
           class SepaDebit < Stripe::RequestParams; end
 
+          class Upi < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments.
+              attr_accessor :amount
+              # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+              attr_accessor :amount_type
+              # A description of the mandate or subscription that is meant to be displayed to the customer.
+              attr_accessor :description
+              # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+              attr_accessor :end_date
+
+              def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+                @amount = amount
+                @amount_type = amount_type
+                @description = description
+                @end_date = end_date
+              end
+            end
+            # Configuration options for setting up an eMandate
+            attr_accessor :mandate_options
+
+            def initialize(mandate_options: nil)
+              @mandate_options = mandate_options
+            end
+          end
+
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
               class Filters < Stripe::RequestParams
@@ -1665,6 +1738,8 @@ module Stripe
           attr_accessor :konbini
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
+          # This sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :upi
           # This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :us_bank_account
 
@@ -1676,6 +1751,7 @@ module Stripe
             id_bank_transfer: nil,
             konbini: nil,
             sepa_debit: nil,
+            upi: nil,
             us_bank_account: nil
           )
             @acss_debit = acss_debit
@@ -1685,6 +1761,7 @@ module Stripe
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
             @sepa_debit = sepa_debit
+            @upi = upi
             @us_bank_account = us_bank_account
           end
         end

@@ -3,7 +3,7 @@
 
 module Stripe
   class BillingService < StripeService
-    attr_reader :alerts, :credit_balance_summary, :credit_balance_transactions, :credit_grants, :meters, :meter_events, :meter_event_adjustments
+    attr_reader :alerts, :credit_balance_summary, :credit_balance_transactions, :credit_grants, :meters, :meter_events, :meter_event_adjustments, :meter_usage
 
     def initialize(requestor)
       super
@@ -15,6 +15,7 @@ module Stripe
       @meters = Stripe::Billing::MeterService.new(@requestor)
       @meter_events = Stripe::Billing::MeterEventService.new(@requestor)
       @meter_event_adjustments = Stripe::Billing::MeterEventAdjustmentService.new(@requestor)
+      @meter_usage = Stripe::Billing::MeterUsageService.new(@requestor)
     end
   end
 end

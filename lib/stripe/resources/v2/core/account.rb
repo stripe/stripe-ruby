@@ -1306,8 +1306,19 @@ module Stripe
                 # The user agent of the browser from which the Account's representative accepted the terms of service.
                 attr_reader :user_agent
               end
+
+              class Storer < Stripe::StripeObject
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_reader :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_reader :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_reader :user_agent
+              end
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               attr_reader :account
+              # Details on the Account's acceptance of Treasury-specific terms of service.
+              attr_reader :storer
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct.
             attr_reader :directorship_declaration

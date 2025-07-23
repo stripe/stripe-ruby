@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Off session payment requires capture event definition.
-  class V2OffSessionPaymentRequiresCaptureEvent < Stripe::V2::Event
+  # Occurs when a PayoutMethod is updated.
+  class V2MoneyManagementPayoutMethodUpdatedEvent < Stripe::V2::Event
     def self.lookup_type
-      "v2.off_session_payment.requires_capture"
+      "v2.money_management.payout_method.updated"
     end
 
     # Retrieves the related object from the API. Make an API request on every call.

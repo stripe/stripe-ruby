@@ -13,6 +13,7 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
+
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -40,6 +41,7 @@ module Stripe
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
+
       def initialize(
         active: nil,
         code: nil,
@@ -64,11 +66,13 @@ module Stripe
         @starting_after = starting_after
       end
     end
+
     class CreateParams < Stripe::RequestParams
       class Restrictions < Stripe::RequestParams
         class CurrencyOptions < Stripe::RequestParams
           # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
           attr_accessor :minimum_amount
+
           def initialize(minimum_amount: nil)
             @minimum_amount = minimum_amount
           end
@@ -81,6 +85,7 @@ module Stripe
         attr_accessor :minimum_amount
         # Three-letter [ISO code](https://stripe.com/docs/currencies) for minimum_amount
         attr_accessor :minimum_amount_currency
+
         def initialize(
           currency_options: nil,
           first_time_transaction: nil,
@@ -115,6 +120,7 @@ module Stripe
       attr_accessor :metadata
       # Settings that restrict the redemption of the promotion code.
       attr_accessor :restrictions
+
       def initialize(
         active: nil,
         code: nil,
@@ -139,24 +145,29 @@ module Stripe
         @restrictions = restrictions
       end
     end
+
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       def initialize(expand: nil)
         @expand = expand
       end
     end
+
     class UpdateParams < Stripe::RequestParams
       class Restrictions < Stripe::RequestParams
         class CurrencyOptions < Stripe::RequestParams
           # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
           attr_accessor :minimum_amount
+
           def initialize(minimum_amount: nil)
             @minimum_amount = minimum_amount
           end
         end
         # Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency_options
+
         def initialize(currency_options: nil)
           @currency_options = currency_options
         end
@@ -169,6 +180,7 @@ module Stripe
       attr_accessor :metadata
       # Settings that restrict the redemption of the promotion code.
       attr_accessor :restrictions
+
       def initialize(active: nil, expand: nil, metadata: nil, restrictions: nil)
         @active = active
         @expand = expand
@@ -176,14 +188,15 @@ module Stripe
         @restrictions = restrictions
       end
     end
+
     # A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
     def create(params = {}, opts = {})
       request(
         method: :post,
-        path: '/v1/promotion_codes',
+        path: "/v1/promotion_codes",
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -191,10 +204,10 @@ module Stripe
     def list(params = {}, opts = {})
       request(
         method: :get,
-        path: '/v1/promotion_codes',
+        path: "/v1/promotion_codes",
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -202,10 +215,10 @@ module Stripe
     def retrieve(promotion_code, params = {}, opts = {})
       request(
         method: :get,
-        path: format('/v1/promotion_codes/%<promotion_code>s', {:promotion_code => CGI.escape(promotion_code)}),
+        path: format("/v1/promotion_codes/%<promotion_code>s", { promotion_code: CGI.escape(promotion_code) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -213,10 +226,10 @@ module Stripe
     def update(promotion_code, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/promotion_codes/%<promotion_code>s', {:promotion_code => CGI.escape(promotion_code)}),
+        path: format("/v1/promotion_codes/%<promotion_code>s", { promotion_code: CGI.escape(promotion_code) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
   end

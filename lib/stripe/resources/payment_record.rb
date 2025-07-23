@@ -123,7 +123,7 @@ module Stripe
       class AmazonPay < Stripe::StripeObject
         class Funding < Stripe::StripeObject
           class Card < Stripe::StripeObject
-            # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             attr_reader :brand
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
             attr_reader :brand_product
@@ -252,7 +252,7 @@ module Stripe
           # Attribute for field version
           attr_reader :version
         end
-        # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
         attr_reader :capture_before
@@ -319,7 +319,7 @@ module Stripe
         end
         # The authorized amount
         attr_reader :amount_authorized
-        # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
         attr_reader :brand_product
@@ -376,6 +376,8 @@ module Stripe
         attr_reader :buyer_id
         # A public identifier for buyers using Cash App.
         attr_reader :cashtag
+        # A unique and immutable identifier of payments assigned by Cash App
+        attr_reader :transaction_id
       end
 
       class Crypto < Stripe::StripeObject
@@ -742,7 +744,7 @@ module Stripe
       class RevolutPay < Stripe::StripeObject
         class Funding < Stripe::StripeObject
           class Card < Stripe::StripeObject
-            # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             attr_reader :brand
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
             attr_reader :brand_product

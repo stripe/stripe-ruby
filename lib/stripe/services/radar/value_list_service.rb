@@ -5,13 +5,16 @@ module Stripe
   module Radar
     class ValueListService < StripeService
       class DeleteParams < Stripe::RequestParams; end
+
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         def initialize(expand: nil)
           @expand = expand
         end
       end
+
       class UpdateParams < Stripe::RequestParams
         # The name of the value list for use in rules.
         attr_accessor :alias
@@ -21,6 +24,7 @@ module Stripe
         attr_accessor :metadata
         # The human-readable name of the value list.
         attr_accessor :name
+
         def initialize(alias_: nil, expand: nil, metadata: nil, name: nil)
           @alias = alias_
           @expand = expand
@@ -28,6 +32,7 @@ module Stripe
           @name = name
         end
       end
+
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
@@ -38,6 +43,7 @@ module Stripe
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
+
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
             @gt = gt
             @gte = gte
@@ -59,6 +65,7 @@ module Stripe
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
+
         def initialize(
           alias_: nil,
           contains: nil,
@@ -77,17 +84,19 @@ module Stripe
           @starting_after = starting_after
         end
       end
+
       class CreateParams < Stripe::RequestParams
         # The name of the value list for use in rules.
         attr_accessor :alias
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-        # Type of the items in the value list. One of `card_fingerprint`, `us_bank_account_fingerprint`, `sepa_debit_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed.
+        # Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`. Use `string` if the item type is unknown or mixed.
         attr_accessor :item_type
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # The human-readable name of the value list.
         attr_accessor :name
+
         def initialize(alias_: nil, expand: nil, item_type: nil, metadata: nil, name: nil)
           @alias = alias_
           @expand = expand
@@ -96,14 +105,15 @@ module Stripe
           @name = name
         end
       end
+
       # Creates a new ValueList object, which can then be referenced in rules.
       def create(params = {}, opts = {})
         request(
           method: :post,
-          path: '/v1/radar/value_lists',
+          path: "/v1/radar/value_lists",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -111,10 +121,10 @@ module Stripe
       def delete(value_list, params = {}, opts = {})
         request(
           method: :delete,
-          path: format('/v1/radar/value_lists/%<value_list>s', {:value_list => CGI.escape(value_list)}),
+          path: format("/v1/radar/value_lists/%<value_list>s", { value_list: CGI.escape(value_list) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -122,10 +132,10 @@ module Stripe
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: '/v1/radar/value_lists',
+          path: "/v1/radar/value_lists",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -133,10 +143,10 @@ module Stripe
       def retrieve(value_list, params = {}, opts = {})
         request(
           method: :get,
-          path: format('/v1/radar/value_lists/%<value_list>s', {:value_list => CGI.escape(value_list)}),
+          path: format("/v1/radar/value_lists/%<value_list>s", { value_list: CGI.escape(value_list) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -144,10 +154,10 @@ module Stripe
       def update(value_list, params = {}, opts = {})
         request(
           method: :post,
-          path: format('/v1/radar/value_lists/%<value_list>s', {:value_list => CGI.escape(value_list)}),
+          path: format("/v1/radar/value_lists/%<value_list>s", { value_list: CGI.escape(value_list) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

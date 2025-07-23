@@ -196,7 +196,7 @@ module Stripe
       end
 
       class Card < Stripe::StripeObject
-        # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # The type of dispute opened. Different case types may have varying fees and financial impact.
         attr_reader :case_type
@@ -225,6 +225,13 @@ module Stripe
       attr_reader :paypal
       # Payment method type.
       attr_reader :type
+    end
+
+    class SmartDisputes < Stripe::StripeObject
+      # Evidence that could be provided to improve the SmartDisputes packet
+      attr_reader :recommended_evidence
+      # Smart Disputes auto representment packet availability status.
+      attr_reader :status
     end
 
     class ListParams < Stripe::RequestParams
@@ -625,6 +632,8 @@ module Stripe
     attr_reader :payment_method_details
     # Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).
     attr_reader :reason
+    # Attribute for field smart_disputes
+    attr_reader :smart_disputes
     # Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, or `lost`.
     attr_reader :status
 

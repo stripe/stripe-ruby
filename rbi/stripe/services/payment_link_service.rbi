@@ -310,8 +310,13 @@ module Stripe
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
             attr_accessor :amount_tax_display
-            sig { params(amount_tax_display: T.nilable(T.nilable(T.any(String, String)))).void }
-            def initialize(amount_tax_display: nil); end
+            # ID of the invoice rendering template to use for this invoice.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :template
+            sig {
+              params(amount_tax_display: T.nilable(T.nilable(T.any(String, String))), template: T.nilable(String)).void
+             }
+            def initialize(amount_tax_display: nil, template: nil); end
           end
           # The account tax IDs associated with the invoice.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
@@ -371,7 +376,7 @@ module Stripe
           # Set to true if the quantity can be adjusted to any non-negative Integer.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999999.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :maximum
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
@@ -382,21 +387,100 @@ module Stripe
            }
           def initialize(enabled: nil, maximum: nil, minimum: nil); end
         end
+        class PriceData < Stripe::RequestParams
+          class ProductData < Stripe::RequestParams
+            # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :description
+            # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+            sig { returns(T.nilable(T::Array[String])) }
+            attr_accessor :images
+            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            attr_accessor :metadata
+            # The product's name, meant to be displayable to the customer.
+            sig { returns(String) }
+            attr_accessor :name
+            # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :tax_code
+            sig {
+              params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String)).void
+             }
+            def initialize(
+              description: nil,
+              images: nil,
+              metadata: nil,
+              name: nil,
+              tax_code: nil
+            ); end
+          end
+          class Recurring < Stripe::RequestParams
+            # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            attr_accessor :interval
+            # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :interval_count
+            sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          attr_accessor :currency
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :product
+          # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+          sig {
+            returns(T.nilable(::Stripe::PaymentLinkService::CreateParams::LineItem::PriceData::ProductData))
+           }
+          attr_accessor :product_data
+          # The recurring components of a price such as `interval` and `interval_count`.
+          sig {
+            returns(T.nilable(::Stripe::PaymentLinkService::CreateParams::LineItem::PriceData::Recurring))
+           }
+          attr_accessor :recurring
+          # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :tax_behavior
+          # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :unit_amount
+          # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :unit_amount_decimal
+          sig {
+            params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::PaymentLinkService::CreateParams::LineItem::PriceData::ProductData), recurring: T.nilable(::Stripe::PaymentLinkService::CreateParams::LineItem::PriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+           }
+          def initialize(
+            currency: nil,
+            product: nil,
+            product_data: nil,
+            recurring: nil,
+            tax_behavior: nil,
+            unit_amount: nil,
+            unit_amount_decimal: nil
+          ); end
+        end
         # When set, provides configuration for this item’s quantity to be adjusted by the customer during checkout.
         sig {
           returns(T.nilable(::Stripe::PaymentLinkService::CreateParams::LineItem::AdjustableQuantity))
          }
         attr_accessor :adjustable_quantity
         # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :price
+        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        sig { returns(T.nilable(::Stripe::PaymentLinkService::CreateParams::LineItem::PriceData)) }
+        attr_accessor :price_data
         # The quantity of the line item being purchased.
         sig { returns(Integer) }
         attr_accessor :quantity
         sig {
-          params(adjustable_quantity: T.nilable(::Stripe::PaymentLinkService::CreateParams::LineItem::AdjustableQuantity), price: String, quantity: Integer).void
+          params(adjustable_quantity: T.nilable(::Stripe::PaymentLinkService::CreateParams::LineItem::AdjustableQuantity), price: T.nilable(String), price_data: T.nilable(::Stripe::PaymentLinkService::CreateParams::LineItem::PriceData), quantity: Integer).void
          }
-        def initialize(adjustable_quantity: nil, price: nil, quantity: nil); end
+        def initialize(adjustable_quantity: nil, price: nil, price_data: nil, quantity: nil); end
       end
       class OptionalItem < Stripe::RequestParams
         class AdjustableQuantity < Stripe::RequestParams
@@ -995,8 +1079,13 @@ module Stripe
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
             attr_accessor :amount_tax_display
-            sig { params(amount_tax_display: T.nilable(T.nilable(T.any(String, String)))).void }
-            def initialize(amount_tax_display: nil); end
+            # ID of the invoice rendering template to use for this invoice.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :template
+            sig {
+              params(amount_tax_display: T.nilable(T.nilable(T.any(String, String))), template: T.nilable(String)).void
+             }
+            def initialize(amount_tax_display: nil, template: nil); end
           end
           # The account tax IDs associated with the invoice.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
@@ -1056,7 +1145,7 @@ module Stripe
           # Set to true if the quantity can be adjusted to any non-negative Integer.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+          # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999999.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :maximum
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.

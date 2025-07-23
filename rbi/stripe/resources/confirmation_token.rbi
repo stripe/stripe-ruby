@@ -215,7 +215,7 @@ module Stripe
               # The authorized amount
               sig { returns(T.nilable(Integer)) }
               attr_reader :amount_authorized
-              # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+              # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
               sig { returns(T.nilable(String)) }
               attr_reader :brand
               # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
@@ -462,7 +462,7 @@ module Stripe
           sig { returns(VisaCheckout) }
           attr_reader :visa_checkout
         end
-        # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(String) }
         attr_reader :brand
         # Checks on Card address and CVC if provided.
@@ -538,7 +538,7 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
-        # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(T.nilable(String)) }
         attr_reader :brand
         # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.

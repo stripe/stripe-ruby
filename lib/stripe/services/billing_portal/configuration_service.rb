@@ -118,12 +118,29 @@ module Stripe
 
           class SubscriptionUpdate < Stripe::RequestParams
             class Product < Stripe::RequestParams
+              class AdjustableQuantity < Stripe::RequestParams
+                # Set to true if the quantity can be adjusted to any non-negative integer.
+                attr_accessor :enabled
+                # The maximum quantity that can be set for the product.
+                attr_accessor :maximum
+                # The minimum quantity that can be set for the product.
+                attr_accessor :minimum
+
+                def initialize(enabled: nil, maximum: nil, minimum: nil)
+                  @enabled = enabled
+                  @maximum = maximum
+                  @minimum = minimum
+                end
+              end
+              # Control whether the quantity of the product can be adjusted.
+              attr_accessor :adjustable_quantity
               # The list of price IDs for the product that a subscription can be updated to.
               attr_accessor :prices
               # The product id.
               attr_accessor :product
 
-              def initialize(prices: nil, product: nil)
+              def initialize(adjustable_quantity: nil, prices: nil, product: nil)
+                @adjustable_quantity = adjustable_quantity
                 @prices = prices
                 @product = product
               end
@@ -326,12 +343,29 @@ module Stripe
 
           class SubscriptionUpdate < Stripe::RequestParams
             class Product < Stripe::RequestParams
+              class AdjustableQuantity < Stripe::RequestParams
+                # Set to true if the quantity can be adjusted to any non-negative integer.
+                attr_accessor :enabled
+                # The maximum quantity that can be set for the product.
+                attr_accessor :maximum
+                # The minimum quantity that can be set for the product.
+                attr_accessor :minimum
+
+                def initialize(enabled: nil, maximum: nil, minimum: nil)
+                  @enabled = enabled
+                  @maximum = maximum
+                  @minimum = minimum
+                end
+              end
+              # Control whether the quantity of the product can be adjusted.
+              attr_accessor :adjustable_quantity
               # The list of price IDs for the product that a subscription can be updated to.
               attr_accessor :prices
               # The product id.
               attr_accessor :product
 
-              def initialize(prices: nil, product: nil)
+              def initialize(adjustable_quantity: nil, prices: nil, product: nil)
+                @adjustable_quantity = adjustable_quantity
                 @prices = prices
                 @product = product
               end

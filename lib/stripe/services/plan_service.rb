@@ -4,13 +4,16 @@
 module Stripe
   class PlanService < StripeService
     class DeleteParams < Stripe::RequestParams; end
+
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       def initialize(expand: nil)
         @expand = expand
       end
     end
+
     class UpdateParams < Stripe::RequestParams
       # Whether the plan is currently available for new subscriptions.
       attr_accessor :active
@@ -24,6 +27,7 @@ module Stripe
       attr_accessor :product
       # Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
       attr_accessor :trial_period_days
+
       def initialize(
         active: nil,
         expand: nil,
@@ -40,6 +44,7 @@ module Stripe
         @trial_period_days = trial_period_days
       end
     end
+
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
@@ -50,6 +55,7 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
+
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -71,6 +77,7 @@ module Stripe
       attr_accessor :product
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
+
       def initialize(
         active: nil,
         created: nil,
@@ -89,6 +96,7 @@ module Stripe
         @starting_after = starting_after
       end
     end
+
     class CreateParams < Stripe::RequestParams
       class Product < Stripe::RequestParams
         # Whether the product is currently available for purchase. Defaults to `true`.
@@ -107,6 +115,7 @@ module Stripe
         attr_accessor :tax_code
         # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
         attr_accessor :unit_label
+
         def initialize(
           active: nil,
           id: nil,
@@ -125,6 +134,7 @@ module Stripe
           @unit_label = unit_label
         end
       end
+
       class Tier < Stripe::RequestParams
         # The flat billing amount for an entire tier, regardless of the number of units in the tier.
         attr_accessor :flat_amount
@@ -136,6 +146,7 @@ module Stripe
         attr_accessor :unit_amount_decimal
         # Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
         attr_accessor :up_to
+
         def initialize(
           flat_amount: nil,
           flat_amount_decimal: nil,
@@ -150,11 +161,13 @@ module Stripe
           @up_to = up_to
         end
       end
+
       class TransformUsage < Stripe::RequestParams
         # Divide usage by this number.
         attr_accessor :divide_by
         # After division, either round the result `up` or `down`.
         attr_accessor :round
+
         def initialize(divide_by: nil, round: nil)
           @divide_by = divide_by
           @round = round
@@ -196,6 +209,7 @@ module Stripe
       attr_accessor :trial_period_days
       # Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
       attr_accessor :usage_type
+
       def initialize(
         active: nil,
         amount: nil,
@@ -236,35 +250,36 @@ module Stripe
         @usage_type = usage_type
       end
     end
+
     # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     def create(params = {}, opts = {})
-      request(method: :post, path: '/v1/plans', params: params, opts: opts, base_address: :api)
+      request(method: :post, path: "/v1/plans", params: params, opts: opts, base_address: :api)
     end
 
     # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
     def delete(plan, params = {}, opts = {})
       request(
         method: :delete,
-        path: format('/v1/plans/%<plan>s', {:plan => CGI.escape(plan)}),
+        path: format("/v1/plans/%<plan>s", { plan: CGI.escape(plan) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
     # Returns a list of your plans.
     def list(params = {}, opts = {})
-      request(method: :get, path: '/v1/plans', params: params, opts: opts, base_address: :api)
+      request(method: :get, path: "/v1/plans", params: params, opts: opts, base_address: :api)
     end
 
     # Retrieves the plan with the given ID.
     def retrieve(plan, params = {}, opts = {})
       request(
         method: :get,
-        path: format('/v1/plans/%<plan>s', {:plan => CGI.escape(plan)}),
+        path: format("/v1/plans/%<plan>s", { plan: CGI.escape(plan) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -272,10 +287,10 @@ module Stripe
     def update(plan, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/plans/%<plan>s', {:plan => CGI.escape(plan)}),
+        path: format("/v1/plans/%<plan>s", { plan: CGI.escape(plan) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
   end

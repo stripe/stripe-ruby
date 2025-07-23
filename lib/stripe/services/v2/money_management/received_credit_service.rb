@@ -23,6 +23,7 @@ module Stripe
           attr_accessor :created_lte
           # The page limit.
           attr_accessor :limit
+
           def initialize(
             created: nil,
             created_gt: nil,
@@ -39,15 +40,17 @@ module Stripe
             @limit = limit
           end
         end
+
         class RetrieveParams < Stripe::RequestParams; end
+
         # Retrieves a list of ReceivedCredits.
         def list(params = {}, opts = {})
           request(
             method: :get,
-            path: '/v2/money_management/received_credits',
+            path: "/v2/money_management/received_credits",
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -55,10 +58,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format('/v2/money_management/received_credits/%<id>s', {:id => CGI.escape(id)}),
+            path: format("/v2/money_management/received_credits/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
       end

@@ -4,10 +4,12 @@
 module Stripe
   class TransferService < StripeService
     attr_reader :reversals
+
     def initialize(requestor)
-      super(requestor)
+      super
       @reversals = Stripe::TransferReversalService.new(@requestor)
     end
+
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
@@ -18,6 +20,7 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
+
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -39,6 +42,7 @@ module Stripe
       attr_accessor :starting_after
       # Only return transfers with the specified transfer group.
       attr_accessor :transfer_group
+
       def initialize(
         created: nil,
         destination: nil,
@@ -57,6 +61,7 @@ module Stripe
         @transfer_group = transfer_group
       end
     end
+
     class CreateParams < Stripe::RequestParams
       # A positive integer in cents (or local equivalent) representing how much to transfer.
       attr_accessor :amount
@@ -78,6 +83,7 @@ module Stripe
       attr_accessor :source_type
       # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
       attr_accessor :transfer_group
+
       def initialize(
         amount: nil,
         currency: nil,
@@ -102,13 +108,16 @@ module Stripe
         @transfer_group = transfer_group
       end
     end
+
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       def initialize(expand: nil)
         @expand = expand
       end
     end
+
     class UpdateParams < Stripe::RequestParams
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
@@ -116,30 +125,32 @@ module Stripe
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+
       def initialize(description: nil, expand: nil, metadata: nil)
         @description = description
         @expand = expand
         @metadata = metadata
       end
     end
+
     # To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
     def create(params = {}, opts = {})
-      request(method: :post, path: '/v1/transfers', params: params, opts: opts, base_address: :api)
+      request(method: :post, path: "/v1/transfers", params: params, opts: opts, base_address: :api)
     end
 
     # Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
     def list(params = {}, opts = {})
-      request(method: :get, path: '/v1/transfers', params: params, opts: opts, base_address: :api)
+      request(method: :get, path: "/v1/transfers", params: params, opts: opts, base_address: :api)
     end
 
     # Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
     def retrieve(transfer, params = {}, opts = {})
       request(
         method: :get,
-        path: format('/v1/transfers/%<transfer>s', {:transfer => CGI.escape(transfer)}),
+        path: format("/v1/transfers/%<transfer>s", { transfer: CGI.escape(transfer) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -149,10 +160,10 @@ module Stripe
     def update(transfer, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/transfers/%<transfer>s', {:transfer => CGI.escape(transfer)}),
+        path: format("/v1/transfers/%<transfer>s", { transfer: CGI.escape(transfer) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
   end

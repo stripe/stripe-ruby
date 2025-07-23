@@ -5,8 +5,9 @@ module Stripe
   module V2
     class TestHelperService < StripeService
       attr_reader :financial_addresses
+
       def initialize(requestor)
-        super(requestor)
+        super
         @financial_addresses = Stripe::V2::TestHelpers::FinancialAddressService.new(@requestor)
       end
     end

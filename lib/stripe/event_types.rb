@@ -31,7 +31,7 @@ module Stripe
         V2CoreAccountIncludingIdentityUpdatedEvent,
         V2CoreAccountIncludingRequirementsUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingRequirementsUpdatedEvent,
-        V2CoreAccountLinkCompletedEvent.lookup_type => V2CoreAccountLinkCompletedEvent,
+        V2CoreAccountLinkReturnedEvent.lookup_type => V2CoreAccountLinkReturnedEvent,
         V2CoreAccountPersonCreatedEvent.lookup_type => V2CoreAccountPersonCreatedEvent,
         V2CoreAccountPersonDeletedEvent.lookup_type => V2CoreAccountPersonDeletedEvent,
         V2CoreAccountPersonUpdatedEvent.lookup_type => V2CoreAccountPersonUpdatedEvent,

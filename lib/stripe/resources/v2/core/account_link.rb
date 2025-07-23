@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      # AccountLinks are the means by which a Merchant grants an Account permission to access Stripe-hosted applications, such as Recipient Onboarding. This API is only available for users enrolled in the public preview for Global Payouts.
+      # AccountLinks are the means by which a Merchant grants an Account permission to access Stripe-hosted applications, such as Recipient Onboarding. This API is only available for users enrolled in the public preview for Accounts v2.
       class AccountLink < APIResource
         OBJECT_NAME = "v2.core.account_link"
         def self.object_name
@@ -13,7 +13,15 @@ module Stripe
 
         class UseCase < Stripe::StripeObject
           class AccountOnboarding < Stripe::StripeObject
-            # Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
+            class CollectionOptions < Stripe::StripeObject
+              # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
+              attr_reader :fields
+              # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
+              attr_reader :future_requirements
+            end
+            # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
+            attr_reader :collection_options
+            # Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
             attr_reader :configurations
             # The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink’s URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.
             attr_reader :refresh_url
@@ -22,6 +30,14 @@ module Stripe
           end
 
           class AccountUpdate < Stripe::StripeObject
+            class CollectionOptions < Stripe::StripeObject
+              # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
+              attr_reader :fields
+              # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
+              attr_reader :future_requirements
+            end
+            # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
+            attr_reader :collection_options
             # Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
             attr_reader :configurations
             # The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink’s URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.

@@ -208,7 +208,7 @@ require "stripe/events/v2_core_account_including_configuration_storer_updated_ev
 require "stripe/events/v2_core_account_including_defaults_updated_event"
 require "stripe/events/v2_core_account_including_identity_updated_event"
 require "stripe/events/v2_core_account_including_requirements_updated_event"
-require "stripe/events/v2_core_account_link_completed_event"
+require "stripe/events/v2_core_account_link_returned_event"
 require "stripe/events/v2_core_account_person_created_event"
 require "stripe/events/v2_core_account_person_deleted_event"
 require "stripe/events/v2_core_account_person_updated_event"

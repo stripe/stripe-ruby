@@ -1322,15 +1322,33 @@ module Stripe
                   sig { params(date: String, ip: String, user_agent: T.nilable(String)).void }
                   def initialize(date: nil, ip: nil, user_agent: nil); end
                 end
+                class Storer < Stripe::RequestParams
+                  # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                  sig { returns(String) }
+                  attr_accessor :date
+                  # The IP address from which the Account's representative accepted the terms of service.
+                  sig { returns(String) }
+                  attr_accessor :ip
+                  # The user agent of the browser from which the Account's representative accepted the terms of service.
+                  sig { returns(T.nilable(String)) }
+                  attr_accessor :user_agent
+                  sig { params(date: String, ip: String, user_agent: T.nilable(String)).void }
+                  def initialize(date: nil, ip: nil, user_agent: nil); end
+                end
                 # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Account))
                  }
                 attr_accessor :account
+                # Details on the Account's acceptance of Treasury-specific terms of service.
                 sig {
-                  params(account: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Account)).void
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Storer))
                  }
-                def initialize(account: nil); end
+                attr_accessor :storer
+                sig {
+                  params(account: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Account), storer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Storer)).void
+                 }
+                def initialize(account: nil, storer: nil); end
               end
               # This hash is used to attest that the directors information provided to Stripe is both current and correct.
               sig {
@@ -3673,15 +3691,35 @@ module Stripe
                    }
                   def initialize(date: nil, ip: nil, user_agent: nil); end
                 end
+                class Storer < Stripe::RequestParams
+                  # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                  sig { returns(T.nilable(String)) }
+                  attr_accessor :date
+                  # The IP address from which the Account's representative accepted the terms of service.
+                  sig { returns(T.nilable(String)) }
+                  attr_accessor :ip
+                  # The user agent of the browser from which the Account's representative accepted the terms of service.
+                  sig { returns(T.nilable(String)) }
+                  attr_accessor :user_agent
+                  sig {
+                    params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
+                   }
+                  def initialize(date: nil, ip: nil, user_agent: nil); end
+                end
                 # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Account))
                  }
                 attr_accessor :account
+                # Details on the Account's acceptance of Treasury-specific terms of service.
                 sig {
-                  params(account: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Account)).void
+                  returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Storer))
                  }
-                def initialize(account: nil); end
+                attr_accessor :storer
+                sig {
+                  params(account: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Account), storer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Storer)).void
+                 }
+                def initialize(account: nil, storer: nil); end
               end
               # This hash is used to attest that the directors information provided to Stripe is both current and correct.
               sig {

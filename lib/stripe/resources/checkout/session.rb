@@ -280,6 +280,8 @@ module Stripe
           class RenderingOptions < Stripe::StripeObject
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
             attr_reader :amount_tax_display
+            # ID of the invoice rendering template to be used for the generated invoice.
+            attr_reader :template
           end
           # The account tax IDs associated with the invoice.
           attr_reader :account_tax_ids
@@ -747,6 +749,14 @@ module Stripe
         class Pix < Stripe::StripeObject
           # The number of seconds after which Pix payment will expire.
           attr_reader :expires_after_seconds
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_reader :setup_future_usage
         end
 
         class RevolutPay < Stripe::StripeObject
@@ -921,7 +931,7 @@ module Stripe
       end
 
       class PresentmentDetails < Stripe::StripeObject
-        # Amount intended to be collected by this payment, denominated in presentment_currency.
+        # Amount intended to be collected by this payment, denominated in `presentment_currency`.
         attr_reader :presentment_amount
         # Currency presented to the customer during payment.
         attr_reader :presentment_currency
@@ -1409,9 +1419,12 @@ module Stripe
             class RenderingOptions < Stripe::RequestParams
               # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
               attr_accessor :amount_tax_display
+              # ID of the invoice rendering template to use for this invoice.
+              attr_accessor :template
 
-              def initialize(amount_tax_display: nil)
+              def initialize(amount_tax_display: nil, template: nil)
                 @amount_tax_display = amount_tax_display
+                @template = template
               end
             end
             # The account tax IDs associated with the invoice.
@@ -2432,9 +2445,18 @@ module Stripe
           class Pix < Stripe::RequestParams
             # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
             attr_accessor :expires_after_seconds
+            # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+            #
+            # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+            #
+            # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+            #
+            # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+            attr_accessor :setup_future_usage
 
-            def initialize(expires_after_seconds: nil)
+            def initialize(expires_after_seconds: nil, setup_future_usage: nil)
               @expires_after_seconds = expires_after_seconds
+              @setup_future_usage = setup_future_usage
             end
           end
 
@@ -2913,7 +2935,7 @@ module Stripe
 
         class SubscriptionData < Stripe::RequestParams
           class BillingMode < Stripe::RequestParams
-            # Attribute for param field type
+            # Controls the calculation and orchestration of prorations and invoices for subscriptions.
             attr_accessor :type
 
             def initialize(type: nil)
@@ -3141,6 +3163,8 @@ module Stripe
         #
         # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
         attr_accessor :optional_items
+        # Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `custom`.
+        attr_accessor :origin_context
         # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
         attr_accessor :payment_intent_data
         # Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.
@@ -3236,6 +3260,7 @@ module Stripe
           metadata: nil,
           mode: nil,
           optional_items: nil,
+          origin_context: nil,
           payment_intent_data: nil,
           payment_method_collection: nil,
           payment_method_configuration: nil,
@@ -3281,6 +3306,7 @@ module Stripe
           @metadata = metadata
           @mode = mode
           @optional_items = optional_items
+          @origin_context = origin_context
           @payment_intent_data = payment_intent_data
           @payment_method_collection = payment_method_collection
           @payment_method_configuration = payment_method_configuration
@@ -3587,6 +3613,8 @@ module Stripe
       attr_reader :object
       # The optional items presented to the customer at checkout.
       attr_reader :optional_items
+      # Where the user is coming from. This informs the optimizations that are applied to the session.
+      attr_reader :origin_context
       # The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
       attr_reader :payment_intent
       # The ID of the Payment Link that created this Session.

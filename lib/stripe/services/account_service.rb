@@ -124,7 +124,7 @@ module Stripe
         attr_accessor :estimated_worker_count
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         attr_accessor :mcc
-        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+ -owned business.
         attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         attr_accessor :monthly_estimated_revenue
@@ -2184,7 +2184,7 @@ module Stripe
         attr_accessor :estimated_worker_count
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         attr_accessor :mcc
-        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+ -owned business.
         attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         attr_accessor :monthly_estimated_revenue
@@ -4176,7 +4176,7 @@ module Stripe
     #
     # Test-mode accounts can be deleted at any time.
     #
-    # Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
+    # Live-mode accounts that have access to the standard dashboard and Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. All other Live-mode accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
     def delete(account, params = {}, opts = {})

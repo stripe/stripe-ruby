@@ -359,7 +359,7 @@ module Stripe
 
     class CreateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Attribute for param field type
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
         attr_accessor :type
 
         def initialize(type: nil)
@@ -599,6 +599,18 @@ module Stripe
           end
         end
 
+        class Duration < Stripe::RequestParams
+          # Specifies phase duration. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The multiplier applied to the interval.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
@@ -762,13 +774,15 @@ module Stripe
         attr_accessor :description
         # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         attr_accessor :discounts
+        # The number of intervals the phase should last. If set, `end_date` must not be set.
+        attr_accessor :duration
         # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
         attr_accessor :end_date
         # All invoices will be billed using the specified settings.
         attr_accessor :invoice_settings
         # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         attr_accessor :items
-        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
+        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         attr_accessor :iterations
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         attr_accessor :metadata
@@ -795,6 +809,7 @@ module Stripe
           default_tax_rates: nil,
           description: nil,
           discounts: nil,
+          duration: nil,
           end_date: nil,
           invoice_settings: nil,
           items: nil,
@@ -817,6 +832,7 @@ module Stripe
           @default_tax_rates = default_tax_rates
           @description = description
           @discounts = discounts
+          @duration = duration
           @end_date = end_date
           @invoice_settings = invoice_settings
           @items = items
@@ -1104,6 +1120,18 @@ module Stripe
           end
         end
 
+        class Duration < Stripe::RequestParams
+          # Specifies phase duration. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The multiplier applied to the interval.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
@@ -1267,13 +1295,15 @@ module Stripe
         attr_accessor :description
         # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         attr_accessor :discounts
+        # The number of intervals the phase should last. If set, `end_date` must not be set.
+        attr_accessor :duration
         # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
         attr_accessor :end_date
         # All invoices will be billed using the specified settings.
         attr_accessor :invoice_settings
         # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         attr_accessor :items
-        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
+        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         attr_accessor :iterations
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         attr_accessor :metadata
@@ -1302,6 +1332,7 @@ module Stripe
           default_tax_rates: nil,
           description: nil,
           discounts: nil,
+          duration: nil,
           end_date: nil,
           invoice_settings: nil,
           items: nil,
@@ -1325,6 +1356,7 @@ module Stripe
           @default_tax_rates = default_tax_rates
           @description = description
           @discounts = discounts
+          @duration = duration
           @end_date = end_date
           @invoice_settings = invoice_settings
           @items = items

@@ -3,14 +3,10 @@
 
 module Stripe
   class TaxService < StripeService
-    attr_reader :associations
-    attr_reader :calculations
-    attr_reader :forms
-    attr_reader :registrations
-    attr_reader :settings
-    attr_reader :transactions
+    attr_reader :associations, :calculations, :forms, :registrations, :settings, :transactions
+
     def initialize(requestor)
-      super(requestor)
+      super
       @associations = Stripe::Tax::AssociationService.new(@requestor)
       @calculations = Stripe::Tax::CalculationService.new(@requestor)
       @forms = Stripe::Tax::FormService.new(@requestor)

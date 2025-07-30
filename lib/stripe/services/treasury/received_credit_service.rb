@@ -8,6 +8,7 @@ module Stripe
         class LinkedFlows < Stripe::RequestParams
           # The source flow type.
           attr_accessor :source_flow_type
+
           def initialize(source_flow_type: nil)
             @source_flow_type = source_flow_type
           end
@@ -26,6 +27,7 @@ module Stripe
         attr_accessor :starting_after
         # Only return ReceivedCredits that have the given status: `succeeded` or `failed`.
         attr_accessor :status
+
         def initialize(
           ending_before: nil,
           expand: nil,
@@ -44,21 +46,24 @@ module Stripe
           @status = status
         end
       end
+
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         def initialize(expand: nil)
           @expand = expand
         end
       end
+
       # Returns a list of ReceivedCredits.
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: '/v1/treasury/received_credits',
+          path: "/v1/treasury/received_credits",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -66,10 +71,10 @@ module Stripe
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format('/v1/treasury/received_credits/%<id>s', {:id => CGI.escape(id)}),
+          path: format("/v1/treasury/received_credits/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

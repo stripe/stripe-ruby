@@ -278,7 +278,7 @@ module Stripe
       attr_reader :type
     end
     class PresentmentDetails < Stripe::StripeObject
-      # Amount intended to be collected by this payment, denominated in presentment_currency.
+      # Amount intended to be collected by this payment, denominated in `presentment_currency`.
       sig { returns(Integer) }
       attr_reader :presentment_amount
       # Currency presented to the customer during payment.

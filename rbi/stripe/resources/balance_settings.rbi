@@ -15,11 +15,11 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :interval
         # The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
-        sig { returns(Integer) }
-        attr_reader :monthly_anchor
-        # The day of the week funds will be paid out, of the style 'monday', 'tuesday', etc. Only shown if `interval` is weekly.
-        sig { returns(String) }
-        attr_reader :weekly_anchor
+        sig { returns(T::Array[Integer]) }
+        attr_reader :monthly_payout_days
+        # The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
+        sig { returns(T::Array[String]) }
+        attr_reader :weekly_payout_days
       end
       # Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation for details.
       sig { returns(T.nilable(Schedule)) }
@@ -54,16 +54,16 @@ module Stripe
           # How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
           sig { returns(T.nilable(String)) }
           attr_accessor :interval
-          # The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :monthly_anchor
-          # The day of the week when available funds are paid out (required and applicable only if `interval` is `weekly`.)
-          sig { returns(T.nilable(String)) }
-          attr_accessor :weekly_anchor
+          # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_accessor :monthly_payout_days
+          # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :weekly_payout_days
           sig {
-            params(interval: T.nilable(String), monthly_anchor: T.nilable(Integer), weekly_anchor: T.nilable(String)).void
+            params(interval: T.nilable(String), monthly_payout_days: T.nilable(T::Array[Integer]), weekly_payout_days: T.nilable(T::Array[String])).void
            }
-          def initialize(interval: nil, monthly_anchor: nil, weekly_anchor: nil); end
+          def initialize(interval: nil, monthly_payout_days: nil, weekly_payout_days: nil); end
         end
         # Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](/connect/bank-transfers#payout-information) documentation.
         sig { returns(T.nilable(::Stripe::BalanceSettings::UpdateParams::Payouts::Schedule)) }
@@ -79,9 +79,9 @@ module Stripe
       class SettlementTiming < Stripe::RequestParams
         # The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](/connect/manage-payout-schedule).
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :delay_days
-        sig { params(delay_days: T.nilable(Integer)).void }
-        def initialize(delay_days: nil); end
+        attr_accessor :delay_days_override
+        sig { params(delay_days_override: T.nilable(Integer)).void }
+        def initialize(delay_days_override: nil); end
       end
       # A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](/connect/account-balances).
       sig { returns(T.nilable(T::Boolean)) }

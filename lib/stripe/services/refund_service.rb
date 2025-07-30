@@ -13,6 +13,7 @@ module Stripe
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
+
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
           @gt = gt
           @gte = gte
@@ -34,6 +35,7 @@ module Stripe
       attr_accessor :payment_intent
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
+
       def initialize(
         charge: nil,
         created: nil,
@@ -52,6 +54,7 @@ module Stripe
         @starting_after = starting_after
       end
     end
+
     class CreateParams < Stripe::RequestParams
       # Attribute for param field amount
       attr_accessor :amount
@@ -77,6 +80,7 @@ module Stripe
       attr_accessor :refund_application_fee
       # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount).<br><br>A transfer can be reversed only by the application that created the charge.
       attr_accessor :reverse_transfer
+
       def initialize(
         amount: nil,
         charge: nil,
@@ -105,40 +109,47 @@ module Stripe
         @reverse_transfer = reverse_transfer
       end
     end
+
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       def initialize(expand: nil)
         @expand = expand
       end
     end
+
     class UpdateParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+
       def initialize(expand: nil, metadata: nil)
         @expand = expand
         @metadata = metadata
       end
     end
+
     class CancelParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       def initialize(expand: nil)
         @expand = expand
       end
     end
+
     # Cancels a refund with a status of requires_action.
     #
     # You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
     def cancel(refund, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/refunds/%<refund>s/cancel', {:refund => CGI.escape(refund)}),
+        path: format("/v1/refunds/%<refund>s/cancel", { refund: CGI.escape(refund) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -154,22 +165,22 @@ module Stripe
     # This method will raise an error when called on an already-refunded charge,
     # or when trying to refund more money than is left on a charge.
     def create(params = {}, opts = {})
-      request(method: :post, path: '/v1/refunds', params: params, opts: opts, base_address: :api)
+      request(method: :post, path: "/v1/refunds", params: params, opts: opts, base_address: :api)
     end
 
     # Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
     def list(params = {}, opts = {})
-      request(method: :get, path: '/v1/refunds', params: params, opts: opts, base_address: :api)
+      request(method: :get, path: "/v1/refunds", params: params, opts: opts, base_address: :api)
     end
 
     # Retrieves the details of an existing refund.
     def retrieve(refund, params = {}, opts = {})
       request(
         method: :get,
-        path: format('/v1/refunds/%<refund>s', {:refund => CGI.escape(refund)}),
+        path: format("/v1/refunds/%<refund>s", { refund: CGI.escape(refund) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
 
@@ -179,10 +190,10 @@ module Stripe
     def update(refund, params = {}, opts = {})
       request(
         method: :post,
-        path: format('/v1/refunds/%<refund>s', {:refund => CGI.escape(refund)}),
+        path: format("/v1/refunds/%<refund>s", { refund: CGI.escape(refund) }),
         params: params,
         opts: opts,
-        base_address: :api,
+        base_address: :api
       )
     end
   end

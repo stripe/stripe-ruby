@@ -11,5 +11,6 @@ module Stripe
     attr_reader :meters
     attr_reader :meter_events
     attr_reader :meter_event_adjustments
+    attr_reader :meter_usage
   end
 end

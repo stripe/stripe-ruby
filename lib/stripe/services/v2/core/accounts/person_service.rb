@@ -9,10 +9,12 @@ module Stripe
           class ListParams < Stripe::RequestParams
             # The upper limit on the number of accounts returned by the List Account request.
             attr_accessor :limit
+
             def initialize(limit: nil)
               @limit = limit
             end
           end
+
           class CreateParams < Stripe::RequestParams
             class AdditionalAddress < Stripe::RequestParams
               # City, district, suburb, town, or village.
@@ -31,6 +33,7 @@ module Stripe
               attr_accessor :state
               # Town or cho-me.
               attr_accessor :town
+
               def initialize(
                 city: nil,
                 country: nil,
@@ -51,6 +54,7 @@ module Stripe
                 @town = town
               end
             end
+
             class AdditionalName < Stripe::RequestParams
               # The person's full name.
               attr_accessor :full_name
@@ -60,6 +64,7 @@ module Stripe
               attr_accessor :purpose
               # The person's last or family name.
               attr_accessor :surname
+
               def initialize(full_name: nil, given_name: nil, purpose: nil, surname: nil)
                 @full_name = full_name
                 @given_name = given_name
@@ -67,6 +72,7 @@ module Stripe
                 @surname = surname
               end
             end
+
             class AdditionalTermsOfService < Stripe::RequestParams
               class Account < Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -75,6 +81,7 @@ module Stripe
                 attr_accessor :ip
                 # The user agent of the browser from which the Account's representative accepted the terms of service.
                 attr_accessor :user_agent
+
                 def initialize(date: nil, ip: nil, user_agent: nil)
                   @date = date
                   @ip = ip
@@ -83,10 +90,12 @@ module Stripe
               end
               # Stripe terms of service agreement.
               attr_accessor :account
+
               def initialize(account: nil)
                 @account = account
               end
             end
+
             class Address < Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
@@ -102,6 +111,7 @@ module Stripe
               attr_accessor :state
               # Town or cho-me.
               attr_accessor :town
+
               def initialize(
                 city: nil,
                 country: nil,
@@ -120,6 +130,7 @@ module Stripe
                 @town = town
               end
             end
+
             class DateOfBirth < Stripe::RequestParams
               # The day of birth.
               attr_accessor :day
@@ -127,39 +138,46 @@ module Stripe
               attr_accessor :month
               # The year of birth.
               attr_accessor :year
+
               def initialize(day: nil, month: nil, year: nil)
                 @day = day
                 @month = month
                 @year = year
               end
             end
+
             class Documents < Stripe::RequestParams
               class CompanyAuthorization < Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
+
                 def initialize(files: nil, type: nil)
                   @files = files
                   @type = type
                 end
               end
+
               class Passport < Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
+
                 def initialize(files: nil, type: nil)
                   @files = files
                   @type = type
                 end
               end
+
               class PrimaryVerification < Stripe::RequestParams
                 class FrontBack < Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :front
+
                   def initialize(back: nil, front: nil)
                     @back = back
                     @front = front
@@ -169,17 +187,20 @@ module Stripe
                 attr_accessor :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_accessor :type
+
                 def initialize(front_back: nil, type: nil)
                   @front_back = front_back
                   @type = type
                 end
               end
+
               class SecondaryVerification < Stripe::RequestParams
                 class FrontBack < Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :front
+
                   def initialize(back: nil, front: nil)
                     @back = back
                     @front = front
@@ -189,16 +210,19 @@ module Stripe
                 attr_accessor :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_accessor :type
+
                 def initialize(front_back: nil, type: nil)
                   @front_back = front_back
                   @type = type
                 end
               end
+
               class Visa < Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
+
                 def initialize(files: nil, type: nil)
                   @files = files
                   @type = type
@@ -214,6 +238,7 @@ module Stripe
               attr_accessor :secondary_verification
               # One or more documents showing the person’s visa required for living in the country where they are residing.
               attr_accessor :visa
+
               def initialize(
                 company_authorization: nil,
                 passport: nil,
@@ -228,16 +253,19 @@ module Stripe
                 @visa = visa
               end
             end
+
             class IdNumber < Stripe::RequestParams
               # The ID number type of an individual.
               attr_accessor :type
               # The value of the ID number.
               attr_accessor :value
+
               def initialize(type: nil, value: nil)
                 @type = type
                 @value = value
               end
             end
+
             class Relationship < Stripe::RequestParams
               # Whether the individual is an authorizer of the Account’s legal entity.
               attr_accessor :authorizer
@@ -255,6 +283,7 @@ module Stripe
               attr_accessor :representative
               # The title or position the person holds in the associated legal entity.
               attr_accessor :title
+
               def initialize(
                 authorizer: nil,
                 director: nil,
@@ -275,6 +304,7 @@ module Stripe
                 @title = title
               end
             end
+
             class ScriptAddresses < Stripe::RequestParams
               class Kana < Stripe::RequestParams
                 # City, district, suburb, town, or village.
@@ -291,6 +321,7 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
+
                 def initialize(
                   city: nil,
                   country: nil,
@@ -309,6 +340,7 @@ module Stripe
                   @town = town
                 end
               end
+
               class Kanji < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
@@ -324,6 +356,7 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
+
                 def initialize(
                   city: nil,
                   country: nil,
@@ -346,27 +379,32 @@ module Stripe
               attr_accessor :kana
               # Kanji Address.
               attr_accessor :kanji
+
               def initialize(kana: nil, kanji: nil)
                 @kana = kana
                 @kanji = kanji
               end
             end
+
             class ScriptNames < Stripe::RequestParams
               class Kana < Stripe::RequestParams
                 # The person's first or given name.
                 attr_accessor :given_name
                 # The person's last or family name.
                 attr_accessor :surname
+
                 def initialize(given_name: nil, surname: nil)
                   @given_name = given_name
                   @surname = surname
                 end
               end
+
               class Kanji < Stripe::RequestParams
                 # The person's first or given name.
                 attr_accessor :given_name
                 # The person's last or family name.
                 attr_accessor :surname
+
                 def initialize(given_name: nil, surname: nil)
                   @given_name = given_name
                   @surname = surname
@@ -376,6 +414,7 @@ module Stripe
               attr_accessor :kana
               # Persons name in kanji script.
               attr_accessor :kanji
+
               def initialize(kana: nil, kanji: nil)
                 @kana = kana
                 @kanji = kanji
@@ -417,6 +456,7 @@ module Stripe
             attr_accessor :script_names
             # The person's last name.
             attr_accessor :surname
+
             def initialize(
               additional_addresses: nil,
               additional_names: nil,
@@ -457,8 +497,10 @@ module Stripe
               @surname = surname
             end
           end
+
           class DeleteParams < Stripe::RequestParams; end
           class RetrieveParams < Stripe::RequestParams; end
+
           class UpdateParams < Stripe::RequestParams
             class AdditionalAddress < Stripe::RequestParams
               # City, district, suburb, town, or village.
@@ -477,6 +519,7 @@ module Stripe
               attr_accessor :state
               # Town or cho-me.
               attr_accessor :town
+
               def initialize(
                 city: nil,
                 country: nil,
@@ -497,6 +540,7 @@ module Stripe
                 @town = town
               end
             end
+
             class AdditionalName < Stripe::RequestParams
               # The person's full name.
               attr_accessor :full_name
@@ -506,6 +550,7 @@ module Stripe
               attr_accessor :purpose
               # The person's last or family name.
               attr_accessor :surname
+
               def initialize(full_name: nil, given_name: nil, purpose: nil, surname: nil)
                 @full_name = full_name
                 @given_name = given_name
@@ -513,6 +558,7 @@ module Stripe
                 @surname = surname
               end
             end
+
             class AdditionalTermsOfService < Stripe::RequestParams
               class Account < Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -521,6 +567,7 @@ module Stripe
                 attr_accessor :ip
                 # The user agent of the browser from which the Account's representative accepted the terms of service.
                 attr_accessor :user_agent
+
                 def initialize(date: nil, ip: nil, user_agent: nil)
                   @date = date
                   @ip = ip
@@ -529,10 +576,12 @@ module Stripe
               end
               # Stripe terms of service agreement.
               attr_accessor :account
+
               def initialize(account: nil)
                 @account = account
               end
             end
+
             class Address < Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
@@ -548,6 +597,7 @@ module Stripe
               attr_accessor :state
               # Town or cho-me.
               attr_accessor :town
+
               def initialize(
                 city: nil,
                 country: nil,
@@ -566,6 +616,7 @@ module Stripe
                 @town = town
               end
             end
+
             class DateOfBirth < Stripe::RequestParams
               # The day of the birth.
               attr_accessor :day
@@ -573,39 +624,46 @@ module Stripe
               attr_accessor :month
               # The year of birth.
               attr_accessor :year
+
               def initialize(day: nil, month: nil, year: nil)
                 @day = day
                 @month = month
                 @year = year
               end
             end
+
             class Documents < Stripe::RequestParams
               class CompanyAuthorization < Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
+
                 def initialize(files: nil, type: nil)
                   @files = files
                   @type = type
                 end
               end
+
               class Passport < Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
+
                 def initialize(files: nil, type: nil)
                   @files = files
                   @type = type
                 end
               end
+
               class PrimaryVerification < Stripe::RequestParams
                 class FrontBack < Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :front
+
                   def initialize(back: nil, front: nil)
                     @back = back
                     @front = front
@@ -615,17 +673,20 @@ module Stripe
                 attr_accessor :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_accessor :type
+
                 def initialize(front_back: nil, type: nil)
                   @front_back = front_back
                   @type = type
                 end
               end
+
               class SecondaryVerification < Stripe::RequestParams
                 class FrontBack < Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :front
+
                   def initialize(back: nil, front: nil)
                     @back = back
                     @front = front
@@ -635,16 +696,19 @@ module Stripe
                 attr_accessor :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_accessor :type
+
                 def initialize(front_back: nil, type: nil)
                   @front_back = front_back
                   @type = type
                 end
               end
+
               class Visa < Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
+
                 def initialize(files: nil, type: nil)
                   @files = files
                   @type = type
@@ -660,6 +724,7 @@ module Stripe
               attr_accessor :secondary_verification
               # One or more documents showing the person’s visa required for living in the country where they are residing.
               attr_accessor :visa
+
               def initialize(
                 company_authorization: nil,
                 passport: nil,
@@ -674,16 +739,19 @@ module Stripe
                 @visa = visa
               end
             end
+
             class IdNumber < Stripe::RequestParams
               # The ID number type of an individual.
               attr_accessor :type
               # The value of the ID number.
               attr_accessor :value
+
               def initialize(type: nil, value: nil)
                 @type = type
                 @value = value
               end
             end
+
             class Relationship < Stripe::RequestParams
               # Whether the individual is an authorizer of the Account’s legal entity.
               attr_accessor :authorizer
@@ -701,6 +769,7 @@ module Stripe
               attr_accessor :representative
               # The title or position the person holds in the associated legal entity.
               attr_accessor :title
+
               def initialize(
                 authorizer: nil,
                 director: nil,
@@ -721,6 +790,7 @@ module Stripe
                 @title = title
               end
             end
+
             class ScriptAddresses < Stripe::RequestParams
               class Kana < Stripe::RequestParams
                 # City, district, suburb, town, or village.
@@ -737,6 +807,7 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
+
                 def initialize(
                   city: nil,
                   country: nil,
@@ -755,6 +826,7 @@ module Stripe
                   @town = town
                 end
               end
+
               class Kanji < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
@@ -770,6 +842,7 @@ module Stripe
                 attr_accessor :state
                 # Town or cho-me.
                 attr_accessor :town
+
                 def initialize(
                   city: nil,
                   country: nil,
@@ -792,27 +865,32 @@ module Stripe
               attr_accessor :kana
               # Kanji Address.
               attr_accessor :kanji
+
               def initialize(kana: nil, kanji: nil)
                 @kana = kana
                 @kanji = kanji
               end
             end
+
             class ScriptNames < Stripe::RequestParams
               class Kana < Stripe::RequestParams
                 # The person's first or given name.
                 attr_accessor :given_name
                 # The person's last or family name.
                 attr_accessor :surname
+
                 def initialize(given_name: nil, surname: nil)
                   @given_name = given_name
                   @surname = surname
                 end
               end
+
               class Kanji < Stripe::RequestParams
                 # The person's first or given name.
                 attr_accessor :given_name
                 # The person's last or family name.
                 attr_accessor :surname
+
                 def initialize(given_name: nil, surname: nil)
                   @given_name = given_name
                   @surname = surname
@@ -822,6 +900,7 @@ module Stripe
               attr_accessor :kana
               # Persons name in kanji script.
               attr_accessor :kanji
+
               def initialize(kana: nil, kanji: nil)
                 @kana = kana
                 @kanji = kanji
@@ -863,6 +942,7 @@ module Stripe
             attr_accessor :script_names
             # The person's last name.
             attr_accessor :surname
+
             def initialize(
               additional_addresses: nil,
               additional_names: nil,
@@ -903,14 +983,15 @@ module Stripe
               @surname = surname
             end
           end
+
           # Create a Person associated with an Account.
           def create(account_id, params = {}, opts = {})
             request(
               method: :post,
-              path: format('/v2/core/accounts/%<account_id>s/persons', {:account_id => CGI.escape(account_id)}),
+              path: format("/v2/core/accounts/%<account_id>s/persons", { account_id: CGI.escape(account_id) }),
               params: params,
               opts: opts,
-              base_address: :api,
+              base_address: :api
             )
           end
 
@@ -918,10 +999,10 @@ module Stripe
           def delete(account_id, id, params = {}, opts = {})
             request(
               method: :delete,
-              path: format('/v2/core/accounts/%<account_id>s/persons/%<id>s', {:account_id => CGI.escape(account_id), :id => CGI.escape(id)}),
+              path: format("/v2/core/accounts/%<account_id>s/persons/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),
               params: params,
               opts: opts,
-              base_address: :api,
+              base_address: :api
             )
           end
 
@@ -929,10 +1010,10 @@ module Stripe
           def list(account_id, params = {}, opts = {})
             request(
               method: :get,
-              path: format('/v2/core/accounts/%<account_id>s/persons', {:account_id => CGI.escape(account_id)}),
+              path: format("/v2/core/accounts/%<account_id>s/persons", { account_id: CGI.escape(account_id) }),
               params: params,
               opts: opts,
-              base_address: :api,
+              base_address: :api
             )
           end
 
@@ -940,10 +1021,10 @@ module Stripe
           def retrieve(account_id, id, params = {}, opts = {})
             request(
               method: :get,
-              path: format('/v2/core/accounts/%<account_id>s/persons/%<id>s', {:account_id => CGI.escape(account_id), :id => CGI.escape(id)}),
+              path: format("/v2/core/accounts/%<account_id>s/persons/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),
               params: params,
               opts: opts,
-              base_address: :api,
+              base_address: :api
             )
           end
 
@@ -951,10 +1032,10 @@ module Stripe
           def update(account_id, id, params = {}, opts = {})
             request(
               method: :post,
-              path: format('/v2/core/accounts/%<account_id>s/persons/%<id>s', {:account_id => CGI.escape(account_id), :id => CGI.escape(id)}),
+              path: format("/v2/core/accounts/%<account_id>s/persons/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),
               params: params,
               opts: opts,
-              base_address: :api,
+              base_address: :api
             )
           end
         end

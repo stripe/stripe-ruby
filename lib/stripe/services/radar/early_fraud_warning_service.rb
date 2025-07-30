@@ -14,6 +14,7 @@ module Stripe
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
+
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
             @gt = gt
             @gte = gte
@@ -35,6 +36,7 @@ module Stripe
         attr_accessor :payment_intent
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
+
         def initialize(
           charge: nil,
           created: nil,
@@ -53,21 +55,24 @@ module Stripe
           @starting_after = starting_after
         end
       end
+
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         def initialize(expand: nil)
           @expand = expand
         end
       end
+
       # Returns a list of early fraud warnings.
       def list(params = {}, opts = {})
         request(
           method: :get,
-          path: '/v1/radar/early_fraud_warnings',
+          path: "/v1/radar/early_fraud_warnings",
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
 
@@ -77,10 +82,10 @@ module Stripe
       def retrieve(early_fraud_warning, params = {}, opts = {})
         request(
           method: :get,
-          path: format('/v1/radar/early_fraud_warnings/%<early_fraud_warning>s', {:early_fraud_warning => CGI.escape(early_fraud_warning)}),
+          path: format("/v1/radar/early_fraud_warnings/%<early_fraud_warning>s", { early_fraud_warning: CGI.escape(early_fraud_warning) }),
           params: params,
           opts: opts,
-          base_address: :api,
+          base_address: :api
         )
       end
     end

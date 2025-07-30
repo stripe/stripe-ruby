@@ -31,7 +31,29 @@ module Stripe
         attr_reader :splashscreen
       end
       class Tipping < Stripe::StripeObject
+        class Aed < Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          sig { returns(Integer) }
+          attr_reader :smart_tip_threshold
+        end
         class Aud < Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          sig { returns(Integer) }
+          attr_reader :smart_tip_threshold
+        end
+        class Bgn < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           attr_reader :fixed_amounts
@@ -119,6 +141,17 @@ module Stripe
           sig { returns(Integer) }
           attr_reader :smart_tip_threshold
         end
+        class Huf < Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          sig { returns(Integer) }
+          attr_reader :smart_tip_threshold
+        end
         class Jpy < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
@@ -174,6 +207,17 @@ module Stripe
           sig { returns(Integer) }
           attr_reader :smart_tip_threshold
         end
+        class Ron < Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          sig { returns(T.nilable(T::Array[Integer])) }
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          sig { returns(Integer) }
+          attr_reader :smart_tip_threshold
+        end
         class Sek < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
@@ -207,9 +251,15 @@ module Stripe
           sig { returns(Integer) }
           attr_reader :smart_tip_threshold
         end
+        # Attribute for field aed
+        sig { returns(Aed) }
+        attr_reader :aed
         # Attribute for field aud
         sig { returns(Aud) }
         attr_reader :aud
+        # Attribute for field bgn
+        sig { returns(Bgn) }
+        attr_reader :bgn
         # Attribute for field cad
         sig { returns(Cad) }
         attr_reader :cad
@@ -231,6 +281,9 @@ module Stripe
         # Attribute for field hkd
         sig { returns(Hkd) }
         attr_reader :hkd
+        # Attribute for field huf
+        sig { returns(Huf) }
+        attr_reader :huf
         # Attribute for field jpy
         sig { returns(Jpy) }
         attr_reader :jpy
@@ -246,6 +299,9 @@ module Stripe
         # Attribute for field pln
         sig { returns(Pln) }
         attr_reader :pln
+        # Attribute for field ron
+        sig { returns(Ron) }
+        attr_reader :ron
         # Attribute for field sek
         sig { returns(Sek) }
         attr_reader :sek
@@ -387,7 +443,37 @@ module Stripe
           def initialize(splashscreen: nil); end
         end
         class Tipping < Stripe::RequestParams
+          class Aed < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :smart_tip_threshold
+            sig {
+              params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
+             }
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
+          end
           class Aud < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :smart_tip_threshold
+            sig {
+              params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
+             }
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
+          end
+          class Bgn < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             sig { returns(T.nilable(T::Array[Integer])) }
             attr_accessor :fixed_amounts
@@ -507,6 +593,21 @@ module Stripe
              }
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
           end
+          class Huf < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :smart_tip_threshold
+            sig {
+              params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
+             }
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
+          end
           class Jpy < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             sig { returns(T.nilable(T::Array[Integer])) }
@@ -582,6 +683,21 @@ module Stripe
              }
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
           end
+          class Ron < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :smart_tip_threshold
+            sig {
+              params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
+             }
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
+          end
           class Sek < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             sig { returns(T.nilable(T::Array[Integer])) }
@@ -627,9 +743,15 @@ module Stripe
              }
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
           end
+          # Tipping configuration for AED
+          sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Aed)) }
+          attr_accessor :aed
           # Tipping configuration for AUD
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Aud)) }
           attr_accessor :aud
+          # Tipping configuration for BGN
+          sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Bgn)) }
+          attr_accessor :bgn
           # Tipping configuration for CAD
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Cad)) }
           attr_accessor :cad
@@ -651,6 +773,9 @@ module Stripe
           # Tipping configuration for HKD
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Hkd)) }
           attr_accessor :hkd
+          # Tipping configuration for HUF
+          sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Huf)) }
+          attr_accessor :huf
           # Tipping configuration for JPY
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Jpy)) }
           attr_accessor :jpy
@@ -666,6 +791,9 @@ module Stripe
           # Tipping configuration for PLN
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Pln)) }
           attr_accessor :pln
+          # Tipping configuration for RON
+          sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Ron)) }
+          attr_accessor :ron
           # Tipping configuration for SEK
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Sek)) }
           attr_accessor :sek
@@ -676,10 +804,12 @@ module Stripe
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Usd)) }
           attr_accessor :usd
           sig {
-            params(aud: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Aud), cad: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Cad), chf: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Chf), czk: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Czk), dkk: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Dkk), eur: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Eur), gbp: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Gbp), hkd: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Hkd), jpy: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Jpy), myr: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Myr), nok: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Nok), nzd: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Nzd), pln: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Pln), sek: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Sek), sgd: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Sgd), usd: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Usd)).void
+            params(aed: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Aed), aud: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Aud), bgn: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Bgn), cad: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Cad), chf: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Chf), czk: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Czk), dkk: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Dkk), eur: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Eur), gbp: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Gbp), hkd: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Hkd), huf: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Huf), jpy: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Jpy), myr: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Myr), nok: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Nok), nzd: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Nzd), pln: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Pln), ron: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Ron), sek: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Sek), sgd: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Sgd), usd: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping::Usd)).void
            }
           def initialize(
+            aed: nil,
             aud: nil,
+            bgn: nil,
             cad: nil,
             chf: nil,
             czk: nil,
@@ -687,11 +817,13 @@ module Stripe
             eur: nil,
             gbp: nil,
             hkd: nil,
+            huf: nil,
             jpy: nil,
             myr: nil,
             nok: nil,
             nzd: nil,
             pln: nil,
+            ron: nil,
             sek: nil,
             sgd: nil,
             usd: nil
@@ -904,7 +1036,37 @@ module Stripe
           def initialize(splashscreen: nil); end
         end
         class Tipping < Stripe::RequestParams
+          class Aed < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :smart_tip_threshold
+            sig {
+              params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
+             }
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
+          end
           class Aud < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :smart_tip_threshold
+            sig {
+              params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
+             }
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
+          end
+          class Bgn < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             sig { returns(T.nilable(T::Array[Integer])) }
             attr_accessor :fixed_amounts
@@ -1024,6 +1186,21 @@ module Stripe
              }
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
           end
+          class Huf < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :smart_tip_threshold
+            sig {
+              params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
+             }
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
+          end
           class Jpy < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             sig { returns(T.nilable(T::Array[Integer])) }
@@ -1099,6 +1276,21 @@ module Stripe
              }
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
           end
+          class Ron < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :smart_tip_threshold
+            sig {
+              params(fixed_amounts: T.nilable(T::Array[Integer]), percentages: T.nilable(T::Array[Integer]), smart_tip_threshold: T.nilable(Integer)).void
+             }
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
+          end
           class Sek < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             sig { returns(T.nilable(T::Array[Integer])) }
@@ -1144,9 +1336,15 @@ module Stripe
              }
             def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
           end
+          # Tipping configuration for AED
+          sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Aed)) }
+          attr_accessor :aed
           # Tipping configuration for AUD
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Aud)) }
           attr_accessor :aud
+          # Tipping configuration for BGN
+          sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Bgn)) }
+          attr_accessor :bgn
           # Tipping configuration for CAD
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Cad)) }
           attr_accessor :cad
@@ -1168,6 +1366,9 @@ module Stripe
           # Tipping configuration for HKD
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Hkd)) }
           attr_accessor :hkd
+          # Tipping configuration for HUF
+          sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Huf)) }
+          attr_accessor :huf
           # Tipping configuration for JPY
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Jpy)) }
           attr_accessor :jpy
@@ -1183,6 +1384,9 @@ module Stripe
           # Tipping configuration for PLN
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Pln)) }
           attr_accessor :pln
+          # Tipping configuration for RON
+          sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Ron)) }
+          attr_accessor :ron
           # Tipping configuration for SEK
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Sek)) }
           attr_accessor :sek
@@ -1193,10 +1397,12 @@ module Stripe
           sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Usd)) }
           attr_accessor :usd
           sig {
-            params(aud: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Aud), cad: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Cad), chf: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Chf), czk: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Czk), dkk: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Dkk), eur: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Eur), gbp: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Gbp), hkd: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Hkd), jpy: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Jpy), myr: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Myr), nok: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Nok), nzd: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Nzd), pln: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Pln), sek: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Sek), sgd: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Sgd), usd: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Usd)).void
+            params(aed: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Aed), aud: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Aud), bgn: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Bgn), cad: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Cad), chf: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Chf), czk: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Czk), dkk: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Dkk), eur: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Eur), gbp: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Gbp), hkd: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Hkd), huf: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Huf), jpy: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Jpy), myr: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Myr), nok: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Nok), nzd: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Nzd), pln: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Pln), ron: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Ron), sek: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Sek), sgd: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Sgd), usd: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping::Usd)).void
            }
           def initialize(
+            aed: nil,
             aud: nil,
+            bgn: nil,
             cad: nil,
             chf: nil,
             czk: nil,
@@ -1204,11 +1410,13 @@ module Stripe
             eur: nil,
             gbp: nil,
             hkd: nil,
+            huf: nil,
             jpy: nil,
             myr: nil,
             nok: nil,
             nzd: nil,
             pln: nil,
+            ron: nil,
             sek: nil,
             sgd: nil,
             usd: nil

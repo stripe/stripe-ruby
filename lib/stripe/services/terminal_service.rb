@@ -3,16 +3,14 @@
 
 module Stripe
   class TerminalService < StripeService
-    attr_reader :configurations
-    attr_reader :connection_tokens
-    attr_reader :locations
-    attr_reader :readers
-    attr_reader :reader_collected_data
+    attr_reader :configurations, :connection_tokens, :locations, :onboarding_links, :readers, :reader_collected_data
+
     def initialize(requestor)
-      super(requestor)
+      super
       @configurations = Stripe::Terminal::ConfigurationService.new(@requestor)
       @connection_tokens = Stripe::Terminal::ConnectionTokenService.new(@requestor)
       @locations = Stripe::Terminal::LocationService.new(@requestor)
+      @onboarding_links = Stripe::Terminal::OnboardingLinkService.new(@requestor)
       @readers = Stripe::Terminal::ReaderService.new(@requestor)
       @reader_collected_data = Stripe::Terminal::ReaderCollectedDataService.new(@requestor)
     end

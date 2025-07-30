@@ -23,6 +23,8 @@ module Stripe
           # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodBankAccount objects
           # cannot be used as payout methods and will not appear in the payout method list.
           attr_reader :archived
+          # The type of bank account (checking or savings).
+          attr_reader :bank_account_type
           # The name of the bank this bank account is in. This field is populated automatically by Stripe.
           attr_reader :bank_name
           # The country code of the bank account.

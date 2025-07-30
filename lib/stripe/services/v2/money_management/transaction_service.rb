@@ -22,6 +22,7 @@ module Stripe
           attr_accessor :flow
           # The page limit.
           attr_accessor :limit
+
           def initialize(
             created: nil,
             created_gt: nil,
@@ -42,15 +43,17 @@ module Stripe
             @limit = limit
           end
         end
+
         class RetrieveParams < Stripe::RequestParams; end
+
         # Returns a list of Transactions that match the provided filters.
         def list(params = {}, opts = {})
           request(
             method: :get,
-            path: '/v2/money_management/transactions',
+            path: "/v2/money_management/transactions",
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
 
@@ -58,10 +61,10 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format('/v2/money_management/transactions/%<id>s', {:id => CGI.escape(id)}),
+            path: format("/v2/money_management/transactions/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
-            base_address: :api,
+            base_address: :api
           )
         end
       end

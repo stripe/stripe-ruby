@@ -13,6 +13,88 @@ module Stripe
           sig { params(enabled: T::Boolean).void }
           def initialize(enabled: nil); end
         end
+        class CustomerSheet < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+            # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the customer sheet displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
+            #
+            # If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
+            sig { returns(T.nilable(T::Array[String])) }
+            attr_accessor :payment_method_allow_redisplay_filters
+            # Controls whether the customer sheet displays the option to remove a saved payment method."
+            #
+            # Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_method_remove
+            sig {
+              params(payment_method_allow_redisplay_filters: T.nilable(T::Array[String]), payment_method_remove: T.nilable(String)).void
+             }
+            def initialize(
+              payment_method_allow_redisplay_filters: nil,
+              payment_method_remove: nil
+            ); end
+          end
+          # Whether the customer sheet is enabled.
+          sig { returns(T::Boolean) }
+          attr_accessor :enabled
+          # This hash defines whether the customer sheet supports certain features.
+          sig {
+            returns(T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::CustomerSheet::Features))
+           }
+          attr_accessor :features
+          sig {
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::CustomerSheet::Features)).void
+           }
+          def initialize(enabled: nil, features: nil); end
+        end
+        class MobilePaymentElement < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+            # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the mobile payment element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
+            #
+            # If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
+            sig { returns(T.nilable(T::Array[String])) }
+            attr_accessor :payment_method_allow_redisplay_filters
+            # Controls whether or not the mobile payment element shows saved payment methods.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_method_redisplay
+            # Controls whether the mobile payment element displays the option to remove a saved payment method."
+            #
+            # Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_method_remove
+            # Controls whether the mobile payment element displays a checkbox offering to save a new payment method.
+            #
+            # If a customer checks the box, the [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) value on the PaymentMethod is set to `'always'` at confirmation time. For PaymentIntents, the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value is also set to the value defined in `payment_method_save_usage`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_method_save
+            # Allows overriding the value of allow_override when saving a new payment method when payment_method_save is set to disabled. Use values: "always", "limited", or "unspecified".
+            #
+            # If not specified, defaults to `nil` (no override value).
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_method_save_allow_redisplay_override
+            sig {
+              params(payment_method_allow_redisplay_filters: T.nilable(T::Array[String]), payment_method_redisplay: T.nilable(String), payment_method_remove: T.nilable(String), payment_method_save: T.nilable(String), payment_method_save_allow_redisplay_override: T.nilable(String)).void
+             }
+            def initialize(
+              payment_method_allow_redisplay_filters: nil,
+              payment_method_redisplay: nil,
+              payment_method_remove: nil,
+              payment_method_save: nil,
+              payment_method_save_allow_redisplay_override: nil
+            ); end
+          end
+          # Whether the mobile payment element is enabled.
+          sig { returns(T::Boolean) }
+          attr_accessor :enabled
+          # This hash defines whether the mobile payment element supports certain features.
+          sig {
+            returns(T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::MobilePaymentElement::Features))
+           }
+          attr_accessor :features
+          sig {
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::MobilePaymentElement::Features)).void
+           }
+          def initialize(enabled: nil, features: nil); end
+        end
         class PaymentElement < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
@@ -78,6 +160,16 @@ module Stripe
           returns(T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::BuyButton))
          }
         attr_accessor :buy_button
+        # Configuration for the customer sheet.
+        sig {
+          returns(T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::CustomerSheet))
+         }
+        attr_accessor :customer_sheet
+        # Configuration for the mobile payment element.
+        sig {
+          returns(T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::MobilePaymentElement))
+         }
+        attr_accessor :mobile_payment_element
         # Configuration for the Payment Element.
         sig {
           returns(T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::PaymentElement))
@@ -89,9 +181,15 @@ module Stripe
          }
         attr_accessor :pricing_table
         sig {
-          params(buy_button: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::BuyButton), payment_element: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::PaymentElement), pricing_table: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::PricingTable)).void
+          params(buy_button: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::BuyButton), customer_sheet: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::CustomerSheet), mobile_payment_element: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::MobilePaymentElement), payment_element: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::PaymentElement), pricing_table: T.nilable(::Stripe::CustomerSessionService::CreateParams::Components::PricingTable)).void
          }
-        def initialize(buy_button: nil, payment_element: nil, pricing_table: nil); end
+        def initialize(
+          buy_button: nil,
+          customer_sheet: nil,
+          mobile_payment_element: nil,
+          payment_element: nil,
+          pricing_table: nil
+        ); end
       end
       # Configuration for each component. Exactly 1 component must be enabled.
       sig { returns(::Stripe::CustomerSessionService::CreateParams::Components) }

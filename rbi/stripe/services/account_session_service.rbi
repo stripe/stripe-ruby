@@ -152,7 +152,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::CapitalFinancing::Features))
            }
@@ -167,7 +167,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::CapitalFinancingApplication::Features))
            }
@@ -182,7 +182,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::CapitalFinancingPromotion::Features))
            }
@@ -197,7 +197,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::CapitalOverview::Features))
            }
@@ -249,7 +249,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::Documents::Features))
            }
@@ -264,7 +264,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::ExportTaxTransactions::Features))
            }
@@ -547,7 +547,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::PaymentMethodSettings::Features))
            }
@@ -640,7 +640,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::PayoutsList::Features))
            }
@@ -655,7 +655,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::ProductTaxCodeSelector::Features))
            }
@@ -691,7 +691,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::ReportingChart::Features))
            }
@@ -706,7 +706,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::TaxRegistrations::Features))
            }
@@ -721,7 +721,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::TaxSettings::Features))
            }
@@ -736,7 +736,7 @@ module Stripe
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           sig {
             returns(T.nilable(::Stripe::AccountSessionService::CreateParams::Components::TaxThresholdMonitoring::Features))
            }

@@ -118,7 +118,16 @@ module Stripe
         attr_reader :transaction_id
       end
 
-      class Alma < Stripe::StripeObject; end
+      class Alma < Stripe::StripeObject
+        class Installments < Stripe::StripeObject
+          # The number of installments.
+          attr_reader :count
+        end
+        # Attribute for field installments
+        attr_reader :installments
+        # The Alma transaction ID associated with this payment.
+        attr_reader :transaction_id
+      end
 
       class AmazonPay < Stripe::StripeObject
         class Funding < Stripe::StripeObject
@@ -145,6 +154,8 @@ module Stripe
         end
         # Attribute for field funding
         attr_reader :funding
+        # The Amazon Pay transaction ID associated with this payment.
+        attr_reader :transaction_id
       end
 
       class AuBecsDebit < Stripe::StripeObject
@@ -531,6 +542,8 @@ module Stripe
       class KakaoPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         attr_reader :buyer_id
+        # The Kakao Pay transaction ID associated with this payment.
+        attr_reader :transaction_id
       end
 
       class Klarna < Stripe::StripeObject
@@ -568,6 +581,8 @@ module Stripe
         attr_reader :buyer_id
         # The last four digits of the card. This may not be present for American Express cards.
         attr_reader :last4
+        # The Korean Card transaction ID associated with this payment.
+        attr_reader :transaction_id
       end
 
       class Link < Stripe::StripeObject
@@ -605,6 +620,8 @@ module Stripe
       class NaverPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         attr_reader :buyer_id
+        # The Naver Pay transaction ID associated with this payment.
+        attr_reader :transaction_id
       end
 
       class NzBankAccount < Stripe::StripeObject
@@ -643,6 +660,8 @@ module Stripe
       class Payco < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         attr_reader :buyer_id
+        # The Payco transaction ID associated with this payment.
+        attr_reader :transaction_id
       end
 
       class Paynow < Stripe::StripeObject
@@ -766,11 +785,15 @@ module Stripe
         end
         # Attribute for field funding
         attr_reader :funding
+        # The Revolut Pay transaction ID associated with this payment.
+        attr_reader :transaction_id
       end
 
       class SamsungPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         attr_reader :buyer_id
+        # The Samsung Pay transaction ID associated with this payment.
+        attr_reader :transaction_id
       end
 
       class Satispay < Stripe::StripeObject; end

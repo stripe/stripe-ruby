@@ -28,7 +28,7 @@ module Stripe
       end
 
       class AdaptivePricing < Stripe::StripeObject
-        # Whether Adaptive Pricing is enabled.
+        # If enabled, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions).
         attr_reader :enabled
       end
 
@@ -1203,7 +1203,7 @@ module Stripe
 
       class CreateParams < Stripe::RequestParams
         class AdaptivePricing < Stripe::RequestParams
-          # Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+          # If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
           attr_accessor :enabled
 
           def initialize(enabled: nil)
@@ -1464,13 +1464,46 @@ module Stripe
         end
 
         class Discount < Stripe::RequestParams
+          class CouponData < Stripe::RequestParams
+            # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+            attr_accessor :amount_off
+            # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+            attr_accessor :currency
+            # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+            attr_accessor :duration
+            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            attr_accessor :metadata
+            # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+            attr_accessor :name
+            # A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+            attr_accessor :percent_off
+
+            def initialize(
+              amount_off: nil,
+              currency: nil,
+              duration: nil,
+              metadata: nil,
+              name: nil,
+              percent_off: nil
+            )
+              @amount_off = amount_off
+              @currency = currency
+              @duration = duration
+              @metadata = metadata
+              @name = name
+              @percent_off = percent_off
+            end
+          end
           # The ID of the coupon to apply to this Session.
           attr_accessor :coupon
+          # Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+          attr_accessor :coupon_data
           # The ID of a promotion code to apply to this Session.
           attr_accessor :promotion_code
 
-          def initialize(coupon: nil, promotion_code: nil)
+          def initialize(coupon: nil, coupon_data: nil, promotion_code: nil)
             @coupon = coupon
+            @coupon_data = coupon_data
             @promotion_code = promotion_code
           end
         end
@@ -3361,7 +3394,7 @@ module Stripe
         #
         # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
         attr_accessor :optional_items
-        # Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `custom`.
+        # Where the user is coming from. This informs the optimizations that are applied to the session.
         attr_accessor :origin_context
         # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
         attr_accessor :payment_intent_data

@@ -317,7 +317,7 @@ module Stripe
         # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :amount_refunded
-        # ID of an existing refund to link this credit note to.
+        # ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         sig { returns(T.nilable(String)) }
         attr_accessor :refund
         sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }
@@ -470,7 +470,7 @@ module Stripe
         # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :amount_refunded
-        # ID of an existing refund to link this credit note to.
+        # ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         sig { returns(T.nilable(String)) }
         attr_accessor :refund
         sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }
@@ -608,7 +608,7 @@ module Stripe
         # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :amount_refunded
-        # ID of an existing refund to link this credit note to.
+        # ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         sig { returns(T.nilable(String)) }
         attr_accessor :refund
         sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }

@@ -139,7 +139,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -152,7 +152,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -165,7 +165,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -178,7 +178,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -225,7 +225,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -238,7 +238,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -497,7 +497,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -582,7 +582,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -595,7 +595,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -628,7 +628,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -641,7 +641,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -654,7 +654,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -667,7 +667,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)

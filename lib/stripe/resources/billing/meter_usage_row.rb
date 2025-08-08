@@ -19,7 +19,7 @@ module Stripe
       attr_reader :dimensions
       # Unique identifier for the object.
       attr_reader :id
-      # The unique identifier for the meter.
+      # The unique identifier for the meter. Null if no meters were provided and usage was aggregated across all meters.
       attr_reader :meter_id
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object

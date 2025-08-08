@@ -20,7 +20,7 @@ module Stripe
     # Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
     class Session < APIResource
       class AdaptivePricing < Stripe::StripeObject
-        # Whether Adaptive Pricing is enabled.
+        # If enabled, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions).
         sig { returns(T::Boolean) }
         attr_reader :enabled
       end
@@ -1612,7 +1612,7 @@ module Stripe
       end
       class CreateParams < Stripe::RequestParams
         class AdaptivePricing < Stripe::RequestParams
-          # Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+          # If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :enabled
           sig { params(enabled: T.nilable(T::Boolean)).void }
@@ -1879,14 +1879,52 @@ module Stripe
           def initialize(address: nil, name: nil, shipping: nil); end
         end
         class Discount < Stripe::RequestParams
+          class CouponData < Stripe::RequestParams
+            # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount_off
+            # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+            sig { returns(T.nilable(String)) }
+            attr_accessor :currency
+            # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :duration
+            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+            attr_accessor :metadata
+            # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :name
+            # A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+            sig { returns(T.nilable(Float)) }
+            attr_accessor :percent_off
+            sig {
+              params(amount_off: T.nilable(Integer), currency: T.nilable(String), duration: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), percent_off: T.nilable(Float)).void
+             }
+            def initialize(
+              amount_off: nil,
+              currency: nil,
+              duration: nil,
+              metadata: nil,
+              name: nil,
+              percent_off: nil
+            ); end
+          end
           # The ID of the coupon to apply to this Session.
           sig { returns(T.nilable(String)) }
           attr_accessor :coupon
+          # Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::Discount::CouponData))
+           }
+          attr_accessor :coupon_data
           # The ID of a promotion code to apply to this Session.
           sig { returns(T.nilable(String)) }
           attr_accessor :promotion_code
-          sig { params(coupon: T.nilable(String), promotion_code: T.nilable(String)).void }
-          def initialize(coupon: nil, promotion_code: nil); end
+          sig {
+            params(coupon: T.nilable(String), coupon_data: T.nilable(::Stripe::Checkout::Session::CreateParams::Discount::CouponData), promotion_code: T.nilable(String)).void
+           }
+          def initialize(coupon: nil, coupon_data: nil, promotion_code: nil); end
         end
         class InvoiceCreation < Stripe::RequestParams
           class InvoiceData < Stripe::RequestParams
@@ -3902,7 +3940,7 @@ module Stripe
           returns(T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]))
          }
         attr_accessor :optional_items
-        # Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `custom`.
+        # Where the user is coming from. This informs the optimizations that are applied to the session.
         sig { returns(T.nilable(String)) }
         attr_accessor :origin_context
         # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.

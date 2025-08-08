@@ -1,5 +1,10 @@
 # Changelog
 
+## 15.5.0-beta.2 - 2025-08-08
+* [#1632](https://github.com/stripe/stripe-ruby/pull/1632) Bring back invoice payments APIs that were missing in the public preview SDKs
+    * Add support for new resource `InvoicePayment`
+    * Add support for `list` and `retrieve` methods on resource `InvoicePayment`
+
 ## 15.5.0-beta.1 - 2025-07-30
 This release changes the pinned API version to `2025-07-30.preview`.
 

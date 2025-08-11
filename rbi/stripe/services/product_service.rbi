@@ -44,28 +44,28 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :default_price
       # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :images
       # A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::ProductService::UpdateParams::MarketingFeature]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::ProductService::UpdateParams::MarketingFeature])))
        }
       attr_accessor :marketing_features
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The product's name, meant to be displayable to the customer.
       sig { returns(T.nilable(String)) }
       attr_accessor :name
       # The dimensions of this product for shipping purposes.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::ProductService::UpdateParams::PackageDimensions))))
+        returns(T.nilable(T.any(String, ::Stripe::ProductService::UpdateParams::PackageDimensions)))
        }
       attr_accessor :package_dimensions
       # Whether this product is shipped (i.e., physical goods).
@@ -78,16 +78,16 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :statement_descriptor
       # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :tax_code
       # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only be set if `type=service`.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :unit_label
       # A URL of a publicly-accessible webpage for this product.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :url
       sig {
-        params(active: T.nilable(T::Boolean), default_price: T.nilable(String), description: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), images: T.nilable(T.nilable(T.any(String, T::Array[String]))), marketing_features: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::ProductService::UpdateParams::MarketingFeature]))), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), package_dimensions: T.nilable(T.nilable(T.any(String, ::Stripe::ProductService::UpdateParams::PackageDimensions))), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(T.nilable(String)), unit_label: T.nilable(T.nilable(String)), url: T.nilable(T.nilable(String))).void
+        params(active: T.nilable(T::Boolean), default_price: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), images: T.nilable(T.any(String, T::Array[String])), marketing_features: T.nilable(T.any(String, T::Array[::Stripe::ProductService::UpdateParams::MarketingFeature])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), package_dimensions: T.nilable(T.any(String, ::Stripe::ProductService::UpdateParams::PackageDimensions)), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
        }
       def initialize(
         active: nil,

@@ -195,7 +195,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :jurisdiction
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
       sig { returns(T.nilable(String)) }
@@ -204,7 +204,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :tax_type
       sig {
-        params(active: T.nilable(T::Boolean), country: T.nilable(String), description: T.nilable(String), display_name: T.nilable(String), expand: T.nilable(T::Array[String]), jurisdiction: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), state: T.nilable(String), tax_type: T.nilable(String)).void
+        params(active: T.nilable(T::Boolean), country: T.nilable(String), description: T.nilable(String), display_name: T.nilable(String), expand: T.nilable(T::Array[String]), jurisdiction: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), state: T.nilable(String), tax_type: T.nilable(String)).void
        }
       def initialize(
         active: nil,

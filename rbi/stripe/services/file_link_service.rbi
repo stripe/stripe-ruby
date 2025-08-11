@@ -68,10 +68,10 @@ module Stripe
       sig { returns(String) }
       attr_accessor :file
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       sig {
-        params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), file: String, metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+        params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), file: String, metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
       def initialize(expand: nil, expires_at: nil, file: nil, metadata: nil); end
     end
@@ -87,13 +87,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately.
-      sig { returns(T.nilable(T.nilable(T.any(String, T.any(String, Integer))))) }
+      sig { returns(T.nilable(T.any(String, T.any(String, Integer)))) }
       attr_accessor :expires_at
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       sig {
-        params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(T.nilable(T.any(String, T.any(String, Integer)))), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+        params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(T.any(String, T.any(String, Integer))), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
       def initialize(expand: nil, expires_at: nil, metadata: nil); end
     end

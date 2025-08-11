@@ -977,13 +977,13 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :support_phone
         # A publicly available website for handling support issues.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :support_url
         # The business's publicly available website.
         sig { returns(T.nilable(String)) }
         attr_accessor :url
         sig {
-          params(annual_revenue: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
+          params(annual_revenue: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(String), url: T.nilable(String)).void
          }
         def initialize(
           annual_revenue: nil,
@@ -1980,21 +1980,21 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::UpdateParams::Company::OwnershipDeclaration)) }
         attr_accessor :ownership_declaration
         # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
-        sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+        sig { returns(T.nilable(T.any(String, String))) }
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         sig { returns(T.nilable(String)) }
         attr_accessor :phone
         # Attribute for param field registration_date
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Company::RegistrationDate))))
+          returns(T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Company::RegistrationDate)))
          }
         attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         sig { returns(T.nilable(String)) }
         attr_accessor :registration_number
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
-        sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+        sig { returns(T.nilable(T.any(String, String))) }
         attr_accessor :structure
         # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
         sig { returns(T.nilable(String)) }
@@ -2009,7 +2009,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::UpdateParams::Company::Verification)) }
         attr_accessor :verification
         sig {
-          params(address: T.nilable(::Stripe::Account::UpdateParams::Company::Address), address_kana: T.nilable(::Stripe::Account::UpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::Account::UpdateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Account::UpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Account::UpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.nilable(T.any(String, String))), phone: T.nilable(String), registration_date: T.nilable(T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Company::RegistrationDate))), registration_number: T.nilable(String), structure: T.nilable(T.nilable(T.any(String, String))), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Account::UpdateParams::Company::Verification)).void
+          params(address: T.nilable(::Stripe::Account::UpdateParams::Company::Address), address_kana: T.nilable(::Stripe::Account::UpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::Account::UpdateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Account::UpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Account::UpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), registration_date: T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Company::RegistrationDate)), registration_number: T.nilable(String), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Account::UpdateParams::Company::Verification)).void
          }
         def initialize(
           address: nil,
@@ -2156,9 +2156,9 @@ module Stripe
       end
       class Groups < Stripe::RequestParams
         # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :payments_pricing
-        sig { params(payments_pricing: T.nilable(T.nilable(String))).void }
+        sig { params(payments_pricing: T.nilable(String)).void }
         def initialize(payments_pricing: nil); end
       end
       class Individual < Stripe::RequestParams
@@ -2318,13 +2318,13 @@ module Stripe
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :owner
           # The percent owned by the person of the account's legal entity.
-          sig { returns(T.nilable(T.nilable(T.any(String, Float)))) }
+          sig { returns(T.nilable(T.any(String, Float))) }
           attr_accessor :percent_ownership
           # The person's title (e.g., CEO, Support Engineer).
           sig { returns(T.nilable(String)) }
           attr_accessor :title
           sig {
-            params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.nilable(T.any(String, Float))), title: T.nilable(String)).void
+            params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.any(String, Float)), title: T.nilable(String)).void
            }
           def initialize(
             director: nil,
@@ -2380,9 +2380,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::UpdateParams::Individual::AddressKanji)) }
         attr_accessor :address_kanji
         # The individual's date of birth.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Individual::Dob))))
-         }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Individual::Dob))) }
         attr_accessor :dob
         # The individual's email address.
         sig { returns(T.nilable(String)) }
@@ -2397,7 +2395,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :first_name_kanji
         # A list of alternate names or aliases that the individual is known by.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :full_name_aliases
         # The individual's gender
         sig { returns(T.nilable(String)) }
@@ -2421,7 +2419,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :maiden_name
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         # The individual's phone number.
         sig { returns(T.nilable(String)) }
@@ -2442,7 +2440,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::UpdateParams::Individual::Verification)) }
         attr_accessor :verification
         sig {
-          params(address: T.nilable(::Stripe::Account::UpdateParams::Individual::Address), address_kana: T.nilable(::Stripe::Account::UpdateParams::Individual::AddressKana), address_kanji: T.nilable(::Stripe::Account::UpdateParams::Individual::AddressKanji), dob: T.nilable(T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Individual::Dob))), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.nilable(T.any(String, T::Array[String]))), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::Account::UpdateParams::Individual::RegisteredAddress), relationship: T.nilable(::Stripe::Account::UpdateParams::Individual::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(::Stripe::Account::UpdateParams::Individual::Verification)).void
+          params(address: T.nilable(::Stripe::Account::UpdateParams::Individual::Address), address_kana: T.nilable(::Stripe::Account::UpdateParams::Individual::AddressKana), address_kanji: T.nilable(::Stripe::Account::UpdateParams::Individual::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Individual::Dob)), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::Account::UpdateParams::Individual::RegisteredAddress), relationship: T.nilable(::Stripe::Account::UpdateParams::Individual::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(::Stripe::Account::UpdateParams::Individual::Verification)).void
          }
         def initialize(
           address: nil,
@@ -2505,10 +2503,10 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_accessor :ip
             # The user agent of the browser from which the account representative accepted the service agreement.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :user_agent
             sig {
-              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(T.nilable(String))).void
+              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
              }
             def initialize(date: nil, ip: nil, user_agent: nil); end
           end
@@ -2544,13 +2542,13 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :statement_descriptor_prefix
           # The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kana` specified on the charge. `statement_descriptor_prefix_kana` is useful for maximizing descriptor space for the dynamic portion.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :statement_descriptor_prefix_kana
           # The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kanji` specified on the charge. `statement_descriptor_prefix_kanji` is useful for maximizing descriptor space for the dynamic portion.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :statement_descriptor_prefix_kanji
           sig {
-            params(decline_on: T.nilable(::Stripe::Account::UpdateParams::Settings::CardPayments::DeclineOn), statement_descriptor_prefix: T.nilable(String), statement_descriptor_prefix_kana: T.nilable(T.nilable(String)), statement_descriptor_prefix_kanji: T.nilable(T.nilable(String))).void
+            params(decline_on: T.nilable(::Stripe::Account::UpdateParams::Settings::CardPayments::DeclineOn), statement_descriptor_prefix: T.nilable(String), statement_descriptor_prefix_kana: T.nilable(String), statement_descriptor_prefix_kanji: T.nilable(String)).void
            }
           def initialize(
             decline_on: nil,
@@ -2561,13 +2559,13 @@ module Stripe
         end
         class Invoices < Stripe::RequestParams
           # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
-          sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+          sig { returns(T.nilable(T.any(String, T::Array[String]))) }
           attr_accessor :default_account_tax_ids
           # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
           sig { returns(T.nilable(String)) }
           attr_accessor :hosted_payment_method_save
           sig {
-            params(default_account_tax_ids: T.nilable(T.nilable(T.any(String, T::Array[String]))), hosted_payment_method_save: T.nilable(String)).void
+            params(default_account_tax_ids: T.nilable(T.any(String, T::Array[String])), hosted_payment_method_save: T.nilable(String)).void
            }
           def initialize(default_account_tax_ids: nil, hosted_payment_method_save: nil); end
         end
@@ -2649,10 +2647,10 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_accessor :ip
             # The user agent of the browser from which the account representative accepted the service agreement.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :user_agent
             sig {
-              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(T.nilable(String))).void
+              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
              }
             def initialize(date: nil, ip: nil, user_agent: nil); end
           end
@@ -2758,7 +2756,7 @@ module Stripe
       attr_accessor :expand
       # A card or bank account to attach to the account for receiving [payouts](/connect/bank-debit-card-payouts) (you won’t be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](/js), or a dictionary, as documented in the `external_account` parameter for [bank account](/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](/api#account_create_bank_account) or [card creation](/api#account_create_card) APIs. After you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T.any(String, ::Stripe::Account::UpdateParams::BankAccount, ::Stripe::Account::UpdateParams::Card, ::Stripe::Account::UpdateParams::CardToken)))))
+        returns(T.nilable(T.any(String, T.any(String, ::Stripe::Account::UpdateParams::BankAccount, ::Stripe::Account::UpdateParams::Card, ::Stripe::Account::UpdateParams::CardToken))))
        }
       attr_accessor :external_account
       # A hash of account group type to tokens. These are account groups this account should be added to.
@@ -2768,7 +2766,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Account::UpdateParams::Individual)) }
       attr_accessor :individual
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Options for customizing how the account functions within Stripe.
       sig { returns(T.nilable(::Stripe::Account::UpdateParams::Settings)) }
@@ -2777,7 +2775,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Account::UpdateParams::TosAcceptance)) }
       attr_accessor :tos_acceptance
       sig {
-        params(account_token: T.nilable(String), business_profile: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile), business_type: T.nilable(String), capabilities: T.nilable(::Stripe::Account::UpdateParams::Capabilities), company: T.nilable(::Stripe::Account::UpdateParams::Company), default_currency: T.nilable(String), documents: T.nilable(::Stripe::Account::UpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), external_account: T.nilable(T.nilable(T.any(String, T.any(String, ::Stripe::Account::UpdateParams::BankAccount, ::Stripe::Account::UpdateParams::Card, ::Stripe::Account::UpdateParams::CardToken)))), groups: T.nilable(::Stripe::Account::UpdateParams::Groups), individual: T.nilable(::Stripe::Account::UpdateParams::Individual), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), settings: T.nilable(::Stripe::Account::UpdateParams::Settings), tos_acceptance: T.nilable(::Stripe::Account::UpdateParams::TosAcceptance)).void
+        params(account_token: T.nilable(String), business_profile: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile), business_type: T.nilable(String), capabilities: T.nilable(::Stripe::Account::UpdateParams::Capabilities), company: T.nilable(::Stripe::Account::UpdateParams::Company), default_currency: T.nilable(String), documents: T.nilable(::Stripe::Account::UpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), external_account: T.nilable(T.any(String, T.any(String, ::Stripe::Account::UpdateParams::BankAccount, ::Stripe::Account::UpdateParams::Card, ::Stripe::Account::UpdateParams::CardToken))), groups: T.nilable(::Stripe::Account::UpdateParams::Groups), individual: T.nilable(::Stripe::Account::UpdateParams::Individual), metadata: T.nilable(T.any(String, T::Hash[String, String])), settings: T.nilable(::Stripe::Account::UpdateParams::Settings), tos_acceptance: T.nilable(::Stripe::Account::UpdateParams::TosAcceptance)).void
        }
       def initialize(
         account_token: nil,
@@ -2966,13 +2964,13 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :support_phone
         # A publicly available website for handling support issues.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :support_url
         # The business's publicly available website.
         sig { returns(T.nilable(String)) }
         attr_accessor :url
         sig {
-          params(annual_revenue: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
+          params(annual_revenue: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(String), url: T.nilable(String)).void
          }
         def initialize(
           annual_revenue: nil,
@@ -3969,21 +3967,21 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Company::OwnershipDeclaration)) }
         attr_accessor :ownership_declaration
         # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
-        sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+        sig { returns(T.nilable(T.any(String, String))) }
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         sig { returns(T.nilable(String)) }
         attr_accessor :phone
         # When the business was incorporated or registered.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Account::CreateParams::Company::RegistrationDate))))
+          returns(T.nilable(T.any(String, ::Stripe::Account::CreateParams::Company::RegistrationDate)))
          }
         attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         sig { returns(T.nilable(String)) }
         attr_accessor :registration_number
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
-        sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+        sig { returns(T.nilable(T.any(String, String))) }
         attr_accessor :structure
         # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
         sig { returns(T.nilable(String)) }
@@ -3998,7 +3996,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Company::Verification)) }
         attr_accessor :verification
         sig {
-          params(address: T.nilable(::Stripe::Account::CreateParams::Company::Address), address_kana: T.nilable(::Stripe::Account::CreateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::Account::CreateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Account::CreateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Account::CreateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.nilable(T.any(String, String))), phone: T.nilable(String), registration_date: T.nilable(T.nilable(T.any(String, ::Stripe::Account::CreateParams::Company::RegistrationDate))), registration_number: T.nilable(String), structure: T.nilable(T.nilable(T.any(String, String))), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Account::CreateParams::Company::Verification)).void
+          params(address: T.nilable(::Stripe::Account::CreateParams::Company::Address), address_kana: T.nilable(::Stripe::Account::CreateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::Account::CreateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Account::CreateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Account::CreateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), registration_date: T.nilable(T.any(String, ::Stripe::Account::CreateParams::Company::RegistrationDate)), registration_number: T.nilable(String), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Account::CreateParams::Company::Verification)).void
          }
         def initialize(
           address: nil,
@@ -4189,9 +4187,9 @@ module Stripe
       end
       class Groups < Stripe::RequestParams
         # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :payments_pricing
-        sig { params(payments_pricing: T.nilable(T.nilable(String))).void }
+        sig { params(payments_pricing: T.nilable(String)).void }
         def initialize(payments_pricing: nil); end
       end
       class Individual < Stripe::RequestParams
@@ -4351,13 +4349,13 @@ module Stripe
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :owner
           # The percent owned by the person of the account's legal entity.
-          sig { returns(T.nilable(T.nilable(T.any(String, Float)))) }
+          sig { returns(T.nilable(T.any(String, Float))) }
           attr_accessor :percent_ownership
           # The person's title (e.g., CEO, Support Engineer).
           sig { returns(T.nilable(String)) }
           attr_accessor :title
           sig {
-            params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.nilable(T.any(String, Float))), title: T.nilable(String)).void
+            params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.any(String, Float)), title: T.nilable(String)).void
            }
           def initialize(
             director: nil,
@@ -4413,9 +4411,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Individual::AddressKanji)) }
         attr_accessor :address_kanji
         # The individual's date of birth.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Account::CreateParams::Individual::Dob))))
-         }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Account::CreateParams::Individual::Dob))) }
         attr_accessor :dob
         # The individual's email address.
         sig { returns(T.nilable(String)) }
@@ -4430,7 +4426,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :first_name_kanji
         # A list of alternate names or aliases that the individual is known by.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :full_name_aliases
         # The individual's gender
         sig { returns(T.nilable(String)) }
@@ -4454,7 +4450,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :maiden_name
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         # The individual's phone number.
         sig { returns(T.nilable(String)) }
@@ -4475,7 +4471,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Individual::Verification)) }
         attr_accessor :verification
         sig {
-          params(address: T.nilable(::Stripe::Account::CreateParams::Individual::Address), address_kana: T.nilable(::Stripe::Account::CreateParams::Individual::AddressKana), address_kanji: T.nilable(::Stripe::Account::CreateParams::Individual::AddressKanji), dob: T.nilable(T.nilable(T.any(String, ::Stripe::Account::CreateParams::Individual::Dob))), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.nilable(T.any(String, T::Array[String]))), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::Account::CreateParams::Individual::RegisteredAddress), relationship: T.nilable(::Stripe::Account::CreateParams::Individual::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(::Stripe::Account::CreateParams::Individual::Verification)).void
+          params(address: T.nilable(::Stripe::Account::CreateParams::Individual::Address), address_kana: T.nilable(::Stripe::Account::CreateParams::Individual::AddressKana), address_kanji: T.nilable(::Stripe::Account::CreateParams::Individual::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::Account::CreateParams::Individual::Dob)), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::Account::CreateParams::Individual::RegisteredAddress), relationship: T.nilable(::Stripe::Account::CreateParams::Individual::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(::Stripe::Account::CreateParams::Individual::Verification)).void
          }
         def initialize(
           address: nil,
@@ -4538,10 +4534,10 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_accessor :ip
             # The user agent of the browser from which the account representative accepted the service agreement.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :user_agent
             sig {
-              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(T.nilable(String))).void
+              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
              }
             def initialize(date: nil, ip: nil, user_agent: nil); end
           end
@@ -4577,13 +4573,13 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :statement_descriptor_prefix
           # The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kana` specified on the charge. `statement_descriptor_prefix_kana` is useful for maximizing descriptor space for the dynamic portion.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :statement_descriptor_prefix_kana
           # The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kanji` specified on the charge. `statement_descriptor_prefix_kanji` is useful for maximizing descriptor space for the dynamic portion.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :statement_descriptor_prefix_kanji
           sig {
-            params(decline_on: T.nilable(::Stripe::Account::CreateParams::Settings::CardPayments::DeclineOn), statement_descriptor_prefix: T.nilable(String), statement_descriptor_prefix_kana: T.nilable(T.nilable(String)), statement_descriptor_prefix_kanji: T.nilable(T.nilable(String))).void
+            params(decline_on: T.nilable(::Stripe::Account::CreateParams::Settings::CardPayments::DeclineOn), statement_descriptor_prefix: T.nilable(String), statement_descriptor_prefix_kana: T.nilable(String), statement_descriptor_prefix_kanji: T.nilable(String)).void
            }
           def initialize(
             decline_on: nil,
@@ -4677,10 +4673,10 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_accessor :ip
             # The user agent of the browser from which the account representative accepted the service agreement.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :user_agent
             sig {
-              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(T.nilable(String))).void
+              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
              }
             def initialize(date: nil, ip: nil, user_agent: nil); end
           end
@@ -4802,7 +4798,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Account::CreateParams::Individual)) }
       attr_accessor :individual
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Options for customizing how the account functions within Stripe.
       sig { returns(T.nilable(::Stripe::Account::CreateParams::Settings)) }
@@ -4814,7 +4810,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :type
       sig {
-        params(account_token: T.nilable(String), business_profile: T.nilable(::Stripe::Account::CreateParams::BusinessProfile), business_type: T.nilable(String), capabilities: T.nilable(::Stripe::Account::CreateParams::Capabilities), company: T.nilable(::Stripe::Account::CreateParams::Company), controller: T.nilable(::Stripe::Account::CreateParams::Controller), country: T.nilable(String), default_currency: T.nilable(String), documents: T.nilable(::Stripe::Account::CreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), external_account: T.nilable(T.any(String, ::Stripe::Account::CreateParams::BankAccount, ::Stripe::Account::CreateParams::Card, ::Stripe::Account::CreateParams::CardToken)), groups: T.nilable(::Stripe::Account::CreateParams::Groups), individual: T.nilable(::Stripe::Account::CreateParams::Individual), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), settings: T.nilable(::Stripe::Account::CreateParams::Settings), tos_acceptance: T.nilable(::Stripe::Account::CreateParams::TosAcceptance), type: T.nilable(String)).void
+        params(account_token: T.nilable(String), business_profile: T.nilable(::Stripe::Account::CreateParams::BusinessProfile), business_type: T.nilable(String), capabilities: T.nilable(::Stripe::Account::CreateParams::Capabilities), company: T.nilable(::Stripe::Account::CreateParams::Company), controller: T.nilable(::Stripe::Account::CreateParams::Controller), country: T.nilable(String), default_currency: T.nilable(String), documents: T.nilable(::Stripe::Account::CreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), external_account: T.nilable(T.any(String, ::Stripe::Account::CreateParams::BankAccount, ::Stripe::Account::CreateParams::Card, ::Stripe::Account::CreateParams::CardToken)), groups: T.nilable(::Stripe::Account::CreateParams::Groups), individual: T.nilable(::Stripe::Account::CreateParams::Individual), metadata: T.nilable(T.any(String, T::Hash[String, String])), settings: T.nilable(::Stripe::Account::CreateParams::Settings), tos_acceptance: T.nilable(::Stripe::Account::CreateParams::TosAcceptance), type: T.nilable(String)).void
        }
       def initialize(
         account_token: nil,

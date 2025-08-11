@@ -413,9 +413,9 @@ module Stripe
       class UpdateParams < Stripe::RequestParams
         class BbposWiseposE < Stripe::RequestParams
           # A File ID representing an image to display on the reader
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :splashscreen
-          sig { params(splashscreen: T.nilable(T.nilable(String))).void }
+          sig { params(splashscreen: T.nilable(String)).void }
           def initialize(splashscreen: nil); end
         end
         class Offline < Stripe::RequestParams
@@ -437,9 +437,9 @@ module Stripe
         end
         class StripeS700 < Stripe::RequestParams
           # A File ID representing an image you would like displayed on the reader.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :splashscreen
-          sig { params(splashscreen: T.nilable(T.nilable(String))).void }
+          sig { params(splashscreen: T.nilable(String)).void }
           def initialize(splashscreen: nil); end
         end
         class Tipping < Stripe::RequestParams
@@ -831,9 +831,9 @@ module Stripe
         end
         class VerifoneP400 < Stripe::RequestParams
           # A File ID representing an image you would like displayed on the reader.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :splashscreen
-          sig { params(splashscreen: T.nilable(T.nilable(String))).void }
+          sig { params(splashscreen: T.nilable(String)).void }
           def initialize(splashscreen: nil); end
         end
         class Wifi < Stripe::RequestParams
@@ -922,7 +922,7 @@ module Stripe
         end
         # An object containing device type specific settings for BBPOS WisePOS E readers
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE)))
          }
         attr_accessor :bbpos_wisepos_e
         # Specifies which fields in the response should be expanded.
@@ -933,36 +933,36 @@ module Stripe
         attr_accessor :name
         # Configurations for collecting transactions offline.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Offline))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Offline)))
          }
         attr_accessor :offline
         # Reboot time settings for readers that support customized reboot time configuration.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::RebootWindow))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::RebootWindow)))
          }
         attr_accessor :reboot_window
         # An object containing device type specific settings for Stripe S700 readers
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::StripeS700))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::StripeS700)))
          }
         attr_accessor :stripe_s700
         # Tipping configurations for readers supporting on-reader tips
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Tipping))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Tipping)))
          }
         attr_accessor :tipping
         # An object containing device type specific settings for Verifone P400 readers
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::VerifoneP400))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::VerifoneP400)))
          }
         attr_accessor :verifone_p400
         # Configurations for connecting to a WiFi network.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Wifi))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Wifi)))
          }
         attr_accessor :wifi
         sig {
-          params(bbpos_wisepos_e: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE))), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Offline))), reboot_window: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::RebootWindow))), stripe_s700: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::StripeS700))), tipping: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Tipping))), verifone_p400: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::VerifoneP400))), wifi: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Wifi)))).void
+          params(bbpos_wisepos_e: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Offline)), reboot_window: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::RebootWindow)), stripe_s700: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::StripeS700)), tipping: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Tipping)), verifone_p400: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::VerifoneP400)), wifi: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Wifi))).void
          }
         def initialize(
           bbpos_wisepos_e: nil,
@@ -1006,9 +1006,9 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         class BbposWiseposE < Stripe::RequestParams
           # A File ID representing an image to display on the reader
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :splashscreen
-          sig { params(splashscreen: T.nilable(T.nilable(String))).void }
+          sig { params(splashscreen: T.nilable(String)).void }
           def initialize(splashscreen: nil); end
         end
         class Offline < Stripe::RequestParams
@@ -1030,9 +1030,9 @@ module Stripe
         end
         class StripeS700 < Stripe::RequestParams
           # A File ID representing an image you would like displayed on the reader.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :splashscreen
-          sig { params(splashscreen: T.nilable(T.nilable(String))).void }
+          sig { params(splashscreen: T.nilable(String)).void }
           def initialize(splashscreen: nil); end
         end
         class Tipping < Stripe::RequestParams
@@ -1424,9 +1424,9 @@ module Stripe
         end
         class VerifoneP400 < Stripe::RequestParams
           # A File ID representing an image you would like displayed on the reader.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :splashscreen
-          sig { params(splashscreen: T.nilable(T.nilable(String))).void }
+          sig { params(splashscreen: T.nilable(String)).void }
           def initialize(splashscreen: nil); end
         end
         class Wifi < Stripe::RequestParams
@@ -1524,7 +1524,7 @@ module Stripe
         attr_accessor :name
         # Configurations for collecting transactions offline.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Offline))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Offline)))
          }
         attr_accessor :offline
         # Reboot time settings for readers that support customized reboot time configuration.
@@ -1535,7 +1535,7 @@ module Stripe
         attr_accessor :stripe_s700
         # Tipping configurations for readers supporting on-reader tips
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Tipping))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Tipping)))
          }
         attr_accessor :tipping
         # An object containing device type specific settings for Verifone P400 readers
@@ -1543,11 +1543,11 @@ module Stripe
         attr_accessor :verifone_p400
         # Configurations for connecting to a WiFi network.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Wifi))))
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Wifi)))
          }
         attr_accessor :wifi
         sig {
-          params(bbpos_wisepos_e: T.nilable(::Stripe::Terminal::Configuration::CreateParams::BbposWiseposE), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Offline))), reboot_window: T.nilable(::Stripe::Terminal::Configuration::CreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::Configuration::CreateParams::StripeS700), tipping: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Tipping))), verifone_p400: T.nilable(::Stripe::Terminal::Configuration::CreateParams::VerifoneP400), wifi: T.nilable(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Wifi)))).void
+          params(bbpos_wisepos_e: T.nilable(::Stripe::Terminal::Configuration::CreateParams::BbposWiseposE), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Offline)), reboot_window: T.nilable(::Stripe::Terminal::Configuration::CreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::Configuration::CreateParams::StripeS700), tipping: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Tipping)), verifone_p400: T.nilable(::Stripe::Terminal::Configuration::CreateParams::VerifoneP400), wifi: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Wifi))).void
          }
         def initialize(
           bbpos_wisepos_e: nil,

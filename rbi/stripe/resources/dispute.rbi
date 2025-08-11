@@ -406,25 +406,25 @@ module Stripe
             class DisputedTransaction < Stripe::RequestParams
               class ShippingAddress < Stripe::RequestParams
                 # City, district, suburb, town, or village.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :country
                 # Address line 1 (e.g., street, PO Box, or company name).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :line1
                 # Address line 2 (e.g., apartment, suite, unit, or building).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :line2
                 # ZIP or postal code.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :postal_code
                 # State, county, province, or region.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :state
                 sig {
-                  params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String))).void
+                  params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
                  }
                 def initialize(
                   city: nil,
@@ -436,25 +436,25 @@ module Stripe
                 ); end
               end
               # User Account ID used to log into business platform. Must be recognizable by the user.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_account_id
               # Unique identifier of the cardholder’s device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_device_fingerprint
               # Unique identifier of the cardholder’s device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_device_id
               # The email address of the customer.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_email_address
               # The IP address that the customer used when making the purchase.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_purchase_ip
               # Categorization of disputed payment.
               sig { returns(T.nilable(String)) }
               attr_accessor :merchandise_or_services
               # A description of the product or service that was sold.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :product_description
               # The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
               sig {
@@ -462,7 +462,7 @@ module Stripe
                }
               attr_accessor :shipping_address
               sig {
-                params(customer_account_id: T.nilable(T.nilable(String)), customer_device_fingerprint: T.nilable(T.nilable(String)), customer_device_id: T.nilable(T.nilable(String)), customer_email_address: T.nilable(T.nilable(String)), customer_purchase_ip: T.nilable(T.nilable(String)), merchandise_or_services: T.nilable(String), product_description: T.nilable(T.nilable(String)), shipping_address: T.nilable(::Stripe::Dispute::UpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress)).void
+                params(customer_account_id: T.nilable(String), customer_device_fingerprint: T.nilable(String), customer_device_id: T.nilable(String), customer_email_address: T.nilable(String), customer_purchase_ip: T.nilable(String), merchandise_or_services: T.nilable(String), product_description: T.nilable(String), shipping_address: T.nilable(::Stripe::Dispute::UpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::DisputedTransaction::ShippingAddress)).void
                }
               def initialize(
                 customer_account_id: nil,
@@ -478,25 +478,25 @@ module Stripe
             class PriorUndisputedTransaction < Stripe::RequestParams
               class ShippingAddress < Stripe::RequestParams
                 # City, district, suburb, town, or village.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :country
                 # Address line 1 (e.g., street, PO Box, or company name).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :line1
                 # Address line 2 (e.g., apartment, suite, unit, or building).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :line2
                 # ZIP or postal code.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :postal_code
                 # State, county, province, or region.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :state
                 sig {
-                  params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String))).void
+                  params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
                  }
                 def initialize(
                   city: nil,
@@ -511,22 +511,22 @@ module Stripe
               sig { returns(String) }
               attr_accessor :charge
               # User Account ID used to log into business platform. Must be recognizable by the user.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_account_id
               # Unique identifier of the cardholder’s device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_device_fingerprint
               # Unique identifier of the cardholder’s device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_device_id
               # The email address of the customer.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_email_address
               # The IP address that the customer used when making the purchase.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :customer_purchase_ip
               # A description of the product or service that was sold.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :product_description
               # The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
               sig {
@@ -534,7 +534,7 @@ module Stripe
                }
               attr_accessor :shipping_address
               sig {
-                params(charge: String, customer_account_id: T.nilable(T.nilable(String)), customer_device_fingerprint: T.nilable(T.nilable(String)), customer_device_id: T.nilable(T.nilable(String)), customer_email_address: T.nilable(T.nilable(String)), customer_purchase_ip: T.nilable(T.nilable(String)), product_description: T.nilable(T.nilable(String)), shipping_address: T.nilable(::Stripe::Dispute::UpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress)).void
+                params(charge: String, customer_account_id: T.nilable(String), customer_device_fingerprint: T.nilable(String), customer_device_id: T.nilable(String), customer_email_address: T.nilable(String), customer_purchase_ip: T.nilable(String), product_description: T.nilable(String), shipping_address: T.nilable(::Stripe::Dispute::UpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3::PriorUndisputedTransaction::ShippingAddress)).void
                }
               def initialize(
                 charge: nil,
@@ -625,7 +625,7 @@ module Stripe
         attr_accessor :duplicate_charge_id
         # Additional evidence for qualifying evidence programs.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Dispute::UpdateParams::Evidence::EnhancedEvidence))))
+          returns(T.nilable(T.any(String, ::Stripe::Dispute::UpdateParams::Evidence::EnhancedEvidence)))
          }
         attr_accessor :enhanced_evidence
         # A description of the product or service that was sold. Has a maximum character count of 20,000.
@@ -671,7 +671,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :uncategorized_text
         sig {
-          params(access_activity_log: T.nilable(String), billing_address: T.nilable(String), cancellation_policy: T.nilable(String), cancellation_policy_disclosure: T.nilable(String), cancellation_rebuttal: T.nilable(String), customer_communication: T.nilable(String), customer_email_address: T.nilable(String), customer_name: T.nilable(String), customer_purchase_ip: T.nilable(String), customer_signature: T.nilable(String), duplicate_charge_documentation: T.nilable(String), duplicate_charge_explanation: T.nilable(String), duplicate_charge_id: T.nilable(String), enhanced_evidence: T.nilable(T.nilable(T.any(String, ::Stripe::Dispute::UpdateParams::Evidence::EnhancedEvidence))), product_description: T.nilable(String), receipt: T.nilable(String), refund_policy: T.nilable(String), refund_policy_disclosure: T.nilable(String), refund_refusal_explanation: T.nilable(String), service_date: T.nilable(String), service_documentation: T.nilable(String), shipping_address: T.nilable(String), shipping_carrier: T.nilable(String), shipping_date: T.nilable(String), shipping_documentation: T.nilable(String), shipping_tracking_number: T.nilable(String), uncategorized_file: T.nilable(String), uncategorized_text: T.nilable(String)).void
+          params(access_activity_log: T.nilable(String), billing_address: T.nilable(String), cancellation_policy: T.nilable(String), cancellation_policy_disclosure: T.nilable(String), cancellation_rebuttal: T.nilable(String), customer_communication: T.nilable(String), customer_email_address: T.nilable(String), customer_name: T.nilable(String), customer_purchase_ip: T.nilable(String), customer_signature: T.nilable(String), duplicate_charge_documentation: T.nilable(String), duplicate_charge_explanation: T.nilable(String), duplicate_charge_id: T.nilable(String), enhanced_evidence: T.nilable(T.any(String, ::Stripe::Dispute::UpdateParams::Evidence::EnhancedEvidence)), product_description: T.nilable(String), receipt: T.nilable(String), refund_policy: T.nilable(String), refund_policy_disclosure: T.nilable(String), refund_refusal_explanation: T.nilable(String), service_date: T.nilable(String), service_documentation: T.nilable(String), shipping_address: T.nilable(String), shipping_carrier: T.nilable(String), shipping_date: T.nilable(String), shipping_documentation: T.nilable(String), shipping_tracking_number: T.nilable(String), uncategorized_file: T.nilable(String), uncategorized_text: T.nilable(String)).void
          }
         def initialize(
           access_activity_log: nil,
@@ -711,13 +711,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :submit
       sig {
-        params(evidence: T.nilable(::Stripe::Dispute::UpdateParams::Evidence), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), submit: T.nilable(T::Boolean)).void
+        params(evidence: T.nilable(::Stripe::Dispute::UpdateParams::Evidence), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), submit: T.nilable(T::Boolean)).void
        }
       def initialize(evidence: nil, expand: nil, metadata: nil, submit: nil); end
     end

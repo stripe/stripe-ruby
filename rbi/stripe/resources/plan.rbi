@@ -109,7 +109,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # A brief description of the plan, hidden from customers.
       sig { returns(T.nilable(String)) }
@@ -121,7 +121,7 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       attr_accessor :trial_period_days
       sig {
-        params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), nickname: T.nilable(String), product: T.nilable(String), trial_period_days: T.nilable(Integer)).void
+        params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), nickname: T.nilable(String), product: T.nilable(String), trial_period_days: T.nilable(Integer)).void
        }
       def initialize(
         active: nil,
@@ -288,7 +288,7 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       attr_accessor :interval_count
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The meter tracking the usage of a metered price
       sig { returns(T.nilable(String)) }
@@ -315,7 +315,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :usage_type
       sig {
-        params(active: T.nilable(T::Boolean), amount: T.nilable(Integer), amount_decimal: T.nilable(String), billing_scheme: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), id: T.nilable(String), interval: String, interval_count: T.nilable(Integer), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), meter: T.nilable(String), nickname: T.nilable(String), product: T.nilable(T.any(::Stripe::Plan::CreateParams::Product, String)), tiers: T.nilable(T::Array[::Stripe::Plan::CreateParams::Tier]), tiers_mode: T.nilable(String), transform_usage: T.nilable(::Stripe::Plan::CreateParams::TransformUsage), trial_period_days: T.nilable(Integer), usage_type: T.nilable(String)).void
+        params(active: T.nilable(T::Boolean), amount: T.nilable(Integer), amount_decimal: T.nilable(String), billing_scheme: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), id: T.nilable(String), interval: String, interval_count: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), meter: T.nilable(String), nickname: T.nilable(String), product: T.nilable(T.any(::Stripe::Plan::CreateParams::Product, String)), tiers: T.nilable(T::Array[::Stripe::Plan::CreateParams::Tier]), tiers_mode: T.nilable(String), transform_usage: T.nilable(::Stripe::Plan::CreateParams::TransformUsage), trial_period_days: T.nilable(Integer), usage_type: T.nilable(String)).void
        }
       def initialize(
         active: nil,

@@ -126,10 +126,10 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_accessor :ip
               # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :user_agent
               sig {
-                params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(T.nilable(String))).void
+                params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
                }
               def initialize(date: nil, ip: nil, user_agent: nil); end
             end
@@ -379,10 +379,10 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_accessor :ip
               # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :user_agent
               sig {
-                params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(T.nilable(String))).void
+                params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
                }
               def initialize(date: nil, ip: nil, user_agent: nil); end
             end

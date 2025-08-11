@@ -357,7 +357,7 @@ module Stripe
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # The nickname for the FinancialAccount.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :nickname
         # The set of functionalities that the platform can restrict on the FinancialAccount.
         sig {
@@ -368,7 +368,7 @@ module Stripe
         sig { returns(T::Array[String]) }
         attr_accessor :supported_currencies
         sig {
-          params(expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(T.nilable(String)), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::PlatformRestrictions), supported_currencies: T::Array[String]).void
+          params(expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::PlatformRestrictions), supported_currencies: T::Array[String]).void
          }
         def initialize(
           expand: nil,
@@ -586,7 +586,7 @@ module Stripe
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # The nickname for the FinancialAccount.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :nickname
         # The set of functionalities that the platform can restrict on the FinancialAccount.
         sig {
@@ -594,7 +594,7 @@ module Stripe
          }
         attr_accessor :platform_restrictions
         sig {
-          params(expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features), forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::ForwardingSettings), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(T.nilable(String)), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::PlatformRestrictions)).void
+          params(expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features), forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::ForwardingSettings), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::PlatformRestrictions)).void
          }
         def initialize(
           expand: nil,

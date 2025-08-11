@@ -230,13 +230,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Settings that restrict the redemption of the promotion code.
       sig { returns(T.nilable(::Stripe::PromotionCode::UpdateParams::Restrictions)) }
       attr_accessor :restrictions
       sig {
-        params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), restrictions: T.nilable(::Stripe::PromotionCode::UpdateParams::Restrictions)).void
+        params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), restrictions: T.nilable(::Stripe::PromotionCode::UpdateParams::Restrictions)).void
        }
       def initialize(active: nil, expand: nil, metadata: nil, restrictions: nil); end
     end

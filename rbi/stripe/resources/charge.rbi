@@ -1812,7 +1812,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant).
       sig { returns(T.nilable(String)) }
@@ -1844,7 +1844,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :transfer_group
       sig {
-        params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), capture: T.nilable(T::Boolean), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), destination: T.nilable(::Stripe::Charge::CreateParams::Destination), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), on_behalf_of: T.nilable(String), radar_options: T.nilable(::Stripe::Charge::CreateParams::RadarOptions), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::CreateParams::Shipping), source: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::Charge::CreateParams::TransferData), transfer_group: T.nilable(String)).void
+        params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), capture: T.nilable(T::Boolean), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), destination: T.nilable(::Stripe::Charge::CreateParams::Destination), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), on_behalf_of: T.nilable(String), radar_options: T.nilable(::Stripe::Charge::CreateParams::RadarOptions), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::CreateParams::Shipping), source: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::Charge::CreateParams::TransferData), transfer_group: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -1871,9 +1871,9 @@ module Stripe
     class UpdateParams < Stripe::RequestParams
       class FraudDetails < Stripe::RequestParams
         # Either `safe` or `fraudulent`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.any(String, String)) }
         attr_accessor :user_report
-        sig { params(user_report: T.nilable(T.any(String, String))).void }
+        sig { params(user_report: T.any(String, String)).void }
         def initialize(user_report: nil); end
       end
       class Shipping < Stripe::RequestParams
@@ -1941,7 +1941,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Charge::UpdateParams::FraudDetails)) }
       attr_accessor :fraud_details
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address.
       sig { returns(T.nilable(String)) }
@@ -1953,7 +1953,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :transfer_group
       sig {
-        params(customer: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fraud_details: T.nilable(::Stripe::Charge::UpdateParams::FraudDetails), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::UpdateParams::Shipping), transfer_group: T.nilable(String)).void
+        params(customer: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fraud_details: T.nilable(::Stripe::Charge::UpdateParams::FraudDetails), metadata: T.nilable(T.any(String, T::Hash[String, String])), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::UpdateParams::Shipping), transfer_group: T.nilable(String)).void
        }
       def initialize(
         customer: nil,

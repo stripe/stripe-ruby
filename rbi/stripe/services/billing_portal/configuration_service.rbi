@@ -262,8 +262,11 @@ module Stripe
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
+        # The name of the configuration.
+        sig { returns(T.nilable(T.nilable(String))) }
+        attr_accessor :name
         sig {
-          params(business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: ::Stripe::BillingPortal::ConfigurationService::CreateParams::Features, login_page: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::LoginPage), metadata: T.nilable(T::Hash[String, String])).void
+          params(business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: ::Stripe::BillingPortal::ConfigurationService::CreateParams::Features, login_page: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::LoginPage), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(T.nilable(String))).void
          }
         def initialize(
           business_profile: nil,
@@ -271,7 +274,8 @@ module Stripe
           expand: nil,
           features: nil,
           login_page: nil,
-          metadata: nil
+          metadata: nil,
+          name: nil
         ); end
       end
       class RetrieveParams < Stripe::RequestParams
@@ -514,8 +518,11 @@ module Stripe
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
         attr_accessor :metadata
+        # The name of the configuration.
+        sig { returns(T.nilable(T.nilable(String))) }
+        attr_accessor :name
         sig {
-          params(active: T.nilable(T::Boolean), business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features), login_page: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::LoginPage), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+          params(active: T.nilable(T::Boolean), business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features), login_page: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::LoginPage), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(T.nilable(String))).void
          }
         def initialize(
           active: nil,
@@ -524,7 +531,8 @@ module Stripe
           expand: nil,
           features: nil,
           login_page: nil,
-          metadata: nil
+          metadata: nil,
+          name: nil
         ); end
       end
       # Creates a configuration that describes the functionality and behavior of a PortalSession

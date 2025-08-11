@@ -166,6 +166,9 @@ module Stripe
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_reader :metadata
+      # The name of the configuration.
+      sig { returns(T.nilable(String)) }
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
@@ -427,8 +430,11 @@ module Stripe
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
+        # The name of the configuration.
+        sig { returns(T.nilable(T.nilable(String))) }
+        attr_accessor :name
         sig {
-          params(business_profile: T.nilable(::Stripe::BillingPortal::Configuration::CreateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: ::Stripe::BillingPortal::Configuration::CreateParams::Features, login_page: T.nilable(::Stripe::BillingPortal::Configuration::CreateParams::LoginPage), metadata: T.nilable(T::Hash[String, String])).void
+          params(business_profile: T.nilable(::Stripe::BillingPortal::Configuration::CreateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: ::Stripe::BillingPortal::Configuration::CreateParams::Features, login_page: T.nilable(::Stripe::BillingPortal::Configuration::CreateParams::LoginPage), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(T.nilable(String))).void
          }
         def initialize(
           business_profile: nil,
@@ -436,7 +442,8 @@ module Stripe
           expand: nil,
           features: nil,
           login_page: nil,
-          metadata: nil
+          metadata: nil,
+          name: nil
         ); end
       end
       class UpdateParams < Stripe::RequestParams
@@ -668,8 +675,11 @@ module Stripe
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
         attr_accessor :metadata
+        # The name of the configuration.
+        sig { returns(T.nilable(T.nilable(String))) }
+        attr_accessor :name
         sig {
-          params(active: T.nilable(T::Boolean), business_profile: T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::Features), login_page: T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::LoginPage), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+          params(active: T.nilable(T::Boolean), business_profile: T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::Features), login_page: T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::LoginPage), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(T.nilable(String))).void
          }
         def initialize(
           active: nil,
@@ -678,7 +688,8 @@ module Stripe
           expand: nil,
           features: nil,
           login_page: nil,
-          metadata: nil
+          metadata: nil,
+          name: nil
         ); end
       end
       # Creates a configuration that describes the functionality and behavior of a PortalSession

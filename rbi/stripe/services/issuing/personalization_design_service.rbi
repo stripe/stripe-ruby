@@ -57,19 +57,19 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         class CarrierText < Stripe::RequestParams
           # The footer body text of the carrier letter.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :footer_body
           # The footer title text of the carrier letter.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :footer_title
           # The header body text of the carrier letter.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :header_body
           # The header title text of the carrier letter.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :header_title
           sig {
-            params(footer_body: T.nilable(T.nilable(String)), footer_title: T.nilable(T.nilable(String)), header_body: T.nilable(T.nilable(String)), header_title: T.nilable(T.nilable(String))).void
+            params(footer_body: T.nilable(String), footer_title: T.nilable(String), header_body: T.nilable(String), header_title: T.nilable(String)).void
            }
           def initialize(
             footer_body: nil,
@@ -141,19 +141,19 @@ module Stripe
       class UpdateParams < Stripe::RequestParams
         class CarrierText < Stripe::RequestParams
           # The footer body text of the carrier letter.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :footer_body
           # The footer title text of the carrier letter.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :footer_title
           # The header body text of the carrier letter.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :header_body
           # The header title text of the carrier letter.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :header_title
           sig {
-            params(footer_body: T.nilable(T.nilable(String)), footer_title: T.nilable(T.nilable(String)), header_body: T.nilable(T.nilable(String)), header_title: T.nilable(T.nilable(String))).void
+            params(footer_body: T.nilable(String), footer_title: T.nilable(String), header_body: T.nilable(String), header_title: T.nilable(String)).void
            }
           def initialize(
             footer_body: nil,
@@ -170,24 +170,24 @@ module Stripe
           def initialize(is_default: nil); end
         end
         # The file for the card logo, for use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :card_logo
         # Hash containing carrier text, for use with physical bundles that support carrier text.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesignService::UpdateParams::CarrierText))))
+          returns(T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesignService::UpdateParams::CarrierText)))
          }
         attr_accessor :carrier_text
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :lookup_key
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # Friendly display name. Providing an empty string will set the field to null.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :name
         # The physical bundle object belonging to this personalization design.
         sig { returns(T.nilable(String)) }
@@ -201,7 +201,7 @@ module Stripe
         sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :transfer_lookup_key
         sig {
-          params(card_logo: T.nilable(T.nilable(String)), carrier_text: T.nilable(T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesignService::UpdateParams::CarrierText))), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(T.nilable(String)), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(T.nilable(String)), physical_bundle: T.nilable(String), preferences: T.nilable(::Stripe::Issuing::PersonalizationDesignService::UpdateParams::Preferences), transfer_lookup_key: T.nilable(T::Boolean)).void
+          params(card_logo: T.nilable(String), carrier_text: T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesignService::UpdateParams::CarrierText)), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), physical_bundle: T.nilable(String), preferences: T.nilable(::Stripe::Issuing::PersonalizationDesignService::UpdateParams::Preferences), transfer_lookup_key: T.nilable(T::Boolean)).void
          }
         def initialize(
           card_logo: nil,

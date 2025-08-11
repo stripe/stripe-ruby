@@ -83,14 +83,14 @@ module Stripe
       attr_accessor :discountable
       # The coupons, promotion codes & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::UpdateParams::Discount]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::UpdateParams::Discount])))
        }
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(T.nilable(::Stripe::InvoiceItemService::UpdateParams::Period)) }
@@ -108,16 +108,16 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :tax_behavior
       # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :tax_code
       # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :tax_rates
       # The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       attr_accessor :unit_amount_decimal
       sig {
-        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceItemService::UpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemService::UpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemService::UpdateParams::Pricing), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(T.nilable(String)), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), unit_amount_decimal: T.nilable(String)).void
+        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::UpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceItemService::UpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemService::UpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemService::UpdateParams::Pricing), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -270,7 +270,7 @@ module Stripe
       attr_accessor :discountable
       # The coupons and promotion codes to redeem into discounts for the invoice item or invoice line item.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::CreateParams::Discount]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::CreateParams::Discount])))
        }
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
@@ -280,7 +280,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :invoice
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(T.nilable(::Stripe::InvoiceItemService::CreateParams::Period)) }
@@ -301,7 +301,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :tax_behavior
       # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :tax_code
       # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
       sig { returns(T.nilable(T::Array[String])) }
@@ -310,7 +310,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :unit_amount_decimal
       sig {
-        params(amount: T.nilable(Integer), currency: T.nilable(String), customer: String, description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceItemService::CreateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemService::CreateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemService::CreateParams::Pricing), quantity: T.nilable(Integer), subscription: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(T.nilable(String)), tax_rates: T.nilable(T::Array[String]), unit_amount_decimal: T.nilable(String)).void
+        params(amount: T.nilable(Integer), currency: T.nilable(String), customer: String, description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::CreateParams::Discount])), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceItemService::CreateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemService::CreateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemService::CreateParams::Pricing), quantity: T.nilable(Integer), subscription: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T::Array[String]), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         amount: nil,

@@ -457,7 +457,7 @@ module Stripe
       attr_accessor :active
       # Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceService::UpdateParams::CurrencyOptions]))))
+        returns(T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceService::UpdateParams::CurrencyOptions])))
        }
       attr_accessor :currency_options
       # Specifies which fields in the response should be expanded.
@@ -467,7 +467,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :lookup_key
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # A brief description of the price, hidden from customers.
       sig { returns(T.nilable(String)) }
@@ -479,7 +479,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :transfer_lookup_key
       sig {
-        params(active: T.nilable(T::Boolean), currency_options: T.nilable(T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceService::UpdateParams::CurrencyOptions]))), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), nickname: T.nilable(String), tax_behavior: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean)).void
+        params(active: T.nilable(T::Boolean), currency_options: T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceService::UpdateParams::CurrencyOptions])), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nickname: T.nilable(String), tax_behavior: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean)).void
        }
       def initialize(
         active: nil,

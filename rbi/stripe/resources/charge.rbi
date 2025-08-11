@@ -111,7 +111,7 @@ module Stripe
       # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
       sig { returns(T.nilable(String)) }
       attr_reader :network_advice_code
-      # For charges declined by the network, a brand specific alphanumeric code which indicates the reason the authorization failed.
+      # For charges declined by the network, an alphanumeric code which indicates the reason the charge failed.
       sig { returns(T.nilable(String)) }
       attr_reader :network_decline_code
       # Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.

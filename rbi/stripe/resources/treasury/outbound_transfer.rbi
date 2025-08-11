@@ -266,11 +266,11 @@ module Stripe
           end
           # Optional fields for `us_bank_account`.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions::UsBankAccount))))
+            returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
            }
           attr_accessor :us_bank_account
           sig {
-            params(us_bank_account: T.nilable(T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions::UsBankAccount)))).void
+            params(us_bank_account: T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions::UsBankAccount))).void
            }
           def initialize(us_bank_account: nil); end
         end

@@ -155,13 +155,13 @@ module Stripe
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+        sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :expires_at
         # Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         sig {
-          params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(T.nilable(T.any(String, Integer))), metadata: T.nilable(T::Hash[String, String])).void
+          params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(T.any(String, Integer)), metadata: T.nilable(T::Hash[String, String])).void
          }
         def initialize(expand: nil, expires_at: nil, metadata: nil); end
       end

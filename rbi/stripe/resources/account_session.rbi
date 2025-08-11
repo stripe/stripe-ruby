@@ -508,9 +508,9 @@ module Stripe
         class AppInstall < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # The list of apps allowed to be enabled in the embedded component.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :allowed_apps
-            sig { params(allowed_apps: T.nilable(T.nilable(T.any(String, T::Array[String])))).void }
+            sig { params(allowed_apps: T.nilable(T.any(String, T::Array[String]))).void }
             def initialize(allowed_apps: nil); end
           end
           # Whether the embedded component is enabled.
@@ -529,9 +529,9 @@ module Stripe
         class AppViewport < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # The list of apps allowed to be enabled in the embedded component.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :allowed_apps
-            sig { params(allowed_apps: T.nilable(T.nilable(T.any(String, T::Array[String])))).void }
+            sig { params(allowed_apps: T.nilable(T.any(String, T::Array[String]))).void }
             def initialize(allowed_apps: nil); end
           end
           # Whether the embedded component is enabled.

@@ -112,23 +112,23 @@ module Stripe
         end
         # Billing address.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentMethodService::CreateParams::BillingDetails::Address))))
+          returns(T.nilable(T.any(String, ::Stripe::PaymentMethodService::CreateParams::BillingDetails::Address)))
          }
         attr_accessor :address
         # Email address.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :email
         # Full name.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :name
         # Billing phone number (including extension).
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         sig { returns(T.nilable(String)) }
         attr_accessor :tax_id
         sig {
-          params(address: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentMethodService::CreateParams::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
+          params(address: T.nilable(T.any(String, ::Stripe::PaymentMethodService::CreateParams::BillingDetails::Address)), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tax_id: T.nilable(String)).void
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
       end
@@ -707,32 +707,32 @@ module Stripe
         end
         # Billing address.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::PaymentMethodService::UpdateParams::BillingDetails::Address))))
+          returns(T.nilable(T.any(String, ::Stripe::PaymentMethodService::UpdateParams::BillingDetails::Address)))
          }
         attr_accessor :address
         # Email address.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :email
         # Full name.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :name
         # Billing phone number (including extension).
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         sig { returns(T.nilable(String)) }
         attr_accessor :tax_id
         sig {
-          params(address: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentMethodService::UpdateParams::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
+          params(address: T.nilable(T.any(String, ::Stripe::PaymentMethodService::UpdateParams::BillingDetails::Address)), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tax_id: T.nilable(String)).void
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
       end
       class Card < Stripe::RequestParams
         class Networks < Stripe::RequestParams
           # The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
-          sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+          sig { returns(T.nilable(T.any(String, String))) }
           attr_accessor :preferred
-          sig { params(preferred: T.nilable(T.nilable(T.any(String, String)))).void }
+          sig { params(preferred: T.nilable(T.any(String, String))).void }
           def initialize(preferred: nil); end
         end
         # Two-digit number representing the card's expiration month.
@@ -792,7 +792,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::PaymentMethodService::UpdateParams::Link)) }
       attr_accessor :link
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
       sig { returns(T.nilable(::Stripe::PaymentMethodService::UpdateParams::PayByBank)) }
@@ -804,7 +804,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::PaymentMethodService::UpdateParams::UsBankAccount)) }
       attr_accessor :us_bank_account
       sig {
-        params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodService::UpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Card), expand: T.nilable(T::Array[String]), link: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Link), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), pay_by_bank: T.nilable(::Stripe::PaymentMethodService::UpdateParams::PayByBank), payto: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Payto), us_bank_account: T.nilable(::Stripe::PaymentMethodService::UpdateParams::UsBankAccount)).void
+        params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodService::UpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Card), expand: T.nilable(T::Array[String]), link: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Link), metadata: T.nilable(T.any(String, T::Hash[String, String])), pay_by_bank: T.nilable(::Stripe::PaymentMethodService::UpdateParams::PayByBank), payto: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Payto), us_bank_account: T.nilable(::Stripe::PaymentMethodService::UpdateParams::UsBankAccount)).void
        }
       def initialize(
         allow_redisplay: nil,

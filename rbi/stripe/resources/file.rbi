@@ -102,10 +102,10 @@ module Stripe
         sig { returns(T.nilable(Integer)) }
         attr_accessor :expires_at
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         sig {
-          params(create: T::Boolean, expires_at: T.nilable(Integer), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+          params(create: T::Boolean, expires_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
          }
         def initialize(create: nil, expires_at: nil, metadata: nil); end
       end

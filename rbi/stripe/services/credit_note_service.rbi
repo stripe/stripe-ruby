@@ -92,11 +92,11 @@ module Stripe
         attr_accessor :quantity
         # A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNoteService::CreateParams::Line::TaxAmount]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::CreditNoteService::CreateParams::Line::TaxAmount])))
          }
         attr_accessor :tax_amounts
         # The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :tax_rates
         # Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`
         sig { returns(String) }
@@ -108,7 +108,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :unit_amount_decimal
         sig {
-          params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNoteService::CreateParams::Line::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+          params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::CreditNoteService::CreateParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String])), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -252,11 +252,11 @@ module Stripe
         attr_accessor :quantity
         # A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNoteService::PreviewParams::Line::TaxAmount]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::CreditNoteService::PreviewParams::Line::TaxAmount])))
          }
         attr_accessor :tax_amounts
         # The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :tax_rates
         # Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`
         sig { returns(String) }
@@ -268,7 +268,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :unit_amount_decimal
         sig {
-          params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNoteService::PreviewParams::Line::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+          params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::CreditNoteService::PreviewParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String])), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
          }
         def initialize(
           amount: nil,

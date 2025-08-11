@@ -2,3 +2,4 @@
 .
 --ignore=tmp/
 --ignore=vendor/
+--ignore=rbi/stripe.rbi

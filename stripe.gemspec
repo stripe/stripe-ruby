@@ -35,7 +35,10 @@ Gem::Specification.new do |s|
     /\A\.vscode/,
     /\Abin/,
     /\Asorbet/,
-    /\Atest/
+    /\Atest/,
+    # Ignores the contents of rbi/stripe/** but keeps rbi/stripe.rbi
+    # Only rbi/stripe.rbi is included in the gem
+    %r{\Arbi/stripe/}
   )
   s.files = `git ls-files`.split("\n").grep_v(ignored)
   s.bindir = "exe"

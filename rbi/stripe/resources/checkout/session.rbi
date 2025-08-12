@@ -917,6 +917,9 @@ module Stripe
           attr_reader :setup_future_usage
         end
         class Pix < Stripe::StripeObject
+          # Determines if the amount includes the IOF tax.
+          sig { returns(String) }
+          attr_reader :amount_includes_iof
           # The number of seconds after which Pix payment will expire.
           sig { returns(T.nilable(Integer)) }
           attr_reader :expires_after_seconds
@@ -3061,6 +3064,9 @@ module Stripe
             def initialize(mandate_options: nil, setup_future_usage: nil); end
           end
           class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_includes_iof
             # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :expires_after_seconds
@@ -3074,9 +3080,13 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_accessor :setup_future_usage
             sig {
-              params(expires_after_seconds: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
+              params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
              }
-            def initialize(expires_after_seconds: nil, setup_future_usage: nil); end
+            def initialize(
+              amount_includes_iof: nil,
+              expires_after_seconds: nil,
+              setup_future_usage: nil
+            ); end
           end
           class RevolutPay < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.

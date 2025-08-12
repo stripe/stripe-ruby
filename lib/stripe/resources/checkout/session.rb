@@ -795,6 +795,8 @@ module Stripe
         end
 
         class Pix < Stripe::StripeObject
+          # Determines if the amount includes the IOF tax.
+          attr_reader :amount_includes_iof
           # The number of seconds after which Pix payment will expire.
           attr_reader :expires_after_seconds
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2629,6 +2631,8 @@ module Stripe
           end
 
           class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
             # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
             attr_accessor :expires_after_seconds
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2640,7 +2644,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(expires_after_seconds: nil, setup_future_usage: nil)
+            def initialize(
+              amount_includes_iof: nil,
+              expires_after_seconds: nil,
+              setup_future_usage: nil
+            )
+              @amount_includes_iof = amount_includes_iof
               @expires_after_seconds = expires_after_seconds
               @setup_future_usage = setup_future_usage
             end

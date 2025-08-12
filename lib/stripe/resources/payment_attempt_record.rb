@@ -14,31 +14,52 @@ module Stripe
       "payment_attempt_record"
     end
 
+    class Amount < Stripe::StripeObject
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      attr_reader :value
+    end
+
+    class AmountAuthorized < Stripe::StripeObject
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      attr_reader :value
+    end
+
     class AmountCanceled < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
     end
 
     class AmountFailed < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
     end
 
     class AmountGuaranteed < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      attr_reader :value
+    end
+
+    class AmountRefunded < Stripe::StripeObject
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
     end
 
     class AmountRequested < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
     end
 
@@ -1042,6 +1063,19 @@ module Stripe
       attr_reader :zip
     end
 
+    class ProcessorDetails < Stripe::StripeObject
+      class Custom < Stripe::StripeObject
+        # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+        attr_reader :payment_reference
+      end
+      # Custom processors represent payment processors not modeled directly in
+      # the Stripe API. This resource consists of details about the custom processor
+      # used for this payment attempt.
+      attr_reader :custom
+      # The processor used for this payment attempt.
+      attr_reader :type
+    end
+
     class ShippingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -1077,13 +1111,21 @@ module Stripe
       end
     end
     # A representation of an amount of money, consisting of an amount and a currency.
+    attr_reader :amount
+    # A representation of an amount of money, consisting of an amount and a currency.
+    attr_reader :amount_authorized
+    # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_canceled
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_failed
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_guaranteed
     # A representation of an amount of money, consisting of an amount and a currency.
+    attr_reader :amount_refunded
+    # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_requested
+    # ID of the Connect application that created the PaymentAttemptRecord.
+    attr_reader :application
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
     # Customer information for this payment.
@@ -1104,8 +1146,8 @@ module Stripe
     attr_reader :payment_method_details
     # ID of the Payment Record this Payment Attempt Record belongs to.
     attr_reader :payment_record
-    # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
-    attr_reader :payment_reference
+    # Processor information associated with this payment.
+    attr_reader :processor_details
     # Indicates who reported the payment.
     attr_reader :reported_by
     # Shipping information for this payment.

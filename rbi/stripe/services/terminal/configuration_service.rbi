@@ -28,6 +28,13 @@ module Stripe
           sig { params(enabled: T::Boolean).void }
           def initialize(enabled: nil); end
         end
+        class ReaderSecurity < Stripe::RequestParams
+          # Passcode used to access a reader's admin menu.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :admin_menu_passcode
+          sig { params(admin_menu_passcode: T.nilable(String)).void }
+          def initialize(admin_menu_passcode: nil); end
+        end
         class RebootWindow < Stripe::RequestParams
           # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
           sig { returns(Integer) }
@@ -600,6 +607,11 @@ module Stripe
           returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::Offline)))
          }
         attr_accessor :offline
+        # Configurations for reader security settings.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::ReaderSecurity)))
+         }
+        attr_accessor :reader_security
         # Reboot time settings for readers that support customized reboot time configuration.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::RebootWindow)))
@@ -626,13 +638,14 @@ module Stripe
          }
         attr_accessor :wifi
         sig {
-          params(bbpos_wisepos_e: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::BbposWiseposE)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::Offline)), reboot_window: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::RebootWindow)), stripe_s700: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::StripeS700)), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::Tipping)), verifone_p400: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::VerifoneP400)), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::Wifi))).void
+          params(bbpos_wisepos_e: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::BbposWiseposE)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::Offline)), reader_security: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::ReaderSecurity)), reboot_window: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::RebootWindow)), stripe_s700: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::StripeS700)), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::Tipping)), verifone_p400: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::VerifoneP400)), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::UpdateParams::Wifi))).void
          }
         def initialize(
           bbpos_wisepos_e: nil,
           expand: nil,
           name: nil,
           offline: nil,
+          reader_security: nil,
           reboot_window: nil,
           stripe_s700: nil,
           tipping: nil,
@@ -681,6 +694,13 @@ module Stripe
           attr_accessor :enabled
           sig { params(enabled: T::Boolean).void }
           def initialize(enabled: nil); end
+        end
+        class ReaderSecurity < Stripe::RequestParams
+          # Passcode used to access a reader's admin menu.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :admin_menu_passcode
+          sig { params(admin_menu_passcode: T.nilable(String)).void }
+          def initialize(admin_menu_passcode: nil); end
         end
         class RebootWindow < Stripe::RequestParams
           # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
@@ -1254,6 +1274,11 @@ module Stripe
           returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::CreateParams::Offline)))
          }
         attr_accessor :offline
+        # Configurations for reader security settings.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::CreateParams::ReaderSecurity)))
+         }
+        attr_accessor :reader_security
         # Reboot time settings for readers that support customized reboot time configuration.
         sig {
           returns(T.nilable(::Stripe::Terminal::ConfigurationService::CreateParams::RebootWindow))
@@ -1280,13 +1305,14 @@ module Stripe
          }
         attr_accessor :wifi
         sig {
-          params(bbpos_wisepos_e: T.nilable(::Stripe::Terminal::ConfigurationService::CreateParams::BbposWiseposE), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::CreateParams::Offline)), reboot_window: T.nilable(::Stripe::Terminal::ConfigurationService::CreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::ConfigurationService::CreateParams::StripeS700), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::CreateParams::Tipping)), verifone_p400: T.nilable(::Stripe::Terminal::ConfigurationService::CreateParams::VerifoneP400), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::CreateParams::Wifi))).void
+          params(bbpos_wisepos_e: T.nilable(::Stripe::Terminal::ConfigurationService::CreateParams::BbposWiseposE), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::CreateParams::Offline)), reader_security: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::CreateParams::ReaderSecurity)), reboot_window: T.nilable(::Stripe::Terminal::ConfigurationService::CreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::ConfigurationService::CreateParams::StripeS700), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::CreateParams::Tipping)), verifone_p400: T.nilable(::Stripe::Terminal::ConfigurationService::CreateParams::VerifoneP400), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationService::CreateParams::Wifi))).void
          }
         def initialize(
           bbpos_wisepos_e: nil,
           expand: nil,
           name: nil,
           offline: nil,
+          reader_security: nil,
           reboot_window: nil,
           stripe_s700: nil,
           tipping: nil,

@@ -1137,9 +1137,9 @@ module Stripe
       attr_accessor :collection_method
       # Only return subscriptions that were created during the given date interval.
       attr_accessor :created
-      # Only return subscriptions whose current_period_end falls within the given date interval.
+      # Only return subscriptions whose minimum item current_period_end falls within the given date interval.
       attr_accessor :current_period_end
-      # Only return subscriptions whose current_period_start falls within the given date interval.
+      # Only return subscriptions whose maximum item current_period_start falls within the given date interval.
       attr_accessor :current_period_start
       # The ID of the customer whose subscriptions will be retrieved.
       attr_accessor :customer

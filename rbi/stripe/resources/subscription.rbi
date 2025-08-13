@@ -1397,12 +1397,12 @@ module Stripe
       # Only return subscriptions that were created during the given date interval.
       sig { returns(T.nilable(T.any(::Stripe::Subscription::ListParams::Created, Integer))) }
       attr_accessor :created
-      # Only return subscriptions whose current_period_end falls within the given date interval.
+      # Only return subscriptions whose minimum item current_period_end falls within the given date interval.
       sig {
         returns(T.nilable(T.any(::Stripe::Subscription::ListParams::CurrentPeriodEnd, Integer)))
        }
       attr_accessor :current_period_end
-      # Only return subscriptions whose current_period_start falls within the given date interval.
+      # Only return subscriptions whose maximum item current_period_start falls within the given date interval.
       sig {
         returns(T.nilable(T.any(::Stripe::Subscription::ListParams::CurrentPeriodStart, Integer)))
        }

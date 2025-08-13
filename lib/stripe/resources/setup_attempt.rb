@@ -169,6 +169,7 @@ module Stripe
       class NzBankAccount < Stripe::StripeObject; end
       class Paypal < Stripe::StripeObject; end
       class Payto < Stripe::StripeObject; end
+      class Pix < Stripe::StripeObject; end
       class RevolutPay < Stripe::StripeObject; end
       class SepaDebit < Stripe::StripeObject; end
 
@@ -233,6 +234,8 @@ module Stripe
       attr_reader :paypal
       # Attribute for field payto
       attr_reader :payto
+      # Attribute for field pix
+      attr_reader :pix
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
       # Attribute for field sepa_debit

@@ -200,6 +200,7 @@ module Stripe
       class NzBankAccount < Stripe::StripeObject; end
       class Paypal < Stripe::StripeObject; end
       class Payto < Stripe::StripeObject; end
+      class Pix < Stripe::StripeObject; end
       class RevolutPay < Stripe::StripeObject; end
       class SepaDebit < Stripe::StripeObject; end
       class Sofort < Stripe::StripeObject
@@ -289,6 +290,9 @@ module Stripe
       # Attribute for field payto
       sig { returns(Payto) }
       attr_reader :payto
+      # Attribute for field pix
+      sig { returns(Pix) }
+      attr_reader :pix
       # Attribute for field revolut_pay
       sig { returns(RevolutPay) }
       attr_reader :revolut_pay

@@ -7,7 +7,7 @@ module Stripe
       class Payment < Stripe::RequestParams
         # Only return invoice payments associated by this payment intent ID.
         attr_accessor :payment_intent
-        # Attribute for param field payment_record
+        # Only return invoice payments associated by this payment record ID.
         attr_accessor :payment_record
         # Only return invoice payments associated by this payment type.
         attr_accessor :type

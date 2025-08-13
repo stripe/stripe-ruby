@@ -28,7 +28,14 @@ module Stripe
       sig { returns(String) }
       attr_reader :type
     end
-    class MultiUse < Stripe::StripeObject; end
+    class MultiUse < Stripe::StripeObject
+      # The amount of the payment on a multi use mandate.
+      sig { returns(Integer) }
+      attr_reader :amount
+      # The currency of the payment on a multi use mandate.
+      sig { returns(String) }
+      attr_reader :currency
+    end
     class PaymentMethodDetails < Stripe::StripeObject
       class AcssDebit < Stripe::StripeObject
         # List of Stripe products where this mandate can be selected automatically.
@@ -110,6 +117,26 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :start_date
       end
+      class Pix < Stripe::StripeObject
+        # Determines if the amount includes the IOF tax.
+        sig { returns(String) }
+        attr_reader :amount_includes_iof
+        # Type of amount.
+        sig { returns(String) }
+        attr_reader :amount_type
+        # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+        sig { returns(String) }
+        attr_reader :end_date
+        # Schedule at which the future payments will be charged.
+        sig { returns(String) }
+        attr_reader :payment_schedule
+        # Subscription name displayed to buyers in their bank app.
+        sig { returns(String) }
+        attr_reader :reference
+        # Start date of the mandate, in `YYYY-MM-DD`.
+        sig { returns(String) }
+        attr_reader :start_date
+      end
       class RevolutPay < Stripe::StripeObject; end
       class SepaDebit < Stripe::StripeObject
         # The unique reference of the mandate.
@@ -166,6 +193,9 @@ module Stripe
       # Attribute for field payto
       sig { returns(Payto) }
       attr_reader :payto
+      # Attribute for field pix
+      sig { returns(Pix) }
+      attr_reader :pix
       # Attribute for field revolut_pay
       sig { returns(RevolutPay) }
       attr_reader :revolut_pay

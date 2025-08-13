@@ -30,7 +30,12 @@ module Stripe
       attr_reader :type
     end
 
-    class MultiUse < Stripe::StripeObject; end
+    class MultiUse < Stripe::StripeObject
+      # The amount of the payment on a multi use mandate.
+      attr_reader :amount
+      # The currency of the payment on a multi use mandate.
+      attr_reader :currency
+    end
 
     class PaymentMethodDetails < Stripe::StripeObject
       class AcssDebit < Stripe::StripeObject
@@ -100,6 +105,21 @@ module Stripe
         attr_reader :start_date
       end
 
+      class Pix < Stripe::StripeObject
+        # Determines if the amount includes the IOF tax.
+        attr_reader :amount_includes_iof
+        # Type of amount.
+        attr_reader :amount_type
+        # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+        attr_reader :end_date
+        # Schedule at which the future payments will be charged.
+        attr_reader :payment_schedule
+        # Subscription name displayed to buyers in their bank app.
+        attr_reader :reference
+        # Start date of the mandate, in `YYYY-MM-DD`.
+        attr_reader :start_date
+      end
+
       class RevolutPay < Stripe::StripeObject; end
 
       class SepaDebit < Stripe::StripeObject
@@ -141,6 +161,8 @@ module Stripe
       attr_reader :paypal
       # Attribute for field payto
       attr_reader :payto
+      # Attribute for field pix
+      attr_reader :pix
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
       # Attribute for field sepa_debit

@@ -357,7 +357,7 @@ module Stripe
     # Attribute for field smart_disputes
     sig { returns(SmartDisputes) }
     attr_reader :smart_disputes
-    # Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, or `lost`.
+    # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     sig { returns(String) }
     attr_reader :status
     class ListParams < Stripe::RequestParams

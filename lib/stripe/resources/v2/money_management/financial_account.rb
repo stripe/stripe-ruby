@@ -52,6 +52,8 @@ module Stripe
         attr_reader :country
         # Time at which the object was created.
         attr_reader :created
+        # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+        attr_reader :display_name
         # Unique identifier for the object.
         attr_reader :id
         # Metadata associated with the FinancialAccount

@@ -58,6 +58,9 @@ module Stripe
         # Time at which the object was created.
         sig { returns(String) }
         attr_reader :created
+        # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+        sig { returns(T.nilable(String)) }
+        attr_reader :display_name
         # Unique identifier for the object.
         sig { returns(String) }
         attr_reader :id

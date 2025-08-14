@@ -540,6 +540,19 @@ module Stripe
           end
         end
 
+        class PayoutDetails < Stripe::RequestParams
+          class Features < Stripe::RequestParams; end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # An empty list, because this embedded component has no features.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
         class Payouts < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -719,6 +732,8 @@ module Stripe
         attr_accessor :payment_method_settings
         # Configuration for the [payments](/connect/supported-embedded-components/payments/) embedded component.
         attr_accessor :payments
+        # Configuration for the [payout details](/connect/supported-embedded-components/payout-details/) embedded component.
+        attr_accessor :payout_details
         # Configuration for the [payouts](/connect/supported-embedded-components/payouts/) embedded component.
         attr_accessor :payouts
         # Configuration for the [payouts list](/connect/supported-embedded-components/payouts-list/) embedded component.
@@ -759,6 +774,7 @@ module Stripe
           payment_disputes: nil,
           payment_method_settings: nil,
           payments: nil,
+          payout_details: nil,
           payouts: nil,
           payouts_list: nil,
           product_tax_code_selector: nil,
@@ -790,6 +806,7 @@ module Stripe
           @payment_disputes = payment_disputes
           @payment_method_settings = payment_method_settings
           @payments = payments
+          @payout_details = payout_details
           @payouts = payouts
           @payouts_list = payouts_list
           @product_tax_code_selector = product_tax_code_selector

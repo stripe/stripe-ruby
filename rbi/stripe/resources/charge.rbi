@@ -329,7 +329,11 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :verified_name
       end
-      class Billie < Stripe::StripeObject; end
+      class Billie < Stripe::StripeObject
+        # The Billie transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
+      end
       class Blik < Stripe::StripeObject
         # A unique and immutable identifier assigned by BLIK to every buyer.
         sig { returns(T.nilable(String)) }
@@ -1306,7 +1310,11 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :transaction_id
       end
-      class Satispay < Stripe::StripeObject; end
+      class Satispay < Stripe::StripeObject
+        # The Satispay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
+      end
       class SepaCreditTransfer < Stripe::StripeObject
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }

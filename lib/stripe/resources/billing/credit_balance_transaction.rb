@@ -14,12 +14,21 @@ module Stripe
 
       class Credit < Stripe::StripeObject
         class Amount < Stripe::StripeObject
+          class CustomPricingUnit < Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+            # A positive integer representing the amount.
+            attr_reader :value
+          end
+
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
             # A positive integer representing the amount.
             attr_reader :value
           end
+          # The custom pricing unit amount.
+          attr_reader :custom_pricing_unit
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
@@ -42,12 +51,21 @@ module Stripe
 
       class Debit < Stripe::StripeObject
         class Amount < Stripe::StripeObject
+          class CustomPricingUnit < Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+            # A positive integer representing the amount.
+            attr_reader :value
+          end
+
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
             # A positive integer representing the amount.
             attr_reader :value
           end
+          # The custom pricing unit amount.
+          attr_reader :custom_pricing_unit
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.

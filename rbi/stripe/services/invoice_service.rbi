@@ -173,11 +173,11 @@ module Stripe
               attr_accessor :enabled
               # The selected installment plan to use for this invoice.
               sig {
-                returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan))))
+                returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan)))
                }
               attr_accessor :plan
               sig {
-                params(enabled: T.nilable(T::Boolean), plan: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan)))).void
+                params(enabled: T.nilable(T::Boolean), plan: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan))).void
                }
               def initialize(enabled: nil, plan: nil); end
             end
@@ -308,51 +308,51 @@ module Stripe
           end
           # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
            }
           attr_accessor :acss_debit
           # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
            }
           attr_accessor :bancontact
           # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
            }
           attr_accessor :card
           # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)))
            }
           attr_accessor :customer_balance
           # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)))
            }
           attr_accessor :id_bank_transfer
           # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
            }
           attr_accessor :konbini
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
            }
           attr_accessor :sepa_debit
           # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Upi))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Upi)))
            }
           attr_accessor :upi
           # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))
            }
           attr_accessor :us_bank_account
           sig {
-            params(acss_debit: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))), bancontact: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact))), card: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card))), customer_balance: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance))), id_bank_transfer: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer))), konbini: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini))), sepa_debit: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit))), upi: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Upi))), us_bank_account: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))).void
+            params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
            }
           def initialize(
             acss_debit: nil,
@@ -367,7 +367,7 @@ module Stripe
           ); end
         end
         # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :default_mandate
         # Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
         sig {
@@ -375,10 +375,10 @@ module Stripe
          }
         attr_accessor :payment_method_options
         # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :payment_method_types
         sig {
-          params(default_mandate: T.nilable(T.nilable(String)), payment_method_options: T.nilable(::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions), payment_method_types: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+          params(default_mandate: T.nilable(String), payment_method_options: T.nilable(::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions), payment_method_types: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           default_mandate: nil,
@@ -397,7 +397,7 @@ module Stripe
           def initialize(page_size: nil); end
         end
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+        sig { returns(T.nilable(T.any(String, String))) }
         attr_accessor :amount_tax_display
         # Invoice pdf rendering options
         sig { returns(T.nilable(::Stripe::InvoiceService::UpdateParams::Rendering::Pdf)) }
@@ -406,10 +406,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :template
         # The specific version of invoice rendering template to use for this invoice.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+        sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :template_version
         sig {
-          params(amount_tax_display: T.nilable(T.nilable(T.any(String, String))), pdf: T.nilable(::Stripe::InvoiceService::UpdateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.nilable(T.any(String, Integer)))).void
+          params(amount_tax_display: T.nilable(T.any(String, String)), pdf: T.nilable(::Stripe::InvoiceService::UpdateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.any(String, Integer))).void
          }
         def initialize(amount_tax_display: nil, pdf: nil, template: nil, template_version: nil); end
       end
@@ -568,10 +568,10 @@ module Stripe
         sig { returns(String) }
         attr_accessor :name
         # Recipient phone (including extension)
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         sig {
-          params(address: ::Stripe::InvoiceService::UpdateParams::ShippingDetails::Address, name: String, phone: T.nilable(T.nilable(String))).void
+          params(address: ::Stripe::InvoiceService::UpdateParams::ShippingDetails::Address, name: String, phone: T.nilable(String)).void
          }
         def initialize(address: nil, name: nil, phone: nil); end
       end
@@ -586,11 +586,11 @@ module Stripe
         def initialize(amount: nil, destination: nil); end
       end
       # The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :account_tax_ids
       # List of expected payments and corresponding due dates. Valid only for invoices where `collection_method=send_invoice`.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::AmountsDue]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::AmountsDue])))
        }
       attr_accessor :amounts_due
       # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
@@ -610,37 +610,37 @@ module Stripe
       attr_accessor :collection_method
       # A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::CustomField]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::CustomField])))
        }
       attr_accessor :custom_fields
       # The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :days_until_due
       # The ids of the margins to apply to the invoice. Can be overridden by line item `margins`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :default_margins
       # ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
       sig { returns(T.nilable(String)) }
       attr_accessor :default_payment_method
       # ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :default_source
       # The tax rates that will apply to any line item that does not have `tax_rates` set. Pass an empty string to remove previously-defined tax rates.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :default_tax_rates
       # An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
       sig { returns(T.nilable(String)) }
       attr_accessor :description
       # The discounts that will apply to the invoice. Pass an empty string to remove previously-defined discounts.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::Discount]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::Discount])))
        }
       attr_accessor :discounts
       # The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :due_date
       # The date when this invoice is in effect. Same as `finalized_at` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the invoice PDF and receipt.
-      sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+      sig { returns(T.nilable(T.any(String, Integer))) }
       attr_accessor :effective_at
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
@@ -652,13 +652,13 @@ module Stripe
       sig { returns(T.nilable(::Stripe::InvoiceService::UpdateParams::Issuer)) }
       attr_accessor :issuer
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Set the number for this invoice. If no number is present then a number will be assigned automatically when the invoice is finalized. In many markets, regulations require invoices to be unique, sequential and / or gapless. You are responsible for ensuring this is true across all your different invoicing systems in the event that you edit the invoice number using our API. If you use only Stripe for your invoices and do not change invoice numbers, Stripe handles this aspect of compliance for you automatically.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :number
       # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :on_behalf_of
       # Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
       sig { returns(T.nilable(::Stripe::InvoiceService::UpdateParams::PaymentSettings)) }
@@ -668,12 +668,12 @@ module Stripe
       attr_accessor :rendering
       # Settings for the cost of shipping for this invoice.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::ShippingCost))))
+        returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::ShippingCost)))
        }
       attr_accessor :shipping_cost
       # Shipping details for the invoice. The Invoice PDF will use the `shipping_details` value if it is set, otherwise the PDF will render the shipping address from the customer.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::ShippingDetails))))
+        returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::ShippingDetails)))
        }
       attr_accessor :shipping_details
       # Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`.
@@ -681,11 +681,11 @@ module Stripe
       attr_accessor :statement_descriptor
       # If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge. This will be unset if you POST an empty value.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::TransferData))))
+        returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::TransferData)))
        }
       attr_accessor :transfer_data
       sig {
-        params(account_tax_ids: T.nilable(T.nilable(T.any(String, T::Array[String]))), amounts_due: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::AmountsDue]))), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::InvoiceService::UpdateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), custom_fields: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::CustomField]))), days_until_due: T.nilable(Integer), default_margins: T.nilable(T.nilable(T.any(String, T::Array[String]))), default_payment_method: T.nilable(String), default_source: T.nilable(T.nilable(String)), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::Discount]))), due_date: T.nilable(Integer), effective_at: T.nilable(T.nilable(T.any(String, Integer))), expand: T.nilable(T::Array[String]), footer: T.nilable(String), issuer: T.nilable(::Stripe::InvoiceService::UpdateParams::Issuer), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), number: T.nilable(T.nilable(String)), on_behalf_of: T.nilable(T.nilable(String)), payment_settings: T.nilable(::Stripe::InvoiceService::UpdateParams::PaymentSettings), rendering: T.nilable(::Stripe::InvoiceService::UpdateParams::Rendering), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::ShippingDetails))), statement_descriptor: T.nilable(String), transfer_data: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::TransferData)))).void
+        params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), amounts_due: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::AmountsDue])), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::InvoiceService::UpdateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::CustomField])), days_until_due: T.nilable(Integer), default_margins: T.nilable(T.any(String, T::Array[String])), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateParams::Discount])), due_date: T.nilable(Integer), effective_at: T.nilable(T.any(String, Integer)), expand: T.nilable(T::Array[String]), footer: T.nilable(String), issuer: T.nilable(::Stripe::InvoiceService::UpdateParams::Issuer), metadata: T.nilable(T.any(String, T::Hash[String, String])), number: T.nilable(String), on_behalf_of: T.nilable(String), payment_settings: T.nilable(::Stripe::InvoiceService::UpdateParams::PaymentSettings), rendering: T.nilable(::Stripe::InvoiceService::UpdateParams::Rendering), shipping_cost: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::ShippingCost)), shipping_details: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::ShippingDetails)), statement_descriptor: T.nilable(String), transfer_data: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::TransferData))).void
        }
       def initialize(
         account_tax_ids: nil,
@@ -976,11 +976,11 @@ module Stripe
               attr_accessor :enabled
               # The selected installment plan to use for this invoice.
               sig {
-                returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan))))
+                returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan)))
                }
               attr_accessor :plan
               sig {
-                params(enabled: T.nilable(T::Boolean), plan: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan)))).void
+                params(enabled: T.nilable(T::Boolean), plan: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card::Installments::Plan))).void
                }
               def initialize(enabled: nil, plan: nil); end
             end
@@ -1111,51 +1111,51 @@ module Stripe
           end
           # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
            }
           attr_accessor :acss_debit
           # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Bancontact))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
            }
           attr_accessor :bancontact
           # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card)))
            }
           attr_accessor :card
           # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)))
            }
           attr_accessor :customer_balance
           # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)))
            }
           attr_accessor :id_bank_transfer
           # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
            }
           attr_accessor :konbini
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
            }
           attr_accessor :sepa_debit
           # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Upi))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Upi)))
            }
           attr_accessor :upi
           # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))
            }
           attr_accessor :us_bank_account
           sig {
-            params(acss_debit: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))), bancontact: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Bancontact))), card: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card))), customer_balance: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance))), id_bank_transfer: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer))), konbini: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini))), sepa_debit: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit))), upi: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Upi))), us_bank_account: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))).void
+            params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
            }
           def initialize(
             acss_debit: nil,
@@ -1170,7 +1170,7 @@ module Stripe
           ); end
         end
         # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :default_mandate
         # Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
         sig {
@@ -1178,10 +1178,10 @@ module Stripe
          }
         attr_accessor :payment_method_options
         # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :payment_method_types
         sig {
-          params(default_mandate: T.nilable(T.nilable(String)), payment_method_options: T.nilable(::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions), payment_method_types: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+          params(default_mandate: T.nilable(String), payment_method_options: T.nilable(::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions), payment_method_types: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           default_mandate: nil,
@@ -1200,7 +1200,7 @@ module Stripe
           def initialize(page_size: nil); end
         end
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+        sig { returns(T.nilable(T.any(String, String))) }
         attr_accessor :amount_tax_display
         # Invoice pdf rendering options
         sig { returns(T.nilable(::Stripe::InvoiceService::CreateParams::Rendering::Pdf)) }
@@ -1209,10 +1209,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :template
         # The specific version of invoice rendering template to use for this invoice.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+        sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :template_version
         sig {
-          params(amount_tax_display: T.nilable(T.nilable(T.any(String, String))), pdf: T.nilable(::Stripe::InvoiceService::CreateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.nilable(T.any(String, Integer)))).void
+          params(amount_tax_display: T.nilable(T.any(String, String)), pdf: T.nilable(::Stripe::InvoiceService::CreateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.any(String, Integer))).void
          }
         def initialize(amount_tax_display: nil, pdf: nil, template: nil, template_version: nil); end
       end
@@ -1371,10 +1371,10 @@ module Stripe
         sig { returns(String) }
         attr_accessor :name
         # Recipient phone (including extension)
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         sig {
-          params(address: ::Stripe::InvoiceService::CreateParams::ShippingDetails::Address, name: String, phone: T.nilable(T.nilable(String))).void
+          params(address: ::Stripe::InvoiceService::CreateParams::ShippingDetails::Address, name: String, phone: T.nilable(String)).void
          }
         def initialize(address: nil, name: nil, phone: nil); end
       end
@@ -1389,11 +1389,11 @@ module Stripe
         def initialize(amount: nil, destination: nil); end
       end
       # The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :account_tax_ids
       # List of expected payments and corresponding due dates. Valid only for invoices where `collection_method=send_invoice`.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::AmountsDue]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::AmountsDue])))
        }
       attr_accessor :amounts_due
       # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
@@ -1416,7 +1416,7 @@ module Stripe
       attr_accessor :currency
       # A list of up to 4 custom fields to be displayed on the invoice.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::CustomField]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::CustomField])))
        }
       attr_accessor :custom_fields
       # The ID of the customer who will be billed.
@@ -1445,7 +1445,7 @@ module Stripe
       attr_accessor :description
       # The coupons and promotion codes to redeem into discounts for the invoice. If not specified, inherits the discount from the invoice's customer. Pass an empty string to avoid inheriting any discounts.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::Discount]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::Discount])))
        }
       attr_accessor :discounts
       # The date on which payment for this invoice is due. Valid only for invoices where `collection_method=send_invoice`.
@@ -1467,7 +1467,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::InvoiceService::CreateParams::Issuer)) }
       attr_accessor :issuer
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Set the number for this invoice. If no number is present then a number will be assigned automatically when the invoice is finalized. In many markets, regulations require invoices to be unique, sequential and / or gapless. You are responsible for ensuring this is true across all your different invoicing systems in the event that you edit the invoice number using our API. If you use only Stripe for your invoices and do not change invoice numbers, Stripe handles this aspect of compliance for you automatically.
       sig { returns(T.nilable(String)) }
@@ -1500,7 +1500,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::InvoiceService::CreateParams::TransferData)) }
       attr_accessor :transfer_data
       sig {
-        params(account_tax_ids: T.nilable(T.nilable(T.any(String, T::Array[String]))), amounts_due: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::AmountsDue]))), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::InvoiceService::CreateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), currency: T.nilable(String), custom_fields: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::CustomField]))), customer: T.nilable(String), customer_account: T.nilable(String), days_until_due: T.nilable(Integer), default_margins: T.nilable(T::Array[String]), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::Discount]))), due_date: T.nilable(Integer), effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), footer: T.nilable(String), from_invoice: T.nilable(::Stripe::InvoiceService::CreateParams::FromInvoice), issuer: T.nilable(::Stripe::InvoiceService::CreateParams::Issuer), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), number: T.nilable(String), on_behalf_of: T.nilable(String), payment_settings: T.nilable(::Stripe::InvoiceService::CreateParams::PaymentSettings), pending_invoice_items_behavior: T.nilable(String), rendering: T.nilable(::Stripe::InvoiceService::CreateParams::Rendering), shipping_cost: T.nilable(::Stripe::InvoiceService::CreateParams::ShippingCost), shipping_details: T.nilable(::Stripe::InvoiceService::CreateParams::ShippingDetails), statement_descriptor: T.nilable(String), subscription: T.nilable(String), transfer_data: T.nilable(::Stripe::InvoiceService::CreateParams::TransferData)).void
+        params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), amounts_due: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::AmountsDue])), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::InvoiceService::CreateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), currency: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::CustomField])), customer: T.nilable(String), customer_account: T.nilable(String), days_until_due: T.nilable(Integer), default_margins: T.nilable(T::Array[String]), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreateParams::Discount])), due_date: T.nilable(Integer), effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), footer: T.nilable(String), from_invoice: T.nilable(::Stripe::InvoiceService::CreateParams::FromInvoice), issuer: T.nilable(::Stripe::InvoiceService::CreateParams::Issuer), metadata: T.nilable(T.any(String, T::Hash[String, String])), number: T.nilable(String), on_behalf_of: T.nilable(String), payment_settings: T.nilable(::Stripe::InvoiceService::CreateParams::PaymentSettings), pending_invoice_items_behavior: T.nilable(String), rendering: T.nilable(::Stripe::InvoiceService::CreateParams::Rendering), shipping_cost: T.nilable(::Stripe::InvoiceService::CreateParams::ShippingCost), shipping_details: T.nilable(::Stripe::InvoiceService::CreateParams::ShippingDetails), statement_descriptor: T.nilable(String), subscription: T.nilable(String), transfer_data: T.nilable(::Stripe::InvoiceService::CreateParams::TransferData)).void
        }
       def initialize(
         account_tax_ids: nil,
@@ -1763,17 +1763,17 @@ module Stripe
         attr_accessor :discountable
         # The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::AddLinesParams::Line::Discount]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::AddLinesParams::Line::Discount])))
          }
         attr_accessor :discounts
         # ID of an unassigned invoice item to assign to this invoice. If not provided, a new item will be created.
         sig { returns(T.nilable(String)) }
         attr_accessor :invoice_item
         # The IDs of the margins to apply to the line item. When set, the `default_margins` on the invoice do not apply to this line item.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :margins
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         sig { returns(T.nilable(::Stripe::InvoiceService::AddLinesParams::Line::Period)) }
@@ -1789,14 +1789,14 @@ module Stripe
         attr_accessor :quantity
         # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::AddLinesParams::Line::TaxAmount]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::AddLinesParams::Line::TaxAmount])))
          }
         attr_accessor :tax_amounts
         # The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :tax_rates
         sig {
-          params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::AddLinesParams::Line::Discount]))), invoice_item: T.nilable(String), margins: T.nilable(T.nilable(T.any(String, T::Array[String]))), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceService::AddLinesParams::Line::Period), price_data: T.nilable(::Stripe::InvoiceService::AddLinesParams::Line::PriceData), pricing: T.nilable(::Stripe::InvoiceService::AddLinesParams::Line::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::AddLinesParams::Line::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+          params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::AddLinesParams::Line::Discount])), invoice_item: T.nilable(String), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceService::AddLinesParams::Line::Period), price_data: T.nilable(::Stripe::InvoiceService::AddLinesParams::Line::PriceData), pricing: T.nilable(::Stripe::InvoiceService::AddLinesParams::Line::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::AddLinesParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           amount: nil,
@@ -1818,13 +1818,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :invoice_metadata
       # The line items to add.
       sig { returns(T::Array[::Stripe::InvoiceService::AddLinesParams::Line]) }
       attr_accessor :lines
       sig {
-        params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), lines: T::Array[::Stripe::InvoiceService::AddLinesParams::Line]).void
+        params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.any(String, T::Hash[String, String])), lines: T::Array[::Stripe::InvoiceService::AddLinesParams::Line]).void
        }
       def initialize(expand: nil, invoice_metadata: nil, lines: nil); end
     end
@@ -1837,7 +1837,7 @@ module Stripe
         sig { returns(String) }
         attr_accessor :currency
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         # The type of money movement for this out of band payment record.
         sig { returns(String) }
@@ -1849,7 +1849,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :payment_reference
         sig {
-          params(amount: Integer, currency: String, metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), money_movement_type: String, paid_at: T.nilable(Integer), payment_reference: T.nilable(String)).void
+          params(amount: Integer, currency: String, metadata: T.nilable(T.any(String, T::Hash[String, String])), money_movement_type: String, paid_at: T.nilable(Integer), payment_reference: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -1913,7 +1913,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :forgive
       # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the payment_method param or the invoice's default_payment_method or default_source, if set.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :mandate
       # Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `true` (off-session).
       sig { returns(T.nilable(T::Boolean)) }
@@ -1928,7 +1928,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :source
       sig {
-        params(expand: T.nilable(T::Array[String]), forgive: T.nilable(T::Boolean), mandate: T.nilable(T.nilable(String)), off_session: T.nilable(T::Boolean), paid_out_of_band: T.nilable(T::Boolean), payment_method: T.nilable(String), source: T.nilable(String)).void
+        params(expand: T.nilable(T::Array[String]), forgive: T.nilable(T::Boolean), mandate: T.nilable(String), off_session: T.nilable(T::Boolean), paid_out_of_band: T.nilable(T::Boolean), payment_method: T.nilable(String), source: T.nilable(String)).void
        }
       def initialize(
         expand: nil,
@@ -1955,13 +1955,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :invoice_metadata
       # The line items to remove.
       sig { returns(T::Array[::Stripe::InvoiceService::RemoveLinesParams::Line]) }
       attr_accessor :lines
       sig {
-        params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), lines: T::Array[::Stripe::InvoiceService::RemoveLinesParams::Line]).void
+        params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.any(String, T::Hash[String, String])), lines: T::Array[::Stripe::InvoiceService::RemoveLinesParams::Line]).void
        }
       def initialize(expand: nil, invoice_metadata: nil, lines: nil); end
     end
@@ -2177,17 +2177,17 @@ module Stripe
         attr_accessor :discountable
         # The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line::Discount]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line::Discount])))
          }
         attr_accessor :discounts
         # ID of an existing line item on the invoice.
         sig { returns(String) }
         attr_accessor :id
         # The IDs of the margins to apply to the line item. When set, the `default_margins` on the invoice do not apply to this line item.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :margins
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         sig { returns(T.nilable(::Stripe::InvoiceService::UpdateLinesParams::Line::Period)) }
@@ -2203,14 +2203,14 @@ module Stripe
         attr_accessor :quantity
         # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line::TaxAmount]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line::TaxAmount])))
          }
         attr_accessor :tax_amounts
         # The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :tax_rates
         sig {
-          params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line::Discount]))), id: String, margins: T.nilable(T.nilable(T.any(String, T::Array[String]))), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceService::UpdateLinesParams::Line::Period), price_data: T.nilable(::Stripe::InvoiceService::UpdateLinesParams::Line::PriceData), pricing: T.nilable(::Stripe::InvoiceService::UpdateLinesParams::Line::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+          params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line::Discount])), id: String, margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceService::UpdateLinesParams::Line::Period), price_data: T.nilable(::Stripe::InvoiceService::UpdateLinesParams::Line::PriceData), pricing: T.nilable(::Stripe::InvoiceService::UpdateLinesParams::Line::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           amount: nil,
@@ -2232,13 +2232,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :invoice_metadata
       # The line items to update.
       sig { returns(T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line]) }
       attr_accessor :lines
       sig {
-        params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), lines: T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line]).void
+        params(expand: T.nilable(T::Array[String]), invoice_metadata: T.nilable(T.any(String, T::Hash[String, String])), lines: T::Array[::Stripe::InvoiceService::UpdateLinesParams::Line]).void
        }
       def initialize(expand: nil, invoice_metadata: nil, lines: nil); end
     end
@@ -2356,9 +2356,9 @@ module Stripe
         end
         class Tax < Stripe::RequestParams
           # A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :ip_address
-          sig { params(ip_address: T.nilable(T.nilable(String))).void }
+          sig { params(ip_address: T.nilable(String)).void }
           def initialize(ip_address: nil); end
         end
         class TaxId < Stripe::RequestParams
@@ -2373,12 +2373,12 @@ module Stripe
         end
         # The customer's address.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Address))))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Address)))
          }
         attr_accessor :address
         # The customer's shipping information. Appears on invoices emailed to this customer.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Shipping))))
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Shipping)))
          }
         attr_accessor :shipping
         # Tax details about the customer.
@@ -2387,7 +2387,7 @@ module Stripe
          }
         attr_accessor :tax
         # The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-        sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+        sig { returns(T.nilable(T.any(String, String))) }
         attr_accessor :tax_exempt
         # The customer's tax IDs.
         sig {
@@ -2395,7 +2395,7 @@ module Stripe
          }
         attr_accessor :tax_ids
         sig {
-          params(address: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Address))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Shipping))), tax: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Tax), tax_exempt: T.nilable(T.nilable(T.any(String, String))), tax_ids: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::TaxId])).void
+          params(address: T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Address)), shipping: T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Shipping)), tax: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::Tax), tax_exempt: T.nilable(T.any(String, String)), tax_ids: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails::TaxId])).void
          }
         def initialize(address: nil, shipping: nil, tax: nil, tax_exempt: nil, tax_ids: nil); end
       end
@@ -2545,14 +2545,14 @@ module Stripe
         attr_accessor :discountable
         # The coupons to redeem into discounts for the invoice item in the preview.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem::Discount]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem::Discount])))
          }
         attr_accessor :discounts
         # The ID of the invoice item to update in preview. If not specified, a new invoice item will be added to the preview of the upcoming invoice.
         sig { returns(T.nilable(String)) }
         attr_accessor :invoiceitem
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         sig {
@@ -2574,10 +2574,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :tax_behavior
         # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :tax_code
         # The tax rates that apply to the item. When set, any `default_tax_rates` do not apply to this item.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :tax_rates
         # The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount.
         sig { returns(T.nilable(Integer)) }
@@ -2586,7 +2586,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :unit_amount_decimal
         sig {
-          params(amount: T.nilable(Integer), currency: T.nilable(String), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem::Discount]))), invoiceitem: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem::PriceData), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(T.nilable(String)), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+          params(amount: T.nilable(Integer), currency: T.nilable(String), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem::Discount])), invoiceitem: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem::PriceData), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -3017,13 +3017,13 @@ module Stripe
             sig { returns(T.nilable(T::Array[String])) }
             attr_accessor :remove
             # Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+            sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
             attr_accessor :set
             # Select one of three ways to update phase-level `metadata` on subscription schedules.
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(add: T.nilable(T::Hash[String, String]), remove: T.nilable(T::Array[String]), set: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), type: String).void
+              params(add: T.nilable(T::Hash[String, String]), remove: T.nilable(T::Array[String]), set: T.nilable(T.any(String, T::Hash[String, String])), type: String).void
              }
             def initialize(add: nil, remove: nil, set: nil, type: nil); end
           end
@@ -3231,10 +3231,10 @@ module Stripe
             sig { returns(T.nilable(Integer)) }
             attr_accessor :quantity
             # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :tax_rates
             sig {
-              params(discounts: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount]), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+              params(discounts: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount]), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
              }
             def initialize(
               discounts: nil,
@@ -3349,7 +3349,7 @@ module Stripe
               def initialize(account: nil, type: nil); end
             end
             # The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :account_tax_ids
             # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
             sig { returns(T.nilable(Integer)) }
@@ -3360,7 +3360,7 @@ module Stripe
              }
             attr_accessor :issuer
             sig {
-              params(account_tax_ids: T.nilable(T.nilable(T.any(String, T::Array[String]))), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings::Issuer)).void
+              params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings::Issuer)).void
              }
             def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
           end
@@ -3479,12 +3479,12 @@ module Stripe
             end
             # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds))))
+              returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds)))
              }
             attr_accessor :billing_thresholds
             # The coupons to redeem into discounts for the subscription item.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::Discount]))))
+              returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::Discount])))
              }
             attr_accessor :discounts
             # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -3505,7 +3505,7 @@ module Stripe
             sig { returns(T.nilable(Integer)) }
             attr_accessor :quantity
             # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :tax_rates
             # Options that configure the trial on the subscription item.
             sig {
@@ -3513,7 +3513,7 @@ module Stripe
              }
             attr_accessor :trial
             sig {
-              params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds))), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::Discount]))), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), trial: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::Trial)).void
+              params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item::Trial)).void
              }
             def initialize(
               billing_thresholds: nil,
@@ -3580,7 +3580,7 @@ module Stripe
           attr_accessor :billing_cycle_anchor
           # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds)))
            }
           attr_accessor :billing_thresholds
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
@@ -3593,14 +3593,14 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :default_payment_method
           # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will set the Subscription's [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates), which means they will be the Invoice's [`default_tax_rates`](https://stripe.com/docs/api/invoices/create#create_invoice-default_tax_rates) for any Invoices issued by the Subscription during this Phase.
-          sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+          sig { returns(T.nilable(T.any(String, T::Array[String]))) }
           attr_accessor :default_tax_rates
           # Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Discount]))))
+            returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Discount])))
            }
           attr_accessor :discounts
           # The number of intervals the phase should last. If set, `end_date` must not be set.
@@ -3661,7 +3661,7 @@ module Stripe
            }
           attr_accessor :trial_settings
           sig {
-            params(add_invoice_items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds))), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Discount]))), duration: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::PauseCollection), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(T.any(Integer, String)), trial_settings: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::TrialSettings)).void
+            params(add_invoice_items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Discount])), duration: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::PauseCollection), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(T.any(Integer, String)), trial_settings: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::TrialSettings)).void
            }
           def initialize(
             add_invoice_items: nil,
@@ -3768,14 +3768,14 @@ module Stripe
         attr_accessor :phases
         # Provide any time periods to bill in advance.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Prebilling]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Prebilling])))
          }
         attr_accessor :prebilling
         # In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
         sig { returns(T.nilable(String)) }
         attr_accessor :proration_behavior
         sig {
-          params(amendments: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::BillingMode), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Prebilling]))), proration_behavior: T.nilable(String)).void
+          params(amendments: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::BillingMode), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Prebilling])), proration_behavior: T.nilable(String)).void
          }
         def initialize(
           amendments: nil,
@@ -3895,7 +3895,7 @@ module Stripe
           end
           # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::BillingThresholds))))
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::BillingThresholds)))
            }
           attr_accessor :billing_thresholds
           # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
@@ -3906,14 +3906,14 @@ module Stripe
           attr_accessor :deleted
           # The coupons to redeem into discounts for the subscription item.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::Discount]))))
+            returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::Discount])))
            }
           attr_accessor :discounts
           # Subscription item to update.
           sig { returns(T.nilable(String)) }
           attr_accessor :id
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-          sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+          sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
           attr_accessor :metadata
           # Plan ID for this item, as a string.
           sig { returns(T.nilable(String)) }
@@ -3930,10 +3930,10 @@ module Stripe
           sig { returns(T.nilable(Integer)) }
           attr_accessor :quantity
           # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-          sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+          sig { returns(T.nilable(T.any(String, T::Array[String]))) }
           attr_accessor :tax_rates
           sig {
-            params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::BillingThresholds))), clear_usage: T.nilable(T::Boolean), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::Discount]))), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+            params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::BillingThresholds)), clear_usage: T.nilable(T::Boolean), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::Discount])), id: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
            }
           def initialize(
             billing_thresholds: nil,
@@ -3965,7 +3965,7 @@ module Stripe
          }
         attr_accessor :billing_mode
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-        sig { returns(T.nilable(T.nilable(T.any(String, T.any(Integer, String))))) }
+        sig { returns(T.nilable(T.any(String, T.any(Integer, String)))) }
         attr_accessor :cancel_at
         # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         sig { returns(T.nilable(T::Boolean)) }
@@ -3974,7 +3974,7 @@ module Stripe
         sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :cancel_now
         # If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :default_tax_rates
         # A list of up to 20 subscription items, each with an attached price.
         sig {
@@ -4002,7 +4002,7 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :trial_end
         sig {
-          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::BillingMode), cancel_at: T.nilable(T.nilable(T.any(String, T.any(Integer, String)))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item]), prebilling: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::BillingMode), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item]), prebilling: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
          }
         def initialize(
           billing_cycle_anchor: nil,
@@ -4023,6 +4023,9 @@ module Stripe
       # Settings for automatic tax lookup for this invoice preview.
       sig { returns(T.nilable(::Stripe::InvoiceService::CreatePreviewParams::AutomaticTax)) }
       attr_accessor :automatic_tax
+      # The identifier of the billing cadence for which you’d like to retrieve the upcoming invoice.Cannot be provided when `subscription`, `schedule`, `subscription_details` or `schedule_details` are provided.
+      sig { returns(T.nilable(String)) }
+      attr_accessor :billing_cadence
       # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
       sig { returns(T.nilable(String)) }
       attr_accessor :currency
@@ -4037,7 +4040,7 @@ module Stripe
       attr_accessor :customer_details
       # The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the subscription or customer. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::Discount]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::Discount])))
        }
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
@@ -4052,7 +4055,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::InvoiceService::CreatePreviewParams::Issuer)) }
       attr_accessor :issuer
       # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :on_behalf_of
       # Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
       sig { returns(T.nilable(String)) }
@@ -4070,10 +4073,11 @@ module Stripe
       sig { returns(T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails)) }
       attr_accessor :subscription_details
       sig {
-        params(automatic_tax: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::AutomaticTax), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::Issuer), on_behalf_of: T.nilable(T.nilable(String)), preview_mode: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails)).void
+        params(automatic_tax: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::AutomaticTax), billing_cadence: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails)).void
        }
       def initialize(
         automatic_tax: nil,
+        billing_cadence: nil,
         currency: nil,
         customer: nil,
         customer_account: nil,

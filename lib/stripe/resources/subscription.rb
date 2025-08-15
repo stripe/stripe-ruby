@@ -1843,6 +1843,8 @@ module Stripe
       attr_accessor :automatic_tax
       # A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
       attr_accessor :backdate_start_date
+      # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+      attr_accessor :billing_cadence
       # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
       attr_accessor :billing_cycle_anchor
       # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
@@ -1923,6 +1925,7 @@ module Stripe
         application_fee_percent: nil,
         automatic_tax: nil,
         backdate_start_date: nil,
+        billing_cadence: nil,
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
         billing_mode: nil,
@@ -1960,6 +1963,7 @@ module Stripe
         @application_fee_percent = application_fee_percent
         @automatic_tax = automatic_tax
         @backdate_start_date = backdate_start_date
+        @billing_cadence = billing_cadence
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_cycle_anchor_config = billing_cycle_anchor_config
         @billing_mode = billing_mode
@@ -2013,6 +2017,18 @@ module Stripe
       end
     end
 
+    class AttachCadenceParams < Stripe::RequestParams
+      # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+      attr_accessor :billing_cadence
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(billing_cadence: nil, expand: nil)
+        @billing_cadence = billing_cadence
+        @expand = expand
+      end
+    end
+
     class MigrateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
         # Attribute for param field type
@@ -2061,6 +2077,8 @@ module Stripe
     attr_reader :application_fee_percent
     # Attribute for field automatic_tax
     attr_reader :automatic_tax
+    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    attr_reader :billing_cadence
     # The reference point that aligns future [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     attr_reader :billing_cycle_anchor
     # The fixed values used to calculate the `billing_cycle_anchor`.
@@ -2159,6 +2177,26 @@ module Stripe
     attr_reader :trial_settings
     # If the subscription has a trial, the beginning of that trial.
     attr_reader :trial_start
+
+    # Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+    def attach_cadence(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/attach_cadence", { subscription: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+    def self.attach_cadence(subscription, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/attach_cadence", { subscription: CGI.escape(subscription) }),
+        params: params,
+        opts: opts
+      )
+    end
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
     #

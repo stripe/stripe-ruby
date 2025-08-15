@@ -51,6 +51,17 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :subscription
       end
+      class RateCardSubscriptionDetails < Stripe::StripeObject
+        # Attribute for field invoice_item
+        sig { returns(String) }
+        attr_reader :invoice_item
+        # Attribute for field rate_card_subscription
+        sig { returns(String) }
+        attr_reader :rate_card_subscription
+        # Attribute for field rate_card_version
+        sig { returns(String) }
+        attr_reader :rate_card_version
+      end
       class SubscriptionItemDetails < Stripe::StripeObject
         class ProrationDetails < Stripe::StripeObject
           class CreditedItems < Stripe::StripeObject
@@ -90,6 +101,9 @@ module Stripe
       # The type of parent that generated this line item
       sig { returns(String) }
       attr_reader :type
+      # Attribute for field rate_card_subscription_details
+      sig { returns(RateCardSubscriptionDetails) }
+      attr_reader :rate_card_subscription_details
     end
     class Period < Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
@@ -125,6 +139,17 @@ module Stripe
         sig { returns(String) }
         attr_reader :product
       end
+      class RateCardRateDetails < Stripe::StripeObject
+        # Attribute for field rate_card
+        sig { returns(String) }
+        attr_reader :rate_card
+        # Attribute for field rate_card_rate
+        sig { returns(String) }
+        attr_reader :rate_card_rate
+        # Attribute for field metered_item
+        sig { returns(String) }
+        attr_reader :metered_item
+      end
       # Attribute for field price_details
       sig { returns(PriceDetails) }
       attr_reader :price_details
@@ -134,6 +159,9 @@ module Stripe
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       attr_reader :unit_amount_decimal
+      # Attribute for field rate_card_rate_details
+      sig { returns(RateCardRateDetails) }
+      attr_reader :rate_card_rate_details
     end
     class TaxCalculationReference < Stripe::StripeObject
       # The calculation identifier for tax calculation response.
@@ -431,17 +459,17 @@ module Stripe
       attr_accessor :discountable
       # The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::Discount]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::Discount])))
        }
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # The IDs of the margins to apply to the line item. When set, the `default_margins` on the invoice do not apply to this line item.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :margins
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Period)) }
@@ -457,14 +485,14 @@ module Stripe
       attr_accessor :quantity
       # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::TaxAmount]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::TaxAmount])))
        }
       attr_accessor :tax_amounts
       # The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :tax_rates
       sig {
-        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), margins: T.nilable(T.nilable(T.any(String, T::Array[String]))), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::Discount])), expand: T.nilable(T::Array[String]), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
        }
       def initialize(
         amount: nil,

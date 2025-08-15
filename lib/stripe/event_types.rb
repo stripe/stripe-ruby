@@ -5,8 +5,69 @@ module Stripe
     def self.thin_event_names_to_classes
       {
         # The beginning of the section generated from our OpenAPI spec
+        AccountConfigurationRecipientDataAccountLinkCompletedEvent.lookup_type =>
+        AccountConfigurationRecipientDataAccountLinkCompletedEvent,
+        AccountConfigurationRecipientDataFeatureStatusUpdatedEvent.lookup_type =>
+        AccountConfigurationRecipientDataFeatureStatusUpdatedEvent,
+        AccountRequirementsUpdatedEvent.lookup_type => AccountRequirementsUpdatedEvent,
         V1BillingMeterErrorReportTriggeredEvent.lookup_type => V1BillingMeterErrorReportTriggeredEvent,
         V1BillingMeterNoMeterFoundEvent.lookup_type => V1BillingMeterNoMeterFoundEvent,
+        V2BillingCadenceBilledEvent.lookup_type => V2BillingCadenceBilledEvent,
+        V2BillingCadenceCanceledEvent.lookup_type => V2BillingCadenceCanceledEvent,
+        V2BillingCadenceCreatedEvent.lookup_type => V2BillingCadenceCreatedEvent,
+        V2BillingCadenceErroredEvent.lookup_type => V2BillingCadenceErroredEvent,
+        V2BillingLicenseFeeCreatedEvent.lookup_type => V2BillingLicenseFeeCreatedEvent,
+        V2BillingLicenseFeeUpdatedEvent.lookup_type => V2BillingLicenseFeeUpdatedEvent,
+        V2BillingLicenseFeeVersionCreatedEvent.lookup_type => V2BillingLicenseFeeVersionCreatedEvent,
+        V2BillingLicensedItemCreatedEvent.lookup_type => V2BillingLicensedItemCreatedEvent,
+        V2BillingLicensedItemUpdatedEvent.lookup_type => V2BillingLicensedItemUpdatedEvent,
+        V2BillingMeteredItemCreatedEvent.lookup_type => V2BillingMeteredItemCreatedEvent,
+        V2BillingMeteredItemUpdatedEvent.lookup_type => V2BillingMeteredItemUpdatedEvent,
+        V2BillingPricingPlanComponentCreatedEvent.lookup_type => V2BillingPricingPlanComponentCreatedEvent,
+        V2BillingPricingPlanComponentUpdatedEvent.lookup_type => V2BillingPricingPlanComponentUpdatedEvent,
+        V2BillingPricingPlanCreatedEvent.lookup_type => V2BillingPricingPlanCreatedEvent,
+        V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEvent.lookup_type =>
+        V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEvent,
+        V2BillingPricingPlanSubscriptionCollectionCurrentEvent.lookup_type =>
+        V2BillingPricingPlanSubscriptionCollectionCurrentEvent,
+        V2BillingPricingPlanSubscriptionCollectionPastDueEvent.lookup_type =>
+        V2BillingPricingPlanSubscriptionCollectionPastDueEvent,
+        V2BillingPricingPlanSubscriptionCollectionPausedEvent.lookup_type =>
+        V2BillingPricingPlanSubscriptionCollectionPausedEvent,
+        V2BillingPricingPlanSubscriptionCollectionUnpaidEvent.lookup_type =>
+        V2BillingPricingPlanSubscriptionCollectionUnpaidEvent,
+        V2BillingPricingPlanSubscriptionServicingActivatedEvent.lookup_type =>
+        V2BillingPricingPlanSubscriptionServicingActivatedEvent,
+        V2BillingPricingPlanSubscriptionServicingCanceledEvent.lookup_type =>
+        V2BillingPricingPlanSubscriptionServicingCanceledEvent,
+        V2BillingPricingPlanSubscriptionServicingPausedEvent.lookup_type =>
+        V2BillingPricingPlanSubscriptionServicingPausedEvent,
+        V2BillingPricingPlanUpdatedEvent.lookup_type => V2BillingPricingPlanUpdatedEvent,
+        V2BillingPricingPlanVersionCreatedEvent.lookup_type => V2BillingPricingPlanVersionCreatedEvent,
+        V2BillingRateCardCreatedEvent.lookup_type => V2BillingRateCardCreatedEvent,
+        V2BillingRateCardRateCreatedEvent.lookup_type => V2BillingRateCardRateCreatedEvent,
+        V2BillingRateCardSubscriptionActivatedEvent.lookup_type =>
+        V2BillingRateCardSubscriptionActivatedEvent,
+        V2BillingRateCardSubscriptionCanceledEvent.lookup_type =>
+        V2BillingRateCardSubscriptionCanceledEvent,
+        V2BillingRateCardSubscriptionCollectionAwaitingCustomerActionEvent.lookup_type =>
+        V2BillingRateCardSubscriptionCollectionAwaitingCustomerActionEvent,
+        V2BillingRateCardSubscriptionCollectionCurrentEvent.lookup_type =>
+        V2BillingRateCardSubscriptionCollectionCurrentEvent,
+        V2BillingRateCardSubscriptionCollectionPastDueEvent.lookup_type =>
+        V2BillingRateCardSubscriptionCollectionPastDueEvent,
+        V2BillingRateCardSubscriptionCollectionPausedEvent.lookup_type =>
+        V2BillingRateCardSubscriptionCollectionPausedEvent,
+        V2BillingRateCardSubscriptionCollectionUnpaidEvent.lookup_type =>
+        V2BillingRateCardSubscriptionCollectionUnpaidEvent,
+        V2BillingRateCardSubscriptionServicingActivatedEvent.lookup_type =>
+        V2BillingRateCardSubscriptionServicingActivatedEvent,
+        V2BillingRateCardSubscriptionServicingCanceledEvent.lookup_type =>
+        V2BillingRateCardSubscriptionServicingCanceledEvent,
+        V2BillingRateCardSubscriptionServicingPausedEvent.lookup_type =>
+        V2BillingRateCardSubscriptionServicingPausedEvent,
+        V2BillingRateCardUpdatedEvent.lookup_type => V2BillingRateCardUpdatedEvent,
+        V2BillingRateCardVersionCreatedEvent.lookup_type => V2BillingRateCardVersionCreatedEvent,
         V2CoreAccountClosedEvent.lookup_type => V2CoreAccountClosedEvent,
         V2CoreAccountCreatedEvent.lookup_type => V2CoreAccountCreatedEvent,
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>
@@ -110,6 +171,10 @@ module Stripe
         V2PaymentsOffSessionPaymentCreatedEvent.lookup_type => V2PaymentsOffSessionPaymentCreatedEvent,
         V2PaymentsOffSessionPaymentFailedEvent.lookup_type => V2PaymentsOffSessionPaymentFailedEvent,
         V2PaymentsOffSessionPaymentSucceededEvent.lookup_type => V2PaymentsOffSessionPaymentSucceededEvent,
+        V2ReportingReportRunCreatedEvent.lookup_type => V2ReportingReportRunCreatedEvent,
+        V2ReportingReportRunFailedEvent.lookup_type => V2ReportingReportRunFailedEvent,
+        V2ReportingReportRunSucceededEvent.lookup_type => V2ReportingReportRunSucceededEvent,
+        V2ReportingReportRunUpdatedEvent.lookup_type => V2ReportingReportRunUpdatedEvent,
         # The end of the section generated from our OpenAPI spec
       }
     end

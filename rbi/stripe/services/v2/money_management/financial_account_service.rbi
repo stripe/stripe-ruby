@@ -24,6 +24,9 @@ module Stripe
             sig { params(holds_currencies: T::Array[String]).void }
             def initialize(holds_currencies: nil); end
           end
+          # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :display_name
           # Metadata associated with the FinancialAccount.
           sig { returns(T.nilable(T::Hash[String, String])) }
           attr_accessor :metadata
@@ -36,9 +39,9 @@ module Stripe
           sig { returns(String) }
           attr_accessor :type
           sig {
-            params(metadata: T.nilable(T::Hash[String, String]), storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CreateParams::Storage), type: String).void
+            params(display_name: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CreateParams::Storage), type: String).void
            }
-          def initialize(metadata: nil, storage: nil, type: nil); end
+          def initialize(display_name: nil, metadata: nil, storage: nil, type: nil); end
         end
         class RetrieveParams < Stripe::RequestParams; end
         class CloseParams < Stripe::RequestParams

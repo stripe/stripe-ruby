@@ -37,6 +37,18 @@ module Stripe
 
       class CreateParams < Stripe::RequestParams
         class Amount < Stripe::RequestParams
+          class CustomPricingUnit < Stripe::RequestParams
+            # The ID of the custom pricing unit.
+            attr_accessor :id
+            # A positive integer representing the amount of the credit grant.
+            attr_accessor :value
+
+            def initialize(id: nil, value: nil)
+              @id = id
+              @value = value
+            end
+          end
+
           class Monetary < Stripe::RequestParams
             # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
             attr_accessor :currency
@@ -48,12 +60,15 @@ module Stripe
               @value = value
             end
           end
+          # The custom pricing unit amount.
+          attr_accessor :custom_pricing_unit
           # The monetary amount.
           attr_accessor :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           attr_accessor :type
 
-          def initialize(monetary: nil, type: nil)
+          def initialize(custom_pricing_unit: nil, monetary: nil, type: nil)
+            @custom_pricing_unit = custom_pricing_unit
             @monetary = monetary
             @type = type
           end
@@ -61,6 +76,15 @@ module Stripe
 
         class ApplicabilityConfig < Stripe::RequestParams
           class Scope < Stripe::RequestParams
+            class BillableItem < Stripe::RequestParams
+              # The billable item ID this credit grant should apply to.
+              attr_accessor :id
+
+              def initialize(id: nil)
+                @id = id
+              end
+            end
+
             class Price < Stripe::RequestParams
               # The price ID this credit grant should apply to.
               attr_accessor :id
@@ -69,12 +93,15 @@ module Stripe
                 @id = id
               end
             end
+            # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+            attr_accessor :billable_items
             # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             attr_accessor :price_type
             # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             attr_accessor :prices
 
-            def initialize(price_type: nil, prices: nil)
+            def initialize(billable_items: nil, price_type: nil, prices: nil)
+              @billable_items = billable_items
               @price_type = price_type
               @prices = prices
             end

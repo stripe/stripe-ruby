@@ -234,6 +234,11 @@ module Stripe
     end
 
     class Parent < Stripe::StripeObject
+      class BillingCadenceDetails < Stripe::StripeObject
+        # The billing cadence that generated this invoice
+        attr_reader :billing_cadence
+      end
+
       class QuoteDetails < Stripe::StripeObject
         # The quote that generated this invoice
         attr_reader :quote
@@ -256,6 +261,8 @@ module Stripe
         # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
         attr_reader :subscription_proration_date
       end
+      # Details about the billing cadence that generated this invoice
+      attr_reader :billing_cadence_details
       # Details about the quote that generated this invoice
       attr_reader :quote_details
       # Details about the subscription that generated this invoice
@@ -4233,6 +4240,8 @@ module Stripe
       end
       # Settings for automatic tax lookup for this invoice preview.
       attr_accessor :automatic_tax
+      # The identifier of the billing cadence for which you’d like to retrieve the upcoming invoice.Cannot be provided when `subscription`, `schedule`, `subscription_details` or `schedule_details` are provided.
+      attr_accessor :billing_cadence
       # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
       attr_accessor :currency
       # The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
@@ -4264,6 +4273,7 @@ module Stripe
 
       def initialize(
         automatic_tax: nil,
+        billing_cadence: nil,
         currency: nil,
         customer: nil,
         customer_account: nil,
@@ -4280,6 +4290,7 @@ module Stripe
         subscription_details: nil
       )
         @automatic_tax = automatic_tax
+        @billing_cadence = billing_cadence
         @currency = currency
         @customer = customer
         @customer_account = customer_account

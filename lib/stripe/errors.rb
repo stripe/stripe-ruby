@@ -224,5 +224,8 @@ module Stripe
       @invalid_param = invalid_param
     end
   end
+
+  class RateLimitError < StripeError
+  end
   # class definitions: The end of the section generated from our OpenAPI spec
 end

@@ -8,6 +8,14 @@ module Stripe
     class CreditBalanceSummary < SingletonAPIResource
       class Balance < Stripe::StripeObject
         class AvailableBalance < Stripe::StripeObject
+          class CustomPricingUnit < Stripe::StripeObject
+            # Unique identifier for the object.
+            sig { returns(String) }
+            attr_reader :id
+            # A positive integer representing the amount.
+            sig { returns(String) }
+            attr_reader :value
+          end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
@@ -16,6 +24,9 @@ module Stripe
             sig { returns(Integer) }
             attr_reader :value
           end
+          # The custom pricing unit amount.
+          sig { returns(T.nilable(CustomPricingUnit)) }
+          attr_reader :custom_pricing_unit
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
           attr_reader :monetary
@@ -24,6 +35,14 @@ module Stripe
           attr_reader :type
         end
         class LedgerBalance < Stripe::StripeObject
+          class CustomPricingUnit < Stripe::StripeObject
+            # Unique identifier for the object.
+            sig { returns(String) }
+            attr_reader :id
+            # A positive integer representing the amount.
+            sig { returns(String) }
+            attr_reader :value
+          end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
@@ -32,6 +51,9 @@ module Stripe
             sig { returns(Integer) }
             attr_reader :value
           end
+          # The custom pricing unit amount.
+          sig { returns(T.nilable(CustomPricingUnit)) }
+          attr_reader :custom_pricing_unit
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
           attr_reader :monetary

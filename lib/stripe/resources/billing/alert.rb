@@ -13,6 +13,43 @@ module Stripe
         "billing.alert"
       end
 
+      class CreditBalanceThreshold < Stripe::StripeObject
+        class Filter < Stripe::StripeObject
+          # Limit the scope of the alert to this customer ID
+          attr_reader :customer
+          # Attribute for field type
+          attr_reader :type
+        end
+
+        class Lte < Stripe::StripeObject
+          class CustomPricingUnit < Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+            # A positive decimal string representing the amount.
+            attr_reader :value
+          end
+
+          class Monetary < Stripe::StripeObject
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+            # A positive integer representing the amount.
+            attr_reader :value
+          end
+          # The type of this balance. We currently only support `monetary` amounts.
+          attr_reader :balance_type
+          # The custom pricing unit amount.
+          attr_reader :custom_pricing_unit
+          # The monetary amount.
+          attr_reader :monetary
+        end
+        # The filters allow limiting the scope of this credit balance alert. You must specify only a customer filter at this time.
+        attr_reader :filters
+        # Attribute for field lte
+        attr_reader :lte
+        # Defines how the alert will behave.
+        attr_reader :recurrence
+      end
+
       class UsageThreshold < Stripe::StripeObject
         class Filter < Stripe::StripeObject
           # Limit the scope of the alert to this customer ID
@@ -33,6 +70,8 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # Filter results to only include this type of alert.
         attr_accessor :alert_type
+        # Filter results to only include alerts for the given customer.
+        attr_accessor :customer
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
@@ -46,6 +85,7 @@ module Stripe
 
         def initialize(
           alert_type: nil,
+          customer: nil,
           ending_before: nil,
           expand: nil,
           limit: nil,
@@ -53,6 +93,7 @@ module Stripe
           starting_after: nil
         )
           @alert_type = alert_type
+          @customer = customer
           @ending_before = ending_before
           @expand = expand
           @limit = limit
@@ -62,6 +103,70 @@ module Stripe
       end
 
       class CreateParams < Stripe::RequestParams
+        class CreditBalanceThreshold < Stripe::RequestParams
+          class Filter < Stripe::RequestParams
+            # Limit the scope to this credit balance alert only to this customer.
+            attr_accessor :customer
+            # What type of filter is being applied to this credit balance alert.
+            attr_accessor :type
+
+            def initialize(customer: nil, type: nil)
+              @customer = customer
+              @type = type
+            end
+          end
+
+          class Lte < Stripe::RequestParams
+            class CustomPricingUnit < Stripe::RequestParams
+              # The ID of the custom pricing unit.
+              attr_accessor :id
+              # A positive decimal string representing the amount of the custom pricing unit threshold.
+              attr_accessor :value
+
+              def initialize(id: nil, value: nil)
+                @id = id
+                @value = value
+              end
+            end
+
+            class Monetary < Stripe::RequestParams
+              # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
+              attr_accessor :currency
+              # An integer representing the amount of the threshold.
+              attr_accessor :value
+
+              def initialize(currency: nil, value: nil)
+                @currency = currency
+                @value = value
+              end
+            end
+            # Specify the type of this balance. We currently only support `monetary` billing credits.
+            attr_accessor :balance_type
+            # The custom pricing unit amount.
+            attr_accessor :custom_pricing_unit
+            # The monetary amount.
+            attr_accessor :monetary
+
+            def initialize(balance_type: nil, custom_pricing_unit: nil, monetary: nil)
+              @balance_type = balance_type
+              @custom_pricing_unit = custom_pricing_unit
+              @monetary = monetary
+            end
+          end
+          # The filters allows limiting the scope of this credit balance alert. You must specify a customer filter at this time.
+          attr_accessor :filters
+          # Defines at which value the alert will fire.
+          attr_accessor :lte
+          # Whether the alert should only fire only once, or once per billing cycle.
+          attr_accessor :recurrence
+
+          def initialize(filters: nil, lte: nil, recurrence: nil)
+            @filters = filters
+            @lte = lte
+            @recurrence = recurrence
+          end
+        end
+
         class UsageThreshold < Stripe::RequestParams
           class Filter < Stripe::RequestParams
             # Limit the scope to this usage alert only to this customer.
@@ -92,6 +197,8 @@ module Stripe
         end
         # The type of alert to create.
         attr_accessor :alert_type
+        # The configuration of the credit balance threshold.
+        attr_accessor :credit_balance_threshold
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # The title of the alert.
@@ -99,8 +206,15 @@ module Stripe
         # The configuration of the usage threshold.
         attr_accessor :usage_threshold
 
-        def initialize(alert_type: nil, expand: nil, title: nil, usage_threshold: nil)
+        def initialize(
+          alert_type: nil,
+          credit_balance_threshold: nil,
+          expand: nil,
+          title: nil,
+          usage_threshold: nil
+        )
           @alert_type = alert_type
+          @credit_balance_threshold = credit_balance_threshold
           @expand = expand
           @title = title
           @usage_threshold = usage_threshold
@@ -135,6 +249,8 @@ module Stripe
       end
       # Defines the type of the alert.
       attr_reader :alert_type
+      # Encapsulates configuration of the alert to monitor billing credit balance.
+      attr_reader :credit_balance_threshold
       # Unique identifier for the object.
       attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

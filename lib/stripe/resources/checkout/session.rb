@@ -28,7 +28,7 @@ module Stripe
       end
 
       class AdaptivePricing < Stripe::StripeObject
-        # Whether Adaptive Pricing is enabled.
+        # If enabled, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions).
         attr_reader :enabled
       end
 
@@ -1120,6 +1120,27 @@ module Stripe
         attr_reader :link
       end
 
+      class CheckoutItem < Stripe::StripeObject
+        class RateCardSubscriptionItem < Stripe::StripeObject
+          # Attribute for field rate_card
+          attr_reader :rate_card
+          # Attribute for field metadata
+          attr_reader :metadata
+          # Attribute for field rate_card_version
+          attr_reader :rate_card_version
+          # Attribute for field billing_cadence
+          attr_reader :billing_cadence
+          # Attribute for field rate_card_subscription
+          attr_reader :rate_card_subscription
+        end
+        # Attribute for field key
+        attr_reader :key
+        # Attribute for field type
+        attr_reader :type
+        # Attribute for field rate_card_subscription_item
+        attr_reader :rate_card_subscription_item
+      end
+
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
@@ -1203,7 +1224,7 @@ module Stripe
 
       class CreateParams < Stripe::RequestParams
         class AdaptivePricing < Stripe::RequestParams
-          # Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+          # If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
           attr_accessor :enabled
 
           def initialize(enabled: nil)
@@ -1255,6 +1276,35 @@ module Stripe
           def initialize(enabled: nil, liability: nil)
             @enabled = enabled
             @liability = liability
+          end
+        end
+
+        class CheckoutItem < Stripe::RequestParams
+          class RateCardSubscriptionItem < Stripe::RequestParams
+            # Attribute for param field rate_card
+            attr_accessor :rate_card
+            # Attribute for param field metadata
+            attr_accessor :metadata
+            # Attribute for param field rate_card_version
+            attr_accessor :rate_card_version
+
+            def initialize(rate_card: nil, metadata: nil, rate_card_version: nil)
+              @rate_card = rate_card
+              @metadata = metadata
+              @rate_card_version = rate_card_version
+            end
+          end
+          # Attribute for param field key
+          attr_accessor :key
+          # Attribute for param field type
+          attr_accessor :type
+          # Attribute for param field rate_card_subscription_item
+          attr_accessor :rate_card_subscription_item
+
+          def initialize(key: nil, type: nil, rate_card_subscription_item: nil)
+            @key = key
+            @type = type
+            @rate_card_subscription_item = rate_card_subscription_item
           end
         end
 
@@ -3432,6 +3482,8 @@ module Stripe
         attr_accessor :ui_mode
         # Wallet-specific configuration.
         attr_accessor :wallet_options
+        # Attribute for param field checkout_items
+        attr_accessor :checkout_items
 
         def initialize(
           adaptive_pricing: nil,
@@ -3479,7 +3531,8 @@ module Stripe
           success_url: nil,
           tax_id_collection: nil,
           ui_mode: nil,
-          wallet_options: nil
+          wallet_options: nil,
+          checkout_items: nil
         )
           @adaptive_pricing = adaptive_pricing
           @after_expiration = after_expiration
@@ -3527,6 +3580,7 @@ module Stripe
           @tax_id_collection = tax_id_collection
           @ui_mode = ui_mode
           @wallet_options = wallet_options
+          @checkout_items = checkout_items
         end
       end
 
@@ -4073,6 +4127,8 @@ module Stripe
       attr_reader :url
       # Wallet-specific configuration for this Checkout Session.
       attr_reader :wallet_options
+      # Attribute for field checkout_items
+      attr_reader :checkout_items
 
       # Creates a Checkout Session object.
       def self.create(params = {}, opts = {})

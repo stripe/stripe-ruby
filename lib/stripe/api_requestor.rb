@@ -884,6 +884,8 @@ module Stripe
           invalid_param: error_data[:invalid_param]
         )
 
+      when "rate_limit"
+        RateLimitError.new(error_data[:message], **opts)
       # switch cases: The end of the section generated from our OpenAPI spec
       else
         specific_api_error(resp, error_data, context)

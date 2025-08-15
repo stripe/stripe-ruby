@@ -1963,7 +1963,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant).
       sig { returns(T.nilable(String)) }
@@ -1995,7 +1995,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :transfer_group
       sig {
-        params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), capture: T.nilable(T::Boolean), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), destination: T.nilable(::Stripe::Charge::CreateParams::Destination), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), on_behalf_of: T.nilable(String), radar_options: T.nilable(::Stripe::Charge::CreateParams::RadarOptions), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::CreateParams::Shipping), source: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::Charge::CreateParams::TransferData), transfer_group: T.nilable(String)).void
+        params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), capture: T.nilable(T::Boolean), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), destination: T.nilable(::Stripe::Charge::CreateParams::Destination), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), on_behalf_of: T.nilable(String), radar_options: T.nilable(::Stripe::Charge::CreateParams::RadarOptions), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::CreateParams::Shipping), source: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::Charge::CreateParams::TransferData), transfer_group: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -2022,9 +2022,9 @@ module Stripe
     class UpdateParams < Stripe::RequestParams
       class FraudDetails < Stripe::RequestParams
         # Either `safe` or `fraudulent`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.any(String, String)) }
         attr_accessor :user_report
-        sig { params(user_report: T.nilable(T.any(String, String))).void }
+        sig { params(user_report: T.any(String, String)).void }
         def initialize(user_report: nil); end
       end
       class PaymentDetails < Stripe::RequestParams
@@ -2742,7 +2742,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::CarRental)) }
         attr_accessor :car_rental
         # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer_reference
         # Event details for this PaymentIntent
         sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::EventDetails)) }
@@ -2754,13 +2754,13 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Lodging)) }
         attr_accessor :lodging
         # A unique value assigned by the business to identify the transaction.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :order_reference
         # Subscription details for this PaymentIntent
         sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Subscription)) }
         attr_accessor :subscription
         sig {
-          params(car_rental: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::CarRental), customer_reference: T.nilable(T.nilable(String)), event_details: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Flight), lodging: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Lodging), order_reference: T.nilable(T.nilable(String)), subscription: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Subscription)).void
+          params(car_rental: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Flight), lodging: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Subscription)).void
          }
         def initialize(
           car_rental: nil,
@@ -2837,7 +2837,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Charge::UpdateParams::FraudDetails)) }
       attr_accessor :fraud_details
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Provides industry-specific information about the charge.
       sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails)) }
@@ -2852,7 +2852,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :transfer_group
       sig {
-        params(customer: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fraud_details: T.nilable(::Stripe::Charge::UpdateParams::FraudDetails), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::UpdateParams::Shipping), transfer_group: T.nilable(String)).void
+        params(customer: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fraud_details: T.nilable(::Stripe::Charge::UpdateParams::FraudDetails), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::UpdateParams::Shipping), transfer_group: T.nilable(String)).void
        }
       def initialize(
         customer: nil,
@@ -3602,7 +3602,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::CarRental)) }
         attr_accessor :car_rental
         # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer_reference
         # Event details for this PaymentIntent
         sig { returns(T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::EventDetails)) }
@@ -3614,13 +3614,13 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Lodging)) }
         attr_accessor :lodging
         # A unique value assigned by the business to identify the transaction.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :order_reference
         # Subscription details for this PaymentIntent
         sig { returns(T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Subscription)) }
         attr_accessor :subscription
         sig {
-          params(car_rental: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::CarRental), customer_reference: T.nilable(T.nilable(String)), event_details: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Flight), lodging: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Lodging), order_reference: T.nilable(T.nilable(String)), subscription: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Subscription)).void
+          params(car_rental: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Flight), lodging: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Subscription)).void
          }
         def initialize(
           car_rental: nil,

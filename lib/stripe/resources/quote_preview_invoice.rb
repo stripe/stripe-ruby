@@ -234,6 +234,11 @@ module Stripe
     end
 
     class Parent < Stripe::StripeObject
+      class BillingCadenceDetails < Stripe::StripeObject
+        # The billing cadence that generated this invoice
+        attr_reader :billing_cadence
+      end
+
       class QuoteDetails < Stripe::StripeObject
         # The quote that generated this invoice
         attr_reader :quote
@@ -256,6 +261,8 @@ module Stripe
         # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
         attr_reader :subscription_proration_date
       end
+      # Details about the billing cadence that generated this invoice
+      attr_reader :billing_cadence_details
       # Details about the quote that generated this invoice
       attr_reader :quote_details
       # Details about the subscription that generated this invoice

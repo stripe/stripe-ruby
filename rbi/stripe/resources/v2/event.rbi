@@ -22,6 +22,9 @@ module Stripe
         sig { returns(T.nilable(Request)) }
         attr_reader :request
       end
+      # Before and after changes for the primary related object.
+      sig { returns(T::Hash[String, T.untyped]) }
+      attr_reader :changes
       # Authentication context needed to fetch the event or related object.
       sig { returns(T.nilable(String)) }
       attr_reader :context

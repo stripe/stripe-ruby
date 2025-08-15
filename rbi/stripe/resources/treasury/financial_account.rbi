@@ -354,7 +354,7 @@ module Stripe
           def initialize(inbound_flows: nil, outbound_flows: nil); end
         end
         # The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :display_name
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
@@ -366,7 +366,7 @@ module Stripe
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # The nickname for the FinancialAccount.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :nickname
         # The set of functionalities that the platform can restrict on the FinancialAccount.
         sig {
@@ -377,7 +377,7 @@ module Stripe
         sig { returns(T::Array[String]) }
         attr_accessor :supported_currencies
         sig {
-          params(display_name: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(T.nilable(String)), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::PlatformRestrictions), supported_currencies: T::Array[String]).void
+          params(display_name: T.nilable(String), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::PlatformRestrictions), supported_currencies: T::Array[String]).void
          }
         def initialize(
           display_name: nil,
@@ -585,7 +585,7 @@ module Stripe
           def initialize(inbound_flows: nil, outbound_flows: nil); end
         end
         # The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :display_name
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
@@ -602,7 +602,7 @@ module Stripe
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # The nickname for the FinancialAccount.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :nickname
         # The set of functionalities that the platform can restrict on the FinancialAccount.
         sig {
@@ -610,7 +610,7 @@ module Stripe
          }
         attr_accessor :platform_restrictions
         sig {
-          params(display_name: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features), forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::ForwardingSettings), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(T.nilable(String)), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::PlatformRestrictions)).void
+          params(display_name: T.nilable(String), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features), forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::ForwardingSettings), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::PlatformRestrictions)).void
          }
         def initialize(
           display_name: nil,

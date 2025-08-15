@@ -22,6 +22,8 @@ module Stripe
         # Information on the API request that instigated the event.
         attr_reader :request
       end
+      # Before and after changes for the primary related object.
+      attr_reader :changes
       # Authentication context needed to fetch the event or related object.
       attr_reader :context
       # Time at which the object was created.

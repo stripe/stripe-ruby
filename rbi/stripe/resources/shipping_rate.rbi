@@ -268,13 +268,13 @@ module Stripe
       sig { returns(T.nilable(::Stripe::ShippingRate::UpdateParams::FixedAmount)) }
       attr_accessor :fixed_amount
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
       sig { returns(T.nilable(String)) }
       attr_accessor :tax_behavior
       sig {
-        params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fixed_amount: T.nilable(::Stripe::ShippingRate::UpdateParams::FixedAmount), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), tax_behavior: T.nilable(String)).void
+        params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fixed_amount: T.nilable(::Stripe::ShippingRate::UpdateParams::FixedAmount), metadata: T.nilable(T.any(String, T::Hash[String, String])), tax_behavior: T.nilable(String)).void
        }
       def initialize(
         active: nil,

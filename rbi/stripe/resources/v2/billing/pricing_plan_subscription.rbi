@@ -1,0 +1,79 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module V2
+    module Billing
+      class PricingPlanSubscription < APIResource
+        class CollectionStatusTransitions < Stripe::StripeObject
+          # When the collection status transitioned to awaiting customer action.
+          sig { returns(T.nilable(String)) }
+          attr_reader :awaiting_customer_action_at
+          # When the collection status transitioned to current.
+          sig { returns(T.nilable(String)) }
+          attr_reader :current_at
+          # When the collection status transitioned to past due.
+          sig { returns(T.nilable(String)) }
+          attr_reader :past_due_at
+          # When the collection status transitioned to paused.
+          sig { returns(T.nilable(String)) }
+          attr_reader :paused_at
+          # When the collection status transitioned to unpaid.
+          sig { returns(T.nilable(String)) }
+          attr_reader :unpaid_at
+        end
+        class ServicingStatusTransitions < Stripe::StripeObject
+          # When the servicing status transitioned to activated.
+          sig { returns(T.nilable(String)) }
+          attr_reader :activated_at
+          # When the servicing status transitioned to canceled.
+          sig { returns(T.nilable(String)) }
+          attr_reader :canceled_at
+          # When the servicing status transitioned to paused.
+          sig { returns(T.nilable(String)) }
+          attr_reader :paused_at
+        end
+        # The ID of the Cadence this subscription is billed on.
+        sig { returns(String) }
+        attr_reader :billing_cadence
+        # Current collection status of this subscription.
+        sig { returns(String) }
+        attr_reader :collection_status
+        # Timestamps for collection status transitions.
+        sig { returns(CollectionStatusTransitions) }
+        attr_reader :collection_status_transitions
+        # Time at which the object was created.
+        sig { returns(String) }
+        attr_reader :created
+        # Unique identifier for the PricingPlanSubscription.
+        sig { returns(String) }
+        attr_reader :id
+        # Set of key-value pairs that you can attach to an object.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        attr_reader :metadata
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        attr_reader :object
+        # The ID of the PricingPlan for this subscription.
+        sig { returns(String) }
+        attr_reader :pricing_plan
+        # The ID of the PricingPlanVersion for this subscription.
+        sig { returns(String) }
+        attr_reader :pricing_plan_version
+        # Current servicing status of this subscription.
+        sig { returns(String) }
+        attr_reader :servicing_status
+        # Timestamps for servicing status transitions.
+        sig { returns(ServicingStatusTransitions) }
+        attr_reader :servicing_status_transitions
+        # The ID of the TestClock of the associated Cadence, if any.
+        sig { returns(T.nilable(String)) }
+        attr_reader :test_clock
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
+      end
+    end
+  end
+end

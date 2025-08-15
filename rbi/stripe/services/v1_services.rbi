@@ -39,7 +39,6 @@ module Stripe
     attr_reader :fx_quotes
     attr_reader :identity
     attr_reader :invoices
-    attr_reader :invoice_payments
     attr_reader :invoice_rendering_templates
     attr_reader :invoice_items
     attr_reader :issuing

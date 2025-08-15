@@ -7,6 +7,15 @@ module Stripe
       class RetrieveParams < Stripe::RequestParams
         class Filter < Stripe::RequestParams
           class ApplicabilityScope < Stripe::RequestParams
+            class BillableItem < Stripe::RequestParams
+              # The billable item ID this credit grant should apply to.
+              attr_accessor :id
+
+              def initialize(id: nil)
+                @id = id
+              end
+            end
+
             class Price < Stripe::RequestParams
               # The price ID this credit grant should apply to.
               attr_accessor :id
@@ -15,12 +24,15 @@ module Stripe
                 @id = id
               end
             end
+            # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+            attr_accessor :billable_items
             # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             attr_accessor :price_type
             # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             attr_accessor :prices
 
-            def initialize(price_type: nil, prices: nil)
+            def initialize(billable_items: nil, price_type: nil, prices: nil)
+              @billable_items = billable_items
               @price_type = price_type
               @prices = prices
             end

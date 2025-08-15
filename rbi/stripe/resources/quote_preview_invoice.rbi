@@ -280,6 +280,11 @@ module Stripe
       attr_reader :type
     end
     class Parent < Stripe::StripeObject
+      class BillingCadenceDetails < Stripe::StripeObject
+        # The billing cadence that generated this invoice
+        sig { returns(String) }
+        attr_reader :billing_cadence
+      end
       class QuoteDetails < Stripe::StripeObject
         # The quote that generated this invoice
         sig { returns(String) }
@@ -308,6 +313,9 @@ module Stripe
         sig { returns(Integer) }
         attr_reader :subscription_proration_date
       end
+      # Details about the billing cadence that generated this invoice
+      sig { returns(T.nilable(BillingCadenceDetails)) }
+      attr_reader :billing_cadence_details
       # Details about the quote that generated this invoice
       sig { returns(T.nilable(QuoteDetails)) }
       attr_reader :quote_details

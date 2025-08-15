@@ -5742,6 +5742,8 @@ module Stripe
       attr_accessor :description
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
       attr_accessor :error_on_requires_action
+      # The list of payment method types to exclude from use with this payment.
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
@@ -5822,6 +5824,7 @@ module Stripe
         customer_account: nil,
         description: nil,
         error_on_requires_action: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         fx_quote: nil,
         hooks: nil,
@@ -5861,6 +5864,7 @@ module Stripe
         @customer_account = customer_account
         @description = description
         @error_on_requires_action = error_on_requires_action
+        @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @fx_quote = fx_quote
         @hooks = hooks
@@ -14745,6 +14749,8 @@ module Stripe
     attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
+    # The list of payment method types to exclude from use with this payment.
+    attr_reader :excluded_payment_method_types
     # The FX Quote used for the PaymentIntent.
     attr_reader :fx_quote
     # Attribute for field hooks

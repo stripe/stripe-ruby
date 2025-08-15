@@ -2558,6 +2558,9 @@ module Stripe
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
     attr_reader :description
+    # The list of payment method types to exclude from use with this payment.
+    sig { returns(T.nilable(T::Array[String])) }
+    attr_reader :excluded_payment_method_types
     # The FX Quote used for the PaymentIntent.
     sig { returns(T.nilable(String)) }
     attr_reader :fx_quote
@@ -6596,6 +6599,9 @@ module Stripe
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :error_on_requires_action
+      # The list of payment method types to exclude from use with this payment.
+      sig { returns(T.nilable(T::Array[String])) }
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
@@ -6687,7 +6693,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntent::CreateParams::AmountDetails), application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntent::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntent::CreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntent::CreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntent::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntent::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntent::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntent::CreateParams::AmountDetails), application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntent::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntent::CreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntent::CreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntent::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntent::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntent::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         amount: nil,
@@ -6703,6 +6709,7 @@ module Stripe
         customer_account: nil,
         description: nil,
         error_on_requires_action: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         fx_quote: nil,
         hooks: nil,

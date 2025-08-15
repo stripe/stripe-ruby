@@ -1137,9 +1137,9 @@ module Stripe
       attr_accessor :collection_method
       # Only return subscriptions that were created during the given date interval.
       attr_accessor :created
-      # Only return subscriptions whose current_period_end falls within the given date interval.
+      # Only return subscriptions whose minimum item current_period_end falls within the given date interval.
       attr_accessor :current_period_end
-      # Only return subscriptions whose current_period_start falls within the given date interval.
+      # Only return subscriptions whose maximum item current_period_start falls within the given date interval.
       attr_accessor :current_period_start
       # The ID of the customer whose subscriptions will be retrieved.
       attr_accessor :customer
@@ -1312,15 +1312,15 @@ module Stripe
       end
 
       class BillingCycleAnchorConfig < Stripe::RequestParams
-        # The day of the month the billing_cycle_anchor should be. Ranges from 1 to 31.
+        # The day of the month the anchor should be. Ranges from 1 to 31.
         attr_accessor :day_of_month
-        # The hour of the day the billing_cycle_anchor should be. Ranges from 0 to 23.
+        # The hour of the day the anchor should be. Ranges from 0 to 23.
         attr_accessor :hour
-        # The minute of the hour the billing_cycle_anchor should be. Ranges from 0 to 59.
+        # The minute of the hour the anchor should be. Ranges from 0 to 59.
         attr_accessor :minute
-        # The month to start full cycle billing periods. Ranges from 1 to 12.
+        # The month to start full cycle periods. Ranges from 1 to 12.
         attr_accessor :month
-        # The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
+        # The second of the minute the anchor should be. Ranges from 0 to 59.
         attr_accessor :second
 
         def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)

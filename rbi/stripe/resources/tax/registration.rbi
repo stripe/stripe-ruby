@@ -3185,10 +3185,10 @@ module Stripe
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
-        sig { returns(T.nilable(T.nilable(T.any(String, T.any(String, Integer))))) }
+        sig { returns(T.nilable(T.any(String, T.any(String, Integer)))) }
         attr_accessor :expires_at
         sig {
-          params(active_from: T.nilable(T.any(String, Integer)), expand: T.nilable(T::Array[String]), expires_at: T.nilable(T.nilable(T.any(String, T.any(String, Integer))))).void
+          params(active_from: T.nilable(T.any(String, Integer)), expand: T.nilable(T::Array[String]), expires_at: T.nilable(T.any(String, T.any(String, Integer)))).void
          }
         def initialize(active_from: nil, expand: nil, expires_at: nil); end
       end

@@ -53,7 +53,7 @@ module Stripe
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams
       # An optional description of what the webhook is used for.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :description
       # Disable the webhook endpoint if set to true.
       sig { returns(T.nilable(T::Boolean)) }
@@ -65,13 +65,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The URL of the webhook endpoint.
       sig { returns(T.nilable(String)) }
       attr_accessor :url
       sig {
-        params(description: T.nilable(T.nilable(String)), disabled: T.nilable(T::Boolean), enabled_events: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), url: T.nilable(String)).void
+        params(description: T.nilable(String), disabled: T.nilable(T::Boolean), enabled_events: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), url: T.nilable(String)).void
        }
       def initialize(
         description: nil,
@@ -108,7 +108,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :connect
       # An optional description of what the webhook is used for.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :description
       # The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection.
       sig { returns(T::Array[String]) }
@@ -117,13 +117,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The URL of the webhook endpoint.
       sig { returns(String) }
       attr_accessor :url
       sig {
-        params(api_version: T.nilable(String), connect: T.nilable(T::Boolean), description: T.nilable(T.nilable(String)), enabled_events: T::Array[String], expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), url: String).void
+        params(api_version: T.nilable(String), connect: T.nilable(T::Boolean), description: T.nilable(String), enabled_events: T::Array[String], expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), url: String).void
        }
       def initialize(
         api_version: nil,

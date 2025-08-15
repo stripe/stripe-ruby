@@ -75,7 +75,7 @@ module Stripe
         # Only return invoice payments associated by this payment intent ID.
         sig { returns(T.nilable(String)) }
         attr_accessor :payment_intent
-        # Attribute for param field payment_record
+        # Only return invoice payments associated by this payment record ID.
         sig { returns(T.nilable(String)) }
         attr_accessor :payment_record
         # Only return invoice payments associated by this payment type.

@@ -977,7 +977,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Source::UpdateParams::Mandate::Acceptance)) }
         attr_accessor :acceptance
         # The amount specified by the mandate. (Leave null for a mandate covering all amounts)
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+        sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :amount
         # The currency specified by the mandate. (Must match `currency` of the source)
         sig { returns(T.nilable(String)) }
@@ -989,7 +989,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :notification_method
         sig {
-          params(acceptance: T.nilable(::Stripe::Source::UpdateParams::Mandate::Acceptance), amount: T.nilable(T.nilable(T.any(String, Integer))), currency: T.nilable(String), interval: T.nilable(String), notification_method: T.nilable(String)).void
+          params(acceptance: T.nilable(::Stripe::Source::UpdateParams::Mandate::Acceptance), amount: T.nilable(T.any(String, Integer)), currency: T.nilable(String), interval: T.nilable(String), notification_method: T.nilable(String)).void
          }
         def initialize(
           acceptance: nil,
@@ -1159,7 +1159,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Source::UpdateParams::Mandate)) }
       attr_accessor :mandate
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Information about the owner of the payment instrument that may be used or required by particular source types.
       sig { returns(T.nilable(::Stripe::Source::UpdateParams::Owner)) }
@@ -1168,7 +1168,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Source::UpdateParams::SourceOrder)) }
       attr_accessor :source_order
       sig {
-        params(amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), mandate: T.nilable(::Stripe::Source::UpdateParams::Mandate), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), owner: T.nilable(::Stripe::Source::UpdateParams::Owner), source_order: T.nilable(::Stripe::Source::UpdateParams::SourceOrder)).void
+        params(amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), mandate: T.nilable(::Stripe::Source::UpdateParams::Mandate), metadata: T.nilable(T.any(String, T::Hash[String, String])), owner: T.nilable(::Stripe::Source::UpdateParams::Owner), source_order: T.nilable(::Stripe::Source::UpdateParams::SourceOrder)).void
        }
       def initialize(
         amount: nil,
@@ -1242,7 +1242,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Source::CreateParams::Mandate::Acceptance)) }
         attr_accessor :acceptance
         # The amount specified by the mandate. (Leave null for a mandate covering all amounts)
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+        sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :amount
         # The currency specified by the mandate. (Must match `currency` of the source)
         sig { returns(T.nilable(String)) }
@@ -1254,7 +1254,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :notification_method
         sig {
-          params(acceptance: T.nilable(::Stripe::Source::CreateParams::Mandate::Acceptance), amount: T.nilable(T.nilable(T.any(String, Integer))), currency: T.nilable(String), interval: T.nilable(String), notification_method: T.nilable(String)).void
+          params(acceptance: T.nilable(::Stripe::Source::CreateParams::Mandate::Acceptance), amount: T.nilable(T.any(String, Integer)), currency: T.nilable(String), interval: T.nilable(String), notification_method: T.nilable(String)).void
          }
         def initialize(
           acceptance: nil,

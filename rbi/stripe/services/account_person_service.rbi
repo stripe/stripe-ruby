@@ -22,10 +22,10 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :ip
           # The user agent of the browser from which the account representative accepted the service agreement.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :user_agent
           sig {
-            params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(T.nilable(String))).void
+            params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
            }
           def initialize(date: nil, ip: nil, user_agent: nil); end
         end
@@ -241,7 +241,7 @@ module Stripe
         sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :owner
         # The percent owned by the person of the account's legal entity.
-        sig { returns(T.nilable(T.nilable(T.any(String, Float)))) }
+        sig { returns(T.nilable(T.any(String, Float))) }
         attr_accessor :percent_ownership
         # Whether the person is authorized as the primary representative of the account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
         sig { returns(T.nilable(T::Boolean)) }
@@ -250,7 +250,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :title
         sig {
-          params(authorizer: T.nilable(T::Boolean), director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.nilable(T.any(String, Float))), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
+          params(authorizer: T.nilable(T::Boolean), director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.any(String, Float)), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
          }
         def initialize(
           authorizer: nil,
@@ -355,9 +355,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::AccountPersonService::UpdateParams::AddressKanji)) }
       attr_accessor :address_kanji
       # The person's date of birth.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::AccountPersonService::UpdateParams::Dob))))
-       }
+      sig { returns(T.nilable(T.any(String, ::Stripe::AccountPersonService::UpdateParams::Dob))) }
       attr_accessor :dob
       # Documents that may be submitted to satisfy various informational requests.
       sig { returns(T.nilable(::Stripe::AccountPersonService::UpdateParams::Documents)) }
@@ -378,7 +376,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :first_name_kanji
       # A list of alternate names or aliases that the person is known by.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :full_name_aliases
       # The person's gender (International regulations require either "male" or "female").
       sig { returns(T.nilable(String)) }
@@ -402,7 +400,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :maiden_name
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable.
       sig { returns(T.nilable(String)) }
@@ -432,7 +430,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::AccountPersonService::UpdateParams::Verification)) }
       attr_accessor :verification
       sig {
-        params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonService::UpdateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonService::UpdateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonService::UpdateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonService::UpdateParams::AddressKanji), dob: T.nilable(T.nilable(T.any(String, ::Stripe::AccountPersonService::UpdateParams::Dob))), documents: T.nilable(::Stripe::AccountPersonService::UpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.nilable(T.any(String, T::Array[String]))), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonService::UpdateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonService::UpdateParams::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::AccountPersonService::UpdateParams::UsCfpbData), verification: T.nilable(::Stripe::AccountPersonService::UpdateParams::Verification)).void
+        params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonService::UpdateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonService::UpdateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonService::UpdateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonService::UpdateParams::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::AccountPersonService::UpdateParams::Dob)), documents: T.nilable(::Stripe::AccountPersonService::UpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonService::UpdateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonService::UpdateParams::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::AccountPersonService::UpdateParams::UsCfpbData), verification: T.nilable(::Stripe::AccountPersonService::UpdateParams::Verification)).void
        }
       def initialize(
         additional_tos_acceptances: nil,
@@ -534,10 +532,10 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :ip
           # The user agent of the browser from which the account representative accepted the service agreement.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :user_agent
           sig {
-            params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(T.nilable(String))).void
+            params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
            }
           def initialize(date: nil, ip: nil, user_agent: nil); end
         end
@@ -753,7 +751,7 @@ module Stripe
         sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :owner
         # The percent owned by the person of the account's legal entity.
-        sig { returns(T.nilable(T.nilable(T.any(String, Float)))) }
+        sig { returns(T.nilable(T.any(String, Float))) }
         attr_accessor :percent_ownership
         # Whether the person is authorized as the primary representative of the account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
         sig { returns(T.nilable(T::Boolean)) }
@@ -762,7 +760,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :title
         sig {
-          params(authorizer: T.nilable(T::Boolean), director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.nilable(T.any(String, Float))), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
+          params(authorizer: T.nilable(T::Boolean), director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.any(String, Float)), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
          }
         def initialize(
           authorizer: nil,
@@ -867,9 +865,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::AccountPersonService::CreateParams::AddressKanji)) }
       attr_accessor :address_kanji
       # The person's date of birth.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::AccountPersonService::CreateParams::Dob))))
-       }
+      sig { returns(T.nilable(T.any(String, ::Stripe::AccountPersonService::CreateParams::Dob))) }
       attr_accessor :dob
       # Documents that may be submitted to satisfy various informational requests.
       sig { returns(T.nilable(::Stripe::AccountPersonService::CreateParams::Documents)) }
@@ -890,7 +886,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :first_name_kanji
       # A list of alternate names or aliases that the person is known by.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+      sig { returns(T.nilable(T.any(String, T::Array[String]))) }
       attr_accessor :full_name_aliases
       # The person's gender (International regulations require either "male" or "female").
       sig { returns(T.nilable(String)) }
@@ -914,7 +910,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :maiden_name
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable.
       sig { returns(T.nilable(String)) }
@@ -944,7 +940,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::AccountPersonService::CreateParams::Verification)) }
       attr_accessor :verification
       sig {
-        params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonService::CreateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonService::CreateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonService::CreateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonService::CreateParams::AddressKanji), dob: T.nilable(T.nilable(T.any(String, ::Stripe::AccountPersonService::CreateParams::Dob))), documents: T.nilable(::Stripe::AccountPersonService::CreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.nilable(T.any(String, T::Array[String]))), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonService::CreateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonService::CreateParams::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::AccountPersonService::CreateParams::UsCfpbData), verification: T.nilable(::Stripe::AccountPersonService::CreateParams::Verification)).void
+        params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonService::CreateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonService::CreateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonService::CreateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonService::CreateParams::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::AccountPersonService::CreateParams::Dob)), documents: T.nilable(::Stripe::AccountPersonService::CreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonService::CreateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonService::CreateParams::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::AccountPersonService::CreateParams::UsCfpbData), verification: T.nilable(::Stripe::AccountPersonService::CreateParams::Verification)).void
        }
       def initialize(
         additional_tos_acceptances: nil,

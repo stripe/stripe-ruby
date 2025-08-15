@@ -34,6 +34,15 @@ module Stripe
           end
         end
 
+        class ReaderSecurity < Stripe::RequestParams
+          # Passcode used to access a reader's admin menu.
+          attr_accessor :admin_menu_passcode
+
+          def initialize(admin_menu_passcode: nil)
+            @admin_menu_passcode = admin_menu_passcode
+          end
+        end
+
         class RebootWindow < Stripe::RequestParams
           # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
           attr_accessor :end_hour
@@ -236,6 +245,21 @@ module Stripe
             end
           end
 
+          class Mxn < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Myr < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -379,6 +403,8 @@ module Stripe
           attr_accessor :huf
           # Tipping configuration for JPY
           attr_accessor :jpy
+          # Tipping configuration for MXN
+          attr_accessor :mxn
           # Tipping configuration for MYR
           attr_accessor :myr
           # Tipping configuration for NOK
@@ -409,6 +435,7 @@ module Stripe
             hkd: nil,
             huf: nil,
             jpy: nil,
+            mxn: nil,
             myr: nil,
             nok: nil,
             nzd: nil,
@@ -430,6 +457,7 @@ module Stripe
             @hkd = hkd
             @huf = huf
             @jpy = jpy
+            @mxn = mxn
             @myr = myr
             @nok = nok
             @nzd = nzd
@@ -536,6 +564,8 @@ module Stripe
         attr_accessor :name
         # Configurations for collecting transactions offline.
         attr_accessor :offline
+        # Configurations for reader security settings.
+        attr_accessor :reader_security
         # Reboot time settings for readers that support customized reboot time configuration.
         attr_accessor :reboot_window
         # An object containing device type specific settings for Stripe S700 readers
@@ -552,6 +582,7 @@ module Stripe
           expand: nil,
           name: nil,
           offline: nil,
+          reader_security: nil,
           reboot_window: nil,
           stripe_s700: nil,
           tipping: nil,
@@ -562,6 +593,7 @@ module Stripe
           @expand = expand
           @name = name
           @offline = offline
+          @reader_security = reader_security
           @reboot_window = reboot_window
           @stripe_s700 = stripe_s700
           @tipping = tipping
@@ -616,6 +648,15 @@ module Stripe
           end
         end
 
+        class ReaderSecurity < Stripe::RequestParams
+          # Passcode used to access a reader's admin menu.
+          attr_accessor :admin_menu_passcode
+
+          def initialize(admin_menu_passcode: nil)
+            @admin_menu_passcode = admin_menu_passcode
+          end
+        end
+
         class RebootWindow < Stripe::RequestParams
           # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
           attr_accessor :end_hour
@@ -818,6 +859,21 @@ module Stripe
             end
           end
 
+          class Mxn < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Myr < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -961,6 +1017,8 @@ module Stripe
           attr_accessor :huf
           # Tipping configuration for JPY
           attr_accessor :jpy
+          # Tipping configuration for MXN
+          attr_accessor :mxn
           # Tipping configuration for MYR
           attr_accessor :myr
           # Tipping configuration for NOK
@@ -991,6 +1049,7 @@ module Stripe
             hkd: nil,
             huf: nil,
             jpy: nil,
+            mxn: nil,
             myr: nil,
             nok: nil,
             nzd: nil,
@@ -1012,6 +1071,7 @@ module Stripe
             @hkd = hkd
             @huf = huf
             @jpy = jpy
+            @mxn = mxn
             @myr = myr
             @nok = nok
             @nzd = nzd
@@ -1118,6 +1178,8 @@ module Stripe
         attr_accessor :name
         # Configurations for collecting transactions offline.
         attr_accessor :offline
+        # Configurations for reader security settings.
+        attr_accessor :reader_security
         # Reboot time settings for readers that support customized reboot time configuration.
         attr_accessor :reboot_window
         # An object containing device type specific settings for Stripe S700 readers
@@ -1134,6 +1196,7 @@ module Stripe
           expand: nil,
           name: nil,
           offline: nil,
+          reader_security: nil,
           reboot_window: nil,
           stripe_s700: nil,
           tipping: nil,
@@ -1144,6 +1207,7 @@ module Stripe
           @expand = expand
           @name = name
           @offline = offline
+          @reader_security = reader_security
           @reboot_window = reboot_window
           @stripe_s700 = stripe_s700
           @tipping = tipping

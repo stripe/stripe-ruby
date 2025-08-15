@@ -243,7 +243,7 @@ module Stripe
       class AmountRequested < Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         attr_accessor :value
 
         def initialize(currency: nil, value: nil)
@@ -365,6 +365,26 @@ module Stripe
         end
       end
 
+      class ProcessorDetails < Stripe::RequestParams
+        class Custom < Stripe::RequestParams
+          # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+          attr_accessor :payment_reference
+
+          def initialize(payment_reference: nil)
+            @payment_reference = payment_reference
+          end
+        end
+        # Information about the custom processor used to make this payment.
+        attr_accessor :custom
+        # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        attr_accessor :type
+
+        def initialize(custom: nil, type: nil)
+          @custom = custom
+          @type = type
+        end
+      end
+
       class ShippingDetails < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -431,8 +451,8 @@ module Stripe
       attr_accessor :outcome
       # Information about the Payment Method debited for this payment.
       attr_accessor :payment_method_details
-      # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
-      attr_accessor :payment_reference
+      # Processor information for this payment.
+      attr_accessor :processor_details
       # Shipping information for this payment.
       attr_accessor :shipping_details
 
@@ -448,7 +468,7 @@ module Stripe
         metadata: nil,
         outcome: nil,
         payment_method_details: nil,
-        payment_reference: nil,
+        processor_details: nil,
         shipping_details: nil
       )
         @amount_requested = amount_requested
@@ -462,7 +482,7 @@ module Stripe
         @metadata = metadata
         @outcome = outcome
         @payment_method_details = payment_method_details
-        @payment_reference = payment_reference
+        @processor_details = processor_details
         @shipping_details = shipping_details
       end
     end

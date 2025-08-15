@@ -474,7 +474,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :replacement_reason
         # The second line to print on the card. Max length: 24 characters.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :second_line
         # The address where the card will be shipped.
         sig { returns(T.nilable(::Stripe::Issuing::Card::CreateParams::Shipping)) }
@@ -489,7 +489,7 @@ module Stripe
         sig { returns(String) }
         attr_accessor :type
         sig {
-          params(cardholder: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::Card::CreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(T.nilable(String)), shipping: T.nilable(::Stripe::Issuing::Card::CreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::Card::CreateParams::SpendingControls), status: T.nilable(String), type: String).void
+          params(cardholder: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::Card::CreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::Card::CreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::Card::CreateParams::SpendingControls), status: T.nilable(String), type: String).void
          }
         def initialize(
           cardholder: nil,
@@ -653,7 +653,7 @@ module Stripe
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         # Attribute for param field personalization_design
         sig { returns(T.nilable(String)) }
@@ -671,7 +671,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :status
         sig {
-          params(cancellation_reason: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::Card::UpdateParams::Pin), shipping: T.nilable(::Stripe::Issuing::Card::UpdateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::Card::UpdateParams::SpendingControls), status: T.nilable(String)).void
+          params(cancellation_reason: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::Card::UpdateParams::Pin), shipping: T.nilable(::Stripe::Issuing::Card::UpdateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::Card::UpdateParams::SpendingControls), status: T.nilable(String)).void
          }
         def initialize(
           cancellation_reason: nil,

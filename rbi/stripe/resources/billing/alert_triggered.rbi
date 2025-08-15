@@ -21,7 +21,7 @@ module Stripe
       sig { returns(String) }
       attr_reader :object
       # The value triggering the alert
-      sig { returns(Integer) }
+      sig { returns(String) }
       attr_reader :value
     end
   end

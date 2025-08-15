@@ -75,14 +75,14 @@ module Stripe
       class UpdateParams < Stripe::RequestParams
         class Beneficiary < Stripe::RequestParams
           # Publicly displayable name for the end beneficiary of carbon removal.
-          sig { returns(T.nilable(String)) }
+          sig { returns(String) }
           attr_accessor :public_name
-          sig { params(public_name: T.nilable(String)).void }
+          sig { params(public_name: String).void }
           def initialize(public_name: nil); end
         end
         # Publicly sharable reference for the end beneficiary of carbon removal. Assumed to be the Stripe account if not set.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Climate::OrderService::UpdateParams::Beneficiary))))
+          returns(T.nilable(T.any(String, ::Stripe::Climate::OrderService::UpdateParams::Beneficiary)))
          }
         attr_accessor :beneficiary
         # Specifies which fields in the response should be expanded.
@@ -92,7 +92,7 @@ module Stripe
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         sig {
-          params(beneficiary: T.nilable(T.nilable(T.any(String, ::Stripe::Climate::OrderService::UpdateParams::Beneficiary))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
+          params(beneficiary: T.nilable(T.any(String, ::Stripe::Climate::OrderService::UpdateParams::Beneficiary)), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
          }
         def initialize(beneficiary: nil, expand: nil, metadata: nil); end
       end

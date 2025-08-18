@@ -343,6 +343,41 @@ module Stripe
           end
         end
 
+        class Period < Stripe::RequestParams
+          class End < Stripe::RequestParams
+            # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+            attr_accessor :timestamp
+            # Select how to calculate the end of the invoice item period.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+
+          class Start < Stripe::RequestParams
+            # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+            attr_accessor :timestamp
+            # Select how to calculate the start of the invoice item period.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+          # End of the invoice item period.
+          attr_accessor :end
+          # Start of the invoice item period.
+          attr_accessor :start
+
+          def initialize(end_: nil, start: nil)
+            @end = end_
+            @start = start
+          end
+        end
+
         class PriceData < Stripe::RequestParams
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
@@ -371,6 +406,10 @@ module Stripe
         end
         # The coupons to redeem into discounts for the item.
         attr_accessor :discounts
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
         # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
@@ -380,8 +419,18 @@ module Stripe
         # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
         attr_accessor :tax_rates
 
-        def initialize(discounts: nil, price: nil, price_data: nil, quantity: nil, tax_rates: nil)
+        def initialize(
+          discounts: nil,
+          metadata: nil,
+          period: nil,
+          price: nil,
+          price_data: nil,
+          quantity: nil,
+          tax_rates: nil
+        )
           @discounts = discounts
+          @metadata = metadata
+          @period = period
           @price = price
           @price_data = price_data
           @quantity = quantity
@@ -1242,6 +1291,41 @@ module Stripe
           end
         end
 
+        class Period < Stripe::RequestParams
+          class End < Stripe::RequestParams
+            # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+            attr_accessor :timestamp
+            # Select how to calculate the end of the invoice item period.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+
+          class Start < Stripe::RequestParams
+            # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+            attr_accessor :timestamp
+            # Select how to calculate the start of the invoice item period.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+          # End of the invoice item period.
+          attr_accessor :end
+          # Start of the invoice item period.
+          attr_accessor :start
+
+          def initialize(end_: nil, start: nil)
+            @end = end_
+            @start = start
+          end
+        end
+
         class PriceData < Stripe::RequestParams
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
@@ -1270,6 +1354,10 @@ module Stripe
         end
         # The coupons to redeem into discounts for the item.
         attr_accessor :discounts
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
         # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
@@ -1279,8 +1367,18 @@ module Stripe
         # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
         attr_accessor :tax_rates
 
-        def initialize(discounts: nil, price: nil, price_data: nil, quantity: nil, tax_rates: nil)
+        def initialize(
+          discounts: nil,
+          metadata: nil,
+          period: nil,
+          price: nil,
+          price_data: nil,
+          quantity: nil,
+          tax_rates: nil
+        )
           @discounts = discounts
+          @metadata = metadata
+          @period = period
           @price = price
           @price_data = price_data
           @quantity = quantity

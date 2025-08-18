@@ -1475,7 +1475,7 @@ module Stripe
 
         class Pix < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
-            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
             attr_accessor :amount
             # Determines if the amount includes the IOF tax. Defaults to `never`.
             attr_accessor :amount_includes_iof
@@ -2771,7 +2771,7 @@ module Stripe
 
         class Pix < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
-            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
             attr_accessor :amount
             # Determines if the amount includes the IOF tax. Defaults to `never`.
             attr_accessor :amount_includes_iof
@@ -4066,7 +4066,7 @@ module Stripe
 
         class Pix < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
-            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
             attr_accessor :amount
             # Determines if the amount includes the IOF tax. Defaults to `never`.
             attr_accessor :amount_includes_iof

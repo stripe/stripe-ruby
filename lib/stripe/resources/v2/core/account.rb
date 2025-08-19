@@ -103,6 +103,8 @@ module Stripe
               # Customer phone (including extension).
               attr_reader :phone
             end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            attr_reader :applied
             # Automatic indirect tax settings to be used when automatic tax calculation is enabled on the customer's invoices, subscriptions, checkout sessions, or payment links. Surfaces if automatic tax calculation is possible given the current customer location information.
             attr_reader :automatic_indirect_tax
             # Billing settings - default settings used for this customer in Billing flows such as Invoices and Subscriptions.
@@ -954,6 +956,8 @@ module Stripe
               # A publicly available website for handling support issues.
               attr_reader :url
             end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            attr_reader :applied
             # Settings used for Bacs debit payments.
             attr_reader :bacs_debit_payments
             # Settings used to apply the merchant's branding to email receipts, invoices, Checkout, and other products.
@@ -1074,6 +1078,8 @@ module Stripe
               # Closed Enum. The payout method type of the default outbound destination.
               attr_reader :type
             end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            attr_reader :applied
             # Capabilities that have been requested on the Recipient Configuration.
             attr_reader :capabilities
             # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard.
@@ -1238,6 +1244,8 @@ module Stripe
               # Can send funds from a FinancialAccount to a destination owned by yourself.
               attr_reader :outbound_transfers
             end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            attr_reader :applied
             # Capabilities that have been requested on the Storer Configuration.
             attr_reader :capabilities
           end

@@ -25,6 +25,9 @@ module Stripe
           # If applicable, the ID of the Adjustment that created this Transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :adjustment
+          # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
+          sig { returns(T.nilable(String)) }
+          attr_reader :currency_conversion
           # If applicable, the ID of the FeeTransaction that created this Transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :fee_transaction

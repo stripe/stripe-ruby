@@ -101,6 +101,9 @@ module Stripe
       # The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
       sig { returns(T.nilable(String)) }
       attr_accessor :method
+      # The ID of a v2 FinancialAccount to send funds to.
+      sig { returns(T.nilable(String)) }
+      attr_accessor :payout_method
       # The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
       sig { returns(T.nilable(String)) }
       attr_accessor :source_type
@@ -108,7 +111,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :statement_descriptor
       sig {
-        params(amount: Integer, currency: String, description: T.nilable(String), destination: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), method: T.nilable(String), source_type: T.nilable(String), statement_descriptor: T.nilable(String)).void
+        params(amount: Integer, currency: String, description: T.nilable(String), destination: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), method: T.nilable(String), payout_method: T.nilable(String), source_type: T.nilable(String), statement_descriptor: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -118,6 +121,7 @@ module Stripe
         expand: nil,
         metadata: nil,
         method: nil,
+        payout_method: nil,
         source_type: nil,
         statement_descriptor: nil
       ); end

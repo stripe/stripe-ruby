@@ -452,6 +452,12 @@ module Stripe
         # The currency for the card.
         sig { returns(String) }
         attr_accessor :currency
+        # The desired expiration month (1-12) for this card if [specifying a custom expiration date](/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        sig { returns(T.nilable(Integer)) }
+        attr_accessor :exp_month
+        # The desired 4-digit expiration year for this card if [specifying a custom expiration date](/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        sig { returns(T.nilable(Integer)) }
+        attr_accessor :exp_year
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
@@ -489,11 +495,13 @@ module Stripe
         sig { returns(String) }
         attr_accessor :type
         sig {
-          params(cardholder: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::Card::CreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::Card::CreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::Card::CreateParams::SpendingControls), status: T.nilable(String), type: String).void
+          params(cardholder: T.nilable(String), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::Card::CreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::Card::CreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::Card::CreateParams::SpendingControls), status: T.nilable(String), type: String).void
          }
         def initialize(
           cardholder: nil,
           currency: nil,
+          exp_month: nil,
+          exp_year: nil,
           expand: nil,
           financial_account: nil,
           metadata: nil,

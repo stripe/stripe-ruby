@@ -20,7 +20,7 @@ module Stripe
     # Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
     class Session < APIResource
       class AdaptivePricing < Stripe::StripeObject
-        # Whether Adaptive Pricing is enabled.
+        # If enabled, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions).
         sig { returns(T::Boolean) }
         attr_reader :enabled
       end
@@ -854,6 +854,9 @@ module Stripe
           attr_reader :setup_future_usage
         end
         class Pix < Stripe::StripeObject
+          # Determines if the amount includes the IOF tax.
+          sig { returns(String) }
+          attr_reader :amount_includes_iof
           # The number of seconds after which Pix payment will expire.
           sig { returns(T.nilable(Integer)) }
           attr_reader :expires_after_seconds
@@ -1502,7 +1505,7 @@ module Stripe
       end
       class CreateParams < Stripe::RequestParams
         class AdaptivePricing < Stripe::RequestParams
-          # Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+          # If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :enabled
           sig { params(enabled: T.nilable(T::Boolean)).void }
@@ -2842,6 +2845,9 @@ module Stripe
             ); end
           end
           class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_includes_iof
             # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :expires_after_seconds
@@ -2855,9 +2861,13 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_accessor :setup_future_usage
             sig {
-              params(expires_after_seconds: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
+              params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
              }
-            def initialize(expires_after_seconds: nil, setup_future_usage: nil); end
+            def initialize(
+              amount_includes_iof: nil,
+              expires_after_seconds: nil,
+              setup_future_usage: nil
+            ); end
           end
           class RevolutPay < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3672,7 +3682,7 @@ module Stripe
           returns(T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]))
          }
         attr_accessor :optional_items
-        # Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `custom`.
+        # Where the user is coming from. This informs the optimizations that are applied to the session.
         sig { returns(T.nilable(String)) }
         attr_accessor :origin_context
         # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.

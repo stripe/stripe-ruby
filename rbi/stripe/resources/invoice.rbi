@@ -180,7 +180,7 @@ module Stripe
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
       sig { returns(String) }
       attr_reader :network_advice_code
-      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
       sig { returns(String) }
       attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
@@ -2995,6 +2995,42 @@ module Stripe
                }
               def initialize(coupon: nil, discount: nil, promotion_code: nil); end
             end
+            class Period < Stripe::RequestParams
+              class End < Stripe::RequestParams
+                # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+                sig { returns(T.nilable(Integer)) }
+                attr_accessor :timestamp
+                # Select how to calculate the end of the invoice item period.
+                sig { returns(String) }
+                attr_accessor :type
+                sig { params(timestamp: T.nilable(Integer), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              class Start < Stripe::RequestParams
+                # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+                sig { returns(T.nilable(Integer)) }
+                attr_accessor :timestamp
+                # Select how to calculate the start of the invoice item period.
+                sig { returns(String) }
+                attr_accessor :type
+                sig { params(timestamp: T.nilable(Integer), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              # End of the invoice item period.
+              sig {
+                returns(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period::End)
+               }
+              attr_accessor :end
+              # Start of the invoice item period.
+              sig {
+                returns(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period::Start)
+               }
+              attr_accessor :start
+              sig {
+                params(end_: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period::End, start: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period::Start).void
+               }
+              def initialize(end_: nil, start: nil); end
+            end
             class PriceData < Stripe::RequestParams
               # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
               sig { returns(String) }
@@ -3027,6 +3063,14 @@ module Stripe
               returns(T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount]))
              }
             attr_accessor :discounts
+            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            attr_accessor :metadata
+            # The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+            sig {
+              returns(T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period))
+             }
+            attr_accessor :period
             # The ID of the price object. One of `price` or `price_data` is required.
             sig { returns(T.nilable(String)) }
             attr_accessor :price
@@ -3042,10 +3086,12 @@ module Stripe
             sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :tax_rates
             sig {
-              params(discounts: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount]), price: T.nilable(String), price_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+              params(discounts: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
              }
             def initialize(
               discounts: nil,
+              metadata: nil,
+              period: nil,
               price: nil,
               price_data: nil,
               quantity: nil,

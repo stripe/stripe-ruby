@@ -7551,7 +7551,7 @@ module Stripe
           {
             event_name: "event_name",
             identifier: "identifier",
-            payload: { undefined: "payload" },
+            payload: { key: "payload" },
             timestamp: "1970-01-01T15:18:46.294Z",
           },
         ],
@@ -7560,14 +7560,14 @@ module Stripe
     end
     should "Test v2 billing meter event post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events").to_return(
-        body: '{"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","identifier":"identifier","object":"v2.billing.meter_event","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z","livemode":true}',
+        body: '{"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","identifier":"identifier","object":"v2.billing.meter_event","payload":{"key":"payload"},"timestamp":"1970-01-01T15:18:46.294Z","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
       meter_event = client.v2.billing.meter_events.create({
         event_name: "event_name",
-        payload: { undefined: "payload" },
+        payload: { key: "payload" },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events"
     end
@@ -7709,7 +7709,7 @@ module Stripe
           events: [
             {
               event_name: "event_name",
-              payload: { undefined: "payload" },
+              payload: { key: "payload" },
             },
           ],
         })

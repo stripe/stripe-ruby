@@ -111,13 +111,13 @@ module Stripe
       # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
       sig { returns(T.nilable(String)) }
       attr_reader :network_advice_code
-      # For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      # For charges declined by the network, an alphanumeric code which indicates the reason the charge failed.
       sig { returns(T.nilable(String)) }
       attr_reader :network_decline_code
       # Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
       sig { returns(T.nilable(String)) }
       attr_reader :network_status
-      # An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
+      # An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
       sig { returns(T.nilable(String)) }
       attr_reader :reason
       # Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are `normal`, `elevated`, `highest`. For non-card payments, and card-based payments predating the public assignment of risk levels, this field will have the value `not_assessed`. In the event of an error in the evaluation, this field will have the value `unknown`. This field is only available with Radar.
@@ -221,7 +221,19 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :transaction_id
       end
-      class Alma < Stripe::StripeObject; end
+      class Alma < Stripe::StripeObject
+        class Installments < Stripe::StripeObject
+          # The number of installments.
+          sig { returns(Integer) }
+          attr_reader :count
+        end
+        # Attribute for field installments
+        sig { returns(Installments) }
+        attr_reader :installments
+        # The Alma transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
+      end
       class AmazonPay < Stripe::StripeObject
         class Funding < Stripe::StripeObject
           class Card < Stripe::StripeObject
@@ -254,6 +266,9 @@ module Stripe
         # Attribute for field funding
         sig { returns(Funding) }
         attr_reader :funding
+        # The Amazon Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class AuBecsDebit < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
@@ -311,7 +326,11 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :verified_name
       end
-      class Billie < Stripe::StripeObject; end
+      class Billie < Stripe::StripeObject
+        # The Billie transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
+      end
       class Blik < Stripe::StripeObject
         # A unique and immutable identifier assigned by BLIK to every buyer.
         sig { returns(T.nilable(String)) }
@@ -939,6 +958,9 @@ module Stripe
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Kakao Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Klarna < Stripe::StripeObject
         class PayerDetails < Stripe::StripeObject
@@ -983,6 +1005,9 @@ module Stripe
         # The last four digits of the card. This may not be present for American Express cards.
         sig { returns(T.nilable(String)) }
         attr_reader :last4
+        # The Korean Card transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Link < Stripe::StripeObject
         # Two-letter ISO code representing the funding source country beneath the Link payment.
@@ -1024,6 +1049,9 @@ module Stripe
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Naver Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class NzBankAccount < Stripe::StripeObject
         # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
@@ -1068,6 +1096,9 @@ module Stripe
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Payco transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Paynow < Stripe::StripeObject
         # Reference number associated with this PayNow payment
@@ -1146,13 +1177,23 @@ module Stripe
         # Attribute for field funding
         sig { returns(Funding) }
         attr_reader :funding
+        # The Revolut Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class SamsungPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Samsung Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
-      class Satispay < Stripe::StripeObject; end
+      class Satispay < Stripe::StripeObject
+        # The Satispay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
+      end
       class SepaCreditTransfer < Stripe::StripeObject
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }

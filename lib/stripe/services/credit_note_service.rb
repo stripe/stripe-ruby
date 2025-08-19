@@ -124,7 +124,7 @@ module Stripe
       class Refund < Stripe::RequestParams
         # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         attr_accessor :amount_refunded
-        # ID of an existing refund to link this credit note to.
+        # ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         attr_accessor :refund
 
         def initialize(amount_refunded: nil, refund: nil)
@@ -288,7 +288,7 @@ module Stripe
       class Refund < Stripe::RequestParams
         # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         attr_accessor :amount_refunded
-        # ID of an existing refund to link this credit note to.
+        # ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         attr_accessor :refund
 
         def initialize(amount_refunded: nil, refund: nil)

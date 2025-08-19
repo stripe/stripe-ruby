@@ -44,6 +44,14 @@ module Stripe
         attr_reader :features
       end
 
+      class BalanceReport < Stripe::StripeObject
+        class Features < Stripe::StripeObject; end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
       class Balances < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -229,6 +237,22 @@ module Stripe
         attr_reader :features
       end
 
+      class PayoutDetails < Stripe::StripeObject
+        class Features < Stripe::StripeObject; end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
+      class PayoutReconciliationReport < Stripe::StripeObject
+        class Features < Stripe::StripeObject; end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
       class Payouts < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -275,6 +299,8 @@ module Stripe
       attr_reader :account_management
       # Attribute for field account_onboarding
       attr_reader :account_onboarding
+      # Attribute for field balance_report
+      attr_reader :balance_report
       # Attribute for field balances
       attr_reader :balances
       # Attribute for field disputes_list
@@ -299,6 +325,10 @@ module Stripe
       attr_reader :payment_disputes
       # Attribute for field payments
       attr_reader :payments
+      # Attribute for field payout_details
+      attr_reader :payout_details
+      # Attribute for field payout_reconciliation_report
+      attr_reader :payout_reconciliation_report
       # Attribute for field payouts
       attr_reader :payouts
       # Attribute for field payouts_list
@@ -355,6 +385,19 @@ module Stripe
           # Whether the embedded component is enabled.
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
+        class BalanceReport < Stripe::RequestParams
+          class Features < Stripe::RequestParams; end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -439,7 +482,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -728,6 +771,32 @@ module Stripe
           end
         end
 
+        class PayoutDetails < Stripe::RequestParams
+          class Features < Stripe::RequestParams; end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # An empty list, because this embedded component has no features.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
+        class PayoutReconciliationReport < Stripe::RequestParams
+          class Features < Stripe::RequestParams; end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # An empty list, because this embedded component has no features.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
         class Payouts < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -770,7 +839,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -783,7 +852,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -796,7 +865,7 @@ module Stripe
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
-          # The list of features enabled in the embedded component.
+          # An empty list, because this embedded component has no features.
           attr_accessor :features
 
           def initialize(enabled: nil, features: nil)
@@ -808,6 +877,8 @@ module Stripe
         attr_accessor :account_management
         # Configuration for the [account onboarding](/connect/supported-embedded-components/account-onboarding/) embedded component.
         attr_accessor :account_onboarding
+        # Configuration for the [balance report](/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
+        attr_accessor :balance_report
         # Configuration for the [balances](/connect/supported-embedded-components/balances/) embedded component.
         attr_accessor :balances
         # Configuration for the [disputes list](/connect/supported-embedded-components/disputes-list/) embedded component.
@@ -832,6 +903,10 @@ module Stripe
         attr_accessor :payment_disputes
         # Configuration for the [payments](/connect/supported-embedded-components/payments/) embedded component.
         attr_accessor :payments
+        # Configuration for the [payout details](/connect/supported-embedded-components/payout-details/) embedded component.
+        attr_accessor :payout_details
+        # Configuration for the [payout reconciliation report](/connect/supported-embedded-components/financial-reports#payout-reconciliation-report) embedded component.
+        attr_accessor :payout_reconciliation_report
         # Configuration for the [payouts](/connect/supported-embedded-components/payouts/) embedded component.
         attr_accessor :payouts
         # Configuration for the [payouts list](/connect/supported-embedded-components/payouts-list/) embedded component.
@@ -844,6 +919,7 @@ module Stripe
         def initialize(
           account_management: nil,
           account_onboarding: nil,
+          balance_report: nil,
           balances: nil,
           disputes_list: nil,
           documents: nil,
@@ -856,6 +932,8 @@ module Stripe
           payment_details: nil,
           payment_disputes: nil,
           payments: nil,
+          payout_details: nil,
+          payout_reconciliation_report: nil,
           payouts: nil,
           payouts_list: nil,
           tax_registrations: nil,
@@ -863,6 +941,7 @@ module Stripe
         )
           @account_management = account_management
           @account_onboarding = account_onboarding
+          @balance_report = balance_report
           @balances = balances
           @disputes_list = disputes_list
           @documents = documents
@@ -875,6 +954,8 @@ module Stripe
           @payment_details = payment_details
           @payment_disputes = payment_disputes
           @payments = payments
+          @payout_details = payout_details
+          @payout_reconciliation_report = payout_reconciliation_report
           @payouts = payouts
           @payouts_list = payouts_list
           @tax_registrations = tax_registrations

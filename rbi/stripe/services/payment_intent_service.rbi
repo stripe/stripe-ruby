@@ -1829,6 +1829,9 @@ module Stripe
           ); end
         end
         class Pix < Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :expires_after_seconds
@@ -1847,9 +1850,14 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
           sig {
-            params(expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
+            params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
            }
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil); end
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            setup_future_usage: nil
+          ); end
         end
         class Promptpay < Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2548,6 +2556,9 @@ module Stripe
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :error_on_requires_action
+      # The list of payment method types to exclude from use with this payment.
+      sig { returns(T.nilable(T::Array[String])) }
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
@@ -2629,7 +2640,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(amount: Integer, application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntentService::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentService::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(amount: Integer, application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntentService::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentService::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         amount: nil,
@@ -2643,6 +2654,7 @@ module Stripe
         customer: nil,
         description: nil,
         error_on_requires_action: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         mandate: nil,
         mandate_data: nil,
@@ -4394,6 +4406,9 @@ module Stripe
           ); end
         end
         class Pix < Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :expires_after_seconds
@@ -4412,9 +4427,14 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
           sig {
-            params(expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
+            params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
            }
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil); end
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            setup_future_usage: nil
+          ); end
         end
         class Promptpay < Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -7017,6 +7037,9 @@ module Stripe
           ); end
         end
         class Pix < Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :expires_after_seconds
@@ -7035,9 +7058,14 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
           sig {
-            params(expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
+            params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
            }
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil); end
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            setup_future_usage: nil
+          ); end
         end
         class Promptpay < Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.

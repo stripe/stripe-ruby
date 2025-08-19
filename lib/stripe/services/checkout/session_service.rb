@@ -90,7 +90,7 @@ module Stripe
 
       class CreateParams < Stripe::RequestParams
         class AdaptivePricing < Stripe::RequestParams
-          # Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+          # If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
           attr_accessor :enabled
 
           def initialize(enabled: nil)
@@ -1415,6 +1415,8 @@ module Stripe
           end
 
           class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
             # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
             attr_accessor :expires_after_seconds
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1426,7 +1428,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(expires_after_seconds: nil, setup_future_usage: nil)
+            def initialize(
+              amount_includes_iof: nil,
+              expires_after_seconds: nil,
+              setup_future_usage: nil
+            )
+              @amount_includes_iof = amount_includes_iof
               @expires_after_seconds = expires_after_seconds
               @setup_future_usage = setup_future_usage
             end
@@ -2135,7 +2142,7 @@ module Stripe
         #
         # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
         attr_accessor :optional_items
-        # Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `custom`.
+        # Where the user is coming from. This informs the optimizations that are applied to the session.
         attr_accessor :origin_context
         # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
         attr_accessor :payment_intent_data

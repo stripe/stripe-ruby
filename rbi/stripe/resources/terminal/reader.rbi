@@ -803,7 +803,7 @@ module Stripe
       class PresentPaymentMethodParams < Stripe::RequestParams
         class Card < Stripe::RequestParams
           # Card security code.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :cvc
           # Two-digit number representing the card's expiration month.
           sig { returns(Integer) }
@@ -814,7 +814,9 @@ module Stripe
           # The card number, as a string without any separators.
           sig { returns(String) }
           attr_accessor :number
-          sig { params(cvc: String, exp_month: Integer, exp_year: Integer, number: String).void }
+          sig {
+            params(cvc: T.nilable(String), exp_month: Integer, exp_year: Integer, number: String).void
+           }
           def initialize(cvc: nil, exp_month: nil, exp_year: nil, number: nil); end
         end
         class CardPresent < Stripe::RequestParams

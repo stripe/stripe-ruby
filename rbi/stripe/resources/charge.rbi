@@ -1142,6 +1142,12 @@ module Stripe
         attr_reader :transaction_id
       end
       class Paynow < Stripe::StripeObject
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(String) }
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        sig { returns(String) }
+        attr_reader :reader
         # Reference number associated with this PayNow payment
         sig { returns(T.nilable(String)) }
         attr_reader :reference

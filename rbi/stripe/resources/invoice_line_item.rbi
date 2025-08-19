@@ -51,17 +51,6 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :subscription
       end
-      class RateCardSubscriptionDetails < Stripe::StripeObject
-        # Attribute for field invoice_item
-        sig { returns(String) }
-        attr_reader :invoice_item
-        # Attribute for field rate_card_subscription
-        sig { returns(String) }
-        attr_reader :rate_card_subscription
-        # Attribute for field rate_card_version
-        sig { returns(String) }
-        attr_reader :rate_card_version
-      end
       class SubscriptionItemDetails < Stripe::StripeObject
         class ProrationDetails < Stripe::StripeObject
           class CreditedItems < Stripe::StripeObject
@@ -101,9 +90,6 @@ module Stripe
       # The type of parent that generated this line item
       sig { returns(String) }
       attr_reader :type
-      # Attribute for field rate_card_subscription_details
-      sig { returns(RateCardSubscriptionDetails) }
-      attr_reader :rate_card_subscription_details
     end
     class Period < Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
@@ -139,17 +125,6 @@ module Stripe
         sig { returns(String) }
         attr_reader :product
       end
-      class RateCardRateDetails < Stripe::StripeObject
-        # Attribute for field rate_card
-        sig { returns(String) }
-        attr_reader :rate_card
-        # Attribute for field rate_card_rate
-        sig { returns(String) }
-        attr_reader :rate_card_rate
-        # Attribute for field metered_item
-        sig { returns(String) }
-        attr_reader :metered_item
-      end
       # Attribute for field price_details
       sig { returns(PriceDetails) }
       attr_reader :price_details
@@ -159,9 +134,6 @@ module Stripe
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       attr_reader :unit_amount_decimal
-      # Attribute for field rate_card_rate_details
-      sig { returns(RateCardRateDetails) }
-      attr_reader :rate_card_rate_details
     end
     class TaxCalculationReference < Stripe::StripeObject
       # The calculation identifier for tax calculation response.

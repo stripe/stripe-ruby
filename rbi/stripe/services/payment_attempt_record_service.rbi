@@ -8,11 +8,16 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
+      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+      sig { returns(T.nilable(Integer)) }
+      attr_accessor :limit
       # The ID of the Payment Record.
       sig { returns(String) }
       attr_accessor :payment_record
-      sig { params(expand: T.nilable(T::Array[String]), payment_record: String).void }
-      def initialize(expand: nil, payment_record: nil); end
+      sig {
+        params(expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_record: String).void
+       }
+      def initialize(expand: nil, limit: nil, payment_record: nil); end
     end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.

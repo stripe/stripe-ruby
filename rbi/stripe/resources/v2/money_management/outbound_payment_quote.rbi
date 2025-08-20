@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      # OutboundPaymentQuote represents a quote
+      # OutboundPaymentQuote represents a quote that provides fee and amount estimates for OutboundPayment.
       class OutboundPaymentQuote < APIResource
         class DeliveryOptions < Stripe::StripeObject
           # Open Enum. Method for bank account.

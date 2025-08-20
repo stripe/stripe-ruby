@@ -1262,23 +1262,23 @@ module Stripe
           end
           # Billing address.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BillingDetails::Address))))
+            returns(T.nilable(T.any(String, ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BillingDetails::Address)))
            }
           attr_accessor :address
           # Email address.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :email
           # Full name.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :name
           # Billing phone number (including extension).
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :phone
           # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
           sig { returns(T.nilable(String)) }
           attr_accessor :tax_id
           sig {
-            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
+            params(address: T.nilable(T.any(String, ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BillingDetails::Address)), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tax_id: T.nilable(String)).void
            }
           def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
         end
@@ -1972,10 +1972,10 @@ module Stripe
         sig { returns(String) }
         attr_accessor :name
         # Recipient phone (including extension)
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         sig {
-          params(address: ::Stripe::ConfirmationToken::CreateParams::Shipping::Address, name: String, phone: T.nilable(T.nilable(String))).void
+          params(address: ::Stripe::ConfirmationToken::CreateParams::Shipping::Address, name: String, phone: T.nilable(String)).void
          }
         def initialize(address: nil, name: nil, phone: nil); end
       end

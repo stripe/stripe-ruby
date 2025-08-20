@@ -111,13 +111,13 @@ module Stripe
       # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
       sig { returns(T.nilable(String)) }
       attr_reader :network_advice_code
-      # For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      # For charges declined by the network, an alphanumeric code which indicates the reason the charge failed.
       sig { returns(T.nilable(String)) }
       attr_reader :network_decline_code
       # Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
       sig { returns(T.nilable(String)) }
       attr_reader :network_status
-      # An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
+      # An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
       sig { returns(T.nilable(String)) }
       attr_reader :reason
       # Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are `normal`, `elevated`, `highest`. For non-card payments, and card-based payments predating the public assignment of risk levels, this field will have the value `not_assessed`. In the event of an error in the evaluation, this field will have the value `unknown`. This field is only available with Radar.
@@ -221,7 +221,19 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :transaction_id
       end
-      class Alma < Stripe::StripeObject; end
+      class Alma < Stripe::StripeObject
+        class Installments < Stripe::StripeObject
+          # The number of installments.
+          sig { returns(Integer) }
+          attr_reader :count
+        end
+        # Attribute for field installments
+        sig { returns(Installments) }
+        attr_reader :installments
+        # The Alma transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
+      end
       class AmazonPay < Stripe::StripeObject
         class Funding < Stripe::StripeObject
           class Card < Stripe::StripeObject
@@ -257,6 +269,9 @@ module Stripe
         # Attribute for field funding
         sig { returns(Funding) }
         attr_reader :funding
+        # The Amazon Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class AuBecsDebit < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
@@ -314,7 +329,11 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :verified_name
       end
-      class Billie < Stripe::StripeObject; end
+      class Billie < Stripe::StripeObject
+        # The Billie transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
+      end
       class Blik < Stripe::StripeObject
         # A unique and immutable identifier assigned by BLIK to every buyer.
         sig { returns(T.nilable(String)) }
@@ -979,6 +998,9 @@ module Stripe
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Kakao Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Klarna < Stripe::StripeObject
         class PayerDetails < Stripe::StripeObject
@@ -1023,6 +1045,9 @@ module Stripe
         # The last four digits of the card. This may not be present for American Express cards.
         sig { returns(T.nilable(String)) }
         attr_reader :last4
+        # The Korean Card transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Link < Stripe::StripeObject
         # Two-letter ISO code representing the funding source country beneath the Link payment.
@@ -1065,6 +1090,9 @@ module Stripe
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Naver Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class NzBankAccount < Stripe::StripeObject
         # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
@@ -1109,8 +1137,17 @@ module Stripe
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Payco transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Paynow < Stripe::StripeObject
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(String) }
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        sig { returns(String) }
+        attr_reader :reader
         # Reference number associated with this PayNow payment
         sig { returns(T.nilable(String)) }
         attr_reader :reference
@@ -1221,6 +1258,9 @@ module Stripe
         # Unique transaction id generated by BCB
         sig { returns(T.nilable(String)) }
         attr_reader :bank_transaction_id
+        # ID of the multi use Mandate generated by the PaymentIntent
+        sig { returns(String) }
+        attr_reader :mandate
       end
       class Promptpay < Stripe::StripeObject
         # Bill reference generated by PromptPay
@@ -1264,13 +1304,23 @@ module Stripe
         # Attribute for field funding
         sig { returns(Funding) }
         attr_reader :funding
+        # The Revolut Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class SamsungPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Samsung Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
-      class Satispay < Stripe::StripeObject; end
+      class Satispay < Stripe::StripeObject
+        # The Satispay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
+      end
       class SepaCreditTransfer < Stripe::StripeObject
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
@@ -1963,7 +2013,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant).
       sig { returns(T.nilable(String)) }
@@ -1995,7 +2045,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :transfer_group
       sig {
-        params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), capture: T.nilable(T::Boolean), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), destination: T.nilable(::Stripe::Charge::CreateParams::Destination), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), on_behalf_of: T.nilable(String), radar_options: T.nilable(::Stripe::Charge::CreateParams::RadarOptions), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::CreateParams::Shipping), source: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::Charge::CreateParams::TransferData), transfer_group: T.nilable(String)).void
+        params(amount: T.nilable(Integer), application_fee: T.nilable(Integer), application_fee_amount: T.nilable(Integer), capture: T.nilable(T::Boolean), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), destination: T.nilable(::Stripe::Charge::CreateParams::Destination), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), on_behalf_of: T.nilable(String), radar_options: T.nilable(::Stripe::Charge::CreateParams::RadarOptions), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::CreateParams::Shipping), source: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::Charge::CreateParams::TransferData), transfer_group: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -2022,9 +2072,9 @@ module Stripe
     class UpdateParams < Stripe::RequestParams
       class FraudDetails < Stripe::RequestParams
         # Either `safe` or `fraudulent`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.any(String, String)) }
         attr_accessor :user_report
-        sig { params(user_report: T.nilable(T.any(String, String))).void }
+        sig { params(user_report: T.any(String, String)).void }
         def initialize(user_report: nil); end
       end
       class PaymentDetails < Stripe::RequestParams
@@ -2742,7 +2792,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::CarRental)) }
         attr_accessor :car_rental
         # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer_reference
         # Event details for this PaymentIntent
         sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::EventDetails)) }
@@ -2754,13 +2804,13 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Lodging)) }
         attr_accessor :lodging
         # A unique value assigned by the business to identify the transaction.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :order_reference
         # Subscription details for this PaymentIntent
         sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Subscription)) }
         attr_accessor :subscription
         sig {
-          params(car_rental: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::CarRental), customer_reference: T.nilable(T.nilable(String)), event_details: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Flight), lodging: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Lodging), order_reference: T.nilable(T.nilable(String)), subscription: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Subscription)).void
+          params(car_rental: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Flight), lodging: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails::Subscription)).void
          }
         def initialize(
           car_rental: nil,
@@ -2837,7 +2887,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Charge::UpdateParams::FraudDetails)) }
       attr_accessor :fraud_details
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Provides industry-specific information about the charge.
       sig { returns(T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails)) }
@@ -2852,7 +2902,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :transfer_group
       sig {
-        params(customer: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fraud_details: T.nilable(::Stripe::Charge::UpdateParams::FraudDetails), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::UpdateParams::Shipping), transfer_group: T.nilable(String)).void
+        params(customer: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fraud_details: T.nilable(::Stripe::Charge::UpdateParams::FraudDetails), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(::Stripe::Charge::UpdateParams::PaymentDetails), receipt_email: T.nilable(String), shipping: T.nilable(::Stripe::Charge::UpdateParams::Shipping), transfer_group: T.nilable(String)).void
        }
       def initialize(
         customer: nil,
@@ -3602,7 +3652,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::CarRental)) }
         attr_accessor :car_rental
         # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer_reference
         # Event details for this PaymentIntent
         sig { returns(T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::EventDetails)) }
@@ -3614,13 +3664,13 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Lodging)) }
         attr_accessor :lodging
         # A unique value assigned by the business to identify the transaction.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :order_reference
         # Subscription details for this PaymentIntent
         sig { returns(T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Subscription)) }
         attr_accessor :subscription
         sig {
-          params(car_rental: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::CarRental), customer_reference: T.nilable(T.nilable(String)), event_details: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Flight), lodging: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Lodging), order_reference: T.nilable(T.nilable(String)), subscription: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Subscription)).void
+          params(car_rental: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::EventDetails), flight: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Flight), lodging: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(::Stripe::Charge::CaptureParams::PaymentDetails::Subscription)).void
          }
         def initialize(
           car_rental: nil,

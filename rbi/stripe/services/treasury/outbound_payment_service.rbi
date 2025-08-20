@@ -100,20 +100,20 @@ module Stripe
             end
             # Billing address.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodData::BillingDetails::Address))))
+              returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodData::BillingDetails::Address)))
              }
             attr_accessor :address
             # Email address.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :email
             # Full name.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :name
             # Billing phone number (including extension).
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :phone
             sig {
-              params(address: T.nilable(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String))).void
+              params(address: T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodData::BillingDetails::Address)), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
              }
             def initialize(address: nil, email: nil, name: nil, phone: nil); end
           end
@@ -184,11 +184,11 @@ module Stripe
           end
           # Optional fields for `us_bank_account`.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodOptions::UsBankAccount))))
+            returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
            }
           attr_accessor :us_bank_account
           sig {
-            params(us_bank_account: T.nilable(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodOptions::UsBankAccount)))).void
+            params(us_bank_account: T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodOptions::UsBankAccount))).void
            }
           def initialize(us_bank_account: nil); end
         end

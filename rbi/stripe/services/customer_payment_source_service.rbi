@@ -142,7 +142,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Cardholder name.
       sig { returns(T.nilable(String)) }
@@ -151,7 +151,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::CustomerPaymentSourceService::UpdateParams::Owner)) }
       attr_accessor :owner
       sig {
-        params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), owner: T.nilable(::Stripe::CustomerPaymentSourceService::UpdateParams::Owner)).void
+        params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), owner: T.nilable(::Stripe::CustomerPaymentSourceService::UpdateParams::Owner)).void
        }
       def initialize(
         account_holder_name: nil,

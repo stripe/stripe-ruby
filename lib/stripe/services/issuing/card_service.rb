@@ -217,6 +217,10 @@ module Stripe
         attr_accessor :cardholder
         # The currency for the card.
         attr_accessor :currency
+        # The desired expiration month (1-12) for this card if [specifying a custom expiration date](/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        attr_accessor :exp_month
+        # The desired 4-digit expiration year for this card if [specifying a custom expiration date](/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        attr_accessor :exp_year
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # The new financial account ID the card will be associated with. This field allows a card to be reassigned to a different financial account.
@@ -245,6 +249,8 @@ module Stripe
         def initialize(
           cardholder: nil,
           currency: nil,
+          exp_month: nil,
+          exp_year: nil,
           expand: nil,
           financial_account: nil,
           metadata: nil,
@@ -260,6 +266,8 @@ module Stripe
         )
           @cardholder = cardholder
           @currency = currency
+          @exp_month = exp_month
+          @exp_year = exp_year
           @expand = expand
           @financial_account = financial_account
           @metadata = metadata

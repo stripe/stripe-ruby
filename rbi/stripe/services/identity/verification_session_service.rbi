@@ -95,11 +95,11 @@ module Stripe
           end
           # Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionService::CreateParams::Options::Document))))
+            returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionService::CreateParams::Options::Document)))
            }
           attr_accessor :document
           sig {
-            params(document: T.nilable(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionService::CreateParams::Options::Document)))).void
+            params(document: T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionService::CreateParams::Options::Document))).void
            }
           def initialize(document: nil); end
         end
@@ -213,11 +213,11 @@ module Stripe
           end
           # Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionService::UpdateParams::Options::Document))))
+            returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionService::UpdateParams::Options::Document)))
            }
           attr_accessor :document
           sig {
-            params(document: T.nilable(T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionService::UpdateParams::Options::Document)))).void
+            params(document: T.nilable(T.any(String, ::Stripe::Identity::VerificationSessionService::UpdateParams::Options::Document))).void
            }
           def initialize(document: nil); end
         end

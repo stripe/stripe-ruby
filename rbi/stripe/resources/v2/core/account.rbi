@@ -127,6 +127,9 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_reader :phone
             end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            sig { returns(T::Boolean) }
+            attr_reader :applied
             # Automatic indirect tax settings to be used when automatic tax calculation is enabled on the customer's invoices, subscriptions, checkout sessions, or payment links. Surfaces if automatic tax calculation is possible given the current customer location information.
             sig { returns(T.nilable(AutomaticIndirectTax)) }
             attr_reader :automatic_indirect_tax
@@ -1226,6 +1229,9 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_reader :url
             end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            sig { returns(T::Boolean) }
+            attr_reader :applied
             # Settings used for Bacs debit payments.
             sig { returns(T.nilable(BacsDebitPayments)) }
             attr_reader :bacs_debit_payments
@@ -1382,6 +1388,9 @@ module Stripe
               sig { returns(String) }
               attr_reader :type
             end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            sig { returns(T::Boolean) }
+            attr_reader :applied
             # Capabilities that have been requested on the Recipient Configuration.
             sig { returns(T.nilable(Capabilities)) }
             attr_reader :capabilities
@@ -1593,6 +1602,9 @@ module Stripe
               sig { returns(T.nilable(OutboundTransfers)) }
               attr_reader :outbound_transfers
             end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            sig { returns(T::Boolean) }
+            attr_reader :applied
             # Capabilities that have been requested on the Storer Configuration.
             sig { returns(T.nilable(Capabilities)) }
             attr_reader :capabilities

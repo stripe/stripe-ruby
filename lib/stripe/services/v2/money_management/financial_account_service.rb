@@ -26,6 +26,8 @@ module Stripe
               @holds_currencies = holds_currencies
             end
           end
+          # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+          attr_accessor :display_name
           # Metadata associated with the FinancialAccount.
           attr_accessor :metadata
           # Parameters specific to creating `storage` type FinancialAccounts.
@@ -33,7 +35,8 @@ module Stripe
           # The type of FinancialAccount to create.
           attr_accessor :type
 
-          def initialize(metadata: nil, storage: nil, type: nil)
+          def initialize(display_name: nil, metadata: nil, storage: nil, type: nil)
+            @display_name = display_name
             @metadata = metadata
             @storage = storage
             @type = type

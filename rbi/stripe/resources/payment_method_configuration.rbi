@@ -1276,7 +1276,7 @@ module Stripe
     attr_reader :zip
     class ListParams < Stripe::RequestParams
       # The Connect application to filter by.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :application
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
@@ -1291,7 +1291,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :starting_after
       sig {
-        params(application: T.nilable(T.nilable(String)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+        params(application: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
        }
       def initialize(
         application: nil,

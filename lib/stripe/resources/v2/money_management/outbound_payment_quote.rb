@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      # OutboundPaymentQuote represents a quote
+      # OutboundPaymentQuote represents a quote that provides fee and amount estimates for OutboundPayment.
       class OutboundPaymentQuote < APIResource
         OBJECT_NAME = "v2.money_management.outbound_payment_quote"
         def self.object_name

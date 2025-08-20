@@ -49,19 +49,19 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Terminal::LocationService::UpdateParams::Address)) }
         attr_accessor :address
         # The ID of a configuration that will be used to customize all readers in this location.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :configuration_overrides
         # A name for the location.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :display_name
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         sig {
-          params(address: T.nilable(::Stripe::Terminal::LocationService::UpdateParams::Address), configuration_overrides: T.nilable(T.nilable(String)), display_name: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+          params(address: T.nilable(::Stripe::Terminal::LocationService::UpdateParams::Address), configuration_overrides: T.nilable(String), display_name: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
          }
         def initialize(
           address: nil,
@@ -134,10 +134,10 @@ module Stripe
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
         sig {
-          params(address: ::Stripe::Terminal::LocationService::CreateParams::Address, configuration_overrides: T.nilable(String), display_name: String, expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+          params(address: ::Stripe::Terminal::LocationService::CreateParams::Address, configuration_overrides: T.nilable(String), display_name: String, expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
          }
         def initialize(
           address: nil,

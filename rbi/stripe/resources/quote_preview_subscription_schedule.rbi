@@ -160,9 +160,39 @@ module Stripe
           sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
           attr_reader :promotion_code
         end
+        class Period < Stripe::StripeObject
+          class End < Stripe::StripeObject
+            # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+            sig { returns(Integer) }
+            attr_reader :timestamp
+            # Select how to calculate the end of the invoice item period.
+            sig { returns(String) }
+            attr_reader :type
+          end
+          class Start < Stripe::StripeObject
+            # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+            sig { returns(Integer) }
+            attr_reader :timestamp
+            # Select how to calculate the start of the invoice item period.
+            sig { returns(String) }
+            attr_reader :type
+          end
+          # Attribute for field end
+          sig { returns(End) }
+          attr_reader :end
+          # Attribute for field start
+          sig { returns(Start) }
+          attr_reader :start
+        end
         # The stackable discounts that will be applied to the item.
         sig { returns(T::Array[Discount]) }
         attr_reader :discounts
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        attr_reader :metadata
+        # Attribute for field period
+        sig { returns(Period) }
+        attr_reader :period
         # ID of the price used to generate the invoice item.
         sig { returns(T.any(String, Stripe::Price)) }
         attr_reader :price

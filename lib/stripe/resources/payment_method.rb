@@ -1640,6 +1640,8 @@ module Stripe
     attr_reader :konbini
     # Attribute for field kr_card
     attr_reader :kr_card
+    # The Mandate object of the most recently created Mandate associated with this payment method
+    attr_reader :latest_active_mandate
     # Attribute for field link
     attr_reader :link
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

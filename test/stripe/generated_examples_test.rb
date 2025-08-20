@@ -8649,42 +8649,20 @@ module Stripe
       financial_address_generated_microdeposits = client.v2.test_helpers.financial_addresses.generate_microdeposits("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/test_helpers/financial_addresses/id_123/generate_microdeposits"
     end
-    should "Test temporary session expired error (service)" do
+    should "Test already canceled error (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
       ).to_return(
-        body: '{"error":{"type":"temporary_session_expired","code":"billing_meter_event_session_expired"}}',
+        body: '{"error":{"type":"already_canceled","code":"outbound_payment_already_canceled"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      assert_raises Stripe::TemporarySessionExpiredError do
-        empty_object = client.v2.billing.meter_event_stream.create({
-          events: [
-            {
-              event_name: "event_name",
-              payload: { key: "payload" },
-            },
-          ],
-        })
+      assert_raises Stripe::AlreadyCanceledError do
+        outbound_payment = client.v2.money_management.outbound_payments.cancel("id_123")
       end
-      assert_requested :post, "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
-    end
-    should "Test non zero balance error (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123/close"
-      ).to_return(
-        body: '{"error":{"type":"non_zero_balance","code":"closing_financial_account_with_non_zero_balances"}}',
-        status: 400
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      assert_raises Stripe::NonZeroBalanceError do
-        financial_account = client.v2.money_management.financial_accounts.close("id_123")
-      end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123/close"
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
     end
     should "Test already exists error (service)" do
       stub_request(
@@ -8697,6 +8675,35 @@ module Stripe
         financial_account = client.v2.money_management.financial_accounts.create({ type: "storage" })
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts"
+    end
+    should "Test blocked by stripe error (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
+        body: '{"error":{"type":"blocked_by_stripe","code":"inbound_transfer_not_allowed"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::BlockedByStripeError do
+        us_bank_account = client.v2.core.vault.us_bank_accounts.create({
+          account_number: "account_number",
+        })
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
+    end
+    should "Test controlled by dashboard error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
+      ).to_return(
+        body: '{"error":{"type":"controlled_by_dashboard","code":"bank_account_cannot_be_archived"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::ControlledByDashboardError do
+        us_bank_account = client.v2.core.vault.us_bank_accounts.archive("id_123")
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
     end
     should "Test feature not enabled error (service)" do
       stub_request(
@@ -8731,50 +8738,6 @@ module Stripe
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
     end
-    should "Test blocked by stripe error (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
-        body: '{"error":{"type":"blocked_by_stripe","code":"inbound_transfer_not_allowed"}}',
-        status: 400
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      assert_raises Stripe::BlockedByStripeError do
-        us_bank_account = client.v2.core.vault.us_bank_accounts.create({
-          account_number: "account_number",
-        })
-      end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
-    end
-    should "Test already canceled error (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
-      ).to_return(
-        body: '{"error":{"type":"already_canceled","code":"outbound_payment_already_canceled"}}',
-        status: 400
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      assert_raises Stripe::AlreadyCanceledError do
-        outbound_payment = client.v2.money_management.outbound_payments.cancel("id_123")
-      end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
-    end
-    should "Test not cancelable error (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
-      ).to_return(
-        body: '{"error":{"type":"not_cancelable","code":"outbound_payment_not_cancelable"}}',
-        status: 400
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      assert_raises Stripe::NotCancelableError do
-        outbound_payment = client.v2.money_management.outbound_payments.cancel("id_123")
-      end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
-    end
     should "Test insufficient funds error (service)" do
       stub_request(
         :post,
@@ -8799,6 +8762,65 @@ module Stripe
         })
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
+    end
+    should "Test invalid payment method error (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
+        body: '{"error":{"type":"invalid_payment_method","code":"invalid_us_bank_account"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::InvalidPaymentMethodError do
+        us_bank_account = client.v2.core.vault.us_bank_accounts.create({
+          account_number: "account_number",
+        })
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
+    end
+    should "Test invalid payout method error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
+      ).to_return(
+        body: '{"error":{"type":"invalid_payout_method","code":"invalid_payout_method"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::InvalidPayoutMethodError do
+        outbound_setup_intent = client.v2.money_management.outbound_setup_intents.create
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
+    end
+    should "Test non zero balance error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123/close"
+      ).to_return(
+        body: '{"error":{"type":"non_zero_balance","code":"closing_financial_account_with_non_zero_balances"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::NonZeroBalanceError do
+        financial_account = client.v2.money_management.financial_accounts.close("id_123")
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123/close"
+    end
+    should "Test not cancelable error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
+      ).to_return(
+        body: '{"error":{"type":"not_cancelable","code":"outbound_payment_not_cancelable"}}',
+        status: 400
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::NotCancelableError do
+        outbound_payment = client.v2.money_management.outbound_payments.cancel("id_123")
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
     end
     should "Test quota exceeded error (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
@@ -8839,49 +8861,27 @@ module Stripe
       end
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
     end
-    should "Test invalid payout method error (service)" do
+    should "Test temporary session expired error (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
+        "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
       ).to_return(
-        body: '{"error":{"type":"invalid_payout_method","code":"invalid_payout_method"}}',
+        body: '{"error":{"type":"temporary_session_expired","code":"billing_meter_event_session_expired"}}',
         status: 400
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      assert_raises Stripe::InvalidPayoutMethodError do
-        outbound_setup_intent = client.v2.money_management.outbound_setup_intents.create
-      end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
-    end
-    should "Test controlled by dashboard error (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
-      ).to_return(
-        body: '{"error":{"type":"controlled_by_dashboard","code":"bank_account_cannot_be_archived"}}',
-        status: 400
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      assert_raises Stripe::ControlledByDashboardError do
-        us_bank_account = client.v2.core.vault.us_bank_accounts.archive("id_123")
-      end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
-    end
-    should "Test invalid payment method error (service)" do
-      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
-        body: '{"error":{"type":"invalid_payment_method","code":"invalid_us_bank_account"}}',
-        status: 400
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      assert_raises Stripe::InvalidPaymentMethodError do
-        us_bank_account = client.v2.core.vault.us_bank_accounts.create({
-          account_number: "account_number",
+      assert_raises Stripe::TemporarySessionExpiredError do
+        empty_object = client.v2.billing.meter_event_stream.create({
+          events: [
+            {
+              event_name: "event_name",
+              payload: { key: "payload" },
+            },
+          ],
         })
       end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
+      assert_requested :post, "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
     end
   end
 end

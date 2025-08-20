@@ -1136,19 +1136,19 @@ module Stripe
         def initialize(enabled: nil, liability: nil); end
       end
       class BillingCycleAnchorConfig < Stripe::RequestParams
-        # The day of the month the billing_cycle_anchor should be. Ranges from 1 to 31.
+        # The day of the month the anchor should be. Ranges from 1 to 31.
         sig { returns(Integer) }
         attr_accessor :day_of_month
-        # The hour of the day the billing_cycle_anchor should be. Ranges from 0 to 23.
+        # The hour of the day the anchor should be. Ranges from 0 to 23.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :hour
-        # The minute of the hour the billing_cycle_anchor should be. Ranges from 0 to 59.
+        # The minute of the hour the anchor should be. Ranges from 0 to 59.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :minute
-        # The month to start full cycle billing periods. Ranges from 1 to 12.
+        # The month to start full cycle periods. Ranges from 1 to 12.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :month
-        # The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
+        # The second of the minute the anchor should be. Ranges from 0 to 59.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :second
         sig {
@@ -1940,7 +1940,7 @@ module Stripe
         proration_date: nil
       ); end
     end
-    # Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
     sig {
       params(subscription: String, params: T.any(::Stripe::SubscriptionService::AttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
      }

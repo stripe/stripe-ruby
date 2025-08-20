@@ -48,9 +48,6 @@ module Stripe
         # Attribute for field lte
         sig { returns(Lte) }
         attr_reader :lte
-        # Defines how the alert will behave.
-        sig { returns(String) }
-        attr_reader :recurrence
       end
       class UsageThreshold < Stripe::StripeObject
         class Filter < Stripe::StripeObject
@@ -192,13 +189,10 @@ module Stripe
           # Defines at which value the alert will fire.
           sig { returns(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Lte) }
           attr_accessor :lte
-          # Whether the alert should only fire only once, or once per billing cycle.
-          sig { returns(String) }
-          attr_accessor :recurrence
           sig {
-            params(filters: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter]), lte: ::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Lte, recurrence: String).void
+            params(filters: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter]), lte: ::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Lte).void
            }
-          def initialize(filters: nil, lte: nil, recurrence: nil); end
+          def initialize(filters: nil, lte: nil); end
         end
         class UsageThreshold < Stripe::RequestParams
           class Filter < Stripe::RequestParams

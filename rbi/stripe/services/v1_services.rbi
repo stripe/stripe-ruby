@@ -17,11 +17,11 @@ module Stripe
     attr_reader :billing
     attr_reader :billing_portal
     attr_reader :capital
+    attr_reader :test_helpers
     attr_reader :charges
     attr_reader :checkout
     attr_reader :climate
     attr_reader :confirmation_tokens
-    attr_reader :test_helpers
     attr_reader :country_specs
     attr_reader :coupons
     attr_reader :credit_notes
@@ -39,6 +39,7 @@ module Stripe
     attr_reader :fx_quotes
     attr_reader :identity
     attr_reader :invoices
+    attr_reader :invoice_payments
     attr_reader :invoice_rendering_templates
     attr_reader :invoice_items
     attr_reader :issuing

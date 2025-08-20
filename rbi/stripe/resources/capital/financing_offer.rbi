@@ -163,6 +163,68 @@ module Stripe
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
+      class CreateTestmodeFinancingOfferParams < Stripe::RequestParams
+        # Attribute for param field advance_amount
+        sig { returns(Integer) }
+        attr_accessor :advance_amount
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :expand
+        # Attribute for param field fee_amount
+        sig { returns(Integer) }
+        attr_accessor :fee_amount
+        # Attribute for param field financing_type
+        sig { returns(String) }
+        attr_accessor :financing_type
+        # Attribute for param field state
+        sig { returns(T.nilable(String)) }
+        attr_accessor :state
+        # Attribute for param field withhold_rate
+        sig { returns(Float) }
+        attr_accessor :withhold_rate
+        sig {
+          params(advance_amount: Integer, expand: T.nilable(T::Array[String]), fee_amount: Integer, financing_type: String, state: T.nilable(String), withhold_rate: Float).void
+         }
+        def initialize(
+          advance_amount: nil,
+          expand: nil,
+          fee_amount: nil,
+          financing_type: nil,
+          state: nil,
+          withhold_rate: nil
+        ); end
+      end
+      class RefillTestmodeFinancingOfferParams < Stripe::RequestParams
+        # Attribute for param field advance_amount
+        sig { returns(Integer) }
+        attr_accessor :advance_amount
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :expand
+        # Attribute for param field fee_amount
+        sig { returns(Integer) }
+        attr_accessor :fee_amount
+        # Attribute for param field financing_type
+        sig { returns(String) }
+        attr_accessor :financing_type
+        # Attribute for param field state
+        sig { returns(T.nilable(String)) }
+        attr_accessor :state
+        # Attribute for param field withhold_rate
+        sig { returns(Float) }
+        attr_accessor :withhold_rate
+        sig {
+          params(advance_amount: Integer, expand: T.nilable(T::Array[String]), fee_amount: Integer, financing_type: String, state: T.nilable(String), withhold_rate: Float).void
+         }
+        def initialize(
+          advance_amount: nil,
+          expand: nil,
+          fee_amount: nil,
+          financing_type: nil,
+          state: nil,
+          withhold_rate: nil
+        ); end
+      end
       # Retrieves the financing offers available for Connected accounts that belong to your platform.
       sig {
         params(params: T.any(::Stripe::Capital::FinancingOffer::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)

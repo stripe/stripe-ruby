@@ -8,11 +8,27 @@ module Stripe
   # method. Payment Attempt Records are attached to Payment Records. Only one attempt per Payment Record
   # can have guaranteed funds.
   class PaymentAttemptRecord < APIResource
+    class Amount < Stripe::StripeObject
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      sig { returns(String) }
+      attr_reader :currency
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      sig { returns(Integer) }
+      attr_reader :value
+    end
+    class AmountAuthorized < Stripe::StripeObject
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      sig { returns(String) }
+      attr_reader :currency
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      sig { returns(Integer) }
+      attr_reader :value
+    end
     class AmountCanceled < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_reader :currency
-      # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       attr_reader :value
     end
@@ -20,7 +36,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_reader :currency
-      # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       attr_reader :value
     end
@@ -28,7 +44,15 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_reader :currency
-      # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+      sig { returns(Integer) }
+      attr_reader :value
+    end
+    class AmountRefunded < Stripe::StripeObject
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      sig { returns(String) }
+      attr_reader :currency
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       attr_reader :value
     end
@@ -36,7 +60,7 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_reader :currency
-      # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+      # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
       attr_reader :value
     end
@@ -139,7 +163,19 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :transaction_id
       end
-      class Alma < Stripe::StripeObject; end
+      class Alma < Stripe::StripeObject
+        class Installments < Stripe::StripeObject
+          # The number of installments.
+          sig { returns(Integer) }
+          attr_reader :count
+        end
+        # Attribute for field installments
+        sig { returns(Installments) }
+        attr_reader :installments
+        # The Alma transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
+      end
       class AmazonPay < Stripe::StripeObject
         class Funding < Stripe::StripeObject
           class Card < Stripe::StripeObject
@@ -175,6 +211,9 @@ module Stripe
         # Attribute for field funding
         sig { returns(Funding) }
         attr_reader :funding
+        # The Amazon Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class AuBecsDebit < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
@@ -680,6 +719,9 @@ module Stripe
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Kakao Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Klarna < Stripe::StripeObject
         class PayerDetails < Stripe::StripeObject
@@ -724,6 +766,9 @@ module Stripe
         # The last four digits of the card. This may not be present for American Express cards.
         sig { returns(T.nilable(String)) }
         attr_reader :last4
+        # The Korean Card transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Link < Stripe::StripeObject
         # Two-letter ISO code representing the funding source country beneath the Link payment.
@@ -766,6 +811,9 @@ module Stripe
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Naver Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class NzBankAccount < Stripe::StripeObject
         # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
@@ -810,6 +858,9 @@ module Stripe
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Payco transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Paynow < Stripe::StripeObject
         # Reference number associated with this PayNow payment
@@ -965,11 +1016,17 @@ module Stripe
         # Attribute for field funding
         sig { returns(Funding) }
         attr_reader :funding
+        # The Revolut Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class SamsungPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
+        # The Samsung Pay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        attr_reader :transaction_id
       end
       class Satispay < Stripe::StripeObject; end
       class SepaCreditTransfer < Stripe::StripeObject
@@ -1304,6 +1361,21 @@ module Stripe
       sig { returns(Zip) }
       attr_reader :zip
     end
+    class ProcessorDetails < Stripe::StripeObject
+      class Custom < Stripe::StripeObject
+        # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+        sig { returns(String) }
+        attr_reader :payment_reference
+      end
+      # Custom processors represent payment processors not modeled directly in
+      # the Stripe API. This resource consists of details about the custom processor
+      # used for this payment attempt.
+      sig { returns(Custom) }
+      attr_reader :custom
+      # The processor used for this payment attempt.
+      sig { returns(String) }
+      attr_reader :type
+    end
     class ShippingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -1336,6 +1408,12 @@ module Stripe
       attr_reader :phone
     end
     # A representation of an amount of money, consisting of an amount and a currency.
+    sig { returns(Amount) }
+    attr_reader :amount
+    # A representation of an amount of money, consisting of an amount and a currency.
+    sig { returns(AmountAuthorized) }
+    attr_reader :amount_authorized
+    # A representation of an amount of money, consisting of an amount and a currency.
     sig { returns(AmountCanceled) }
     attr_reader :amount_canceled
     # A representation of an amount of money, consisting of an amount and a currency.
@@ -1345,8 +1423,14 @@ module Stripe
     sig { returns(AmountGuaranteed) }
     attr_reader :amount_guaranteed
     # A representation of an amount of money, consisting of an amount and a currency.
+    sig { returns(AmountRefunded) }
+    attr_reader :amount_refunded
+    # A representation of an amount of money, consisting of an amount and a currency.
     sig { returns(AmountRequested) }
     attr_reader :amount_requested
+    # ID of the Connect application that created the PaymentAttemptRecord.
+    sig { returns(T.nilable(String)) }
+    attr_reader :application
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     attr_reader :created
@@ -1377,9 +1461,9 @@ module Stripe
     # ID of the Payment Record this Payment Attempt Record belongs to.
     sig { returns(T.nilable(String)) }
     attr_reader :payment_record
-    # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
-    sig { returns(T.nilable(String)) }
-    attr_reader :payment_reference
+    # Processor information associated with this payment.
+    sig { returns(ProcessorDetails) }
+    attr_reader :processor_details
     # Indicates who reported the payment.
     sig { returns(String) }
     attr_reader :reported_by

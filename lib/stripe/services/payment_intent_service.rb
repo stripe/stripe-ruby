@@ -2961,6 +2961,8 @@ module Stripe
         end
 
         class Pix < Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
@@ -2976,7 +2978,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
 
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil)
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            setup_future_usage: nil
+          )
+            @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
             @expires_at = expires_at
             @setup_future_usage = setup_future_usage
@@ -6725,6 +6733,8 @@ module Stripe
         end
 
         class Pix < Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
@@ -6740,7 +6750,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
 
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil)
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            setup_future_usage: nil
+          )
+            @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
             @expires_at = expires_at
             @setup_future_usage = setup_future_usage
@@ -11405,6 +11421,8 @@ module Stripe
         end
 
         class Pix < Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
@@ -11420,7 +11438,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
 
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil)
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            setup_future_usage: nil
+          )
+            @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
             @expires_at = expires_at
             @setup_future_usage = setup_future_usage

@@ -13,6 +13,20 @@ module Stripe
   # Related guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
   class InvoiceItem < APIResource
     class Parent < Stripe::StripeObject
+      class LicenseFeeSubscriptionDetails < Stripe::StripeObject
+        # The license fee subscription that generated this invoice item
+        sig { returns(String) }
+        attr_reader :license_fee_subscription
+        # The license fee version that generated this invoice item
+        sig { returns(String) }
+        attr_reader :license_fee_version
+        # The pricing plan subscription that manages the license fee subscription
+        sig { returns(String) }
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this invoice item was generated
+        sig { returns(String) }
+        attr_reader :pricing_plan_version
+      end
       class SubscriptionDetails < Stripe::StripeObject
         # The subscription that generated this invoice item
         sig { returns(String) }
@@ -21,6 +35,9 @@ module Stripe
         sig { returns(String) }
         attr_reader :subscription_item
       end
+      # Details about the license fee subscription that generated this invoice item
+      sig { returns(T.nilable(LicenseFeeSubscriptionDetails)) }
+      attr_reader :license_fee_subscription_details
       # Details about the subscription that generated this invoice item
       sig { returns(T.nilable(SubscriptionDetails)) }
       attr_reader :subscription_details

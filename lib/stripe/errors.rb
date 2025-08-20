@@ -162,13 +162,16 @@ module Stripe
   end
 
   # class definitions: The beginning of the section generated from our OpenAPI spec
-  class TemporarySessionExpiredError < StripeError
-  end
-
-  class NonZeroBalanceError < StripeError
+  class AlreadyCanceledError < StripeError
   end
 
   class AlreadyExistsError < StripeError
+  end
+
+  class BlockedByStripeError < StripeError
+  end
+
+  class ControlledByDashboardError < StripeError
   end
 
   class FeatureNotEnabledError < StripeError
@@ -177,28 +180,7 @@ module Stripe
   class FinancialAccountNotOpenError < StripeError
   end
 
-  class BlockedByStripeError < StripeError
-  end
-
-  class AlreadyCanceledError < StripeError
-  end
-
-  class NotCancelableError < StripeError
-  end
-
   class InsufficientFundsError < StripeError
-  end
-
-  class QuotaExceededError < StripeError
-  end
-
-  class RecipientNotNotifiableError < StripeError
-  end
-
-  class InvalidPayoutMethodError < StripeError
-  end
-
-  class ControlledByDashboardError < StripeError
   end
 
   class InvalidPaymentMethodError < StripeError
@@ -225,7 +207,25 @@ module Stripe
     end
   end
 
+  class InvalidPayoutMethodError < StripeError
+  end
+
+  class NonZeroBalanceError < StripeError
+  end
+
+  class NotCancelableError < StripeError
+  end
+
+  class QuotaExceededError < StripeError
+  end
+
   class RateLimitError < StripeError
+  end
+
+  class RecipientNotNotifiableError < StripeError
+  end
+
+  class TemporarySessionExpiredError < StripeError
   end
   # class definitions: The end of the section generated from our OpenAPI spec
 end

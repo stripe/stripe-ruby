@@ -49,13 +49,17 @@ module Stripe
         attr_reader :subscription
       end
 
-      class RateCardSubscriptionDetails < Stripe::StripeObject
-        # Attribute for field invoice_item
+      class LicenseFeeSubscriptionDetails < Stripe::StripeObject
+        # The invoice item that generated this line item
         attr_reader :invoice_item
-        # Attribute for field rate_card_subscription
-        attr_reader :rate_card_subscription
-        # Attribute for field rate_card_version
-        attr_reader :rate_card_version
+        # The license fee subscription that generated this line item
+        attr_reader :license_fee_subscription
+        # The license fee version at the time this line item was generated
+        attr_reader :license_fee_version
+        # The pricing plan subscription that manages the license fee subscription
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this line item was generated
+        attr_reader :pricing_plan_version
       end
 
       class SubscriptionItemDetails < Stripe::StripeObject
@@ -82,12 +86,12 @@ module Stripe
       end
       # Details about the invoice item that generated this line item
       attr_reader :invoice_item_details
+      # Details about the license fee subscription that generated this line item
+      attr_reader :license_fee_subscription_details
       # Details about the subscription item that generated this line item
       attr_reader :subscription_item_details
       # The type of parent that generated this line item
       attr_reader :type
-      # Attribute for field rate_card_subscription_details
-      attr_reader :rate_card_subscription_details
     end
 
     class Period < Stripe::StripeObject
@@ -117,23 +121,12 @@ module Stripe
         # The ID of the product this item is associated with.
         attr_reader :product
       end
-
-      class RateCardRateDetails < Stripe::StripeObject
-        # Attribute for field rate_card
-        attr_reader :rate_card
-        # Attribute for field rate_card_rate
-        attr_reader :rate_card_rate
-        # Attribute for field metered_item
-        attr_reader :metered_item
-      end
       # Attribute for field price_details
       attr_reader :price_details
       # The type of the pricing details.
       attr_reader :type
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       attr_reader :unit_amount_decimal
-      # Attribute for field rate_card_rate_details
-      attr_reader :rate_card_rate_details
     end
 
     class TaxCalculationReference < Stripe::StripeObject

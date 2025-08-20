@@ -22,12 +22,25 @@ module Stripe
     end
 
     class Parent < Stripe::StripeObject
+      class LicenseFeeSubscriptionDetails < Stripe::StripeObject
+        # The license fee subscription that generated this invoice item
+        attr_reader :license_fee_subscription
+        # The license fee version that generated this invoice item
+        attr_reader :license_fee_version
+        # The pricing plan subscription that manages the license fee subscription
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this invoice item was generated
+        attr_reader :pricing_plan_version
+      end
+
       class SubscriptionDetails < Stripe::StripeObject
         # The subscription that generated this invoice item
         attr_reader :subscription
         # The subscription item that generated this invoice item
         attr_reader :subscription_item
       end
+      # Details about the license fee subscription that generated this invoice item
+      attr_reader :license_fee_subscription_details
       # Details about the subscription that generated this invoice item
       attr_reader :subscription_details
       # The type of parent that generated this invoice item

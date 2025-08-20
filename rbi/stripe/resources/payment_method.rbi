@@ -975,6 +975,9 @@ module Stripe
     # Attribute for field kr_card
     sig { returns(KrCard) }
     attr_reader :kr_card
+    # The Mandate object of the most recently created Mandate associated with this payment method
+    sig { returns(T.nilable(Stripe::Mandate)) }
+    attr_reader :latest_active_mandate
     # Attribute for field link
     sig { returns(Link) }
     attr_reader :link

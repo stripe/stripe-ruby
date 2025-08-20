@@ -46,8 +46,6 @@ module Stripe
         attr_reader :filters
         # Attribute for field lte
         attr_reader :lte
-        # Defines how the alert will behave.
-        attr_reader :recurrence
       end
 
       class UsageThreshold < Stripe::StripeObject
@@ -157,13 +155,10 @@ module Stripe
           attr_accessor :filters
           # Defines at which value the alert will fire.
           attr_accessor :lte
-          # Whether the alert should only fire only once, or once per billing cycle.
-          attr_accessor :recurrence
 
-          def initialize(filters: nil, lte: nil, recurrence: nil)
+          def initialize(filters: nil, lte: nil)
             @filters = filters
             @lte = lte
-            @recurrence = recurrence
           end
         end
 

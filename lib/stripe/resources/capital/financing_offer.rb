@@ -105,6 +105,68 @@ module Stripe
           @expand = expand
         end
       end
+
+      class CreateTestmodeFinancingOfferParams < Stripe::RequestParams
+        # Attribute for param field advance_amount
+        attr_accessor :advance_amount
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # Attribute for param field fee_amount
+        attr_accessor :fee_amount
+        # Attribute for param field financing_type
+        attr_accessor :financing_type
+        # Attribute for param field state
+        attr_accessor :state
+        # Attribute for param field withhold_rate
+        attr_accessor :withhold_rate
+
+        def initialize(
+          advance_amount: nil,
+          expand: nil,
+          fee_amount: nil,
+          financing_type: nil,
+          state: nil,
+          withhold_rate: nil
+        )
+          @advance_amount = advance_amount
+          @expand = expand
+          @fee_amount = fee_amount
+          @financing_type = financing_type
+          @state = state
+          @withhold_rate = withhold_rate
+        end
+      end
+
+      class RefillTestmodeFinancingOfferParams < Stripe::RequestParams
+        # Attribute for param field advance_amount
+        attr_accessor :advance_amount
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # Attribute for param field fee_amount
+        attr_accessor :fee_amount
+        # Attribute for param field financing_type
+        attr_accessor :financing_type
+        # Attribute for param field state
+        attr_accessor :state
+        # Attribute for param field withhold_rate
+        attr_accessor :withhold_rate
+
+        def initialize(
+          advance_amount: nil,
+          expand: nil,
+          fee_amount: nil,
+          financing_type: nil,
+          state: nil,
+          withhold_rate: nil
+        )
+          @advance_amount = advance_amount
+          @expand = expand
+          @fee_amount = fee_amount
+          @financing_type = financing_type
+          @state = state
+          @withhold_rate = withhold_rate
+        end
+      end
       # This is an object representing the terms of an offer of financing from
       # Stripe Capital to a Connected account. This resource represents
       # the terms accepted by the Connected account, which may differ from those
@@ -173,6 +235,47 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def test_helpers
+        TestHelpers.new(self)
+      end
+
+      class TestHelpers < APIResourceTestHelpers
+        RESOURCE_CLASS = FinancingOffer
+        def self.resource_class
+          "FinancingOffer"
+        end
+
+        # Creates a testmode financing offer for a connected account.
+        def self.create_testmode_financing_offer(params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: "/v1/test_helpers/capital/financing_offers",
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Refills a testmode financing offer for a connected account.
+        def self.refill_testmode_financing_offer(financing_offer, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/capital/financing_offers/%<financing_offer>s/refill", { financing_offer: CGI.escape(financing_offer) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Refills a testmode financing offer for a connected account.
+        def refill_testmode_financing_offer(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/capital/financing_offers/%<financing_offer>s/refill", { financing_offer: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
       end
     end
   end

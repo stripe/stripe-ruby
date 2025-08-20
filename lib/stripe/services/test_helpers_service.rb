@@ -3,10 +3,11 @@
 
 module Stripe
   class TestHelpersService < StripeService
-    attr_reader :confirmation_tokens, :customers, :issuing, :refunds, :terminal, :test_clocks, :treasury
+    attr_reader :capital, :confirmation_tokens, :customers, :issuing, :refunds, :terminal, :test_clocks, :treasury
 
     def initialize(requestor)
       super
+      @capital = Stripe::TestHelpers::CapitalService.new(@requestor)
       @confirmation_tokens = Stripe::TestHelpers::ConfirmationTokenService.new(@requestor)
       @customers = Stripe::TestHelpers::CustomerService.new(@requestor)
       @issuing = Stripe::TestHelpers::IssuingService.new(@requestor)

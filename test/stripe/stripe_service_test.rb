@@ -75,7 +75,6 @@ module Stripe
         requestor = APIRequestor.new("sk_test_123")
         service = StripeService.new(requestor)
 
-        # Mock the execute_request method to capture the usage parameter
         requestor.expects(:execute_request)
                  .with(:get, "/v1/test", :api,
                        has_entries(params: {},
@@ -96,7 +95,6 @@ module Stripe
         requestor = APIRequestor.new("sk_test_123")
         service = StripeService.new(requestor)
 
-        # Mock the execute_request_stream method to capture the usage parameter
         requestor.expects(:execute_request_stream)
                  .with(:get, "/v1/test", :api,
                        has_entries(params: {},

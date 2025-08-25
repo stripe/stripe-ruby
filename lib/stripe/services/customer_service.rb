@@ -3,17 +3,17 @@
 
 module Stripe
   class CustomerService < StripeService
-    attr_reader :cash_balance, :balance_transactions, :cash_balance_transactions, :payment_sources, :tax_ids, :payment_methods, :funding_instructions
+    attr_reader :balance_transactions, :cash_balance, :cash_balance_transactions, :funding_instructions, :payment_methods, :payment_sources, :tax_ids
 
     def initialize(requestor)
       super
-      @cash_balance = Stripe::CustomerCashBalanceService.new(@requestor)
       @balance_transactions = Stripe::CustomerBalanceTransactionService.new(@requestor)
+      @cash_balance = Stripe::CustomerCashBalanceService.new(@requestor)
       @cash_balance_transactions = Stripe::CustomerCashBalanceTransactionService.new(@requestor)
+      @funding_instructions = Stripe::CustomerFundingInstructionsService.new(@requestor)
+      @payment_methods = Stripe::CustomerPaymentMethodService.new(@requestor)
       @payment_sources = Stripe::CustomerPaymentSourceService.new(@requestor)
       @tax_ids = Stripe::CustomerTaxIdService.new(@requestor)
-      @payment_methods = Stripe::CustomerPaymentMethodService.new(@requestor)
-      @funding_instructions = Stripe::CustomerFundingInstructionsService.new(@requestor)
     end
 
     class DeleteParams < Stripe::RequestParams; end

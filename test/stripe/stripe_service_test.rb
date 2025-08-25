@@ -66,5 +66,56 @@ module Stripe
         client.meter_events_bases.retrieve("foo_123")
       end
     end
+
+    context "usage parameter" do
+      should "send usage stripe_client with request" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/test")
+          .to_return(body: JSON.generate(object: "test"))
+
+        requestor = APIRequestor.new("sk_test_123")
+        service = StripeService.new(requestor)
+
+        # Mock the execute_request method to capture the usage parameter
+        requestor.expects(:execute_request)
+                .with(:get, "/v1/test", :api, 
+                      has_entries(params: {}, 
+                                 opts: {},
+                                 usage: ['stripe_client']))
+                .returns([{ object: "test" }, nil])
+
+        service.request(
+          method: :get,
+          path: "/v1/test",
+          base_address: :api
+        )
+      end
+
+      should "send usage stripe_client with request_stream" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/test")
+          .to_return(body: "test response")
+
+        requestor = APIRequestor.new("sk_test_123")
+        service = StripeService.new(requestor)
+
+        # Mock the execute_request_stream method to capture the usage parameter
+        requestor.expects(:execute_request_stream)
+                .with(:get, "/v1/test", :api,
+                      has_entries(params: {},
+                                 usage: ['stripe_client']))
+                .yields("test response")
+                .returns([nil, "test response"])
+
+        accumulated_body = +""
+        service.request_stream(
+          method: :get,
+          path: "/v1/test",
+          base_address: :api
+        ) do |body_chunk|
+          accumulated_body << body_chunk
+        end
+
+        assert_equal "test response", accumulated_body
+      end
+    end
   end
 end

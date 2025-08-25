@@ -14,7 +14,8 @@ module Stripe
         path,
         base_address,
         params: params,
-        opts: RequestOptions.extract_opts_from_hash(opts)
+        opts: RequestOptions.extract_opts_from_hash(opts),
+        usage: ['stripe_client']
       )
     end
 
@@ -24,7 +25,8 @@ module Stripe
         path,
         base_address,
         params: params,
-        opts: RequestOptions.extract_opts_from_hash(opts),
+        # opts: RequestOptions.extract_opts_from_hash(opts),
+        usage: ['stripe_client'],
         &read_body_chunk_block
       )
     end

@@ -77,10 +77,10 @@ module Stripe
 
         # Mock the execute_request method to capture the usage parameter
         requestor.expects(:execute_request)
-                .with(:get, "/v1/test", :api,
-                      has_entries(params: {},
-                                 usage: ['stripe_client']))
-                .returns([{ object: "test" }, nil])
+                 .with(:get, "/v1/test", :api,
+                       has_entries(params: {},
+                                   usage: ["stripe_client"]))
+                 .returns([{ object: "test" }, nil])
 
         service.request(
           method: :get,
@@ -98,11 +98,11 @@ module Stripe
 
         # Mock the execute_request_stream method to capture the usage parameter
         requestor.expects(:execute_request_stream)
-                .with(:get, "/v1/test", :api,
-                      has_entries(params: {},
-                                 usage: ['stripe_client']))
-                .yields("test response")
-                .returns([nil, "test response"])
+                 .with(:get, "/v1/test", :api,
+                       has_entries(params: {},
+                                   usage: ["stripe_client"]))
+                 .yields("test response")
+                 .returns([nil, "test response"])
 
         accumulated_body = +""
         service.request_stream(

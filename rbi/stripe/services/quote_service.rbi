@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   class QuoteService < StripeService
-    attr_reader :line_items
     attr_reader :computed_upfront_line_items
+    attr_reader :line_items
     class ListParams < Stripe::RequestParams
       # The ID of the customer whose quotes will be retrieved.
       sig { returns(T.nilable(String)) }

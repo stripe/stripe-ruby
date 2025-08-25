@@ -3,12 +3,12 @@
 
 module Stripe
   class QuoteService < StripeService
-    attr_reader :line_items, :computed_upfront_line_items
+    attr_reader :computed_upfront_line_items, :line_items
 
     def initialize(requestor)
       super
-      @line_items = Stripe::QuoteLineItemService.new(@requestor)
       @computed_upfront_line_items = Stripe::QuoteComputedUpfrontLineItemsService.new(@requestor)
+      @line_items = Stripe::QuoteLineItemService.new(@requestor)
     end
 
     class ListParams < Stripe::RequestParams

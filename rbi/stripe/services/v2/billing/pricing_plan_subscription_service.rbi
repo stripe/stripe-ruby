@@ -8,7 +8,7 @@ module Stripe
       class PricingPlanSubscriptionService < StripeService
         class ListParams < Stripe::RequestParams
           class Payer < Stripe::RequestParams
-            # The ID of the Customer object. If provided, only PricingPlanSubscriptions that are subscribed on the Cadences with the specified Payer will be returned.
+            # The ID of the Customer object. If provided, only Pricing Plan Subscriptions that are subscribed on the cadences with the specified payer will be returned.
             sig { returns(T.nilable(String)) }
             attr_accessor :customer
             # A string identifying the type of the payer. Currently the only supported value is `customer`.
@@ -17,7 +17,7 @@ module Stripe
             sig { params(customer: T.nilable(String), type: String).void }
             def initialize(customer: nil, type: nil); end
           end
-          # Filter by Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
+          # Filter by Billing Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
           sig { returns(T.nilable(String)) }
           attr_accessor :billing_cadence
           # Optionally set the maximum number of results per page. Defaults to 20.
@@ -31,7 +31,7 @@ module Stripe
           # Filter by PricingPlan ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan_version`.
           sig { returns(T.nilable(String)) }
           attr_accessor :pricing_plan
-          # Filter by PricingPlanVersion ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan`.
+          # Filter by Pricing Plan Version ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan`.
           sig { returns(T.nilable(String)) }
           attr_accessor :pricing_plan_version
           # Filter by servicing status.
@@ -50,13 +50,13 @@ module Stripe
           ); end
         end
         class RetrieveParams < Stripe::RequestParams; end
-        # List all PricingPlanSubscription objects.
+        # List all Pricing Plan Subscription objects.
         sig {
           params(params: T.any(::Stripe::V2::Billing::PricingPlanSubscriptionService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
-        # Retrieve a PricingPlanSubscription object.
+        # Retrieve a Pricing Plan Subscription object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::PricingPlanSubscriptionService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::PricingPlanSubscription)
          }

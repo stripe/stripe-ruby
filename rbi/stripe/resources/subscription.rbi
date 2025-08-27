@@ -556,6 +556,38 @@ module Stripe
            }
           def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
         end
+        class Period < Stripe::RequestParams
+          class End < Stripe::RequestParams
+            # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :timestamp
+            # Select how to calculate the end of the invoice item period.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(timestamp: T.nilable(Integer), type: String).void }
+            def initialize(timestamp: nil, type: nil); end
+          end
+          class Start < Stripe::RequestParams
+            # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :timestamp
+            # Select how to calculate the start of the invoice item period.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(timestamp: T.nilable(Integer), type: String).void }
+            def initialize(timestamp: nil, type: nil); end
+          end
+          # End of the invoice item period.
+          sig { returns(::Stripe::Subscription::UpdateParams::AddInvoiceItem::Period::End) }
+          attr_accessor :end
+          # Start of the invoice item period.
+          sig { returns(::Stripe::Subscription::UpdateParams::AddInvoiceItem::Period::Start) }
+          attr_accessor :start
+          sig {
+            params(end_: ::Stripe::Subscription::UpdateParams::AddInvoiceItem::Period::End, start: ::Stripe::Subscription::UpdateParams::AddInvoiceItem::Period::Start).void
+           }
+          def initialize(end_: nil, start: nil); end
+        end
         class PriceData < Stripe::RequestParams
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
@@ -588,6 +620,12 @@ module Stripe
           returns(T.nilable(T::Array[::Stripe::Subscription::UpdateParams::AddInvoiceItem::Discount]))
          }
         attr_accessor :discounts
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        attr_accessor :metadata
+        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        sig { returns(T.nilable(::Stripe::Subscription::UpdateParams::AddInvoiceItem::Period)) }
+        attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         sig { returns(T.nilable(String)) }
         attr_accessor :price
@@ -601,10 +639,12 @@ module Stripe
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :tax_rates
         sig {
-          params(discounts: T.nilable(T::Array[::Stripe::Subscription::UpdateParams::AddInvoiceItem::Discount]), price: T.nilable(String), price_data: T.nilable(::Stripe::Subscription::UpdateParams::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+          params(discounts: T.nilable(T::Array[::Stripe::Subscription::UpdateParams::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::Subscription::UpdateParams::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::Subscription::UpdateParams::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           discounts: nil,
+          metadata: nil,
+          period: nil,
           price: nil,
           price_data: nil,
           quantity: nil,
@@ -1400,12 +1440,12 @@ module Stripe
       # Only return subscriptions that were created during the given date interval.
       sig { returns(T.nilable(T.any(::Stripe::Subscription::ListParams::Created, Integer))) }
       attr_accessor :created
-      # Only return subscriptions whose current_period_end falls within the given date interval.
+      # Only return subscriptions whose minimum item current_period_end falls within the given date interval.
       sig {
         returns(T.nilable(T.any(::Stripe::Subscription::ListParams::CurrentPeriodEnd, Integer)))
        }
       attr_accessor :current_period_end
-      # Only return subscriptions whose current_period_start falls within the given date interval.
+      # Only return subscriptions whose maximum item current_period_start falls within the given date interval.
       sig {
         returns(T.nilable(T.any(::Stripe::Subscription::ListParams::CurrentPeriodStart, Integer)))
        }
@@ -1510,6 +1550,38 @@ module Stripe
            }
           def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
         end
+        class Period < Stripe::RequestParams
+          class End < Stripe::RequestParams
+            # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :timestamp
+            # Select how to calculate the end of the invoice item period.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(timestamp: T.nilable(Integer), type: String).void }
+            def initialize(timestamp: nil, type: nil); end
+          end
+          class Start < Stripe::RequestParams
+            # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :timestamp
+            # Select how to calculate the start of the invoice item period.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(timestamp: T.nilable(Integer), type: String).void }
+            def initialize(timestamp: nil, type: nil); end
+          end
+          # End of the invoice item period.
+          sig { returns(::Stripe::Subscription::CreateParams::AddInvoiceItem::Period::End) }
+          attr_accessor :end
+          # Start of the invoice item period.
+          sig { returns(::Stripe::Subscription::CreateParams::AddInvoiceItem::Period::Start) }
+          attr_accessor :start
+          sig {
+            params(end_: ::Stripe::Subscription::CreateParams::AddInvoiceItem::Period::End, start: ::Stripe::Subscription::CreateParams::AddInvoiceItem::Period::Start).void
+           }
+          def initialize(end_: nil, start: nil); end
+        end
         class PriceData < Stripe::RequestParams
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
@@ -1542,6 +1614,12 @@ module Stripe
           returns(T.nilable(T::Array[::Stripe::Subscription::CreateParams::AddInvoiceItem::Discount]))
          }
         attr_accessor :discounts
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        attr_accessor :metadata
+        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        sig { returns(T.nilable(::Stripe::Subscription::CreateParams::AddInvoiceItem::Period)) }
+        attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         sig { returns(T.nilable(String)) }
         attr_accessor :price
@@ -1555,10 +1633,12 @@ module Stripe
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :tax_rates
         sig {
-          params(discounts: T.nilable(T::Array[::Stripe::Subscription::CreateParams::AddInvoiceItem::Discount]), price: T.nilable(String), price_data: T.nilable(::Stripe::Subscription::CreateParams::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+          params(discounts: T.nilable(T::Array[::Stripe::Subscription::CreateParams::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::Subscription::CreateParams::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::Subscription::CreateParams::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           discounts: nil,
+          metadata: nil,
+          period: nil,
           price: nil,
           price_data: nil,
           quantity: nil,
@@ -1588,19 +1668,19 @@ module Stripe
         def initialize(enabled: nil, liability: nil); end
       end
       class BillingCycleAnchorConfig < Stripe::RequestParams
-        # The day of the month the billing_cycle_anchor should be. Ranges from 1 to 31.
+        # The day of the month the anchor should be. Ranges from 1 to 31.
         sig { returns(Integer) }
         attr_accessor :day_of_month
-        # The hour of the day the billing_cycle_anchor should be. Ranges from 0 to 23.
+        # The hour of the day the anchor should be. Ranges from 0 to 23.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :hour
-        # The minute of the hour the billing_cycle_anchor should be. Ranges from 0 to 59.
+        # The minute of the hour the anchor should be. Ranges from 0 to 59.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :minute
-        # The month to start full cycle billing periods. Ranges from 1 to 12.
+        # The month to start full cycle periods. Ranges from 1 to 12.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :month
-        # The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
+        # The second of the minute the anchor should be. Ranges from 0 to 59.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :second
         sig {
@@ -2384,13 +2464,13 @@ module Stripe
         proration_date: nil
       ); end
     end
-    # Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
     sig {
       params(params: T.any(::Stripe::Subscription::AttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
      }
     def attach_cadence(params = {}, opts = {}); end
 
-    # Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
     sig {
       params(subscription: String, params: T.any(::Stripe::Subscription::AttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
      }

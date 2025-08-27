@@ -8,9 +8,13 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # Optionally set the maximum number of results per page. Defaults to 20.
           attr_accessor :limit
+          # Filter by lookup keys.
+          # You can specify up to 10 lookup keys.
+          attr_accessor :lookup_keys
 
-          def initialize(limit: nil)
+          def initialize(limit: nil, lookup_keys: nil)
             @limit = limit
+            @lookup_keys = lookup_keys
           end
         end
 
@@ -18,7 +22,7 @@ module Stripe
           class MeterSegmentCondition < Stripe::RequestParams
             # A Meter dimension.
             attr_accessor :dimension
-            # To count usage towards this MeteredItem, the dimension must have this value.
+            # To count usage towards this metered item, the dimension must have this value.
             attr_accessor :value
 
             def initialize(dimension: nil, value: nil)
@@ -44,9 +48,9 @@ module Stripe
           # Must be unique among billable items.
           # Maximum length of 200 characters.
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
-          # ID of the Meter that measures usage for this MeteredItem.
+          # ID of the Meter that measures usage for this Metered Item.
           attr_accessor :meter
           # Optional array of Meter segments to filter event dimension keys for billing.
           attr_accessor :meter_segment_conditions
@@ -97,7 +101,7 @@ module Stripe
           # Maximum length of 200 characters.
           # To remove the lookup_key from the object, set it to null in the request.
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
           # Stripe Tax details.
           attr_accessor :tax_details
@@ -123,7 +127,7 @@ module Stripe
           end
         end
 
-        # Create a MeteredItem object.
+        # Create a Metered Item object.
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -134,7 +138,7 @@ module Stripe
           )
         end
 
-        # List all MeteredItem objects in reverse chronological order of creation.
+        # List all Metered Item objects in reverse chronological order of creation.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -145,7 +149,7 @@ module Stripe
           )
         end
 
-        # Retrieve a MeteredItem object.
+        # Retrieve a Metered Item object.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -156,7 +160,7 @@ module Stripe
           )
         end
 
-        # Update a MeteredItem object. At least one of the fields is required.
+        # Update a Metered Item object. At least one of the fields is required.
         def update(id, params = {}, opts = {})
           request(
             method: :post,

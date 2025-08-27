@@ -5,9 +5,9 @@
 module Stripe
   module V2
     module Billing
-      # A RateCard represents a versioned set of usage-based prices (Rates). Each Rate is associated with one MeteredItem and
+      # A Rate Card represents a versioned set of usage-based prices (rates). Each rate is associated with one Metered Item and
       # defines how much to charge for usage of that item. After you've set up a RateCard, you can subscribe customers to it
-      # by creating a RateCardSubscription.
+      # by creating a Rate Card Subscription.
       class RateCard < APIResource
         # Whether this RateCard is active. Inactive RateCards cannot be used in new activations or have new rates added.
         sig { returns(T::Boolean) }
@@ -15,30 +15,33 @@ module Stripe
         # Timestamp of when the object was created.
         sig { returns(String) }
         attr_reader :created
-        # The currency of this RateCard.
+        # Three-letter ISO currency code, in lowercase. Must be a supported currency.
         sig { returns(String) }
         attr_reader :currency
-        # A customer-facing name for the RateCard.
+        # A customer-facing name for the Rate Card.
         # This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
         # Maximum length of 250 characters.
         sig { returns(String) }
         attr_reader :display_name
-        # The ID of the RateCard.
+        # Unique identifier for the object.
         sig { returns(String) }
         attr_reader :id
-        # The ID of this RateCard's most recently created version.
+        # The ID of this rate card's most recently created version.
         sig { returns(String) }
         attr_reader :latest_version
-        # The ID of the version that will be used by all Subscriptions when no specific version is specified.
+        # The ID of the Rate Card Version that will be used by all subscriptions when no specific version is specified.
         sig { returns(String) }
         attr_reader :live_version
-        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.
+        sig { returns(T.nilable(String)) }
+        attr_reader :lookup_key
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         attr_reader :object
-        # The interval for assessing service. For example, a monthly RateCard with a rate of $1 for the first 10 "workloads"
+        # The interval for assessing service. For example, a monthly Rate Card with a rate of $1 for the first 10 "workloads"
         # and $2 thereafter means "$1 per workload up to 10 workloads during a month of service." This is similar to but
         # distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
         # while the billing interval in Cadence deals with the rate the customer is billed.

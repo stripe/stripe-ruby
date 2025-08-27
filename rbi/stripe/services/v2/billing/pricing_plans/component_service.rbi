@@ -15,7 +15,7 @@ module Stripe
             # You can specify up to 10 lookup keys.
             sig { returns(T.nilable(T::Array[String])) }
             attr_accessor :lookup_keys
-            # The ID of the PricingPlanVersion to list components for. Will use the latest version if not provided.
+            # The ID of the Pricing Plan Version to list components for. Will use the latest version if not provided.
             # Mutually exclusive with `lookup_keys`.
             sig { returns(T.nilable(String)) }
             attr_accessor :pricing_plan_version
@@ -26,55 +26,52 @@ module Stripe
           end
           class CreateParams < Stripe::RequestParams
             class LicenseFee < Stripe::RequestParams
-              # The ID of the LicenseFee.
+              # The ID of the License Fee.
               sig { returns(String) }
               attr_accessor :id
-              # The version of the LicenseFee.
-              sig { returns(String) }
+              # The version of the LicenseFee. Defaults to 'latest', if not specified.
+              sig { returns(T.nilable(String)) }
               attr_accessor :version
-              sig { params(id: String, version: String).void }
+              sig { params(id: String, version: T.nilable(String)).void }
               def initialize(id: nil, version: nil); end
             end
             class RateCard < Stripe::RequestParams
-              # The ID of the RateCard.
+              # The ID of the Rate Card.
               sig { returns(String) }
               attr_accessor :id
-              # The version of the RateCard.
-              sig { returns(String) }
+              # The version of the RateCard. Defaults to 'latest', if not specified.
+              sig { returns(T.nilable(String)) }
               attr_accessor :version
-              sig { params(id: String, version: String).void }
+              sig { params(id: String, version: T.nilable(String)).void }
               def initialize(id: nil, version: nil); end
             end
             class ServiceAction < Stripe::RequestParams
-              # The ID of the ServiceAction.
+              # The ID of the service action.
               sig { returns(String) }
               attr_accessor :id
-              # The version of the ServiceAction.
-              sig { returns(String) }
-              attr_accessor :version
-              sig { params(id: String, version: String).void }
-              def initialize(id: nil, version: nil); end
+              sig { params(id: String).void }
+              def initialize(id: nil); end
             end
             # An identifier that can be used to find this component.
             sig { returns(T.nilable(String)) }
             attr_accessor :lookup_key
-            # Set of key-value pairs that you can attach to an object.
+            # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             sig { returns(T.nilable(T::Hash[String, String])) }
             attr_accessor :metadata
             # The type of the PricingPlanComponent.
             sig { returns(String) }
             attr_accessor :type
-            # Details if this component is a LicenseFee.
+            # Details if this component is a License Fee.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::LicenseFee))
              }
             attr_accessor :license_fee
-            # Details if this component is a RateCard.
+            # Details if this component is a Rate Card.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::RateCard))
              }
             attr_accessor :rate_card
-            # Details if this component is a ServiceAction.
+            # Details if this component is a Service Action.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::ServiceAction))
              }
@@ -105,31 +102,31 @@ module Stripe
              }
             def initialize(lookup_key: nil, metadata: nil); end
           end
-          # Create a PricingPlanComponent object.
+          # Create a Pricing Plan Component object.
           sig {
             params(pricing_plan_id: String, params: T.any(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::PricingPlanComponent)
            }
           def create(pricing_plan_id, params = {}, opts = {}); end
 
-          # Remove a PricingPlanComponent from the latest version of a PricingPlan.
+          # Remove a Pricing Plan Component from the latest version of a Pricing Plan.
           sig {
             params(pricing_plan_id: String, id: String, params: T.any(::Stripe::V2::Billing::PricingPlans::ComponentService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::PricingPlanComponent)
            }
           def delete(pricing_plan_id, id, params = {}, opts = {}); end
 
-          # List all PricingPlanComponent objects for a PricingPlan.
+          # List all Pricing Plan Component objects for a Pricing Plan.
           sig {
             params(pricing_plan_id: String, params: T.any(::Stripe::V2::Billing::PricingPlans::ComponentService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
            }
           def list(pricing_plan_id, params = {}, opts = {}); end
 
-          # Retrieve a PricingPlanComponent object.
+          # Retrieve a Pricing Plan Component object.
           sig {
             params(pricing_plan_id: String, id: String, params: T.any(::Stripe::V2::Billing::PricingPlans::ComponentService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::PricingPlanComponent)
            }
           def retrieve(pricing_plan_id, id, params = {}, opts = {}); end
 
-          # Update a PricingPlanComponent object.
+          # Update a Pricing Plan Component object.
           sig {
             params(pricing_plan_id: String, id: String, params: T.any(::Stripe::V2::Billing::PricingPlans::ComponentService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::PricingPlanComponent)
            }

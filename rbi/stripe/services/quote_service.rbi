@@ -4,11 +4,11 @@
 # typed: true
 module Stripe
   class QuoteService < StripeService
-    attr_reader :preview_invoices
-    attr_reader :preview_subscription_schedules
+    attr_reader :computed_upfront_line_items
     attr_reader :lines
     attr_reader :line_items
-    attr_reader :computed_upfront_line_items
+    attr_reader :preview_invoices
+    attr_reader :preview_subscription_schedules
     class ListParams < Stripe::RequestParams
       # The ID of the customer whose quotes will be retrieved.
       sig { returns(T.nilable(String)) }

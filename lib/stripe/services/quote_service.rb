@@ -3,16 +3,16 @@
 
 module Stripe
   class QuoteService < StripeService
-    attr_reader :preview_invoices, :preview_subscription_schedules, :lines, :line_items, :computed_upfront_line_items
+    attr_reader :computed_upfront_line_items, :lines, :line_items, :preview_invoices, :preview_subscription_schedules
 
     def initialize(requestor)
       super
+      @computed_upfront_line_items = Stripe::QuoteComputedUpfrontLineItemsService.new(@requestor)
+      @lines = Stripe::QuoteLineService.new(@requestor)
+      @line_items = Stripe::QuoteLineItemService.new(@requestor)
       @preview_invoices = Stripe::QuotePreviewInvoiceService.new(@requestor)
       @preview_subscription_schedules = Stripe::QuotePreviewSubscriptionScheduleService
                                         .new(@requestor)
-      @lines = Stripe::QuoteLineService.new(@requestor)
-      @line_items = Stripe::QuoteLineItemService.new(@requestor)
-      @computed_upfront_line_items = Stripe::QuoteComputedUpfrontLineItemsService.new(@requestor)
     end
 
     class ListParams < Stripe::RequestParams

@@ -18,10 +18,14 @@ module Stripe
           attr_accessor :active
           # Optionally set the maximum number of results per page. Defaults to 20.
           attr_accessor :limit
+          # Filter by lookup keys.
+          # You can specify up to 10 lookup keys.
+          attr_accessor :lookup_keys
 
-          def initialize(active: nil, limit: nil)
+          def initialize(active: nil, limit: nil, lookup_keys: nil)
             @active = active
             @limit = limit
+            @lookup_keys = lookup_keys
           end
         end
 
@@ -32,7 +36,9 @@ module Stripe
           # This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
           # Maximum length of 250 characters.
           attr_accessor :display_name
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.
+          attr_accessor :lookup_key
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
           # The interval for assessing service. For example, a monthly RateCard with a rate of $1 for the first 10 "workloads"
           # and $2 thereafter means "$1 per workload up to 10 workloads during a month of service." This is similar to but
@@ -48,6 +54,7 @@ module Stripe
           def initialize(
             currency: nil,
             display_name: nil,
+            lookup_key: nil,
             metadata: nil,
             service_interval: nil,
             service_interval_count: nil,
@@ -55,6 +62,7 @@ module Stripe
           )
             @currency = currency
             @display_name = display_name
+            @lookup_key = lookup_key
             @metadata = metadata
             @service_interval = service_interval
             @service_interval_count = service_interval_count
@@ -74,18 +82,27 @@ module Stripe
           # Changes the version that new RateCard activations will use. Providing `live_version = "latest"` will set the
           # RateCard's `live_version` to its latest version.
           attr_accessor :live_version
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.
+          attr_accessor :lookup_key
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
 
-          def initialize(active: nil, display_name: nil, live_version: nil, metadata: nil)
+          def initialize(
+            active: nil,
+            display_name: nil,
+            live_version: nil,
+            lookup_key: nil,
+            metadata: nil
+          )
             @active = active
             @display_name = display_name
             @live_version = live_version
+            @lookup_key = lookup_key
             @metadata = metadata
           end
         end
 
-        # Create a RateCard object.
+        # Create a Rate Card object.
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -96,7 +113,7 @@ module Stripe
           )
         end
 
-        # List all RateCard objects.
+        # List all Rate Card objects.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -107,7 +124,7 @@ module Stripe
           )
         end
 
-        # Retrieve the latest version of a RateCard object.
+        # Retrieve the latest version of a Rate Card object.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -118,7 +135,7 @@ module Stripe
           )
         end
 
-        # Update a RateCard object.
+        # Update a Rate Card object.
         def update(id, params = {}, opts = {})
           request(
             method: :post,

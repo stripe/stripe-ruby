@@ -31,9 +31,9 @@ module Stripe
         end
         # Timestamp of when the object was created.
         attr_reader :created
-        # The ID of the LicenseFeeVersion.
+        # Unique identifier for the object.
         attr_reader :id
-        # The ID of the parent LicenseFee.
+        # The ID of the parent License Fee.
         attr_reader :license_fee_id
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object

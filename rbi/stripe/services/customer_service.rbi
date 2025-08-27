@@ -4,13 +4,13 @@
 # typed: true
 module Stripe
   class CustomerService < StripeService
-    attr_reader :cash_balance
     attr_reader :balance_transactions
+    attr_reader :cash_balance
     attr_reader :cash_balance_transactions
+    attr_reader :funding_instructions
+    attr_reader :payment_methods
     attr_reader :payment_sources
     attr_reader :tax_ids
-    attr_reader :payment_methods
-    attr_reader :funding_instructions
     class DeleteParams < Stripe::RequestParams; end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.

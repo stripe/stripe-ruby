@@ -269,13 +269,13 @@ module Stripe
           ); end
         end
         class RetrieveParams < Stripe::RequestParams; end
-        # Create a ServiceAction object.
+        # Create a Service Action object.
         sig {
           params(params: T.any(::Stripe::V2::Billing::ServiceActionService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::ServiceAction)
          }
         def create(params = {}, opts = {}); end
 
-        # Retrieve a ServiceAction object.
+        # Retrieve a Service Action object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::ServiceActionService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::ServiceAction)
          }

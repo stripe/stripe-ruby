@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      # The Financial Account is the container that allows for the configuration of money movement.
+      # A FinancialAccount represents a balance and can be used as the source or destination for the money management (`/v2/money_management`) APIs.
       class FinancialAccount < APIResource
         class Balance < Stripe::StripeObject
           # Balance that can be used for money movement.
@@ -64,7 +64,7 @@ module Stripe
         # Unique identifier for the object.
         sig { returns(String) }
         attr_reader :id
-        # Metadata associated with the FinancialAccount
+        # Metadata associated with the FinancialAccount.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.

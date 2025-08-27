@@ -5,6 +5,13 @@ module Stripe
   module V2
     module Billing
       class IntentService < StripeService
+        attr_reader :actions
+
+        def initialize(requestor)
+          super
+          @actions = Stripe::V2::Billing::Intents::ActionService.new(@requestor)
+        end
+
         class ListParams < Stripe::RequestParams
           # Optionally set the maximum number of results per page. Defaults to 10.
           attr_accessor :limit
@@ -62,6 +69,27 @@ module Stripe
             end
 
             class Deactivate < Stripe::RequestParams
+              class BillingDetails < Stripe::RequestParams
+                # This controls the proration adjustment for the partial servicing period.
+                attr_accessor :proration_behavior
+
+                def initialize(proration_behavior: nil)
+                  @proration_behavior = proration_behavior
+                end
+              end
+
+              class EffectiveAt < Stripe::RequestParams
+                # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
+                attr_accessor :timestamp
+                # When the deactivate action will take effect.
+                attr_accessor :type
+
+                def initialize(timestamp: nil, type: nil)
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+
               class PricingPlanSubscriptionDetails < Stripe::RequestParams
                 # ID of the pricing plan subscription to deactivate.
                 attr_accessor :pricing_plan_subscription
@@ -70,25 +98,50 @@ module Stripe
                   @pricing_plan_subscription = pricing_plan_subscription
                 end
               end
+              # Configuration for the billing details.
+              attr_accessor :billing_details
+              # When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
+              attr_accessor :effective_at
               # Details for deactivating a pricing plan subscription.
               attr_accessor :pricing_plan_subscription_details
-              # Behavior for handling prorations.
-              attr_accessor :proration_behavior
               # Type of the action details.
               attr_accessor :type
 
               def initialize(
+                billing_details: nil,
+                effective_at: nil,
                 pricing_plan_subscription_details: nil,
-                proration_behavior: nil,
                 type: nil
               )
+                @billing_details = billing_details
+                @effective_at = effective_at
                 @pricing_plan_subscription_details = pricing_plan_subscription_details
-                @proration_behavior = proration_behavior
                 @type = type
               end
             end
 
             class Modify < Stripe::RequestParams
+              class BillingDetails < Stripe::RequestParams
+                # This controls the proration adjustment for the partial servicing period.
+                attr_accessor :proration_behavior
+
+                def initialize(proration_behavior: nil)
+                  @proration_behavior = proration_behavior
+                end
+              end
+
+              class EffectiveAt < Stripe::RequestParams
+                # The timestamp at which the modify action will take effect. Only present if type is timestamp.
+                attr_accessor :timestamp
+                # When the modify action will take effect.
+                attr_accessor :type
+
+                def initialize(timestamp: nil, type: nil)
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+
               class PricingPlanSubscriptionDetails < Stripe::RequestParams
                 class ComponentConfiguration < Stripe::RequestParams
                   # Quantity of the component to be used.
@@ -106,11 +159,11 @@ module Stripe
                 end
                 # New configurations for the components of the pricing plan.
                 attr_accessor :component_configurations
-                # ID of the new pricing plan, if changing plans.
+                # The ID of the new Pricing Plan, if changing plans.
                 attr_accessor :new_pricing_plan
-                # Version of the pricing plan to use.
+                # The ID of the new Pricing Plan Version to use.
                 attr_accessor :new_pricing_plan_version
-                # ID of the pricing plan subscription to modify.
+                # The ID of the Pricing Plan Subscription to modify.
                 attr_accessor :pricing_plan_subscription
 
                 def initialize(
@@ -125,20 +178,24 @@ module Stripe
                   @pricing_plan_subscription = pricing_plan_subscription
                 end
               end
+              # Configuration for the billing details.
+              attr_accessor :billing_details
+              # When the modify action will take effect. If not specified, the default behavior is on_reserve.
+              attr_accessor :effective_at
               # Details for modifying a pricing plan subscription.
               attr_accessor :pricing_plan_subscription_details
-              # Behavior for handling prorations.
-              attr_accessor :proration_behavior
               # Type of the action details.
               attr_accessor :type
 
               def initialize(
+                billing_details: nil,
+                effective_at: nil,
                 pricing_plan_subscription_details: nil,
-                proration_behavior: nil,
                 type: nil
               )
+                @billing_details = billing_details
+                @effective_at = effective_at
                 @pricing_plan_subscription_details = pricing_plan_subscription_details
-                @proration_behavior = proration_behavior
                 @type = type
               end
             end
@@ -156,6 +213,27 @@ module Stripe
             end
 
             class Subscribe < Stripe::RequestParams
+              class BillingDetails < Stripe::RequestParams
+                # This controls the proration adjustment for the partial servicing period.
+                attr_accessor :proration_behavior
+
+                def initialize(proration_behavior: nil)
+                  @proration_behavior = proration_behavior
+                end
+              end
+
+              class EffectiveAt < Stripe::RequestParams
+                # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
+                attr_accessor :timestamp
+                # When the subscribe action will take effect.
+                attr_accessor :type
+
+                def initialize(timestamp: nil, type: nil)
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+
               class PricingPlanSubscriptionDetails < Stripe::RequestParams
                 class ComponentConfiguration < Stripe::RequestParams
                   # Quantity of the component to be used.
@@ -173,11 +251,11 @@ module Stripe
                 end
                 # Configurations for the components of the pricing plan.
                 attr_accessor :component_configurations
-                # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
                 attr_accessor :metadata
-                # ID of the pricing plan to subscribe to.
+                # ID of the Pricing Plan to subscribe to.
                 attr_accessor :pricing_plan
-                # Version of the pricing plan to use.
+                # Version of the Pricing Plan to use.
                 attr_accessor :pricing_plan_version
 
                 def initialize(
@@ -192,24 +270,62 @@ module Stripe
                   @pricing_plan_version = pricing_plan_version
                 end
               end
-              # Behavior for handling prorations.
-              attr_accessor :proration_behavior
+
+              class V1SubscriptionDetails < Stripe::RequestParams
+                class Item < Stripe::RequestParams
+                  # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                  attr_accessor :metadata
+                  # The ID of the price object.
+                  attr_accessor :price
+                  # Quantity for this item. If not provided, will default to 1.
+                  attr_accessor :quantity
+
+                  def initialize(metadata: nil, price: nil, quantity: nil)
+                    @metadata = metadata
+                    @price = price
+                    @quantity = quantity
+                  end
+                end
+                # The subscription’s description, meant to be displayable to the customer.
+                # Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+                attr_accessor :description
+                # A list of up to 20 subscription items, each with an attached price.
+                attr_accessor :items
+                # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                attr_accessor :metadata
+
+                def initialize(description: nil, items: nil, metadata: nil)
+                  @description = description
+                  @items = items
+                  @metadata = metadata
+                end
+              end
+              # Configuration for the billing details. If not specified, see the default behavior for individual attributes.
+              attr_accessor :billing_details
+              # When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
+              attr_accessor :effective_at
               # Type of the action details.
               attr_accessor :type
               # Details for subscribing to a pricing plan.
               attr_accessor :pricing_plan_subscription_details
+              # Details for subscribing to a v1 subscription.
+              attr_accessor :v1_subscription_details
 
               def initialize(
-                proration_behavior: nil,
+                billing_details: nil,
+                effective_at: nil,
                 type: nil,
-                pricing_plan_subscription_details: nil
+                pricing_plan_subscription_details: nil,
+                v1_subscription_details: nil
               )
-                @proration_behavior = proration_behavior
+                @billing_details = billing_details
+                @effective_at = effective_at
                 @type = type
                 @pricing_plan_subscription_details = pricing_plan_subscription_details
+                @v1_subscription_details = v1_subscription_details
               end
             end
-            # Type of the BillingIntentAction.
+            # Type of the Billing Intent action.
             attr_accessor :type
             # Details for an apply action.
             attr_accessor :apply
@@ -238,19 +354,16 @@ module Stripe
               @subscribe = subscribe
             end
           end
-          # Actions to be performed by this BillingIntent.
+          # Actions to be performed by this Billing Intent.
           attr_accessor :actions
-          # Three-letter ISO currency code, in lowercase.
+          # Three-letter ISO currency code, in lowercase. Must be a supported currency.
           attr_accessor :currency
-          # When the BillingIntent will take effect.
-          attr_accessor :effective_at
           # ID of an existing Cadence to use.
           attr_accessor :cadence
 
-          def initialize(actions: nil, currency: nil, effective_at: nil, cadence: nil)
+          def initialize(actions: nil, currency: nil, cadence: nil)
             @actions = actions
             @currency = currency
-            @effective_at = effective_at
             @cadence = cadence
           end
         end
@@ -270,7 +383,7 @@ module Stripe
         class ReleaseReservationParams < Stripe::RequestParams; end
         class ReserveParams < Stripe::RequestParams; end
 
-        # Cancel a BillingIntent.
+        # Cancel a Billing Intent.
         def cancel(id, params = {}, opts = {})
           request(
             method: :post,
@@ -281,7 +394,7 @@ module Stripe
           )
         end
 
-        # Commit a BillingIntent.
+        # Commit a Billing Intent.
         def commit(id, params = {}, opts = {})
           request(
             method: :post,
@@ -292,7 +405,7 @@ module Stripe
           )
         end
 
-        # Create a BillingIntent.
+        # Create a Billing Intent.
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -303,7 +416,7 @@ module Stripe
           )
         end
 
-        # List BillingIntents.
+        # List Billing Intents.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -314,7 +427,7 @@ module Stripe
           )
         end
 
-        # Release a BillingIntent.
+        # Release a Billing Intent.
         def release_reservation(id, params = {}, opts = {})
           request(
             method: :post,
@@ -325,7 +438,7 @@ module Stripe
           )
         end
 
-        # Reserve a BillingIntent.
+        # Reserve a Billing Intent.
         def reserve(id, params = {}, opts = {})
           request(
             method: :post,
@@ -336,7 +449,7 @@ module Stripe
           )
         end
 
-        # Retrieve a BillingIntent.
+        # Retrieve a Billing Intent.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

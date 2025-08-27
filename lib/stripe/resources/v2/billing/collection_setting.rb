@@ -11,6 +11,17 @@ module Stripe
           "v2.billing.collection_setting"
         end
 
+        class EmailDelivery < Stripe::StripeObject
+          class PaymentDue < Stripe::StripeObject
+            # If true an email for the invoice would be generated and sent out.
+            attr_reader :enabled
+            # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+            attr_reader :include_payment_link
+          end
+          # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+          attr_reader :payment_due
+        end
+
         class PaymentMethodOptions < Stripe::StripeObject
           class AcssDebit < Stripe::StripeObject
             class MandateOptions < Stripe::StripeObject
@@ -110,6 +121,8 @@ module Stripe
         attr_reader :created
         # An optional field for adding a display name for the CollectionSetting object.
         attr_reader :display_name
+        # Email delivery settings.
+        attr_reader :email_delivery
         # The ID of the CollectionSetting.
         attr_reader :id
         # The latest version of the current settings object. This will be

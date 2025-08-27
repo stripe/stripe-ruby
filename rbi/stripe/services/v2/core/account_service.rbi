@@ -2531,6 +2531,9 @@ module Stripe
                  }
                 def initialize(address: nil, name: nil, phone: nil); end
               end
+              # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+              sig { returns(T.nilable(T::Boolean)) }
+              attr_accessor :applied
               # Automatic indirect tax settings to be used when automatic tax calculation is enabled on the customer's invoices, subscriptions, checkout sessions, or payment links. Surfaces if automatic tax calculation is possible given the current customer location information.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::AutomaticIndirectTax))
@@ -2555,9 +2558,10 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_accessor :test_clock
               sig {
-                params(automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::AutomaticIndirectTax), billing: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities), shipping: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping), test_clock: T.nilable(String)).void
+                params(applied: T.nilable(T::Boolean), automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::AutomaticIndirectTax), billing: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities), shipping: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping), test_clock: T.nilable(String)).void
                }
               def initialize(
+                applied: nil,
                 automatic_indirect_tax: nil,
                 billing: nil,
                 capabilities: nil,
@@ -3258,6 +3262,9 @@ module Stripe
                  }
                 def initialize(address: nil, email: nil, phone: nil, url: nil); end
               end
+              # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+              sig { returns(T.nilable(T::Boolean)) }
+              attr_accessor :applied
               # Settings used for Bacs debit payments.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::BacsDebitPayments))
@@ -3292,9 +3299,10 @@ module Stripe
                }
               attr_accessor :support
               sig {
-                params(bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments), mcc: T.nilable(String), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support)).void
+                params(applied: T.nilable(T::Boolean), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments), mcc: T.nilable(String), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support)).void
                }
               def initialize(
+                applied: nil,
                 bacs_debit_payments: nil,
                 branding: nil,
                 capabilities: nil,
@@ -3381,6 +3389,9 @@ module Stripe
                  }
                 def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil); end
               end
+              # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+              sig { returns(T.nilable(T::Boolean)) }
+              attr_accessor :applied
               # Capabilities to request on the Recipient Configuration.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities))
@@ -3390,9 +3401,13 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_accessor :default_outbound_destination
               sig {
-                params(capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities), default_outbound_destination: T.nilable(String)).void
+                params(applied: T.nilable(T::Boolean), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities), default_outbound_destination: T.nilable(String)).void
                }
-              def initialize(capabilities: nil, default_outbound_destination: nil); end
+              def initialize(
+                applied: nil,
+                capabilities: nil,
+                default_outbound_destination: nil
+              ); end
             end
             class Storer < Stripe::RequestParams
               class Capabilities < Stripe::RequestParams
@@ -3558,15 +3573,18 @@ module Stripe
                   outbound_transfers: nil
                 ); end
               end
+              # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+              sig { returns(T.nilable(T::Boolean)) }
+              attr_accessor :applied
               # Capabilities to request on the Storer Configuration.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities))
                }
               attr_accessor :capabilities
               sig {
-                params(capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities)).void
+                params(applied: T.nilable(T::Boolean), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities)).void
                }
-              def initialize(capabilities: nil); end
+              def initialize(applied: nil, capabilities: nil); end
             end
             # The Customer Configuration allows the Account to be charged.
             sig {

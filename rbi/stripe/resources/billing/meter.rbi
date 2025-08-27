@@ -46,7 +46,7 @@ module Stripe
       # The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
       sig { returns(String) }
       attr_reader :event_name
-      # The time window to pre-aggregate meter events for, if any.
+      # The time window which meter events have been pre-aggregated for, if any.
       sig { returns(T.nilable(String)) }
       attr_reader :event_time_window
       # Unique identifier for the object.
@@ -134,7 +134,7 @@ module Stripe
         # The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
         sig { returns(String) }
         attr_accessor :event_name
-        # The time window to pre-aggregate meter events for, if any.
+        # The time window which meter events have been pre-aggregated for, if any.
         sig { returns(T.nilable(String)) }
         attr_accessor :event_time_window
         # Specifies which fields in the response should be expanded.

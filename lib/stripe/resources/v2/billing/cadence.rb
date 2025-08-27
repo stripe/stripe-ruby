@@ -20,6 +20,9 @@ module Stripe
               # The minute at which the billing cycle ends.
               # Must be an integer between 0 and 59, inclusive.
               attr_reader :minute
+              # The second at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_reader :second
             end
             # The time at which the billing cycle ends.
             attr_reader :time
@@ -34,6 +37,9 @@ module Stripe
               # The minute at which the billing cycle ends.
               # Must be an integer between 0 and 59, inclusive.
               attr_reader :minute
+              # The second at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_reader :second
             end
             # The day to anchor the billing on for a type="month" billing cycle from 1-31.
             # If this number is greater than the number of days in the month being billed,
@@ -52,6 +58,9 @@ module Stripe
               # The minute at which the billing cycle ends.
               # Must be an integer between 0 and 59, inclusive.
               attr_reader :minute
+              # The second at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_reader :second
             end
             # The day of the week to bill the type=week billing cycle on.
             # Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601 week day numbering.
@@ -69,6 +78,9 @@ module Stripe
               # The minute at which the billing cycle ends.
               # Must be an integer between 0 and 59, inclusive.
               attr_reader :minute
+              # The second at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_reader :second
             end
             # The day to anchor the billing on for a type="month" billing cycle from 1-31.
             # If this number is greater than the number of days in the month being billed,
@@ -104,7 +116,7 @@ module Stripe
             # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
             attr_reader :percent_off
           end
-          # The ID of the inline discount applied to the cadence.
+          # Unique identifier for the object.
           attr_reader :id
           # The type of the discount.
           attr_reader :type
@@ -123,14 +135,14 @@ module Stripe
 
         class Settings < Stripe::StripeObject
           class Bill < Stripe::StripeObject
-            # The ID of the referenced Settings object.
+            # The ID of the referenced settings object.
             attr_reader :id
             # Returns the Settings Version when the cadence is pinned to a specific version.
             attr_reader :version
           end
 
           class Collection < Stripe::StripeObject
-            # The ID of the referenced Settings object.
+            # The ID of the referenced settings object.
             attr_reader :id
             # Returns the Settings Version when the cadence is pinned to a specific version.
             attr_reader :version
@@ -144,11 +156,11 @@ module Stripe
         attr_reader :billing_cycle
         # Timestamp of when the object was created.
         attr_reader :created
-        # The ID of the billing Cadence object.
+        # Unique identifier for the object.
         attr_reader :id
         # The discount rules applied to all invoices for the cadence.
         attr_reader :invoice_discount_rules
-        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # The date that the billing cadence will next bill. Null if the cadence is not active.
         attr_reader :next_billing_date
@@ -160,7 +172,7 @@ module Stripe
         attr_reader :settings
         # The current status of the cadence.
         attr_reader :status
-        # The ID of the TestClock.
+        # The ID of the Test Clock.
         attr_reader :test_clock
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode

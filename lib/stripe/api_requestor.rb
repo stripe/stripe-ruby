@@ -850,32 +850,20 @@ module Stripe
       when "idempotency_error"
         IdempotencyError.new(error_data[:message], **opts)
       # switch cases: The beginning of the section generated from our OpenAPI spec
-      when "temporary_session_expired"
-        TemporarySessionExpiredError.new(error_data[:message], **opts)
-      when "non_zero_balance"
-        NonZeroBalanceError.new(error_data[:message], **opts)
+      when "already_canceled"
+        AlreadyCanceledError.new(error_data[:message], **opts)
       when "already_exists"
         AlreadyExistsError.new(error_data[:message], **opts)
+      when "blocked_by_stripe"
+        BlockedByStripeError.new(error_data[:message], **opts)
+      when "controlled_by_dashboard"
+        ControlledByDashboardError.new(error_data[:message], **opts)
       when "feature_not_enabled"
         FeatureNotEnabledError.new(error_data[:message], **opts)
       when "financial_account_not_open"
         FinancialAccountNotOpenError.new(error_data[:message], **opts)
-      when "blocked_by_stripe"
-        BlockedByStripeError.new(error_data[:message], **opts)
-      when "already_canceled"
-        AlreadyCanceledError.new(error_data[:message], **opts)
-      when "not_cancelable"
-        NotCancelableError.new(error_data[:message], **opts)
       when "insufficient_funds"
         InsufficientFundsError.new(error_data[:message], **opts)
-      when "quota_exceeded"
-        QuotaExceededError.new(error_data[:message], **opts)
-      when "recipient_not_notifiable"
-        RecipientNotNotifiableError.new(error_data[:message], **opts)
-      when "invalid_payout_method"
-        InvalidPayoutMethodError.new(error_data[:message], **opts)
-      when "controlled_by_dashboard"
-        ControlledByDashboardError.new(error_data[:message], **opts)
       when "invalid_payment_method"
 
         InvalidPaymentMethodError.new(
@@ -884,8 +872,20 @@ module Stripe
           invalid_param: error_data[:invalid_param]
         )
 
+      when "invalid_payout_method"
+        InvalidPayoutMethodError.new(error_data[:message], **opts)
+      when "non_zero_balance"
+        NonZeroBalanceError.new(error_data[:message], **opts)
+      when "not_cancelable"
+        NotCancelableError.new(error_data[:message], **opts)
+      when "quota_exceeded"
+        QuotaExceededError.new(error_data[:message], **opts)
       when "rate_limit"
         RateLimitError.new(error_data[:message], **opts)
+      when "recipient_not_notifiable"
+        RecipientNotNotifiableError.new(error_data[:message], **opts)
+      when "temporary_session_expired"
+        TemporarySessionExpiredError.new(error_data[:message], **opts)
       # switch cases: The end of the section generated from our OpenAPI spec
       else
         specific_api_error(resp, error_data, context)

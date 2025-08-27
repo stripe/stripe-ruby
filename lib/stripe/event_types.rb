@@ -5,11 +5,6 @@ module Stripe
     def self.thin_event_names_to_classes
       {
         # The beginning of the section generated from our OpenAPI spec
-        AccountConfigurationRecipientDataAccountLinkCompletedEvent.lookup_type =>
-        AccountConfigurationRecipientDataAccountLinkCompletedEvent,
-        AccountConfigurationRecipientDataFeatureStatusUpdatedEvent.lookup_type =>
-        AccountConfigurationRecipientDataFeatureStatusUpdatedEvent,
-        AccountRequirementsUpdatedEvent.lookup_type => AccountRequirementsUpdatedEvent,
         V1BillingMeterErrorReportTriggeredEvent.lookup_type => V1BillingMeterErrorReportTriggeredEvent,
         V1BillingMeterNoMeterFoundEvent.lookup_type => V1BillingMeterNoMeterFoundEvent,
         V2BillingCadenceBilledEvent.lookup_type => V2BillingCadenceBilledEvent,
@@ -98,6 +93,29 @@ module Stripe
         V2CoreAccountPersonUpdatedEvent.lookup_type => V2CoreAccountPersonUpdatedEvent,
         V2CoreAccountUpdatedEvent.lookup_type => V2CoreAccountUpdatedEvent,
         V2CoreEventDestinationPingEvent.lookup_type => V2CoreEventDestinationPingEvent,
+        V2CoreHealthApiErrorFiringEvent.lookup_type => V2CoreHealthApiErrorFiringEvent,
+        V2CoreHealthApiErrorResolvedEvent.lookup_type => V2CoreHealthApiErrorResolvedEvent,
+        V2CoreHealthApiLatencyFiringEvent.lookup_type => V2CoreHealthApiLatencyFiringEvent,
+        V2CoreHealthApiLatencyResolvedEvent.lookup_type => V2CoreHealthApiLatencyResolvedEvent,
+        V2CoreHealthAuthorizationRateDropFiringEvent.lookup_type =>
+        V2CoreHealthAuthorizationRateDropFiringEvent,
+        V2CoreHealthAuthorizationRateDropResolvedEvent.lookup_type =>
+        V2CoreHealthAuthorizationRateDropResolvedEvent,
+        V2CoreHealthEventGenerationFailureResolvedEvent.lookup_type =>
+        V2CoreHealthEventGenerationFailureResolvedEvent,
+        V2CoreHealthFraudRateIncreasedEvent.lookup_type => V2CoreHealthFraudRateIncreasedEvent,
+        V2CoreHealthIssuingAuthorizationRequestTimeoutFiringEvent.lookup_type =>
+        V2CoreHealthIssuingAuthorizationRequestTimeoutFiringEvent,
+        V2CoreHealthIssuingAuthorizationRequestTimeoutResolvedEvent.lookup_type =>
+        V2CoreHealthIssuingAuthorizationRequestTimeoutResolvedEvent,
+        V2CoreHealthPaymentMethodErrorFiringEvent.lookup_type => V2CoreHealthPaymentMethodErrorFiringEvent,
+        V2CoreHealthPaymentMethodErrorResolvedEvent.lookup_type =>
+        V2CoreHealthPaymentMethodErrorResolvedEvent,
+        V2CoreHealthTrafficVolumeDropFiringEvent.lookup_type => V2CoreHealthTrafficVolumeDropFiringEvent,
+        V2CoreHealthTrafficVolumeDropResolvedEvent.lookup_type =>
+        V2CoreHealthTrafficVolumeDropResolvedEvent,
+        V2CoreHealthWebhookLatencyFiringEvent.lookup_type => V2CoreHealthWebhookLatencyFiringEvent,
+        V2CoreHealthWebhookLatencyResolvedEvent.lookup_type => V2CoreHealthWebhookLatencyResolvedEvent,
         V2MoneyManagementAdjustmentCreatedEvent.lookup_type => V2MoneyManagementAdjustmentCreatedEvent,
         V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
         V2MoneyManagementFinancialAccountCreatedEvent,

@@ -15,6 +15,22 @@ module Stripe
       class Credit < Stripe::StripeObject
         class Amount < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
+            class CustomPricingUnitDetails < Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              attr_reader :created
+              # The name of the custom pricing unit.
+              attr_reader :display_name
+              # Unique identifier for the object.
+              attr_reader :id
+              # A lookup key for the custom pricing unit.
+              attr_reader :lookup_key
+              # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              attr_reader :metadata
+              # The status of the custom pricing unit.
+              attr_reader :status
+            end
+            # The custom pricing unit object.
+            attr_reader :custom_pricing_unit_details
             # Unique identifier for the object.
             attr_reader :id
             # A positive integer representing the amount.
@@ -52,6 +68,22 @@ module Stripe
       class Debit < Stripe::StripeObject
         class Amount < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
+            class CustomPricingUnitDetails < Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              attr_reader :created
+              # The name of the custom pricing unit.
+              attr_reader :display_name
+              # Unique identifier for the object.
+              attr_reader :id
+              # A lookup key for the custom pricing unit.
+              attr_reader :lookup_key
+              # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              attr_reader :metadata
+              # The status of the custom pricing unit.
+              attr_reader :status
+            end
+            # The custom pricing unit object.
+            attr_reader :custom_pricing_unit_details
             # Unique identifier for the object.
             attr_reader :id
             # A positive integer representing the amount.

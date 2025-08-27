@@ -11,7 +11,7 @@ module Stripe
             # Optionally set the maximum number of results per page. Defaults to 20.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :limit
-            # Optionally filter by a MeteredItem.
+            # Optionally filter by a Metered Item.
             sig { returns(T.nilable(String)) }
             attr_accessor :metered_item
             # Optionally filter by a RateCard version. If not specified, defaults to the latest version.
@@ -73,14 +73,14 @@ module Stripe
               returns(T.nilable(::Stripe::V2::Billing::RateCards::RateService::CreateParams::CustomPricingUnitAmount))
              }
             attr_accessor :custom_pricing_unit_amount
-            # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             sig { returns(T.nilable(T::Hash[String, String])) }
             attr_accessor :metadata
-            # The MeteredItem that this rate binds to.
+            # The Metered Item that this rate binds to.
             sig { returns(T.nilable(String)) }
             attr_accessor :metered_item
-            # The ID of the Price object to take price information from. The Price must have the same interval as the RateCard.
-            # Updates to the Price will not be reflected in the RateCard or its rates.
+            # The ID of the price object to take price information from. The price must have the same interval as the rate card.
+            # Updates to the Price will not be reflected in the Rate Card or its rates.
             sig { returns(T.nilable(String)) }
             attr_accessor :price
             # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
@@ -118,20 +118,20 @@ module Stripe
           end
           class DeleteParams < Stripe::RequestParams; end
           class RetrieveParams < Stripe::RequestParams; end
-          # Set the rate for a MeteredItem on the latest version of a RateCard object. This will create a new RateCard version
-          # if the MeteredItem already has a rate on the RateCard.
+          # Set the Rate for a Metered Item on the latest version of a Rate Card object. This will create a new Rate Card version
+          # if the Metered Item already has a rate on the Rate Card.
           sig {
             params(rate_card_id: String, params: T.any(::Stripe::V2::Billing::RateCards::RateService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::RateCardRate)
            }
           def create(rate_card_id, params = {}, opts = {}); end
 
-          # Remove an existing Rate from a RateCard. This will create a new RateCard version without that rate.
+          # Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
           sig {
             params(rate_card_id: String, id: String, params: T.any(::Stripe::V2::Billing::RateCards::RateService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::RateCardRate)
            }
           def delete(rate_card_id, id, params = {}, opts = {}); end
 
-          # List all Rates associated with a RateCard for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new Rate is created for the same MeteredItem.
+          # List all Rates associated with a Rate Card for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
           sig {
             params(rate_card_id: String, params: T.any(::Stripe::V2::Billing::RateCards::RateService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
            }

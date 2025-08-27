@@ -232,7 +232,7 @@ module Stripe
 
         class RetrieveParams < Stripe::RequestParams; end
 
-        # Create a ServiceAction object.
+        # Create a Service Action object.
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -243,7 +243,7 @@ module Stripe
           )
         end
 
-        # Retrieve a ServiceAction object.
+        # Retrieve a Service Action object.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

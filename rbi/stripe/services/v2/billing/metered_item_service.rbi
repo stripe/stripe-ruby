@@ -10,15 +10,19 @@ module Stripe
           # Optionally set the maximum number of results per page. Defaults to 20.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
-          sig { params(limit: T.nilable(Integer)).void }
-          def initialize(limit: nil); end
+          # Filter by lookup keys.
+          # You can specify up to 10 lookup keys.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :lookup_keys
+          sig { params(limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String])).void }
+          def initialize(limit: nil, lookup_keys: nil); end
         end
         class CreateParams < Stripe::RequestParams
           class MeterSegmentCondition < Stripe::RequestParams
             # A Meter dimension.
             sig { returns(String) }
             attr_accessor :dimension
-            # To count usage towards this MeteredItem, the dimension must have this value.
+            # To count usage towards this metered item, the dimension must have this value.
             sig { returns(String) }
             attr_accessor :value
             sig { params(dimension: String, value: String).void }
@@ -43,10 +47,10 @@ module Stripe
           # Maximum length of 200 characters.
           sig { returns(T.nilable(String)) }
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, String])) }
           attr_accessor :metadata
-          # ID of the Meter that measures usage for this MeteredItem.
+          # ID of the Meter that measures usage for this Metered Item.
           sig { returns(String) }
           attr_accessor :meter
           # Optional array of Meter segments to filter event dimension keys for billing.
@@ -97,7 +101,7 @@ module Stripe
           # To remove the lookup_key from the object, set it to null in the request.
           sig { returns(T.nilable(T.nilable(String))) }
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
           attr_accessor :metadata
           # Stripe Tax details.
@@ -123,25 +127,25 @@ module Stripe
             unit_label: nil
           ); end
         end
-        # Create a MeteredItem object.
+        # Create a Metered Item object.
         sig {
           params(params: T.any(::Stripe::V2::Billing::MeteredItemService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::MeteredItem)
          }
         def create(params = {}, opts = {}); end
 
-        # List all MeteredItem objects in reverse chronological order of creation.
+        # List all Metered Item objects in reverse chronological order of creation.
         sig {
           params(params: T.any(::Stripe::V2::Billing::MeteredItemService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
-        # Retrieve a MeteredItem object.
+        # Retrieve a Metered Item object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::MeteredItemService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::MeteredItem)
          }
         def retrieve(id, params = {}, opts = {}); end
 
-        # Update a MeteredItem object. At least one of the fields is required.
+        # Update a Metered Item object. At least one of the fields is required.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::MeteredItemService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::MeteredItem)
          }

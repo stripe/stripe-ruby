@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Billing
-      # A LicensedItem represents a billable item whose pricing is based on license fees. You can use LicenseFees
-      # to specify the pricing and create Subscriptions to these items.
+      # A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
+      # to specify the pricing and create subscriptions to these items.
       class LicensedItem < APIResource
         class TaxDetails < Stripe::StripeObject
           # Product tax code (PTC).
@@ -20,14 +20,14 @@ module Stripe
         # Maximum length of 250 characters.
         sig { returns(String) }
         attr_reader :display_name
-        # The ID of the LicensedItem.
+        # Unique identifier for the object.
         sig { returns(String) }
         attr_reader :id
         # An internal key you can use to search for a particular billable item.
         # Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
         attr_reader :lookup_key
-        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.

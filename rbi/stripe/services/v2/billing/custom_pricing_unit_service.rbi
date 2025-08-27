@@ -7,7 +7,7 @@ module Stripe
     module Billing
       class CustomPricingUnitService < StripeService
         class ListParams < Stripe::RequestParams
-          # Filter for active/inactive CustomPricingUnits. Mutually exclusive with `lookup_keys`.
+          # Filter for active/inactive custom pricing units. Mutually exclusive with `lookup_keys`.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :active
           # Optionally set the maximum number of results per page. Defaults to 20.
@@ -24,15 +24,15 @@ module Stripe
         end
         class CreateParams < Stripe::RequestParams
           # Description that customers will see in the invoice line item.
-          # Maximum length of 250 characters.
+          # Maximum length of 10 characters.
           sig { returns(String) }
           attr_accessor :display_name
-          # An internal key you can use to search for a particular CustomPricingUnit item.
+          # An internal key you can use to search for a particular custom pricing unit item.
           # Must be unique among items.
           # Maximum length of 200 characters.
           sig { returns(T.nilable(String)) }
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, String])) }
           attr_accessor :metadata
           sig {
@@ -42,36 +42,42 @@ module Stripe
         end
         class RetrieveParams < Stripe::RequestParams; end
         class UpdateParams < Stripe::RequestParams
-          # Whether the CustomPricingUnit is active.
+          # Whether the Custom Pricing Unit is active.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :active
+          # Description that customers will see in the invoice line item.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :display_name
+          # An internal key you can use to search for a particular CustomPricingUnit item.
+          sig { returns(T.nilable(T.nilable(String))) }
+          attr_accessor :lookup_key
           # Set of key-value pairs that you can attach to an object.
           sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
           attr_accessor :metadata
           sig {
-            params(active: T.nilable(T::Boolean), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
+            params(active: T.nilable(T::Boolean), display_name: T.nilable(String), lookup_key: T.nilable(T.nilable(String)), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
            }
-          def initialize(active: nil, metadata: nil); end
+          def initialize(active: nil, display_name: nil, lookup_key: nil, metadata: nil); end
         end
-        # Create a CustomPricingUnit object.
+        # Create a Custom Pricing Unit object.
         sig {
           params(params: T.any(::Stripe::V2::Billing::CustomPricingUnitService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::CustomPricingUnit)
          }
         def create(params = {}, opts = {}); end
 
-        # List all CustomPricingUnit objects.
+        # List all Custom Pricing Unit objects.
         sig {
           params(params: T.any(::Stripe::V2::Billing::CustomPricingUnitService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
-        # Retrieve a CustomPricingUnit object.
+        # Retrieve a Custom Pricing Unit object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::CustomPricingUnitService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::CustomPricingUnit)
          }
         def retrieve(id, params = {}, opts = {}); end
 
-        # Update a CustomPricingUnit object.
+        # Update a Custom Pricing Unit object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::CustomPricingUnitService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::CustomPricingUnit)
          }

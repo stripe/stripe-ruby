@@ -9,10 +9,10 @@ module Stripe
         # Time at which the object was created.
         sig { returns(String) }
         attr_reader :created
-        # The timestamp when this version became inactive.
-        sig { returns(String) }
+        # The timestamp when this version became inactive. Null if it's the latest version.
+        sig { returns(T.nilable(String)) }
         attr_reader :end_date
-        # Unique identifier for the PricingPlanVersion.
+        # Unique identifier for the object.
         sig { returns(String) }
         attr_reader :id
         # String representing the object's type. Objects of the same type share the same value of the object field.

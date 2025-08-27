@@ -51,14 +51,37 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :subscription
       end
-      class RateCardSubscriptionDetails < Stripe::StripeObject
-        # Attribute for field invoice_item
+      class LicenseFeeSubscriptionDetails < Stripe::StripeObject
+        # The invoice item that generated this line item
         sig { returns(String) }
         attr_reader :invoice_item
-        # Attribute for field rate_card_subscription
+        # The license fee subscription that generated this line item
+        sig { returns(String) }
+        attr_reader :license_fee_subscription
+        # The license fee version at the time this line item was generated
+        sig { returns(String) }
+        attr_reader :license_fee_version
+        # The pricing plan subscription that manages the license fee subscription
+        sig { returns(String) }
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this line item was generated
+        sig { returns(String) }
+        attr_reader :pricing_plan_version
+      end
+      class RateCardSubscriptionDetails < Stripe::StripeObject
+        # The invoice item that generated this line item
+        sig { returns(String) }
+        attr_reader :invoice_item
+        # The pricing plan subscription that manages the rate card subscription
+        sig { returns(T.nilable(String)) }
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this line item was generated
+        sig { returns(T.nilable(String)) }
+        attr_reader :pricing_plan_version
+        # The rate card subscription that generated this line item
         sig { returns(String) }
         attr_reader :rate_card_subscription
-        # Attribute for field rate_card_version
+        # The rate card version at the time this line item was generated
         sig { returns(String) }
         attr_reader :rate_card_version
       end
@@ -95,15 +118,18 @@ module Stripe
       # Details about the invoice item that generated this line item
       sig { returns(T.nilable(InvoiceItemDetails)) }
       attr_reader :invoice_item_details
+      # Details about the license fee subscription that generated this line item
+      sig { returns(T.nilable(LicenseFeeSubscriptionDetails)) }
+      attr_reader :license_fee_subscription_details
+      # Details about the rate card subscription that generated this line item
+      sig { returns(T.nilable(RateCardSubscriptionDetails)) }
+      attr_reader :rate_card_subscription_details
       # Details about the subscription item that generated this line item
       sig { returns(T.nilable(SubscriptionItemDetails)) }
       attr_reader :subscription_item_details
       # The type of parent that generated this line item
       sig { returns(String) }
       attr_reader :type
-      # Attribute for field rate_card_subscription_details
-      sig { returns(RateCardSubscriptionDetails) }
-      attr_reader :rate_card_subscription_details
     end
     class Period < Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
@@ -131,6 +157,17 @@ module Stripe
       attr_reader :type
     end
     class Pricing < Stripe::StripeObject
+      class LicenseFeeDetails < Stripe::StripeObject
+        # The ID of the license fee this item is associated with
+        sig { returns(String) }
+        attr_reader :license_fee
+        # The version of the license fee this item is associated with
+        sig { returns(String) }
+        attr_reader :license_fee_version
+        # The ID of the licensed item this item is associated with
+        sig { returns(String) }
+        attr_reader :licensed_item
+      end
       class PriceDetails < Stripe::StripeObject
         # The ID of the price this item is associated with.
         sig { returns(String) }
@@ -140,28 +177,31 @@ module Stripe
         attr_reader :product
       end
       class RateCardRateDetails < Stripe::StripeObject
-        # Attribute for field rate_card
-        sig { returns(String) }
-        attr_reader :rate_card
-        # Attribute for field rate_card_rate
-        sig { returns(String) }
-        attr_reader :rate_card_rate
-        # Attribute for field metered_item
+        # The ID of billable item this item is associated with
         sig { returns(String) }
         attr_reader :metered_item
+        # The ID of the rate card this item is associated with
+        sig { returns(String) }
+        attr_reader :rate_card
+        # The ID of the rate card rate this item is associated with
+        sig { returns(String) }
+        attr_reader :rate_card_rate
       end
+      # Attribute for field license_fee_details
+      sig { returns(LicenseFeeDetails) }
+      attr_reader :license_fee_details
       # Attribute for field price_details
       sig { returns(PriceDetails) }
       attr_reader :price_details
+      # Attribute for field rate_card_rate_details
+      sig { returns(RateCardRateDetails) }
+      attr_reader :rate_card_rate_details
       # The type of the pricing details.
       sig { returns(String) }
       attr_reader :type
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       attr_reader :unit_amount_decimal
-      # Attribute for field rate_card_rate_details
-      sig { returns(RateCardRateDetails) }
-      attr_reader :rate_card_rate_details
     end
     class TaxCalculationReference < Stripe::StripeObject
       # The calculation identifier for tax calculation response.

@@ -17,7 +17,7 @@ module Stripe
 
           class RetrieveParams < Stripe::RequestParams; end
 
-          # List the versions of a RateCard object. Results are sorted in reverse chronological order (most recent first).
+          # List the versions of a Rate Card object. Results are sorted in reverse chronological order (most recent first).
           def list(rate_card_id, params = {}, opts = {})
             request(
               method: :get,
@@ -28,7 +28,7 @@ module Stripe
             )
           end
 
-          # Retrieve a specific version of a RateCard object.
+          # Retrieve a specific version of a Rate Card object.
           def retrieve(rate_card_id, id, params = {}, opts = {})
             request(
               method: :get,

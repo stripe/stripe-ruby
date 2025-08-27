@@ -6,7 +6,7 @@ module Stripe
     module Billing
       class CustomPricingUnitService < StripeService
         class ListParams < Stripe::RequestParams
-          # Filter for active/inactive CustomPricingUnits. Mutually exclusive with `lookup_keys`.
+          # Filter for active/inactive custom pricing units. Mutually exclusive with `lookup_keys`.
           attr_accessor :active
           # Optionally set the maximum number of results per page. Defaults to 20.
           attr_accessor :limit
@@ -23,13 +23,13 @@ module Stripe
 
         class CreateParams < Stripe::RequestParams
           # Description that customers will see in the invoice line item.
-          # Maximum length of 250 characters.
+          # Maximum length of 10 characters.
           attr_accessor :display_name
-          # An internal key you can use to search for a particular CustomPricingUnit item.
+          # An internal key you can use to search for a particular custom pricing unit item.
           # Must be unique among items.
           # Maximum length of 200 characters.
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
 
           def initialize(display_name: nil, lookup_key: nil, metadata: nil)
@@ -42,18 +42,24 @@ module Stripe
         class RetrieveParams < Stripe::RequestParams; end
 
         class UpdateParams < Stripe::RequestParams
-          # Whether the CustomPricingUnit is active.
+          # Whether the Custom Pricing Unit is active.
           attr_accessor :active
+          # Description that customers will see in the invoice line item.
+          attr_accessor :display_name
+          # An internal key you can use to search for a particular CustomPricingUnit item.
+          attr_accessor :lookup_key
           # Set of key-value pairs that you can attach to an object.
           attr_accessor :metadata
 
-          def initialize(active: nil, metadata: nil)
+          def initialize(active: nil, display_name: nil, lookup_key: nil, metadata: nil)
             @active = active
+            @display_name = display_name
+            @lookup_key = lookup_key
             @metadata = metadata
           end
         end
 
-        # Create a CustomPricingUnit object.
+        # Create a Custom Pricing Unit object.
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -64,7 +70,7 @@ module Stripe
           )
         end
 
-        # List all CustomPricingUnit objects.
+        # List all Custom Pricing Unit objects.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -75,7 +81,7 @@ module Stripe
           )
         end
 
-        # Retrieve a CustomPricingUnit object.
+        # Retrieve a Custom Pricing Unit object.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -86,7 +92,7 @@ module Stripe
           )
         end
 
-        # Update a CustomPricingUnit object.
+        # Update a Custom Pricing Unit object.
         def update(id, params = {}, opts = {})
           request(
             method: :post,

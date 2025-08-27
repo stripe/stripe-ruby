@@ -26,6 +26,26 @@ module Stripe
         end
 
         class CreateParams < Stripe::RequestParams
+          class EmailDelivery < Stripe::RequestParams
+            class PaymentDue < Stripe::RequestParams
+              # If true an email for the invoice would be generated and sent out.
+              attr_accessor :enabled
+              # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+              attr_accessor :include_payment_link
+
+              def initialize(enabled: nil, include_payment_link: nil)
+                @enabled = enabled
+                @include_payment_link = include_payment_link
+              end
+            end
+            # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+            attr_accessor :payment_due
+
+            def initialize(payment_due: nil)
+              @payment_due = payment_due
+            end
+          end
+
           class PaymentMethodOptions < Stripe::RequestParams
             class AcssDebit < Stripe::RequestParams
               class MandateOptions < Stripe::RequestParams
@@ -196,6 +216,8 @@ module Stripe
           # An optional customer-facing display name for the CollectionSetting object.
           # Maximum length of 250 characters.
           attr_accessor :display_name
+          # Email delivery setting.
+          attr_accessor :email_delivery
           # A lookup key used to retrieve settings dynamically from a static string.
           # This may be up to 200 characters.
           attr_accessor :lookup_key
@@ -207,12 +229,14 @@ module Stripe
           def initialize(
             collection_method: nil,
             display_name: nil,
+            email_delivery: nil,
             lookup_key: nil,
             payment_method_configuration: nil,
             payment_method_options: nil
           )
             @collection_method = collection_method
             @display_name = display_name
+            @email_delivery = email_delivery
             @lookup_key = lookup_key
             @payment_method_configuration = payment_method_configuration
             @payment_method_options = payment_method_options
@@ -222,6 +246,26 @@ module Stripe
         class RetrieveParams < Stripe::RequestParams; end
 
         class UpdateParams < Stripe::RequestParams
+          class EmailDelivery < Stripe::RequestParams
+            class PaymentDue < Stripe::RequestParams
+              # If true an email for the invoice would be generated and sent out.
+              attr_accessor :enabled
+              # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+              attr_accessor :include_payment_link
+
+              def initialize(enabled: nil, include_payment_link: nil)
+                @enabled = enabled
+                @include_payment_link = include_payment_link
+              end
+            end
+            # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+            attr_accessor :payment_due
+
+            def initialize(payment_due: nil)
+              @payment_due = payment_due
+            end
+          end
+
           class PaymentMethodOptions < Stripe::RequestParams
             class AcssDebit < Stripe::RequestParams
               class MandateOptions < Stripe::RequestParams
@@ -392,6 +436,8 @@ module Stripe
           # To remove the display name, set it to an empty string in the request.
           # Maximum length of 250 characters.
           attr_accessor :display_name
+          # Email delivery settings.
+          attr_accessor :email_delivery
           # Optionally change the live version of the CollectionSetting. Billing Cadences and other objects that refer to this
           # CollectionSetting will use this version when no overrides are set. Providing `live_version = "latest"` will set the
           # CollectionSetting's `live_version` to its latest version.
@@ -407,6 +453,7 @@ module Stripe
           def initialize(
             collection_method: nil,
             display_name: nil,
+            email_delivery: nil,
             live_version: nil,
             lookup_key: nil,
             payment_method_configuration: nil,
@@ -414,6 +461,7 @@ module Stripe
           )
             @collection_method = collection_method
             @display_name = display_name
+            @email_delivery = email_delivery
             @live_version = live_version
             @lookup_key = lookup_key
             @payment_method_configuration = payment_method_configuration

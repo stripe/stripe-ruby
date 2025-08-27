@@ -13,6 +13,34 @@ module Stripe
   # Related guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
   class InvoiceItem < APIResource
     class Parent < Stripe::StripeObject
+      class LicenseFeeSubscriptionDetails < Stripe::StripeObject
+        # The license fee subscription that generated this invoice item
+        sig { returns(String) }
+        attr_reader :license_fee_subscription
+        # The license fee version that generated this invoice item
+        sig { returns(String) }
+        attr_reader :license_fee_version
+        # The pricing plan subscription that manages the license fee subscription
+        sig { returns(String) }
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this invoice item was generated
+        sig { returns(String) }
+        attr_reader :pricing_plan_version
+      end
+      class RateCardSubscriptionDetails < Stripe::StripeObject
+        # The pricing plan subscription that manages the rate card subscription
+        sig { returns(T.nilable(String)) }
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this invoice item was generated
+        sig { returns(T.nilable(String)) }
+        attr_reader :pricing_plan_version
+        # The rate card subscription that generated this invoice item
+        sig { returns(String) }
+        attr_reader :rate_card_subscription
+        # The rate card version that generated this invoice item
+        sig { returns(String) }
+        attr_reader :rate_card_version
+      end
       class SubscriptionDetails < Stripe::StripeObject
         # The subscription that generated this invoice item
         sig { returns(String) }
@@ -21,6 +49,12 @@ module Stripe
         sig { returns(String) }
         attr_reader :subscription_item
       end
+      # Details about the license fee subscription that generated this invoice item
+      sig { returns(T.nilable(LicenseFeeSubscriptionDetails)) }
+      attr_reader :license_fee_subscription_details
+      # Details about the rate card subscription that generated this invoice item
+      sig { returns(T.nilable(RateCardSubscriptionDetails)) }
+      attr_reader :rate_card_subscription_details
       # Details about the subscription that generated this invoice item
       sig { returns(T.nilable(SubscriptionDetails)) }
       attr_reader :subscription_details
@@ -37,6 +71,17 @@ module Stripe
       attr_reader :start
     end
     class Pricing < Stripe::StripeObject
+      class LicenseFeeDetails < Stripe::StripeObject
+        # The ID of the license fee this item is associated with
+        sig { returns(String) }
+        attr_reader :license_fee
+        # The version of the license fee this item is associated with
+        sig { returns(String) }
+        attr_reader :license_fee_version
+        # The ID of the licensed item this item is associated with
+        sig { returns(String) }
+        attr_reader :licensed_item
+      end
       class PriceDetails < Stripe::StripeObject
         # The ID of the price this item is associated with.
         sig { returns(String) }
@@ -45,9 +90,26 @@ module Stripe
         sig { returns(String) }
         attr_reader :product
       end
+      class RateCardRateDetails < Stripe::StripeObject
+        # The ID of billable item this item is associated with
+        sig { returns(String) }
+        attr_reader :metered_item
+        # The ID of the rate card this item is associated with
+        sig { returns(String) }
+        attr_reader :rate_card
+        # The ID of the rate card rate this item is associated with
+        sig { returns(String) }
+        attr_reader :rate_card_rate
+      end
+      # Attribute for field license_fee_details
+      sig { returns(LicenseFeeDetails) }
+      attr_reader :license_fee_details
       # Attribute for field price_details
       sig { returns(PriceDetails) }
       attr_reader :price_details
+      # Attribute for field rate_card_rate_details
+      sig { returns(RateCardRateDetails) }
+      attr_reader :rate_card_rate_details
       # The type of the pricing details.
       sig { returns(String) }
       attr_reader :type

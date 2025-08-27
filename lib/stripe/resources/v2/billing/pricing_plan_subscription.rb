@@ -31,7 +31,7 @@ module Stripe
           # When the servicing status transitioned to paused.
           attr_reader :paused_at
         end
-        # The ID of the Cadence this subscription is billed on.
+        # The ID of the Billing Cadence this subscription is billed on.
         attr_reader :billing_cadence
         # Current collection status of this subscription.
         attr_reader :collection_status
@@ -39,21 +39,21 @@ module Stripe
         attr_reader :collection_status_transitions
         # Time at which the object was created.
         attr_reader :created
-        # Unique identifier for the PricingPlanSubscription.
+        # Unique identifier for the object.
         attr_reader :id
-        # Set of key-value pairs that you can attach to an object.
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # The ID of the PricingPlan for this subscription.
+        # The ID of the Pricing Plan for this subscription.
         attr_reader :pricing_plan
-        # The ID of the PricingPlanVersion for this subscription.
+        # The ID of the Pricing Plan Version for this subscription.
         attr_reader :pricing_plan_version
         # Current servicing status of this subscription.
         attr_reader :servicing_status
         # Timestamps for servicing status transitions.
         attr_reader :servicing_status_transitions
-        # The ID of the TestClock of the associated Cadence, if any.
+        # The ID of the Test Clock of the associated Billing Cadence, if any.
         attr_reader :test_clock
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode

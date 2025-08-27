@@ -95,7 +95,7 @@ module Stripe
       attr_reader :message
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
       attr_reader :network_advice_code
-      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
       attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
       attr_reader :param
@@ -1600,10 +1600,32 @@ module Stripe
       end
 
       class Pix < Stripe::StripeObject
+        class MandateOptions < Stripe::StripeObject
+          # Amount to be charged for future payments.
+          attr_reader :amount
+          # Determines if the amount includes the IOF tax.
+          attr_reader :amount_includes_iof
+          # Type of amount.
+          attr_reader :amount_type
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+          attr_reader :currency
+          # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+          attr_reader :end_date
+          # Schedule at which the future payments will be charged.
+          attr_reader :payment_schedule
+          # Subscription name displayed to buyers in their bank app.
+          attr_reader :reference
+          # Start date of the mandate, in `YYYY-MM-DD`.
+          attr_reader :start_date
+        end
+        # Determines if the amount includes the IOF tax.
+        attr_reader :amount_includes_iof
         # The number of seconds (between 10 and 1209600) after which Pix payment will expire.
         attr_reader :expires_after_seconds
         # The timestamp at which the Pix expires.
         attr_reader :expires_at
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -4942,10 +4964,52 @@ module Stripe
         end
 
         class Pix < Stripe::RequestParams
+          class MandateOptions < Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            attr_accessor :start_date
+
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            )
+              @amount = amount
+              @amount_includes_iof = amount_includes_iof
+              @amount_type = amount_type
+              @currency = currency
+              @end_date = end_date
+              @payment_schedule = payment_schedule
+              @reference = reference
+              @start_date = start_date
+            end
+          end
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
           attr_accessor :expires_at
+          # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+          attr_accessor :mandate_options
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -4957,9 +5021,17 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
 
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil)
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            mandate_options: nil,
+            setup_future_usage: nil
+          )
+            @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
             @expires_at = expires_at
+            @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
           end
         end
@@ -5670,6 +5742,8 @@ module Stripe
       attr_accessor :description
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
       attr_accessor :error_on_requires_action
+      # The list of payment method types to exclude from use with this payment.
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
@@ -5750,6 +5824,7 @@ module Stripe
         customer_account: nil,
         description: nil,
         error_on_requires_action: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         fx_quote: nil,
         hooks: nil,
@@ -5789,6 +5864,7 @@ module Stripe
         @customer_account = customer_account
         @description = description
         @error_on_requires_action = error_on_requires_action
+        @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @fx_quote = fx_quote
         @hooks = hooks
@@ -8694,10 +8770,52 @@ module Stripe
         end
 
         class Pix < Stripe::RequestParams
+          class MandateOptions < Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            attr_accessor :start_date
+
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            )
+              @amount = amount
+              @amount_includes_iof = amount_includes_iof
+              @amount_type = amount_type
+              @currency = currency
+              @end_date = end_date
+              @payment_schedule = payment_schedule
+              @reference = reference
+              @start_date = start_date
+            end
+          end
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
           attr_accessor :expires_at
+          # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+          attr_accessor :mandate_options
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -8709,9 +8827,17 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
 
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil)
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            mandate_options: nil,
+            setup_future_usage: nil
+          )
+            @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
             @expires_at = expires_at
+            @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
           end
         end
@@ -13374,10 +13500,52 @@ module Stripe
         end
 
         class Pix < Stripe::RequestParams
+          class MandateOptions < Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            attr_accessor :start_date
+
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            )
+              @amount = amount
+              @amount_includes_iof = amount_includes_iof
+              @amount_type = amount_type
+              @currency = currency
+              @end_date = end_date
+              @payment_schedule = payment_schedule
+              @reference = reference
+              @start_date = start_date
+            end
+          end
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
           attr_accessor :expires_at
+          # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+          attr_accessor :mandate_options
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -13389,9 +13557,17 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
 
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil)
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            mandate_options: nil,
+            setup_future_usage: nil
+          )
+            @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
             @expires_at = expires_at
+            @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
           end
         end
@@ -14573,6 +14749,8 @@ module Stripe
     attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
+    # The list of payment method types to exclude from use with this payment.
+    attr_reader :excluded_payment_method_types
     # The FX Quote used for the PaymentIntent.
     attr_reader :fx_quote
     # Attribute for field hooks

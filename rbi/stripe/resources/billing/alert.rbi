@@ -17,6 +17,29 @@ module Stripe
         end
         class Lte < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
+            class CustomPricingUnitDetails < Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              sig { returns(Integer) }
+              attr_reader :created
+              # The name of the custom pricing unit.
+              sig { returns(String) }
+              attr_reader :display_name
+              # Unique identifier for the object.
+              sig { returns(String) }
+              attr_reader :id
+              # A lookup key for the custom pricing unit.
+              sig { returns(T.nilable(String)) }
+              attr_reader :lookup_key
+              # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              sig { returns(T::Hash[String, String]) }
+              attr_reader :metadata
+              # The status of the custom pricing unit.
+              sig { returns(String) }
+              attr_reader :status
+            end
+            # The custom pricing unit object.
+            sig { returns(T.nilable(CustomPricingUnitDetails)) }
+            attr_reader :custom_pricing_unit_details
             # Unique identifier for the object.
             sig { returns(String) }
             attr_reader :id
@@ -48,9 +71,6 @@ module Stripe
         # Attribute for field lte
         sig { returns(Lte) }
         attr_reader :lte
-        # Defines how the alert will behave.
-        sig { returns(String) }
-        attr_reader :recurrence
       end
       class UsageThreshold < Stripe::StripeObject
         class Filter < Stripe::StripeObject
@@ -192,13 +212,10 @@ module Stripe
           # Defines at which value the alert will fire.
           sig { returns(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Lte) }
           attr_accessor :lte
-          # Whether the alert should only fire only once, or once per billing cycle.
-          sig { returns(String) }
-          attr_accessor :recurrence
           sig {
-            params(filters: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter]), lte: ::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Lte, recurrence: String).void
+            params(filters: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter]), lte: ::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Lte).void
            }
-          def initialize(filters: nil, lte: nil, recurrence: nil); end
+          def initialize(filters: nil, lte: nil); end
         end
         class UsageThreshold < Stripe::RequestParams
           class Filter < Stripe::RequestParams

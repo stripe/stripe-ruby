@@ -7,7 +7,7 @@ module Stripe
       class RateCardSubscriptionService < StripeService
         class ListParams < Stripe::RequestParams
           class Payer < Stripe::RequestParams
-            # The ID of the Customer object. If provided, only RateCardSubscriptions that are subscribed on the Cadences with the specified Payer will be returned.
+            # The ID of the Customer object. If provided, only the Rate Card Subscriptions that are subscribed on the Billing Cadences with the specified payer will be returned.
             attr_accessor :customer
             # A string identifying the type of the payer. Currently the only supported value is `customer`.
             attr_accessor :type
@@ -21,7 +21,7 @@ module Stripe
           attr_accessor :billing_cadence
           # The page size limit, if not provided the default is 20.
           attr_accessor :limit
-          # Optionally filter by the payer associated with Cadences which the RateCardSubscriptions are subscribed to.
+          # Optionally filter by the payer associated with Billing Cadences which the Rate Card Subscriptions are subscribed to.
           # Mutually exclusive with `billing_cadence`, `rate_card`, and `rate_card_version`.
           attr_accessor :payer
           # Optionally filter by a RateCard. Mutually exclusive with `billing_cadence`, `payers`, and `rate_card_version`.
@@ -49,13 +49,13 @@ module Stripe
         end
 
         class CreateParams < Stripe::RequestParams
-          # The ID of the billing Cadence.
+          # The ID of the Billing Cadence.
           attr_accessor :billing_cadence
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
-          # The ID of the RateCard.
+          # The ID of the Rate Card.
           attr_accessor :rate_card
-          # The ID of the RateCardVersion. If not specified, defaults to the "live_version" of the RateCard at the time of creation.
+          # The ID of the Rate Card Version. If not specified, defaults to the "live_version" of the Rate Card at the time of creation.
           attr_accessor :rate_card_version
 
           def initialize(
@@ -74,7 +74,7 @@ module Stripe
         class RetrieveParams < Stripe::RequestParams; end
 
         class UpdateParams < Stripe::RequestParams
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
 
           def initialize(metadata: nil)
@@ -84,7 +84,7 @@ module Stripe
 
         class CancelParams < Stripe::RequestParams; end
 
-        # Cancel an existing, active RateCardSubscription.
+        # Cancel an existing, active Rate Card Subscription.
         def cancel(id, params = {}, opts = {})
           request(
             method: :post,
@@ -95,7 +95,7 @@ module Stripe
           )
         end
 
-        # Create a RateCardSubscription to bill a RateCard on a specified billing Cadence.
+        # Create a Rate Card Subscription to bill a Rate Card on a specified Billing Cadence.
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -106,7 +106,7 @@ module Stripe
           )
         end
 
-        # List all RateCardSubscription objects.
+        # List all Rate Card Subscription objects.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -117,7 +117,7 @@ module Stripe
           )
         end
 
-        # Retrieve a RateCardSubscription by ID.
+        # Retrieve a Rate Card Subscription by ID.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -128,7 +128,7 @@ module Stripe
           )
         end
 
-        # Update fields on an existing, active RateCardSubscription.
+        # Update fields on an existing, active Rate Card Subscription.
         def update(id, params = {}, opts = {})
           request(
             method: :post,

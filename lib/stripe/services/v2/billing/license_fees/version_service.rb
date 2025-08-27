@@ -17,7 +17,7 @@ module Stripe
 
           class RetrieveParams < Stripe::RequestParams; end
 
-          # List all versions of a LicenseFee objects.
+          # List all versions of a License Fee object.
           def list(license_fee_id, params = {}, opts = {})
             request(
               method: :get,
@@ -28,7 +28,7 @@ module Stripe
             )
           end
 
-          # Retrieve a LicenseFeeVersion object.
+          # Retrieve a License Fee Version object.
           def retrieve(license_fee_id, id, params = {}, opts = {})
             request(
               method: :get,

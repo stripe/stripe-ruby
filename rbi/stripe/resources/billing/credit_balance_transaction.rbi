@@ -9,6 +9,29 @@ module Stripe
       class Credit < Stripe::StripeObject
         class Amount < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
+            class CustomPricingUnitDetails < Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              sig { returns(Integer) }
+              attr_reader :created
+              # The name of the custom pricing unit.
+              sig { returns(String) }
+              attr_reader :display_name
+              # Unique identifier for the object.
+              sig { returns(String) }
+              attr_reader :id
+              # A lookup key for the custom pricing unit.
+              sig { returns(T.nilable(String)) }
+              attr_reader :lookup_key
+              # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              sig { returns(T::Hash[String, String]) }
+              attr_reader :metadata
+              # The status of the custom pricing unit.
+              sig { returns(String) }
+              attr_reader :status
+            end
+            # The custom pricing unit object.
+            sig { returns(T.nilable(CustomPricingUnitDetails)) }
+            attr_reader :custom_pricing_unit_details
             # Unique identifier for the object.
             sig { returns(String) }
             attr_reader :id
@@ -55,6 +78,29 @@ module Stripe
       class Debit < Stripe::StripeObject
         class Amount < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
+            class CustomPricingUnitDetails < Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              sig { returns(Integer) }
+              attr_reader :created
+              # The name of the custom pricing unit.
+              sig { returns(String) }
+              attr_reader :display_name
+              # Unique identifier for the object.
+              sig { returns(String) }
+              attr_reader :id
+              # A lookup key for the custom pricing unit.
+              sig { returns(T.nilable(String)) }
+              attr_reader :lookup_key
+              # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              sig { returns(T::Hash[String, String]) }
+              attr_reader :metadata
+              # The status of the custom pricing unit.
+              sig { returns(String) }
+              attr_reader :status
+            end
+            # The custom pricing unit object.
+            sig { returns(T.nilable(CustomPricingUnitDetails)) }
+            attr_reader :custom_pricing_unit_details
             # Unique identifier for the object.
             sig { returns(String) }
             attr_reader :id

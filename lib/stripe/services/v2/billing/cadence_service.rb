@@ -7,7 +7,7 @@ module Stripe
       class CadenceService < StripeService
         class ListParams < Stripe::RequestParams
           class Payer < Stripe::RequestParams
-            # The ID of the Customer object. If provided, only Cadences that specifically reference the provided customer ID will be returned.
+            # The ID of the Customer object. If provided, only cadences that specifically reference the provided customer ID will be returned.
             attr_accessor :customer
             # A string identifying the type of the payer. Currently the only supported value is `customer`.
             attr_accessor :type
@@ -21,9 +21,9 @@ module Stripe
           attr_accessor :include
           # Optionally set the maximum number of results per page. Defaults to 20.
           attr_accessor :limit
-          # If provided, only Cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock`.
+          # If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock`.
           attr_accessor :payer
-          # If provided, only Cadences that specifically reference the provided test clock ID (via the
+          # If provided, only cadences that specifically reference the provided test clock ID (via the
           # customer's test clock) will be returned.
           # Mutually exclusive with `payer`.
           attr_accessor :test_clock
@@ -46,12 +46,15 @@ module Stripe
                 attr_accessor :hour
                 # The minute at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
-                # Will default to the minute the cadence was created in UTC timezone.
                 attr_accessor :minute
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :second
 
-                def initialize(hour: nil, minute: nil)
+                def initialize(hour: nil, minute: nil, second: nil)
                   @hour = hour
                   @minute = minute
+                  @second = second
                 end
               end
               # The time at which the billing cycle ends.
@@ -72,12 +75,15 @@ module Stripe
                 attr_accessor :hour
                 # The minute at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
-                # Will default to the minute the cadence was created in UTC timezone.
                 attr_accessor :minute
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :second
 
-                def initialize(hour: nil, minute: nil)
+                def initialize(hour: nil, minute: nil, second: nil)
                   @hour = hour
                   @minute = minute
+                  @second = second
                 end
               end
               # The day to anchor the billing on for a type="month" billing cycle from
@@ -104,12 +110,15 @@ module Stripe
                 attr_accessor :hour
                 # The minute at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
-                # Will default to the minute the cadence was created in UTC timezone.
                 attr_accessor :minute
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :second
 
-                def initialize(hour: nil, minute: nil)
+                def initialize(hour: nil, minute: nil, second: nil)
                   @hour = hour
                   @minute = minute
+                  @second = second
                 end
               end
               # The day of the week to bill the type=week billing cycle on.
@@ -136,12 +145,15 @@ module Stripe
                 attr_accessor :hour
                 # The minute at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
-                # Will default to the minute the cadence was created in UTC timezone.
                 attr_accessor :minute
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :second
 
-                def initialize(hour: nil, minute: nil)
+                def initialize(hour: nil, minute: nil, second: nil)
                   @hour = hour
                   @minute = minute
+                  @second = second
                 end
               end
               # The day to anchor the billing on for a type="month" billing cycle from
@@ -213,7 +225,7 @@ module Stripe
 
           class Settings < Stripe::RequestParams
             class Bill < Stripe::RequestParams
-              # The ID of the referenced Settings object.
+              # The ID of the referenced settings object.
               attr_accessor :id
               # An optional field to specify the version of the Settings to use.
               # If not provided, this will always default to the live version any time the settings are used.
@@ -226,7 +238,7 @@ module Stripe
             end
 
             class Collection < Stripe::RequestParams
-              # The ID of the referenced Settings object.
+              # The ID of the referenced settings object.
               attr_accessor :id
               # An optional field to specify the version of the Settings to use.
               # If not provided, this will always default to the live version any time the settings are used.
@@ -255,8 +267,7 @@ module Stripe
           attr_accessor :billing_cycle
           # Additional resource to include in the response.
           attr_accessor :include
-          # Set of key-value pairs that you can attach to an object. This can be useful
-          # for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
           # The payer determines the entity financially responsible for the bill.
           attr_accessor :payer
@@ -293,7 +304,7 @@ module Stripe
 
           class Settings < Stripe::RequestParams
             class Bill < Stripe::RequestParams
-              # The ID of the referenced Settings object.
+              # The ID of the referenced settings object.
               attr_accessor :id
               # An optional field to specify the version of Settings to use.
               # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
@@ -308,7 +319,7 @@ module Stripe
             end
 
             class Collection < Stripe::RequestParams
-              # The ID of the referenced Settings object.
+              # The ID of the referenced settings object.
               attr_accessor :id
               # An optional field to specify the version of Settings to use.
               # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
@@ -333,7 +344,7 @@ module Stripe
           end
           # Additional resource to include in the response.
           attr_accessor :include
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
           # The payer determines the entity financially responsible for the bill.
           attr_accessor :payer
@@ -357,7 +368,7 @@ module Stripe
           end
         end
 
-        # Cancel the billing cadence.
+        # Cancel the Billing Cadence.
         def cancel(id, params = {}, opts = {})
           request(
             method: :post,
@@ -368,7 +379,7 @@ module Stripe
           )
         end
 
-        # Create a billing Cadence object.
+        # Create a Billing Cadence object.
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -379,7 +390,7 @@ module Stripe
           )
         end
 
-        # List all the billing Cadences.
+        # List Billing Cadences.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -390,7 +401,7 @@ module Stripe
           )
         end
 
-        # Retrieve a billing Cadence object.
+        # Retrieve a Billing Cadence object.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -401,7 +412,7 @@ module Stripe
           )
         end
 
-        # Update a billing Cadence object.
+        # Update a Billing Cadence object.
         def update(id, params = {}, opts = {})
           request(
             method: :post,

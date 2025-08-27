@@ -44,22 +44,22 @@ module Stripe
         # The custom pricing unit that this rate binds to.
         sig { returns(T.nilable(CustomPricingUnitAmount)) }
         attr_reader :custom_pricing_unit_amount
-        # The ID of the RateCardRate.
+        # Unique identifier for the object.
         sig { returns(String) }
         attr_reader :id
-        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_reader :metadata
-        # The MeteredItem that this rate binds to.
+        # The Metered Item that this rate binds to.
         sig { returns(Stripe::V2::Billing::MeteredItem) }
         attr_reader :metered_item
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         attr_reader :object
-        # The ID of the RateCard it belongs to.
+        # The ID of the Rate Card it belongs to.
         sig { returns(String) }
         attr_reader :rate_card
-        # The ID of the RateCard version it was created on.
+        # The ID of the Rate Card Version it was created on.
         sig { returns(String) }
         attr_reader :rate_card_version
         # Defines whether the tiering price should be graduated or volume-based. In volume-based tiering, the maximum

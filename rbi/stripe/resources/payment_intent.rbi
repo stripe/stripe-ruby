@@ -100,7 +100,7 @@ module Stripe
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
       sig { returns(String) }
       attr_reader :network_advice_code
-      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
       sig { returns(String) }
       attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
@@ -1977,12 +1977,44 @@ module Stripe
         attr_reader :setup_future_usage
       end
       class Pix < Stripe::StripeObject
+        class MandateOptions < Stripe::StripeObject
+          # Amount to be charged for future payments.
+          sig { returns(Integer) }
+          attr_reader :amount
+          # Determines if the amount includes the IOF tax.
+          sig { returns(String) }
+          attr_reader :amount_includes_iof
+          # Type of amount.
+          sig { returns(String) }
+          attr_reader :amount_type
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+          sig { returns(String) }
+          attr_reader :currency
+          # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+          sig { returns(String) }
+          attr_reader :end_date
+          # Schedule at which the future payments will be charged.
+          sig { returns(String) }
+          attr_reader :payment_schedule
+          # Subscription name displayed to buyers in their bank app.
+          sig { returns(String) }
+          attr_reader :reference
+          # Start date of the mandate, in `YYYY-MM-DD`.
+          sig { returns(String) }
+          attr_reader :start_date
+        end
+        # Determines if the amount includes the IOF tax.
+        sig { returns(String) }
+        attr_reader :amount_includes_iof
         # The number of seconds (between 10 and 1209600) after which Pix payment will expire.
         sig { returns(T.nilable(Integer)) }
         attr_reader :expires_after_seconds
         # The timestamp at which the Pix expires.
         sig { returns(T.nilable(Integer)) }
         attr_reader :expires_at
+        # Attribute for field mandate_options
+        sig { returns(MandateOptions) }
+        attr_reader :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2526,6 +2558,9 @@ module Stripe
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
     attr_reader :description
+    # The list of payment method types to exclude from use with this payment.
+    sig { returns(T.nilable(T::Array[String])) }
+    attr_reader :excluded_payment_method_types
     # The FX Quote used for the PaymentIntent.
     sig { returns(T.nilable(String)) }
     attr_reader :fx_quote
@@ -5667,12 +5702,59 @@ module Stripe
           def initialize(mandate_options: nil, setup_future_usage: nil); end
         end
         class Pix < Stripe::RequestParams
+          class MandateOptions < Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :start_date
+            sig {
+              params(amount: T.nilable(Integer), amount_includes_iof: T.nilable(String), amount_type: T.nilable(String), currency: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), reference: T.nilable(String), start_date: T.nilable(String)).void
+             }
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            ); end
+          end
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :expires_at
+          # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+          sig {
+            returns(T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::Pix::MandateOptions))
+           }
+          attr_accessor :mandate_options
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -5685,9 +5767,15 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
           sig {
-            params(expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
+            params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), mandate_options: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::Pix::MandateOptions), setup_future_usage: T.nilable(String)).void
            }
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil); end
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            mandate_options: nil,
+            setup_future_usage: nil
+          ); end
         end
         class Promptpay < Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6511,6 +6599,9 @@ module Stripe
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :error_on_requires_action
+      # The list of payment method types to exclude from use with this payment.
+      sig { returns(T.nilable(T::Array[String])) }
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
@@ -6602,7 +6693,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntent::CreateParams::AmountDetails), application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntent::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntent::CreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntent::CreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntent::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntent::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntent::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntent::CreateParams::AmountDetails), application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntent::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntent::CreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntent::CreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntent::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntent::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntent::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         amount: nil,
@@ -6618,6 +6709,7 @@ module Stripe
         customer_account: nil,
         description: nil,
         error_on_requires_action: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         fx_quote: nil,
         hooks: nil,
@@ -9618,12 +9710,59 @@ module Stripe
           def initialize(mandate_options: nil, setup_future_usage: nil); end
         end
         class Pix < Stripe::RequestParams
+          class MandateOptions < Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :start_date
+            sig {
+              params(amount: T.nilable(Integer), amount_includes_iof: T.nilable(String), amount_type: T.nilable(String), currency: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), reference: T.nilable(String), start_date: T.nilable(String)).void
+             }
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            ); end
+          end
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :expires_at
+          # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+          sig {
+            returns(T.nilable(::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::Pix::MandateOptions))
+           }
+          attr_accessor :mandate_options
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -9636,9 +9775,15 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
           sig {
-            params(expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
+            params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), mandate_options: T.nilable(::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::Pix::MandateOptions), setup_future_usage: T.nilable(String)).void
            }
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil); end
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            mandate_options: nil,
+            setup_future_usage: nil
+          ); end
         end
         class Promptpay < Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -14592,12 +14737,59 @@ module Stripe
           def initialize(mandate_options: nil, setup_future_usage: nil); end
         end
         class Pix < Stripe::RequestParams
+          class MandateOptions < Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :start_date
+            sig {
+              params(amount: T.nilable(Integer), amount_includes_iof: T.nilable(String), amount_type: T.nilable(String), currency: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), reference: T.nilable(String), start_date: T.nilable(String)).void
+             }
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            ); end
+          end
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :expires_at
+          # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+          sig {
+            returns(T.nilable(::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::Pix::MandateOptions))
+           }
+          attr_accessor :mandate_options
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -14610,9 +14802,15 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
           sig {
-            params(expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
+            params(amount_includes_iof: T.nilable(String), expires_after_seconds: T.nilable(Integer), expires_at: T.nilable(Integer), mandate_options: T.nilable(::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::Pix::MandateOptions), setup_future_usage: T.nilable(String)).void
            }
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil); end
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            mandate_options: nil,
+            setup_future_usage: nil
+          ); end
         end
         class Promptpay < Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.

@@ -187,8 +187,6 @@ module Stripe
         V2::ListObject.object_name => V2::ListObject,
 
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
-        V2::Account.object_name => V2::Account,
-        V2::AccountLink.object_name => V2::AccountLink,
         V2::Billing::BillSetting.object_name => V2::Billing::BillSetting,
         V2::Billing::BillSettingVersion.object_name => V2::Billing::BillSettingVersion,
         V2::Billing::Cadence.object_name => V2::Billing::Cadence,
@@ -196,7 +194,9 @@ module Stripe
         V2::Billing::CollectionSettingVersion.object_name => V2::Billing::CollectionSettingVersion,
         V2::Billing::CustomPricingUnit.object_name => V2::Billing::CustomPricingUnit,
         V2::Billing::Intent.object_name => V2::Billing::Intent,
+        V2::Billing::IntentAction.object_name => V2::Billing::IntentAction,
         V2::Billing::LicenseFee.object_name => V2::Billing::LicenseFee,
+        V2::Billing::LicenseFeeSubscription.object_name => V2::Billing::LicenseFeeSubscription,
         V2::Billing::LicenseFeeVersion.object_name => V2::Billing::LicenseFeeVersion,
         V2::Billing::LicensedItem.object_name => V2::Billing::LicensedItem,
         V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,
@@ -215,6 +215,7 @@ module Stripe
         V2::Billing::ServiceAction.object_name => V2::Billing::ServiceAction,
         V2::Core::Account.object_name => V2::Core::Account,
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
+        V2::Core::ClaimableSandbox.object_name => V2::Core::ClaimableSandbox,
         V2::Core::Person.object_name => V2::Core::Person,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,

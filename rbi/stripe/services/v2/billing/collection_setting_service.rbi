@@ -19,6 +19,27 @@ module Stripe
           def initialize(limit: nil, lookup_keys: nil); end
         end
         class CreateParams < Stripe::RequestParams
+          class EmailDelivery < Stripe::RequestParams
+            class PaymentDue < Stripe::RequestParams
+              # If true an email for the invoice would be generated and sent out.
+              sig { returns(T::Boolean) }
+              attr_accessor :enabled
+              # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+              sig { returns(T::Boolean) }
+              attr_accessor :include_payment_link
+              sig { params(enabled: T::Boolean, include_payment_link: T::Boolean).void }
+              def initialize(enabled: nil, include_payment_link: nil); end
+            end
+            # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::EmailDelivery::PaymentDue))
+             }
+            attr_accessor :payment_due
+            sig {
+              params(payment_due: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::EmailDelivery::PaymentDue)).void
+             }
+            def initialize(payment_due: nil); end
+          end
           class PaymentMethodOptions < Stripe::RequestParams
             class AcssDebit < Stripe::RequestParams
               class MandateOptions < Stripe::RequestParams
@@ -216,6 +237,11 @@ module Stripe
           # Maximum length of 250 characters.
           sig { returns(T.nilable(String)) }
           attr_accessor :display_name
+          # Email delivery setting.
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::EmailDelivery))
+           }
+          attr_accessor :email_delivery
           # A lookup key used to retrieve settings dynamically from a static string.
           # This may be up to 200 characters.
           sig { returns(T.nilable(String)) }
@@ -229,11 +255,12 @@ module Stripe
            }
           attr_accessor :payment_method_options
           sig {
-            params(collection_method: T.nilable(String), display_name: T.nilable(String), lookup_key: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_options: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions)).void
+            params(collection_method: T.nilable(String), display_name: T.nilable(String), email_delivery: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::EmailDelivery), lookup_key: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_options: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions)).void
            }
           def initialize(
             collection_method: nil,
             display_name: nil,
+            email_delivery: nil,
             lookup_key: nil,
             payment_method_configuration: nil,
             payment_method_options: nil
@@ -241,6 +268,27 @@ module Stripe
         end
         class RetrieveParams < Stripe::RequestParams; end
         class UpdateParams < Stripe::RequestParams
+          class EmailDelivery < Stripe::RequestParams
+            class PaymentDue < Stripe::RequestParams
+              # If true an email for the invoice would be generated and sent out.
+              sig { returns(T::Boolean) }
+              attr_accessor :enabled
+              # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+              sig { returns(T::Boolean) }
+              attr_accessor :include_payment_link
+              sig { params(enabled: T::Boolean, include_payment_link: T::Boolean).void }
+              def initialize(enabled: nil, include_payment_link: nil); end
+            end
+            # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery::PaymentDue))
+             }
+            attr_accessor :payment_due
+            sig {
+              params(payment_due: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery::PaymentDue)).void
+             }
+            def initialize(payment_due: nil); end
+          end
           class PaymentMethodOptions < Stripe::RequestParams
             class AcssDebit < Stripe::RequestParams
               class MandateOptions < Stripe::RequestParams
@@ -438,6 +486,11 @@ module Stripe
           # Maximum length of 250 characters.
           sig { returns(T.nilable(String)) }
           attr_accessor :display_name
+          # Email delivery settings.
+          sig {
+            returns(T.nilable(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery)))
+           }
+          attr_accessor :email_delivery
           # Optionally change the live version of the CollectionSetting. Billing Cadences and other objects that refer to this
           # CollectionSetting will use this version when no overrides are set. Providing `live_version = "latest"` will set the
           # CollectionSetting's `live_version` to its latest version.
@@ -456,11 +509,12 @@ module Stripe
            }
           attr_accessor :payment_method_options
           sig {
-            params(collection_method: T.nilable(String), display_name: T.nilable(String), live_version: T.nilable(String), lookup_key: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_options: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions)).void
+            params(collection_method: T.nilable(String), display_name: T.nilable(String), email_delivery: T.nilable(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery)), live_version: T.nilable(String), lookup_key: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_options: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions)).void
            }
           def initialize(
             collection_method: nil,
             display_name: nil,
+            email_delivery: nil,
             live_version: nil,
             lookup_key: nil,
             payment_method_configuration: nil,

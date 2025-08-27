@@ -343,6 +343,41 @@ module Stripe
           end
         end
 
+        class Period < Stripe::RequestParams
+          class End < Stripe::RequestParams
+            # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+            attr_accessor :timestamp
+            # Select how to calculate the end of the invoice item period.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+
+          class Start < Stripe::RequestParams
+            # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+            attr_accessor :timestamp
+            # Select how to calculate the start of the invoice item period.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+          # End of the invoice item period.
+          attr_accessor :end
+          # Start of the invoice item period.
+          attr_accessor :start
+
+          def initialize(end_: nil, start: nil)
+            @end = end_
+            @start = start
+          end
+        end
+
         class PriceData < Stripe::RequestParams
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
@@ -371,6 +406,10 @@ module Stripe
         end
         # The coupons to redeem into discounts for the item.
         attr_accessor :discounts
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
         # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
@@ -380,8 +419,18 @@ module Stripe
         # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
         attr_accessor :tax_rates
 
-        def initialize(discounts: nil, price: nil, price_data: nil, quantity: nil, tax_rates: nil)
+        def initialize(
+          discounts: nil,
+          metadata: nil,
+          period: nil,
+          price: nil,
+          price_data: nil,
+          quantity: nil,
+          tax_rates: nil
+        )
           @discounts = discounts
+          @metadata = metadata
+          @period = period
           @price = price
           @price_data = price_data
           @quantity = quantity
@@ -1137,9 +1186,9 @@ module Stripe
       attr_accessor :collection_method
       # Only return subscriptions that were created during the given date interval.
       attr_accessor :created
-      # Only return subscriptions whose current_period_end falls within the given date interval.
+      # Only return subscriptions whose minimum item current_period_end falls within the given date interval.
       attr_accessor :current_period_end
-      # Only return subscriptions whose current_period_start falls within the given date interval.
+      # Only return subscriptions whose maximum item current_period_start falls within the given date interval.
       attr_accessor :current_period_start
       # The ID of the customer whose subscriptions will be retrieved.
       attr_accessor :customer
@@ -1242,6 +1291,41 @@ module Stripe
           end
         end
 
+        class Period < Stripe::RequestParams
+          class End < Stripe::RequestParams
+            # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+            attr_accessor :timestamp
+            # Select how to calculate the end of the invoice item period.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+
+          class Start < Stripe::RequestParams
+            # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+            attr_accessor :timestamp
+            # Select how to calculate the start of the invoice item period.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+          # End of the invoice item period.
+          attr_accessor :end
+          # Start of the invoice item period.
+          attr_accessor :start
+
+          def initialize(end_: nil, start: nil)
+            @end = end_
+            @start = start
+          end
+        end
+
         class PriceData < Stripe::RequestParams
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
@@ -1270,6 +1354,10 @@ module Stripe
         end
         # The coupons to redeem into discounts for the item.
         attr_accessor :discounts
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
         # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
@@ -1279,8 +1367,18 @@ module Stripe
         # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
         attr_accessor :tax_rates
 
-        def initialize(discounts: nil, price: nil, price_data: nil, quantity: nil, tax_rates: nil)
+        def initialize(
+          discounts: nil,
+          metadata: nil,
+          period: nil,
+          price: nil,
+          price_data: nil,
+          quantity: nil,
+          tax_rates: nil
+        )
           @discounts = discounts
+          @metadata = metadata
+          @period = period
           @price = price
           @price_data = price_data
           @quantity = quantity
@@ -1312,15 +1410,15 @@ module Stripe
       end
 
       class BillingCycleAnchorConfig < Stripe::RequestParams
-        # The day of the month the billing_cycle_anchor should be. Ranges from 1 to 31.
+        # The day of the month the anchor should be. Ranges from 1 to 31.
         attr_accessor :day_of_month
-        # The hour of the day the billing_cycle_anchor should be. Ranges from 0 to 23.
+        # The hour of the day the anchor should be. Ranges from 0 to 23.
         attr_accessor :hour
-        # The minute of the hour the billing_cycle_anchor should be. Ranges from 0 to 59.
+        # The minute of the hour the anchor should be. Ranges from 0 to 59.
         attr_accessor :minute
-        # The month to start full cycle billing periods. Ranges from 1 to 12.
+        # The month to start full cycle periods. Ranges from 1 to 12.
         attr_accessor :month
-        # The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
+        # The second of the minute the anchor should be. Ranges from 0 to 59.
         attr_accessor :second
 
         def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
@@ -2178,7 +2276,7 @@ module Stripe
     # If the subscription has a trial, the beginning of that trial.
     attr_reader :trial_start
 
-    # Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
     def attach_cadence(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -2188,7 +2286,7 @@ module Stripe
       )
     end
 
-    # Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
     def self.attach_cadence(subscription, params = {}, opts = {})
       request_stripe_object(
         method: :post,

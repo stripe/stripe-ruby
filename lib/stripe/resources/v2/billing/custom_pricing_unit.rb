@@ -11,19 +11,19 @@ module Stripe
           "v2.billing.custom_pricing_unit"
         end
 
-        # Whether the CustomPricingUnit is active.
+        # Whether the custom pricing unit is active.
         attr_reader :active
         # Timestamp of when the object was created.
         attr_reader :created
         # Description that customers will see in the invoice line item.
-        # Maximum length of 250 characters.
+        # Maximum length of 10 characters.
         attr_reader :display_name
-        # The ID of the custom pricing unit.
+        # Unique identifier for the object.
         attr_reader :id
-        # An internal key you can use to search for a particular CustomPricingUnit item.
+        # An internal key you can use to search for a particular Custom Pricing Unit.
         # Maximum length of 200 characters.
         attr_reader :lookup_key
-        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object

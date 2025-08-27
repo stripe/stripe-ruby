@@ -12,9 +12,9 @@ module Stripe
 
         # Time at which the object was created.
         attr_reader :created
-        # The timestamp when this version became inactive.
+        # The timestamp when this version became inactive. Null if it's the latest version.
         attr_reader :end_date
-        # Unique identifier for the PricingPlanVersion.
+        # Unique identifier for the object.
         attr_reader :id
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object

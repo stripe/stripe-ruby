@@ -17,7 +17,7 @@ module Stripe
 
           class RetrieveParams < Stripe::RequestParams; end
 
-          # List all versions of a PricingPlan.
+          # List all Pricing Plan Versions of a Pricing Plan.
           def list(pricing_plan_id, params = {}, opts = {})
             request(
               method: :get,
@@ -28,7 +28,7 @@ module Stripe
             )
           end
 
-          # Retrieve a specific version of a PricingPlan.
+          # Retrieve a specific Pricing Plan Version of a Pricing Plan.
           def retrieve(pricing_plan_id, id, params = {}, opts = {})
             request(
               method: :get,

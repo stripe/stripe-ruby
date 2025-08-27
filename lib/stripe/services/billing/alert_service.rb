@@ -94,13 +94,10 @@ module Stripe
           attr_accessor :filters
           # Defines at which value the alert will fire.
           attr_accessor :lte
-          # Whether the alert should only fire only once, or once per billing cycle.
-          attr_accessor :recurrence
 
-          def initialize(filters: nil, lte: nil, recurrence: nil)
+          def initialize(filters: nil, lte: nil)
             @filters = filters
             @lte = lte
-            @recurrence = recurrence
           end
         end
 

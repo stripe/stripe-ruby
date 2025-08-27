@@ -12,7 +12,7 @@ module Stripe
             # Filter by lookup keys. Mutually exclusive with `pricing_plan_version`.
             # You can specify up to 10 lookup keys.
             attr_accessor :lookup_keys
-            # The ID of the PricingPlanVersion to list components for. Will use the latest version if not provided.
+            # The ID of the Pricing Plan Version to list components for. Will use the latest version if not provided.
             # Mutually exclusive with `lookup_keys`.
             attr_accessor :pricing_plan_version
 
@@ -25,9 +25,9 @@ module Stripe
 
           class CreateParams < Stripe::RequestParams
             class LicenseFee < Stripe::RequestParams
-              # The ID of the LicenseFee.
+              # The ID of the License Fee.
               attr_accessor :id
-              # The version of the LicenseFee.
+              # The version of the LicenseFee. Defaults to 'latest', if not specified.
               attr_accessor :version
 
               def initialize(id: nil, version: nil)
@@ -37,9 +37,9 @@ module Stripe
             end
 
             class RateCard < Stripe::RequestParams
-              # The ID of the RateCard.
+              # The ID of the Rate Card.
               attr_accessor :id
-              # The version of the RateCard.
+              # The version of the RateCard. Defaults to 'latest', if not specified.
               attr_accessor :version
 
               def initialize(id: nil, version: nil)
@@ -49,27 +49,24 @@ module Stripe
             end
 
             class ServiceAction < Stripe::RequestParams
-              # The ID of the ServiceAction.
+              # The ID of the service action.
               attr_accessor :id
-              # The version of the ServiceAction.
-              attr_accessor :version
 
-              def initialize(id: nil, version: nil)
+              def initialize(id: nil)
                 @id = id
-                @version = version
               end
             end
             # An identifier that can be used to find this component.
             attr_accessor :lookup_key
-            # Set of key-value pairs that you can attach to an object.
+            # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             attr_accessor :metadata
             # The type of the PricingPlanComponent.
             attr_accessor :type
-            # Details if this component is a LicenseFee.
+            # Details if this component is a License Fee.
             attr_accessor :license_fee
-            # Details if this component is a RateCard.
+            # Details if this component is a Rate Card.
             attr_accessor :rate_card
-            # Details if this component is a ServiceAction.
+            # Details if this component is a Service Action.
             attr_accessor :service_action
 
             def initialize(
@@ -104,7 +101,7 @@ module Stripe
             end
           end
 
-          # Create a PricingPlanComponent object.
+          # Create a Pricing Plan Component object.
           def create(pricing_plan_id, params = {}, opts = {})
             request(
               method: :post,
@@ -115,7 +112,7 @@ module Stripe
             )
           end
 
-          # Remove a PricingPlanComponent from the latest version of a PricingPlan.
+          # Remove a Pricing Plan Component from the latest version of a Pricing Plan.
           def delete(pricing_plan_id, id, params = {}, opts = {})
             request(
               method: :delete,
@@ -126,7 +123,7 @@ module Stripe
             )
           end
 
-          # List all PricingPlanComponent objects for a PricingPlan.
+          # List all Pricing Plan Component objects for a Pricing Plan.
           def list(pricing_plan_id, params = {}, opts = {})
             request(
               method: :get,
@@ -137,7 +134,7 @@ module Stripe
             )
           end
 
-          # Retrieve a PricingPlanComponent object.
+          # Retrieve a Pricing Plan Component object.
           def retrieve(pricing_plan_id, id, params = {}, opts = {})
             request(
               method: :get,
@@ -148,7 +145,7 @@ module Stripe
             )
           end
 
-          # Update a PricingPlanComponent object.
+          # Update a Pricing Plan Component object.
           def update(pricing_plan_id, id, params = {}, opts = {})
             request(
               method: :post,

@@ -93,7 +93,7 @@ module Stripe
         end
         # Timestamp of when the object was created.
         attr_reader :created
-        # Unique identifier for the ServiceAction.
+        # Unique identifier for the object.
         attr_reader :id
         # An internal key you can use to search for this service action.
         attr_reader :lookup_key

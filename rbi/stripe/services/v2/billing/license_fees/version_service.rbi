@@ -15,13 +15,13 @@ module Stripe
             def initialize(limit: nil); end
           end
           class RetrieveParams < Stripe::RequestParams; end
-          # List all versions of a LicenseFee objects.
+          # List all versions of a License Fee object.
           sig {
             params(license_fee_id: String, params: T.any(::Stripe::V2::Billing::LicenseFees::VersionService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
            }
           def list(license_fee_id, params = {}, opts = {}); end
 
-          # Retrieve a LicenseFeeVersion object.
+          # Retrieve a License Fee Version object.
           sig {
             params(license_fee_id: String, id: String, params: T.any(::Stripe::V2::Billing::LicenseFees::VersionService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::LicenseFeeVersion)
            }

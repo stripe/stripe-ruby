@@ -2384,6 +2384,8 @@ module Stripe
                   @phone = phone
                 end
               end
+              # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+              attr_accessor :applied
               # Automatic indirect tax settings to be used when automatic tax calculation is enabled on the customer's invoices, subscriptions, checkout sessions, or payment links. Surfaces if automatic tax calculation is possible given the current customer location information.
               attr_accessor :automatic_indirect_tax
               # Billing settings - default settings used for this customer in Billing flows such as Invoices and Subscriptions.
@@ -2396,12 +2398,14 @@ module Stripe
               attr_accessor :test_clock
 
               def initialize(
+                applied: nil,
                 automatic_indirect_tax: nil,
                 billing: nil,
                 capabilities: nil,
                 shipping: nil,
                 test_clock: nil
               )
+                @applied = applied
                 @automatic_indirect_tax = automatic_indirect_tax
                 @billing = billing
                 @capabilities = capabilities
@@ -3099,6 +3103,8 @@ module Stripe
                   @url = url
                 end
               end
+              # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+              attr_accessor :applied
               # Settings used for Bacs debit payments.
               attr_accessor :bacs_debit_payments
               # Settings used to apply the merchant's branding to email receipts, invoices, Checkout, and other products.
@@ -3115,6 +3121,7 @@ module Stripe
               attr_accessor :support
 
               def initialize(
+                applied: nil,
                 bacs_debit_payments: nil,
                 branding: nil,
                 capabilities: nil,
@@ -3123,6 +3130,7 @@ module Stripe
                 statement_descriptor: nil,
                 support: nil
               )
+                @applied = applied
                 @bacs_debit_payments = bacs_debit_payments
                 @branding = branding
                 @capabilities = capabilities
@@ -3202,12 +3210,15 @@ module Stripe
                   @stripe_balance = stripe_balance
                 end
               end
+              # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+              attr_accessor :applied
               # Capabilities to request on the Recipient Configuration.
               attr_accessor :capabilities
               # The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination.
               attr_accessor :default_outbound_destination
 
-              def initialize(capabilities: nil, default_outbound_destination: nil)
+              def initialize(applied: nil, capabilities: nil, default_outbound_destination: nil)
+                @applied = applied
                 @capabilities = capabilities
                 @default_outbound_destination = default_outbound_destination
               end
@@ -3360,10 +3371,13 @@ module Stripe
                   @outbound_transfers = outbound_transfers
                 end
               end
+              # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+              attr_accessor :applied
               # Capabilities to request on the Storer Configuration.
               attr_accessor :capabilities
 
-              def initialize(capabilities: nil)
+              def initialize(applied: nil, capabilities: nil)
+                @applied = applied
                 @capabilities = capabilities
               end
             end

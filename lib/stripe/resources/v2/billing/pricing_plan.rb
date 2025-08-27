@@ -21,7 +21,7 @@ module Stripe
         attr_reader :description
         # Display name of the PricingPlan.
         attr_reader :display_name
-        # Unique identifier for the PricingPlan.
+        # Unique identifier for the object.
         attr_reader :id
         # The ID of the latest version of the PricingPlan.
         attr_reader :latest_version
@@ -29,7 +29,7 @@ module Stripe
         attr_reader :live_version
         # An internal key you can use to search for a particular PricingPlan. Maximum length of 200 characters.
         attr_reader :lookup_key
-        # Set of key-value pairs that you can attach to an object.
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object

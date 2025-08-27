@@ -4,7 +4,7 @@ module Stripe
   class V1Services < StripeService
     # v1 accessors: The beginning of the section generated from our OpenAPI spec
     attr_reader :accounts
-    attr_reader :account_links, :account_notices, :account_sessions, :apple_pay_domains, :application_fees, :apps, :balance, :balance_settings, :balance_transactions, :billing, :billing_portal, :capital, :charges, :checkout, :climate, :confirmation_tokens, :test_helpers, :country_specs, :coupons, :credit_notes, :customers, :customer_sessions, :disputes, :entitlements, :ephemeral_keys, :events, :exchange_rates, :files, :file_links, :financial_connections, :forwarding, :fx_quotes, :identity, :invoices, :invoice_rendering_templates, :invoice_items, :issuing, :mandates, :margins, :orders, :payment_attempt_records, :payment_intents, :payment_links, :payment_methods, :payment_method_configurations, :payment_method_domains, :payment_records, :payouts, :plans, :prices, :privacy, :products, :promotion_codes, :quotes, :radar, :refunds, :reporting, :reviews, :sigma, :setup_attempts, :setup_intents, :shipping_rates, :sources, :subscriptions, :subscription_items, :subscription_schedules, :tax, :tax_codes, :tax_ids, :tax_rates, :terminal, :tokens, :topups, :transfers, :treasury, :webhook_endpoints, :external_accounts
+    attr_reader :account_links, :account_notices, :account_sessions, :apple_pay_domains, :application_fees, :apps, :balance, :balance_settings, :balance_transactions, :billing, :billing_portal, :capital, :charges, :checkout, :climate, :confirmation_tokens, :country_specs, :coupons, :credit_notes, :customers, :customer_sessions, :disputes, :entitlements, :ephemeral_keys, :events, :exchange_rates, :external_accounts, :files, :file_links, :financial_connections, :forwarding, :fx_quotes, :identity, :invoices, :invoice_items, :invoice_payments, :invoice_rendering_templates, :issuing, :mandates, :margins, :orders, :payment_attempt_records, :payment_intents, :payment_links, :payment_methods, :payment_method_configurations, :payment_method_domains, :payment_records, :payouts, :plans, :prices, :privacy, :products, :promotion_codes, :quotes, :radar, :refunds, :reporting, :reviews, :setup_attempts, :setup_intents, :shipping_rates, :sigma, :sources, :subscriptions, :subscription_items, :subscription_schedules, :tax, :tax_codes, :tax_ids, :tax_rates, :terminal, :test_helpers, :tokens, :topups, :transfers, :treasury, :webhook_endpoints
     # v1 accessors: The end of the section generated from our OpenAPI spec
 
     # OAuthService is manually maintained, as it has special behaviors
@@ -30,7 +30,6 @@ module Stripe
       @checkout = Stripe::CheckoutService.new(@requestor)
       @climate = Stripe::ClimateService.new(@requestor)
       @confirmation_tokens = Stripe::ConfirmationTokenService.new(@requestor)
-      @test_helpers = Stripe::TestHelpersService.new(@requestor)
       @country_specs = Stripe::CountrySpecService.new(@requestor)
       @coupons = Stripe::CouponService.new(@requestor)
       @credit_notes = Stripe::CreditNoteService.new(@requestor)
@@ -41,6 +40,7 @@ module Stripe
       @ephemeral_keys = Stripe::EphemeralKeyService.new(@requestor)
       @events = Stripe::EventService.new(@requestor)
       @exchange_rates = Stripe::ExchangeRateService.new(@requestor)
+      @external_accounts = Stripe::ExternalAccountService.new(@requestor)
       @files = Stripe::FileService.new(@requestor)
       @file_links = Stripe::FileLinkService.new(@requestor)
       @financial_connections = Stripe::FinancialConnectionsService.new(@requestor)
@@ -48,8 +48,9 @@ module Stripe
       @fx_quotes = Stripe::FxQuoteService.new(@requestor)
       @identity = Stripe::IdentityService.new(@requestor)
       @invoices = Stripe::InvoiceService.new(@requestor)
-      @invoice_rendering_templates = Stripe::InvoiceRenderingTemplateService.new(@requestor)
       @invoice_items = Stripe::InvoiceItemService.new(@requestor)
+      @invoice_payments = Stripe::InvoicePaymentService.new(@requestor)
+      @invoice_rendering_templates = Stripe::InvoiceRenderingTemplateService.new(@requestor)
       @issuing = Stripe::IssuingService.new(@requestor)
       @mandates = Stripe::MandateService.new(@requestor)
       @margins = Stripe::MarginService.new(@requestor)
@@ -72,10 +73,10 @@ module Stripe
       @refunds = Stripe::RefundService.new(@requestor)
       @reporting = Stripe::ReportingService.new(@requestor)
       @reviews = Stripe::ReviewService.new(@requestor)
-      @sigma = Stripe::SigmaService.new(@requestor)
       @setup_attempts = Stripe::SetupAttemptService.new(@requestor)
       @setup_intents = Stripe::SetupIntentService.new(@requestor)
       @shipping_rates = Stripe::ShippingRateService.new(@requestor)
+      @sigma = Stripe::SigmaService.new(@requestor)
       @sources = Stripe::SourceService.new(@requestor)
       @subscriptions = Stripe::SubscriptionService.new(@requestor)
       @subscription_items = Stripe::SubscriptionItemService.new(@requestor)
@@ -85,12 +86,12 @@ module Stripe
       @tax_ids = Stripe::TaxIdService.new(@requestor)
       @tax_rates = Stripe::TaxRateService.new(@requestor)
       @terminal = Stripe::TerminalService.new(@requestor)
+      @test_helpers = Stripe::TestHelpersService.new(@requestor)
       @tokens = Stripe::TokenService.new(@requestor)
       @topups = Stripe::TopupService.new(@requestor)
       @transfers = Stripe::TransferService.new(@requestor)
       @treasury = Stripe::TreasuryService.new(@requestor)
       @webhook_endpoints = Stripe::WebhookEndpointService.new(@requestor)
-      @external_accounts = Stripe::ExternalAccountService.new(@requestor)
       # v1 services: The end of the section generated from our OpenAPI spec
 
       @oauth = OAuthService.new(@requestor)

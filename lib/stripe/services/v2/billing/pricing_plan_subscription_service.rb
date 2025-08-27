@@ -7,7 +7,7 @@ module Stripe
       class PricingPlanSubscriptionService < StripeService
         class ListParams < Stripe::RequestParams
           class Payer < Stripe::RequestParams
-            # The ID of the Customer object. If provided, only PricingPlanSubscriptions that are subscribed on the Cadences with the specified Payer will be returned.
+            # The ID of the Customer object. If provided, only Pricing Plan Subscriptions that are subscribed on the cadences with the specified payer will be returned.
             attr_accessor :customer
             # A string identifying the type of the payer. Currently the only supported value is `customer`.
             attr_accessor :type
@@ -17,7 +17,7 @@ module Stripe
               @type = type
             end
           end
-          # Filter by Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
+          # Filter by Billing Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
           attr_accessor :billing_cadence
           # Optionally set the maximum number of results per page. Defaults to 20.
           attr_accessor :limit
@@ -25,7 +25,7 @@ module Stripe
           attr_accessor :payer
           # Filter by PricingPlan ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan_version`.
           attr_accessor :pricing_plan
-          # Filter by PricingPlanVersion ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan`.
+          # Filter by Pricing Plan Version ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan`.
           attr_accessor :pricing_plan_version
           # Filter by servicing status.
           attr_accessor :servicing_status
@@ -49,7 +49,7 @@ module Stripe
 
         class RetrieveParams < Stripe::RequestParams; end
 
-        # List all PricingPlanSubscription objects.
+        # List all Pricing Plan Subscription objects.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -60,7 +60,7 @@ module Stripe
           )
         end
 
-        # Retrieve a PricingPlanSubscription object.
+        # Retrieve a Pricing Plan Subscription object.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

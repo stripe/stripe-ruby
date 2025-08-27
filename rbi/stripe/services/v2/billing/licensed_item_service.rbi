@@ -10,8 +10,12 @@ module Stripe
           # Optionally set the maximum number of results per page. Defaults to 20.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
-          sig { params(limit: T.nilable(Integer)).void }
-          def initialize(limit: nil); end
+          # Filter by lookup keys.
+          # You can specify up to 10 lookup keys.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :lookup_keys
+          sig { params(limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String])).void }
+          def initialize(limit: nil, lookup_keys: nil); end
         end
         class CreateParams < Stripe::RequestParams
           class TaxDetails < Stripe::RequestParams
@@ -30,7 +34,7 @@ module Stripe
           # Maximum length of 200 characters.
           sig { returns(T.nilable(String)) }
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, String])) }
           attr_accessor :metadata
           # Stripe Tax details.
@@ -72,7 +76,7 @@ module Stripe
           # To remove the lookup_key from the object, set it to null in the request.
           sig { returns(T.nilable(T.nilable(String))) }
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
           attr_accessor :metadata
           # Stripe Tax details.
@@ -96,25 +100,25 @@ module Stripe
             unit_label: nil
           ); end
         end
-        # Create a LicensedItem object.
+        # Create a Licensed Item object.
         sig {
           params(params: T.any(::Stripe::V2::Billing::LicensedItemService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::LicensedItem)
          }
         def create(params = {}, opts = {}); end
 
-        # List all LicensedItem objects in reverse chronological order of creation.
+        # List all Licensed Item objects in reverse chronological order of creation.
         sig {
           params(params: T.any(::Stripe::V2::Billing::LicensedItemService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
-        # Retrieve a LicensedItem object.
+        # Retrieve a Licensed Item object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::LicensedItemService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::LicensedItem)
          }
         def retrieve(id, params = {}, opts = {}); end
 
-        # Update a LicensedItem object. At least one of the fields is required.
+        # Update a Licensed Item object. At least one of the fields is required.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::LicensedItemService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::LicensedItem)
          }

@@ -31,27 +31,27 @@ module Stripe
           # When the servicing status transitioned to paused.
           attr_reader :paused_at
         end
-        # The ID of the billing Cadence.
+        # The ID of the Billing Cadence.
         attr_reader :billing_cadence
-        # The payment status of a RateCardSubscription.
+        # The payment status of a Rate Card Subscription.
         attr_reader :collection_status
-        # The collection status transitions of the RateCardSubscription.
+        # The collection status transitions of the Rate Card Subscription.
         attr_reader :collection_status_transitions
         # Timestamp of when the object was created.
         attr_reader :created
-        # The ID of the RateCardSubscription.
+        # Unique identifier for the object.
         attr_reader :id
-        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # The ID of the RateCard.
+        # The ID of the Rate Card.
         attr_reader :rate_card
-        # The ID of the RateCardVersion.
+        # The ID of the Rate Card Version.
         attr_reader :rate_card_version
-        # The servicing status of a RateCardSubscription.
+        # The servicing status of a Rate Card Subscription.
         attr_reader :servicing_status
-        # The servicing status transitions of the RateCardSubscription.
+        # The servicing status transitions of the Rate Card Subscription.
         attr_reader :servicing_status_transitions
         # The ID of the Test Clock, if any.
         attr_reader :test_clock

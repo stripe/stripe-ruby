@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module Billing
-      # A MeteredItem represents a billable item whose pricing is based on usage, measured by a Meter. You can use RateCards
-      # to specify the pricing and create Subscriptions to these items.
+      # A Metered Item represents a billable item whose pricing is based on usage, measured by a meter. You can use rate cards
+      # to specify the pricing and create subscriptions to these items.
       class MeteredItem < APIResource
         OBJECT_NAME = "v2.billing.metered_item"
         def self.object_name
@@ -15,7 +15,7 @@ module Stripe
         class MeterSegmentCondition < Stripe::StripeObject
           # A Meter dimension.
           attr_reader :dimension
-          # To count usage towards this MeteredItem, the dimension must have this value.
+          # To count usage towards this metered item, the dimension must have this value.
           attr_reader :value
         end
 
@@ -28,16 +28,16 @@ module Stripe
         # Description that customers will see in the invoice line item.
         # Maximum length of 250 characters.
         attr_reader :display_name
-        # The ID of the MeteredItem.
+        # Unique identifier for the object.
         attr_reader :id
         # Optional array of Meter dimensions to group event dimension keys for invoice line items.
         attr_reader :invoice_presentation_dimensions
         # An internal key you can use to search for a particular billable item.
         # Maximum length of 200 characters.
         attr_reader :lookup_key
-        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
-        # ID of the Meter that measures usage for this MeteredItem.
+        # ID of the Meter that measures usage for this Metered Item.
         attr_reader :meter
         # Optional array of Meter segments to filter event dimension keys for billing.
         attr_reader :meter_segment_conditions

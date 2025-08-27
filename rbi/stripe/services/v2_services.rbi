@@ -4,8 +4,6 @@
 # typed: true
 module Stripe
   class V2Services < StripeService
-    attr_reader :account_links
-    attr_reader :accounts
     attr_reader :billing
     attr_reader :core
     attr_reader :money_management

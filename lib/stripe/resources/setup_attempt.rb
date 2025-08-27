@@ -169,6 +169,7 @@ module Stripe
       class NzBankAccount < Stripe::StripeObject; end
       class Paypal < Stripe::StripeObject; end
       class Payto < Stripe::StripeObject; end
+      class Pix < Stripe::StripeObject; end
       class RevolutPay < Stripe::StripeObject; end
       class SepaDebit < Stripe::StripeObject; end
 
@@ -233,6 +234,8 @@ module Stripe
       attr_reader :paypal
       # Attribute for field payto
       attr_reader :payto
+      # Attribute for field pix
+      attr_reader :pix
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
       # Attribute for field sepa_debit
@@ -262,7 +265,7 @@ module Stripe
       attr_reader :message
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
       attr_reader :network_advice_code
-      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
       attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
       attr_reader :param

@@ -111,7 +111,7 @@ module Stripe
         # Timestamp of when the object was created.
         sig { returns(String) }
         attr_reader :created
-        # Unique identifier for the ServiceAction.
+        # Unique identifier for the object.
         sig { returns(String) }
         attr_reader :id
         # An internal key you can use to search for this service action.

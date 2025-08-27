@@ -5,8 +5,8 @@
 module Stripe
   module V2
     class ReportingService < StripeService
-      attr_reader :report_runs
       attr_reader :reports
+      attr_reader :report_runs
     end
   end
 end

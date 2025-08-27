@@ -795,8 +795,30 @@ module Stripe
         end
 
         class Pix < Stripe::StripeObject
+          class MandateOptions < Stripe::StripeObject
+            # Amount to be charged for future payments.
+            attr_reader :amount
+            # Determines if the amount includes the IOF tax.
+            attr_reader :amount_includes_iof
+            # Type of amount.
+            attr_reader :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+            attr_reader :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            attr_reader :end_date
+            # Schedule at which the future payments will be charged.
+            attr_reader :payment_schedule
+            # Subscription name displayed to buyers in their bank app.
+            attr_reader :reference
+            # Start date of the mandate, in `YYYY-MM-DD`.
+            attr_reader :start_date
+          end
+          # Determines if the amount includes the IOF tax.
+          attr_reader :amount_includes_iof
           # The number of seconds after which Pix payment will expire.
           attr_reader :expires_after_seconds
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1121,6 +1143,31 @@ module Stripe
       end
 
       class CheckoutItem < Stripe::StripeObject
+        class PricingPlanSubscriptionItem < Stripe::StripeObject
+          class ComponentConfigurations < Stripe::StripeObject
+            class LicenseFeeComponent < Stripe::StripeObject
+              # Attribute for field quantity
+              attr_reader :quantity
+            end
+            # Attribute for field type
+            attr_reader :type
+            # Attribute for field license_fee_component
+            attr_reader :license_fee_component
+          end
+          # Attribute for field pricing_plan
+          attr_reader :pricing_plan
+          # Attribute for field pricing_plan_version
+          attr_reader :pricing_plan_version
+          # Attribute for field metadata
+          attr_reader :metadata
+          # Attribute for field component_configurations
+          attr_reader :component_configurations
+          # Attribute for field pricing_plan_subscription
+          attr_reader :pricing_plan_subscription
+          # Attribute for field billing_cadence
+          attr_reader :billing_cadence
+        end
+
         class RateCardSubscriptionItem < Stripe::StripeObject
           # Attribute for field rate_card
           attr_reader :rate_card
@@ -1133,12 +1180,12 @@ module Stripe
           # Attribute for field rate_card_subscription
           attr_reader :rate_card_subscription
         end
-        # Attribute for field key
-        attr_reader :key
         # Attribute for field type
         attr_reader :type
         # Attribute for field rate_card_subscription_item
         attr_reader :rate_card_subscription_item
+        # Attribute for field pricing_plan_subscription_item
+        attr_reader :pricing_plan_subscription_item
       end
 
       class ListParams < Stripe::RequestParams
@@ -1280,6 +1327,48 @@ module Stripe
         end
 
         class CheckoutItem < Stripe::RequestParams
+          class PricingPlanSubscriptionItem < Stripe::RequestParams
+            class ComponentConfigurations < Stripe::RequestParams
+              class LicenseFeeComponent < Stripe::RequestParams
+                # Attribute for param field quantity
+                attr_accessor :quantity
+
+                def initialize(quantity: nil)
+                  @quantity = quantity
+                end
+              end
+              # Attribute for param field type
+              attr_accessor :type
+              # Attribute for param field license_fee_component
+              attr_accessor :license_fee_component
+
+              def initialize(type: nil, license_fee_component: nil)
+                @type = type
+                @license_fee_component = license_fee_component
+              end
+            end
+            # Attribute for param field pricing_plan
+            attr_accessor :pricing_plan
+            # Attribute for param field pricing_plan_version
+            attr_accessor :pricing_plan_version
+            # Attribute for param field metadata
+            attr_accessor :metadata
+            # Attribute for param field component_configurations
+            attr_accessor :component_configurations
+
+            def initialize(
+              pricing_plan: nil,
+              pricing_plan_version: nil,
+              metadata: nil,
+              component_configurations: nil
+            )
+              @pricing_plan = pricing_plan
+              @pricing_plan_version = pricing_plan_version
+              @metadata = metadata
+              @component_configurations = component_configurations
+            end
+          end
+
           class RateCardSubscriptionItem < Stripe::RequestParams
             # Attribute for param field rate_card
             attr_accessor :rate_card
@@ -1294,17 +1383,21 @@ module Stripe
               @rate_card_version = rate_card_version
             end
           end
-          # Attribute for param field key
-          attr_accessor :key
           # Attribute for param field type
           attr_accessor :type
           # Attribute for param field rate_card_subscription_item
           attr_accessor :rate_card_subscription_item
+          # Attribute for param field pricing_plan_subscription_item
+          attr_accessor :pricing_plan_subscription_item
 
-          def initialize(key: nil, type: nil, rate_card_subscription_item: nil)
-            @key = key
+          def initialize(
+            type: nil,
+            rate_card_subscription_item: nil,
+            pricing_plan_subscription_item: nil
+          )
             @type = type
             @rate_card_subscription_item = rate_card_subscription_item
+            @pricing_plan_subscription_item = pricing_plan_subscription_item
           end
         end
 
@@ -1514,13 +1607,46 @@ module Stripe
         end
 
         class Discount < Stripe::RequestParams
+          class CouponData < Stripe::RequestParams
+            # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+            attr_accessor :amount_off
+            # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+            attr_accessor :currency
+            # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+            attr_accessor :duration
+            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            attr_accessor :metadata
+            # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+            attr_accessor :name
+            # A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+            attr_accessor :percent_off
+
+            def initialize(
+              amount_off: nil,
+              currency: nil,
+              duration: nil,
+              metadata: nil,
+              name: nil,
+              percent_off: nil
+            )
+              @amount_off = amount_off
+              @currency = currency
+              @duration = duration
+              @metadata = metadata
+              @name = name
+              @percent_off = percent_off
+            end
+          end
           # The ID of the coupon to apply to this Session.
           attr_accessor :coupon
+          # Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+          attr_accessor :coupon_data
           # The ID of a promotion code to apply to this Session.
           attr_accessor :promotion_code
 
-          def initialize(coupon: nil, promotion_code: nil)
+          def initialize(coupon: nil, coupon_data: nil, promotion_code: nil)
             @coupon = coupon
+            @coupon_data = coupon_data
             @promotion_code = promotion_code
           end
         end
@@ -2646,8 +2772,50 @@ module Stripe
           end
 
           class Pix < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+              attr_accessor :amount
+              # Determines if the amount includes the IOF tax. Defaults to `never`.
+              attr_accessor :amount_includes_iof
+              # Type of amount. Defaults to `maximum`.
+              attr_accessor :amount_type
+              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+              attr_accessor :currency
+              # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+              attr_accessor :end_date
+              # Schedule at which the future payments will be charged. Defaults to `weekly`.
+              attr_accessor :payment_schedule
+              # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+              attr_accessor :reference
+              # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+              attr_accessor :start_date
+
+              def initialize(
+                amount: nil,
+                amount_includes_iof: nil,
+                amount_type: nil,
+                currency: nil,
+                end_date: nil,
+                payment_schedule: nil,
+                reference: nil,
+                start_date: nil
+              )
+                @amount = amount
+                @amount_includes_iof = amount_includes_iof
+                @amount_type = amount_type
+                @currency = currency
+                @end_date = end_date
+                @payment_schedule = payment_schedule
+                @reference = reference
+                @start_date = start_date
+              end
+            end
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
             # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
             attr_accessor :expires_after_seconds
+            # Additional fields for mandate creation.
+            attr_accessor :mandate_options
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2657,8 +2825,15 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(expires_after_seconds: nil, setup_future_usage: nil)
+            def initialize(
+              amount_includes_iof: nil,
+              expires_after_seconds: nil,
+              mandate_options: nil,
+              setup_future_usage: nil
+            )
+              @amount_includes_iof = amount_includes_iof
               @expires_after_seconds = expires_after_seconds
+              @mandate_options = mandate_options
               @setup_future_usage = setup_future_usage
             end
           end
@@ -3411,7 +3586,7 @@ module Stripe
         #
         # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
         attr_accessor :optional_items
-        # Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `custom`.
+        # Where the user is coming from. This informs the optimizations that are applied to the session.
         attr_accessor :origin_context
         # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
         attr_accessor :payment_intent_data

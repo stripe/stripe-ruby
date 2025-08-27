@@ -130,8 +130,32 @@ module Stripe
           # ID of the promotion code to create a new discount for.
           attr_reader :promotion_code
         end
+
+        class Period < Stripe::StripeObject
+          class End < Stripe::StripeObject
+            # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+            attr_reader :timestamp
+            # Select how to calculate the end of the invoice item period.
+            attr_reader :type
+          end
+
+          class Start < Stripe::StripeObject
+            # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+            attr_reader :timestamp
+            # Select how to calculate the start of the invoice item period.
+            attr_reader :type
+          end
+          # Attribute for field end
+          attr_reader :end
+          # Attribute for field start
+          attr_reader :start
+        end
         # The stackable discounts that will be applied to the item.
         attr_reader :discounts
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        attr_reader :metadata
+        # Attribute for field period
+        attr_reader :period
         # ID of the price used to generate the invoice item.
         attr_reader :price
         # The quantity of the invoice item.

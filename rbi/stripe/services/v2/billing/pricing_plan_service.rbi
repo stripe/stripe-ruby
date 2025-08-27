@@ -37,7 +37,7 @@ module Stripe
           # An internal key you can use to search for a particular PricingPlan. Maximum length of 200 characters.
           sig { returns(T.nilable(String)) }
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to a PricingPlan.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, String])) }
           attr_accessor :metadata
           # The Stripe Tax tax behavior - whether the PricingPlan is inclusive or exclusive of tax.
@@ -87,25 +87,25 @@ module Stripe
             metadata: nil
           ); end
         end
-        # Create a PricingPlan object.
+        # Create a Pricing Plan object.
         sig {
           params(params: T.any(::Stripe::V2::Billing::PricingPlanService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::PricingPlan)
          }
         def create(params = {}, opts = {}); end
 
-        # List all PricingPlan objects.
+        # List all Pricing Plan objects.
         sig {
           params(params: T.any(::Stripe::V2::Billing::PricingPlanService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
-        # Retrieve a PricingPlan object.
+        # Retrieve a Pricing Plan object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::PricingPlanService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::PricingPlan)
          }
         def retrieve(id, params = {}, opts = {}); end
 
-        # Update a PricingPlan object.
+        # Update a Pricing Plan object.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::PricingPlanService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::PricingPlan)
          }

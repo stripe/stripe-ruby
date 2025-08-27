@@ -23,6 +23,22 @@ module Stripe
 
         class Lte < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
+            class CustomPricingUnitDetails < Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              attr_reader :created
+              # The name of the custom pricing unit.
+              attr_reader :display_name
+              # Unique identifier for the object.
+              attr_reader :id
+              # A lookup key for the custom pricing unit.
+              attr_reader :lookup_key
+              # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              attr_reader :metadata
+              # The status of the custom pricing unit.
+              attr_reader :status
+            end
+            # The custom pricing unit object.
+            attr_reader :custom_pricing_unit_details
             # Unique identifier for the object.
             attr_reader :id
             # A positive decimal string representing the amount.
@@ -46,8 +62,6 @@ module Stripe
         attr_reader :filters
         # Attribute for field lte
         attr_reader :lte
-        # Defines how the alert will behave.
-        attr_reader :recurrence
       end
 
       class UsageThreshold < Stripe::StripeObject
@@ -157,13 +171,10 @@ module Stripe
           attr_accessor :filters
           # Defines at which value the alert will fire.
           attr_accessor :lte
-          # Whether the alert should only fire only once, or once per billing cycle.
-          attr_accessor :recurrence
 
-          def initialize(filters: nil, lte: nil, recurrence: nil)
+          def initialize(filters: nil, lte: nil)
             @filters = filters
             @lte = lte
-            @recurrence = recurrence
           end
         end
 

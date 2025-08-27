@@ -38,7 +38,7 @@ module Stripe
           attr_accessor :display_name
           # An internal key you can use to search for a particular PricingPlan. Maximum length of 200 characters.
           attr_accessor :lookup_key
-          # Set of key-value pairs that you can attach to a PricingPlan.
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
           # The Stripe Tax tax behavior - whether the PricingPlan is inclusive or exclusive of tax.
           attr_accessor :tax_behavior
@@ -93,7 +93,7 @@ module Stripe
           end
         end
 
-        # Create a PricingPlan object.
+        # Create a Pricing Plan object.
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -104,7 +104,7 @@ module Stripe
           )
         end
 
-        # List all PricingPlan objects.
+        # List all Pricing Plan objects.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -115,7 +115,7 @@ module Stripe
           )
         end
 
-        # Retrieve a PricingPlan object.
+        # Retrieve a Pricing Plan object.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -126,7 +126,7 @@ module Stripe
           )
         end
 
-        # Update a PricingPlan object.
+        # Update a Pricing Plan object.
         def update(id, params = {}, opts = {})
           request(
             method: :post,

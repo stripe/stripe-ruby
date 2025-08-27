@@ -29,27 +29,27 @@ module Stripe
           # After division, round the result up or down.
           attr_reader :round
         end
-        # Whether this LicenseFee is active. Inactive LicenseFees cannot be used in new activations or be modified.
+        # Whether this License Fee is active. Inactive License Fees cannot be used in new activations or be modified.
         attr_reader :active
         # Timestamp of when the object was created.
         attr_reader :created
-        # The currency of this LicenseFee.
+        # Three-letter ISO currency code, in lowercase. Must be a supported currency.
         attr_reader :currency
-        # A customer-facing name for the LicenseFee.
+        # A customer-facing name for the license fee.
         # This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
         # Maximum length of 250 characters.
         attr_reader :display_name
-        # The ID of the LicenseFee.
+        # Unique identifier for the object.
         attr_reader :id
-        # The ID of the LicenseFee's most recently created version.
+        # The ID of the license fee's most recently created version.
         attr_reader :latest_version
-        # The LicensedItem that this license fee binds to.
+        # The Licensed Item that this License Fee binds to.
         attr_reader :licensed_item
-        # The ID of the version that will be used by all Subscriptions when no specific version is specified.
+        # The ID of the License Fee Version that will be used by all subscriptions when no specific version is specified.
         attr_reader :live_version
-        # An internal key you can use to search for a particular LicenseFee. Maximum length of 200 characters.
+        # An internal key you can use to search for a particular License Fee. Maximum length of 200 characters.
         attr_reader :lookup_key
-        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object

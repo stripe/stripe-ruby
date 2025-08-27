@@ -101,13 +101,10 @@ module Stripe
             returns(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte)
            }
           attr_accessor :lte
-          # Whether the alert should only fire only once, or once per billing cycle.
-          sig { returns(String) }
-          attr_accessor :recurrence
           sig {
-            params(filters: T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Filter]), lte: ::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte, recurrence: String).void
+            params(filters: T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Filter]), lte: ::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte).void
            }
-          def initialize(filters: nil, lte: nil, recurrence: nil); end
+          def initialize(filters: nil, lte: nil); end
         end
         class UsageThreshold < Stripe::RequestParams
           class Filter < Stripe::RequestParams

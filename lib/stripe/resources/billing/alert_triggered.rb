@@ -13,8 +13,14 @@ module Stripe
       attr_reader :alert
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+      # Currency for the threshold value
+      attr_reader :currency
+      # Custom pricing unit for the threshold value
+      attr_reader :custom_pricing_unit
       # ID of customer for which the alert triggered
       attr_reader :customer
+      # External customer ID for the customer for which the alert triggered
+      attr_reader :external_customer_id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.

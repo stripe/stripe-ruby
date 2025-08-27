@@ -25,6 +25,8 @@ module Stripe
           attr_reader :type
           # If applicable, the ID of the Adjustment that created this Transaction.
           attr_reader :adjustment
+          # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
+          attr_reader :currency_conversion
           # If applicable, the ID of the FeeTransaction that created this Transaction.
           attr_reader :fee_transaction
           # If applicable, the ID of the InboundTransfer that created this Transaction.

@@ -3,8 +3,11 @@
 
 # typed: true
 module Stripe
-  # A Promotion Code represents a customer-redeemable code for a [coupon](https://stripe.com/docs/api#coupons). It can be used to
-  # create multiple codes for a single coupon.
+  # A Promotion Code represents a customer-redeemable code for a [coupon](https://stripe.com/docs/api#coupons).
+  # You can create multiple codes for a single coupon.
+  #
+  # If you enable promotion codes in your [customer portal configuration](https://stripe.com/docs/customer-management/configure-portal), then customers can redeem a code themselves when updating a subscription in the portal.
+  # Customers can also view the currently active promotion codes and coupons on each of their subscriptions in the portal.
   class PromotionCode < APIResource
     class Restrictions < Stripe::StripeObject
       class CurrencyOptions < Stripe::StripeObject
@@ -241,13 +244,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Settings that restrict the redemption of the promotion code.
       sig { returns(T.nilable(::Stripe::PromotionCode::UpdateParams::Restrictions)) }
       attr_accessor :restrictions
       sig {
-        params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), restrictions: T.nilable(::Stripe::PromotionCode::UpdateParams::Restrictions)).void
+        params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), restrictions: T.nilable(::Stripe::PromotionCode::UpdateParams::Restrictions)).void
        }
       def initialize(active: nil, expand: nil, metadata: nil, restrictions: nil); end
     end

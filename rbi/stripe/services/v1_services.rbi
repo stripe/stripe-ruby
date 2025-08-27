@@ -21,7 +21,6 @@ module Stripe
     attr_reader :checkout
     attr_reader :climate
     attr_reader :confirmation_tokens
-    attr_reader :test_helpers
     attr_reader :country_specs
     attr_reader :coupons
     attr_reader :credit_notes
@@ -32,6 +31,7 @@ module Stripe
     attr_reader :ephemeral_keys
     attr_reader :events
     attr_reader :exchange_rates
+    attr_reader :external_accounts
     attr_reader :files
     attr_reader :file_links
     attr_reader :financial_connections
@@ -39,9 +39,9 @@ module Stripe
     attr_reader :fx_quotes
     attr_reader :identity
     attr_reader :invoices
+    attr_reader :invoice_items
     attr_reader :invoice_payments
     attr_reader :invoice_rendering_templates
-    attr_reader :invoice_items
     attr_reader :issuing
     attr_reader :mandates
     attr_reader :margins
@@ -64,10 +64,10 @@ module Stripe
     attr_reader :refunds
     attr_reader :reporting
     attr_reader :reviews
-    attr_reader :sigma
     attr_reader :setup_attempts
     attr_reader :setup_intents
     attr_reader :shipping_rates
+    attr_reader :sigma
     attr_reader :sources
     attr_reader :subscriptions
     attr_reader :subscription_items
@@ -77,11 +77,11 @@ module Stripe
     attr_reader :tax_ids
     attr_reader :tax_rates
     attr_reader :terminal
+    attr_reader :test_helpers
     attr_reader :tokens
     attr_reader :topups
     attr_reader :transfers
     attr_reader :treasury
     attr_reader :webhook_endpoints
-    attr_reader :external_accounts
   end
 end

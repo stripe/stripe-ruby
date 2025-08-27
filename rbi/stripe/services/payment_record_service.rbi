@@ -175,7 +175,7 @@ module Stripe
       sig { returns(Integer) }
       attr_accessor :initiated_at
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The outcome of the reported payment.
       sig { returns(T.nilable(String)) }
@@ -191,7 +191,7 @@ module Stripe
        }
       attr_accessor :shipping_details
       sig {
-        params(description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::Failed), guaranteed: T.nilable(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), outcome: T.nilable(String), payment_method_details: T.nilable(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails), shipping_details: T.nilable(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::ShippingDetails)).void
+        params(description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::Failed), guaranteed: T.nilable(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), payment_method_details: T.nilable(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails), shipping_details: T.nilable(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::ShippingDetails)).void
        }
       def initialize(
         description: nil,
@@ -213,10 +213,10 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Attribute for param field metadata
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       sig {
-        params(canceled_at: Integer, expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+        params(canceled_at: Integer, expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
       def initialize(canceled_at: nil, expand: nil, metadata: nil); end
     end
@@ -228,10 +228,10 @@ module Stripe
       sig { returns(Integer) }
       attr_accessor :failed_at
       # Attribute for param field metadata
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       sig {
-        params(expand: T.nilable(T::Array[String]), failed_at: Integer, metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+        params(expand: T.nilable(T::Array[String]), failed_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
       def initialize(expand: nil, failed_at: nil, metadata: nil); end
     end
@@ -243,10 +243,10 @@ module Stripe
       sig { returns(Integer) }
       attr_accessor :guaranteed_at
       # Attribute for param field metadata
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       sig {
-        params(expand: T.nilable(T::Array[String]), guaranteed_at: Integer, metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+        params(expand: T.nilable(T::Array[String]), guaranteed_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
       def initialize(expand: nil, guaranteed_at: nil, metadata: nil); end
     end
@@ -255,7 +255,7 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
-        # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         sig { returns(Integer) }
         attr_accessor :value
         sig { params(currency: String, value: Integer).void }
@@ -376,6 +376,27 @@ module Stripe
          }
         def initialize(billing_details: nil, custom: nil, payment_method: nil, type: nil); end
       end
+      class ProcessorDetails < Stripe::RequestParams
+        class Custom < Stripe::RequestParams
+          # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+          sig { returns(String) }
+          attr_accessor :payment_reference
+          sig { params(payment_reference: String).void }
+          def initialize(payment_reference: nil); end
+        end
+        # Information about the custom processor used to make this payment.
+        sig {
+          returns(T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::ProcessorDetails::Custom))
+         }
+        attr_accessor :custom
+        # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        sig { returns(String) }
+        attr_accessor :type
+        sig {
+          params(custom: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::ProcessorDetails::Custom), type: String).void
+         }
+        def initialize(custom: nil, type: nil); end
+      end
       class ShippingDetails < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -451,7 +472,7 @@ module Stripe
       sig { returns(Integer) }
       attr_accessor :initiated_at
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # The outcome of the reported payment.
       sig { returns(T.nilable(String)) }
@@ -459,16 +480,18 @@ module Stripe
       # Information about the Payment Method debited for this payment.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails) }
       attr_accessor :payment_method_details
-      # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :payment_reference
+      # Processor information for this payment.
+      sig {
+        returns(T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::ProcessorDetails))
+       }
+      attr_accessor :processor_details
       # Shipping information for this payment.
       sig {
         returns(T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::ShippingDetails))
        }
       attr_accessor :shipping_details
       sig {
-        params(amount_requested: ::Stripe::PaymentRecordService::ReportPaymentParams::AmountRequested, customer_details: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::CustomerDetails), customer_presence: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::Failed), guaranteed: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), outcome: T.nilable(String), payment_method_details: ::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails, payment_reference: T.nilable(String), shipping_details: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::ShippingDetails)).void
+        params(amount_requested: ::Stripe::PaymentRecordService::ReportPaymentParams::AmountRequested, customer_details: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::CustomerDetails), customer_presence: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::Failed), guaranteed: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), payment_method_details: ::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails, processor_details: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::ProcessorDetails), shipping_details: T.nilable(::Stripe::PaymentRecordService::ReportPaymentParams::ShippingDetails)).void
        }
       def initialize(
         amount_requested: nil,
@@ -482,7 +505,7 @@ module Stripe
         metadata: nil,
         outcome: nil,
         payment_method_details: nil,
-        payment_reference: nil,
+        processor_details: nil,
         shipping_details: nil
       ); end
     end

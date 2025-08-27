@@ -345,6 +345,8 @@ module Stripe
         attr_accessor :login_page
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+        # The name of the configuration.
+        attr_accessor :name
 
         def initialize(
           business_profile: nil,
@@ -352,7 +354,8 @@ module Stripe
           expand: nil,
           features: nil,
           login_page: nil,
-          metadata: nil
+          metadata: nil,
+          name: nil
         )
           @business_profile = business_profile
           @default_return_url = default_return_url
@@ -360,6 +363,7 @@ module Stripe
           @features = features
           @login_page = login_page
           @metadata = metadata
+          @name = name
         end
       end
 
@@ -565,6 +569,8 @@ module Stripe
         attr_accessor :login_page
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+        # The name of the configuration.
+        attr_accessor :name
 
         def initialize(
           active: nil,
@@ -573,7 +579,8 @@ module Stripe
           expand: nil,
           features: nil,
           login_page: nil,
-          metadata: nil
+          metadata: nil,
+          name: nil
         )
           @active = active
           @business_profile = business_profile
@@ -582,6 +589,7 @@ module Stripe
           @features = features
           @login_page = login_page
           @metadata = metadata
+          @name = name
         end
       end
       # Whether the configuration is active and can be used to create portal sessions.
@@ -606,6 +614,8 @@ module Stripe
       attr_reader :login_page
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
+      # The name of the configuration.
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.

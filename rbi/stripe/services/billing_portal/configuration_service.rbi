@@ -39,7 +39,7 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         class BusinessProfile < Stripe::RequestParams
           # The messaging shown to customers in the portal.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :headline
           # A link to the business’s publicly available privacy policy.
           sig { returns(T.nilable(String)) }
@@ -48,20 +48,20 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :terms_of_service_url
           sig {
-            params(headline: T.nilable(T.nilable(String)), privacy_policy_url: T.nilable(String), terms_of_service_url: T.nilable(String)).void
+            params(headline: T.nilable(String), privacy_policy_url: T.nilable(String), terms_of_service_url: T.nilable(String)).void
            }
           def initialize(headline: nil, privacy_policy_url: nil, terms_of_service_url: nil); end
         end
         class Features < Stripe::RequestParams
           class CustomerUpdate < Stripe::RequestParams
             # The types of customer updates that are supported. When empty, customers are not updateable.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :allowed_updates
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
             sig {
-              params(allowed_updates: T.nilable(T.nilable(T.any(String, T::Array[String]))), enabled: T::Boolean).void
+              params(allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T::Boolean).void
              }
             def initialize(allowed_updates: nil, enabled: nil); end
           end
@@ -85,11 +85,9 @@ module Stripe
               sig { returns(T::Boolean) }
               attr_accessor :enabled
               # Which cancellation reasons will be given as options to the customer.
-              sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+              sig { returns(T.any(String, T::Array[String])) }
               attr_accessor :options
-              sig {
-                params(enabled: T::Boolean, options: T.nilable(T.any(String, T::Array[String]))).void
-               }
+              sig { params(enabled: T::Boolean, options: T.any(String, T::Array[String])).void }
               def initialize(enabled: nil, options: nil); end
             end
             # Whether the cancellation reasons will be collected in the portal and which options are exposed to the customer
@@ -168,14 +166,14 @@ module Stripe
               def initialize(conditions: nil); end
             end
             # The types of subscription updates that are supported. When empty, subscriptions are not updateable.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :default_allowed_updates
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
             # The list of up to 10 products that support subscription updates.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::Product]))))
+              returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::Product])))
              }
             attr_accessor :products
             # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
@@ -187,7 +185,7 @@ module Stripe
              }
             attr_accessor :schedule_at_period_end
             sig {
-              params(default_allowed_updates: T.nilable(T.nilable(T.any(String, T::Array[String]))), enabled: T::Boolean, products: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::Product]))), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).void
+              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T::Boolean, products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).void
              }
             def initialize(
               default_allowed_updates: nil,
@@ -246,7 +244,7 @@ module Stripe
          }
         attr_accessor :business_profile
         # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :default_return_url
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
@@ -262,8 +260,11 @@ module Stripe
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
+        # The name of the configuration.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :name
         sig {
-          params(business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: ::Stripe::BillingPortal::ConfigurationService::CreateParams::Features, login_page: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::LoginPage), metadata: T.nilable(T::Hash[String, String])).void
+          params(business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::BusinessProfile), default_return_url: T.nilable(String), expand: T.nilable(T::Array[String]), features: ::Stripe::BillingPortal::ConfigurationService::CreateParams::Features, login_page: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::LoginPage), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String)).void
          }
         def initialize(
           business_profile: nil,
@@ -271,7 +272,8 @@ module Stripe
           expand: nil,
           features: nil,
           login_page: nil,
-          metadata: nil
+          metadata: nil,
+          name: nil
         ); end
       end
       class RetrieveParams < Stripe::RequestParams
@@ -284,29 +286,29 @@ module Stripe
       class UpdateParams < Stripe::RequestParams
         class BusinessProfile < Stripe::RequestParams
           # The messaging shown to customers in the portal.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :headline
           # A link to the business’s publicly available privacy policy.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :privacy_policy_url
           # A link to the business’s publicly available terms of service.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :terms_of_service_url
           sig {
-            params(headline: T.nilable(T.nilable(String)), privacy_policy_url: T.nilable(T.nilable(String)), terms_of_service_url: T.nilable(T.nilable(String))).void
+            params(headline: T.nilable(String), privacy_policy_url: T.nilable(String), terms_of_service_url: T.nilable(String)).void
            }
           def initialize(headline: nil, privacy_policy_url: nil, terms_of_service_url: nil); end
         end
         class Features < Stripe::RequestParams
           class CustomerUpdate < Stripe::RequestParams
             # The types of customer updates that are supported. When empty, customers are not updateable.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :allowed_updates
             # Whether the feature is enabled.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :enabled
             sig {
-              params(allowed_updates: T.nilable(T.nilable(T.any(String, T::Array[String]))), enabled: T.nilable(T::Boolean)).void
+              params(allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean)).void
              }
             def initialize(allowed_updates: nil, enabled: nil); end
           end
@@ -330,10 +332,10 @@ module Stripe
               sig { returns(T::Boolean) }
               attr_accessor :enabled
               # Which cancellation reasons will be given as options to the customer.
-              sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+              sig { returns(T.nilable(T.any(String, T::Array[String]))) }
               attr_accessor :options
               sig {
-                params(enabled: T::Boolean, options: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+                params(enabled: T::Boolean, options: T.nilable(T.any(String, T::Array[String]))).void
                }
               def initialize(enabled: nil, options: nil); end
             end
@@ -404,23 +406,23 @@ module Stripe
               end
               # List of conditions. When any condition is true, the update will be scheduled at the end of the current period.
               sig {
-                returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition]))))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition])))
                }
               attr_accessor :conditions
               sig {
-                params(conditions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition])))).void
+                params(conditions: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition]))).void
                }
               def initialize(conditions: nil); end
             end
             # The types of subscription updates that are supported. When empty, subscriptions are not updateable.
-            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             attr_accessor :default_allowed_updates
             # Whether the feature is enabled.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :enabled
             # The list of up to 10 products that support subscription updates.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::Product]))))
+              returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::Product])))
              }
             attr_accessor :products
             # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
@@ -432,7 +434,7 @@ module Stripe
              }
             attr_accessor :schedule_at_period_end
             sig {
-              params(default_allowed_updates: T.nilable(T.nilable(T.any(String, T::Array[String]))), enabled: T.nilable(T::Boolean), products: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::Product]))), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).void
+              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean), products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).void
              }
             def initialize(
               default_allowed_updates: nil,
@@ -496,7 +498,7 @@ module Stripe
          }
         attr_accessor :business_profile
         # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :default_return_url
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
@@ -512,10 +514,13 @@ module Stripe
          }
         attr_accessor :login_page
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
         attr_accessor :metadata
+        # The name of the configuration.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :name
         sig {
-          params(active: T.nilable(T::Boolean), business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::BusinessProfile), default_return_url: T.nilable(T.nilable(String)), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features), login_page: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::LoginPage), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+          params(active: T.nilable(T::Boolean), business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::BusinessProfile), default_return_url: T.nilable(String), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features), login_page: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::LoginPage), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
          }
         def initialize(
           active: nil,
@@ -524,7 +529,8 @@ module Stripe
           expand: nil,
           features: nil,
           login_page: nil,
-          metadata: nil
+          metadata: nil,
+          name: nil
         ); end
       end
       # Creates a configuration that describes the functionality and behavior of a PortalSession

@@ -57,7 +57,7 @@ module Stripe
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
       sig { returns(String) }
       attr_reader :network_advice_code
-      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
       sig { returns(String) }
       attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
@@ -142,6 +142,23 @@ module Stripe
         sig { returns(QrCode) }
         attr_reader :qr_code
       end
+      class PixDisplayQrCode < Stripe::StripeObject
+        # The raw data string used to generate QR code, it should be used together with QR code library.
+        sig { returns(String) }
+        attr_reader :data
+        # The date (unix timestamp) when the PIX expires.
+        sig { returns(Integer) }
+        attr_reader :expires_at
+        # The URL to the hosted pix instructions page, which allows customers to view the pix QR code.
+        sig { returns(String) }
+        attr_reader :hosted_instructions_url
+        # The image_url_png string used to render png QR code
+        sig { returns(String) }
+        attr_reader :image_url_png
+        # The image_url_svg string used to render svg QR code
+        sig { returns(String) }
+        attr_reader :image_url_svg
+      end
       class RedirectToUrl < Stripe::StripeObject
         # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
         sig { returns(T.nilable(String)) }
@@ -164,6 +181,9 @@ module Stripe
       # Attribute for field cashapp_handle_redirect_or_display_qr_code
       sig { returns(CashappHandleRedirectOrDisplayQrCode) }
       attr_reader :cashapp_handle_redirect_or_display_qr_code
+      # Attribute for field pix_display_qr_code
+      sig { returns(PixDisplayQrCode) }
+      attr_reader :pix_display_qr_code
       # Attribute for field redirect_to_url
       sig { returns(RedirectToUrl) }
       attr_reader :redirect_to_url
@@ -321,6 +341,37 @@ module Stripe
         sig { returns(MandateOptions) }
         attr_reader :mandate_options
       end
+      class Pix < Stripe::StripeObject
+        class MandateOptions < Stripe::StripeObject
+          # Amount to be charged for future payments.
+          sig { returns(Integer) }
+          attr_reader :amount
+          # Determines if the amount includes the IOF tax.
+          sig { returns(String) }
+          attr_reader :amount_includes_iof
+          # Type of amount.
+          sig { returns(String) }
+          attr_reader :amount_type
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+          sig { returns(String) }
+          attr_reader :currency
+          # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+          sig { returns(String) }
+          attr_reader :end_date
+          # Schedule at which the future payments will be charged.
+          sig { returns(String) }
+          attr_reader :payment_schedule
+          # Subscription name displayed to buyers in their bank app.
+          sig { returns(String) }
+          attr_reader :reference
+          # Start date of the mandate, in `YYYY-MM-DD`.
+          sig { returns(String) }
+          attr_reader :start_date
+        end
+        # Attribute for field mandate_options
+        sig { returns(MandateOptions) }
+        attr_reader :mandate_options
+      end
       class SepaDebit < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -404,6 +455,9 @@ module Stripe
       # Attribute for field payto
       sig { returns(Payto) }
       attr_reader :payto
+      # Attribute for field pix
+      sig { returns(Pix) }
+      attr_reader :pix
       # Attribute for field sepa_debit
       sig { returns(SepaDebit) }
       attr_reader :sepa_debit
@@ -696,23 +750,23 @@ module Stripe
           end
           # Billing address.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::PaymentMethodData::BillingDetails::Address))))
+            returns(T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::PaymentMethodData::BillingDetails::Address)))
            }
           attr_accessor :address
           # Email address.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :email
           # Full name.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :name
           # Billing phone number (including extension).
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :phone
           # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
           sig { returns(T.nilable(String)) }
           attr_accessor :tax_id
           sig {
-            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
+            params(address: T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::PaymentMethodData::BillingDetails::Address)), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tax_id: T.nilable(String)).void
            }
           def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
         end
@@ -1251,7 +1305,7 @@ module Stripe
             # A URL for custom mandate text to render during confirmation step.
             # The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
             # or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :custom_mandate_url
             # List of Stripe products where this mandate can be selected automatically.
             sig { returns(T.nilable(T::Array[String])) }
@@ -1266,7 +1320,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_accessor :transaction_type
             sig {
-              params(custom_mandate_url: T.nilable(T.nilable(String)), default_for: T.nilable(T::Array[String]), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
+              params(custom_mandate_url: T.nilable(String), default_for: T.nilable(T::Array[String]), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
              }
             def initialize(
               custom_mandate_url: nil,
@@ -1296,9 +1350,9 @@ module Stripe
         class BacsDebit < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :reference_prefix
-            sig { params(reference_prefix: T.nilable(T.nilable(String))).void }
+            sig { params(reference_prefix: T.nilable(String)).void }
             def initialize(reference_prefix: nil); end
           end
           # Additional fields for Mandate creation
@@ -1550,11 +1604,11 @@ module Stripe
           attr_accessor :preferred_locale
           # Subscription details if setting up or charging a subscription
           sig {
-            returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::Subscription]))))
+            returns(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::Subscription])))
            }
           attr_accessor :subscriptions
           sig {
-            params(currency: T.nilable(String), on_demand: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::Subscription])))).void
+            params(currency: T.nilable(String), on_demand: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), subscriptions: T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna::Subscription]))).void
            }
           def initialize(
             currency: nil,
@@ -1631,12 +1685,62 @@ module Stripe
            }
           def initialize(mandate_options: nil); end
         end
+        class Pix < Stripe::RequestParams
+          class MandateOptions < Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :start_date
+            sig {
+              params(amount: T.nilable(Integer), amount_includes_iof: T.nilable(String), amount_type: T.nilable(String), currency: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), reference: T.nilable(String), start_date: T.nilable(String)).void
+             }
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            ); end
+          end
+          # Additional fields for mandate creation.
+          sig {
+            returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Pix::MandateOptions))
+           }
+          attr_accessor :mandate_options
+          sig {
+            params(mandate_options: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Pix::MandateOptions)).void
+           }
+          def initialize(mandate_options: nil); end
+        end
         class SepaDebit < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :reference_prefix
-            sig { params(reference_prefix: T.nilable(T.nilable(String))).void }
+            sig { params(reference_prefix: T.nilable(String)).void }
             def initialize(reference_prefix: nil); end
           end
           # Additional fields for Mandate creation
@@ -1702,9 +1806,9 @@ module Stripe
           end
           class MandateOptions < Stripe::RequestParams
             # The method used to collect offline mandate customer acceptance.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :collection_method
-            sig { params(collection_method: T.nilable(T.nilable(String))).void }
+            sig { params(collection_method: T.nilable(String)).void }
             def initialize(collection_method: nil); end
           end
           class Networks < Stripe::RequestParams
@@ -1781,6 +1885,9 @@ module Stripe
         # If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         sig { returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Payto)) }
         attr_accessor :payto
+        # If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+        sig { returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Pix)) }
+        attr_accessor :pix
         # If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
         sig {
           returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::SepaDebit))
@@ -1792,7 +1899,7 @@ module Stripe
          }
         attr_accessor :us_bank_account
         sig {
-          params(acss_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Payto), sepa_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::UsBankAccount)).void
+          params(acss_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Payto), pix: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::Pix), sepa_debit: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::UsBankAccount)).void
          }
         def initialize(
           acss_debit: nil,
@@ -1804,6 +1911,7 @@ module Stripe
           link: nil,
           paypal: nil,
           payto: nil,
+          pix: nil,
           sepa_debit: nil,
           us_bank_account: nil
         ); end
@@ -1856,9 +1964,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :flow_directions
       # This hash contains details about the mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::MandateData))))
-       }
+      sig { returns(T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::MandateData))) }
       attr_accessor :mandate_data
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
@@ -1897,7 +2003,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(attach_to_self: T.nilable(T::Boolean), automatic_payment_methods: T.nilable(::Stripe::SetupIntent::CreateParams::AutomaticPaymentMethods), confirm: T.nilable(T::Boolean), confirmation_token: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::MandateData))), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), single_use: T.nilable(::Stripe::SetupIntent::CreateParams::SingleUse), usage: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(attach_to_self: T.nilable(T::Boolean), automatic_payment_methods: T.nilable(::Stripe::SetupIntent::CreateParams::AutomaticPaymentMethods), confirm: T.nilable(T::Boolean), confirmation_token: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), single_use: T.nilable(::Stripe::SetupIntent::CreateParams::SingleUse), usage: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         attach_to_self: nil,
@@ -2001,23 +2107,23 @@ module Stripe
           end
           # Billing address.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::UpdateParams::PaymentMethodData::BillingDetails::Address))))
+            returns(T.nilable(T.any(String, ::Stripe::SetupIntent::UpdateParams::PaymentMethodData::BillingDetails::Address)))
            }
           attr_accessor :address
           # Email address.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :email
           # Full name.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :name
           # Billing phone number (including extension).
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :phone
           # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
           sig { returns(T.nilable(String)) }
           attr_accessor :tax_id
           sig {
-            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::UpdateParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
+            params(address: T.nilable(T.any(String, ::Stripe::SetupIntent::UpdateParams::PaymentMethodData::BillingDetails::Address)), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tax_id: T.nilable(String)).void
            }
           def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
         end
@@ -2556,7 +2662,7 @@ module Stripe
             # A URL for custom mandate text to render during confirmation step.
             # The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
             # or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :custom_mandate_url
             # List of Stripe products where this mandate can be selected automatically.
             sig { returns(T.nilable(T::Array[String])) }
@@ -2571,7 +2677,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_accessor :transaction_type
             sig {
-              params(custom_mandate_url: T.nilable(T.nilable(String)), default_for: T.nilable(T::Array[String]), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
+              params(custom_mandate_url: T.nilable(String), default_for: T.nilable(T::Array[String]), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
              }
             def initialize(
               custom_mandate_url: nil,
@@ -2601,9 +2707,9 @@ module Stripe
         class BacsDebit < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :reference_prefix
-            sig { params(reference_prefix: T.nilable(T.nilable(String))).void }
+            sig { params(reference_prefix: T.nilable(String)).void }
             def initialize(reference_prefix: nil); end
           end
           # Additional fields for Mandate creation
@@ -2855,11 +2961,11 @@ module Stripe
           attr_accessor :preferred_locale
           # Subscription details if setting up or charging a subscription
           sig {
-            returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::Subscription]))))
+            returns(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::Subscription])))
            }
           attr_accessor :subscriptions
           sig {
-            params(currency: T.nilable(String), on_demand: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::Subscription])))).void
+            params(currency: T.nilable(String), on_demand: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), subscriptions: T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna::Subscription]))).void
            }
           def initialize(
             currency: nil,
@@ -2936,12 +3042,62 @@ module Stripe
            }
           def initialize(mandate_options: nil); end
         end
+        class Pix < Stripe::RequestParams
+          class MandateOptions < Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :start_date
+            sig {
+              params(amount: T.nilable(Integer), amount_includes_iof: T.nilable(String), amount_type: T.nilable(String), currency: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), reference: T.nilable(String), start_date: T.nilable(String)).void
+             }
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            ); end
+          end
+          # Additional fields for mandate creation.
+          sig {
+            returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Pix::MandateOptions))
+           }
+          attr_accessor :mandate_options
+          sig {
+            params(mandate_options: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Pix::MandateOptions)).void
+           }
+          def initialize(mandate_options: nil); end
+        end
         class SepaDebit < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :reference_prefix
-            sig { params(reference_prefix: T.nilable(T.nilable(String))).void }
+            sig { params(reference_prefix: T.nilable(String)).void }
             def initialize(reference_prefix: nil); end
           end
           # Additional fields for Mandate creation
@@ -3007,9 +3163,9 @@ module Stripe
           end
           class MandateOptions < Stripe::RequestParams
             # The method used to collect offline mandate customer acceptance.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :collection_method
-            sig { params(collection_method: T.nilable(T.nilable(String))).void }
+            sig { params(collection_method: T.nilable(String)).void }
             def initialize(collection_method: nil); end
           end
           class Networks < Stripe::RequestParams
@@ -3086,6 +3242,9 @@ module Stripe
         # If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         sig { returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Payto)) }
         attr_accessor :payto
+        # If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+        sig { returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Pix)) }
+        attr_accessor :pix
         # If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
         sig {
           returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::SepaDebit))
@@ -3097,7 +3256,7 @@ module Stripe
          }
         attr_accessor :us_bank_account
         sig {
-          params(acss_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Payto), sepa_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::UsBankAccount)).void
+          params(acss_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Payto), pix: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::Pix), sepa_debit: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::UsBankAccount)).void
          }
         def initialize(
           acss_debit: nil,
@@ -3109,6 +3268,7 @@ module Stripe
           link: nil,
           paypal: nil,
           payto: nil,
+          pix: nil,
           sepa_debit: nil,
           us_bank_account: nil
         ); end
@@ -3140,7 +3300,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :flow_directions
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. To unset this field to null, pass in an empty string.
       sig { returns(T.nilable(String)) }
@@ -3159,7 +3319,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :payment_method_types
       sig {
-        params(attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String])).void
+        params(attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String])).void
        }
       def initialize(
         attach_to_self: nil,
@@ -3310,23 +3470,23 @@ module Stripe
           end
           # Billing address.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::BillingDetails::Address))))
+            returns(T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::BillingDetails::Address)))
            }
           attr_accessor :address
           # Email address.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :email
           # Full name.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :name
           # Billing phone number (including extension).
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :phone
           # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
           sig { returns(T.nilable(String)) }
           attr_accessor :tax_id
           sig {
-            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
+            params(address: T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::BillingDetails::Address)), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tax_id: T.nilable(String)).void
            }
           def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
         end
@@ -3873,7 +4033,7 @@ module Stripe
             # A URL for custom mandate text to render during confirmation step.
             # The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
             # or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :custom_mandate_url
             # List of Stripe products where this mandate can be selected automatically.
             sig { returns(T.nilable(T::Array[String])) }
@@ -3888,7 +4048,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_accessor :transaction_type
             sig {
-              params(custom_mandate_url: T.nilable(T.nilable(String)), default_for: T.nilable(T::Array[String]), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
+              params(custom_mandate_url: T.nilable(String), default_for: T.nilable(T::Array[String]), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
              }
             def initialize(
               custom_mandate_url: nil,
@@ -3918,9 +4078,9 @@ module Stripe
         class BacsDebit < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :reference_prefix
-            sig { params(reference_prefix: T.nilable(T.nilable(String))).void }
+            sig { params(reference_prefix: T.nilable(String)).void }
             def initialize(reference_prefix: nil); end
           end
           # Additional fields for Mandate creation
@@ -4172,11 +4332,11 @@ module Stripe
           attr_accessor :preferred_locale
           # Subscription details if setting up or charging a subscription
           sig {
-            returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::Subscription]))))
+            returns(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::Subscription])))
            }
           attr_accessor :subscriptions
           sig {
-            params(currency: T.nilable(String), on_demand: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::Subscription])))).void
+            params(currency: T.nilable(String), on_demand: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), subscriptions: T.nilable(T.any(String, T::Array[::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna::Subscription]))).void
            }
           def initialize(
             currency: nil,
@@ -4253,12 +4413,62 @@ module Stripe
            }
           def initialize(mandate_options: nil); end
         end
+        class Pix < Stripe::RequestParams
+          class MandateOptions < Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `weekly`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :start_date
+            sig {
+              params(amount: T.nilable(Integer), amount_includes_iof: T.nilable(String), amount_type: T.nilable(String), currency: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), reference: T.nilable(String), start_date: T.nilable(String)).void
+             }
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            ); end
+          end
+          # Additional fields for mandate creation.
+          sig {
+            returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Pix::MandateOptions))
+           }
+          attr_accessor :mandate_options
+          sig {
+            params(mandate_options: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Pix::MandateOptions)).void
+           }
+          def initialize(mandate_options: nil); end
+        end
         class SepaDebit < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :reference_prefix
-            sig { params(reference_prefix: T.nilable(T.nilable(String))).void }
+            sig { params(reference_prefix: T.nilable(String)).void }
             def initialize(reference_prefix: nil); end
           end
           # Additional fields for Mandate creation
@@ -4324,9 +4534,9 @@ module Stripe
           end
           class MandateOptions < Stripe::RequestParams
             # The method used to collect offline mandate customer acceptance.
-            sig { returns(T.nilable(T.nilable(String))) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :collection_method
-            sig { params(collection_method: T.nilable(T.nilable(String))).void }
+            sig { params(collection_method: T.nilable(String)).void }
             def initialize(collection_method: nil); end
           end
           class Networks < Stripe::RequestParams
@@ -4405,6 +4615,9 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Payto))
          }
         attr_accessor :payto
+        # If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+        sig { returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Pix)) }
+        attr_accessor :pix
         # If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
         sig {
           returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::SepaDebit))
@@ -4416,7 +4629,7 @@ module Stripe
          }
         attr_accessor :us_bank_account
         sig {
-          params(acss_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Payto), sepa_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount)).void
+          params(acss_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::AcssDebit), amazon_pay: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::AmazonPay), bacs_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::BacsDebit), card: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Card), card_present: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::CardPresent), klarna: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Klarna), link: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Link), paypal: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Payto), pix: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::Pix), sepa_debit: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount)).void
          }
         def initialize(
           acss_debit: nil,
@@ -4428,6 +4641,7 @@ module Stripe
           link: nil,
           paypal: nil,
           payto: nil,
+          pix: nil,
           sepa_debit: nil,
           us_bank_account: nil
         ); end
@@ -4441,9 +4655,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Attribute for param field mandate_data
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::MandateData))))
-       }
+      sig { returns(T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::MandateData))) }
       attr_accessor :mandate_data
       # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
       sig { returns(T.nilable(String)) }
@@ -4464,7 +4676,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::MandateData))), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::MandateData)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         confirmation_token: nil,

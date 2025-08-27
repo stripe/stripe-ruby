@@ -162,7 +162,7 @@ module Stripe
             def initialize(height: nil, length: nil, weight: nil, width: nil); end
           end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # A unique identifier for this product.
           #
@@ -170,30 +170,30 @@ module Stripe
           sig { returns(String) }
           attr_accessor :id
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
-          sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+          sig { returns(T.nilable(T.any(String, T::Array[String]))) }
           attr_accessor :images
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-          sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+          sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
           attr_accessor :metadata
           # The product's name, meant to be displayable to the customer.
           sig { returns(String) }
           attr_accessor :name
           # The dimensions of this product for shipping purposes.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::LineItem::ProductData::PackageDimensions))))
+            returns(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::LineItem::ProductData::PackageDimensions)))
            }
           attr_accessor :package_dimensions
           # Whether this product is shipped (i.e., physical goods).
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :shippable
           # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :tax_code
           # A URL of a publicly-accessible webpage for this product.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :url
           sig {
-            params(description: T.nilable(T.nilable(String)), id: String, images: T.nilable(T.nilable(T.any(String, T::Array[String]))), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: String, package_dimensions: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::LineItem::ProductData::PackageDimensions))), shippable: T.nilable(T::Boolean), tax_code: T.nilable(T.nilable(String)), url: T.nilable(T.nilable(String))).void
+            params(description: T.nilable(String), id: String, images: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: String, package_dimensions: T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::LineItem::ProductData::PackageDimensions)), shippable: T.nilable(T::Boolean), tax_code: T.nilable(String), url: T.nilable(String)).void
            }
           def initialize(
             description: nil,
@@ -212,7 +212,7 @@ module Stripe
         attr_accessor :description
         # The discounts applied to this line item.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::LineItem::Discount]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::LineItem::Discount])))
          }
         attr_accessor :discounts
         # The ID of a [Price](https://docs.stripe.com/api/prices) to add to the Order.
@@ -243,10 +243,10 @@ module Stripe
         sig { returns(T.nilable(Integer)) }
         attr_accessor :quantity
         # The tax rates applied to this line item.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :tax_rates
         sig {
-          params(description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::LineItem::Discount]))), price: T.nilable(String), price_data: T.nilable(::Stripe::OrderService::CreateParams::LineItem::PriceData), product: T.nilable(String), product_data: T.nilable(::Stripe::OrderService::CreateParams::LineItem::ProductData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+          params(description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::LineItem::Discount])), price: T.nilable(String), price_data: T.nilable(::Stripe::OrderService::CreateParams::LineItem::PriceData), product: T.nilable(String), product_data: T.nilable(::Stripe::OrderService::CreateParams::LineItem::ProductData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           description: nil,
@@ -267,7 +267,7 @@ module Stripe
                 # A URL for custom mandate text to render during confirmation step.
                 # The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
                 # or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :custom_mandate_url
                 # Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
                 sig { returns(T.nilable(String)) }
@@ -279,7 +279,7 @@ module Stripe
                 sig { returns(T.nilable(String)) }
                 attr_accessor :transaction_type
                 sig {
-                  params(custom_mandate_url: T.nilable(T.nilable(String)), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
+                  params(custom_mandate_url: T.nilable(String), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
                  }
                 def initialize(
                   custom_mandate_url: nil,
@@ -302,7 +302,7 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
               sig { returns(T.nilable(String)) }
@@ -311,7 +311,7 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_accessor :verification_method
               sig {
-                params(mandate_options: T.nilable(::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), target_date: T.nilable(String), verification_method: T.nilable(String)).void
+                params(mandate_options: T.nilable(::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String)).void
                }
               def initialize(
                 mandate_options: nil,
@@ -355,9 +355,9 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
-              sig { params(setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void }
+              sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
               def initialize(setup_future_usage: nil); end
             end
             class Bancontact < Stripe::RequestParams
@@ -373,10 +373,10 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               sig {
-                params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void
+                params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
                }
               def initialize(preferred_language: nil, setup_future_usage: nil); end
             end
@@ -459,9 +459,9 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
-              sig { params(setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void }
+              sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
               def initialize(setup_future_usage: nil); end
             end
             class Klarna < Stripe::RequestParams
@@ -536,7 +536,7 @@ module Stripe
               # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
               #
               # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :capture_method
               # On-demand details if setting up or charging an on-demand payment.
               sig {
@@ -559,11 +559,11 @@ module Stripe
               attr_accessor :setup_future_usage
               # Subscription details if setting up or charging a subscription.
               sig {
-                returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription]))))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])))
                }
               attr_accessor :subscriptions
               sig {
-                params(capture_method: T.nilable(T.nilable(String)), on_demand: T.nilable(::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])))).void
+                params(capture_method: T.nilable(String), on_demand: T.nilable(::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription]))).void
                }
               def initialize(
                 capture_method: nil,
@@ -579,7 +579,7 @@ module Stripe
               # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
               #
               # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :capture_method
               # [Deprecated] This is a legacy parameter that no longer has any function.
               sig { returns(T.nilable(String)) }
@@ -593,10 +593,10 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               sig {
-                params(capture_method: T.nilable(T.nilable(String)), persistent_token: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void
+                params(capture_method: T.nilable(String), persistent_token: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
                }
               def initialize(
                 capture_method: nil,
@@ -697,7 +697,7 @@ module Stripe
                 ); end
               end
               # Controls when the funds will be captured from the customer's account.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :capture_method
               # The line items purchased by the customer.
               sig {
@@ -725,13 +725,13 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
               sig { returns(T.nilable(T::Array[String])) }
               attr_accessor :subsellers
               sig {
-                params(capture_method: T.nilable(T.nilable(String)), line_items: T.nilable(T::Array[::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), subsellers: T.nilable(T::Array[String])).void
+                params(capture_method: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), subsellers: T.nilable(T::Array[String])).void
                }
               def initialize(
                 capture_method: nil,
@@ -747,9 +747,9 @@ module Stripe
             class SepaDebit < Stripe::RequestParams
               class MandateOptions < Stripe::RequestParams
                 # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :reference_prefix
-                sig { params(reference_prefix: T.nilable(T.nilable(String))).void }
+                sig { params(reference_prefix: T.nilable(String)).void }
                 def initialize(reference_prefix: nil); end
               end
               # Additional fields for Mandate creation
@@ -766,19 +766,19 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
               sig { returns(T.nilable(String)) }
               attr_accessor :target_date
               sig {
-                params(mandate_options: T.nilable(::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), target_date: T.nilable(String)).void
+                params(mandate_options: T.nilable(::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
                }
               def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
             end
             class Sofort < Stripe::RequestParams
               # Language shown to the payer on redirect.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :preferred_language
               # Indicates that you intend to make future payments with this PaymentIntent's payment method.
               #
@@ -789,10 +789,10 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               sig {
-                params(preferred_language: T.nilable(T.nilable(T.any(String, String))), setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void
+                params(preferred_language: T.nilable(T.any(String, String)), setup_future_usage: T.nilable(T.any(String, String))).void
                }
               def initialize(preferred_language: nil, setup_future_usage: nil); end
             end
@@ -1124,10 +1124,10 @@ module Stripe
         sig { returns(String) }
         attr_accessor :name
         # The phone number (including extension) for the recipient of the order.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         sig {
-          params(address: ::Stripe::OrderService::CreateParams::ShippingDetails::Address, name: String, phone: T.nilable(T.nilable(String))).void
+          params(address: ::Stripe::OrderService::CreateParams::ShippingDetails::Address, name: String, phone: T.nilable(String)).void
          }
         def initialize(address: nil, name: nil, phone: nil); end
       end
@@ -1143,7 +1143,7 @@ module Stripe
           def initialize(type: nil, value: nil); end
         end
         # The purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
-        sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+        sig { returns(T.nilable(T.any(String, String))) }
         attr_accessor :tax_exempt
         # The purchaser's tax IDs to be used for this order.
         sig {
@@ -1151,7 +1151,7 @@ module Stripe
          }
         attr_accessor :tax_ids
         sig {
-          params(tax_exempt: T.nilable(T.nilable(T.any(String, String))), tax_ids: T.nilable(T::Array[::Stripe::OrderService::CreateParams::TaxDetails::TaxId])).void
+          params(tax_exempt: T.nilable(T.any(String, String)), tax_ids: T.nilable(T::Array[::Stripe::OrderService::CreateParams::TaxDetails::TaxId])).void
          }
         def initialize(tax_exempt: nil, tax_ids: nil); end
       end
@@ -1160,7 +1160,7 @@ module Stripe
       attr_accessor :automatic_tax
       # Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::BillingDetails))))
+        returns(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::BillingDetails)))
        }
       attr_accessor :billing_details
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -1174,7 +1174,7 @@ module Stripe
       attr_accessor :description
       # The coupons, promotion codes, and/or discounts to apply to the order.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Discount]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Discount])))
        }
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
@@ -1193,20 +1193,18 @@ module Stripe
       sig { returns(T.nilable(::Stripe::OrderService::CreateParams::Payment)) }
       attr_accessor :payment
       # Settings for the customer cost of shipping for this order.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingCost))))
-       }
+      sig { returns(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingCost))) }
       attr_accessor :shipping_cost
       # Shipping details for the order.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingDetails))))
+        returns(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingDetails)))
        }
       attr_accessor :shipping_details
       # Additional tax details about the purchaser to be used for this order.
       sig { returns(T.nilable(::Stripe::OrderService::CreateParams::TaxDetails)) }
       attr_accessor :tax_details
       sig {
-        params(automatic_tax: T.nilable(::Stripe::OrderService::CreateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::BillingDetails))), currency: String, customer: T.nilable(String), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T::Array[::Stripe::OrderService::CreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), payment: T.nilable(::Stripe::OrderService::CreateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::OrderService::CreateParams::TaxDetails)).void
+        params(automatic_tax: T.nilable(::Stripe::OrderService::CreateParams::AutomaticTax), billing_details: T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::BillingDetails)), currency: String, customer: T.nilable(String), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Discount])), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T::Array[::Stripe::OrderService::CreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), payment: T.nilable(::Stripe::OrderService::CreateParams::Payment), shipping_cost: T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingCost)), shipping_details: T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingDetails)), tax_details: T.nilable(::Stripe::OrderService::CreateParams::TaxDetails)).void
        }
       def initialize(
         automatic_tax: nil,
@@ -1362,7 +1360,7 @@ module Stripe
             def initialize(height: nil, length: nil, weight: nil, width: nil); end
           end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # A unique identifier for this product.
           #
@@ -1370,30 +1368,30 @@ module Stripe
           sig { returns(String) }
           attr_accessor :id
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
-          sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+          sig { returns(T.nilable(T.any(String, T::Array[String]))) }
           attr_accessor :images
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-          sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+          sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
           attr_accessor :metadata
           # The product's name, meant to be displayable to the customer.
           sig { returns(String) }
           attr_accessor :name
           # The dimensions of this product for shipping purposes.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::LineItem::ProductData::PackageDimensions))))
+            returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::LineItem::ProductData::PackageDimensions)))
            }
           attr_accessor :package_dimensions
           # Whether this product is shipped (i.e., physical goods).
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :shippable
           # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :tax_code
           # A URL of a publicly-accessible webpage for this product.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :url
           sig {
-            params(description: T.nilable(T.nilable(String)), id: String, images: T.nilable(T.nilable(T.any(String, T::Array[String]))), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: String, package_dimensions: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::LineItem::ProductData::PackageDimensions))), shippable: T.nilable(T::Boolean), tax_code: T.nilable(T.nilable(String)), url: T.nilable(T.nilable(String))).void
+            params(description: T.nilable(String), id: String, images: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: String, package_dimensions: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::LineItem::ProductData::PackageDimensions)), shippable: T.nilable(T::Boolean), tax_code: T.nilable(String), url: T.nilable(String)).void
            }
           def initialize(
             description: nil,
@@ -1412,7 +1410,7 @@ module Stripe
         attr_accessor :description
         # The discounts applied to this line item.
         sig {
-          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::LineItem::Discount]))))
+          returns(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::LineItem::Discount])))
          }
         attr_accessor :discounts
         # The ID of an existing line item on the order.
@@ -1446,10 +1444,10 @@ module Stripe
         sig { returns(T.nilable(Integer)) }
         attr_accessor :quantity
         # The tax rates applied to this line item.
-        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         attr_accessor :tax_rates
         sig {
-          params(description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::LineItem::Discount]))), id: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::OrderService::UpdateParams::LineItem::PriceData), product: T.nilable(String), product_data: T.nilable(::Stripe::OrderService::UpdateParams::LineItem::ProductData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+          params(description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::LineItem::Discount])), id: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::OrderService::UpdateParams::LineItem::PriceData), product: T.nilable(String), product_data: T.nilable(::Stripe::OrderService::UpdateParams::LineItem::ProductData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           description: nil,
@@ -1471,7 +1469,7 @@ module Stripe
                 # A URL for custom mandate text to render during confirmation step.
                 # The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
                 # or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :custom_mandate_url
                 # Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
                 sig { returns(T.nilable(String)) }
@@ -1483,7 +1481,7 @@ module Stripe
                 sig { returns(T.nilable(String)) }
                 attr_accessor :transaction_type
                 sig {
-                  params(custom_mandate_url: T.nilable(T.nilable(String)), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
+                  params(custom_mandate_url: T.nilable(String), interval_description: T.nilable(String), payment_schedule: T.nilable(String), transaction_type: T.nilable(String)).void
                  }
                 def initialize(
                   custom_mandate_url: nil,
@@ -1506,7 +1504,7 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
               sig { returns(T.nilable(String)) }
@@ -1515,7 +1513,7 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_accessor :verification_method
               sig {
-                params(mandate_options: T.nilable(::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), target_date: T.nilable(String), verification_method: T.nilable(String)).void
+                params(mandate_options: T.nilable(::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String)).void
                }
               def initialize(
                 mandate_options: nil,
@@ -1559,9 +1557,9 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
-              sig { params(setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void }
+              sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
               def initialize(setup_future_usage: nil); end
             end
             class Bancontact < Stripe::RequestParams
@@ -1577,10 +1575,10 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               sig {
-                params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void
+                params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
                }
               def initialize(preferred_language: nil, setup_future_usage: nil); end
             end
@@ -1663,9 +1661,9 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
-              sig { params(setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void }
+              sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
               def initialize(setup_future_usage: nil); end
             end
             class Klarna < Stripe::RequestParams
@@ -1740,7 +1738,7 @@ module Stripe
               # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
               #
               # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :capture_method
               # On-demand details if setting up or charging an on-demand payment.
               sig {
@@ -1763,11 +1761,11 @@ module Stripe
               attr_accessor :setup_future_usage
               # Subscription details if setting up or charging a subscription.
               sig {
-                returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription]))))
+                returns(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])))
                }
               attr_accessor :subscriptions
               sig {
-                params(capture_method: T.nilable(T.nilable(String)), on_demand: T.nilable(::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription])))).void
+                params(capture_method: T.nilable(String), on_demand: T.nilable(::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::OnDemand), preferred_locale: T.nilable(String), setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna::Subscription]))).void
                }
               def initialize(
                 capture_method: nil,
@@ -1783,7 +1781,7 @@ module Stripe
               # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
               #
               # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :capture_method
               # [Deprecated] This is a legacy parameter that no longer has any function.
               sig { returns(T.nilable(String)) }
@@ -1797,10 +1795,10 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               sig {
-                params(capture_method: T.nilable(T.nilable(String)), persistent_token: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void
+                params(capture_method: T.nilable(String), persistent_token: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
                }
               def initialize(
                 capture_method: nil,
@@ -1901,7 +1899,7 @@ module Stripe
                 ); end
               end
               # Controls when the funds will be captured from the customer's account.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :capture_method
               # The line items purchased by the customer.
               sig {
@@ -1929,13 +1927,13 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
               sig { returns(T.nilable(T::Array[String])) }
               attr_accessor :subsellers
               sig {
-                params(capture_method: T.nilable(T.nilable(String)), line_items: T.nilable(T::Array[::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), subsellers: T.nilable(T::Array[String])).void
+                params(capture_method: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), subsellers: T.nilable(T::Array[String])).void
                }
               def initialize(
                 capture_method: nil,
@@ -1951,9 +1949,9 @@ module Stripe
             class SepaDebit < Stripe::RequestParams
               class MandateOptions < Stripe::RequestParams
                 # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 attr_accessor :reference_prefix
-                sig { params(reference_prefix: T.nilable(T.nilable(String))).void }
+                sig { params(reference_prefix: T.nilable(String)).void }
                 def initialize(reference_prefix: nil); end
               end
               # Additional fields for Mandate creation
@@ -1970,19 +1968,19 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
               sig { returns(T.nilable(String)) }
               attr_accessor :target_date
               sig {
-                params(mandate_options: T.nilable(::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), target_date: T.nilable(String)).void
+                params(mandate_options: T.nilable(::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
                }
               def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
             end
             class Sofort < Stripe::RequestParams
               # Language shown to the payer on redirect.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :preferred_language
               # Indicates that you intend to make future payments with this PaymentIntent's payment method.
               #
@@ -1993,10 +1991,10 @@ module Stripe
               # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
               #
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-              sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+              sig { returns(T.nilable(T.any(String, String))) }
               attr_accessor :setup_future_usage
               sig {
-                params(preferred_language: T.nilable(T.nilable(T.any(String, String))), setup_future_usage: T.nilable(T.nilable(T.any(String, String)))).void
+                params(preferred_language: T.nilable(T.any(String, String)), setup_future_usage: T.nilable(T.any(String, String))).void
                }
               def initialize(preferred_language: nil, setup_future_usage: nil); end
             end
@@ -2025,81 +2023,81 @@ module Stripe
             end
             # If paying by `acss_debit`, this sub-hash contains details about the ACSS Debit payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit)))
              }
             attr_accessor :acss_debit
             # If paying by `afterpay_clearpay`, this sub-hash contains details about the AfterpayClearpay payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay)))
              }
             attr_accessor :afterpay_clearpay
             # If paying by `alipay`, this sub-hash contains details about the Alipay payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Alipay))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Alipay)))
              }
             attr_accessor :alipay
             # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact)))
              }
             attr_accessor :bancontact
             # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Card))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Card)))
              }
             attr_accessor :card
             # If paying by `customer_balance`, this sub-hash contains details about the Customer Balance payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance)))
              }
             attr_accessor :customer_balance
             # If paying by `ideal`, this sub-hash contains details about the iDEAL payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Ideal))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Ideal)))
              }
             attr_accessor :ideal
             # If paying by `klarna`, this sub-hash contains details about the Klarna payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna)))
              }
             attr_accessor :klarna
             # If paying by `link`, this sub-hash contains details about the Link payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Link))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Link)))
              }
             attr_accessor :link
             # If paying by `oxxo`, this sub-hash contains details about the OXXO payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo)))
              }
             attr_accessor :oxxo
             # If paying by `p24`, this sub-hash contains details about the P24 payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::P24))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::P24)))
              }
             attr_accessor :p24
             # If paying by `paypal`, this sub-hash contains details about the PayPal payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Paypal))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Paypal)))
              }
             attr_accessor :paypal
             # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Debit payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit)))
              }
             attr_accessor :sepa_debit
             # If paying by `sofort`, this sub-hash contains details about the Sofort payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Sofort))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Sofort)))
              }
             attr_accessor :sofort
             # If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the order's PaymentIntent.
             sig {
-              returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay))))
+              returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay)))
              }
             attr_accessor :wechat_pay
             sig {
-              params(acss_debit: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit))), afterpay_clearpay: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay))), alipay: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Alipay))), bancontact: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact))), card: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Card))), customer_balance: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance))), ideal: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Ideal))), klarna: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna))), link: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Link))), oxxo: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo))), p24: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::P24))), paypal: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Paypal))), sepa_debit: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit))), sofort: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Sofort))), wechat_pay: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay)))).void
+              params(acss_debit: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit)), afterpay_clearpay: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AfterpayClearpay)), alipay: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Alipay)), bancontact: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::CustomerBalance)), ideal: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Ideal)), klarna: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Klarna)), link: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Link)), oxxo: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Oxxo)), p24: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::P24)), paypal: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Paypal)), sepa_debit: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit)), sofort: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::Sofort)), wechat_pay: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::WechatPay))).void
              }
             def initialize(
               acss_debit: nil,
@@ -2130,7 +2128,7 @@ module Stripe
             def initialize(amount: nil, destination: nil); end
           end
           # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account.
-          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+          sig { returns(T.nilable(T.any(String, Integer))) }
           attr_accessor :application_fee_amount
           # PaymentMethod-specific configuration to provide to the order's PaymentIntent.
           sig {
@@ -2141,7 +2139,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :payment_method_types
           # The URL to redirect the customer to after they authenticate their payment.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :return_url
           # For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
           sig { returns(T.nilable(String)) }
@@ -2151,11 +2149,11 @@ module Stripe
           attr_accessor :statement_descriptor_suffix
           # Provides configuration for completing a transfer for the order after it is paid.
           sig {
-            returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::TransferData))))
+            returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::TransferData)))
            }
           attr_accessor :transfer_data
           sig {
-            params(application_fee_amount: T.nilable(T.nilable(T.any(String, Integer))), payment_method_options: T.nilable(::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(T.nilable(String)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::TransferData)))).void
+            params(application_fee_amount: T.nilable(T.any(String, Integer)), payment_method_options: T.nilable(::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::Payment::Settings::TransferData))).void
            }
           def initialize(
             application_fee_amount: nil,
@@ -2328,10 +2326,10 @@ module Stripe
         sig { returns(String) }
         attr_accessor :name
         # The phone number (including extension) for the recipient of the order.
-        sig { returns(T.nilable(T.nilable(String))) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         sig {
-          params(address: ::Stripe::OrderService::UpdateParams::ShippingDetails::Address, name: String, phone: T.nilable(T.nilable(String))).void
+          params(address: ::Stripe::OrderService::UpdateParams::ShippingDetails::Address, name: String, phone: T.nilable(String)).void
          }
         def initialize(address: nil, name: nil, phone: nil); end
       end
@@ -2347,7 +2345,7 @@ module Stripe
           def initialize(type: nil, value: nil); end
         end
         # The purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
-        sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+        sig { returns(T.nilable(T.any(String, String))) }
         attr_accessor :tax_exempt
         # The purchaser's tax IDs to be used for this order.
         sig {
@@ -2355,7 +2353,7 @@ module Stripe
          }
         attr_accessor :tax_ids
         sig {
-          params(tax_exempt: T.nilable(T.nilable(T.any(String, String))), tax_ids: T.nilable(T::Array[::Stripe::OrderService::UpdateParams::TaxDetails::TaxId])).void
+          params(tax_exempt: T.nilable(T.any(String, String)), tax_ids: T.nilable(T::Array[::Stripe::OrderService::UpdateParams::TaxDetails::TaxId])).void
          }
         def initialize(tax_exempt: nil, tax_ids: nil); end
       end
@@ -2364,7 +2362,7 @@ module Stripe
       attr_accessor :automatic_tax
       # Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::BillingDetails))))
+        returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::BillingDetails)))
        }
       attr_accessor :billing_details
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -2374,11 +2372,11 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :customer
       # An arbitrary string attached to the object. Often useful for displaying to users.
-      sig { returns(T.nilable(T.nilable(String))) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :description
       # The coupons, promotion codes, and/or discounts to apply to the order. Pass the empty string `""` to unset this field.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Discount]))))
+        returns(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Discount])))
        }
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
@@ -2391,26 +2389,24 @@ module Stripe
       sig { returns(T.nilable(T::Array[::Stripe::OrderService::UpdateParams::LineItem])) }
       attr_accessor :line_items
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Payment information associated with the order, including payment settings.
       sig { returns(T.nilable(::Stripe::OrderService::UpdateParams::Payment)) }
       attr_accessor :payment
       # Settings for the customer cost of shipping for this order.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingCost))))
-       }
+      sig { returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingCost))) }
       attr_accessor :shipping_cost
       # Shipping details for the order.
       sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingDetails))))
+        returns(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingDetails)))
        }
       attr_accessor :shipping_details
       # Additional tax details about the purchaser to be used for this order.
       sig { returns(T.nilable(::Stripe::OrderService::UpdateParams::TaxDetails)) }
       attr_accessor :tax_details
       sig {
-        params(automatic_tax: T.nilable(::Stripe::OrderService::UpdateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::BillingDetails))), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderService::UpdateParams::LineItem]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment: T.nilable(::Stripe::OrderService::UpdateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::OrderService::UpdateParams::TaxDetails)).void
+        params(automatic_tax: T.nilable(::Stripe::OrderService::UpdateParams::AutomaticTax), billing_details: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::BillingDetails)), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Discount])), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderService::UpdateParams::LineItem]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment: T.nilable(::Stripe::OrderService::UpdateParams::Payment), shipping_cost: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingCost)), shipping_details: T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingDetails)), tax_details: T.nilable(::Stripe::OrderService::UpdateParams::TaxDetails)).void
        }
       def initialize(
         automatic_tax: nil,

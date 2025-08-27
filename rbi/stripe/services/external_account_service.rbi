@@ -35,7 +35,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :account_holder_name
       # The type of entity that holds the account. This can be either `individual` or `company`.
-      sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
+      sig { returns(T.nilable(T.any(String, String))) }
       attr_accessor :account_holder_type
       # The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
       sig { returns(T.nilable(String)) }
@@ -74,13 +74,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       attr_accessor :metadata
       # Cardholder name.
       sig { returns(T.nilable(String)) }
       attr_accessor :name
       sig {
-        params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(T.nilable(T.any(String, String))), account_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), default_for_currency: T.nilable(T::Boolean), documents: T.nilable(::Stripe::ExternalAccountService::UpdateParams::Documents), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String)).void
+        params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(T.any(String, String)), account_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), default_for_currency: T.nilable(T::Boolean), documents: T.nilable(::Stripe::ExternalAccountService::UpdateParams::Documents), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
        }
       def initialize(
         account_holder_name: nil,

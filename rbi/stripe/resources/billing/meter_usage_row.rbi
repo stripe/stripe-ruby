@@ -20,7 +20,7 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
-      # The unique identifier for the meter.
+      # The unique identifier for the meter. Null if no meters were provided and usage was aggregated across all meters.
       sig { returns(T.nilable(String)) }
       attr_reader :meter_id
       # String representing the object's type. Objects of the same type share the same value.

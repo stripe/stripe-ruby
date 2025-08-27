@@ -57,7 +57,7 @@ module Stripe
       attr_reader :message
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
       attr_reader :network_advice_code
-      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
       attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
       attr_reader :param
@@ -1232,6 +1232,8 @@ module Stripe
       end
 
       class Pix < Stripe::StripeObject
+        # Determines if the amount includes the IOF tax.
+        attr_reader :amount_includes_iof
         # The number of seconds (between 10 and 1209600) after which Pix payment will expire.
         attr_reader :expires_after_seconds
         # The timestamp at which the Pix expires.
@@ -3308,6 +3310,8 @@ module Stripe
         end
 
         class Pix < Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
@@ -3323,7 +3327,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
 
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil)
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            setup_future_usage: nil
+          )
+            @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
             @expires_at = expires_at
             @setup_future_usage = setup_future_usage
@@ -3922,6 +3932,8 @@ module Stripe
       attr_accessor :description
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
       attr_accessor :error_on_requires_action
+      # The list of payment method types to exclude from use with this payment.
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # ID of the mandate that's used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
@@ -3992,6 +4004,7 @@ module Stripe
         customer: nil,
         description: nil,
         error_on_requires_action: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         mandate: nil,
         mandate_data: nil,
@@ -4025,6 +4038,7 @@ module Stripe
         @customer = customer
         @description = description
         @error_on_requires_action = error_on_requires_action
+        @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @mandate = mandate
         @mandate_data = mandate_data
@@ -5693,6 +5707,8 @@ module Stripe
         end
 
         class Pix < Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
@@ -5708,7 +5724,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
 
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil)
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            setup_future_usage: nil
+          )
+            @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
             @expires_at = expires_at
             @setup_future_usage = setup_future_usage
@@ -8142,6 +8164,8 @@ module Stripe
         end
 
         class Pix < Stripe::RequestParams
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
           # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
@@ -8157,7 +8181,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
 
-          def initialize(expires_after_seconds: nil, expires_at: nil, setup_future_usage: nil)
+          def initialize(
+            amount_includes_iof: nil,
+            expires_after_seconds: nil,
+            expires_at: nil,
+            setup_future_usage: nil
+          )
+            @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
             @expires_at = expires_at
             @setup_future_usage = setup_future_usage
@@ -8894,6 +8924,8 @@ module Stripe
     attr_reader :customer
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
+    # The list of payment method types to exclude from use with this payment.
+    attr_reader :excluded_payment_method_types
     # Unique identifier for the object.
     attr_reader :id
     # The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason.

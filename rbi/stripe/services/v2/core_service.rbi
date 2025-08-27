@@ -5,8 +5,8 @@
 module Stripe
   module V2
     class CoreService < StripeService
-      attr_reader :event_destinations
       attr_reader :events
+      attr_reader :event_destinations
     end
   end
 end

@@ -4,12 +4,12 @@
 module Stripe
   module V2
     class CoreService < StripeService
-      attr_reader :event_destinations, :events
+      attr_reader :events, :event_destinations
 
       def initialize(requestor)
         super
-        @event_destinations = Stripe::V2::Core::EventDestinationService.new(@requestor)
         @events = Stripe::V2::Core::EventService.new(@requestor)
+        @event_destinations = Stripe::V2::Core::EventDestinationService.new(@requestor)
       end
     end
   end

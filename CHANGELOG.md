@@ -1,5 +1,83 @@
 # Changelog
 
+## 15.6.0-alpha.1 - 2025-08-27
+* [#1640](https://github.com/stripe/stripe-ruby/pull/1640) Use the right API version 2025-08-27.preview
+* [#1636](https://github.com/stripe/stripe-ruby/pull/1636) Update generated code for private-preview
+  * Add support for `attach_cadence` method on resource `Subscription`
+  * Add support for `currency` and `external_customer_id` on `Billing::AlertTriggered`
+  * Add support for `custom_pricing_unit` on `Billing::AlertTriggered`, `Billing::CreditBalanceSummary::Balance::AvailableBalance`, `Billing::CreditBalanceSummary::Balance::LedgerBalance`, `Billing::CreditBalanceTransaction::Credit::Amount`, `Billing::CreditBalanceTransaction::Debit::Amount`, `Billing::CreditGrant::Amount`, and `Billing::CreditGrant::CreateParams::Amount`
+  * Add support for `customer` on `Billing::Alert::ListParams`
+  * Change type of `Billing::Alert.alert_type`, `Billing::Alert::CreateParams.alert_type`, and `Billing::Alert::ListParams.alert_type` from `literal('usage_threshold')` to `enum('credit_balance_threshold'|'usage_threshold')`
+  * Add support for `credit_balance_threshold` on `Billing::Alert::CreateParams` and `Billing::Alert`
+  * Add support for `billable_items` on `Billing::CreditBalanceSummary::RetrieveParams::Filter::ApplicabilityScope`, `Billing::CreditGrant::ApplicabilityConfig::Scope`, and `Billing::CreditGrant::CreateParams::ApplicabilityConfig::Scope`
+  * Change type of `Billing::CreditBalanceSummary::Balance::AvailableBalance.type`, `Billing::CreditBalanceSummary::Balance::LedgerBalance.type`, `Billing::CreditBalanceTransaction::Credit::Amount.type`, `Billing::CreditBalanceTransaction::Debit::Amount.type`, `Billing::CreditGrant::Amount.type`, and `Billing::CreditGrant::CreateParams::Amount.type` from `literal('monetary')` to `enum('custom_pricing_unit'|'monetary')`
+  * Add support for `license_fee_subscription_details` and `rate_card_subscription_details` on `InvoiceItem::Parent` and `InvoiceLineItem::Parent`
+  * Change type of `InvoiceItem::Parent.type` from `literal('subscription_details')` to `enum('license_fee_subscription_details'|'rate_card_subscription_details'|'subscription_details')`
+  * Add support for `license_fee_details` and `rate_card_rate_details` on `InvoiceItem::Pricing` and `InvoiceLineItem::Pricing`
+  * Change type of `InvoiceItem::Pricing.type` and `InvoiceLineItem::Pricing.type` from `literal('price_details')` to `enum('license_fee_details'|'price_details'|'rate_card_rate_details')`
+  * Add support for `billing_cadence` on `Invoice::CreatePreviewParams`, `Subscription::CreateParams`, and `Subscription`
+  * Add support for `billing_cadence_details` on `Invoice::Parent` and `QuotePreviewInvoice::Parent`
+  * Add support for new resources `V2::Billing::BillSettingVersion`, `V2::Billing::BillSetting`, `V2::Billing::Cadence`, `V2::Billing::CollectionSettingVersion`, `V2::Billing::CollectionSetting`, `V2::Billing::CustomPricingUnit`, `V2::Billing::IntentAction`, `V2::Billing::Intent`, `V2::Billing::LicenseFeeSubscription`, `V2::Billing::LicenseFeeVersion`, `V2::Billing::LicenseFee`, `V2::Billing::LicensedItem`, `V2::Billing::MeteredItem`, `V2::Billing::PricingPlanComponent`, `V2::Billing::PricingPlanSubscription`, `V2::Billing::PricingPlanVersion`, `V2::Billing::PricingPlan`, `V2::Billing::Profile`, `V2::Billing::RateCardRate`, `V2::Billing::RateCardSubscription`, `V2::Billing::RateCardVersion`, `V2::Billing::RateCard`, `V2::Billing::ServiceAction`, `V2::Core::ClaimableSandbox`, `V2::Reporting::ReportRun`, `V2::Reporting::Report`, and `V2::Tax::AutomaticRule`
+  * Add support for `create`, `deactivate`, `find`, `retrieve`, and `update` methods on resource `V2::Tax::AutomaticRule`
+  * Add support for `create` and `retrieve` methods on resources `V2::Billing::ServiceAction` and `V2::Reporting::ReportRun`
+  * Add support for `retrieve` method on resources `V2::Billing::LicenseFeeSubscription` and `V2::Reporting::Report`
+  * Add support for `create` method on resource `V2::Core::ClaimableSandbox`
+  * Add support for `cancel`, `create`, `list`, `retrieve`, and `update` methods on resources `V2::Billing::Cadence` and `V2::Billing::RateCardSubscription`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resources `V2::Billing::BillSetting`, `V2::Billing::CollectionSetting`, `V2::Billing::CustomPricingUnit`, `V2::Billing::LicenseFee`, `V2::Billing::LicensedItem`, `V2::Billing::MeteredItem`, `V2::Billing::PricingPlan`, `V2::Billing::Profile`, and `V2::Billing::RateCard`
+  * Add support for `list` and `retrieve` methods on resources `V2::Billing::BillSettingVersion`, `V2::Billing::CollectionSettingVersion`, `V2::Billing::IntentAction`, `V2::Billing::LicenseFeeVersion`, `V2::Billing::PricingPlanSubscription`, `V2::Billing::PricingPlanVersion`, and `V2::Billing::RateCardVersion`
+  * Add support for `create`, `delete`, `list`, and `retrieve` methods on resource `V2::Billing::RateCardRate`
+  * Add support for `create`, `delete`, `list`, `retrieve`, and `update` methods on resource `V2::Billing::PricingPlanComponent`
+  * Add support for `cancel`, `commit`, `create`, `list`, `release_reservation`, `reserve`, and `retrieve` methods on resource `V2::Billing::Intent`
+  * Add support for `changes` on `V2::Event`
+  * Add support for thin events `V2BillingCadenceBilledEvent`, `V2BillingCadenceCanceledEvent`, `V2BillingCadenceCreatedEvent`, and `V2BillingCadenceErroredEvent` with related object `V2::Billing::Cadence`
+  * Add support for thin events `V2BillingLicenseFeeCreatedEvent` and `V2BillingLicenseFeeUpdatedEvent` with related object `V2::Billing::LicenseFee`
+  * Add support for thin event `V2BillingLicenseFeeVersionCreatedEvent` with related object `V2::Billing::LicenseFeeVersion`
+  * Add support for thin events `V2BillingLicensedItemCreatedEvent` and `V2BillingLicensedItemUpdatedEvent` with related object `V2::Billing::LicensedItem`
+  * Add support for thin events `V2BillingMeteredItemCreatedEvent` and `V2BillingMeteredItemUpdatedEvent` with related object `V2::Billing::MeteredItem`
+  * Add support for thin events `V2BillingPricingPlanCreatedEvent` and `V2BillingPricingPlanUpdatedEvent` with related object `V2::Billing::PricingPlan`
+  * Add support for thin events `V2BillingPricingPlanComponentCreatedEvent` and `V2BillingPricingPlanComponentUpdatedEvent` with related object `V2::Billing::PricingPlanComponent`
+  * Add support for thin events `V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEvent`, `V2BillingPricingPlanSubscriptionCollectionCurrentEvent`, `V2BillingPricingPlanSubscriptionCollectionPastDueEvent`, `V2BillingPricingPlanSubscriptionCollectionPausedEvent`, `V2BillingPricingPlanSubscriptionCollectionUnpaidEvent`, `V2BillingPricingPlanSubscriptionServicingActivatedEvent`, `V2BillingPricingPlanSubscriptionServicingCanceledEvent`, and `V2BillingPricingPlanSubscriptionServicingPausedEvent` with related object `V2::Billing::PricingPlanSubscription`
+  * Add support for thin event `V2BillingPricingPlanVersionCreatedEvent` with related object `V2::Billing::PricingPlanVersion`
+  * Add support for thin events `V2BillingRateCardCreatedEvent` and `V2BillingRateCardUpdatedEvent` with related object `V2::Billing::RateCard`
+  * Add support for thin event `V2BillingRateCardRateCreatedEvent` with related object `V2::Billing::RateCardRate`
+  * Add support for thin events `V2BillingRateCardSubscriptionActivatedEvent`, `V2BillingRateCardSubscriptionCanceledEvent`, `V2BillingRateCardSubscriptionCollectionAwaitingCustomerActionEvent`, `V2BillingRateCardSubscriptionCollectionCurrentEvent`, `V2BillingRateCardSubscriptionCollectionPastDueEvent`, `V2BillingRateCardSubscriptionCollectionPausedEvent`, `V2BillingRateCardSubscriptionCollectionUnpaidEvent`, `V2BillingRateCardSubscriptionServicingActivatedEvent`, `V2BillingRateCardSubscriptionServicingCanceledEvent`, and `V2BillingRateCardSubscriptionServicingPausedEvent` with related object `V2::Billing::RateCardSubscription`
+  * Add support for thin event `V2BillingRateCardVersionCreatedEvent` with related object `V2::Billing::RateCardVersion`
+  * Add support for thin events `V2CoreHealthApiErrorFiringEvent`, `V2CoreHealthApiErrorResolvedEvent`, `V2CoreHealthApiLatencyFiringEvent`, `V2CoreHealthApiLatencyResolvedEvent`, `V2CoreHealthAuthorizationRateDropFiringEvent`, `V2CoreHealthAuthorizationRateDropResolvedEvent`, `V2CoreHealthEventGenerationFailureResolvedEvent`, `V2CoreHealthFraudRateIncreasedEvent`, `V2CoreHealthIssuingAuthorizationRequestTimeoutFiringEvent`, `V2CoreHealthIssuingAuthorizationRequestTimeoutResolvedEvent`, `V2CoreHealthPaymentMethodErrorFiringEvent`, `V2CoreHealthPaymentMethodErrorResolvedEvent`, `V2CoreHealthTrafficVolumeDropFiringEvent`, `V2CoreHealthTrafficVolumeDropResolvedEvent`, `V2CoreHealthWebhookLatencyFiringEvent`, and `V2CoreHealthWebhookLatencyResolvedEvent`
+  * Add support for thin events `V2ReportingReportRunCreatedEvent`, `V2ReportingReportRunFailedEvent`, `V2ReportingReportRunSucceededEvent`, and `V2ReportingReportRunUpdatedEvent` with related object `V2::Reporting::ReportRun`
+  * Add support for error type `RateLimitError`
+  
+  ## 15.6.0-beta.1 - 2025-08-27
+This release changes the pinned API version to `2025-08-27.preview`.
+
+* [#1629](https://github.com/stripe/stripe-ruby/pull/1629) Update generated code for beta
+  * Add support for `list` and `retrieve` methods on resource `InvoicePayment`
+  * Add support for `list` method on resource `Mandate`
+  * Add support for `applied` on `V2::Core::Account::Configuration::Customer`, `V2::Core::Account::Configuration::Merchant`, `V2::Core::Account::Configuration::Recipient`, `V2::Core::Account::Configuration::Storer`, `V2::Core::Account::UpdateParams::Configuration::Customer`, `V2::Core::Account::UpdateParams::Configuration::Merchant`, `V2::Core::Account::UpdateParams::Configuration::Recipient`, and `V2::Core::Account::UpdateParams::Configuration::Storer`
+  * Change type of `Billing::AlertTriggered.value` from `longInteger` to `decimal_string`
+  * Add support for `display_name` on `V2::MoneyManagement::FinancialAccount::CreateParams` and `V2::MoneyManagement::FinancialAccount`
+  * Add support for `currency_conversion` on `V2::MoneyManagement::Transaction::Flow` and `V2::MoneyManagement::TransactionEntry::TransactionDetail::Flow`
+  * Add support for `payments` on `BalanceSettings::UpdateParams` and `BalanceSettings`
+  * Remove support for `debit_negative_balances`, `payouts`, and `settlement_timing` on `BalanceSettings::UpdateParams` and `BalanceSettings`
+  * Add support for `mandate` on `Charge::PaymentMethodDetail::Pix`, `PaymentAttemptRecord::PaymentMethodDetail::Pix`, and `PaymentRecord::PaymentMethodDetail::Pix`
+  * Add support for `coupon_data` on `Checkout::Session::CreateParams::Discount`
+  * Add support for `mandate_options` on `Checkout::Session::CreateParams::PaymentMethodOption::Pix`, `Checkout::Session::PaymentMethodOption::Pix`, `PaymentIntent::ConfirmParams::PaymentMethodOption::Pix`, `PaymentIntent::CreateParams::PaymentMethodOption::Pix`, `PaymentIntent::PaymentMethodOption::Pix`, and `PaymentIntent::UpdateParams::PaymentMethodOption::Pix`
+  * Change type of `Checkout::Session::CreateParams::PaymentMethodOption::Pix.setup_future_usage`, `Checkout::Session::PaymentMethodOption::Pix.setup_future_usage`, `PaymentIntent::ConfirmParams::PaymentMethodOption::Pix.setup_future_usage`, `PaymentIntent::CreateParams::PaymentMethodOption::Pix.setup_future_usage`, `PaymentIntent::PaymentMethodOption::Pix.setup_future_usage`, and `PaymentIntent::UpdateParams::PaymentMethodOption::Pix.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+  * Add support for `amount` on `Mandate::MultiUse`, `PaymentAttemptRecord`, and `PaymentRecord`
+  * Add support for `currency` on `Mandate::MultiUse`
+  * Add support for `pix` on `Mandate::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::ConfirmParams::PaymentMethodOption`, `SetupIntent::CreateParams::PaymentMethodOption`, `SetupIntent::PaymentMethodOption`, and `SetupIntent::UpdateParams::PaymentMethodOption`
+  * Add support for `limit` on `PaymentAttemptRecord::ListParams`
+  * Add support for `amount_authorized`, `amount_refunded`, and `application` on `PaymentAttemptRecord` and `PaymentRecord`
+  * Add support for `processor_details` on `PaymentAttemptRecord`, `PaymentRecord::ReportPaymentParams`, and `PaymentRecord`
+  * Remove support for `payment_reference` on `PaymentAttemptRecord`, `PaymentRecord::ReportPaymentParams`, and `PaymentRecord`
+  * Add support for `installments` on `PaymentAttemptRecord::PaymentMethodDetail::Alma` and `PaymentRecord::PaymentMethodDetail::Alma`
+  * Add support for `transaction_id` on `PaymentAttemptRecord::PaymentMethodDetail::Alma`, `PaymentAttemptRecord::PaymentMethodDetail::AmazonPay`, `PaymentAttemptRecord::PaymentMethodDetail::Billie`, `PaymentAttemptRecord::PaymentMethodDetail::KakaoPay`, `PaymentAttemptRecord::PaymentMethodDetail::KrCard`, `PaymentAttemptRecord::PaymentMethodDetail::NaverPay`, `PaymentAttemptRecord::PaymentMethodDetail::Payco`, `PaymentAttemptRecord::PaymentMethodDetail::RevolutPay`, `PaymentAttemptRecord::PaymentMethodDetail::SamsungPay`, `PaymentAttemptRecord::PaymentMethodDetail::Satispay`, `PaymentRecord::PaymentMethodDetail::Alma`, `PaymentRecord::PaymentMethodDetail::AmazonPay`, `PaymentRecord::PaymentMethodDetail::Billie`, `PaymentRecord::PaymentMethodDetail::KakaoPay`, `PaymentRecord::PaymentMethodDetail::KrCard`, `PaymentRecord::PaymentMethodDetail::NaverPay`, `PaymentRecord::PaymentMethodDetail::Payco`, `PaymentRecord::PaymentMethodDetail::RevolutPay`, `PaymentRecord::PaymentMethodDetail::SamsungPay`, and `PaymentRecord::PaymentMethodDetail::Satispay`
+  * Add support for `location` and `reader` on `PaymentAttemptRecord::PaymentMethodDetail::Paynow` and `PaymentRecord::PaymentMethodDetail::Paynow`
+  * Add support for `latest_active_mandate` on `PaymentMethod`
+  * Change `Payout.payout_method` to be required
+  * Add support for `metadata` and `period` on `QuotePreviewSubscriptionSchedule::Phase::AddInvoiceItem`
+  * Add support for `pix_display_qr_code` on `SetupIntent::NextAction`
+  * Add support for `reader_security` on `Terminal::Configuration::CreateParams`, `Terminal::Configuration::UpdateParams`, and `Terminal::Configuration`
+
 ## 15.5.0 - 2025-08-27
 * [#1638](https://github.com/stripe/stripe-ruby/pull/1638) Add section on private preview SDKs in readme
 * [#1631](https://github.com/stripe/stripe-ruby/pull/1631) Update generated code. This release changes the pinned API version to `2025-08-27.basil`.

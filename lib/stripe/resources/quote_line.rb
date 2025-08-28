@@ -14,6 +14,14 @@ module Stripe
         class DiscountEnd < Stripe::StripeObject
           # The discount end type.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ID of the coupon to create a new discount for.
         attr_reader :coupon
@@ -25,6 +33,14 @@ module Stripe
         attr_reader :index
         # ID of the promotion code to create a new discount for.
         attr_reader :promotion_code
+
+        def self.inner_class_types
+          @inner_class_types = { discount_end: DiscountEnd }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AddItem < Stripe::StripeObject
@@ -34,6 +50,14 @@ module Stripe
             attr_reader :timestamp
             # The discount end type.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # ID of the coupon to create a new discount for.
           attr_reader :coupon
@@ -43,6 +67,14 @@ module Stripe
           attr_reader :discount_end
           # ID of the promotion code to create a new discount for.
           attr_reader :promotion_code
+
+          def self.inner_class_types
+            @inner_class_types = { discount_end: DiscountEnd }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Trial < Stripe::StripeObject
@@ -50,6 +82,14 @@ module Stripe
           attr_reader :converts_to
           # Determines the type of trial for this item.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         attr_reader :discounts
@@ -63,6 +103,14 @@ module Stripe
         attr_reader :tax_rates
         # Options that configure the trial on the subscription item.
         attr_reader :trial
+
+        def self.inner_class_types
+          @inner_class_types = { discounts: Discount, trial: Trial }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RemoveDiscount < Stripe::StripeObject
@@ -71,6 +119,14 @@ module Stripe
           attr_reader :timestamp
           # The discount end type.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ID of the coupon to create a new discount for.
         attr_reader :coupon
@@ -80,11 +136,27 @@ module Stripe
         attr_reader :discount_end
         # ID of the promotion code to create a new discount for.
         attr_reader :promotion_code
+
+        def self.inner_class_types
+          @inner_class_types = { discount_end: DiscountEnd }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RemoveItem < Stripe::StripeObject
         # ID of a price to remove.
         attr_reader :price
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SetDiscount < Stripe::StripeObject
@@ -93,6 +165,14 @@ module Stripe
           attr_reader :timestamp
           # The discount end type.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ID of the coupon to create a new discount for.
         attr_reader :coupon
@@ -102,6 +182,14 @@ module Stripe
         attr_reader :discount_end
         # ID of the promotion code to create a new discount for.
         attr_reader :promotion_code
+
+        def self.inner_class_types
+          @inner_class_types = { discount_end: DiscountEnd }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SetItem < Stripe::StripeObject
@@ -111,6 +199,14 @@ module Stripe
             attr_reader :timestamp
             # The discount end type.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # ID of the coupon to create a new discount for.
           attr_reader :coupon
@@ -120,6 +216,14 @@ module Stripe
           attr_reader :discount_end
           # ID of the promotion code to create a new discount for.
           attr_reader :promotion_code
+
+          def self.inner_class_types
+            @inner_class_types = { discount_end: DiscountEnd }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Trial < Stripe::StripeObject
@@ -127,6 +231,14 @@ module Stripe
           attr_reader :converts_to
           # Determines the type of trial for this item.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         attr_reader :discounts
@@ -140,6 +252,14 @@ module Stripe
         attr_reader :tax_rates
         # Options that configure the trial on the subscription item.
         attr_reader :trial
+
+        def self.inner_class_types
+          @inner_class_types = { discounts: Discount, trial: Trial }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Details for the `add_discount` type.
       attr_reader :add_discount
@@ -161,6 +281,21 @@ module Stripe
       attr_reader :set_metadata
       # The type of action the quote line performs.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {
+          add_discount: AddDiscount,
+          add_item: AddItem,
+          remove_discount: RemoveDiscount,
+          remove_item: RemoveItem,
+          set_discounts: SetDiscount,
+          set_items: SetItem,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AppliesTo < Stripe::StripeObject
@@ -170,6 +305,14 @@ module Stripe
       attr_reader :subscription_schedule
       # Describes whether the quote line is affecting a new schedule or an existing schedule.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CancelSubscriptionSchedule < Stripe::StripeObject
@@ -179,12 +322,28 @@ module Stripe
       attr_reader :invoice_now
       # If the subscription schedule is `active`, indicates if the cancellation should be prorated. Boolean that defaults to `true`.
       attr_reader :prorate
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class EndsAt < Stripe::StripeObject
       class DiscountEnd < Stripe::StripeObject
         # The ID of a specific discount.
         attr_reader :discount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Duration < Stripe::StripeObject
@@ -192,6 +351,14 @@ module Stripe
         attr_reader :interval
         # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         attr_reader :interval_count
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The timestamp value that will be used to determine when to make changes to the subscription schedule, as computed from the `ends_at` field. For example, if `ends_at[type]=upcoming_invoice`, the upcoming invoice date will be computed at the time the `ends_at` field was specified and saved. This field will not be recomputed upon future requests to update or finalize the quote unless `ends_at` is respecified. This field is guaranteed to be populated after quote acceptance.
       attr_reader :computed
@@ -203,28 +370,68 @@ module Stripe
       attr_reader :timestamp
       # Select a way to pass in `ends_at`.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { discount_end: DiscountEnd, duration: Duration }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SetPauseCollection < Stripe::StripeObject
       class Set < Stripe::StripeObject
         # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
         attr_reader :behavior
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
       attr_reader :set
       # Defines the type of the pause_collection behavior for the quote line.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { set: Set }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class StartsAt < Stripe::StripeObject
       class DiscountEnd < Stripe::StripeObject
         # The ID of a specific discount.
         attr_reader :discount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class LineEndsAt < Stripe::StripeObject
         # Unique identifier for the object.
         attr_reader :id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The timestamp value that will be used to determine when to make changes to the subscription schedule, as computed from the `starts_at` field. For example, if `starts_at[type]=upcoming_invoice`, the upcoming invoice date will be computed at the time the `starts_at` field was specified and saved. This field will not be recomputed upon future requests to update or finalize the quote unless `starts_at` is respecified. This field is guaranteed to be populated after quote acceptance.
       attr_reader :computed
@@ -236,15 +443,39 @@ module Stripe
       attr_reader :timestamp
       # Select a way to pass in `starts_at`.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { discount_end: DiscountEnd, line_ends_at: LineEndsAt }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TrialSettings < Stripe::StripeObject
       class EndBehavior < Stripe::StripeObject
         # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
         attr_reader :prorate_up_front
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Defines how the subscription should behave when a trial ends.
       attr_reader :end_behavior
+
+      def self.inner_class_types
+        @inner_class_types = { end_behavior: EndBehavior }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # A list of items the customer is being quoted for.
     attr_reader :actions
@@ -270,5 +501,21 @@ module Stripe
     attr_reader :starts_at
     # Settings related to subscription trials.
     attr_reader :trial_settings
+
+    def self.inner_class_types
+      @inner_class_types = {
+        actions: Action,
+        applies_to: AppliesTo,
+        cancel_subscription_schedule: CancelSubscriptionSchedule,
+        ends_at: EndsAt,
+        set_pause_collection: SetPauseCollection,
+        starts_at: StartsAt,
+        trial_settings: TrialSettings,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

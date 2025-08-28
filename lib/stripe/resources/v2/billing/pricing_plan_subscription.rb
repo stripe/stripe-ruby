@@ -21,6 +21,14 @@ module Stripe
           attr_reader :paused_at
           # When the collection status transitioned to unpaid.
           attr_reader :unpaid_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ServicingStatusTransitions < Stripe::StripeObject
@@ -30,6 +38,14 @@ module Stripe
           attr_reader :canceled_at
           # When the servicing status transitioned to paused.
           attr_reader :paused_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The ID of the Billing Cadence this subscription is billed on.
         attr_reader :billing_cadence
@@ -57,6 +73,17 @@ module Stripe
         attr_reader :test_clock
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            collection_status_transitions: CollectionStatusTransitions,
+            servicing_status_transitions: ServicingStatusTransitions,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

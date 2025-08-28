@@ -14,11 +14,27 @@ module Stripe
         class Committed < Stripe::StripeObject
           # The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
           attr_reader :transaction
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Errored < Stripe::StripeObject
           # Details on why we couldn't commit the tax transaction.
           attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field committed
         attr_reader :committed
@@ -28,6 +44,14 @@ module Stripe
         attr_reader :source
         # The status of the transaction attempt. This can be `errored` or `committed`.
         attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = { committed: Committed, errored: Errored }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class FindParams < Stripe::RequestParams
@@ -60,6 +84,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { tax_transaction_attempts: TaxTransactionAttempt }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

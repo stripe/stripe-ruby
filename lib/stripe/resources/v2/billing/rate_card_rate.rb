@@ -15,6 +15,14 @@ module Stripe
           attr_reader :id
           # The unit value for the custom pricing unit, as a string.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Tier < Stripe::StripeObject
@@ -28,6 +36,14 @@ module Stripe
           attr_reader :up_to_decimal
           # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
           attr_reader :up_to_inf
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class TransformQuantity < Stripe::StripeObject
@@ -35,6 +51,14 @@ module Stripe
           attr_reader :divide_by
           # After division, round the result up or down.
           attr_reader :round
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Timestamp of when the object was created.
         attr_reader :created
@@ -65,6 +89,18 @@ module Stripe
         attr_reader :unit_amount
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            custom_pricing_unit_amount: CustomPricingUnitAmount,
+            tiers: Tier,
+            transform_quantity: TransformQuantity,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

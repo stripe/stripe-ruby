@@ -35,6 +35,14 @@ module Stripe
       attr_reader :postal_code
       # State, county, province, or region.
       attr_reader :state
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class InvoiceSettings < Stripe::StripeObject
@@ -43,6 +51,14 @@ module Stripe
         attr_reader :name
         # The value of the custom field.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RenderingOptions < Stripe::StripeObject
@@ -50,6 +66,14 @@ module Stripe
         attr_reader :amount_tax_display
         # ID of the invoice rendering template to be used for this customer's invoices. If set, the template will be used on all invoices for this customer unless a template is set directly on the invoice.
         attr_reader :template
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Default custom fields to be displayed on invoices for this customer.
       attr_reader :custom_fields
@@ -59,6 +83,14 @@ module Stripe
       attr_reader :footer
       # Default options for invoice PDF rendering for this customer.
       attr_reader :rendering_options
+
+      def self.inner_class_types
+        @inner_class_types = { custom_fields: CustomField, rendering_options: RenderingOptions }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Shipping < Stripe::StripeObject
@@ -75,6 +107,14 @@ module Stripe
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field address
       attr_reader :address
@@ -86,6 +126,14 @@ module Stripe
       attr_reader :phone
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       attr_reader :tracking_number
+
+      def self.inner_class_types
+        @inner_class_types = { address: Address }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Tax < Stripe::StripeObject
@@ -96,6 +144,14 @@ module Stripe
         attr_reader :source
         # The identified tax state, county, province, or region of the customer.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Surfaces if automatic tax computation is possible given the current customer location information.
       attr_reader :automatic_tax
@@ -103,6 +159,14 @@ module Stripe
       attr_reader :ip_address
       # The identified tax location of the customer.
       attr_reader :location
+
+      def self.inner_class_types
+        @inner_class_types = { location: Location }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class DeleteParams < Stripe::RequestParams; end
@@ -1037,6 +1101,19 @@ module Stripe
           opts: opts
         )
       end
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        address: Address,
+        invoice_settings: InvoiceSettings,
+        shipping: Shipping,
+        tax: Tax,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

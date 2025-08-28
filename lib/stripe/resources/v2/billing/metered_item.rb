@@ -17,11 +17,27 @@ module Stripe
           attr_reader :dimension
           # To count usage towards this metered item, the dimension must have this value.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class TaxDetails < Stripe::StripeObject
           # Product tax code (PTC).
           attr_reader :tax_code
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Timestamp of when the object was created.
         attr_reader :created
@@ -52,6 +68,17 @@ module Stripe
         attr_reader :unit_label
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            meter_segment_conditions: MeterSegmentCondition,
+            tax_details: TaxDetails,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

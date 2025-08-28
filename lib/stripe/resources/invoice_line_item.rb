@@ -18,6 +18,14 @@ module Stripe
       attr_reader :amount
       # The discount that was applied to get this discount amount.
       attr_reader :discount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class MarginAmount < Stripe::StripeObject
@@ -25,6 +33,14 @@ module Stripe
       attr_reader :amount
       # The margin that was applied to get this margin amount.
       attr_reader :margin
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Parent < Stripe::StripeObject
@@ -35,9 +51,25 @@ module Stripe
             attr_reader :invoice
             # Credited invoice line items
             attr_reader :invoice_line_items
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
           attr_reader :credited_items
+
+          def self.inner_class_types
+            @inner_class_types = { credited_items: CreditedItems }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The invoice item that generated this line item
         attr_reader :invoice_item
@@ -47,6 +79,14 @@ module Stripe
         attr_reader :proration_details
         # The subscription that the invoice item belongs to
         attr_reader :subscription
+
+        def self.inner_class_types
+          @inner_class_types = { proration_details: ProrationDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class LicenseFeeSubscriptionDetails < Stripe::StripeObject
@@ -60,6 +100,14 @@ module Stripe
         attr_reader :pricing_plan_subscription
         # The pricing plan version at the time this line item was generated
         attr_reader :pricing_plan_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RateCardSubscriptionDetails < Stripe::StripeObject
@@ -73,6 +121,14 @@ module Stripe
         attr_reader :rate_card_subscription
         # The rate card version at the time this line item was generated
         attr_reader :rate_card_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SubscriptionItemDetails < Stripe::StripeObject
@@ -82,9 +138,25 @@ module Stripe
             attr_reader :invoice
             # Credited invoice line items
             attr_reader :invoice_line_items
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
           attr_reader :credited_items
+
+          def self.inner_class_types
+            @inner_class_types = { credited_items: CreditedItems }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The invoice item that generated this line item
         attr_reader :invoice_item
@@ -96,6 +168,14 @@ module Stripe
         attr_reader :subscription
         # The subscription item that generated this line item
         attr_reader :subscription_item
+
+        def self.inner_class_types
+          @inner_class_types = { proration_details: ProrationDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Details about the invoice item that generated this line item
       attr_reader :invoice_item_details
@@ -107,6 +187,19 @@ module Stripe
       attr_reader :subscription_item_details
       # The type of parent that generated this line item
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {
+          invoice_item_details: InvoiceItemDetails,
+          license_fee_subscription_details: LicenseFeeSubscriptionDetails,
+          rate_card_subscription_details: RateCardSubscriptionDetails,
+          subscription_item_details: SubscriptionItemDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Period < Stripe::StripeObject
@@ -114,6 +207,14 @@ module Stripe
       attr_reader :end
       # The start of the period. This value is inclusive.
       attr_reader :start
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PretaxCreditAmount < Stripe::StripeObject
@@ -127,6 +228,14 @@ module Stripe
       attr_reader :margin
       # Type of the pretax credit amount referenced.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Pricing < Stripe::StripeObject
@@ -137,6 +246,14 @@ module Stripe
         attr_reader :license_fee_version
         # The ID of the licensed item this item is associated with
         attr_reader :licensed_item
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PriceDetails < Stripe::StripeObject
@@ -144,6 +261,14 @@ module Stripe
         attr_reader :price
         # The ID of the product this item is associated with.
         attr_reader :product
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RateCardRateDetails < Stripe::StripeObject
@@ -153,6 +278,14 @@ module Stripe
         attr_reader :rate_card
         # The ID of the rate card rate this item is associated with
         attr_reader :rate_card_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field license_fee_details
       attr_reader :license_fee_details
@@ -164,6 +297,18 @@ module Stripe
       attr_reader :type
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       attr_reader :unit_amount_decimal
+
+      def self.inner_class_types
+        @inner_class_types = {
+          license_fee_details: LicenseFeeDetails,
+          price_details: PriceDetails,
+          rate_card_rate_details: RateCardRateDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TaxCalculationReference < Stripe::StripeObject
@@ -171,12 +316,28 @@ module Stripe
       attr_reader :calculation_id
       # The calculation identifier for tax calculation response line item.
       attr_reader :calculation_item_id
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Tax < Stripe::StripeObject
       class TaxRateDetails < Stripe::StripeObject
         # Attribute for field tax_rate
         attr_reader :tax_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The amount of the tax, in cents (or local equivalent).
       attr_reader :amount
@@ -190,6 +351,14 @@ module Stripe
       attr_reader :taxable_amount
       # The type of tax information.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { tax_rate_details: TaxRateDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class UpdateParams < Stripe::RequestParams
@@ -480,6 +649,23 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        discount_amounts: DiscountAmount,
+        margin_amounts: MarginAmount,
+        parent: Parent,
+        period: Period,
+        pretax_credit_amounts: PretaxCreditAmount,
+        pricing: Pricing,
+        tax_calculation_reference: TaxCalculationReference,
+        taxes: Tax,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

@@ -25,6 +25,14 @@ module Stripe
           attr_reader :publishable
           # Should be stored securely in server-side code (such as an environment variable).
           attr_reader :secret
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Prefill < Stripe::StripeObject
@@ -36,6 +44,14 @@ module Stripe
           attr_reader :email
           # Name for the sandbox.
           attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Keys that can be used to set up an integration for this sandbox and operate on the account.
         attr_reader :api_keys
@@ -51,6 +67,14 @@ module Stripe
         attr_reader :prefill
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = { api_keys: ApiKeys, prefill: Prefill }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

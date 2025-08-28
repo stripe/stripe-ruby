@@ -21,6 +21,14 @@ module Stripe
         attr_reader :purpose
         # Date when the applicant submitted their application.
         attr_reader :submitted_at
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CreditUser < Stripe::StripeObject
@@ -28,6 +36,14 @@ module Stripe
         attr_reader :email
         # Full name of the company or person.
         attr_reader :name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Decision < Stripe::StripeObject
@@ -36,6 +52,14 @@ module Stripe
           attr_reader :reason_other_explanation
           # List of reasons why the application was rejected up to 4 reasons, in order of importance.
           attr_reader :reasons
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CreditLimitApproved < Stripe::StripeObject
@@ -43,6 +67,14 @@ module Stripe
           attr_reader :amount
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_reader :currency
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CreditLimitDecreased < Stripe::StripeObject
@@ -54,6 +86,14 @@ module Stripe
           attr_reader :reason_other_explanation
           # List of reasons why the existing credit was decreased, up to 4 reasons, in order of importance.
           attr_reader :reasons
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CreditLineClosed < Stripe::StripeObject
@@ -61,6 +101,14 @@ module Stripe
           attr_reader :reason_other_explanation
           # List of reasons why the existing account was closed, up to 4 reasons, in order of importance.
           attr_reader :reasons
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Details about a decision application_rejected.
         attr_reader :application_rejected
@@ -72,6 +120,19 @@ module Stripe
         attr_reader :credit_line_closed
         # Outcome of the decision.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            application_rejected: ApplicationRejected,
+            credit_limit_approved: CreditLimitApproved,
+            credit_limit_decreased: CreditLimitDecreased,
+            credit_line_closed: CreditLineClosed,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class UnderwritingException < Stripe::StripeObject
@@ -79,6 +140,14 @@ module Stripe
         attr_reader :explanation
         # The decision before the exception was applied.
         attr_reader :original_decision_type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -596,6 +665,19 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          application: Application,
+          credit_user: CreditUser,
+          decision: Decision,
+          underwriting_exception: UnderwritingException,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

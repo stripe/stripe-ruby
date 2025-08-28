@@ -14,9 +14,25 @@ module Stripe
           class Tax < Stripe::StripeObject
             # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Settings for calculating tax.
           attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Invoice < Stripe::StripeObject
@@ -26,9 +42,25 @@ module Stripe
             # The number of interval units. For example, if interval=day and interval_count=30,
             # the invoice will be due in 30 days.
             attr_reader :interval_count
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The amount of time until the invoice will be overdue for payment.
           attr_reader :time_until_due
+
+          def self.inner_class_types
+            @inner_class_types = { time_until_due: TimeUntilDue }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Settings related to calculating a bill.
         attr_reader :calculation
@@ -44,6 +76,14 @@ module Stripe
         attr_reader :object
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = { calculation: Calculation, invoice: Invoice }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

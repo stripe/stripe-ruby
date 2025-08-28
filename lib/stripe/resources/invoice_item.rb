@@ -31,6 +31,14 @@ module Stripe
         attr_reader :pricing_plan_subscription
         # The pricing plan version at the time this invoice item was generated
         attr_reader :pricing_plan_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RateCardSubscriptionDetails < Stripe::StripeObject
@@ -42,6 +50,14 @@ module Stripe
         attr_reader :rate_card_subscription
         # The rate card version that generated this invoice item
         attr_reader :rate_card_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SubscriptionDetails < Stripe::StripeObject
@@ -49,6 +65,14 @@ module Stripe
         attr_reader :subscription
         # The subscription item that generated this invoice item
         attr_reader :subscription_item
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Details about the license fee subscription that generated this invoice item
       attr_reader :license_fee_subscription_details
@@ -58,6 +82,18 @@ module Stripe
       attr_reader :subscription_details
       # The type of parent that generated this invoice item
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {
+          license_fee_subscription_details: LicenseFeeSubscriptionDetails,
+          rate_card_subscription_details: RateCardSubscriptionDetails,
+          subscription_details: SubscriptionDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Period < Stripe::StripeObject
@@ -65,6 +101,14 @@ module Stripe
       attr_reader :end
       # The start of the period. This value is inclusive.
       attr_reader :start
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Pricing < Stripe::StripeObject
@@ -75,6 +119,14 @@ module Stripe
         attr_reader :license_fee_version
         # The ID of the licensed item this item is associated with
         attr_reader :licensed_item
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PriceDetails < Stripe::StripeObject
@@ -82,6 +134,14 @@ module Stripe
         attr_reader :price
         # The ID of the product this item is associated with.
         attr_reader :product
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RateCardRateDetails < Stripe::StripeObject
@@ -91,6 +151,14 @@ module Stripe
         attr_reader :rate_card
         # The ID of the rate card rate this item is associated with
         attr_reader :rate_card_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field license_fee_details
       attr_reader :license_fee_details
@@ -102,6 +170,18 @@ module Stripe
       attr_reader :type
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       attr_reader :unit_amount_decimal
+
+      def self.inner_class_types
+        @inner_class_types = {
+          license_fee_details: LicenseFeeDetails,
+          price_details: PriceDetails,
+          rate_card_rate_details: RateCardRateDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class DeleteParams < Stripe::RequestParams; end
@@ -582,6 +662,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { parent: Parent, period: Period, pricing: Pricing }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

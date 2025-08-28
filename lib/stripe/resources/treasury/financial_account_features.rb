@@ -19,6 +19,14 @@ module Stripe
           attr_reader :resolution
           # The `platform_restrictions` that are restricting this Feature.
           attr_reader :restriction
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the FinancialAccount should have the Feature.
         attr_reader :requested
@@ -26,6 +34,14 @@ module Stripe
         attr_reader :status
         # Additional details; includes at least one entry when the status is not `active`.
         attr_reader :status_details
+
+        def self.inner_class_types
+          @inner_class_types = { status_details: StatusDetail }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class DepositInsurance < Stripe::StripeObject
@@ -36,6 +52,14 @@ module Stripe
           attr_reader :resolution
           # The `platform_restrictions` that are restricting this Feature.
           attr_reader :restriction
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the FinancialAccount should have the Feature.
         attr_reader :requested
@@ -43,6 +67,14 @@ module Stripe
         attr_reader :status
         # Additional details; includes at least one entry when the status is not `active`.
         attr_reader :status_details
+
+        def self.inner_class_types
+          @inner_class_types = { status_details: StatusDetail }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class FinancialAddresses < Stripe::StripeObject
@@ -54,6 +86,14 @@ module Stripe
             attr_reader :resolution
             # The `platform_restrictions` that are restricting this Feature.
             attr_reader :restriction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Requested bank partner for this Financial Account
           attr_reader :bank
@@ -63,9 +103,25 @@ module Stripe
           attr_reader :status
           # Additional details; includes at least one entry when the status is not `active`.
           attr_reader :status_details
+
+          def self.inner_class_types
+            @inner_class_types = { status_details: StatusDetail }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Toggle settings for enabling/disabling the ABA address feature
         attr_reader :aba
+
+        def self.inner_class_types
+          @inner_class_types = { aba: Aba }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class InboundTransfers < Stripe::StripeObject
@@ -77,6 +133,14 @@ module Stripe
             attr_reader :resolution
             # The `platform_restrictions` that are restricting this Feature.
             attr_reader :restriction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Whether the FinancialAccount should have the Feature.
           attr_reader :requested
@@ -84,9 +148,25 @@ module Stripe
           attr_reader :status
           # Additional details; includes at least one entry when the status is not `active`.
           attr_reader :status_details
+
+          def self.inner_class_types
+            @inner_class_types = { status_details: StatusDetail }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Toggle settings for enabling/disabling an inbound ACH specific feature
         attr_reader :ach
+
+        def self.inner_class_types
+          @inner_class_types = { ach: Ach }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class IntraStripeFlows < Stripe::StripeObject
@@ -97,6 +177,14 @@ module Stripe
           attr_reader :resolution
           # The `platform_restrictions` that are restricting this Feature.
           attr_reader :restriction
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the FinancialAccount should have the Feature.
         attr_reader :requested
@@ -104,6 +192,14 @@ module Stripe
         attr_reader :status
         # Additional details; includes at least one entry when the status is not `active`.
         attr_reader :status_details
+
+        def self.inner_class_types
+          @inner_class_types = { status_details: StatusDetail }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class OutboundPayments < Stripe::StripeObject
@@ -115,6 +211,14 @@ module Stripe
             attr_reader :resolution
             # The `platform_restrictions` that are restricting this Feature.
             attr_reader :restriction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Whether the FinancialAccount should have the Feature.
           attr_reader :requested
@@ -122,6 +226,14 @@ module Stripe
           attr_reader :status
           # Additional details; includes at least one entry when the status is not `active`.
           attr_reader :status_details
+
+          def self.inner_class_types
+            @inner_class_types = { status_details: StatusDetail }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class UsDomesticWire < Stripe::StripeObject
@@ -132,6 +244,14 @@ module Stripe
             attr_reader :resolution
             # The `platform_restrictions` that are restricting this Feature.
             attr_reader :restriction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Whether the FinancialAccount should have the Feature.
           attr_reader :requested
@@ -139,11 +259,27 @@ module Stripe
           attr_reader :status
           # Additional details; includes at least one entry when the status is not `active`.
           attr_reader :status_details
+
+          def self.inner_class_types
+            @inner_class_types = { status_details: StatusDetail }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Toggle settings for enabling/disabling an outbound ACH specific feature
         attr_reader :ach
         # Toggle settings for enabling/disabling a feature
         attr_reader :us_domestic_wire
+
+        def self.inner_class_types
+          @inner_class_types = { ach: Ach, us_domestic_wire: UsDomesticWire }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class OutboundTransfers < Stripe::StripeObject
@@ -155,6 +291,14 @@ module Stripe
             attr_reader :resolution
             # The `platform_restrictions` that are restricting this Feature.
             attr_reader :restriction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Whether the FinancialAccount should have the Feature.
           attr_reader :requested
@@ -162,6 +306,14 @@ module Stripe
           attr_reader :status
           # Additional details; includes at least one entry when the status is not `active`.
           attr_reader :status_details
+
+          def self.inner_class_types
+            @inner_class_types = { status_details: StatusDetail }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class UsDomesticWire < Stripe::StripeObject
@@ -172,6 +324,14 @@ module Stripe
             attr_reader :resolution
             # The `platform_restrictions` that are restricting this Feature.
             attr_reader :restriction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Whether the FinancialAccount should have the Feature.
           attr_reader :requested
@@ -179,11 +339,27 @@ module Stripe
           attr_reader :status
           # Additional details; includes at least one entry when the status is not `active`.
           attr_reader :status_details
+
+          def self.inner_class_types
+            @inner_class_types = { status_details: StatusDetail }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Toggle settings for enabling/disabling an outbound ACH specific feature
         attr_reader :ach
         # Toggle settings for enabling/disabling a feature
         attr_reader :us_domestic_wire
+
+        def self.inner_class_types
+          @inner_class_types = { ach: Ach, us_domestic_wire: UsDomesticWire }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Toggle settings for enabling/disabling a feature
       attr_reader :card_issuing
@@ -201,6 +377,22 @@ module Stripe
       attr_reader :outbound_payments
       # OutboundTransfers contains outbound transfers features for a FinancialAccount.
       attr_reader :outbound_transfers
+
+      def self.inner_class_types
+        @inner_class_types = {
+          card_issuing: CardIssuing,
+          deposit_insurance: DepositInsurance,
+          financial_addresses: FinancialAddresses,
+          inbound_transfers: InboundTransfers,
+          intra_stripe_flows: IntraStripeFlows,
+          outbound_payments: OutboundPayments,
+          outbound_transfers: OutboundTransfers,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

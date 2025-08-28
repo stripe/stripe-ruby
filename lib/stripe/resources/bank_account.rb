@@ -27,6 +27,14 @@ module Stripe
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
       attr_reader :currently_due
@@ -36,6 +44,14 @@ module Stripe
       attr_reader :past_due
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
       attr_reader :pending_verification
+
+      def self.inner_class_types
+        @inner_class_types = { errors: Error }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Requirements < Stripe::StripeObject
@@ -46,6 +62,14 @@ module Stripe
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
       attr_reader :currently_due
@@ -55,6 +79,14 @@ module Stripe
       attr_reader :past_due
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
       attr_reader :pending_verification
+
+      def self.inner_class_types
+        @inner_class_types = { errors: Error }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The account this bank account belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](/api/external_account_bank_accounts/object) where [controller.is_controller](/api/accounts/object#account_object-controller-is_controller) is `true`.
     attr_reader :account
@@ -169,6 +201,14 @@ module Stripe
             "account ID. List bank accounts using " \
             "`Customer.list_sources('customer_id')` " \
             "or `Account.list_external_accounts('account_id')`"
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { future_requirements: FutureRequirements, requirements: Requirements }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

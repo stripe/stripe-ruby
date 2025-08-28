@@ -15,16 +15,40 @@ module Stripe
           class Failed < Stripe::StripeObject
             # Open Enum. The `failed` status reason.
             attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Returned < Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Hash that provides additional information regarding the reason behind a `failed` ReceivedCredit status. It is only present when the ReceivedCredit status is `failed`.
           attr_reader :failed
           # Hash that provides additional information regarding the reason behind a `returned` ReceivedCredit status. It is only present when the ReceivedCredit status is `returned`.
           attr_reader :returned
+
+          def self.inner_class_types
+            @inner_class_types = { failed: Failed, returned: Returned }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class StatusTransitions < Stripe::StripeObject
@@ -37,6 +61,14 @@ module Stripe
           # Timestamp describing when the ReceivedCredit was marked as `succeeded`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           attr_reader :succeeded_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class BalanceTransfer < Stripe::StripeObject
@@ -50,6 +82,14 @@ module Stripe
           attr_reader :outbound_transfer
           # The ID of the payout object that originated the ReceivedCredit.
           attr_reader :payout_v1
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class BankTransfer < Stripe::StripeObject
@@ -64,6 +104,14 @@ module Stripe
             attr_reader :network
             # The sort code of the account that originated the transfer.
             attr_reader :sort_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class UsBankAccount < Stripe::StripeObject
@@ -75,6 +123,14 @@ module Stripe
             attr_reader :network
             # The routing number of the account that originated the transfer.
             attr_reader :routing_number
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Financial Address on which funds for ReceivedCredit were received.
           attr_reader :financial_address
@@ -86,6 +142,14 @@ module Stripe
           attr_reader :gb_bank_account
           # Hash containing the transaction bank details. Present if `payment_method_type` field value is `us_bank_account`.
           attr_reader :us_bank_account
+
+          def self.inner_class_types
+            @inner_class_types = { gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount and currency of the ReceivedCredit.
         attr_reader :amount
@@ -116,6 +180,19 @@ module Stripe
         attr_reader :balance_transfer
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
         attr_reader :bank_transfer
+
+        def self.inner_class_types
+          @inner_class_types = {
+            status_details: StatusDetails,
+            status_transitions: StatusTransitions,
+            balance_transfer: BalanceTransfer,
+            bank_transfer: BankTransfer,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

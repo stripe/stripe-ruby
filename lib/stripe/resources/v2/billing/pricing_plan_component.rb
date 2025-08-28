@@ -15,6 +15,14 @@ module Stripe
           attr_reader :id
           # The version of the LicenseFee. Defaults to 'latest', if not specified.
           attr_reader :version
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class RateCard < Stripe::StripeObject
@@ -22,11 +30,27 @@ module Stripe
           attr_reader :id
           # The version of the RateCard. Defaults to 'latest', if not specified.
           attr_reader :version
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ServiceAction < Stripe::StripeObject
           # The ID of the service action.
           attr_reader :id
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time at which the object was created.
         attr_reader :created
@@ -52,6 +76,18 @@ module Stripe
         attr_reader :rate_card
         # Details if this component is a Service Action.
         attr_reader :service_action
+
+        def self.inner_class_types
+          @inner_class_types = {
+            license_fee: LicenseFee,
+            rate_card: RateCard,
+            service_action: ServiceAction,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

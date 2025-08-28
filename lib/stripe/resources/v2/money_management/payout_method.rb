@@ -16,6 +16,14 @@ module Stripe
           attr_reader :payments
           # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
           attr_reader :transfers
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class BankAccount < Stripe::StripeObject
@@ -37,6 +45,14 @@ module Stripe
           attr_reader :routing_number
           # The list of currencies supported by this bank account.
           attr_reader :supported_currencies
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Card < Stripe::StripeObject
@@ -50,6 +66,14 @@ module Stripe
           attr_reader :exp_year
           # The last 4 digits of the card number.
           attr_reader :last4
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # A set of available payout speeds for this payout method.
         attr_reader :available_payout_speeds
@@ -71,6 +95,14 @@ module Stripe
         attr_reader :bank_account
         # The PayoutMethodCard object details.
         attr_reader :card
+
+        def self.inner_class_types
+          @inner_class_types = { usage_status: UsageStatus, bank_account: BankAccount, card: Card }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

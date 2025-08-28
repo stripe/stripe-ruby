@@ -18,6 +18,14 @@ module Stripe
           attr_reader :inbound_pending
           # Impact to the outbound_pending balance.
           attr_reader :outbound_pending
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class TransactionDetails < Stripe::StripeObject
@@ -40,6 +48,14 @@ module Stripe
             attr_reader :received_credit
             # If applicable, the ID of the ReceivedDebit that created this Transaction.
             attr_reader :received_debit
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Closed Enum for now, and will be turned into an Open Enum soon. A descriptive category used to classify the Transaction.
           attr_reader :category
@@ -47,6 +63,14 @@ module Stripe
           attr_reader :financial_account
           # Details about the Flow object that created the Transaction.
           attr_reader :flow
+
+          def self.inner_class_types
+            @inner_class_types = { flow: Flow }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The delta to the FinancialAccount's balance.
         attr_reader :balance_impact
@@ -64,6 +88,17 @@ module Stripe
         attr_reader :transaction_details
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            balance_impact: BalanceImpact,
+            transaction_details: TransactionDetails,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

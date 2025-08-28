@@ -23,6 +23,14 @@ module Stripe
       attr_reader :meter_id
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

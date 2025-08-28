@@ -18,6 +18,14 @@ module Stripe
               attr_reader :content
               # Attribute for field localization_key
               attr_reader :localization_key
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The local name of the field.
             attr_reader :local_name
@@ -33,9 +41,25 @@ module Stripe
             attr_reader :stripe_name
             # The validation regex of the field.
             attr_reader :validation_regex
+
+            def self.inner_class_types
+              @inner_class_types = { local_name_human: LocalNameHuman }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The list of fields for a country, along with associated information.
           attr_reader :fields
+
+          def self.inner_class_types
+            @inner_class_types = { fields: Field }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The list of specs by country.
         attr_reader :countries
@@ -43,6 +67,14 @@ module Stripe
         attr_reader :object
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = { countries: Countries }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

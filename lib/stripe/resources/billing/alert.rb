@@ -19,6 +19,14 @@ module Stripe
           attr_reader :customer
           # Attribute for field type
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Lte < Stripe::StripeObject
@@ -36,6 +44,14 @@ module Stripe
               attr_reader :metadata
               # The status of the custom pricing unit.
               attr_reader :status
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The custom pricing unit object.
             attr_reader :custom_pricing_unit_details
@@ -43,6 +59,14 @@ module Stripe
             attr_reader :id
             # A positive decimal string representing the amount.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = { custom_pricing_unit_details: CustomPricingUnitDetails }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Monetary < Stripe::StripeObject
@@ -50,6 +74,14 @@ module Stripe
             attr_reader :currency
             # A positive integer representing the amount.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The type of this balance. We currently only support `monetary` amounts.
           attr_reader :balance_type
@@ -57,11 +89,27 @@ module Stripe
           attr_reader :custom_pricing_unit
           # The monetary amount.
           attr_reader :monetary
+
+          def self.inner_class_types
+            @inner_class_types = { custom_pricing_unit: CustomPricingUnit, monetary: Monetary }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The filters allow limiting the scope of this credit balance alert. You must specify only a customer filter at this time.
         attr_reader :filters
         # Attribute for field lte
         attr_reader :lte
+
+        def self.inner_class_types
+          @inner_class_types = { filters: Filter, lte: Lte }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class UsageThreshold < Stripe::StripeObject
@@ -70,6 +118,14 @@ module Stripe
           attr_reader :customer
           # Attribute for field type
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
         attr_reader :filters
@@ -79,6 +135,14 @@ module Stripe
         attr_reader :meter
         # Defines how the alert will behave.
         attr_reader :recurrence
+
+        def self.inner_class_types
+          @inner_class_types = { filters: Filter }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -343,6 +407,17 @@ module Stripe
       # Lists billing active and inactive alerts
       def self.list(params = {}, opts = {})
         request_stripe_object(method: :get, path: "/v1/billing/alerts", params: params, opts: opts)
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          credit_balance_threshold: CreditBalanceThreshold,
+          usage_threshold: UsageThreshold,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

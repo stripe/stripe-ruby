@@ -18,6 +18,14 @@ module Stripe
           attr_reader :inbound_pending
           # Impact to the outbound_pending balance.
           attr_reader :outbound_pending
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Flow < Stripe::StripeObject
@@ -39,6 +47,14 @@ module Stripe
           attr_reader :received_credit
           # If applicable, the ID of the ReceivedDebit that created this Transaction.
           attr_reader :received_debit
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class StatusTransitions < Stripe::StripeObject
@@ -46,6 +62,14 @@ module Stripe
           attr_reader :posted_at
           # The time at which the Transaction became void. Only present if status == void.
           attr_reader :void_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount of the Transaction.
         attr_reader :amount
@@ -74,6 +98,18 @@ module Stripe
         attr_reader :status_transitions
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            balance_impact: BalanceImpact,
+            flow: Flow,
+            status_transitions: StatusTransitions,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

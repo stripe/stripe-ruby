@@ -23,6 +23,14 @@ module Stripe
           attr_reader :tax
           # Total amount for the Billing Intent.
           attr_reader :total
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class StatusTransitions < Stripe::StripeObject
@@ -34,6 +42,14 @@ module Stripe
           attr_reader :drafted_at
           # Time at which the Billing Intent was reserved.
           attr_reader :reserved_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Breakdown of the amount for this Billing Intent.
         attr_reader :amount_details
@@ -53,6 +69,17 @@ module Stripe
         attr_reader :livemode
         # ID of an existing Cadence to use.
         attr_reader :cadence
+
+        def self.inner_class_types
+          @inner_class_types = {
+            amount_details: AmountDetails,
+            status_transitions: StatusTransitions,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

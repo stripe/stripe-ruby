@@ -34,11 +34,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Affirm < Stripe::StripeObject
@@ -49,11 +65,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AfterpayClearpay < Stripe::StripeObject
@@ -64,11 +96,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Alipay < Stripe::StripeObject
@@ -79,11 +127,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Alma < Stripe::StripeObject
@@ -94,11 +158,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AmazonPay < Stripe::StripeObject
@@ -109,11 +189,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ApplePay < Stripe::StripeObject
@@ -124,11 +220,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AuBecsDebit < Stripe::StripeObject
@@ -139,11 +251,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class BacsDebit < Stripe::StripeObject
@@ -154,11 +282,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Bancontact < Stripe::StripeObject
@@ -169,11 +313,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Billie < Stripe::StripeObject
@@ -184,11 +344,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Blik < Stripe::StripeObject
@@ -199,11 +375,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Boleto < Stripe::StripeObject
@@ -214,11 +406,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Card < Stripe::StripeObject
@@ -229,11 +437,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CartesBancaires < Stripe::StripeObject
@@ -244,11 +468,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Cashapp < Stripe::StripeObject
@@ -259,11 +499,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CustomerBalance < Stripe::StripeObject
@@ -274,11 +530,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Eps < Stripe::StripeObject
@@ -289,11 +561,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Fpx < Stripe::StripeObject
@@ -304,11 +592,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Giropay < Stripe::StripeObject
@@ -319,11 +623,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class GooglePay < Stripe::StripeObject
@@ -334,11 +654,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Gopay < Stripe::StripeObject
@@ -349,11 +685,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Grabpay < Stripe::StripeObject
@@ -364,11 +716,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class IdBankTransfer < Stripe::StripeObject
@@ -379,11 +747,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Ideal < Stripe::StripeObject
@@ -394,11 +778,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Jcb < Stripe::StripeObject
@@ -409,11 +809,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class KakaoPay < Stripe::StripeObject
@@ -424,11 +840,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Klarna < Stripe::StripeObject
@@ -439,11 +871,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Konbini < Stripe::StripeObject
@@ -454,11 +902,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class KrCard < Stripe::StripeObject
@@ -469,11 +933,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Link < Stripe::StripeObject
@@ -484,11 +964,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Mobilepay < Stripe::StripeObject
@@ -499,11 +995,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Multibanco < Stripe::StripeObject
@@ -514,11 +1026,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class NaverPay < Stripe::StripeObject
@@ -529,11 +1057,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class NzBankAccount < Stripe::StripeObject
@@ -544,11 +1088,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Oxxo < Stripe::StripeObject
@@ -559,11 +1119,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class P24 < Stripe::StripeObject
@@ -574,11 +1150,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PayByBank < Stripe::StripeObject
@@ -589,11 +1181,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Payco < Stripe::StripeObject
@@ -604,11 +1212,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Paynow < Stripe::StripeObject
@@ -619,11 +1243,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Paypal < Stripe::StripeObject
@@ -634,11 +1274,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Payto < Stripe::StripeObject
@@ -649,11 +1305,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Pix < Stripe::StripeObject
@@ -664,11 +1336,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Promptpay < Stripe::StripeObject
@@ -679,11 +1367,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Qris < Stripe::StripeObject
@@ -694,11 +1398,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class RevolutPay < Stripe::StripeObject
@@ -709,11 +1429,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SamsungPay < Stripe::StripeObject
@@ -724,11 +1460,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Satispay < Stripe::StripeObject
@@ -739,11 +1491,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SepaDebit < Stripe::StripeObject
@@ -754,11 +1522,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Shopeepay < Stripe::StripeObject
@@ -769,11 +1553,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Sofort < Stripe::StripeObject
@@ -784,11 +1584,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Swish < Stripe::StripeObject
@@ -799,11 +1615,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Twint < Stripe::StripeObject
@@ -814,11 +1646,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class UsBankAccount < Stripe::StripeObject
@@ -829,11 +1677,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class WechatPay < Stripe::StripeObject
@@ -844,11 +1708,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Zip < Stripe::StripeObject
@@ -859,11 +1739,27 @@ module Stripe
         attr_reader :preference
         # The effective display preference value.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       attr_reader :available
       # Attribute for field display_preference
       attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -3479,6 +4375,71 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        acss_debit: AcssDebit,
+        affirm: Affirm,
+        afterpay_clearpay: AfterpayClearpay,
+        alipay: Alipay,
+        alma: Alma,
+        amazon_pay: AmazonPay,
+        apple_pay: ApplePay,
+        au_becs_debit: AuBecsDebit,
+        bacs_debit: BacsDebit,
+        bancontact: Bancontact,
+        billie: Billie,
+        blik: Blik,
+        boleto: Boleto,
+        card: Card,
+        cartes_bancaires: CartesBancaires,
+        cashapp: Cashapp,
+        customer_balance: CustomerBalance,
+        eps: Eps,
+        fpx: Fpx,
+        giropay: Giropay,
+        google_pay: GooglePay,
+        gopay: Gopay,
+        grabpay: Grabpay,
+        id_bank_transfer: IdBankTransfer,
+        ideal: Ideal,
+        jcb: Jcb,
+        kakao_pay: KakaoPay,
+        klarna: Klarna,
+        konbini: Konbini,
+        kr_card: KrCard,
+        link: Link,
+        mobilepay: Mobilepay,
+        multibanco: Multibanco,
+        naver_pay: NaverPay,
+        nz_bank_account: NzBankAccount,
+        oxxo: Oxxo,
+        p24: P24,
+        pay_by_bank: PayByBank,
+        payco: Payco,
+        paynow: Paynow,
+        paypal: Paypal,
+        payto: Payto,
+        pix: Pix,
+        promptpay: Promptpay,
+        qris: Qris,
+        revolut_pay: RevolutPay,
+        samsung_pay: SamsungPay,
+        satispay: Satispay,
+        sepa_debit: SepaDebit,
+        shopeepay: Shopeepay,
+        sofort: Sofort,
+        swish: Swish,
+        twint: Twint,
+        us_bank_account: UsBankAccount,
+        wechat_pay: WechatPay,
+        zip: Zip,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

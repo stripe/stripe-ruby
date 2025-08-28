@@ -17,6 +17,14 @@ module Stripe
               attr_reader :id
               # The value of the credit grant, decimal value represented as a string.
               attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             attr_reader :type
@@ -24,6 +32,14 @@ module Stripe
             attr_reader :custom_pricing_unit
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             attr_reader :monetary
+
+            def self.inner_class_types
+              @inner_class_types = { custom_pricing_unit: CustomPricingUnit }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class ApplicabilityConfig < Stripe::StripeObject
@@ -32,14 +48,38 @@ module Stripe
               attr_reader :billable_items
               # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
               attr_reader :price_type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The applicability scope of the credit grant.
             attr_reader :scope
+
+            def self.inner_class_types
+              @inner_class_types = { scope: Scope }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class ExpiryConfig < Stripe::StripeObject
             # The type of the expiry configuration. We currently support `end_of_service_period`.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The amount of the credit grant.
           attr_reader :amount
@@ -49,6 +89,18 @@ module Stripe
           attr_reader :expiry_config
           # A descriptive name shown in dashboard.
           attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {
+              amount: Amount,
+              applicability_config: ApplicabilityConfig,
+              expiry_config: ExpiryConfig,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CreditGrantPerTenant < Stripe::StripeObject
@@ -58,6 +110,14 @@ module Stripe
               attr_reader :id
               # The value of the credit grant, decimal value represented as a string.
               attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             attr_reader :type
@@ -65,6 +125,14 @@ module Stripe
             attr_reader :custom_pricing_unit
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
             attr_reader :monetary
+
+            def self.inner_class_types
+              @inner_class_types = { custom_pricing_unit: CustomPricingUnit }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class ApplicabilityConfig < Stripe::StripeObject
@@ -73,14 +141,38 @@ module Stripe
               attr_reader :billable_items
               # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
               attr_reader :price_type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The applicability scope of the credit grant.
             attr_reader :scope
+
+            def self.inner_class_types
+              @inner_class_types = { scope: Scope }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class ExpiryConfig < Stripe::StripeObject
             # The type of the expiry configuration. We currently support `end_of_service_period`.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The amount of the credit grant.
           attr_reader :amount
@@ -90,6 +182,18 @@ module Stripe
           attr_reader :expiry_config
           # Customer-facing name for the credit grant.
           attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {
+              amount: Amount,
+              applicability_config: ApplicabilityConfig,
+              expiry_config: ExpiryConfig,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Timestamp of when the object was created.
         attr_reader :created
@@ -111,6 +215,17 @@ module Stripe
         attr_reader :credit_grant
         # Details for the credit grant per tenant. Provided only if `type` is "credit_grant_per_tenant".
         attr_reader :credit_grant_per_tenant
+
+        def self.inner_class_types
+          @inner_class_types = {
+            credit_grant: CreditGrant,
+            credit_grant_per_tenant: CreditGrantPerTenant,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

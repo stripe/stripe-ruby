@@ -585,5 +585,206 @@ module Stripe
         assert_equal "foo", req.headers["Stripe-Account"]
       end
     end
+
+    context "inner class type deserialization" do
+      should "deserialize inner types to their correct classes" do
+        # Test data with inner types
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "business_profile" => {
+            "name" => "Test Business",
+            "annual_revenue" => {
+              "amount" => 1_000_000,
+              "currency" => "usd",
+              "fiscal_year_end" => "2023-12-31",
+            },
+            "monthly_estimated_revenue" => {
+              "amount" => 100_000,
+              "currency" => "usd",
+            },
+            "support_address" => {
+              "city" => "San Francisco",
+              "country" => "US",
+              "line1" => "123 Test St",
+              "postal_code" => "94102",
+              "state" => "CA",
+            },
+          },
+          "company" => {
+            "name" => "Test Company",
+            "address" => {
+              "city" => "San Francisco",
+              "country" => "US",
+              "line1" => "456 Company Ave",
+              "postal_code" => "94103",
+              "state" => "CA",
+            },
+            "verification" => {
+              "document" => {
+                "back" => "file_back_123",
+                "front" => "file_front_123",
+                "details" => "Document verified",
+                "details_code" => "document_valid",
+              },
+            },
+          },
+        }
+
+        # Convert the test data to a Stripe object
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+
+        # Verify the main account object
+        assert account.is_a?(Stripe::Account)
+        assert_equal "acct_test123", account.id
+
+        # Verify business_profile inner types
+        assert account.business_profile.is_a?(Stripe::Account::BusinessProfile)
+        assert_equal "Test Business", account.business_profile.name
+
+        # Verify annual_revenue inner type
+        annual_revenue = account.business_profile.annual_revenue
+        assert annual_revenue.is_a?(Stripe::Account::BusinessProfile::AnnualRevenue)
+        assert_equal 1_000_000, annual_revenue.amount
+        assert_equal "usd", annual_revenue.currency
+        assert_equal "2023-12-31", annual_revenue.fiscal_year_end
+
+        # Verify monthly_estimated_revenue inner type
+        monthly_revenue = account.business_profile.monthly_estimated_revenue
+        assert monthly_revenue.is_a?(Stripe::Account::BusinessProfile::MonthlyEstimatedRevenue)
+        assert_equal 100_000, monthly_revenue.amount
+        assert_equal "usd", monthly_revenue.currency
+
+        # Verify support_address inner type
+        support_address = account.business_profile.support_address
+        assert support_address.is_a?(Stripe::Account::BusinessProfile::SupportAddress)
+        assert_equal "San Francisco", support_address.city
+        assert_equal "US", support_address.country
+        assert_equal "123 Test St", support_address.line1
+
+        # Verify company inner types
+        assert account.company.is_a?(Stripe::Account::Company)
+        assert_equal "Test Company", account.company.name
+
+        # Verify company address inner type
+        company_address = account.company.address
+        assert company_address.is_a?(Stripe::Account::Company::Address)
+        assert_equal "San Francisco", company_address.city
+        assert_equal "US", company_address.country
+
+        # Verify company verification document inner type
+        verification = account.company.verification
+        assert verification.is_a?(Stripe::Account::Company::Verification)
+        document = verification.document
+        assert document.is_a?(Stripe::Account::Company::Verification::Document)
+        assert_equal "file_back_123", document.back
+        assert_equal "file_front_123", document.front
+        assert_equal "Document verified", document.details
+      end
+
+      should "handle nil inner class types gracefully" do
+        # Test that the system gracefully handles when inner_class_types returns nil
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "business_profile" => {
+            "name" => "Test Business",
+          },
+        }
+
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+        assert account.is_a?(Stripe::Account)
+        assert account.business_profile.is_a?(Stripe::Account::BusinessProfile)
+      end
+
+      should "handle empty inner class types gracefully" do
+        # Test that the system gracefully handles when inner_class_types returns empty hash
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "metadata" => {
+            "key1" => "value1",
+            "key2" => "value2",
+          },
+        }
+
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+        assert account.is_a?(Stripe::Account)
+        # metadata should be a generic StripeObject since it doesn't have inner_class_types defined
+        assert account.metadata.is_a?(Stripe::StripeObject)
+      end
+
+      should "handle nested inner types correctly" do
+        # Test that nested inner types are handled correctly
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "settings" => {
+            "bacs_debit_payments" => {
+              "display_name" => "Test Business",
+              "service_user_number" => "123456789",
+            },
+          },
+        }
+
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+        assert account.is_a?(Stripe::Account)
+        assert account.settings.is_a?(Stripe::Account::Settings)
+        assert account.settings.bacs_debit_payments.is_a?(Stripe::Account::Settings::BacsDebitPayments)
+        assert_equal "Test Business", account.settings.bacs_debit_payments.display_name
+        assert_equal "123456789", account.settings.bacs_debit_payments.service_user_number
+      end
+
+      should "preserve existing functionality for non-inner types" do
+        # Test that regular fields still work as expected
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "business_type" => "individual",
+          "charges_enabled" => true,
+          "country" => "US",
+        }
+
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+        assert account.is_a?(Stripe::Account)
+        assert_equal "acct_test123", account.id
+        assert_equal "account", account.object
+        assert_equal "individual", account.business_type
+        assert_equal true, account.charges_enabled
+        assert_equal "US", account.country
+      end
+
+      should "work correctly with retrieve operation" do
+        # Test that inner class types work with retrieve
+        account = Stripe::Account.retrieve("acct_test123")
+        assert account.is_a?(Stripe::Account)
+
+        # If the account has business_profile, it should be the correct class
+        if account.respond_to?(:business_profile) && account.business_profile
+          assert account.business_profile.is_a?(Stripe::Account::BusinessProfile)
+        end
+
+        # If the account has company, it should be the correct class
+        assert account.company.is_a?(Stripe::Account::Company) if account.respond_to?(:company) && account.company
+      end
+
+      should "work correctly with refresh operation" do
+        # Test that inner class types work with refresh
+        account = Stripe::Account.retrieve("acct_test123")
+        assert account.is_a?(Stripe::Account)
+
+        # Refresh the account
+        account.refresh
+        assert account.is_a?(Stripe::Account)
+
+        # If the account has business_profile, it should still be the correct class after refresh
+        if account.respond_to?(:business_profile) && account.business_profile
+          assert account.business_profile.is_a?(Stripe::Account::BusinessProfile)
+        end
+
+        # If the account has company, it should still be the correct class after refresh
+        assert account.company.is_a?(Stripe::Account::Company) if account.respond_to?(:company) && account.company
+      end
+    end
   end
 end

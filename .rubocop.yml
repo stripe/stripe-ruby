@@ -63,6 +63,7 @@ Metrics/MethodLength:
     - "lib/stripe/api_requestor.rb"
   AllowedMethods:
     - initialize
+    - inner_class_types
 
 # TODO(xavdid): remove this once the first `basil` release is out
 Naming/MethodName:

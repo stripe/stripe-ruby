@@ -154,9 +154,21 @@ module Stripe
     def update_attributes(values, opts = {}, dirty: true)
       values.each do |k, v|
         add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
-        @values[k] = Util.convert_to_stripe_object(v, opts, api_mode: @api_mode, requestor: @requestor)
+        @values[k] = convert_value_with_inner_types(k, v, opts)
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
+      end
+    end
+
+    private def convert_value_with_inner_types(key, value, opts)
+      inner_class = _get_inner_class_type(key)
+
+      # Only use inner class type if it's not the Class class itself (which happens when .class is used)
+      if inner_class && inner_class != Class
+        Util.convert_to_stripe_object(value, opts, api_mode: @api_mode, requestor: @requestor, klass: inner_class)
+      else
+        # Fall back to regular conversion without inner class type
+        Util.convert_to_stripe_object(value, opts, api_mode: @api_mode, requestor: @requestor)
       end
     end
 
@@ -619,6 +631,20 @@ module Stripe
       values.each_with_object({}) do |(k, _), update|
         update[k] = ""
       end
+    end
+
+    # Instance methods to get inner class types
+    def _get_inner_class_type(field_name)
+      self.class.inner_class_types[field_name.to_sym]
+    end
+
+    # Class methods for inner class types, similar to Python's implementation
+    def self.inner_class_types
+      @inner_class_types ||= {}
+    end
+
+    def self.field_remappings
+      @field_remappings ||= {}
     end
   end
 end

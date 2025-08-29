@@ -9,9 +9,7 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # The page limit.
           sig { returns(T.nilable(Integer)) }
-          def limit; end
-          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def limit=(_limit); end
+          attr_accessor :limit
           sig { params(limit: T.nilable(Integer)).void }
           def initialize(limit: nil); end
         end

@@ -11,92 +11,92 @@ module Stripe
           class Failed < Stripe::StripeObject
             # Open Enum. The reason for the failure of the ReceivedDebit.
             sig { returns(String) }
-            def reason; end
+            attr_reader :reason
           end
           # Information that elaborates on the `failed` status of a ReceivedDebit.
           # It is only present when the ReceivedDebit status is `failed`.
           sig { returns(Failed) }
-          def failed; end
+          attr_reader :failed
         end
         class StatusTransitions < Stripe::StripeObject
           # The time when the ReceivedDebit was marked as `canceled`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           sig { returns(T.nilable(String)) }
-          def canceled_at; end
+          attr_reader :canceled_at
           # The time when the ReceivedDebit was marked as `failed`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           sig { returns(T.nilable(String)) }
-          def failed_at; end
+          attr_reader :failed_at
           # The time when the ReceivedDebit was marked as `succeeded`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           sig { returns(T.nilable(String)) }
-          def succeeded_at; end
+          attr_reader :succeeded_at
         end
         class BankTransfer < Stripe::StripeObject
           class UsBankAccount < Stripe::StripeObject
             # The name of the bank the debit originated from.
             sig { returns(T.nilable(String)) }
-            def bank_name; end
+            attr_reader :bank_name
             # Open Enum. The bank network the debit was originated on.
             sig { returns(String) }
-            def network; end
+            attr_reader :network
             # The routing number of the bank that originated the debit.
             sig { returns(T.nilable(String)) }
-            def routing_number; end
+            attr_reader :routing_number
           end
           # The Financial Address that was debited.
           sig { returns(String) }
-          def financial_address; end
+          attr_reader :financial_address
           # Open Enum. The type of the payment method used to originate the debit.
           sig { returns(String) }
-          def payment_method_type; end
+          attr_reader :payment_method_type
           # The statement descriptor set by the originator of the debit.
           sig { returns(T.nilable(String)) }
-          def statement_descriptor; end
+          attr_reader :statement_descriptor
           # The payment method used to originate the debit.
           sig { returns(UsBankAccount) }
-          def us_bank_account; end
+          attr_reader :us_bank_account
         end
         # Amount and currency of the ReceivedDebit.
         sig { returns(Stripe::V2::Amount) }
-        def amount; end
+        attr_reader :amount
         # The time at which the ReceivedDebit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
         sig { returns(String) }
-        def created; end
+        attr_reader :created
         # Freeform string sent by the originator of the ReceivedDebit.
         sig { returns(T.nilable(String)) }
-        def description; end
+        attr_reader :description
         # Financial Account on which funds for ReceivedDebit were debited.
         sig { returns(String) }
-        def financial_account; end
+        attr_reader :financial_account
         # Unique identifier for the ReceivedDebit.
         sig { returns(String) }
-        def id; end
+        attr_reader :id
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        def object; end
+        attr_reader :object
         # A link to the Stripe-hosted receipt for this ReceivedDebit.
         sig { returns(T.nilable(String)) }
-        def receipt_url; end
+        attr_reader :receipt_url
         # Open Enum. The status of the ReceivedDebit.
         sig { returns(String) }
-        def status; end
+        attr_reader :status
         # Detailed information about the status of the ReceivedDebit.
         sig { returns(T.nilable(StatusDetails)) }
-        def status_details; end
+        attr_reader :status_details
         # The time at which the ReceivedDebit transitioned to a particular status.
         sig { returns(T.nilable(StatusTransitions)) }
-        def status_transitions; end
+        attr_reader :status_transitions
         # Open Enum. The type of the ReceivedDebit.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        def livemode; end
+        attr_reader :livemode
         # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
         sig { returns(T.nilable(BankTransfer)) }
-        def bank_transfer; end
+        attr_reader :bank_transfer
       end
     end
   end

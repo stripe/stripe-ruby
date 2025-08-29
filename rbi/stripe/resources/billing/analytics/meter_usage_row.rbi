@@ -8,25 +8,25 @@ module Stripe
       class MeterUsageRow < APIResource
         # Timestamp indicating the end of the bucket. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        def bucket_end_time; end
+        attr_reader :bucket_end_time
         # Timestamp indicating the start of the bucket. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        def bucket_start_time; end
+        attr_reader :bucket_start_time
         # The aggregated meter usage value for the specified bucket.
         sig { returns(Float) }
-        def bucket_value; end
+        attr_reader :bucket_value
         # A set of key-value pairs representing the dimensions of the meter usage.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        def dimensions; end
+        attr_reader :dimensions
         # Unique identifier for the object.
         sig { returns(String) }
-        def id; end
+        attr_reader :id
         # The unique identifier for the meter. Null if no meters were provided and usage was aggregated across all meters.
         sig { returns(T.nilable(String)) }
-        def meter_id; end
+        attr_reader :meter_id
         # String representing the object's type. Objects of the same type share the same value.
         sig { returns(String) }
-        def object; end
+        attr_reader :object
       end
     end
   end

@@ -9,22 +9,22 @@ module Stripe
         # The authentication token for this session.  Use this token when calling the
         # high-throughput meter event API.
         sig { returns(String) }
-        def authentication_token; end
+        attr_reader :authentication_token
         # The creation time of this session.
         sig { returns(String) }
-        def created; end
+        attr_reader :created
         # The time at which this session will expire.
         sig { returns(String) }
-        def expires_at; end
+        attr_reader :expires_at
         # The unique id of this auth session.
         sig { returns(String) }
-        def id; end
+        attr_reader :id
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        def object; end
+        attr_reader :object
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        def livemode; end
+        attr_reader :livemode
       end
     end
   end

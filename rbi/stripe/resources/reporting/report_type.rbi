@@ -15,37 +15,35 @@ module Stripe
     class ReportType < APIResource
       # Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def data_available_end; end
+      attr_reader :data_available_end
       # Earliest time for which this Report Type is available. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def data_available_start; end
+      attr_reader :data_available_start
       # List of column names that are included by default when this Report Type gets run. (If the Report Type doesn't support the `columns` parameter, this will be null.)
       sig { returns(T.nilable(T::Array[String])) }
-      def default_columns; end
+      attr_reader :default_columns
       # The [ID of the Report Type](https://stripe.com/docs/reporting/statements/api#available-report-types), such as `balance.summary.1`.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # Human-readable name of the Report Type
       sig { returns(String) }
-      def name; end
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # When this Report Type was latest updated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def updated; end
+      attr_reader :updated
       # Version of the Report Type. Different versions report with the same ID will have the same purpose, but may take different run parameters or have different result schemas.
       sig { returns(Integer) }
-      def version; end
+      attr_reader :version
       class ListParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end

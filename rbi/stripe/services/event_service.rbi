@@ -8,24 +8,16 @@ module Stripe
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def gt; end
-        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gt=(_gt); end
+        attr_accessor :gt
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def gte; end
-        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gte=(_gte); end
+        attr_accessor :gte
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def lt; end
-        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lt=(_lt); end
+        attr_accessor :lt
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def lte; end
-        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lte=(_lte); end
+        attr_accessor :lte
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -33,46 +25,28 @@ module Stripe
       end
       # Only return events that were created during the given date interval.
       sig { returns(T.nilable(T.any(::Stripe::EventService::ListParams::Created, Integer))) }
-      def created; end
-      sig {
-        params(_created: T.nilable(T.any(::Stripe::EventService::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::EventService::ListParams::Created, Integer)))
-       }
-      def created=(_created); end
+      attr_accessor :created
       # Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned.
       sig { returns(T.nilable(T::Boolean)) }
-      def delivery_success; end
-      sig { params(_delivery_success: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-      def delivery_success=(_delivery_success); end
+      attr_accessor :delivery_success
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      def ending_before; end
-      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-      def ending_before=(_ending_before); end
+      attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      def limit; end
-      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def limit=(_limit); end
+      attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      def starting_after; end
-      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-      def starting_after=(_starting_after); end
+      attr_accessor :starting_after
       # A string containing a specific event name, or group of events using * as a wildcard. The list will be filtered to include only events with a matching event property.
       sig { returns(T.nilable(String)) }
-      def type; end
-      sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-      def type=(_type); end
+      attr_accessor :type
       # An array of up to 20 strings containing specific event names. The list will be filtered to include only events with a matching event property. You may pass either `type` or `types`, but not both.
       sig { returns(T.nilable(T::Array[String])) }
-      def types; end
-      sig { params(_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def types=(_types); end
+      attr_accessor :types
       sig {
         params(created: T.nilable(T.any(::Stripe::EventService::ListParams::Created, Integer)), delivery_success: T.nilable(T::Boolean), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String), types: T.nilable(T::Array[String])).void
        }
@@ -90,9 +64,7 @@ module Stripe
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end

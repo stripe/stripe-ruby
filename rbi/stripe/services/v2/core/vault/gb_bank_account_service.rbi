@@ -12,19 +12,13 @@ module Stripe
               # The business type to be checked against. Legal entity information will be used if unspecified.
               # Closed enum.
               sig { returns(T.nilable(String)) }
-              def business_type; end
-              sig { params(_business_type: T.nilable(String)).returns(T.nilable(String)) }
-              def business_type=(_business_type); end
+              attr_accessor :business_type
               # User specifies whether Confirmation of Payee is automatically initiated when creating the bank account.
               sig { returns(T::Boolean) }
-              def initiate; end
-              sig { params(_initiate: T::Boolean).returns(T::Boolean) }
-              def initiate=(_initiate); end
+              attr_accessor :initiate
               # The name to be checked against. Legal entity information will be used if unspecified.
               sig { returns(T.nilable(String)) }
-              def name; end
-              sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-              def name=(_name); end
+              attr_accessor :name
               sig {
                 params(business_type: T.nilable(String), initiate: T::Boolean, name: T.nilable(String)).void
                }
@@ -32,30 +26,20 @@ module Stripe
             end
             # The Account Number of the bank account.
             sig { returns(String) }
-            def account_number; end
-            sig { params(_account_number: String).returns(String) }
-            def account_number=(_account_number); end
+            attr_accessor :account_number
             # Closed Enum. The type of the bank account (checking or savings).
             sig { returns(T.nilable(String)) }
-            def bank_account_type; end
-            sig { params(_bank_account_type: T.nilable(String)).returns(T.nilable(String)) }
-            def bank_account_type=(_bank_account_type); end
+            attr_accessor :bank_account_type
             # Whether or not to automatically perform Confirmation of Payee to verify the users information
             # against what was provided by the bank. Doing so is required for all bank accounts not owned
             # by you before making domestic UK OutboundPayments.
             sig {
               returns(T.nilable(::Stripe::V2::Core::Vault::GbBankAccountService::CreateParams::ConfirmationOfPayee))
              }
-            def confirmation_of_payee; end
-            sig {
-              params(_confirmation_of_payee: T.nilable(::Stripe::V2::Core::Vault::GbBankAccountService::CreateParams::ConfirmationOfPayee)).returns(T.nilable(::Stripe::V2::Core::Vault::GbBankAccountService::CreateParams::ConfirmationOfPayee))
-             }
-            def confirmation_of_payee=(_confirmation_of_payee); end
+            attr_accessor :confirmation_of_payee
             # The Sort Code of the bank account.
             sig { returns(String) }
-            def sort_code; end
-            sig { params(_sort_code: String).returns(String) }
-            def sort_code=(_sort_code); end
+            attr_accessor :sort_code
             sig {
               params(account_number: String, bank_account_type: T.nilable(String), confirmation_of_payee: T.nilable(::Stripe::V2::Core::Vault::GbBankAccountService::CreateParams::ConfirmationOfPayee), sort_code: String).void
              }
@@ -72,14 +56,10 @@ module Stripe
           class InitiateConfirmationOfPayeeParams < Stripe::RequestParams
             # The business type to be checked against. Legal entity information will be used if unspecified.
             sig { returns(T.nilable(String)) }
-            def business_type; end
-            sig { params(_business_type: T.nilable(String)).returns(T.nilable(String)) }
-            def business_type=(_business_type); end
+            attr_accessor :business_type
             # The name of the user to be checked against. Legal entity information will be used if unspecified.
             sig { returns(T.nilable(String)) }
-            def name; end
-            sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-            def name=(_name); end
+            attr_accessor :name
             sig { params(business_type: T.nilable(String), name: T.nilable(String)).void }
             def initialize(business_type: nil, name: nil); end
           end

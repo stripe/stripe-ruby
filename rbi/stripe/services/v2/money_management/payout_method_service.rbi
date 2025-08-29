@@ -10,18 +10,10 @@ module Stripe
           class UsageStatus < Stripe::RequestParams
             # List of payments status to filter by.
             sig { returns(T.nilable(T::Array[String])) }
-            def payments; end
-            sig {
-              params(_payments: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-             }
-            def payments=(_payments); end
+            attr_accessor :payments
             # List of transfers status to filter by.
             sig { returns(T.nilable(T::Array[String])) }
-            def transfers; end
-            sig {
-              params(_transfers: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-             }
-            def transfers=(_transfers); end
+            attr_accessor :transfers
             sig {
               params(payments: T.nilable(T::Array[String]), transfers: T.nilable(T::Array[String])).void
              }
@@ -29,18 +21,12 @@ module Stripe
           end
           # The page size.
           sig { returns(T.nilable(Integer)) }
-          def limit; end
-          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def limit=(_limit); end
+          attr_accessor :limit
           # Usage status filter.
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutMethodService::ListParams::UsageStatus))
            }
-          def usage_status; end
-          sig {
-            params(_usage_status: T.nilable(::Stripe::V2::MoneyManagement::PayoutMethodService::ListParams::UsageStatus)).returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutMethodService::ListParams::UsageStatus))
-           }
-          def usage_status=(_usage_status); end
+          attr_accessor :usage_status
           sig {
             params(limit: T.nilable(Integer), usage_status: T.nilable(::Stripe::V2::MoneyManagement::PayoutMethodService::ListParams::UsageStatus)).void
            }

@@ -10,14 +10,10 @@ module Stripe
           class AmountDetails < Stripe::RequestParams
             # The ATM withdrawal fee.
             sig { returns(T.nilable(Integer)) }
-            def atm_fee; end
-            sig { params(_atm_fee: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def atm_fee=(_atm_fee); end
+            attr_accessor :atm_fee
             # The amount of cash requested by the cardholder.
             sig { returns(T.nilable(Integer)) }
-            def cashback_amount; end
-            sig { params(_cashback_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def cashback_amount=(_cashback_amount); end
+            attr_accessor :cashback_amount
             sig { params(atm_fee: T.nilable(Integer), cashback_amount: T.nilable(Integer)).void }
             def initialize(atm_fee: nil, cashback_amount: nil); end
           end
@@ -25,29 +21,19 @@ module Stripe
             class CardholderPromptData < Stripe::RequestParams
               # Driver ID.
               sig { returns(T.nilable(String)) }
-              def driver_id; end
-              sig { params(_driver_id: T.nilable(String)).returns(T.nilable(String)) }
-              def driver_id=(_driver_id); end
+              attr_accessor :driver_id
               # Odometer reading.
               sig { returns(T.nilable(Integer)) }
-              def odometer; end
-              sig { params(_odometer: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def odometer=(_odometer); end
+              attr_accessor :odometer
               # An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
               sig { returns(T.nilable(String)) }
-              def unspecified_id; end
-              sig { params(_unspecified_id: T.nilable(String)).returns(T.nilable(String)) }
-              def unspecified_id=(_unspecified_id); end
+              attr_accessor :unspecified_id
               # User ID.
               sig { returns(T.nilable(String)) }
-              def user_id; end
-              sig { params(_user_id: T.nilable(String)).returns(T.nilable(String)) }
-              def user_id=(_user_id); end
+              attr_accessor :user_id
               # Vehicle number.
               sig { returns(T.nilable(String)) }
-              def vehicle_number; end
-              sig { params(_vehicle_number: T.nilable(String)).returns(T.nilable(String)) }
-              def vehicle_number=(_vehicle_number); end
+              attr_accessor :vehicle_number
               sig {
                 params(driver_id: T.nilable(String), odometer: T.nilable(Integer), unspecified_id: T.nilable(String), user_id: T.nilable(String), vehicle_number: T.nilable(String)).void
                }
@@ -63,34 +49,24 @@ module Stripe
               class Fuel < Stripe::RequestParams
                 # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
                 sig { returns(T.nilable(String)) }
-                def gross_amount_decimal; end
-                sig { params(_gross_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
-                def gross_amount_decimal=(_gross_amount_decimal); end
+                attr_accessor :gross_amount_decimal
                 sig { params(gross_amount_decimal: T.nilable(String)).void }
                 def initialize(gross_amount_decimal: nil); end
               end
               class NonFuel < Stripe::RequestParams
                 # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
                 sig { returns(T.nilable(String)) }
-                def gross_amount_decimal; end
-                sig { params(_gross_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
-                def gross_amount_decimal=(_gross_amount_decimal); end
+                attr_accessor :gross_amount_decimal
                 sig { params(gross_amount_decimal: T.nilable(String)).void }
                 def initialize(gross_amount_decimal: nil); end
               end
               class Tax < Stripe::RequestParams
                 # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
                 sig { returns(T.nilable(String)) }
-                def local_amount_decimal; end
-                sig { params(_local_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
-                def local_amount_decimal=(_local_amount_decimal); end
+                attr_accessor :local_amount_decimal
                 # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
                 sig { returns(T.nilable(String)) }
-                def national_amount_decimal; end
-                sig {
-                  params(_national_amount_decimal: T.nilable(String)).returns(T.nilable(String))
-                 }
-                def national_amount_decimal=(_national_amount_decimal); end
+                attr_accessor :national_amount_decimal
                 sig {
                   params(local_amount_decimal: T.nilable(String), national_amount_decimal: T.nilable(String)).void
                  }
@@ -100,29 +76,17 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::Fuel))
                }
-              def fuel; end
-              sig {
-                params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::Fuel))
-               }
-              def fuel=(_fuel); end
+              attr_accessor :fuel
               # Breakdown of non-fuel portion of the purchase.
               sig {
                 returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::NonFuel))
                }
-              def non_fuel; end
-              sig {
-                params(_non_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::NonFuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::NonFuel))
-               }
-              def non_fuel=(_non_fuel); end
+              attr_accessor :non_fuel
               # Information about tax included in this transaction.
               sig {
                 returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::Tax))
                }
-              def tax; end
-              sig {
-                params(_tax: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::Tax)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::Tax))
-               }
-              def tax=(_tax); end
+              attr_accessor :tax
               sig {
                 params(fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown::Tax)).void
                }
@@ -132,30 +96,18 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::CardholderPromptData))
              }
-            def cardholder_prompt_data; end
-            sig {
-              params(_cardholder_prompt_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::CardholderPromptData)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::CardholderPromptData))
-             }
-            def cardholder_prompt_data=(_cardholder_prompt_data); end
+            attr_accessor :cardholder_prompt_data
             # The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
             sig { returns(T.nilable(String)) }
-            def purchase_type; end
-            sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-            def purchase_type=(_purchase_type); end
+            attr_accessor :purchase_type
             # More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown))
              }
-            def reported_breakdown; end
-            sig {
-              params(_reported_breakdown: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown))
-             }
-            def reported_breakdown=(_reported_breakdown); end
+            attr_accessor :reported_breakdown
             # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
             sig { returns(T.nilable(String)) }
-            def service_type; end
-            sig { params(_service_type: T.nilable(String)).returns(T.nilable(String)) }
-            def service_type=(_service_type); end
+            attr_accessor :service_type
             sig {
               params(cardholder_prompt_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::CardholderPromptData), purchase_type: T.nilable(String), reported_breakdown: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet::ReportedBreakdown), service_type: T.nilable(String)).void
              }
@@ -169,29 +121,19 @@ module Stripe
           class Fuel < Stripe::RequestParams
             # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
             sig { returns(T.nilable(String)) }
-            def industry_product_code; end
-            sig { params(_industry_product_code: T.nilable(String)).returns(T.nilable(String)) }
-            def industry_product_code=(_industry_product_code); end
+            attr_accessor :industry_product_code
             # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
             sig { returns(T.nilable(String)) }
-            def quantity_decimal; end
-            sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
-            def quantity_decimal=(_quantity_decimal); end
+            attr_accessor :quantity_decimal
             # The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
             sig { returns(T.nilable(String)) }
-            def type; end
-            sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-            def type=(_type); end
+            attr_accessor :type
             # The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
             sig { returns(T.nilable(String)) }
-            def unit; end
-            sig { params(_unit: T.nilable(String)).returns(T.nilable(String)) }
-            def unit=(_unit); end
+            attr_accessor :unit
             # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
             sig { returns(T.nilable(String)) }
-            def unit_cost_decimal; end
-            sig { params(_unit_cost_decimal: T.nilable(String)).returns(T.nilable(String)) }
-            def unit_cost_decimal=(_unit_cost_decimal); end
+            attr_accessor :unit_cost_decimal
             sig {
               params(industry_product_code: T.nilable(String), quantity_decimal: T.nilable(String), type: T.nilable(String), unit: T.nilable(String), unit_cost_decimal: T.nilable(String)).void
              }
@@ -206,49 +148,31 @@ module Stripe
           class MerchantData < Stripe::RequestParams
             # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
             sig { returns(T.nilable(String)) }
-            def category; end
-            sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
-            def category=(_category); end
+            attr_accessor :category
             # City where the seller is located
             sig { returns(T.nilable(String)) }
-            def city; end
-            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-            def city=(_city); end
+            attr_accessor :city
             # Country where the seller is located
             sig { returns(T.nilable(String)) }
-            def country; end
-            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-            def country=(_country); end
+            attr_accessor :country
             # Name of the seller
             sig { returns(T.nilable(String)) }
-            def name; end
-            sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-            def name=(_name); end
+            attr_accessor :name
             # Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
             sig { returns(T.nilable(String)) }
-            def network_id; end
-            sig { params(_network_id: T.nilable(String)).returns(T.nilable(String)) }
-            def network_id=(_network_id); end
+            attr_accessor :network_id
             # Postal code where the seller is located
             sig { returns(T.nilable(String)) }
-            def postal_code; end
-            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-            def postal_code=(_postal_code); end
+            attr_accessor :postal_code
             # State where the seller is located
             sig { returns(T.nilable(String)) }
-            def state; end
-            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-            def state=(_state); end
+            attr_accessor :state
             # An ID assigned by the seller to the location of the sale.
             sig { returns(T.nilable(String)) }
-            def terminal_id; end
-            sig { params(_terminal_id: T.nilable(String)).returns(T.nilable(String)) }
-            def terminal_id=(_terminal_id); end
+            attr_accessor :terminal_id
             # URL provided by the merchant on a 3DS request
             sig { returns(T.nilable(String)) }
-            def url; end
-            sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
-            def url=(_url); end
+            attr_accessor :url
             sig {
               params(category: T.nilable(String), city: T.nilable(String), country: T.nilable(String), name: T.nilable(String), network_id: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), terminal_id: T.nilable(String), url: T.nilable(String)).void
              }
@@ -267,9 +191,7 @@ module Stripe
           class NetworkData < Stripe::RequestParams
             # Identifier assigned to the acquirer by the card network.
             sig { returns(T.nilable(String)) }
-            def acquiring_institution_id; end
-            sig { params(_acquiring_institution_id: T.nilable(String)).returns(T.nilable(String)) }
-            def acquiring_institution_id=(_acquiring_institution_id); end
+            attr_accessor :acquiring_institution_id
             sig { params(acquiring_institution_id: T.nilable(String)).void }
             def initialize(acquiring_institution_id: nil); end
           end
@@ -277,64 +199,42 @@ module Stripe
             class AuthenticationExemption < Stripe::RequestParams
               # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
               sig { returns(String) }
-              def claimed_by; end
-              sig { params(_claimed_by: String).returns(String) }
-              def claimed_by=(_claimed_by); end
+              attr_accessor :claimed_by
               # The specific exemption claimed for this authorization.
               sig { returns(String) }
-              def type; end
-              sig { params(_type: String).returns(String) }
-              def type=(_type); end
+              attr_accessor :type
               sig { params(claimed_by: String, type: String).void }
               def initialize(claimed_by: nil, type: nil); end
             end
             class ThreeDSecure < Stripe::RequestParams
               # The outcome of the 3D Secure authentication request.
               sig { returns(String) }
-              def result; end
-              sig { params(_result: String).returns(String) }
-              def result=(_result); end
+              attr_accessor :result
               sig { params(result: String).void }
               def initialize(result: nil); end
             end
             # Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
             sig { returns(T.nilable(String)) }
-            def address_line1_check; end
-            sig { params(_address_line1_check: T.nilable(String)).returns(T.nilable(String)) }
-            def address_line1_check=(_address_line1_check); end
+            attr_accessor :address_line1_check
             # Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
             sig { returns(T.nilable(String)) }
-            def address_postal_code_check; end
-            sig { params(_address_postal_code_check: T.nilable(String)).returns(T.nilable(String)) }
-            def address_postal_code_check=(_address_postal_code_check); end
+            attr_accessor :address_postal_code_check
             # The exemption applied to this authorization.
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData::AuthenticationExemption))
              }
-            def authentication_exemption; end
-            sig {
-              params(_authentication_exemption: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData::AuthenticationExemption)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData::AuthenticationExemption))
-             }
-            def authentication_exemption=(_authentication_exemption); end
+            attr_accessor :authentication_exemption
             # Whether the cardholder provided a CVC and if it matched Stripe’s record.
             sig { returns(T.nilable(String)) }
-            def cvc_check; end
-            sig { params(_cvc_check: T.nilable(String)).returns(T.nilable(String)) }
-            def cvc_check=(_cvc_check); end
+            attr_accessor :cvc_check
             # Whether the cardholder provided an expiry date and if it matched Stripe’s record.
             sig { returns(T.nilable(String)) }
-            def expiry_check; end
-            sig { params(_expiry_check: T.nilable(String)).returns(T.nilable(String)) }
-            def expiry_check=(_expiry_check); end
+            attr_accessor :expiry_check
             # 3D Secure details.
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData::ThreeDSecure))
              }
-            def three_d_secure; end
-            sig {
-              params(_three_d_secure: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData::ThreeDSecure)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData::ThreeDSecure))
-             }
-            def three_d_secure=(_three_d_secure); end
+            attr_accessor :three_d_secure
             sig {
               params(address_line1_check: T.nilable(String), address_postal_code_check: T.nilable(String), authentication_exemption: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData::AuthenticationExemption), cvc_check: T.nilable(String), expiry_check: T.nilable(String), three_d_secure: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData::ThreeDSecure)).void
              }
@@ -349,105 +249,61 @@ module Stripe
           end
           # The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the card's currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(T.nilable(Integer)) }
-          def amount; end
-          sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def amount=(_amount); end
+          attr_accessor :amount
           # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::AmountDetails))
            }
-          def amount_details; end
-          sig {
-            params(_amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::AmountDetails)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::AmountDetails))
-           }
-          def amount_details=(_amount_details); end
+          attr_accessor :amount_details
           # How the card details were provided. Defaults to online.
           sig { returns(T.nilable(String)) }
-          def authorization_method; end
-          sig { params(_authorization_method: T.nilable(String)).returns(T.nilable(String)) }
-          def authorization_method=(_authorization_method); end
+          attr_accessor :authorization_method
           # Card associated with this authorization.
           sig { returns(String) }
-          def card; end
-          sig { params(_card: String).returns(String) }
-          def card=(_card); end
+          attr_accessor :card
           # The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(T.nilable(String)) }
-          def currency; end
-          sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
-          def currency=(_currency); end
+          attr_accessor :currency
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          def expand; end
-          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def expand=(_expand); end
+          attr_accessor :expand
           # Fleet-specific information for authorizations using Fleet cards.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet))
            }
-          def fleet; end
-          sig {
-            params(_fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet))
-           }
-          def fleet=(_fleet); end
+          attr_accessor :fleet
           # Information about fuel that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fuel))
            }
-          def fuel; end
-          sig {
-            params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fuel))
-           }
-          def fuel=(_fuel); end
+          attr_accessor :fuel
           # If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
           sig { returns(T.nilable(T::Boolean)) }
-          def is_amount_controllable; end
-          sig {
-            params(_is_amount_controllable: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
-           }
-          def is_amount_controllable=(_is_amount_controllable); end
+          attr_accessor :is_amount_controllable
           # The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(T.nilable(Integer)) }
-          def merchant_amount; end
-          sig { params(_merchant_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def merchant_amount=(_merchant_amount); end
+          attr_accessor :merchant_amount
           # The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(T.nilable(String)) }
-          def merchant_currency; end
-          sig { params(_merchant_currency: T.nilable(String)).returns(T.nilable(String)) }
-          def merchant_currency=(_merchant_currency); end
+          attr_accessor :merchant_currency
           # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::MerchantData))
            }
-          def merchant_data; end
-          sig {
-            params(_merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::MerchantData)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::MerchantData))
-           }
-          def merchant_data=(_merchant_data); end
+          attr_accessor :merchant_data
           # Details about the authorization, such as identifiers, set by the card network.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::NetworkData))
            }
-          def network_data; end
-          sig {
-            params(_network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::NetworkData)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::NetworkData))
-           }
-          def network_data=(_network_data); end
+          attr_accessor :network_data
           # Verifications that Stripe performed on information that the cardholder provided to the merchant.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData))
            }
-          def verification_data; end
-          sig {
-            params(_verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData))
-           }
-          def verification_data=(_verification_data); end
+          attr_accessor :verification_data
           # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
           sig { returns(T.nilable(String)) }
-          def wallet; end
-          sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
-          def wallet=(_wallet); end
+          attr_accessor :wallet
           sig {
             params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::NetworkData), verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData), wallet: T.nilable(String)).void
            }
@@ -475,29 +331,19 @@ module Stripe
               class CardholderPromptData < Stripe::RequestParams
                 # Driver ID.
                 sig { returns(T.nilable(String)) }
-                def driver_id; end
-                sig { params(_driver_id: T.nilable(String)).returns(T.nilable(String)) }
-                def driver_id=(_driver_id); end
+                attr_accessor :driver_id
                 # Odometer reading.
                 sig { returns(T.nilable(Integer)) }
-                def odometer; end
-                sig { params(_odometer: T.nilable(Integer)).returns(T.nilable(Integer)) }
-                def odometer=(_odometer); end
+                attr_accessor :odometer
                 # An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
                 sig { returns(T.nilable(String)) }
-                def unspecified_id; end
-                sig { params(_unspecified_id: T.nilable(String)).returns(T.nilable(String)) }
-                def unspecified_id=(_unspecified_id); end
+                attr_accessor :unspecified_id
                 # User ID.
                 sig { returns(T.nilable(String)) }
-                def user_id; end
-                sig { params(_user_id: T.nilable(String)).returns(T.nilable(String)) }
-                def user_id=(_user_id); end
+                attr_accessor :user_id
                 # Vehicle number.
                 sig { returns(T.nilable(String)) }
-                def vehicle_number; end
-                sig { params(_vehicle_number: T.nilable(String)).returns(T.nilable(String)) }
-                def vehicle_number=(_vehicle_number); end
+                attr_accessor :vehicle_number
                 sig {
                   params(driver_id: T.nilable(String), odometer: T.nilable(Integer), unspecified_id: T.nilable(String), user_id: T.nilable(String), vehicle_number: T.nilable(String)).void
                  }
@@ -513,40 +359,24 @@ module Stripe
                 class Fuel < Stripe::RequestParams
                   # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
                   sig { returns(T.nilable(String)) }
-                  def gross_amount_decimal; end
-                  sig {
-                    params(_gross_amount_decimal: T.nilable(String)).returns(T.nilable(String))
-                   }
-                  def gross_amount_decimal=(_gross_amount_decimal); end
+                  attr_accessor :gross_amount_decimal
                   sig { params(gross_amount_decimal: T.nilable(String)).void }
                   def initialize(gross_amount_decimal: nil); end
                 end
                 class NonFuel < Stripe::RequestParams
                   # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
                   sig { returns(T.nilable(String)) }
-                  def gross_amount_decimal; end
-                  sig {
-                    params(_gross_amount_decimal: T.nilable(String)).returns(T.nilable(String))
-                   }
-                  def gross_amount_decimal=(_gross_amount_decimal); end
+                  attr_accessor :gross_amount_decimal
                   sig { params(gross_amount_decimal: T.nilable(String)).void }
                   def initialize(gross_amount_decimal: nil); end
                 end
                 class Tax < Stripe::RequestParams
                   # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   sig { returns(T.nilable(String)) }
-                  def local_amount_decimal; end
-                  sig {
-                    params(_local_amount_decimal: T.nilable(String)).returns(T.nilable(String))
-                   }
-                  def local_amount_decimal=(_local_amount_decimal); end
+                  attr_accessor :local_amount_decimal
                   # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   sig { returns(T.nilable(String)) }
-                  def national_amount_decimal; end
-                  sig {
-                    params(_national_amount_decimal: T.nilable(String)).returns(T.nilable(String))
-                   }
-                  def national_amount_decimal=(_national_amount_decimal); end
+                  attr_accessor :national_amount_decimal
                   sig {
                     params(local_amount_decimal: T.nilable(String), national_amount_decimal: T.nilable(String)).void
                    }
@@ -556,29 +386,17 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel))
                  }
-                def fuel; end
-                sig {
-                  params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel))
-                 }
-                def fuel=(_fuel); end
+                attr_accessor :fuel
                 # Breakdown of non-fuel portion of the purchase.
                 sig {
                   returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel))
                  }
-                def non_fuel; end
-                sig {
-                  params(_non_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel))
-                 }
-                def non_fuel=(_non_fuel); end
+                attr_accessor :non_fuel
                 # Information about tax included in this transaction.
                 sig {
                   returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax))
                  }
-                def tax; end
-                sig {
-                  params(_tax: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax))
-                 }
-                def tax=(_tax); end
+                attr_accessor :tax
                 sig {
                   params(fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown::Tax)).void
                  }
@@ -588,30 +406,18 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::CardholderPromptData))
                }
-              def cardholder_prompt_data; end
-              sig {
-                params(_cardholder_prompt_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::CardholderPromptData)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::CardholderPromptData))
-               }
-              def cardholder_prompt_data=(_cardholder_prompt_data); end
+              attr_accessor :cardholder_prompt_data
               # The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
               sig { returns(T.nilable(String)) }
-              def purchase_type; end
-              sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-              def purchase_type=(_purchase_type); end
+              attr_accessor :purchase_type
               # More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
               sig {
                 returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown))
                }
-              def reported_breakdown; end
-              sig {
-                params(_reported_breakdown: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown))
-               }
-              def reported_breakdown=(_reported_breakdown); end
+              attr_accessor :reported_breakdown
               # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
               sig { returns(T.nilable(String)) }
-              def service_type; end
-              sig { params(_service_type: T.nilable(String)).returns(T.nilable(String)) }
-              def service_type=(_service_type); end
+              attr_accessor :service_type
               sig {
                 params(cardholder_prompt_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::CardholderPromptData), purchase_type: T.nilable(String), reported_breakdown: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet::ReportedBreakdown), service_type: T.nilable(String)).void
                }
@@ -626,38 +432,22 @@ module Stripe
               class Segment < Stripe::RequestParams
                 # The three-letter IATA airport code of the flight's destination.
                 sig { returns(T.nilable(String)) }
-                def arrival_airport_code; end
-                sig { params(_arrival_airport_code: T.nilable(String)).returns(T.nilable(String)) }
-                def arrival_airport_code=(_arrival_airport_code); end
+                attr_accessor :arrival_airport_code
                 # The airline carrier code.
                 sig { returns(T.nilable(String)) }
-                def carrier; end
-                sig { params(_carrier: T.nilable(String)).returns(T.nilable(String)) }
-                def carrier=(_carrier); end
+                attr_accessor :carrier
                 # The three-letter IATA airport code that the flight departed from.
                 sig { returns(T.nilable(String)) }
-                def departure_airport_code; end
-                sig {
-                  params(_departure_airport_code: T.nilable(String)).returns(T.nilable(String))
-                 }
-                def departure_airport_code=(_departure_airport_code); end
+                attr_accessor :departure_airport_code
                 # The flight number.
                 sig { returns(T.nilable(String)) }
-                def flight_number; end
-                sig { params(_flight_number: T.nilable(String)).returns(T.nilable(String)) }
-                def flight_number=(_flight_number); end
+                attr_accessor :flight_number
                 # The flight's service class.
                 sig { returns(T.nilable(String)) }
-                def service_class; end
-                sig { params(_service_class: T.nilable(String)).returns(T.nilable(String)) }
-                def service_class=(_service_class); end
+                attr_accessor :service_class
                 # Whether a stopover is allowed on this flight.
                 sig { returns(T.nilable(T::Boolean)) }
-                def stopover_allowed; end
-                sig {
-                  params(_stopover_allowed: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
-                 }
-                def stopover_allowed=(_stopover_allowed); end
+                attr_accessor :stopover_allowed
                 sig {
                   params(arrival_airport_code: T.nilable(String), carrier: T.nilable(String), departure_airport_code: T.nilable(String), flight_number: T.nilable(String), service_class: T.nilable(String), stopover_allowed: T.nilable(T::Boolean)).void
                  }
@@ -672,33 +462,21 @@ module Stripe
               end
               # The time that the flight departed.
               sig { returns(T.nilable(Integer)) }
-              def departure_at; end
-              sig { params(_departure_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def departure_at=(_departure_at); end
+              attr_accessor :departure_at
               # The name of the passenger.
               sig { returns(T.nilable(String)) }
-              def passenger_name; end
-              sig { params(_passenger_name: T.nilable(String)).returns(T.nilable(String)) }
-              def passenger_name=(_passenger_name); end
+              attr_accessor :passenger_name
               # Whether the ticket is refundable.
               sig { returns(T.nilable(T::Boolean)) }
-              def refundable; end
-              sig { params(_refundable: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-              def refundable=(_refundable); end
+              attr_accessor :refundable
               # The legs of the trip.
               sig {
                 returns(T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Flight::Segment]))
                }
-              def segments; end
-              sig {
-                params(_segments: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Flight::Segment])).returns(T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Flight::Segment]))
-               }
-              def segments=(_segments); end
+              attr_accessor :segments
               # The travel agency that issued the ticket.
               sig { returns(T.nilable(String)) }
-              def travel_agency; end
-              sig { params(_travel_agency: T.nilable(String)).returns(T.nilable(String)) }
-              def travel_agency=(_travel_agency); end
+              attr_accessor :travel_agency
               sig {
                 params(departure_at: T.nilable(Integer), passenger_name: T.nilable(String), refundable: T.nilable(T::Boolean), segments: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Flight::Segment]), travel_agency: T.nilable(String)).void
                }
@@ -713,29 +491,19 @@ module Stripe
             class Fuel < Stripe::RequestParams
               # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
               sig { returns(T.nilable(String)) }
-              def industry_product_code; end
-              sig { params(_industry_product_code: T.nilable(String)).returns(T.nilable(String)) }
-              def industry_product_code=(_industry_product_code); end
+              attr_accessor :industry_product_code
               # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
               sig { returns(T.nilable(String)) }
-              def quantity_decimal; end
-              sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
-              def quantity_decimal=(_quantity_decimal); end
+              attr_accessor :quantity_decimal
               # The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
               sig { returns(T.nilable(String)) }
-              def type; end
-              sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-              def type=(_type); end
+              attr_accessor :type
               # The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
               sig { returns(T.nilable(String)) }
-              def unit; end
-              sig { params(_unit: T.nilable(String)).returns(T.nilable(String)) }
-              def unit=(_unit); end
+              attr_accessor :unit
               # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
               sig { returns(T.nilable(String)) }
-              def unit_cost_decimal; end
-              sig { params(_unit_cost_decimal: T.nilable(String)).returns(T.nilable(String)) }
-              def unit_cost_decimal=(_unit_cost_decimal); end
+              attr_accessor :unit_cost_decimal
               sig {
                 params(industry_product_code: T.nilable(String), quantity_decimal: T.nilable(String), type: T.nilable(String), unit: T.nilable(String), unit_cost_decimal: T.nilable(String)).void
                }
@@ -750,38 +518,26 @@ module Stripe
             class Lodging < Stripe::RequestParams
               # The time of checking into the lodging.
               sig { returns(T.nilable(Integer)) }
-              def check_in_at; end
-              sig { params(_check_in_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def check_in_at=(_check_in_at); end
+              attr_accessor :check_in_at
               # The number of nights stayed at the lodging.
               sig { returns(T.nilable(Integer)) }
-              def nights; end
-              sig { params(_nights: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def nights=(_nights); end
+              attr_accessor :nights
               sig { params(check_in_at: T.nilable(Integer), nights: T.nilable(Integer)).void }
               def initialize(check_in_at: nil, nights: nil); end
             end
             class Receipt < Stripe::RequestParams
               # Attribute for param field description
               sig { returns(T.nilable(String)) }
-              def description; end
-              sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
-              def description=(_description); end
+              attr_accessor :description
               # Attribute for param field quantity
               sig { returns(T.nilable(String)) }
-              def quantity; end
-              sig { params(_quantity: T.nilable(String)).returns(T.nilable(String)) }
-              def quantity=(_quantity); end
+              attr_accessor :quantity
               # Attribute for param field total
               sig { returns(T.nilable(Integer)) }
-              def total; end
-              sig { params(_total: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def total=(_total); end
+              attr_accessor :total
               # Attribute for param field unit_cost
               sig { returns(T.nilable(Integer)) }
-              def unit_cost; end
-              sig { params(_unit_cost: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def unit_cost=(_unit_cost); end
+              attr_accessor :unit_cost
               sig {
                 params(description: T.nilable(String), quantity: T.nilable(String), total: T.nilable(Integer), unit_cost: T.nilable(Integer)).void
                }
@@ -791,52 +547,30 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet))
              }
-            def fleet; end
-            sig {
-              params(_fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet))
-             }
-            def fleet=(_fleet); end
+            attr_accessor :fleet
             # Information about the flight that was purchased with this transaction.
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Flight))
              }
-            def flight; end
-            sig {
-              params(_flight: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Flight)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Flight))
-             }
-            def flight=(_flight); end
+            attr_accessor :flight
             # Information about fuel that was purchased with this transaction.
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fuel))
              }
-            def fuel; end
-            sig {
-              params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fuel))
-             }
-            def fuel=(_fuel); end
+            attr_accessor :fuel
             # Information about lodging that was purchased with this transaction.
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Lodging))
              }
-            def lodging; end
-            sig {
-              params(_lodging: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Lodging)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Lodging))
-             }
-            def lodging=(_lodging); end
+            attr_accessor :lodging
             # The line items in the purchase.
             sig {
               returns(T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Receipt]))
              }
-            def receipt; end
-            sig {
-              params(_receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Receipt])).returns(T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Receipt]))
-             }
-            def receipt=(_receipt); end
+            attr_accessor :receipt
             # A merchant-specific order number.
             sig { returns(T.nilable(String)) }
-            def reference; end
-            sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
-            def reference=(_reference); end
+            attr_accessor :reference
             sig {
               params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
              }
@@ -851,28 +585,18 @@ module Stripe
           end
           # The amount to capture from the authorization. If not provided, the full amount of the authorization will be captured. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(T.nilable(Integer)) }
-          def capture_amount; end
-          sig { params(_capture_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def capture_amount=(_capture_amount); end
+          attr_accessor :capture_amount
           # Whether to close the authorization after capture. Defaults to true. Set to false to enable multi-capture flows.
           sig { returns(T.nilable(T::Boolean)) }
-          def close_authorization; end
-          sig { params(_close_authorization: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def close_authorization=(_close_authorization); end
+          attr_accessor :close_authorization
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          def expand; end
-          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def expand=(_expand); end
+          attr_accessor :expand
           # Additional purchase information that is optionally provided by the merchant.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails))
            }
-          def purchase_details; end
-          sig {
-            params(_purchase_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails))
-           }
-          def purchase_details=(_purchase_details); end
+          attr_accessor :purchase_details
           sig {
             params(capture_amount: T.nilable(Integer), close_authorization: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), purchase_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CaptureParams::PurchaseDetails)).void
            }
@@ -886,9 +610,7 @@ module Stripe
         class ExpireParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          def expand; end
-          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def expand=(_expand); end
+          attr_accessor :expand
           sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
@@ -897,29 +619,19 @@ module Stripe
             class CardholderPromptData < Stripe::RequestParams
               # Driver ID.
               sig { returns(T.nilable(String)) }
-              def driver_id; end
-              sig { params(_driver_id: T.nilable(String)).returns(T.nilable(String)) }
-              def driver_id=(_driver_id); end
+              attr_accessor :driver_id
               # Odometer reading.
               sig { returns(T.nilable(Integer)) }
-              def odometer; end
-              sig { params(_odometer: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def odometer=(_odometer); end
+              attr_accessor :odometer
               # An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
               sig { returns(T.nilable(String)) }
-              def unspecified_id; end
-              sig { params(_unspecified_id: T.nilable(String)).returns(T.nilable(String)) }
-              def unspecified_id=(_unspecified_id); end
+              attr_accessor :unspecified_id
               # User ID.
               sig { returns(T.nilable(String)) }
-              def user_id; end
-              sig { params(_user_id: T.nilable(String)).returns(T.nilable(String)) }
-              def user_id=(_user_id); end
+              attr_accessor :user_id
               # Vehicle number.
               sig { returns(T.nilable(String)) }
-              def vehicle_number; end
-              sig { params(_vehicle_number: T.nilable(String)).returns(T.nilable(String)) }
-              def vehicle_number=(_vehicle_number); end
+              attr_accessor :vehicle_number
               sig {
                 params(driver_id: T.nilable(String), odometer: T.nilable(Integer), unspecified_id: T.nilable(String), user_id: T.nilable(String), vehicle_number: T.nilable(String)).void
                }
@@ -935,34 +647,24 @@ module Stripe
               class Fuel < Stripe::RequestParams
                 # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
                 sig { returns(T.nilable(String)) }
-                def gross_amount_decimal; end
-                sig { params(_gross_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
-                def gross_amount_decimal=(_gross_amount_decimal); end
+                attr_accessor :gross_amount_decimal
                 sig { params(gross_amount_decimal: T.nilable(String)).void }
                 def initialize(gross_amount_decimal: nil); end
               end
               class NonFuel < Stripe::RequestParams
                 # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
                 sig { returns(T.nilable(String)) }
-                def gross_amount_decimal; end
-                sig { params(_gross_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
-                def gross_amount_decimal=(_gross_amount_decimal); end
+                attr_accessor :gross_amount_decimal
                 sig { params(gross_amount_decimal: T.nilable(String)).void }
                 def initialize(gross_amount_decimal: nil); end
               end
               class Tax < Stripe::RequestParams
                 # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
                 sig { returns(T.nilable(String)) }
-                def local_amount_decimal; end
-                sig { params(_local_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
-                def local_amount_decimal=(_local_amount_decimal); end
+                attr_accessor :local_amount_decimal
                 # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
                 sig { returns(T.nilable(String)) }
-                def national_amount_decimal; end
-                sig {
-                  params(_national_amount_decimal: T.nilable(String)).returns(T.nilable(String))
-                 }
-                def national_amount_decimal=(_national_amount_decimal); end
+                attr_accessor :national_amount_decimal
                 sig {
                   params(local_amount_decimal: T.nilable(String), national_amount_decimal: T.nilable(String)).void
                  }
@@ -972,29 +674,17 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::Fuel))
                }
-              def fuel; end
-              sig {
-                params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::Fuel))
-               }
-              def fuel=(_fuel); end
+              attr_accessor :fuel
               # Breakdown of non-fuel portion of the purchase.
               sig {
                 returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel))
                }
-              def non_fuel; end
-              sig {
-                params(_non_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel))
-               }
-              def non_fuel=(_non_fuel); end
+              attr_accessor :non_fuel
               # Information about tax included in this transaction.
               sig {
                 returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::Tax))
                }
-              def tax; end
-              sig {
-                params(_tax: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::Tax)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::Tax))
-               }
-              def tax=(_tax); end
+              attr_accessor :tax
               sig {
                 params(fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::Fuel), non_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::NonFuel), tax: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown::Tax)).void
                }
@@ -1004,30 +694,18 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::CardholderPromptData))
              }
-            def cardholder_prompt_data; end
-            sig {
-              params(_cardholder_prompt_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::CardholderPromptData)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::CardholderPromptData))
-             }
-            def cardholder_prompt_data=(_cardholder_prompt_data); end
+            attr_accessor :cardholder_prompt_data
             # The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
             sig { returns(T.nilable(String)) }
-            def purchase_type; end
-            sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-            def purchase_type=(_purchase_type); end
+            attr_accessor :purchase_type
             # More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown))
              }
-            def reported_breakdown; end
-            sig {
-              params(_reported_breakdown: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown))
-             }
-            def reported_breakdown=(_reported_breakdown); end
+            attr_accessor :reported_breakdown
             # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
             sig { returns(T.nilable(String)) }
-            def service_type; end
-            sig { params(_service_type: T.nilable(String)).returns(T.nilable(String)) }
-            def service_type=(_service_type); end
+            attr_accessor :service_type
             sig {
               params(cardholder_prompt_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::CardholderPromptData), purchase_type: T.nilable(String), reported_breakdown: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet::ReportedBreakdown), service_type: T.nilable(String)).void
              }
@@ -1041,29 +719,19 @@ module Stripe
           class Fuel < Stripe::RequestParams
             # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
             sig { returns(T.nilable(String)) }
-            def industry_product_code; end
-            sig { params(_industry_product_code: T.nilable(String)).returns(T.nilable(String)) }
-            def industry_product_code=(_industry_product_code); end
+            attr_accessor :industry_product_code
             # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
             sig { returns(T.nilable(String)) }
-            def quantity_decimal; end
-            sig { params(_quantity_decimal: T.nilable(String)).returns(T.nilable(String)) }
-            def quantity_decimal=(_quantity_decimal); end
+            attr_accessor :quantity_decimal
             # The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
             sig { returns(T.nilable(String)) }
-            def type; end
-            sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-            def type=(_type); end
+            attr_accessor :type
             # The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
             sig { returns(T.nilable(String)) }
-            def unit; end
-            sig { params(_unit: T.nilable(String)).returns(T.nilable(String)) }
-            def unit=(_unit); end
+            attr_accessor :unit
             # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
             sig { returns(T.nilable(String)) }
-            def unit_cost_decimal; end
-            sig { params(_unit_cost_decimal: T.nilable(String)).returns(T.nilable(String)) }
-            def unit_cost_decimal=(_unit_cost_decimal); end
+            attr_accessor :unit_cost_decimal
             sig {
               params(industry_product_code: T.nilable(String), quantity_decimal: T.nilable(String), type: T.nilable(String), unit: T.nilable(String), unit_cost_decimal: T.nilable(String)).void
              }
@@ -1077,32 +745,20 @@ module Stripe
           end
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          def expand; end
-          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def expand=(_expand); end
+          attr_accessor :expand
           # The final authorization amount that will be captured by the merchant. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(Integer) }
-          def final_amount; end
-          sig { params(_final_amount: Integer).returns(Integer) }
-          def final_amount=(_final_amount); end
+          attr_accessor :final_amount
           # Fleet-specific information for authorizations using Fleet cards.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet))
            }
-          def fleet; end
-          sig {
-            params(_fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet))
-           }
-          def fleet=(_fleet); end
+          attr_accessor :fleet
           # Information about fuel that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fuel))
            }
-          def fuel; end
-          sig {
-            params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fuel))
-           }
-          def fuel=(_fuel); end
+          attr_accessor :fuel
           sig {
             params(expand: T.nilable(T::Array[String]), final_amount: Integer, fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fleet), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::FinalizeAmountParams::Fuel)).void
            }
@@ -1111,35 +767,23 @@ module Stripe
         class RespondParams < Stripe::RequestParams
           # Whether to simulate the user confirming that the transaction was legitimate (true) or telling Stripe that it was fraudulent (false).
           sig { returns(T::Boolean) }
-          def confirmed; end
-          sig { params(_confirmed: T::Boolean).returns(T::Boolean) }
-          def confirmed=(_confirmed); end
+          attr_accessor :confirmed
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          def expand; end
-          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def expand=(_expand); end
+          attr_accessor :expand
           sig { params(confirmed: T::Boolean, expand: T.nilable(T::Array[String])).void }
           def initialize(confirmed: nil, expand: nil); end
         end
         class IncrementParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          def expand; end
-          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def expand=(_expand); end
+          attr_accessor :expand
           # The amount to increment the authorization by. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(Integer) }
-          def increment_amount; end
-          sig { params(_increment_amount: Integer).returns(Integer) }
-          def increment_amount=(_increment_amount); end
+          attr_accessor :increment_amount
           # If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
           sig { returns(T.nilable(T::Boolean)) }
-          def is_amount_controllable; end
-          sig {
-            params(_is_amount_controllable: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
-           }
-          def is_amount_controllable=(_is_amount_controllable); end
+          attr_accessor :is_amount_controllable
           sig {
             params(expand: T.nilable(T::Array[String]), increment_amount: Integer, is_amount_controllable: T.nilable(T::Boolean)).void
            }
@@ -1148,14 +792,10 @@ module Stripe
         class ReverseParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          def expand; end
-          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def expand=(_expand); end
+          attr_accessor :expand
           # The amount to reverse from the authorization. If not provided, the full amount of the authorization will be reversed. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(T.nilable(Integer)) }
-          def reverse_amount; end
-          sig { params(_reverse_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def reverse_amount=(_reverse_amount); end
+          attr_accessor :reverse_amount
           sig {
             params(expand: T.nilable(T::Array[String]), reverse_amount: T.nilable(Integer)).void
            }

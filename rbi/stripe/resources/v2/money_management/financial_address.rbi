@@ -11,72 +11,72 @@ module Stripe
           class GbBankAccount < Stripe::StripeObject
             # The account holder name to be used during bank transference.
             sig { returns(String) }
-            def account_holder_name; end
+            attr_reader :account_holder_name
             # The account number of the UK Bank Account.
             sig { returns(T.nilable(String)) }
-            def account_number; end
+            attr_reader :account_number
             # The last four digits of the UK Bank Account number. This will always be returned.
             # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
             sig { returns(String) }
-            def last4; end
+            attr_reader :last4
             # The sort code of the UK Bank Account.
             sig { returns(String) }
-            def sort_code; end
+            attr_reader :sort_code
           end
           class UsBankAccount < Stripe::StripeObject
             # The account number of the US Bank Account.
             sig { returns(T.nilable(String)) }
-            def account_number; end
+            attr_reader :account_number
             # The name of the Bank.
             sig { returns(T.nilable(String)) }
-            def bank_name; end
+            attr_reader :bank_name
             # The last four digits of the US Bank Account number. This will always be returned.
             # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
             sig { returns(String) }
-            def last4; end
+            attr_reader :last4
             # The routing number of the US Bank Account.
             sig { returns(String) }
-            def routing_number; end
+            attr_reader :routing_number
             # The swift code of the bank or financial institution.
             sig { returns(T.nilable(String)) }
-            def swift_code; end
+            attr_reader :swift_code
           end
           # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
           sig { returns(String) }
-          def type; end
+          attr_reader :type
           # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
           sig { returns(T.nilable(GbBankAccount)) }
-          def gb_bank_account; end
+          attr_reader :gb_bank_account
           # The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
           sig { returns(T.nilable(UsBankAccount)) }
-          def us_bank_account; end
+          attr_reader :us_bank_account
         end
         # The creation timestamp of the FinancialAddress.
         sig { returns(String) }
-        def created; end
+        attr_reader :created
         # Object indicates the type of credentials that have been allocated and attached to the FinancialAddress.
         # It contains all necessary banking details with which to perform money movements with the FinancialAddress.
         # This field is only available for FinancialAddresses with an active status.
         sig { returns(T.nilable(Credentials)) }
-        def credentials; end
+        attr_reader :credentials
         # Open Enum. The currency the FinancialAddress supports.
         sig { returns(String) }
-        def currency; end
+        attr_reader :currency
         # A ID of the FinancialAccount this FinancialAddress corresponds to.
         sig { returns(String) }
-        def financial_account; end
+        attr_reader :financial_account
         # The ID of a FinancialAddress.
         sig { returns(String) }
-        def id; end
+        attr_reader :id
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        def object; end
+        attr_reader :object
         # Closed Enum. An enum representing the status of the FinancialAddress. This indicates whether or not the FinancialAddress can be used for any money movement flows.
         sig { returns(String) }
-        def status; end
+        attr_reader :status
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        def livemode; end
+        attr_reader :livemode
       end
     end
   end

@@ -12,79 +12,69 @@ module Stripe
       class Objects < Stripe::StripeObject
         # Charge object identifiers usually starting with `ch_`
         sig { returns(T.nilable(T::Array[String])) }
-        def charges; end
+        attr_reader :charges
         # CheckoutSession object identifiers starting with `cs_`
         sig { returns(T.nilable(T::Array[String])) }
-        def checkout_sessions; end
+        attr_reader :checkout_sessions
         # Customer object identifiers starting with `cus_`
         sig { returns(T.nilable(T::Array[String])) }
-        def customers; end
+        attr_reader :customers
         # Identity VerificationSessions object identifiers starting with `vs_`
         sig { returns(T.nilable(T::Array[String])) }
-        def identity_verification_sessions; end
+        attr_reader :identity_verification_sessions
         # Invoice object identifiers starting with `in_`
         sig { returns(T.nilable(T::Array[String])) }
-        def invoices; end
+        attr_reader :invoices
         # Issuing Cardholder object identifiers starting with `ich_`
         sig { returns(T.nilable(T::Array[String])) }
-        def issuing_cardholders; end
+        attr_reader :issuing_cardholders
         # PaymentIntent object identifiers starting with `pi_`
         sig { returns(T.nilable(T::Array[String])) }
-        def payment_intents; end
+        attr_reader :payment_intents
         # Fraud ValueListItem object identifiers starting with `rsli_`
         sig { returns(T.nilable(T::Array[String])) }
-        def radar_value_list_items; end
+        attr_reader :radar_value_list_items
         # SetupIntent object identifiers starting with `seti_`
         sig { returns(T.nilable(T::Array[String])) }
-        def setup_intents; end
+        attr_reader :setup_intents
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def created; end
+      attr_reader :created
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # The objects to redact in this job.
       sig { returns(T.nilable(Objects)) }
-      def objects; end
+      attr_reader :objects
       # The status of the job.
       sig { returns(String) }
-      def status; end
+      attr_reader :status
       # Validation behavior determines how a job validates objects for redaction eligibility. Default is `error`.
       sig { returns(T.nilable(String)) }
-      def validation_behavior; end
+      attr_reader :validation_behavior
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         # Attribute for param field status
         sig { returns(T.nilable(String)) }
-        def status; end
-        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
-        def status=(_status); end
+        attr_accessor :status
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
          }
@@ -100,72 +90,34 @@ module Stripe
         class Objects < Stripe::RequestParams
           # Attribute for param field charges
           sig { returns(T.nilable(T::Array[String])) }
-          def charges; end
-          sig { params(_charges: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def charges=(_charges); end
+          attr_accessor :charges
           # Attribute for param field checkout_sessions
           sig { returns(T.nilable(T::Array[String])) }
-          def checkout_sessions; end
-          sig {
-            params(_checkout_sessions: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-           }
-          def checkout_sessions=(_checkout_sessions); end
+          attr_accessor :checkout_sessions
           # Attribute for param field customers
           sig { returns(T.nilable(T::Array[String])) }
-          def customers; end
-          sig {
-            params(_customers: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-           }
-          def customers=(_customers); end
+          attr_accessor :customers
           # Attribute for param field identity_verification_sessions
           sig { returns(T.nilable(T::Array[String])) }
-          def identity_verification_sessions; end
-          sig {
-            params(_identity_verification_sessions: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-           }
-          def identity_verification_sessions=(_identity_verification_sessions); end
+          attr_accessor :identity_verification_sessions
           # Attribute for param field invoices
           sig { returns(T.nilable(T::Array[String])) }
-          def invoices; end
-          sig {
-            params(_invoices: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-           }
-          def invoices=(_invoices); end
+          attr_accessor :invoices
           # Attribute for param field issuing_cardholders
           sig { returns(T.nilable(T::Array[String])) }
-          def issuing_cardholders; end
-          sig {
-            params(_issuing_cardholders: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-           }
-          def issuing_cardholders=(_issuing_cardholders); end
+          attr_accessor :issuing_cardholders
           # Attribute for param field issuing_cards
           sig { returns(T.nilable(T::Array[String])) }
-          def issuing_cards; end
-          sig {
-            params(_issuing_cards: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-           }
-          def issuing_cards=(_issuing_cards); end
+          attr_accessor :issuing_cards
           # Attribute for param field payment_intents
           sig { returns(T.nilable(T::Array[String])) }
-          def payment_intents; end
-          sig {
-            params(_payment_intents: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-           }
-          def payment_intents=(_payment_intents); end
+          attr_accessor :payment_intents
           # Attribute for param field radar_value_list_items
           sig { returns(T.nilable(T::Array[String])) }
-          def radar_value_list_items; end
-          sig {
-            params(_radar_value_list_items: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-           }
-          def radar_value_list_items=(_radar_value_list_items); end
+          attr_accessor :radar_value_list_items
           # Attribute for param field setup_intents
           sig { returns(T.nilable(T::Array[String])) }
-          def setup_intents; end
-          sig {
-            params(_setup_intents: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-           }
-          def setup_intents=(_setup_intents); end
+          attr_accessor :setup_intents
           sig {
             params(charges: T.nilable(T::Array[String]), checkout_sessions: T.nilable(T::Array[String]), customers: T.nilable(T::Array[String]), identity_verification_sessions: T.nilable(T::Array[String]), invoices: T.nilable(T::Array[String]), issuing_cardholders: T.nilable(T::Array[String]), issuing_cards: T.nilable(T::Array[String]), payment_intents: T.nilable(T::Array[String]), radar_value_list_items: T.nilable(T::Array[String]), setup_intents: T.nilable(T::Array[String])).void
            }
@@ -184,21 +136,13 @@ module Stripe
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The objects to redact. These root objects and their related ones will be validated for redaction.
         sig { returns(::Stripe::Privacy::RedactionJob::CreateParams::Objects) }
-        def objects; end
-        sig {
-          params(_objects: ::Stripe::Privacy::RedactionJob::CreateParams::Objects).returns(::Stripe::Privacy::RedactionJob::CreateParams::Objects)
-         }
-        def objects=(_objects); end
+        attr_accessor :objects
         # Determines the validation behavior of the job. Default is `error`.
         sig { returns(T.nilable(String)) }
-        def validation_behavior; end
-        sig { params(_validation_behavior: T.nilable(String)).returns(T.nilable(String)) }
-        def validation_behavior=(_validation_behavior); end
+        attr_accessor :validation_behavior
         sig {
           params(expand: T.nilable(T::Array[String]), objects: ::Stripe::Privacy::RedactionJob::CreateParams::Objects, validation_behavior: T.nilable(String)).void
          }
@@ -207,14 +151,10 @@ module Stripe
       class UpdateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # Determines the validation behavior of the job. Default is `error`.
         sig { returns(T.nilable(String)) }
-        def validation_behavior; end
-        sig { params(_validation_behavior: T.nilable(String)).returns(T.nilable(String)) }
-        def validation_behavior=(_validation_behavior); end
+        attr_accessor :validation_behavior
         sig {
           params(expand: T.nilable(T::Array[String]), validation_behavior: T.nilable(String)).void
          }
@@ -223,27 +163,21 @@ module Stripe
       class CancelParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class RunParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class ValidateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end

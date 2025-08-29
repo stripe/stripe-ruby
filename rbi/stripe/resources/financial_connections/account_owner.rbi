@@ -8,28 +8,28 @@ module Stripe
     class AccountOwner < StripeObject
       # The email address of the owner.
       sig { returns(T.nilable(String)) }
-      def email; end
+      attr_reader :email
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # The full name of the owner.
       sig { returns(String) }
-      def name; end
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # The ownership object that this owner belongs to.
       sig { returns(String) }
-      def ownership; end
+      attr_reader :ownership
       # The raw phone number of the owner.
       sig { returns(T.nilable(String)) }
-      def phone; end
+      attr_reader :phone
       # The raw physical address of the owner.
       sig { returns(T.nilable(String)) }
-      def raw_address; end
+      attr_reader :raw_address
       # The timestamp of the refresh that updated this owner.
       sig { returns(T.nilable(Integer)) }
-      def refreshed_at; end
+      attr_reader :refreshed_at
     end
   end
 end

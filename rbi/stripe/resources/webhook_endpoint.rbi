@@ -13,79 +13,63 @@ module Stripe
   class WebhookEndpoint < APIResource
     # The API version events are rendered as for this webhook endpoint.
     sig { returns(T.nilable(String)) }
-    def api_version; end
+    attr_reader :api_version
     # The ID of the associated Connect application.
     sig { returns(T.nilable(String)) }
-    def application; end
+    attr_reader :application
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    def created; end
+    attr_reader :created
     # An optional description of what the webhook is used for.
     sig { returns(T.nilable(String)) }
-    def description; end
+    attr_reader :description
     # The list of events to enable for this endpoint. `['*']` indicates that all events are enabled, except those that require explicit selection.
     sig { returns(T::Array[String]) }
-    def enabled_events; end
+    attr_reader :enabled_events
     # Unique identifier for the object.
     sig { returns(String) }
-    def id; end
+    attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    def livemode; end
+    attr_reader :livemode
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
-    def metadata; end
+    attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
     # The endpoint's secret, used to generate [webhook signatures](https://docs.stripe.com/webhooks/signatures). Only returned at creation.
     sig { returns(String) }
-    def secret; end
+    attr_reader :secret
     # The status of the webhook. It can be `enabled` or `disabled`.
     sig { returns(String) }
-    def status; end
+    attr_reader :status
     # The URL of the webhook endpoint.
     sig { returns(String) }
-    def url; end
+    attr_reader :url
     # Always true for a deleted object
     sig { returns(T::Boolean) }
-    def deleted; end
+    attr_reader :deleted
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams
       # An optional description of what the webhook is used for.
       sig { returns(T.nilable(String)) }
-      def description; end
-      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
-      def description=(_description); end
+      attr_accessor :description
       # Disable the webhook endpoint if set to true.
       sig { returns(T.nilable(T::Boolean)) }
-      def disabled; end
-      sig { params(_disabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-      def disabled=(_disabled); end
+      attr_accessor :disabled
       # The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection.
       sig { returns(T.nilable(T::Array[String])) }
-      def enabled_events; end
-      sig {
-        params(_enabled_events: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-       }
-      def enabled_events=(_enabled_events); end
+      attr_accessor :enabled_events
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      def metadata; end
-      sig {
-        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-       }
-      def metadata=(_metadata); end
+      attr_accessor :metadata
       # The URL of the webhook endpoint.
       sig { returns(T.nilable(String)) }
-      def url; end
-      sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
-      def url=(_url); end
+      attr_accessor :url
       sig {
         params(description: T.nilable(String), disabled: T.nilable(T::Boolean), enabled_events: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), url: T.nilable(String)).void
        }
@@ -101,24 +85,16 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      def ending_before; end
-      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-      def ending_before=(_ending_before); end
+      attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      def limit; end
-      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def limit=(_limit); end
+      attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      def starting_after; end
-      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-      def starting_after=(_starting_after); end
+      attr_accessor :starting_after
       sig {
         params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
        }
@@ -127,41 +103,25 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       # Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
       sig { returns(T.nilable(String)) }
-      def api_version; end
-      sig { params(_api_version: T.nilable(String)).returns(T.nilable(String)) }
-      def api_version=(_api_version); end
+      attr_accessor :api_version
       # Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`.
       sig { returns(T.nilable(T::Boolean)) }
-      def connect; end
-      sig { params(_connect: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-      def connect=(_connect); end
+      attr_accessor :connect
       # An optional description of what the webhook is used for.
       sig { returns(T.nilable(String)) }
-      def description; end
-      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
-      def description=(_description); end
+      attr_accessor :description
       # The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection.
       sig { returns(T::Array[String]) }
-      def enabled_events; end
-      sig { params(_enabled_events: T::Array[String]).returns(T::Array[String]) }
-      def enabled_events=(_enabled_events); end
+      attr_accessor :enabled_events
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      def metadata; end
-      sig {
-        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-       }
-      def metadata=(_metadata); end
+      attr_accessor :metadata
       # The URL of the webhook endpoint.
       sig { returns(String) }
-      def url; end
-      sig { params(_url: String).returns(String) }
-      def url=(_url); end
+      attr_accessor :url
       sig {
         params(api_version: T.nilable(String), connect: T.nilable(T::Boolean), description: T.nilable(String), enabled_events: T::Array[String], expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), url: String).void
        }

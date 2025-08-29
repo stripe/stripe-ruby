@@ -8,9 +8,7 @@ module Stripe
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
@@ -18,9 +16,7 @@ module Stripe
       class CurrencyOptions < Stripe::RequestParams
         # A positive integer representing the amount to subtract from an invoice total.
         sig { returns(Integer) }
-        def amount_off; end
-        sig { params(_amount_off: Integer).returns(Integer) }
-        def amount_off=(_amount_off); end
+        attr_accessor :amount_off
         sig { params(amount_off: Integer).void }
         def initialize(amount_off: nil); end
       end
@@ -28,28 +24,16 @@ module Stripe
       sig {
         returns(T.nilable(T::Hash[String, ::Stripe::CouponService::UpdateParams::CurrencyOptions]))
        }
-      def currency_options; end
-      sig {
-        params(_currency_options: T.nilable(T::Hash[String, ::Stripe::CouponService::UpdateParams::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::CouponService::UpdateParams::CurrencyOptions]))
-       }
-      def currency_options=(_currency_options); end
+      attr_accessor :currency_options
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      def metadata; end
-      sig {
-        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-       }
-      def metadata=(_metadata); end
+      attr_accessor :metadata
       # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
       sig { returns(T.nilable(String)) }
-      def name; end
-      sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-      def name=(_name); end
+      attr_accessor :name
       sig {
         params(currency_options: T.nilable(T::Hash[String, ::Stripe::CouponService::UpdateParams::CurrencyOptions]), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
        }
@@ -59,24 +43,16 @@ module Stripe
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def gt; end
-        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gt=(_gt); end
+        attr_accessor :gt
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def gte; end
-        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gte=(_gte); end
+        attr_accessor :gte
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def lt; end
-        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lt=(_lt); end
+        attr_accessor :lt
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def lte; end
-        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lte=(_lte); end
+        attr_accessor :lte
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -84,31 +60,19 @@ module Stripe
       end
       # A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
       sig { returns(T.nilable(T.any(::Stripe::CouponService::ListParams::Created, Integer))) }
-      def created; end
-      sig {
-        params(_created: T.nilable(T.any(::Stripe::CouponService::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::CouponService::ListParams::Created, Integer)))
-       }
-      def created=(_created); end
+      attr_accessor :created
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      def ending_before; end
-      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-      def ending_before=(_ending_before); end
+      attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      def limit; end
-      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def limit=(_limit); end
+      attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      def starting_after; end
-      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-      def starting_after=(_starting_after); end
+      attr_accessor :starting_after
       sig {
         params(created: T.nilable(T.any(::Stripe::CouponService::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
        }
@@ -124,117 +88,71 @@ module Stripe
       class AppliesTo < Stripe::RequestParams
         # An array of Product IDs that this Coupon will apply to.
         sig { returns(T.nilable(T::Array[String])) }
-        def products; end
-        sig { params(_products: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def products=(_products); end
+        attr_accessor :products
         sig { params(products: T.nilable(T::Array[String])).void }
         def initialize(products: nil); end
       end
       class CurrencyOptions < Stripe::RequestParams
         # A positive integer representing the amount to subtract from an invoice total.
         sig { returns(Integer) }
-        def amount_off; end
-        sig { params(_amount_off: Integer).returns(Integer) }
-        def amount_off=(_amount_off); end
+        attr_accessor :amount_off
         sig { params(amount_off: Integer).void }
         def initialize(amount_off: nil); end
       end
       class Script < Stripe::RequestParams
         # The configuration values of the script. The keys and values are specific to the script implementation.
         sig { returns(T::Hash[String, T.untyped]) }
-        def configuration; end
-        sig {
-          params(_configuration: T::Hash[String, T.untyped]).returns(T::Hash[String, T.untyped])
-         }
-        def configuration=(_configuration); end
+        attr_accessor :configuration
         # The script implementation ID for this coupon.
         sig { returns(String) }
-        def id; end
-        sig { params(_id: String).returns(String) }
-        def id=(_id); end
+        attr_accessor :id
         sig { params(configuration: T::Hash[String, T.untyped], id: String).void }
         def initialize(configuration: nil, id: nil); end
       end
       # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
       sig { returns(T.nilable(Integer)) }
-      def amount_off; end
-      sig { params(_amount_off: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def amount_off=(_amount_off); end
+      attr_accessor :amount_off
       # A hash containing directions for what this Coupon will apply discounts to.
       sig { returns(T.nilable(::Stripe::CouponService::CreateParams::AppliesTo)) }
-      def applies_to; end
-      sig {
-        params(_applies_to: T.nilable(::Stripe::CouponService::CreateParams::AppliesTo)).returns(T.nilable(::Stripe::CouponService::CreateParams::AppliesTo))
-       }
-      def applies_to=(_applies_to); end
+      attr_accessor :applies_to
       # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
       sig { returns(T.nilable(String)) }
-      def currency; end
-      sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
-      def currency=(_currency); end
+      attr_accessor :currency
       # Coupons defined in each available currency option (only supported if `amount_off` is passed). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       sig {
         returns(T.nilable(T::Hash[String, ::Stripe::CouponService::CreateParams::CurrencyOptions]))
        }
-      def currency_options; end
-      sig {
-        params(_currency_options: T.nilable(T::Hash[String, ::Stripe::CouponService::CreateParams::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::CouponService::CreateParams::CurrencyOptions]))
-       }
-      def currency_options=(_currency_options); end
+      attr_accessor :currency_options
       # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
       sig { returns(T.nilable(String)) }
-      def duration; end
-      sig { params(_duration: T.nilable(String)).returns(T.nilable(String)) }
-      def duration=(_duration); end
+      attr_accessor :duration
       # Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect.
       sig { returns(T.nilable(Integer)) }
-      def duration_in_months; end
-      sig { params(_duration_in_months: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def duration_in_months=(_duration_in_months); end
+      attr_accessor :duration_in_months
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # Unique string of your choice that will be used to identify this coupon when applying it to a customer. If you don't want to specify a particular code, you can leave the ID blank and we'll generate a random code for you.
       sig { returns(T.nilable(String)) }
-      def id; end
-      sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
-      def id=(_id); end
+      attr_accessor :id
       # A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use.
       sig { returns(T.nilable(Integer)) }
-      def max_redemptions; end
-      sig { params(_max_redemptions: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def max_redemptions=(_max_redemptions); end
+      attr_accessor :max_redemptions
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      def metadata; end
-      sig {
-        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-       }
-      def metadata=(_metadata); end
+      attr_accessor :metadata
       # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
       sig { returns(T.nilable(String)) }
-      def name; end
-      sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-      def name=(_name); end
+      attr_accessor :name
       # A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
       sig { returns(T.nilable(Float)) }
-      def percent_off; end
-      sig { params(_percent_off: T.nilable(Float)).returns(T.nilable(Float)) }
-      def percent_off=(_percent_off); end
+      attr_accessor :percent_off
       # Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
       sig { returns(T.nilable(Integer)) }
-      def redeem_by; end
-      sig { params(_redeem_by: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def redeem_by=(_redeem_by); end
+      attr_accessor :redeem_by
       # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
       sig { returns(T.nilable(::Stripe::CouponService::CreateParams::Script)) }
-      def script; end
-      sig {
-        params(_script: T.nilable(::Stripe::CouponService::CreateParams::Script)).returns(T.nilable(::Stripe::CouponService::CreateParams::Script))
-       }
-      def script=(_script); end
+      attr_accessor :script
       sig {
         params(amount_off: T.nilable(Integer), applies_to: T.nilable(::Stripe::CouponService::CreateParams::AppliesTo), currency: T.nilable(String), currency_options: T.nilable(T::Hash[String, ::Stripe::CouponService::CreateParams::CurrencyOptions]), duration: T.nilable(String), duration_in_months: T.nilable(Integer), expand: T.nilable(T::Array[String]), id: T.nilable(String), max_redemptions: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), percent_off: T.nilable(Float), redeem_by: T.nilable(Integer), script: T.nilable(::Stripe::CouponService::CreateParams::Script)).void
        }

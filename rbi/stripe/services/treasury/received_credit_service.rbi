@@ -9,51 +9,33 @@ module Stripe
         class LinkedFlows < Stripe::RequestParams
           # The source flow type.
           sig { returns(String) }
-          def source_flow_type; end
-          sig { params(_source_flow_type: String).returns(String) }
-          def source_flow_type=(_source_flow_type); end
+          attr_accessor :source_flow_type
           sig { params(source_flow_type: String).void }
           def initialize(source_flow_type: nil); end
         end
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The FinancialAccount that received the funds.
         sig { returns(String) }
-        def financial_account; end
-        sig { params(_financial_account: String).returns(String) }
-        def financial_account=(_financial_account); end
+        attr_accessor :financial_account
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # Only return ReceivedCredits described by the flow.
         sig {
           returns(T.nilable(::Stripe::Treasury::ReceivedCreditService::ListParams::LinkedFlows))
          }
-        def linked_flows; end
-        sig {
-          params(_linked_flows: T.nilable(::Stripe::Treasury::ReceivedCreditService::ListParams::LinkedFlows)).returns(T.nilable(::Stripe::Treasury::ReceivedCreditService::ListParams::LinkedFlows))
-         }
-        def linked_flows=(_linked_flows); end
+        attr_accessor :linked_flows
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         # Only return ReceivedCredits that have the given status: `succeeded` or `failed`.
         sig { returns(T.nilable(String)) }
-        def status; end
-        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
-        def status=(_status); end
+        attr_accessor :status
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), linked_flows: T.nilable(::Stripe::Treasury::ReceivedCreditService::ListParams::LinkedFlows), starting_after: T.nilable(String), status: T.nilable(String)).void
          }
@@ -70,9 +52,7 @@ module Stripe
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end

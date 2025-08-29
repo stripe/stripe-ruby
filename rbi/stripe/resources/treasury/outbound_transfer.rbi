@@ -15,236 +15,224 @@ module Stripe
           class Address < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           # Attribute for field address
           sig { returns(Address) }
-          def address; end
+          attr_reader :address
           # Email address.
           sig { returns(T.nilable(String)) }
-          def email; end
+          attr_reader :email
           # Full name.
           sig { returns(T.nilable(String)) }
-          def name; end
+          attr_reader :name
         end
         class FinancialAccount < Stripe::StripeObject
           # Token of the FinancialAccount.
           sig { returns(String) }
-          def id; end
+          attr_reader :id
           # The rails used to send funds.
           sig { returns(String) }
-          def network; end
+          attr_reader :network
         end
         class UsBankAccount < Stripe::StripeObject
           # Account holder type: individual or company.
           sig { returns(T.nilable(String)) }
-          def account_holder_type; end
+          attr_reader :account_holder_type
           # Account type: checkings or savings. Defaults to checking if omitted.
           sig { returns(T.nilable(String)) }
-          def account_type; end
+          attr_reader :account_type
           # Name of the bank associated with the bank account.
           sig { returns(T.nilable(String)) }
-          def bank_name; end
+          attr_reader :bank_name
           # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
           sig { returns(T.nilable(String)) }
-          def fingerprint; end
+          attr_reader :fingerprint
           # Last four digits of the bank account number.
           sig { returns(T.nilable(String)) }
-          def last4; end
+          attr_reader :last4
           # ID of the mandate used to make this payment.
           sig { returns(T.any(String, Stripe::Mandate)) }
-          def mandate; end
+          attr_reader :mandate
           # The network rails used. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(String) }
-          def network; end
+          attr_reader :network
           # Routing number of the bank account.
           sig { returns(T.nilable(String)) }
-          def routing_number; end
+          attr_reader :routing_number
         end
         # Attribute for field billing_details
         sig { returns(BillingDetails) }
-        def billing_details; end
+        attr_reader :billing_details
         # Attribute for field financial_account
         sig { returns(FinancialAccount) }
-        def financial_account; end
+        attr_reader :financial_account
         # The type of the payment method used in the OutboundTransfer.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
         # Attribute for field us_bank_account
         sig { returns(UsBankAccount) }
-        def us_bank_account; end
+        attr_reader :us_bank_account
       end
       class NetworkDetails < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           # ACH Addenda record
           sig { returns(T.nilable(String)) }
-          def addenda; end
+          attr_reader :addenda
         end
         # Details about an ACH transaction.
         sig { returns(T.nilable(Ach)) }
-        def ach; end
+        attr_reader :ach
         # The type of flow that originated the OutboundTransfer.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
       end
       class ReturnedDetails < Stripe::StripeObject
         # Reason for the return.
         sig { returns(String) }
-        def code; end
+        attr_reader :code
         # The Transaction associated with this object.
         sig { returns(T.any(String, Stripe::Treasury::Transaction)) }
-        def transaction; end
+        attr_reader :transaction
       end
       class StatusTransitions < Stripe::StripeObject
         # Timestamp describing when an OutboundTransfer changed status to `canceled`
         sig { returns(T.nilable(Integer)) }
-        def canceled_at; end
+        attr_reader :canceled_at
         # Timestamp describing when an OutboundTransfer changed status to `failed`
         sig { returns(T.nilable(Integer)) }
-        def failed_at; end
+        attr_reader :failed_at
         # Timestamp describing when an OutboundTransfer changed status to `posted`
         sig { returns(T.nilable(Integer)) }
-        def posted_at; end
+        attr_reader :posted_at
         # Timestamp describing when an OutboundTransfer changed status to `returned`
         sig { returns(T.nilable(Integer)) }
-        def returned_at; end
+        attr_reader :returned_at
       end
       class TrackingDetails < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           # ACH trace ID of the OutboundTransfer for transfers sent over the `ach` network.
           sig { returns(String) }
-          def trace_id; end
+          attr_reader :trace_id
         end
         class UsDomesticWire < Stripe::StripeObject
           # CHIPS System Sequence Number (SSN) of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
           sig { returns(T.nilable(String)) }
-          def chips; end
+          attr_reader :chips
           # IMAD of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
           sig { returns(T.nilable(String)) }
-          def imad; end
+          attr_reader :imad
           # OMAD of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
           sig { returns(T.nilable(String)) }
-          def omad; end
+          attr_reader :omad
         end
         # Attribute for field ach
         sig { returns(Ach) }
-        def ach; end
+        attr_reader :ach
         # The US bank account network used to send funds.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
         # Attribute for field us_domestic_wire
         sig { returns(UsDomesticWire) }
-        def us_domestic_wire; end
+        attr_reader :us_domestic_wire
       end
       # Amount (in cents) transferred.
       sig { returns(Integer) }
-      def amount; end
+      attr_reader :amount
       # Returns `true` if the object can be canceled, and `false` otherwise.
       sig { returns(T::Boolean) }
-      def cancelable; end
+      attr_reader :cancelable
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def created; end
+      attr_reader :created
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      def currency; end
+      attr_reader :currency
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
-      def description; end
+      attr_reader :description
       # The PaymentMethod used as the payment instrument for an OutboundTransfer.
       sig { returns(T.nilable(String)) }
-      def destination_payment_method; end
+      attr_reader :destination_payment_method
       # Attribute for field destination_payment_method_details
       sig { returns(DestinationPaymentMethodDetails) }
-      def destination_payment_method_details; end
+      attr_reader :destination_payment_method_details
       # The date when funds are expected to arrive in the destination account.
       sig { returns(Integer) }
-      def expected_arrival_date; end
+      attr_reader :expected_arrival_date
       # The FinancialAccount that funds were pulled from.
       sig { returns(String) }
-      def financial_account; end
+      attr_reader :financial_account
       # A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
       sig { returns(T.nilable(String)) }
-      def hosted_regulatory_receipt_url; end
+      attr_reader :hosted_regulatory_receipt_url
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
-      def metadata; end
+      attr_reader :metadata
       # Details about the network used for the OutboundTransfer.
       sig { returns(T.nilable(NetworkDetails)) }
-      def network_details; end
+      attr_reader :network_details
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # Details about a returned OutboundTransfer. Only set when the status is `returned`.
       sig { returns(T.nilable(ReturnedDetails)) }
-      def returned_details; end
+      attr_reader :returned_details
       # Information about the OutboundTransfer to be sent to the recipient account.
       sig { returns(String) }
-      def statement_descriptor; end
+      attr_reader :statement_descriptor
       # Current status of the OutboundTransfer: `processing`, `failed`, `canceled`, `posted`, `returned`. An OutboundTransfer is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundTransfer has been "confirmed" and funds have left the account, or to `failed` or `canceled`. If an OutboundTransfer fails to arrive at its destination, its status will change to `returned`.
       sig { returns(String) }
-      def status; end
+      attr_reader :status
       # Attribute for field status_transitions
       sig { returns(StatusTransitions) }
-      def status_transitions; end
+      attr_reader :status_transitions
       # Details about network-specific tracking information if available.
       sig { returns(T.nilable(TrackingDetails)) }
-      def tracking_details; end
+      attr_reader :tracking_details
       # The Transaction associated with this object.
       sig { returns(T.any(String, Stripe::Treasury::Transaction)) }
-      def transaction; end
+      attr_reader :transaction
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # Returns objects associated with this FinancialAccount.
         sig { returns(String) }
-        def financial_account; end
-        sig { params(_financial_account: String).returns(String) }
-        def financial_account=(_financial_account); end
+        attr_accessor :financial_account
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         # Only return OutboundTransfers that have the given status: `processing`, `canceled`, `failed`, `posted`, or `returned`.
         sig { returns(T.nilable(String)) }
-        def status; end
-        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
-        def status=(_status); end
+        attr_accessor :status
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
          }
@@ -261,14 +249,10 @@ module Stripe
         class DestinationPaymentMethodData < Stripe::RequestParams
           # Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
           sig { returns(T.nilable(String)) }
-          def financial_account; end
-          sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
-          def financial_account=(_financial_account); end
+          attr_accessor :financial_account
           # The type of the destination.
           sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
+          attr_accessor :type
           sig { params(financial_account: T.nilable(String), type: String).void }
           def initialize(financial_account: nil, type: nil); end
         end
@@ -276,9 +260,7 @@ module Stripe
           class UsBankAccount < Stripe::RequestParams
             # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
             sig { returns(T.nilable(String)) }
-            def network; end
-            sig { params(_network: T.nilable(String)).returns(T.nilable(String)) }
-            def network=(_network); end
+            attr_accessor :network
             sig { params(network: T.nilable(String)).void }
             def initialize(network: nil); end
           end
@@ -286,11 +268,7 @@ module Stripe
           sig {
             returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
            }
-          def us_bank_account; end
-          sig {
-            params(_us_bank_account: T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions::UsBankAccount)))
-           }
-          def us_bank_account=(_us_bank_account); end
+          attr_accessor :us_bank_account
           sig {
             params(us_bank_account: T.nilable(T.any(String, ::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions::UsBankAccount))).void
            }
@@ -300,9 +278,7 @@ module Stripe
           class Ach < Stripe::RequestParams
             # Addenda record data associated with this OutboundTransfer.
             sig { returns(T.nilable(String)) }
-            def addenda; end
-            sig { params(_addenda: T.nilable(String)).returns(T.nilable(String)) }
-            def addenda=(_addenda); end
+            attr_accessor :addenda
             sig { params(addenda: T.nilable(String)).void }
             def initialize(addenda: nil); end
           end
@@ -310,16 +286,10 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::NetworkDetails::Ach))
            }
-          def ach; end
-          sig {
-            params(_ach: T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::NetworkDetails::Ach)).returns(T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::NetworkDetails::Ach))
-           }
-          def ach=(_ach); end
+          attr_accessor :ach
           # The type of flow that originated the OutboundTransfer.
           sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
+          attr_accessor :type
           sig {
             params(ach: T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::NetworkDetails::Ach), type: String).void
            }
@@ -327,73 +297,43 @@ module Stripe
         end
         # Amount (in cents) to be transferred.
         sig { returns(Integer) }
-        def amount; end
-        sig { params(_amount: Integer).returns(Integer) }
-        def amount=(_amount); end
+        attr_accessor :amount
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
-        def currency; end
-        sig { params(_currency: String).returns(String) }
-        def currency=(_currency); end
+        attr_accessor :currency
         # An arbitrary string attached to the object. Often useful for displaying to users.
         sig { returns(T.nilable(String)) }
-        def description; end
-        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
-        def description=(_description); end
+        attr_accessor :description
         # The PaymentMethod to use as the payment instrument for the OutboundTransfer.
         sig { returns(T.nilable(String)) }
-        def destination_payment_method; end
-        sig { params(_destination_payment_method: T.nilable(String)).returns(T.nilable(String)) }
-        def destination_payment_method=(_destination_payment_method); end
+        attr_accessor :destination_payment_method
         # Hash used to generate the PaymentMethod to be used for this OutboundTransfer. Exclusive with `destination_payment_method`.
         sig {
           returns(T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodData))
          }
-        def destination_payment_method_data; end
-        sig {
-          params(_destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodData)).returns(T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodData))
-         }
-        def destination_payment_method_data=(_destination_payment_method_data); end
+        attr_accessor :destination_payment_method_data
         # Hash describing payment method configuration details.
         sig {
           returns(T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions))
          }
-        def destination_payment_method_options; end
-        sig {
-          params(_destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions)).returns(T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions))
-         }
-        def destination_payment_method_options=(_destination_payment_method_options); end
+        attr_accessor :destination_payment_method_options
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The FinancialAccount to pull funds from.
         sig { returns(String) }
-        def financial_account; end
-        sig { params(_financial_account: String).returns(String) }
-        def financial_account=(_financial_account); end
+        attr_accessor :financial_account
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        def metadata; end
-        sig {
-          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-         }
-        def metadata=(_metadata); end
+        attr_accessor :metadata
         # Details about the network used for the OutboundTransfer.
         sig {
           returns(T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::NetworkDetails))
          }
-        def network_details; end
-        sig {
-          params(_network_details: T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::NetworkDetails)).returns(T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::NetworkDetails))
-         }
-        def network_details=(_network_details); end
+        attr_accessor :network_details
         # Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer".
         sig { returns(T.nilable(String)) }
-        def statement_descriptor; end
-        sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
-        def statement_descriptor=(_statement_descriptor); end
+        attr_accessor :statement_descriptor
         sig {
           params(amount: Integer, currency: String, description: T.nilable(String), destination_payment_method: T.nilable(String), destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodData), destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::DestinationPaymentMethodOptions), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), network_details: T.nilable(::Stripe::Treasury::OutboundTransfer::CreateParams::NetworkDetails), statement_descriptor: T.nilable(String)).void
          }
@@ -414,9 +354,7 @@ module Stripe
       class CancelParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
@@ -425,28 +363,20 @@ module Stripe
           class Ach < Stripe::RequestParams
             # ACH trace ID for funds sent over the `ach` network.
             sig { returns(String) }
-            def trace_id; end
-            sig { params(_trace_id: String).returns(String) }
-            def trace_id=(_trace_id); end
+            attr_accessor :trace_id
             sig { params(trace_id: String).void }
             def initialize(trace_id: nil); end
           end
           class UsDomesticWire < Stripe::RequestParams
             # CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
             sig { returns(T.nilable(String)) }
-            def chips; end
-            sig { params(_chips: T.nilable(String)).returns(T.nilable(String)) }
-            def chips=(_chips); end
+            attr_accessor :chips
             # IMAD for funds sent over the `us_domestic_wire` network.
             sig { returns(T.nilable(String)) }
-            def imad; end
-            sig { params(_imad: T.nilable(String)).returns(T.nilable(String)) }
-            def imad=(_imad); end
+            attr_accessor :imad
             # OMAD for funds sent over the `us_domestic_wire` network.
             sig { returns(T.nilable(String)) }
-            def omad; end
-            sig { params(_omad: T.nilable(String)).returns(T.nilable(String)) }
-            def omad=(_omad); end
+            attr_accessor :omad
             sig {
               params(chips: T.nilable(String), imad: T.nilable(String), omad: T.nilable(String)).void
              }
@@ -456,25 +386,15 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails::Ach))
            }
-          def ach; end
-          sig {
-            params(_ach: T.nilable(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails::Ach)).returns(T.nilable(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails::Ach))
-           }
-          def ach=(_ach); end
+          attr_accessor :ach
           # The US bank account network used to send funds.
           sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
+          attr_accessor :type
           # US domestic wire network tracking details.
           sig {
             returns(T.nilable(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails::UsDomesticWire))
            }
-          def us_domestic_wire; end
-          sig {
-            params(_us_domestic_wire: T.nilable(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails::UsDomesticWire)).returns(T.nilable(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails::UsDomesticWire))
-           }
-          def us_domestic_wire=(_us_domestic_wire); end
+          attr_accessor :us_domestic_wire
           sig {
             params(ach: T.nilable(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails::Ach), type: String, us_domestic_wire: T.nilable(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails::UsDomesticWire)).void
            }
@@ -482,16 +402,10 @@ module Stripe
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # Details about network-specific tracking information.
         sig { returns(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails) }
-        def tracking_details; end
-        sig {
-          params(_tracking_details: ::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails).returns(::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails)
-         }
-        def tracking_details=(_tracking_details); end
+        attr_accessor :tracking_details
         sig {
           params(expand: T.nilable(T::Array[String]), tracking_details: ::Stripe::Treasury::OutboundTransfer::UpdateParams::TrackingDetails).void
          }
@@ -500,18 +414,14 @@ module Stripe
       class FailParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class PostParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
@@ -519,26 +429,18 @@ module Stripe
         class ReturnedDetails < Stripe::RequestParams
           # Reason for the return.
           sig { returns(T.nilable(String)) }
-          def code; end
-          sig { params(_code: T.nilable(String)).returns(T.nilable(String)) }
-          def code=(_code); end
+          attr_accessor :code
           sig { params(code: T.nilable(String)).void }
           def initialize(code: nil); end
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # Details about a returned OutboundTransfer.
         sig {
           returns(T.nilable(::Stripe::Treasury::OutboundTransfer::ReturnOutboundTransferParams::ReturnedDetails))
          }
-        def returned_details; end
-        sig {
-          params(_returned_details: T.nilable(::Stripe::Treasury::OutboundTransfer::ReturnOutboundTransferParams::ReturnedDetails)).returns(T.nilable(::Stripe::Treasury::OutboundTransfer::ReturnOutboundTransferParams::ReturnedDetails))
-         }
-        def returned_details=(_returned_details); end
+        attr_accessor :returned_details
         sig {
           params(expand: T.nilable(T::Array[String]), returned_details: T.nilable(::Stripe::Treasury::OutboundTransfer::ReturnOutboundTransferParams::ReturnedDetails)).void
          }

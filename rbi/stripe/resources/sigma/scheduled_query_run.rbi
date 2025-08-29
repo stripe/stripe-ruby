@@ -12,62 +12,54 @@ module Stripe
       class Error < Stripe::StripeObject
         # Information about the run failure.
         sig { returns(String) }
-        def message; end
+        attr_reader :message
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def created; end
+      attr_reader :created
       # When the query was run, Sigma contained a snapshot of your Stripe data at this time.
       sig { returns(Integer) }
-      def data_load_time; end
+      attr_reader :data_load_time
       # Attribute for field error
       sig { returns(Error) }
-      def error; end
+      attr_reader :error
       # The file object representing the results of the query.
       sig { returns(T.nilable(Stripe::File)) }
-      def file; end
+      attr_reader :file
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # Time at which the result expires and is no longer available for download.
       sig { returns(Integer) }
-      def result_available_until; end
+      attr_reader :result_available_until
       # SQL for the query.
       sig { returns(String) }
-      def sql; end
+      attr_reader :sql
       # The query's execution status, which will be `completed` for successful runs, and `canceled`, `failed`, or `timed_out` otherwise.
       sig { returns(String) }
-      def status; end
+      attr_reader :status
       # Title of the query.
       sig { returns(String) }
-      def title; end
+      attr_reader :title
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }

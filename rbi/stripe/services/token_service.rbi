@@ -7,9 +7,7 @@ module Stripe
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
@@ -19,34 +17,22 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
-            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-            def city=(_city); end
+            attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
-            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-            def country=(_country); end
+            attr_accessor :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
-            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-            def line1=(_line1); end
+            attr_accessor :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
-            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-            def line2=(_line2); end
+            attr_accessor :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
-            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-            def postal_code=(_postal_code); end
+            attr_accessor :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
-            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-            def state=(_state); end
+            attr_accessor :state
             sig {
               params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
              }
@@ -62,39 +48,25 @@ module Stripe
           class AddressKana < Stripe::RequestParams
             # City or ward.
             sig { returns(T.nilable(String)) }
-            def city; end
-            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-            def city=(_city); end
+            attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
-            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-            def country=(_country); end
+            attr_accessor :country
             # Block or building number.
             sig { returns(T.nilable(String)) }
-            def line1; end
-            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-            def line1=(_line1); end
+            attr_accessor :line1
             # Building details.
             sig { returns(T.nilable(String)) }
-            def line2; end
-            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-            def line2=(_line2); end
+            attr_accessor :line2
             # Postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
-            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-            def postal_code=(_postal_code); end
+            attr_accessor :postal_code
             # Prefecture.
             sig { returns(T.nilable(String)) }
-            def state; end
-            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-            def state=(_state); end
+            attr_accessor :state
             # Town or cho-me.
             sig { returns(T.nilable(String)) }
-            def town; end
-            sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
-            def town=(_town); end
+            attr_accessor :town
             sig {
               params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
              }
@@ -111,39 +83,25 @@ module Stripe
           class AddressKanji < Stripe::RequestParams
             # City or ward.
             sig { returns(T.nilable(String)) }
-            def city; end
-            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-            def city=(_city); end
+            attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
-            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-            def country=(_country); end
+            attr_accessor :country
             # Block or building number.
             sig { returns(T.nilable(String)) }
-            def line1; end
-            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-            def line1=(_line1); end
+            attr_accessor :line1
             # Building details.
             sig { returns(T.nilable(String)) }
-            def line2; end
-            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-            def line2=(_line2); end
+            attr_accessor :line2
             # Postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
-            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-            def postal_code=(_postal_code); end
+            attr_accessor :postal_code
             # Prefecture.
             sig { returns(T.nilable(String)) }
-            def state; end
-            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-            def state=(_state); end
+            attr_accessor :state
             # Town or cho-me.
             sig { returns(T.nilable(String)) }
-            def town; end
-            sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
-            def town=(_town); end
+            attr_accessor :town
             sig {
               params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
              }
@@ -160,19 +118,13 @@ module Stripe
           class DirectorshipDeclaration < Stripe::RequestParams
             # The Unix timestamp marking when the directorship declaration attestation was made.
             sig { returns(T.nilable(Integer)) }
-            def date; end
-            sig { params(_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def date=(_date); end
+            attr_accessor :date
             # The IP address from which the directorship declaration attestation was made.
             sig { returns(T.nilable(String)) }
-            def ip; end
-            sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
-            def ip=(_ip); end
+            attr_accessor :ip
             # The user agent of the browser from which the directorship declaration attestation was made.
             sig { returns(T.nilable(String)) }
-            def user_agent; end
-            sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
-            def user_agent=(_user_agent); end
+            attr_accessor :user_agent
             sig {
               params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
              }
@@ -181,19 +133,13 @@ module Stripe
           class OwnershipDeclaration < Stripe::RequestParams
             # The Unix timestamp marking when the beneficial owner attestation was made.
             sig { returns(T.nilable(Integer)) }
-            def date; end
-            sig { params(_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def date=(_date); end
+            attr_accessor :date
             # The IP address from which the beneficial owner attestation was made.
             sig { returns(T.nilable(String)) }
-            def ip; end
-            sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
-            def ip=(_ip); end
+            attr_accessor :ip
             # The user agent of the browser from which the beneficial owner attestation was made.
             sig { returns(T.nilable(String)) }
-            def user_agent; end
-            sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
-            def user_agent=(_user_agent); end
+            attr_accessor :user_agent
             sig {
               params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
              }
@@ -202,19 +148,13 @@ module Stripe
           class RegistrationDate < Stripe::RequestParams
             # The day of registration, between 1 and 31.
             sig { returns(Integer) }
-            def day; end
-            sig { params(_day: Integer).returns(Integer) }
-            def day=(_day); end
+            attr_accessor :day
             # The month of registration, between 1 and 12.
             sig { returns(Integer) }
-            def month; end
-            sig { params(_month: Integer).returns(Integer) }
-            def month=(_month); end
+            attr_accessor :month
             # The four-digit year of registration.
             sig { returns(Integer) }
-            def year; end
-            sig { params(_year: Integer).returns(Integer) }
-            def year=(_year); end
+            attr_accessor :year
             sig { params(day: Integer, month: Integer, year: Integer).void }
             def initialize(day: nil, month: nil, year: nil); end
           end
@@ -222,14 +162,10 @@ module Stripe
             class Document < Stripe::RequestParams
               # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(T.nilable(String)) }
-              def back; end
-              sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
-              def back=(_back); end
+              attr_accessor :back
               # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(T.nilable(String)) }
-              def front; end
-              sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
-              def front=(_front); end
+              attr_accessor :front
               sig { params(back: T.nilable(String), front: T.nilable(String)).void }
               def initialize(back: nil, front: nil); end
             end
@@ -237,11 +173,7 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Verification::Document))
              }
-            def document; end
-            sig {
-              params(_document: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Verification::Document)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Verification::Document))
-             }
-            def document=(_document); end
+            attr_accessor :document
             sig {
               params(document: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Verification::Document)).void
              }
@@ -251,151 +183,85 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Address))
            }
-          def address; end
-          sig {
-            params(_address: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Address)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Address))
-           }
-          def address=(_address); end
+          attr_accessor :address
           # The Kana variation of the company's primary address (Japan only).
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::AddressKana))
            }
-          def address_kana; end
-          sig {
-            params(_address_kana: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::AddressKana)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::AddressKana))
-           }
-          def address_kana=(_address_kana); end
+          attr_accessor :address_kana
           # The Kanji variation of the company's primary address (Japan only).
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::AddressKanji))
            }
-          def address_kanji; end
-          sig {
-            params(_address_kanji: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::AddressKanji)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::AddressKanji))
-           }
-          def address_kanji=(_address_kanji); end
+          attr_accessor :address_kanji
           # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
           sig { returns(T.nilable(T::Boolean)) }
-          def directors_provided; end
-          sig { params(_directors_provided: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def directors_provided=(_directors_provided); end
+          attr_accessor :directors_provided
           # This hash is used to attest that the directors information provided to Stripe is both current and correct.
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::DirectorshipDeclaration))
            }
-          def directorship_declaration; end
-          sig {
-            params(_directorship_declaration: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::DirectorshipDeclaration)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::DirectorshipDeclaration))
-           }
-          def directorship_declaration=(_directorship_declaration); end
+          attr_accessor :directorship_declaration
           # Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](/api/persons) for accounts with a `relationship.executive` requirement.
           sig { returns(T.nilable(T::Boolean)) }
-          def executives_provided; end
-          sig { params(_executives_provided: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def executives_provided=(_executives_provided); end
+          attr_accessor :executives_provided
           # The export license ID number of the company, also referred as Import Export Code (India only).
           sig { returns(T.nilable(String)) }
-          def export_license_id; end
-          sig { params(_export_license_id: T.nilable(String)).returns(T.nilable(String)) }
-          def export_license_id=(_export_license_id); end
+          attr_accessor :export_license_id
           # The purpose code to use for export transactions (India only).
           sig { returns(T.nilable(String)) }
-          def export_purpose_code; end
-          sig { params(_export_purpose_code: T.nilable(String)).returns(T.nilable(String)) }
-          def export_purpose_code=(_export_purpose_code); end
+          attr_accessor :export_purpose_code
           # The company's legal name.
           sig { returns(T.nilable(String)) }
-          def name; end
-          sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-          def name=(_name); end
+          attr_accessor :name
           # The Kana variation of the company's legal name (Japan only).
           sig { returns(T.nilable(String)) }
-          def name_kana; end
-          sig { params(_name_kana: T.nilable(String)).returns(T.nilable(String)) }
-          def name_kana=(_name_kana); end
+          attr_accessor :name_kana
           # The Kanji variation of the company's legal name (Japan only).
           sig { returns(T.nilable(String)) }
-          def name_kanji; end
-          sig { params(_name_kanji: T.nilable(String)).returns(T.nilable(String)) }
-          def name_kanji=(_name_kanji); end
+          attr_accessor :name_kanji
           # Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](/api/persons) for accounts with a `relationship.owner` requirement.
           sig { returns(T.nilable(T::Boolean)) }
-          def owners_provided; end
-          sig { params(_owners_provided: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def owners_provided=(_owners_provided); end
+          attr_accessor :owners_provided
           # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::OwnershipDeclaration))
            }
-          def ownership_declaration; end
-          sig {
-            params(_ownership_declaration: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::OwnershipDeclaration)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::OwnershipDeclaration))
-           }
-          def ownership_declaration=(_ownership_declaration); end
+          attr_accessor :ownership_declaration
           # Whether the user described by the data in the token has been shown the Ownership Declaration and indicated that it is correct.
           sig { returns(T.nilable(T::Boolean)) }
-          def ownership_declaration_shown_and_signed; end
-          sig {
-            params(_ownership_declaration_shown_and_signed: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
-           }
-          def ownership_declaration_shown_and_signed=(_ownership_declaration_shown_and_signed); end
+          attr_accessor :ownership_declaration_shown_and_signed
           # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
           sig { returns(T.nilable(T.any(String, String))) }
-          def ownership_exemption_reason; end
-          sig {
-            params(_ownership_exemption_reason: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
-          def ownership_exemption_reason=(_ownership_exemption_reason); end
+          attr_accessor :ownership_exemption_reason
           # The company's phone number (used for verification).
           sig { returns(T.nilable(String)) }
-          def phone; end
-          sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
-          def phone=(_phone); end
+          attr_accessor :phone
           # When the business was incorporated or registered.
           sig {
             returns(T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Account::Company::RegistrationDate)))
            }
-          def registration_date; end
-          sig {
-            params(_registration_date: T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Account::Company::RegistrationDate))).returns(T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Account::Company::RegistrationDate)))
-           }
-          def registration_date=(_registration_date); end
+          attr_accessor :registration_date
           # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
           sig { returns(T.nilable(String)) }
-          def registration_number; end
-          sig { params(_registration_number: T.nilable(String)).returns(T.nilable(String)) }
-          def registration_number=(_registration_number); end
+          attr_accessor :registration_number
           # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
           sig { returns(T.nilable(T.any(String, String))) }
-          def structure; end
-          sig {
-            params(_structure: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
-          def structure=(_structure); end
+          attr_accessor :structure
           # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
           sig { returns(T.nilable(String)) }
-          def tax_id; end
-          sig { params(_tax_id: T.nilable(String)).returns(T.nilable(String)) }
-          def tax_id=(_tax_id); end
+          attr_accessor :tax_id
           # The jurisdiction in which the `tax_id` is registered (Germany-based companies only).
           sig { returns(T.nilable(String)) }
-          def tax_id_registrar; end
-          sig { params(_tax_id_registrar: T.nilable(String)).returns(T.nilable(String)) }
-          def tax_id_registrar=(_tax_id_registrar); end
+          attr_accessor :tax_id_registrar
           # The VAT number of the company.
           sig { returns(T.nilable(String)) }
-          def vat_id; end
-          sig { params(_vat_id: T.nilable(String)).returns(T.nilable(String)) }
-          def vat_id=(_vat_id); end
+          attr_accessor :vat_id
           # Information on the verification state of the company.
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Verification))
            }
-          def verification; end
-          sig {
-            params(_verification: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Verification)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Verification))
-           }
-          def verification=(_verification); end
+          attr_accessor :verification
           sig {
             params(address: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Address), address_kana: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::AddressKana), address_kanji: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), registration_date: T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Account::Company::RegistrationDate)), registration_number: T.nilable(String), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::TokenService::CreateParams::Account::Company::Verification)).void
            }
@@ -429,34 +295,22 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
-            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-            def city=(_city); end
+            attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
-            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-            def country=(_country); end
+            attr_accessor :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
-            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-            def line1=(_line1); end
+            attr_accessor :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
-            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-            def line2=(_line2); end
+            attr_accessor :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
-            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-            def postal_code=(_postal_code); end
+            attr_accessor :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
-            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-            def state=(_state); end
+            attr_accessor :state
             sig {
               params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
              }
@@ -472,39 +326,25 @@ module Stripe
           class AddressKana < Stripe::RequestParams
             # City or ward.
             sig { returns(T.nilable(String)) }
-            def city; end
-            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-            def city=(_city); end
+            attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
-            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-            def country=(_country); end
+            attr_accessor :country
             # Block or building number.
             sig { returns(T.nilable(String)) }
-            def line1; end
-            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-            def line1=(_line1); end
+            attr_accessor :line1
             # Building details.
             sig { returns(T.nilable(String)) }
-            def line2; end
-            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-            def line2=(_line2); end
+            attr_accessor :line2
             # Postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
-            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-            def postal_code=(_postal_code); end
+            attr_accessor :postal_code
             # Prefecture.
             sig { returns(T.nilable(String)) }
-            def state; end
-            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-            def state=(_state); end
+            attr_accessor :state
             # Town or cho-me.
             sig { returns(T.nilable(String)) }
-            def town; end
-            sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
-            def town=(_town); end
+            attr_accessor :town
             sig {
               params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
              }
@@ -521,39 +361,25 @@ module Stripe
           class AddressKanji < Stripe::RequestParams
             # City or ward.
             sig { returns(T.nilable(String)) }
-            def city; end
-            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-            def city=(_city); end
+            attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
-            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-            def country=(_country); end
+            attr_accessor :country
             # Block or building number.
             sig { returns(T.nilable(String)) }
-            def line1; end
-            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-            def line1=(_line1); end
+            attr_accessor :line1
             # Building details.
             sig { returns(T.nilable(String)) }
-            def line2; end
-            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-            def line2=(_line2); end
+            attr_accessor :line2
             # Postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
-            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-            def postal_code=(_postal_code); end
+            attr_accessor :postal_code
             # Prefecture.
             sig { returns(T.nilable(String)) }
-            def state; end
-            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-            def state=(_state); end
+            attr_accessor :state
             # Town or cho-me.
             sig { returns(T.nilable(String)) }
-            def town; end
-            sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
-            def town=(_town); end
+            attr_accessor :town
             sig {
               params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
              }
@@ -570,53 +396,35 @@ module Stripe
           class Dob < Stripe::RequestParams
             # The day of birth, between 1 and 31.
             sig { returns(Integer) }
-            def day; end
-            sig { params(_day: Integer).returns(Integer) }
-            def day=(_day); end
+            attr_accessor :day
             # The month of birth, between 1 and 12.
             sig { returns(Integer) }
-            def month; end
-            sig { params(_month: Integer).returns(Integer) }
-            def month=(_month); end
+            attr_accessor :month
             # The four-digit year of birth.
             sig { returns(Integer) }
-            def year; end
-            sig { params(_year: Integer).returns(Integer) }
-            def year=(_year); end
+            attr_accessor :year
             sig { params(day: Integer, month: Integer, year: Integer).void }
             def initialize(day: nil, month: nil, year: nil); end
           end
           class RegisteredAddress < Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
-            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-            def city=(_city); end
+            attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
-            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-            def country=(_country); end
+            attr_accessor :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
-            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-            def line1=(_line1); end
+            attr_accessor :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
-            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-            def line2=(_line2); end
+            attr_accessor :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
-            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-            def postal_code=(_postal_code); end
+            attr_accessor :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
-            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-            def state=(_state); end
+            attr_accessor :state
             sig {
               params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
              }
@@ -632,31 +440,19 @@ module Stripe
           class Relationship < Stripe::RequestParams
             # Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
             sig { returns(T.nilable(T::Boolean)) }
-            def director; end
-            sig { params(_director: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-            def director=(_director); end
+            attr_accessor :director
             # Whether the person has significant responsibility to control, manage, or direct the organization.
             sig { returns(T.nilable(T::Boolean)) }
-            def executive; end
-            sig { params(_executive: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-            def executive=(_executive); end
+            attr_accessor :executive
             # Whether the person is an owner of the account’s legal entity.
             sig { returns(T.nilable(T::Boolean)) }
-            def owner; end
-            sig { params(_owner: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-            def owner=(_owner); end
+            attr_accessor :owner
             # The percent owned by the person of the account's legal entity.
             sig { returns(T.nilable(T.any(String, Float))) }
-            def percent_ownership; end
-            sig {
-              params(_percent_ownership: T.nilable(T.any(String, Float))).returns(T.nilable(T.any(String, Float)))
-             }
-            def percent_ownership=(_percent_ownership); end
+            attr_accessor :percent_ownership
             # The person's title (e.g., CEO, Support Engineer).
             sig { returns(T.nilable(String)) }
-            def title; end
-            sig { params(_title: T.nilable(String)).returns(T.nilable(String)) }
-            def title=(_title); end
+            attr_accessor :title
             sig {
               params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.any(String, Float)), title: T.nilable(String)).void
              }
@@ -672,28 +468,20 @@ module Stripe
             class AdditionalDocument < Stripe::RequestParams
               # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(T.nilable(String)) }
-              def back; end
-              sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
-              def back=(_back); end
+              attr_accessor :back
               # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(T.nilable(String)) }
-              def front; end
-              sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
-              def front=(_front); end
+              attr_accessor :front
               sig { params(back: T.nilable(String), front: T.nilable(String)).void }
               def initialize(back: nil, front: nil); end
             end
             class Document < Stripe::RequestParams
               # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(T.nilable(String)) }
-              def back; end
-              sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
-              def back=(_back); end
+              attr_accessor :back
               # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(T.nilable(String)) }
-              def front; end
-              sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
-              def front=(_front); end
+              attr_accessor :front
               sig { params(back: T.nilable(String), front: T.nilable(String)).void }
               def initialize(back: nil, front: nil); end
             end
@@ -701,20 +489,12 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification::AdditionalDocument))
              }
-            def additional_document; end
-            sig {
-              params(_additional_document: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification::AdditionalDocument)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification::AdditionalDocument))
-             }
-            def additional_document=(_additional_document); end
+            attr_accessor :additional_document
             # An identifying document, either a passport or local ID card.
             sig {
               returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification::Document))
              }
-            def document; end
-            sig {
-              params(_document: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification::Document)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification::Document))
-             }
-            def document=(_document); end
+            attr_accessor :document
             sig {
               params(additional_document: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification::AdditionalDocument), document: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification::Document)).void
              }
@@ -724,149 +504,85 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Address))
            }
-          def address; end
-          sig {
-            params(_address: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Address)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Address))
-           }
-          def address=(_address); end
+          attr_accessor :address
           # The Kana variation of the individual's primary address (Japan only).
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::AddressKana))
            }
-          def address_kana; end
-          sig {
-            params(_address_kana: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::AddressKana)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::AddressKana))
-           }
-          def address_kana=(_address_kana); end
+          attr_accessor :address_kana
           # The Kanji variation of the individual's primary address (Japan only).
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::AddressKanji))
            }
-          def address_kanji; end
-          sig {
-            params(_address_kanji: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::AddressKanji)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::AddressKanji))
-           }
-          def address_kanji=(_address_kanji); end
+          attr_accessor :address_kanji
           # The individual's date of birth.
           sig {
             returns(T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Account::Individual::Dob)))
            }
-          def dob; end
-          sig {
-            params(_dob: T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Account::Individual::Dob))).returns(T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Account::Individual::Dob)))
-           }
-          def dob=(_dob); end
+          attr_accessor :dob
           # The individual's email address.
           sig { returns(T.nilable(String)) }
-          def email; end
-          sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
-          def email=(_email); end
+          attr_accessor :email
           # The individual's first name.
           sig { returns(T.nilable(String)) }
-          def first_name; end
-          sig { params(_first_name: T.nilable(String)).returns(T.nilable(String)) }
-          def first_name=(_first_name); end
+          attr_accessor :first_name
           # The Kana variation of the individual's first name (Japan only).
           sig { returns(T.nilable(String)) }
-          def first_name_kana; end
-          sig { params(_first_name_kana: T.nilable(String)).returns(T.nilable(String)) }
-          def first_name_kana=(_first_name_kana); end
+          attr_accessor :first_name_kana
           # The Kanji variation of the individual's first name (Japan only).
           sig { returns(T.nilable(String)) }
-          def first_name_kanji; end
-          sig { params(_first_name_kanji: T.nilable(String)).returns(T.nilable(String)) }
-          def first_name_kanji=(_first_name_kanji); end
+          attr_accessor :first_name_kanji
           # A list of alternate names or aliases that the individual is known by.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-          def full_name_aliases; end
-          sig {
-            params(_full_name_aliases: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
-           }
-          def full_name_aliases=(_full_name_aliases); end
+          attr_accessor :full_name_aliases
           # The individual's gender
           sig { returns(T.nilable(String)) }
-          def gender; end
-          sig { params(_gender: T.nilable(String)).returns(T.nilable(String)) }
-          def gender=(_gender); end
+          attr_accessor :gender
           # The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](/js/tokens/create_token?type=pii).
           sig { returns(T.nilable(String)) }
-          def id_number; end
-          sig { params(_id_number: T.nilable(String)).returns(T.nilable(String)) }
-          def id_number=(_id_number); end
+          attr_accessor :id_number
           # The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](/js/tokens/create_token?type=pii).
           sig { returns(T.nilable(String)) }
-          def id_number_secondary; end
-          sig { params(_id_number_secondary: T.nilable(String)).returns(T.nilable(String)) }
-          def id_number_secondary=(_id_number_secondary); end
+          attr_accessor :id_number_secondary
           # The individual's last name.
           sig { returns(T.nilable(String)) }
-          def last_name; end
-          sig { params(_last_name: T.nilable(String)).returns(T.nilable(String)) }
-          def last_name=(_last_name); end
+          attr_accessor :last_name
           # The Kana variation of the individual's last name (Japan only).
           sig { returns(T.nilable(String)) }
-          def last_name_kana; end
-          sig { params(_last_name_kana: T.nilable(String)).returns(T.nilable(String)) }
-          def last_name_kana=(_last_name_kana); end
+          attr_accessor :last_name_kana
           # The Kanji variation of the individual's last name (Japan only).
           sig { returns(T.nilable(String)) }
-          def last_name_kanji; end
-          sig { params(_last_name_kanji: T.nilable(String)).returns(T.nilable(String)) }
-          def last_name_kanji=(_last_name_kanji); end
+          attr_accessor :last_name_kanji
           # The individual's maiden name.
           sig { returns(T.nilable(String)) }
-          def maiden_name; end
-          sig { params(_maiden_name: T.nilable(String)).returns(T.nilable(String)) }
-          def maiden_name=(_maiden_name); end
+          attr_accessor :maiden_name
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-          def metadata; end
-          sig {
-            params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-           }
-          def metadata=(_metadata); end
+          attr_accessor :metadata
           # The individual's phone number.
           sig { returns(T.nilable(String)) }
-          def phone; end
-          sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
-          def phone=(_phone); end
+          attr_accessor :phone
           # Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
           sig { returns(T.nilable(String)) }
-          def political_exposure; end
-          sig { params(_political_exposure: T.nilable(String)).returns(T.nilable(String)) }
-          def political_exposure=(_political_exposure); end
+          attr_accessor :political_exposure
           # The individual's registered address.
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::RegisteredAddress))
            }
-          def registered_address; end
-          sig {
-            params(_registered_address: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::RegisteredAddress)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::RegisteredAddress))
-           }
-          def registered_address=(_registered_address); end
+          attr_accessor :registered_address
           # Describes the person’s relationship to the account.
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Relationship))
            }
-          def relationship; end
-          sig {
-            params(_relationship: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Relationship)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Relationship))
-           }
-          def relationship=(_relationship); end
+          attr_accessor :relationship
           # The last four digits of the individual's Social Security Number (U.S. only).
           sig { returns(T.nilable(String)) }
-          def ssn_last_4; end
-          sig { params(_ssn_last_4: T.nilable(String)).returns(T.nilable(String)) }
-          def ssn_last_4=(_ssn_last_4); end
+          attr_accessor :ssn_last_4
           # The individual's verification document information.
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification))
            }
-          def verification; end
-          sig {
-            params(_verification: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification))
-           }
-          def verification=(_verification); end
+          attr_accessor :verification
           sig {
             params(address: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Address), address_kana: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::AddressKana), address_kanji: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Account::Individual::Dob)), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::RegisteredAddress), relationship: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual::Verification)).void
            }
@@ -898,30 +614,16 @@ module Stripe
         end
         # The business type.
         sig { returns(T.nilable(String)) }
-        def business_type; end
-        sig { params(_business_type: T.nilable(String)).returns(T.nilable(String)) }
-        def business_type=(_business_type); end
+        attr_accessor :business_type
         # Information about the company or business.
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company)) }
-        def company; end
-        sig {
-          params(_company: T.nilable(::Stripe::TokenService::CreateParams::Account::Company)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Company))
-         }
-        def company=(_company); end
+        attr_accessor :company
         # Information about the person represented by the account.
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual)) }
-        def individual; end
-        sig {
-          params(_individual: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account::Individual))
-         }
-        def individual=(_individual); end
+        attr_accessor :individual
         # Whether the user described by the data in the token has been shown [the Stripe Connected Account Agreement](/connect/account-tokens#stripe-connected-account-agreement). When creating an account token to create a new Connect account, this value must be `true`.
         sig { returns(T.nilable(T::Boolean)) }
-        def tos_shown_and_accepted; end
-        sig {
-          params(_tos_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
-         }
-        def tos_shown_and_accepted=(_tos_shown_and_accepted); end
+        attr_accessor :tos_shown_and_accepted
         sig {
           params(business_type: T.nilable(String), company: T.nilable(::Stripe::TokenService::CreateParams::Account::Company), individual: T.nilable(::Stripe::TokenService::CreateParams::Account::Individual), tos_shown_and_accepted: T.nilable(T::Boolean)).void
          }
@@ -935,44 +637,28 @@ module Stripe
       class BankAccount < Stripe::RequestParams
         # The name of the person or business that owns the bank account. This field is required when attaching the bank account to a `Customer` object.
         sig { returns(T.nilable(String)) }
-        def account_holder_name; end
-        sig { params(_account_holder_name: T.nilable(String)).returns(T.nilable(String)) }
-        def account_holder_name=(_account_holder_name); end
+        attr_accessor :account_holder_name
         # The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
         sig { returns(T.nilable(String)) }
-        def account_holder_type; end
-        sig { params(_account_holder_type: T.nilable(String)).returns(T.nilable(String)) }
-        def account_holder_type=(_account_holder_type); end
+        attr_accessor :account_holder_type
         # The account number for the bank account, in string form. Must be a checking account.
         sig { returns(String) }
-        def account_number; end
-        sig { params(_account_number: String).returns(String) }
-        def account_number=(_account_number); end
+        attr_accessor :account_number
         # The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
         sig { returns(T.nilable(String)) }
-        def account_type; end
-        sig { params(_account_type: T.nilable(String)).returns(T.nilable(String)) }
-        def account_type=(_account_type); end
+        attr_accessor :account_type
         # The country in which the bank account is located.
         sig { returns(String) }
-        def country; end
-        sig { params(_country: String).returns(String) }
-        def country=(_country); end
+        attr_accessor :country
         # The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](https://stripe.com/docs/payouts)
         sig { returns(T.nilable(String)) }
-        def currency; end
-        sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
-        def currency=(_currency); end
+        attr_accessor :currency
         # The ID of a Payment Method with a `type` of `us_bank_account`. The Payment Method's bank account information will be copied and returned as a Bank Account Token. This parameter is exclusive with respect to all other parameters in the `bank_account` hash. You must include the top-level `customer` parameter if the Payment Method is attached to a `Customer` object. If the Payment Method is not attached to a `Customer` object, it will be consumed and cannot be used again. You may not use Payment Methods which were created by a Setup Intent with `attach_to_self=true`.
         sig { returns(T.nilable(String)) }
-        def payment_method; end
-        sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
-        def payment_method=(_payment_method); end
+        attr_accessor :payment_method
         # The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         sig { returns(T.nilable(String)) }
-        def routing_number; end
-        sig { params(_routing_number: T.nilable(String)).returns(T.nilable(String)) }
-        def routing_number=(_routing_number); end
+        attr_accessor :routing_number
         sig {
           params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(String), account_number: String, account_type: T.nilable(String), country: String, currency: T.nilable(String), payment_method: T.nilable(String), routing_number: T.nilable(String)).void
          }
@@ -991,79 +677,49 @@ module Stripe
         class Networks < Stripe::RequestParams
           # The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
           sig { returns(T.nilable(String)) }
-          def preferred; end
-          sig { params(_preferred: T.nilable(String)).returns(T.nilable(String)) }
-          def preferred=(_preferred); end
+          attr_accessor :preferred
           sig { params(preferred: T.nilable(String)).void }
           def initialize(preferred: nil); end
         end
         # City / District / Suburb / Town / Village.
         sig { returns(T.nilable(String)) }
-        def address_city; end
-        sig { params(_address_city: T.nilable(String)).returns(T.nilable(String)) }
-        def address_city=(_address_city); end
+        attr_accessor :address_city
         # Billing address country, if provided.
         sig { returns(T.nilable(String)) }
-        def address_country; end
-        sig { params(_address_country: T.nilable(String)).returns(T.nilable(String)) }
-        def address_country=(_address_country); end
+        attr_accessor :address_country
         # Address line 1 (Street address / PO Box / Company name).
         sig { returns(T.nilable(String)) }
-        def address_line1; end
-        sig { params(_address_line1: T.nilable(String)).returns(T.nilable(String)) }
-        def address_line1=(_address_line1); end
+        attr_accessor :address_line1
         # Address line 2 (Apartment / Suite / Unit / Building).
         sig { returns(T.nilable(String)) }
-        def address_line2; end
-        sig { params(_address_line2: T.nilable(String)).returns(T.nilable(String)) }
-        def address_line2=(_address_line2); end
+        attr_accessor :address_line2
         # State / County / Province / Region.
         sig { returns(T.nilable(String)) }
-        def address_state; end
-        sig { params(_address_state: T.nilable(String)).returns(T.nilable(String)) }
-        def address_state=(_address_state); end
+        attr_accessor :address_state
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
-        def address_zip; end
-        sig { params(_address_zip: T.nilable(String)).returns(T.nilable(String)) }
-        def address_zip=(_address_zip); end
+        attr_accessor :address_zip
         # Required in order to add the card to an account; in all other cases, this parameter is not used. When added to an account, the card (which must be a debit card) can be used as a transfer destination for funds in this currency.
         sig { returns(T.nilable(String)) }
-        def currency; end
-        sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
-        def currency=(_currency); end
+        attr_accessor :currency
         # Card security code. Highly recommended to always include this value.
         sig { returns(T.nilable(String)) }
-        def cvc; end
-        sig { params(_cvc: T.nilable(String)).returns(T.nilable(String)) }
-        def cvc=(_cvc); end
+        attr_accessor :cvc
         # Two-digit number representing the card's expiration month.
         sig { returns(String) }
-        def exp_month; end
-        sig { params(_exp_month: String).returns(String) }
-        def exp_month=(_exp_month); end
+        attr_accessor :exp_month
         # Two- or four-digit number representing the card's expiration year.
         sig { returns(String) }
-        def exp_year; end
-        sig { params(_exp_year: String).returns(String) }
-        def exp_year=(_exp_year); end
+        attr_accessor :exp_year
         # Cardholder's full name.
         sig { returns(T.nilable(String)) }
-        def name; end
-        sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-        def name=(_name); end
+        attr_accessor :name
         # Contains information about card networks used to process the payment.
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Card::Networks)) }
-        def networks; end
-        sig {
-          params(_networks: T.nilable(::Stripe::TokenService::CreateParams::Card::Networks)).returns(T.nilable(::Stripe::TokenService::CreateParams::Card::Networks))
-         }
-        def networks=(_networks); end
+        attr_accessor :networks
         # The card number, as a string without any separators.
         sig { returns(String) }
-        def number; end
-        sig { params(_number: String).returns(String) }
-        def number=(_number); end
+        attr_accessor :number
         sig {
           params(address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), currency: T.nilable(String), cvc: T.nilable(String), exp_month: String, exp_year: String, name: T.nilable(String), networks: T.nilable(::Stripe::TokenService::CreateParams::Card::Networks), number: String).void
          }
@@ -1086,9 +742,7 @@ module Stripe
       class CvcUpdate < Stripe::RequestParams
         # The CVC value, in string form.
         sig { returns(String) }
-        def cvc; end
-        sig { params(_cvc: String).returns(String) }
-        def cvc=(_cvc); end
+        attr_accessor :cvc
         sig { params(cvc: String).void }
         def initialize(cvc: nil); end
       end
@@ -1097,19 +751,13 @@ module Stripe
           class Account < Stripe::RequestParams
             # The Unix timestamp marking when the account representative accepted the service agreement.
             sig { returns(T.nilable(Integer)) }
-            def date; end
-            sig { params(_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def date=(_date); end
+            attr_accessor :date
             # The IP address from which the account representative accepted the service agreement.
             sig { returns(T.nilable(String)) }
-            def ip; end
-            sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
-            def ip=(_ip); end
+            attr_accessor :ip
             # The user agent of the browser from which the account representative accepted the service agreement.
             sig { returns(T.nilable(String)) }
-            def user_agent; end
-            sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
-            def user_agent=(_user_agent); end
+            attr_accessor :user_agent
             sig {
               params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
              }
@@ -1119,11 +767,7 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Person::AdditionalTosAcceptances::Account))
            }
-          def account; end
-          sig {
-            params(_account: T.nilable(::Stripe::TokenService::CreateParams::Person::AdditionalTosAcceptances::Account)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::AdditionalTosAcceptances::Account))
-           }
-          def account=(_account); end
+          attr_accessor :account
           sig {
             params(account: T.nilable(::Stripe::TokenService::CreateParams::Person::AdditionalTosAcceptances::Account)).void
            }
@@ -1132,34 +776,22 @@ module Stripe
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
-          def city; end
-          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-          def city=(_city); end
+          attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          def country; end
-          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-          def country=(_country); end
+          attr_accessor :country
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(T.nilable(String)) }
-          def line1; end
-          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-          def line1=(_line1); end
+          attr_accessor :line1
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(T.nilable(String)) }
-          def line2; end
-          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-          def line2=(_line2); end
+          attr_accessor :line2
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
-          def postal_code; end
-          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-          def postal_code=(_postal_code); end
+          attr_accessor :postal_code
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
-          def state; end
-          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-          def state=(_state); end
+          attr_accessor :state
           sig {
             params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
            }
@@ -1175,39 +807,25 @@ module Stripe
         class AddressKana < Stripe::RequestParams
           # City or ward.
           sig { returns(T.nilable(String)) }
-          def city; end
-          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-          def city=(_city); end
+          attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          def country; end
-          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-          def country=(_country); end
+          attr_accessor :country
           # Block or building number.
           sig { returns(T.nilable(String)) }
-          def line1; end
-          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-          def line1=(_line1); end
+          attr_accessor :line1
           # Building details.
           sig { returns(T.nilable(String)) }
-          def line2; end
-          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-          def line2=(_line2); end
+          attr_accessor :line2
           # Postal code.
           sig { returns(T.nilable(String)) }
-          def postal_code; end
-          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-          def postal_code=(_postal_code); end
+          attr_accessor :postal_code
           # Prefecture.
           sig { returns(T.nilable(String)) }
-          def state; end
-          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-          def state=(_state); end
+          attr_accessor :state
           # Town or cho-me.
           sig { returns(T.nilable(String)) }
-          def town; end
-          sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
-          def town=(_town); end
+          attr_accessor :town
           sig {
             params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
            }
@@ -1224,39 +842,25 @@ module Stripe
         class AddressKanji < Stripe::RequestParams
           # City or ward.
           sig { returns(T.nilable(String)) }
-          def city; end
-          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-          def city=(_city); end
+          attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          def country; end
-          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-          def country=(_country); end
+          attr_accessor :country
           # Block or building number.
           sig { returns(T.nilable(String)) }
-          def line1; end
-          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-          def line1=(_line1); end
+          attr_accessor :line1
           # Building details.
           sig { returns(T.nilable(String)) }
-          def line2; end
-          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-          def line2=(_line2); end
+          attr_accessor :line2
           # Postal code.
           sig { returns(T.nilable(String)) }
-          def postal_code; end
-          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-          def postal_code=(_postal_code); end
+          attr_accessor :postal_code
           # Prefecture.
           sig { returns(T.nilable(String)) }
-          def state; end
-          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-          def state=(_state); end
+          attr_accessor :state
           # Town or cho-me.
           sig { returns(T.nilable(String)) }
-          def town; end
-          sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
-          def town=(_town); end
+          attr_accessor :town
           sig {
             params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
            }
@@ -1273,19 +877,13 @@ module Stripe
         class Dob < Stripe::RequestParams
           # The day of birth, between 1 and 31.
           sig { returns(Integer) }
-          def day; end
-          sig { params(_day: Integer).returns(Integer) }
-          def day=(_day); end
+          attr_accessor :day
           # The month of birth, between 1 and 12.
           sig { returns(Integer) }
-          def month; end
-          sig { params(_month: Integer).returns(Integer) }
-          def month=(_month); end
+          attr_accessor :month
           # The four-digit year of birth.
           sig { returns(Integer) }
-          def year; end
-          sig { params(_year: Integer).returns(Integer) }
-          def year=(_year); end
+          attr_accessor :year
           sig { params(day: Integer, month: Integer, year: Integer).void }
           def initialize(day: nil, month: nil, year: nil); end
         end
@@ -1293,27 +891,21 @@ module Stripe
           class CompanyAuthorization < Stripe::RequestParams
             # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
             sig { returns(T.nilable(T::Array[String])) }
-            def files; end
-            sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-            def files=(_files); end
+            attr_accessor :files
             sig { params(files: T.nilable(T::Array[String])).void }
             def initialize(files: nil); end
           end
           class Passport < Stripe::RequestParams
             # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
             sig { returns(T.nilable(T::Array[String])) }
-            def files; end
-            sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-            def files=(_files); end
+            attr_accessor :files
             sig { params(files: T.nilable(T::Array[String])).void }
             def initialize(files: nil); end
           end
           class Visa < Stripe::RequestParams
             # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
             sig { returns(T.nilable(T::Array[String])) }
-            def files; end
-            sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-            def files=(_files); end
+            attr_accessor :files
             sig { params(files: T.nilable(T::Array[String])).void }
             def initialize(files: nil); end
           end
@@ -1321,27 +913,15 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::CompanyAuthorization))
            }
-          def company_authorization; end
-          sig {
-            params(_company_authorization: T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::CompanyAuthorization)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::CompanyAuthorization))
-           }
-          def company_authorization=(_company_authorization); end
+          attr_accessor :company_authorization
           # One or more documents showing the person's passport page with photo and personal data.
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::Passport))
            }
-          def passport; end
-          sig {
-            params(_passport: T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::Passport)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::Passport))
-           }
-          def passport=(_passport); end
+          attr_accessor :passport
           # One or more documents showing the person's visa required for living in the country where they are residing.
           sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::Visa)) }
-          def visa; end
-          sig {
-            params(_visa: T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::Visa)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::Visa))
-           }
-          def visa=(_visa); end
+          attr_accessor :visa
           sig {
             params(company_authorization: T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::CompanyAuthorization), passport: T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::Passport), visa: T.nilable(::Stripe::TokenService::CreateParams::Person::Documents::Visa)).void
            }
@@ -1350,34 +930,22 @@ module Stripe
         class RegisteredAddress < Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
-          def city; end
-          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
-          def city=(_city); end
+          attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          def country; end
-          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
-          def country=(_country); end
+          attr_accessor :country
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(T.nilable(String)) }
-          def line1; end
-          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
-          def line1=(_line1); end
+          attr_accessor :line1
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(T.nilable(String)) }
-          def line2; end
-          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
-          def line2=(_line2); end
+          attr_accessor :line2
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
-          def postal_code; end
-          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
-          def postal_code=(_postal_code); end
+          attr_accessor :postal_code
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
-          def state; end
-          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
-          def state=(_state); end
+          attr_accessor :state
           sig {
             params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
            }
@@ -1393,46 +961,28 @@ module Stripe
         class Relationship < Stripe::RequestParams
           # Whether the person is the authorizer of the account's representative.
           sig { returns(T.nilable(T::Boolean)) }
-          def authorizer; end
-          sig { params(_authorizer: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def authorizer=(_authorizer); end
+          attr_accessor :authorizer
           # Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
           sig { returns(T.nilable(T::Boolean)) }
-          def director; end
-          sig { params(_director: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def director=(_director); end
+          attr_accessor :director
           # Whether the person has significant responsibility to control, manage, or direct the organization.
           sig { returns(T.nilable(T::Boolean)) }
-          def executive; end
-          sig { params(_executive: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def executive=(_executive); end
+          attr_accessor :executive
           # Whether the person is the legal guardian of the account's representative.
           sig { returns(T.nilable(T::Boolean)) }
-          def legal_guardian; end
-          sig { params(_legal_guardian: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def legal_guardian=(_legal_guardian); end
+          attr_accessor :legal_guardian
           # Whether the person is an owner of the account’s legal entity.
           sig { returns(T.nilable(T::Boolean)) }
-          def owner; end
-          sig { params(_owner: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def owner=(_owner); end
+          attr_accessor :owner
           # The percent owned by the person of the account's legal entity.
           sig { returns(T.nilable(T.any(String, Float))) }
-          def percent_ownership; end
-          sig {
-            params(_percent_ownership: T.nilable(T.any(String, Float))).returns(T.nilable(T.any(String, Float)))
-           }
-          def percent_ownership=(_percent_ownership); end
+          attr_accessor :percent_ownership
           # Whether the person is authorized as the primary representative of the account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
           sig { returns(T.nilable(T::Boolean)) }
-          def representative; end
-          sig { params(_representative: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def representative=(_representative); end
+          attr_accessor :representative
           # The person's title (e.g., CEO, Support Engineer).
           sig { returns(T.nilable(String)) }
-          def title; end
-          sig { params(_title: T.nilable(String)).returns(T.nilable(String)) }
-          def title=(_title); end
+          attr_accessor :title
           sig {
             params(authorizer: T.nilable(T::Boolean), director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(T.any(String, Float)), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
            }
@@ -1451,16 +1001,10 @@ module Stripe
           class EthnicityDetails < Stripe::RequestParams
             # The persons ethnicity
             sig { returns(T.nilable(T::Array[String])) }
-            def ethnicity; end
-            sig {
-              params(_ethnicity: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-             }
-            def ethnicity=(_ethnicity); end
+            attr_accessor :ethnicity
             # Please specify your origin, when other is selected.
             sig { returns(T.nilable(String)) }
-            def ethnicity_other; end
-            sig { params(_ethnicity_other: T.nilable(String)).returns(T.nilable(String)) }
-            def ethnicity_other=(_ethnicity_other); end
+            attr_accessor :ethnicity_other
             sig {
               params(ethnicity: T.nilable(T::Array[String]), ethnicity_other: T.nilable(String)).void
              }
@@ -1469,14 +1013,10 @@ module Stripe
           class RaceDetails < Stripe::RequestParams
             # The persons race.
             sig { returns(T.nilable(T::Array[String])) }
-            def race; end
-            sig { params(_race: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-            def race=(_race); end
+            attr_accessor :race
             # Please specify your race, when other is selected.
             sig { returns(T.nilable(String)) }
-            def race_other; end
-            sig { params(_race_other: T.nilable(String)).returns(T.nilable(String)) }
-            def race_other=(_race_other); end
+            attr_accessor :race_other
             sig { params(race: T.nilable(T::Array[String]), race_other: T.nilable(String)).void }
             def initialize(race: nil, race_other: nil); end
           end
@@ -1484,25 +1024,15 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData::EthnicityDetails))
            }
-          def ethnicity_details; end
-          sig {
-            params(_ethnicity_details: T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData::EthnicityDetails)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData::EthnicityDetails))
-           }
-          def ethnicity_details=(_ethnicity_details); end
+          attr_accessor :ethnicity_details
           # The persons race details
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData::RaceDetails))
            }
-          def race_details; end
-          sig {
-            params(_race_details: T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData::RaceDetails)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData::RaceDetails))
-           }
-          def race_details=(_race_details); end
+          attr_accessor :race_details
           # The persons self-identified gender
           sig { returns(T.nilable(String)) }
-          def self_identified_gender; end
-          sig { params(_self_identified_gender: T.nilable(String)).returns(T.nilable(String)) }
-          def self_identified_gender=(_self_identified_gender); end
+          attr_accessor :self_identified_gender
           sig {
             params(ethnicity_details: T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData::EthnicityDetails), race_details: T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData::RaceDetails), self_identified_gender: T.nilable(String)).void
            }
@@ -1516,28 +1046,20 @@ module Stripe
           class AdditionalDocument < Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
-            def back; end
-            sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
-            def back=(_back); end
+            attr_accessor :back
             # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
-            def front; end
-            sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
-            def front=(_front); end
+            attr_accessor :front
             sig { params(back: T.nilable(String), front: T.nilable(String)).void }
             def initialize(back: nil, front: nil); end
           end
           class Document < Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
-            def back; end
-            sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
-            def back=(_back); end
+            attr_accessor :back
             # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
-            def front; end
-            sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
-            def front=(_front); end
+            attr_accessor :front
             sig { params(back: T.nilable(String), front: T.nilable(String)).void }
             def initialize(back: nil, front: nil); end
           end
@@ -1545,20 +1067,12 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Verification::AdditionalDocument))
            }
-          def additional_document; end
-          sig {
-            params(_additional_document: T.nilable(::Stripe::TokenService::CreateParams::Person::Verification::AdditionalDocument)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Verification::AdditionalDocument))
-           }
-          def additional_document=(_additional_document); end
+          attr_accessor :additional_document
           # An identifying document, either a passport or local ID card.
           sig {
             returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Verification::Document))
            }
-          def document; end
-          sig {
-            params(_document: T.nilable(::Stripe::TokenService::CreateParams::Person::Verification::Document)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Verification::Document))
-           }
-          def document=(_document); end
+          attr_accessor :document
           sig {
             params(additional_document: T.nilable(::Stripe::TokenService::CreateParams::Person::Verification::AdditionalDocument), document: T.nilable(::Stripe::TokenService::CreateParams::Person::Verification::Document)).void
            }
@@ -1568,163 +1082,85 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::TokenService::CreateParams::Person::AdditionalTosAcceptances))
          }
-        def additional_tos_acceptances; end
-        sig {
-          params(_additional_tos_acceptances: T.nilable(::Stripe::TokenService::CreateParams::Person::AdditionalTosAcceptances)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::AdditionalTosAcceptances))
-         }
-        def additional_tos_acceptances=(_additional_tos_acceptances); end
+        attr_accessor :additional_tos_acceptances
         # The person's address.
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Address)) }
-        def address; end
-        sig {
-          params(_address: T.nilable(::Stripe::TokenService::CreateParams::Person::Address)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Address))
-         }
-        def address=(_address); end
+        attr_accessor :address
         # The Kana variation of the person's address (Japan only).
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person::AddressKana)) }
-        def address_kana; end
-        sig {
-          params(_address_kana: T.nilable(::Stripe::TokenService::CreateParams::Person::AddressKana)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::AddressKana))
-         }
-        def address_kana=(_address_kana); end
+        attr_accessor :address_kana
         # The Kanji variation of the person's address (Japan only).
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person::AddressKanji)) }
-        def address_kanji; end
-        sig {
-          params(_address_kanji: T.nilable(::Stripe::TokenService::CreateParams::Person::AddressKanji)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::AddressKanji))
-         }
-        def address_kanji=(_address_kanji); end
+        attr_accessor :address_kanji
         # The person's date of birth.
         sig { returns(T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Person::Dob))) }
-        def dob; end
-        sig {
-          params(_dob: T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Person::Dob))).returns(T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Person::Dob)))
-         }
-        def dob=(_dob); end
+        attr_accessor :dob
         # Documents that may be submitted to satisfy various informational requests.
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Documents)) }
-        def documents; end
-        sig {
-          params(_documents: T.nilable(::Stripe::TokenService::CreateParams::Person::Documents)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Documents))
-         }
-        def documents=(_documents); end
+        attr_accessor :documents
         # The person's email address.
         sig { returns(T.nilable(String)) }
-        def email; end
-        sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
-        def email=(_email); end
+        attr_accessor :email
         # The person's first name.
         sig { returns(T.nilable(String)) }
-        def first_name; end
-        sig { params(_first_name: T.nilable(String)).returns(T.nilable(String)) }
-        def first_name=(_first_name); end
+        attr_accessor :first_name
         # The Kana variation of the person's first name (Japan only).
         sig { returns(T.nilable(String)) }
-        def first_name_kana; end
-        sig { params(_first_name_kana: T.nilable(String)).returns(T.nilable(String)) }
-        def first_name_kana=(_first_name_kana); end
+        attr_accessor :first_name_kana
         # The Kanji variation of the person's first name (Japan only).
         sig { returns(T.nilable(String)) }
-        def first_name_kanji; end
-        sig { params(_first_name_kanji: T.nilable(String)).returns(T.nilable(String)) }
-        def first_name_kanji=(_first_name_kanji); end
+        attr_accessor :first_name_kanji
         # A list of alternate names or aliases that the person is known by.
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-        def full_name_aliases; end
-        sig {
-          params(_full_name_aliases: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
-         }
-        def full_name_aliases=(_full_name_aliases); end
+        attr_accessor :full_name_aliases
         # The person's gender (International regulations require either "male" or "female").
         sig { returns(T.nilable(String)) }
-        def gender; end
-        sig { params(_gender: T.nilable(String)).returns(T.nilable(String)) }
-        def gender=(_gender); end
+        attr_accessor :gender
         # The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         sig { returns(T.nilable(String)) }
-        def id_number; end
-        sig { params(_id_number: T.nilable(String)).returns(T.nilable(String)) }
-        def id_number=(_id_number); end
+        attr_accessor :id_number
         # The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         sig { returns(T.nilable(String)) }
-        def id_number_secondary; end
-        sig { params(_id_number_secondary: T.nilable(String)).returns(T.nilable(String)) }
-        def id_number_secondary=(_id_number_secondary); end
+        attr_accessor :id_number_secondary
         # The person's last name.
         sig { returns(T.nilable(String)) }
-        def last_name; end
-        sig { params(_last_name: T.nilable(String)).returns(T.nilable(String)) }
-        def last_name=(_last_name); end
+        attr_accessor :last_name
         # The Kana variation of the person's last name (Japan only).
         sig { returns(T.nilable(String)) }
-        def last_name_kana; end
-        sig { params(_last_name_kana: T.nilable(String)).returns(T.nilable(String)) }
-        def last_name_kana=(_last_name_kana); end
+        attr_accessor :last_name_kana
         # The Kanji variation of the person's last name (Japan only).
         sig { returns(T.nilable(String)) }
-        def last_name_kanji; end
-        sig { params(_last_name_kanji: T.nilable(String)).returns(T.nilable(String)) }
-        def last_name_kanji=(_last_name_kanji); end
+        attr_accessor :last_name_kanji
         # The person's maiden name.
         sig { returns(T.nilable(String)) }
-        def maiden_name; end
-        sig { params(_maiden_name: T.nilable(String)).returns(T.nilable(String)) }
-        def maiden_name=(_maiden_name); end
+        attr_accessor :maiden_name
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-        def metadata; end
-        sig {
-          params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-         }
-        def metadata=(_metadata); end
+        attr_accessor :metadata
         # The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable.
         sig { returns(T.nilable(String)) }
-        def nationality; end
-        sig { params(_nationality: T.nilable(String)).returns(T.nilable(String)) }
-        def nationality=(_nationality); end
+        attr_accessor :nationality
         # The person's phone number.
         sig { returns(T.nilable(String)) }
-        def phone; end
-        sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
-        def phone=(_phone); end
+        attr_accessor :phone
         # Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         sig { returns(T.nilable(String)) }
-        def political_exposure; end
-        sig { params(_political_exposure: T.nilable(String)).returns(T.nilable(String)) }
-        def political_exposure=(_political_exposure); end
+        attr_accessor :political_exposure
         # The person's registered address.
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person::RegisteredAddress)) }
-        def registered_address; end
-        sig {
-          params(_registered_address: T.nilable(::Stripe::TokenService::CreateParams::Person::RegisteredAddress)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::RegisteredAddress))
-         }
-        def registered_address=(_registered_address); end
+        attr_accessor :registered_address
         # The relationship that this person has with the account's legal entity.
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Relationship)) }
-        def relationship; end
-        sig {
-          params(_relationship: T.nilable(::Stripe::TokenService::CreateParams::Person::Relationship)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Relationship))
-         }
-        def relationship=(_relationship); end
+        attr_accessor :relationship
         # The last four digits of the person's Social Security number (U.S. only).
         sig { returns(T.nilable(String)) }
-        def ssn_last_4; end
-        sig { params(_ssn_last_4: T.nilable(String)).returns(T.nilable(String)) }
-        def ssn_last_4=(_ssn_last_4); end
+        attr_accessor :ssn_last_4
         # Demographic data related to the person.
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData)) }
-        def us_cfpb_data; end
-        sig {
-          params(_us_cfpb_data: T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData))
-         }
-        def us_cfpb_data=(_us_cfpb_data); end
+        attr_accessor :us_cfpb_data
         # The person's verification status.
         sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Verification)) }
-        def verification; end
-        sig {
-          params(_verification: T.nilable(::Stripe::TokenService::CreateParams::Person::Verification)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person::Verification))
-         }
-        def verification=(_verification); end
+        attr_accessor :verification
         sig {
           params(additional_tos_acceptances: T.nilable(::Stripe::TokenService::CreateParams::Person::AdditionalTosAcceptances), address: T.nilable(::Stripe::TokenService::CreateParams::Person::Address), address_kana: T.nilable(::Stripe::TokenService::CreateParams::Person::AddressKana), address_kanji: T.nilable(::Stripe::TokenService::CreateParams::Person::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::TokenService::CreateParams::Person::Dob)), documents: T.nilable(::Stripe::TokenService::CreateParams::Person::Documents), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::TokenService::CreateParams::Person::RegisteredAddress), relationship: T.nilable(::Stripe::TokenService::CreateParams::Person::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::TokenService::CreateParams::Person::UsCfpbData), verification: T.nilable(::Stripe::TokenService::CreateParams::Person::Verification)).void
          }
@@ -1761,64 +1197,34 @@ module Stripe
       class Pii < Stripe::RequestParams
         # The `id_number` for the PII, in string form.
         sig { returns(T.nilable(String)) }
-        def id_number; end
-        sig { params(_id_number: T.nilable(String)).returns(T.nilable(String)) }
-        def id_number=(_id_number); end
+        attr_accessor :id_number
         sig { params(id_number: T.nilable(String)).void }
         def initialize(id_number: nil); end
       end
       # Information for the account this token represents.
       sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Account)) }
-      def account; end
-      sig {
-        params(_account: T.nilable(::Stripe::TokenService::CreateParams::Account)).returns(T.nilable(::Stripe::TokenService::CreateParams::Account))
-       }
-      def account=(_account); end
+      attr_accessor :account
       # The bank account this token will represent.
       sig { returns(T.nilable(::Stripe::TokenService::CreateParams::BankAccount)) }
-      def bank_account; end
-      sig {
-        params(_bank_account: T.nilable(::Stripe::TokenService::CreateParams::BankAccount)).returns(T.nilable(::Stripe::TokenService::CreateParams::BankAccount))
-       }
-      def bank_account=(_bank_account); end
+      attr_accessor :bank_account
       # The card this token will represent. If you also pass in a customer, the card must be the ID of a card belonging to the customer. Otherwise, if you do not pass in a customer, this is a dictionary containing a user's credit card details, with the options described below.
       sig { returns(T.nilable(T.any(::Stripe::TokenService::CreateParams::Card, String))) }
-      def card; end
-      sig {
-        params(_card: T.nilable(T.any(::Stripe::TokenService::CreateParams::Card, String))).returns(T.nilable(T.any(::Stripe::TokenService::CreateParams::Card, String)))
-       }
-      def card=(_card); end
+      attr_accessor :card
       # Create a token for the customer, which is owned by the application's account. You can only use this with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). Learn more about [cloning saved payment methods](https://stripe.com/docs/connect/cloning-saved-payment-methods).
       sig { returns(T.nilable(String)) }
-      def customer; end
-      sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-      def customer=(_customer); end
+      attr_accessor :customer
       # The updated CVC value this token represents.
       sig { returns(T.nilable(::Stripe::TokenService::CreateParams::CvcUpdate)) }
-      def cvc_update; end
-      sig {
-        params(_cvc_update: T.nilable(::Stripe::TokenService::CreateParams::CvcUpdate)).returns(T.nilable(::Stripe::TokenService::CreateParams::CvcUpdate))
-       }
-      def cvc_update=(_cvc_update); end
+      attr_accessor :cvc_update
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # Information for the person this token represents.
       sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Person)) }
-      def person; end
-      sig {
-        params(_person: T.nilable(::Stripe::TokenService::CreateParams::Person)).returns(T.nilable(::Stripe::TokenService::CreateParams::Person))
-       }
-      def person=(_person); end
+      attr_accessor :person
       # The PII this token represents.
       sig { returns(T.nilable(::Stripe::TokenService::CreateParams::Pii)) }
-      def pii; end
-      sig {
-        params(_pii: T.nilable(::Stripe::TokenService::CreateParams::Pii)).returns(T.nilable(::Stripe::TokenService::CreateParams::Pii))
-       }
-      def pii=(_pii); end
+      attr_accessor :pii
       sig {
         params(account: T.nilable(::Stripe::TokenService::CreateParams::Account), bank_account: T.nilable(::Stripe::TokenService::CreateParams::BankAccount), card: T.nilable(T.any(::Stripe::TokenService::CreateParams::Card, String)), customer: T.nilable(String), cvc_update: T.nilable(::Stripe::TokenService::CreateParams::CvcUpdate), expand: T.nilable(T::Array[String]), person: T.nilable(::Stripe::TokenService::CreateParams::Person), pii: T.nilable(::Stripe::TokenService::CreateParams::Pii)).void
        }

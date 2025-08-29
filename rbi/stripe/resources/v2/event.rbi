@@ -10,39 +10,39 @@ module Stripe
         class Request < Stripe::StripeObject
           # ID of the API request that caused the event.
           sig { returns(String) }
-          def id; end
+          attr_reader :id
           # The idempotency key transmitted during the request.
           sig { returns(String) }
-          def idempotency_key; end
+          attr_reader :idempotency_key
         end
         # Event reason type.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
         # Information on the API request that instigated the event.
         sig { returns(T.nilable(Request)) }
-        def request; end
+        attr_reader :request
       end
       # Authentication context needed to fetch the event or related object.
       sig { returns(T.nilable(String)) }
-      def context; end
+      attr_reader :context
       # Time at which the object was created.
       sig { returns(String) }
-      def created; end
+      attr_reader :created
       # Unique identifier for the event.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # String representing the object's type. Objects of the same type share the same value of the object field.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # Reason for the event.
       sig { returns(T.nilable(Reason)) }
-      def reason; end
+      attr_reader :reason
       # The type of the event.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
     end
   end
 end

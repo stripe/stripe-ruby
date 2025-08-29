@@ -9,9 +9,7 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # The page size limit. If not provided, the default is 20.
           sig { returns(T.nilable(Integer)) }
-          def limit; end
-          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def limit=(_limit); end
+          attr_accessor :limit
           sig { params(limit: T.nilable(Integer)).void }
           def initialize(limit: nil); end
         end
@@ -19,9 +17,7 @@ module Stripe
           class RetryDetails < Stripe::RequestParams
             # Indicates the strategy for how you want Stripe to retry the payment.
             sig { returns(String) }
-            def retry_strategy; end
-            sig { params(_retry_strategy: String).returns(String) }
-            def retry_strategy=(_retry_strategy); end
+            attr_accessor :retry_strategy
             sig { params(retry_strategy: String).void }
             def initialize(retry_strategy: nil); end
           end
@@ -34,89 +30,59 @@ module Stripe
             # and must be a positive integer representing how much to transfer in the smallest
             # currency unit (e.g., 100 cents to charge $1.00).
             sig { returns(T.nilable(Integer)) }
-            def amount; end
-            sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def amount=(_amount); end
+            attr_accessor :amount
             # The account (if any) that the payment is attributed to for tax reporting, and
             # where funds from the payment are transferred to after payment success.
             sig { returns(String) }
-            def destination; end
-            sig { params(_destination: String).returns(String) }
-            def destination=(_destination); end
+            attr_accessor :destination
             sig { params(amount: T.nilable(Integer), destination: String).void }
             def initialize(amount: nil, destination: nil); end
           end
           # The “presentment amount” to be collected from the customer.
           sig { returns(Stripe::V2::Amount) }
-          def amount; end
-          sig { params(_amount: Stripe::V2::Amount).returns(Stripe::V2::Amount) }
-          def amount=(_amount); end
+          attr_accessor :amount
           # The frequency of the underlying payment.
           sig { returns(String) }
-          def cadence; end
-          sig { params(_cadence: String).returns(String) }
-          def cadence=(_cadence); end
+          attr_accessor :cadence
           # ID of the Customer to which this OffSessionPayment belongs.
           sig { returns(String) }
-          def customer; end
-          sig { params(_customer: String).returns(String) }
-          def customer=(_customer); end
+          attr_accessor :customer
           # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
           # attach to an object. This can be useful for storing additional information about
           # the object in a structured format. Learn more about
           # [storing information in metadata](https://docs.corp.stripe.com/payments/payment-intents#storing-information-in-metadata).
           sig { returns(T::Hash[String, String]) }
-          def metadata; end
-          sig { params(_metadata: T::Hash[String, String]).returns(T::Hash[String, String]) }
-          def metadata=(_metadata); end
+          attr_accessor :metadata
           # The account (if any) for which the funds of the OffSessionPayment are intended.
           sig { returns(T.nilable(String)) }
-          def on_behalf_of; end
-          sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
-          def on_behalf_of=(_on_behalf_of); end
+          attr_accessor :on_behalf_of
           # ID of the payment method used in this OffSessionPayment.
           sig { returns(String) }
-          def payment_method; end
-          sig { params(_payment_method: String).returns(String) }
-          def payment_method=(_payment_method); end
+          attr_accessor :payment_method
           # Details about the OffSessionPayment retries.
           sig {
             returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::RetryDetails))
            }
-          def retry_details; end
-          sig {
-            params(_retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::RetryDetails)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::RetryDetails))
-           }
-          def retry_details=(_retry_details); end
+          attr_accessor :retry_details
           # Text that appears on the customer’s statement as the statement descriptor for a
           # non-card charge. This value overrides the account’s default statement descriptor.
           # For information about requirements, including the 22-character limit, see the
           # [Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
           sig { returns(T.nilable(String)) }
-          def statement_descriptor; end
-          sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
-          def statement_descriptor=(_statement_descriptor); end
+          attr_accessor :statement_descriptor
           # Provides information about a card charge. Concatenated to the account’s
           # [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
           # to form the complete statement descriptor that appears on the customer’s statement.
           sig { returns(T.nilable(String)) }
-          def statement_descriptor_suffix; end
-          sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
-          def statement_descriptor_suffix=(_statement_descriptor_suffix); end
+          attr_accessor :statement_descriptor_suffix
           # Test clock that can be used to advance the retry attempts in a sandbox.
           sig { returns(T.nilable(String)) }
-          def test_clock; end
-          sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
-          def test_clock=(_test_clock); end
+          attr_accessor :test_clock
           # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
           sig {
             returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::TransferData))
            }
-          def transfer_data; end
-          sig {
-            params(_transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::TransferData)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::TransferData))
-           }
-          def transfer_data=(_transfer_data); end
+          attr_accessor :transfer_data
           sig {
             params(amount: Stripe::V2::Amount, cadence: String, customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: String, retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::TransferData)).void
            }

@@ -9,66 +9,54 @@ module Stripe
       class Features < Stripe::StripeObject
         # The policy for how to use card logo images in a card design with this physical bundle.
         sig { returns(String) }
-        def card_logo; end
+        attr_reader :card_logo
         # The policy for how to use carrier letter text in a card design with this physical bundle.
         sig { returns(String) }
-        def carrier_text; end
+        attr_reader :carrier_text
         # The policy for how to use a second line on a card with this physical bundle.
         sig { returns(String) }
-        def second_line; end
+        attr_reader :second_line
       end
       # Attribute for field features
       sig { returns(Features) }
-      def features; end
+      attr_reader :features
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # Friendly display name.
       sig { returns(String) }
-      def name; end
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # Whether this physical bundle can be used to create cards.
       sig { returns(String) }
-      def status; end
+      attr_reader :status
       # Whether this physical bundle is a standard Stripe offering or custom-made for you.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         # Only return physical bundles with the given status.
         sig { returns(T.nilable(String)) }
-        def status; end
-        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
-        def status=(_status); end
+        attr_accessor :status
         # Only return physical bundles with the given type.
         sig { returns(T.nilable(String)) }
-        def type; end
-        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-        def type=(_type); end
+        attr_accessor :type
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String)).void
          }

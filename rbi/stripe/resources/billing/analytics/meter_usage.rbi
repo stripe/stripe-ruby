@@ -9,16 +9,16 @@ module Stripe
       class MeterUsage < SingletonAPIResource
         # The aggregated meter usage data for the specified customer and time range.
         sig { returns(T::Array[Stripe::Billing::Analytics::MeterUsageRow]) }
-        def data; end
+        attr_reader :data
         # Timestamp indicating how fresh the data is. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        def data_refreshed_at; end
+        attr_reader :data_refreshed_at
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        def livemode; end
+        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value.
         sig { returns(String) }
-        def object; end
+        attr_reader :object
       end
     end
   end

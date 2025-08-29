@@ -8,12 +8,12 @@ module Stripe
   class LoginLink < APIResource
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    def created; end
+    attr_reader :created
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
     # The URL for the login link.
     sig { returns(String) }
-    def url; end
+    attr_reader :url
   end
 end

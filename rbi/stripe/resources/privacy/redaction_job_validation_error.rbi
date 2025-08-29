@@ -11,26 +11,26 @@ module Stripe
       class ErroringObject < Stripe::StripeObject
         # Unique identifier for the object.
         sig { returns(String) }
-        def id; end
+        attr_reader :id
         # Erroring object type
         sig { returns(String) }
-        def object_type; end
+        attr_reader :object_type
       end
       # A code indicating the reason for the error.
       sig { returns(String) }
-      def code; end
+      attr_reader :code
       # If the error is related to a specific object, this field includes the object's identifier and object type.
       sig { returns(T.nilable(ErroringObject)) }
-      def erroring_object; end
+      attr_reader :erroring_object
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # A human-readable message providing more details about the error.
       sig { returns(String) }
-      def message; end
+      attr_reader :message
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
     end
   end
 end

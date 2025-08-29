@@ -10,51 +10,51 @@ module Stripe
     class AcssDebit < Stripe::StripeObject
       # The statement descriptor associate with the debit.
       sig { returns(String) }
-      def statement_descriptor; end
+      attr_reader :statement_descriptor
     end
     class BacsDebit < Stripe::StripeObject
       # Last 4 digits of the account number associated with the debit.
       sig { returns(String) }
-      def last4; end
+      attr_reader :last4
     end
     class SepaDebit < Stripe::StripeObject
       # SEPA creditor ID.
       sig { returns(String) }
-      def creditor_identifier; end
+      attr_reader :creditor_identifier
       # Last 4 digits of the account number associated with the debit.
       sig { returns(String) }
-      def last4; end
+      attr_reader :last4
       # Mandate reference associated with the debit.
       sig { returns(String) }
-      def mandate_reference; end
+      attr_reader :mandate_reference
     end
     # Attribute for field acss_debit
     sig { returns(AcssDebit) }
-    def acss_debit; end
+    attr_reader :acss_debit
     # A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the amount associated with the mandate notification. The amount is expressed in the currency of the underlying source. Required if the notification type is `debit_initiated`.
     sig { returns(T.nilable(Integer)) }
-    def amount; end
+    attr_reader :amount
     # Attribute for field bacs_debit
     sig { returns(BacsDebit) }
-    def bacs_debit; end
+    attr_reader :bacs_debit
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    def created; end
+    attr_reader :created
     # Unique identifier for the object.
     sig { returns(String) }
-    def id; end
+    attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    def livemode; end
+    attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
     # The reason of the mandate notification. Valid reasons are `mandate_confirmed` or `debit_initiated`.
     sig { returns(String) }
-    def reason; end
+    attr_reader :reason
     # Attribute for field sepa_debit
     sig { returns(SepaDebit) }
-    def sepa_debit; end
+    attr_reader :sepa_debit
     # `Source` objects allow you to accept a variety of payment methods. They
     # represent a customer's payment instrument, and can be used with the Stripe API
     # just like a `Card` object: once chargeable, they can be charged, or can be
@@ -66,12 +66,12 @@ module Stripe
     #
     # Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
     sig { returns(Stripe::Source) }
-    def source; end
+    attr_reader :source
     # The status of the mandate notification. Valid statuses are `pending` or `submitted`.
     sig { returns(String) }
-    def status; end
+    attr_reader :status
     # The type of source this mandate notification is attached to. Should be the source type identifier code for the payment method, such as `three_d_secure`.
     sig { returns(String) }
-    def type; end
+    attr_reader :type
   end
 end

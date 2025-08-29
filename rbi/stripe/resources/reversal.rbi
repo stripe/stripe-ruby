@@ -19,33 +19,33 @@ module Stripe
   class Reversal < APIResource
     # Amount, in cents (or local equivalent).
     sig { returns(Integer) }
-    def amount; end
+    attr_reader :amount
     # Balance transaction that describes the impact on your account balance.
     sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
-    def balance_transaction; end
+    attr_reader :balance_transaction
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    def created; end
+    attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
-    def currency; end
+    attr_reader :currency
     # Linked payment refund for the transfer reversal.
     sig { returns(T.nilable(T.any(String, Stripe::Refund))) }
-    def destination_payment_refund; end
+    attr_reader :destination_payment_refund
     # Unique identifier for the object.
     sig { returns(String) }
-    def id; end
+    attr_reader :id
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
-    def metadata; end
+    attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
     # ID of the refund responsible for the transfer reversal.
     sig { returns(T.nilable(T.any(String, Stripe::Refund))) }
-    def source_refund; end
+    attr_reader :source_refund
     # ID of the transfer that was reversed.
     sig { returns(T.any(String, Stripe::Transfer)) }
-    def transfer; end
+    attr_reader :transfer
   end
 end

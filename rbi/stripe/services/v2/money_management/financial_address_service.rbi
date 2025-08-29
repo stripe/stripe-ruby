@@ -9,19 +9,13 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # The ID of the FinancialAccount for which FinancialAddresses are to be returned.
           sig { returns(T.nilable(String)) }
-          def financial_account; end
-          sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
-          def financial_account=(_financial_account); end
+          attr_accessor :financial_account
           # Open Enum. A list of fields to reveal in the FinancialAddresses returned.
           sig { returns(T.nilable(T::Array[String])) }
-          def include; end
-          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def include=(_include); end
+          attr_accessor :include
           # The page limit.
           sig { returns(T.nilable(Integer)) }
-          def limit; end
-          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def limit=(_limit); end
+          attr_accessor :limit
           sig {
             params(financial_account: T.nilable(String), include: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void
            }
@@ -30,23 +24,17 @@ module Stripe
         class CreateParams < Stripe::RequestParams
           # Open Enum. The currency the FinancialAddress should support. Currently, only the `usd` and `gbp` values are supported.
           sig { returns(String) }
-          def currency; end
-          sig { params(_currency: String).returns(String) }
-          def currency=(_currency); end
+          attr_accessor :currency
           # The ID of the FinancialAccount the new FinancialAddress should be associated with.
           sig { returns(String) }
-          def financial_account; end
-          sig { params(_financial_account: String).returns(String) }
-          def financial_account=(_financial_account); end
+          attr_accessor :financial_account
           sig { params(currency: String, financial_account: String).void }
           def initialize(currency: nil, financial_account: nil); end
         end
         class RetrieveParams < Stripe::RequestParams
           # Open Enum. A list of fields to reveal in the FinancialAddresses returned.
           sig { returns(T.nilable(T::Array[String])) }
-          def include; end
-          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def include=(_include); end
+          attr_accessor :include
           sig { params(include: T.nilable(T::Array[String])).void }
           def initialize(include: nil); end
         end

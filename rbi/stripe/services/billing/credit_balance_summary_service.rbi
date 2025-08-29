@@ -11,26 +11,18 @@ module Stripe
             class Price < Stripe::RequestParams
               # The price ID this credit grant should apply to.
               sig { returns(String) }
-              def id; end
-              sig { params(_id: String).returns(String) }
-              def id=(_id); end
+              attr_accessor :id
               sig { params(id: String).void }
               def initialize(id: nil); end
             end
             # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             sig { returns(T.nilable(String)) }
-            def price_type; end
-            sig { params(_price_type: T.nilable(String)).returns(T.nilable(String)) }
-            def price_type=(_price_type); end
+            attr_accessor :price_type
             # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             sig {
               returns(T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::Price]))
              }
-            def prices; end
-            sig {
-              params(_prices: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::Price])).returns(T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::Price]))
-             }
-            def prices=(_prices); end
+            attr_accessor :prices
             sig {
               params(price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::Price])).void
              }
@@ -40,21 +32,13 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope))
            }
-          def applicability_scope; end
-          sig {
-            params(_applicability_scope: T.nilable(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope)).returns(T.nilable(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope))
-           }
-          def applicability_scope=(_applicability_scope); end
+          attr_accessor :applicability_scope
           # The credit grant for which to fetch credit balance summary.
           sig { returns(T.nilable(String)) }
-          def credit_grant; end
-          sig { params(_credit_grant: T.nilable(String)).returns(T.nilable(String)) }
-          def credit_grant=(_credit_grant); end
+          attr_accessor :credit_grant
           # Specify the type of this filter.
           sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
+          attr_accessor :type
           sig {
             params(applicability_scope: T.nilable(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope), credit_grant: T.nilable(String), type: String).void
            }
@@ -62,26 +46,16 @@ module Stripe
         end
         # The customer for which to fetch credit balance summary.
         sig { returns(T.nilable(String)) }
-        def customer; end
-        sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-        def customer=(_customer); end
+        attr_accessor :customer
         # The account for which to fetch credit balance summary.
         sig { returns(T.nilable(String)) }
-        def customer_account; end
-        sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
-        def customer_account=(_customer_account); end
+        attr_accessor :customer_account
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The filter criteria for the credit balance summary.
         sig { returns(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter) }
-        def filter; end
-        sig {
-          params(_filter: ::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter).returns(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter)
-         }
-        def filter=(_filter); end
+        attr_accessor :filter
         sig {
           params(customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), filter: ::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter).void
          }

@@ -12,64 +12,56 @@ module Stripe
         class Advancing < Stripe::StripeObject
           # The `frozen_time` that the Test Clock is advancing towards.
           sig { returns(Integer) }
-          def target_frozen_time; end
+          attr_reader :target_frozen_time
         end
         # Attribute for field advancing
         sig { returns(Advancing) }
-        def advancing; end
+        attr_reader :advancing
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def created; end
+      attr_reader :created
       # Time at which this clock is scheduled to auto delete.
       sig { returns(Integer) }
-      def deletes_after; end
+      attr_reader :deletes_after
       # Time at which all objects belonging to this clock are frozen.
       sig { returns(Integer) }
-      def frozen_time; end
+      attr_reader :frozen_time
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # The custom name supplied at creation.
       sig { returns(T.nilable(String)) }
-      def name; end
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # The status of the Test Clock.
       sig { returns(String) }
-      def status; end
+      attr_reader :status
       # Attribute for field status_details
       sig { returns(StatusDetails) }
-      def status_details; end
+      attr_reader :status_details
       # Always true for a deleted object
       sig { returns(T::Boolean) }
-      def deleted; end
+      attr_reader :deleted
       class DeleteParams < Stripe::RequestParams; end
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }
@@ -78,19 +70,13 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The initial frozen time for this test clock.
         sig { returns(Integer) }
-        def frozen_time; end
-        sig { params(_frozen_time: Integer).returns(Integer) }
-        def frozen_time=(_frozen_time); end
+        attr_accessor :frozen_time
         # The name for this test clock.
         sig { returns(T.nilable(String)) }
-        def name; end
-        sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-        def name=(_name); end
+        attr_accessor :name
         sig {
           params(expand: T.nilable(T::Array[String]), frozen_time: Integer, name: T.nilable(String)).void
          }
@@ -99,14 +85,10 @@ module Stripe
       class AdvanceParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest subscription in this test clock. If there are no subscriptions in this test clock, it cannot be more than two years in the future.
         sig { returns(Integer) }
-        def frozen_time; end
-        sig { params(_frozen_time: Integer).returns(Integer) }
-        def frozen_time=(_frozen_time); end
+        attr_accessor :frozen_time
         sig { params(expand: T.nilable(T::Array[String]), frozen_time: Integer).void }
         def initialize(expand: nil, frozen_time: nil); end
       end

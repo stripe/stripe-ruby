@@ -10,85 +10,85 @@ module Stripe
         class Balance < Stripe::StripeObject
           # Balance that can be used for money movement.
           sig { returns(T::Hash[String, Stripe::V2::Amount]) }
-          def available; end
+          attr_reader :available
           # Balance of inbound funds that will later transition to the `available` balance.
           sig { returns(T::Hash[String, Stripe::V2::Amount]) }
-          def inbound_pending; end
+          attr_reader :inbound_pending
           # Balance of funds that are being used for a pending outbound money movement.
           sig { returns(T::Hash[String, Stripe::V2::Amount]) }
-          def outbound_pending; end
+          attr_reader :outbound_pending
         end
         class Other < Stripe::StripeObject
           # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
           sig { returns(String) }
-          def type; end
+          attr_reader :type
         end
         class StatusDetails < Stripe::StripeObject
           class Closed < Stripe::StripeObject
             class ForwardingSettings < Stripe::StripeObject
               # The address to send forwarded payments to.
               sig { returns(T.nilable(String)) }
-              def payment_method; end
+              attr_reader :payment_method
               # The address to send forwarded payouts to.
               sig { returns(T.nilable(String)) }
-              def payout_method; end
+              attr_reader :payout_method
             end
             # Attribute for field forwarding_settings
             sig { returns(T.nilable(ForwardingSettings)) }
-            def forwarding_settings; end
+            attr_reader :forwarding_settings
             # Attribute for field reason
             sig { returns(String) }
-            def reason; end
+            attr_reader :reason
           end
           # Attribute for field closed
           sig { returns(T.nilable(Closed)) }
-          def closed; end
+          attr_reader :closed
         end
         class Storage < Stripe::StripeObject
           # The currencies that this FinancialAccount can hold.
           sig { returns(T::Array[String]) }
-          def holds_currencies; end
+          attr_reader :holds_currencies
         end
         # Multi-currency balance of this FinancialAccount, split by availability state. Each balance is represented as a hash where the key is the three-letter ISO currency code, in lowercase, and the value is the amount for that currency.
         sig { returns(Balance) }
-        def balance; end
+        attr_reader :balance
         # Open Enum. Two-letter country code that represents the country where the LegalEntity associated with the FinancialAccount is based in.
         sig { returns(String) }
-        def country; end
+        attr_reader :country
         # Time at which the object was created.
         sig { returns(String) }
-        def created; end
+        attr_reader :created
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }
-        def display_name; end
+        attr_reader :display_name
         # Unique identifier for the object.
         sig { returns(String) }
-        def id; end
+        attr_reader :id
         # Metadata associated with the FinancialAccount.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        def metadata; end
+        attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        def object; end
+        attr_reader :object
         # If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
         sig { returns(T.nilable(Other)) }
-        def other; end
+        attr_reader :other
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         sig { returns(String) }
-        def status; end
+        attr_reader :status
         # Attribute for field status_details
         sig { returns(T.nilable(StatusDetails)) }
-        def status_details; end
+        attr_reader :status_details
         # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
         sig { returns(T.nilable(Storage)) }
-        def storage; end
+        attr_reader :storage
         # Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
         # It contains additional information specific to the FinancialAccount type.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        def livemode; end
+        attr_reader :livemode
       end
     end
   end

@@ -10,23 +10,17 @@ module Stripe
           class DeliveryOptions < Stripe::RequestParams
             # Open Enum. Method for bank account.
             sig { returns(T.nilable(String)) }
-            def bank_account; end
-            sig { params(_bank_account: T.nilable(String)).returns(T.nilable(String)) }
-            def bank_account=(_bank_account); end
+            attr_accessor :bank_account
             sig { params(bank_account: T.nilable(String)).void }
             def initialize(bank_account: nil); end
           end
           class From < Stripe::RequestParams
             # Describes the FinancialAccount's currency drawn from.
             sig { returns(String) }
-            def currency; end
-            sig { params(_currency: String).returns(String) }
-            def currency=(_currency); end
+            attr_accessor :currency
             # The FinancialAccount that funds were pulled from.
             sig { returns(String) }
-            def financial_account; end
-            sig { params(_financial_account: String).returns(String) }
-            def financial_account=(_financial_account); end
+            attr_accessor :financial_account
             sig { params(currency: String, financial_account: String).void }
             def initialize(currency: nil, financial_account: nil); end
           end
@@ -39,19 +33,13 @@ module Stripe
             # - destination supports multiple currencies and one of the currencies matches the presentment currency
             # Note - when both FA currency and presentment currency are supported, we pick the FA currency to minimize FX.
             sig { returns(T.nilable(String)) }
-            def currency; end
-            sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
-            def currency=(_currency); end
+            attr_accessor :currency
             # The payout method which the OutboundPayment uses to send payout.
             sig { returns(T.nilable(String)) }
-            def payout_method; end
-            sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
-            def payout_method=(_payout_method); end
+            attr_accessor :payout_method
             # To which account the OutboundPayment is sent.
             sig { returns(String) }
-            def recipient; end
-            sig { params(_recipient: String).returns(String) }
-            def recipient=(_recipient); end
+            attr_accessor :recipient
             sig {
               params(currency: T.nilable(String), payout_method: T.nilable(String), recipient: String).void
              }
@@ -59,36 +47,22 @@ module Stripe
           end
           # The "presentment amount" to be sent to the recipient.
           sig { returns(Stripe::V2::Amount) }
-          def amount; end
-          sig { params(_amount: Stripe::V2::Amount).returns(Stripe::V2::Amount) }
-          def amount=(_amount); end
+          attr_accessor :amount
           # Method to be used to send the OutboundPayment.
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::DeliveryOptions))
            }
-          def delivery_options; end
-          sig {
-            params(_delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::DeliveryOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::DeliveryOptions))
-           }
-          def delivery_options=(_delivery_options); end
+          attr_accessor :delivery_options
           # Request details about the sender of an OutboundPaymentQuote.
           sig {
             returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::From)
            }
-          def from; end
-          sig {
-            params(_from: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::From).returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::From)
-           }
-          def from=(_from); end
+          attr_accessor :from
           # Request details about the recipient of an OutboundPaymentQuote.
           sig {
             returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::To)
            }
-          def to; end
-          sig {
-            params(_to: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::To).returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::To)
-           }
-          def to=(_to); end
+          attr_accessor :to
           sig {
             params(amount: Stripe::V2::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::DeliveryOptions), from: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::From, to: ::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams::To).void
            }

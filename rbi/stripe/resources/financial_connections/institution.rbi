@@ -10,84 +10,76 @@ module Stripe
         class Balances < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
-          def supported; end
+          attr_reader :supported
         end
         class Ownership < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
-          def supported; end
+          attr_reader :supported
         end
         class PaymentMethod < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
-          def supported; end
+          attr_reader :supported
         end
         class Transactions < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
-          def supported; end
+          attr_reader :supported
         end
         # Attribute for field balances
         sig { returns(Balances) }
-        def balances; end
+        attr_reader :balances
         # Attribute for field ownership
         sig { returns(Ownership) }
-        def ownership; end
+        attr_reader :ownership
         # Attribute for field payment_method
         sig { returns(PaymentMethod) }
-        def payment_method; end
+        attr_reader :payment_method
         # Attribute for field transactions
         sig { returns(Transactions) }
-        def transactions; end
+        attr_reader :transactions
       end
       # The list of countries supported by this institution, formatted as ISO country codes.
       sig { returns(T::Array[String]) }
-      def countries; end
+      attr_reader :countries
       # Attribute for field features
       sig { returns(Features) }
-      def features; end
+      attr_reader :features
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # The name of this institution.
       sig { returns(String) }
-      def name; end
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # A list of routing numbers which are known to correspond to this institution. Due to the many to many relationship between institutions and routing numbers, this list may not be comprehensive and routing numbers may also be shared between institutions.
       sig { returns(T::Array[String]) }
-      def routing_numbers; end
+      attr_reader :routing_numbers
       # The status of this institution in the Financial Connections authentication flow.
       sig { returns(String) }
-      def status; end
+      attr_reader :status
       # A URL corresponding to this institution. This URL is also displayed in the authentication flow to help end users confirm that they are authenticating with the right institution.
       sig { returns(T.nilable(String)) }
-      def url; end
+      attr_reader :url
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }

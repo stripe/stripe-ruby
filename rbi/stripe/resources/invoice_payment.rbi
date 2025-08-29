@@ -15,78 +15,72 @@ module Stripe
     class Payment < Stripe::StripeObject
       # ID of the successful charge for this payment when `type` is `charge`.Note: charge is only surfaced if the charge object is not associated with a payment intent. If the charge object does have a payment intent, the Invoice Payment surfaces the payment intent instead.
       sig { returns(T.any(String, Stripe::Charge)) }
-      def charge; end
+      attr_reader :charge
       # ID of the PaymentIntent associated with this payment when `type` is `payment_intent`. Note: This property is only populated for invoices finalized on or after March 15th, 2019.
       sig { returns(T.any(String, Stripe::PaymentIntent)) }
-      def payment_intent; end
+      attr_reader :payment_intent
       # ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
       sig { returns(T.any(String, Stripe::PaymentRecord)) }
-      def payment_record; end
+      attr_reader :payment_record
       # Type of payment object associated with this invoice payment.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     class StatusTransitions < Stripe::StripeObject
       # The time that the payment was canceled.
       sig { returns(T.nilable(Integer)) }
-      def canceled_at; end
+      attr_reader :canceled_at
       # The time that the payment succeeded.
       sig { returns(T.nilable(Integer)) }
-      def paid_at; end
+      attr_reader :paid_at
     end
     # Amount that was actually paid for this invoice, in cents (or local equivalent). This field is null until the payment is `paid`. This amount can be less than the `amount_requested` if the PaymentIntent’s `amount_received` is not sufficient to pay all of the invoices that it is attached to.
     sig { returns(T.nilable(Integer)) }
-    def amount_paid; end
+    attr_reader :amount_paid
     # Amount intended to be paid toward this invoice, in cents (or local equivalent)
     sig { returns(Integer) }
-    def amount_requested; end
+    attr_reader :amount_requested
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    def created; end
+    attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
-    def currency; end
+    attr_reader :currency
     # Unique identifier for the object.
     sig { returns(String) }
-    def id; end
+    attr_reader :id
     # The invoice that was paid.
     sig { returns(T.any(String, Stripe::Invoice)) }
-    def invoice; end
+    attr_reader :invoice
     # Stripe automatically creates a default InvoicePayment when the invoice is finalized, and keeps it synchronized with the invoice’s `amount_remaining`. The PaymentIntent associated with the default payment can’t be edited or canceled directly.
     sig { returns(T::Boolean) }
-    def is_default; end
+    attr_reader :is_default
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    def livemode; end
+    attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
     # Attribute for field payment
     sig { returns(Payment) }
-    def payment; end
+    attr_reader :payment
     # The status of the payment, one of `open`, `paid`, or `canceled`.
     sig { returns(String) }
-    def status; end
+    attr_reader :status
     # Attribute for field status_transitions
     sig { returns(StatusTransitions) }
-    def status_transitions; end
+    attr_reader :status_transitions
     class ListParams < Stripe::RequestParams
       class Payment < Stripe::RequestParams
         # Only return invoice payments associated by this payment intent ID.
         sig { returns(T.nilable(String)) }
-        def payment_intent; end
-        sig { params(_payment_intent: T.nilable(String)).returns(T.nilable(String)) }
-        def payment_intent=(_payment_intent); end
+        attr_accessor :payment_intent
         # Only return invoice payments associated by this payment record ID.
         sig { returns(T.nilable(String)) }
-        def payment_record; end
-        sig { params(_payment_record: T.nilable(String)).returns(T.nilable(String)) }
-        def payment_record=(_payment_record); end
+        attr_accessor :payment_record
         # Only return invoice payments associated by this payment type.
         sig { returns(String) }
-        def type; end
-        sig { params(_type: String).returns(String) }
-        def type=(_type); end
+        attr_accessor :type
         sig {
           params(payment_intent: T.nilable(String), payment_record: T.nilable(String), type: String).void
          }
@@ -94,41 +88,25 @@ module Stripe
       end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      def ending_before; end
-      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-      def ending_before=(_ending_before); end
+      attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # The identifier of the invoice whose payments to return.
       sig { returns(T.nilable(String)) }
-      def invoice; end
-      sig { params(_invoice: T.nilable(String)).returns(T.nilable(String)) }
-      def invoice=(_invoice); end
+      attr_accessor :invoice
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      def limit; end
-      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def limit=(_limit); end
+      attr_accessor :limit
       # The payment details of the invoice payments to return.
       sig { returns(T.nilable(::Stripe::InvoicePayment::ListParams::Payment)) }
-      def payment; end
-      sig {
-        params(_payment: T.nilable(::Stripe::InvoicePayment::ListParams::Payment)).returns(T.nilable(::Stripe::InvoicePayment::ListParams::Payment))
-       }
-      def payment=(_payment); end
+      attr_accessor :payment
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      def starting_after; end
-      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-      def starting_after=(_starting_after); end
+      attr_accessor :starting_after
       # The status of the invoice payments to return.
       sig { returns(T.nilable(String)) }
-      def status; end
-      sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
-      def status=(_status); end
+      attr_accessor :status
       sig {
         params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), payment: T.nilable(::Stripe::InvoicePayment::ListParams::Payment), starting_after: T.nilable(String), status: T.nilable(String)).void
        }

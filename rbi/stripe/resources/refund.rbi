@@ -19,35 +19,35 @@ module Stripe
       class Blik < Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         sig { returns(T.nilable(String)) }
-        def network_decline_code; end
+        attr_reader :network_decline_code
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class BrBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class Card < Stripe::StripeObject
         # Value of the reference number assigned to the refund.
         sig { returns(String) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference number on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(String) }
-        def reference_status; end
+        attr_reader :reference_status
         # Type of the reference number assigned to the refund.
         sig { returns(String) }
-        def reference_type; end
+        attr_reader :reference_type
         # The type of refund. This can be `refund`, `reversal`, or `pending`.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
       end
       class Cashapp < Stripe::StripeObject; end
       class CustomerCashBalance < Stripe::StripeObject; end
@@ -55,68 +55,68 @@ module Stripe
       class EuBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class GbBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class Giropay < Stripe::StripeObject; end
       class Grabpay < Stripe::StripeObject; end
       class IdBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class JpBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class Klarna < Stripe::StripeObject; end
       class Multibanco < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class MxBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class NzBankTransfer < Stripe::StripeObject; end
       class P24 < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class Paynow < Stripe::StripeObject; end
       class Paypal < Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         sig { returns(T.nilable(String)) }
-        def network_decline_code; end
+        attr_reader :network_decline_code
       end
       class Pix < Stripe::StripeObject; end
       class Revolut < Stripe::StripeObject; end
@@ -124,255 +124,247 @@ module Stripe
       class Swish < Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         sig { returns(T.nilable(String)) }
-        def network_decline_code; end
+        attr_reader :network_decline_code
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class ThBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class UsBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
-        def reference; end
+        attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         sig { returns(T.nilable(String)) }
-        def reference_status; end
+        attr_reader :reference_status
       end
       class WechatPay < Stripe::StripeObject; end
       class Zip < Stripe::StripeObject; end
       # Attribute for field affirm
       sig { returns(Affirm) }
-      def affirm; end
+      attr_reader :affirm
       # Attribute for field afterpay_clearpay
       sig { returns(AfterpayClearpay) }
-      def afterpay_clearpay; end
+      attr_reader :afterpay_clearpay
       # Attribute for field alipay
       sig { returns(Alipay) }
-      def alipay; end
+      attr_reader :alipay
       # Attribute for field alma
       sig { returns(Alma) }
-      def alma; end
+      attr_reader :alma
       # Attribute for field amazon_pay
       sig { returns(AmazonPay) }
-      def amazon_pay; end
+      attr_reader :amazon_pay
       # Attribute for field au_bank_transfer
       sig { returns(AuBankTransfer) }
-      def au_bank_transfer; end
+      attr_reader :au_bank_transfer
       # Attribute for field blik
       sig { returns(Blik) }
-      def blik; end
+      attr_reader :blik
       # Attribute for field br_bank_transfer
       sig { returns(BrBankTransfer) }
-      def br_bank_transfer; end
+      attr_reader :br_bank_transfer
       # Attribute for field card
       sig { returns(Card) }
-      def card; end
+      attr_reader :card
       # Attribute for field cashapp
       sig { returns(Cashapp) }
-      def cashapp; end
+      attr_reader :cashapp
       # Attribute for field customer_cash_balance
       sig { returns(CustomerCashBalance) }
-      def customer_cash_balance; end
+      attr_reader :customer_cash_balance
       # Attribute for field eps
       sig { returns(Eps) }
-      def eps; end
+      attr_reader :eps
       # Attribute for field eu_bank_transfer
       sig { returns(EuBankTransfer) }
-      def eu_bank_transfer; end
+      attr_reader :eu_bank_transfer
       # Attribute for field gb_bank_transfer
       sig { returns(GbBankTransfer) }
-      def gb_bank_transfer; end
+      attr_reader :gb_bank_transfer
       # Attribute for field giropay
       sig { returns(Giropay) }
-      def giropay; end
+      attr_reader :giropay
       # Attribute for field grabpay
       sig { returns(Grabpay) }
-      def grabpay; end
+      attr_reader :grabpay
       # Attribute for field id_bank_transfer
       sig { returns(IdBankTransfer) }
-      def id_bank_transfer; end
+      attr_reader :id_bank_transfer
       # Attribute for field jp_bank_transfer
       sig { returns(JpBankTransfer) }
-      def jp_bank_transfer; end
+      attr_reader :jp_bank_transfer
       # Attribute for field klarna
       sig { returns(Klarna) }
-      def klarna; end
+      attr_reader :klarna
       # Attribute for field multibanco
       sig { returns(Multibanco) }
-      def multibanco; end
+      attr_reader :multibanco
       # Attribute for field mx_bank_transfer
       sig { returns(MxBankTransfer) }
-      def mx_bank_transfer; end
+      attr_reader :mx_bank_transfer
       # Attribute for field nz_bank_transfer
       sig { returns(NzBankTransfer) }
-      def nz_bank_transfer; end
+      attr_reader :nz_bank_transfer
       # Attribute for field p24
       sig { returns(P24) }
-      def p24; end
+      attr_reader :p24
       # Attribute for field paynow
       sig { returns(Paynow) }
-      def paynow; end
+      attr_reader :paynow
       # Attribute for field paypal
       sig { returns(Paypal) }
-      def paypal; end
+      attr_reader :paypal
       # Attribute for field pix
       sig { returns(Pix) }
-      def pix; end
+      attr_reader :pix
       # Attribute for field revolut
       sig { returns(Revolut) }
-      def revolut; end
+      attr_reader :revolut
       # Attribute for field sofort
       sig { returns(Sofort) }
-      def sofort; end
+      attr_reader :sofort
       # Attribute for field swish
       sig { returns(Swish) }
-      def swish; end
+      attr_reader :swish
       # Attribute for field th_bank_transfer
       sig { returns(ThBankTransfer) }
-      def th_bank_transfer; end
+      attr_reader :th_bank_transfer
       # The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
       # Attribute for field us_bank_transfer
       sig { returns(UsBankTransfer) }
-      def us_bank_transfer; end
+      attr_reader :us_bank_transfer
       # Attribute for field wechat_pay
       sig { returns(WechatPay) }
-      def wechat_pay; end
+      attr_reader :wechat_pay
       # Attribute for field zip
       sig { returns(Zip) }
-      def zip; end
+      attr_reader :zip
     end
     class NextAction < Stripe::StripeObject
       class DisplayDetails < Stripe::StripeObject
         class EmailSent < Stripe::StripeObject
           # The timestamp when the email was sent.
           sig { returns(Integer) }
-          def email_sent_at; end
+          attr_reader :email_sent_at
           # The recipient's email address.
           sig { returns(String) }
-          def email_sent_to; end
+          attr_reader :email_sent_to
         end
         # Attribute for field email_sent
         sig { returns(EmailSent) }
-        def email_sent; end
+        attr_reader :email_sent
         # The expiry timestamp.
         sig { returns(Integer) }
-        def expires_at; end
+        attr_reader :expires_at
       end
       # Attribute for field display_details
       sig { returns(DisplayDetails) }
-      def display_details; end
+      attr_reader :display_details
       # Type of the next action to perform.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     class PresentmentDetails < Stripe::StripeObject
       # Amount intended to be collected by this payment, denominated in `presentment_currency`.
       sig { returns(Integer) }
-      def presentment_amount; end
+      attr_reader :presentment_amount
       # Currency presented to the customer during payment.
       sig { returns(String) }
-      def presentment_currency; end
+      attr_reader :presentment_currency
     end
     # Amount, in cents (or local equivalent).
     sig { returns(Integer) }
-    def amount; end
+    attr_reader :amount
     # Balance transaction that describes the impact on your account balance.
     sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
-    def balance_transaction; end
+    attr_reader :balance_transaction
     # ID of the charge that's refunded.
     sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
-    def charge; end
+    attr_reader :charge
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    def created; end
+    attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
-    def currency; end
+    attr_reader :currency
     # An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only).
     sig { returns(String) }
-    def description; end
+    attr_reader :description
     # Attribute for field destination_details
     sig { returns(DestinationDetails) }
-    def destination_details; end
+    attr_reader :destination_details
     # After the refund fails, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction.
     sig { returns(T.any(String, Stripe::BalanceTransaction)) }
-    def failure_balance_transaction; end
+    attr_reader :failure_balance_transaction
     # Provides the reason for the refund failure. Possible values are: `lost_or_stolen_card`, `expired_or_canceled_card`, `charge_for_pending_refund_disputed`, `insufficient_funds`, `declined`, `merchant_request`, or `unknown`.
     sig { returns(String) }
-    def failure_reason; end
+    attr_reader :failure_reason
     # Unique identifier for the object.
     sig { returns(String) }
-    def id; end
+    attr_reader :id
     # For payment methods without native refund support (for example, Konbini, PromptPay), provide an email address for the customer to receive refund instructions.
     sig { returns(String) }
-    def instructions_email; end
+    attr_reader :instructions_email
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
-    def metadata; end
+    attr_reader :metadata
     # Attribute for field next_action
     sig { returns(NextAction) }
-    def next_action; end
+    attr_reader :next_action
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
     # ID of the PaymentIntent that's refunded.
     sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
-    def payment_intent; end
+    attr_reader :payment_intent
     # Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
     sig { returns(String) }
-    def pending_reason; end
+    attr_reader :pending_reason
     # Attribute for field presentment_details
     sig { returns(PresentmentDetails) }
-    def presentment_details; end
+    attr_reader :presentment_details
     # Reason for the refund, which is either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`).
     sig { returns(T.nilable(String)) }
-    def reason; end
+    attr_reader :reason
     # This is the transaction number that appears on email receipts sent for this refund.
     sig { returns(T.nilable(String)) }
-    def receipt_number; end
+    attr_reader :receipt_number
     # The transfer reversal that's associated with the refund. Only present if the charge came from another Stripe account.
     sig { returns(T.nilable(T.any(String, Stripe::Reversal))) }
-    def source_transfer_reversal; end
+    attr_reader :source_transfer_reversal
     # Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://stripe.com/docs/refunds#failed-refunds).
     sig { returns(T.nilable(String)) }
-    def status; end
+    attr_reader :status
     # This refers to the transfer reversal object if the accompanying transfer reverses. This is only applicable if the charge was created using the destination parameter.
     sig { returns(T.nilable(T.any(String, Stripe::Reversal))) }
-    def transfer_reversal; end
+    attr_reader :transfer_reversal
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def gt; end
-        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gt=(_gt); end
+        attr_accessor :gt
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def gte; end
-        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gte=(_gte); end
+        attr_accessor :gte
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def lt; end
-        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lt=(_lt); end
+        attr_accessor :lt
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def lte; end
-        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lte=(_lte); end
+        attr_accessor :lte
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -380,41 +372,25 @@ module Stripe
       end
       # Only return refunds for the charge specified by this charge ID.
       sig { returns(T.nilable(String)) }
-      def charge; end
-      sig { params(_charge: T.nilable(String)).returns(T.nilable(String)) }
-      def charge=(_charge); end
+      attr_accessor :charge
       # Only return refunds that were created during the given date interval.
       sig { returns(T.nilable(T.any(::Stripe::Refund::ListParams::Created, Integer))) }
-      def created; end
-      sig {
-        params(_created: T.nilable(T.any(::Stripe::Refund::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Refund::ListParams::Created, Integer)))
-       }
-      def created=(_created); end
+      attr_accessor :created
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      def ending_before; end
-      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-      def ending_before=(_ending_before); end
+      attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      def limit; end
-      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def limit=(_limit); end
+      attr_accessor :limit
       # Only return refunds for the PaymentIntent specified by this ID.
       sig { returns(T.nilable(String)) }
-      def payment_intent; end
-      sig { params(_payment_intent: T.nilable(String)).returns(T.nilable(String)) }
-      def payment_intent=(_payment_intent); end
+      attr_accessor :payment_intent
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      def starting_after; end
-      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-      def starting_after=(_starting_after); end
+      attr_accessor :starting_after
       sig {
         params(charge: T.nilable(String), created: T.nilable(T.any(::Stripe::Refund::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payment_intent: T.nilable(String), starting_after: T.nilable(String)).void
        }
@@ -431,66 +407,40 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       # Attribute for param field amount
       sig { returns(T.nilable(Integer)) }
-      def amount; end
-      sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def amount=(_amount); end
+      attr_accessor :amount
       # The identifier of the charge to refund.
       sig { returns(T.nilable(String)) }
-      def charge; end
-      sig { params(_charge: T.nilable(String)).returns(T.nilable(String)) }
-      def charge=(_charge); end
+      attr_accessor :charge
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(T.nilable(String)) }
-      def currency; end
-      sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
-      def currency=(_currency); end
+      attr_accessor :currency
       # Customer whose customer balance to refund from.
       sig { returns(T.nilable(String)) }
-      def customer; end
-      sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-      def customer=(_customer); end
+      attr_accessor :customer
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions.
       sig { returns(T.nilable(String)) }
-      def instructions_email; end
-      sig { params(_instructions_email: T.nilable(String)).returns(T.nilable(String)) }
-      def instructions_email=(_instructions_email); end
+      attr_accessor :instructions_email
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      def metadata; end
-      sig {
-        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-       }
-      def metadata=(_metadata); end
+      attr_accessor :metadata
       # Origin of the refund
       sig { returns(T.nilable(String)) }
-      def origin; end
-      sig { params(_origin: T.nilable(String)).returns(T.nilable(String)) }
-      def origin=(_origin); end
+      attr_accessor :origin
       # The identifier of the PaymentIntent to refund.
       sig { returns(T.nilable(String)) }
-      def payment_intent; end
-      sig { params(_payment_intent: T.nilable(String)).returns(T.nilable(String)) }
-      def payment_intent=(_payment_intent); end
+      attr_accessor :payment_intent
       # String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://stripe.com/docs/radar/lists), and will also help us improve our fraud detection algorithms.
       sig { returns(T.nilable(String)) }
-      def reason; end
-      sig { params(_reason: T.nilable(String)).returns(T.nilable(String)) }
-      def reason=(_reason); end
+      attr_accessor :reason
       # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
       sig { returns(T.nilable(T::Boolean)) }
-      def refund_application_fee; end
-      sig { params(_refund_application_fee: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-      def refund_application_fee=(_refund_application_fee); end
+      attr_accessor :refund_application_fee
       # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount).<br><br>A transfer can be reversed only by the application that created the charge.
       sig { returns(T.nilable(T::Boolean)) }
-      def reverse_transfer; end
-      sig { params(_reverse_transfer: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-      def reverse_transfer=(_reverse_transfer); end
+      attr_accessor :reverse_transfer
       sig {
         params(amount: T.nilable(Integer), charge: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), instructions_email: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), origin: T.nilable(String), payment_intent: T.nilable(String), reason: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), reverse_transfer: T.nilable(T::Boolean)).void
        }
@@ -512,16 +462,10 @@ module Stripe
     class UpdateParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      def metadata; end
-      sig {
-        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-       }
-      def metadata=(_metadata); end
+      attr_accessor :metadata
       sig {
         params(expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
@@ -530,18 +474,14 @@ module Stripe
     class CancelParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     class ExpireParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end

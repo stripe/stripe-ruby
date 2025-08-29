@@ -27,6 +27,14 @@ module Stripe
       attr_reader :object
       # The value triggering the alert
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

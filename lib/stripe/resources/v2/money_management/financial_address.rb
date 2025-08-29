@@ -22,6 +22,14 @@ module Stripe
             attr_reader :last4
             # The sort code of the UK Bank Account.
             attr_reader :sort_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class UsBankAccount < Stripe::StripeObject
@@ -36,6 +44,14 @@ module Stripe
             attr_reader :routing_number
             # The swift code of the bank or financial institution.
             attr_reader :swift_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
           attr_reader :type
@@ -43,6 +59,14 @@ module Stripe
           attr_reader :gb_bank_account
           # The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
           attr_reader :us_bank_account
+
+          def self.inner_class_types
+            @inner_class_types = { gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The creation timestamp of the FinancialAddress.
         attr_reader :created
@@ -62,6 +86,14 @@ module Stripe
         attr_reader :status
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = { credentials: Credentials }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

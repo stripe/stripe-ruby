@@ -13,6 +13,14 @@ module Stripe
       class Magstripe < Stripe::StripeObject
         # The raw magstripe data collected by the reader.
         attr_reader :data
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
@@ -26,6 +34,14 @@ module Stripe
       attr_reader :object
       # The type of data collected by the reader.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { magstripe: Magstripe }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

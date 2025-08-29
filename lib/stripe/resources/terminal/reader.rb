@@ -29,21 +29,53 @@ module Stripe
               attr_reader :submit_button
               # Customize the default title for this input
               attr_reader :title
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Email < Stripe::StripeObject
               # The collected email address
               attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Numeric < Stripe::StripeObject
               # The collected number
               attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Phone < Stripe::StripeObject
               # The collected phone number
               attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Selection < Stripe::StripeObject
@@ -54,6 +86,14 @@ module Stripe
                 attr_reader :style
                 # The text to be selected
                 attr_reader :text
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # List of possible choices to be selected
               attr_reader :choices
@@ -61,16 +101,40 @@ module Stripe
               attr_reader :id
               # The text of the selected choice
               attr_reader :text
+
+              def self.inner_class_types
+                @inner_class_types = { choices: Choice }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Signature < Stripe::StripeObject
               # The File ID of a collected signature image
               attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Text < Stripe::StripeObject
               # The collected text value
               attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Toggle < Stripe::StripeObject
@@ -82,6 +146,14 @@ module Stripe
               attr_reader :title
               # The toggle's collected value
               attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Default text of input being collected.
             attr_reader :custom_text
@@ -105,11 +177,36 @@ module Stripe
             attr_reader :toggles
             # Type of input being collected.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {
+                custom_text: CustomText,
+                email: Email,
+                numeric: Numeric,
+                phone: Phone,
+                selection: Selection,
+                signature: Signature,
+                text: Text,
+                toggles: Toggle,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # List of inputs to be collected.
           attr_reader :inputs
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_reader :metadata
+
+          def self.inner_class_types
+            @inner_class_types = { inputs: Input }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CollectPaymentMethod < Stripe::StripeObject
@@ -117,6 +214,14 @@ module Stripe
             class Tipping < Stripe::StripeObject
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Enable customer-initiated cancellation when processing this payment.
             attr_reader :enable_customer_cancellation
@@ -124,6 +229,14 @@ module Stripe
             attr_reader :skip_tipping
             # Represents a per-transaction tipping configuration
             attr_reader :tipping
+
+            def self.inner_class_types
+              @inner_class_types = { tipping: Tipping }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Account the payment intent belongs to.
           attr_reader :account
@@ -137,12 +250,28 @@ module Stripe
           #
           # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
           attr_reader :payment_method
+
+          def self.inner_class_types
+            @inner_class_types = { collect_config: CollectConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ConfirmPaymentIntent < Stripe::StripeObject
           class ConfirmConfig < Stripe::StripeObject
             # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
             attr_reader :return_url
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Account the payment intent belongs to.
           attr_reader :account
@@ -150,6 +279,14 @@ module Stripe
           attr_reader :confirm_config
           # Most recent PaymentIntent processed by the reader.
           attr_reader :payment_intent
+
+          def self.inner_class_types
+            @inner_class_types = { confirm_config: ConfirmConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ProcessPaymentIntent < Stripe::StripeObject
@@ -157,6 +294,14 @@ module Stripe
             class Tipping < Stripe::StripeObject
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Enable customer-initiated cancellation when processing this payment.
             attr_reader :enable_customer_cancellation
@@ -166,6 +311,14 @@ module Stripe
             attr_reader :skip_tipping
             # Represents a per-transaction tipping configuration
             attr_reader :tipping
+
+            def self.inner_class_types
+              @inner_class_types = { tipping: Tipping }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Account the payment intent belongs to.
           attr_reader :account
@@ -173,12 +326,28 @@ module Stripe
           attr_reader :payment_intent
           # Represents a per-transaction override of a reader configuration
           attr_reader :process_config
+
+          def self.inner_class_types
+            @inner_class_types = { process_config: ProcessConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ProcessSetupIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
             # Enable customer-initiated cancellation when processing this SetupIntent.
             attr_reader :enable_customer_cancellation
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
           attr_reader :generated_card
@@ -186,12 +355,28 @@ module Stripe
           attr_reader :process_config
           # Most recent SetupIntent processed by the reader.
           attr_reader :setup_intent
+
+          def self.inner_class_types
+            @inner_class_types = { process_config: ProcessConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class RefundPayment < Stripe::StripeObject
           class RefundPaymentConfig < Stripe::StripeObject
             # Enable customer-initiated cancellation when refunding this payment.
             attr_reader :enable_customer_cancellation
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Account the payment intent belongs to.
           attr_reader :account
@@ -213,6 +398,14 @@ module Stripe
           attr_reader :refund_payment_config
           # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
           attr_reader :reverse_transfer
+
+          def self.inner_class_types
+            @inner_class_types = { refund_payment_config: RefundPaymentConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class SetReaderDisplay < Stripe::StripeObject
@@ -224,6 +417,14 @@ module Stripe
               attr_reader :description
               # The quantity of the line item.
               attr_reader :quantity
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
@@ -233,11 +434,27 @@ module Stripe
             attr_reader :tax
             # Total amount for the entire cart, including tax. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             attr_reader :total
+
+            def self.inner_class_types
+              @inner_class_types = { line_items: LineItem }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Cart object to be displayed by the reader.
           attr_reader :cart
           # Type of information to be displayed by the reader.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { cart: Cart }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Represents a reader action to collect customer inputs
         attr_reader :collect_inputs
@@ -261,6 +478,22 @@ module Stripe
         attr_reader :status
         # Type of action performed by the reader.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            collect_inputs: CollectInputs,
+            collect_payment_method: CollectPaymentMethod,
+            confirm_payment_intent: ConfirmPaymentIntent,
+            process_payment_intent: ProcessPaymentIntent,
+            process_setup_intent: ProcessSetupIntent,
+            refund_payment: RefundPayment,
+            set_reader_display: SetReaderDisplay,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class DeleteParams < Stripe::RequestParams; end
@@ -1073,6 +1306,14 @@ module Stripe
             opts: opts
           )
         end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { action: Action }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

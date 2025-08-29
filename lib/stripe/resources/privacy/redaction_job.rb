@@ -39,6 +39,14 @@ module Stripe
         attr_reader :radar_value_list_items
         # SetupIntent object identifiers starting with `seti_`
         attr_reader :setup_intents
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -292,6 +300,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { objects: Objects }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

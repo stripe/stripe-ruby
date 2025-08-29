@@ -31,6 +31,14 @@ module Stripe
             attr_reader :metadata
             # The status of the custom pricing unit.
             attr_reader :status
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The custom pricing unit object.
           attr_reader :custom_pricing_unit_details
@@ -38,6 +46,14 @@ module Stripe
           attr_reader :id
           # A positive integer representing the amount.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = { custom_pricing_unit_details: CustomPricingUnitDetails }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Monetary < Stripe::StripeObject
@@ -45,6 +61,14 @@ module Stripe
           attr_reader :currency
           # A positive integer representing the amount.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The custom pricing unit amount.
         attr_reader :custom_pricing_unit
@@ -52,6 +76,14 @@ module Stripe
         attr_reader :monetary
         # The type of this amount. We currently only support `monetary` billing credits.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { custom_pricing_unit: CustomPricingUnit, monetary: Monetary }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ApplicabilityConfig < Stripe::StripeObject
@@ -59,11 +91,27 @@ module Stripe
           class BillableItem < Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Price < Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The billable items that credit grants can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
           attr_reader :billable_items
@@ -71,9 +119,25 @@ module Stripe
           attr_reader :price_type
           # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
           attr_reader :prices
+
+          def self.inner_class_types
+            @inner_class_types = { billable_items: BillableItem, prices: Price }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field scope
         attr_reader :scope
+
+        def self.inner_class_types
+          @inner_class_types = { scope: Scope }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -370,6 +434,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { amount: Amount, applicability_config: ApplicabilityConfig }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

@@ -17,6 +17,14 @@ module Stripe
           class ArrayValue < Stripe::StripeObject
             # The list of string values in the array.
             attr_reader :items
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Parameter with an array data type.
           attr_reader :array_value
@@ -24,6 +32,14 @@ module Stripe
           attr_reader :string_value
           # Parameter with a timestamp data type.
           attr_reader :timestamp_value
+
+          def self.inner_class_types
+            @inner_class_types = { array_value: ArrayValue }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Result < Stripe::StripeObject
@@ -33,6 +49,14 @@ module Stripe
               attr_reader :expires_at
               # The URL that can be used for accessing the file.
               attr_reader :url
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The content type of the file.
             attr_reader :content_type
@@ -40,18 +64,42 @@ module Stripe
             attr_reader :download_url
             # The total size of the file in bytes.
             attr_reader :size
+
+            def self.inner_class_types
+              @inner_class_types = { download_url: DownloadUrl }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Contains metadata about the file produced by the `ReportRun`, including
           # its content type, size, and a URL to download its contents.
           attr_reader :file
           # The type of the `ReportRun` result.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { file: File }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ResultOptions < Stripe::StripeObject
           # If set, the generated report file will be compressed into a ZIP folder.
           # This is useful for reducing file size and download time for large reports.
           attr_reader :compress_file
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class StatusDetails < Stripe::StripeObject
@@ -59,6 +107,14 @@ module Stripe
           attr_reader :error_code
           # Error message with additional details about the failure.
           attr_reader :error_message
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time at which the object was created.
         attr_reader :created
@@ -83,6 +139,19 @@ module Stripe
         attr_reader :status_details
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            report_parameters: ReportParameters,
+            result: Result,
+            result_options: ResultOptions,
+            status_details: StatusDetails,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

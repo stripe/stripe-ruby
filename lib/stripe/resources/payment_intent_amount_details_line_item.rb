@@ -12,11 +12,27 @@ module Stripe
       class Card < Stripe::StripeObject
         # Attribute for field commodity_code
         attr_reader :commodity_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CardPresent < Stripe::StripeObject
         # Attribute for field commodity_code
         attr_reader :commodity_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Klarna < Stripe::StripeObject
@@ -24,6 +40,14 @@ module Stripe
         attr_reader :image_url
         # Attribute for field product_url
         attr_reader :product_url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Paypal < Stripe::StripeObject
@@ -33,6 +57,14 @@ module Stripe
         attr_reader :description
         # The Stripe account ID of the connected account that sells the item. This is only needed when using [Separate Charges and Transfers](https://docs.stripe.com/connect/separate-charges-and-transfers).
         attr_reader :sold_by
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field card
       attr_reader :card
@@ -42,11 +74,27 @@ module Stripe
       attr_reader :klarna
       # Attribute for field paypal
       attr_reader :paypal
+
+      def self.inner_class_types
+        @inner_class_types = { card: Card, card_present: CardPresent, klarna: Klarna, paypal: Paypal }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Tax < Stripe::StripeObject
       # Total portion of the amount that is for tax.
       attr_reader :total_tax_amount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The amount an item was discounted for. Positive integer.
     attr_reader :discount_amount
@@ -68,5 +116,13 @@ module Stripe
     attr_reader :unit_cost
     # A unit of measure for the line item, such as gallons, feet, meters, etc.
     attr_reader :unit_of_measure
+
+    def self.inner_class_types
+      @inner_class_types = { payment_method_options: PaymentMethodOptions, tax: Tax }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

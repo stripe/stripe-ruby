@@ -18,6 +18,14 @@ module Stripe
               attr_reader :fields
               # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
               attr_reader :future_requirements
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             attr_reader :collection_options
@@ -27,6 +35,14 @@ module Stripe
             attr_reader :refresh_url
             # The URL that the user will be redirected to upon completing the linked flow.
             attr_reader :return_url
+
+            def self.inner_class_types
+              @inner_class_types = { collection_options: CollectionOptions }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class AccountUpdate < Stripe::StripeObject
@@ -35,6 +51,14 @@ module Stripe
               attr_reader :fields
               # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
               attr_reader :future_requirements
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             attr_reader :collection_options
@@ -44,6 +68,14 @@ module Stripe
             attr_reader :refresh_url
             # The URL that the user will be redirected to upon completing the linked flow.
             attr_reader :return_url
+
+            def self.inner_class_types
+              @inner_class_types = { collection_options: CollectionOptions }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Open Enum. The type of AccountLink the user is requesting.
           attr_reader :type
@@ -51,6 +83,17 @@ module Stripe
           attr_reader :account_onboarding
           # Indicates that the AccountLink provided should update a previously onboarded account.
           attr_reader :account_update
+
+          def self.inner_class_types
+            @inner_class_types = {
+              account_onboarding: AccountOnboarding,
+              account_update: AccountUpdate,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The ID of the Account the link was created for.
         attr_reader :account
@@ -66,6 +109,14 @@ module Stripe
         attr_reader :use_case
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = { use_case: UseCase }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

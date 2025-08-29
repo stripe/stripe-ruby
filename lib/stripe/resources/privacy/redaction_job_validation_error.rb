@@ -17,6 +17,14 @@ module Stripe
         attr_reader :id
         # Erroring object type
         attr_reader :object_type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A code indicating the reason for the error.
       attr_reader :code
@@ -28,6 +36,14 @@ module Stripe
       attr_reader :message
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
+      def self.inner_class_types
+        @inner_class_types = { erroring_object: ErroringObject }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

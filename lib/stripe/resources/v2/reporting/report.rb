@@ -16,16 +16,40 @@ module Stripe
             class EnumDetails < Stripe::StripeObject
               # Allowed values of the enum.
               attr_reader :allowed_values
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Data type of the elements in the array.
             attr_reader :element_type
             # Details about enum elements in the array.
             attr_reader :enum_details
+
+            def self.inner_class_types
+              @inner_class_types = { enum_details: EnumDetails }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class EnumDetails < Stripe::StripeObject
             # Allowed values of the enum.
             attr_reader :allowed_values
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class TimestampDetails < Stripe::StripeObject
@@ -33,6 +57,14 @@ module Stripe
             attr_reader :max
             # Minimum permitted timestamp which can be requested.
             attr_reader :min
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # For array parameters, provides details about the array elements.
           attr_reader :array_details
@@ -46,6 +78,18 @@ module Stripe
           attr_reader :timestamp_details
           # The data type of the parameter.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              array_details: ArrayDetails,
+              enum_details: EnumDetails,
+              timestamp_details: TimestampDetails,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The unique identifier of the `Report` object.
         attr_reader :id
@@ -58,6 +102,14 @@ module Stripe
         attr_reader :parameters
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = { parameters: Parameters }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

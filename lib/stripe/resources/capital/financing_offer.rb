@@ -25,6 +25,14 @@ module Stripe
         attr_reader :previous_financing_fee_discount_amount
         # Per-transaction rate at which Stripe will withhold funds to repay the financing.
         attr_reader :withhold_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class OfferedTerms < Stripe::StripeObject
@@ -43,6 +51,14 @@ module Stripe
         attr_reader :previous_financing_fee_discount_rate
         # Per-transaction rate at which Stripe will withhold funds to repay the financing.
         attr_reader :withhold_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -173,6 +189,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { accepted_terms: AcceptedTerms, offered_terms: OfferedTerms }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

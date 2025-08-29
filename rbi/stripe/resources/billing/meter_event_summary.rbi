@@ -11,25 +11,25 @@ module Stripe
     class MeterEventSummary < APIResource
       # Aggregated value of all the events within `start_time` (inclusive) and `end_time` (inclusive). The aggregation strategy is defined on meter via `default_aggregation`.
       sig { returns(Float) }
-      def aggregated_value; end
+      attr_reader :aggregated_value
       # End timestamp for this event summary (exclusive). Must be aligned with minute boundaries.
       sig { returns(Integer) }
-      def end_time; end
+      attr_reader :end_time
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # The meter associated with this event summary.
       sig { returns(String) }
-      def meter; end
+      attr_reader :meter
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
       sig { returns(Integer) }
-      def start_time; end
+      attr_reader :start_time
     end
   end
 end

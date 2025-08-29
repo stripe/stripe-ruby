@@ -12,46 +12,46 @@ module Stripe
             class LocalNameHuman < Stripe::StripeObject
               # Attribute for field content
               sig { returns(String) }
-              def content; end
+              attr_reader :content
               # Attribute for field localization_key
               sig { returns(String) }
-              def localization_key; end
+              attr_reader :localization_key
             end
             # The local name of the field.
             sig { returns(String) }
-            def local_name; end
+            attr_reader :local_name
             # The human readable local name of the field.
             sig { returns(LocalNameHuman) }
-            def local_name_human; end
+            attr_reader :local_name_human
             # The maximum length of the field.
             sig { returns(Integer) }
-            def max_length; end
+            attr_reader :max_length
             # THe minimum length of the field.
             sig { returns(Integer) }
-            def min_length; end
+            attr_reader :min_length
             # The placeholder value of the field.
             sig { returns(String) }
-            def placeholder; end
+            attr_reader :placeholder
             # The stripe name of the field.
             sig { returns(String) }
-            def stripe_name; end
+            attr_reader :stripe_name
             # The validation regex of the field.
             sig { returns(String) }
-            def validation_regex; end
+            attr_reader :validation_regex
           end
           # The list of fields for a country, along with associated information.
           sig { returns(T::Array[Field]) }
-          def fields; end
+          attr_reader :fields
         end
         # The list of specs by country.
         sig { returns(T::Hash[String, Countries]) }
-        def countries; end
+        attr_reader :countries
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        def object; end
+        attr_reader :object
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        def livemode; end
+        attr_reader :livemode
       end
     end
   end

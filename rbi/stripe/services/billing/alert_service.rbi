@@ -8,39 +8,25 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # Filter results to only include this type of alert.
         sig { returns(T.nilable(String)) }
-        def alert_type; end
-        sig { params(_alert_type: T.nilable(String)).returns(T.nilable(String)) }
-        def alert_type=(_alert_type); end
+        attr_accessor :alert_type
         # Filter results to only include alerts for the given customer.
         sig { returns(T.nilable(String)) }
-        def customer; end
-        sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-        def customer=(_customer); end
+        attr_accessor :customer
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # Filter results to only include alerts with the given meter.
         sig { returns(T.nilable(String)) }
-        def meter; end
-        sig { params(_meter: T.nilable(String)).returns(T.nilable(String)) }
-        def meter=(_meter); end
+        attr_accessor :meter
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         sig {
           params(alert_type: T.nilable(String), customer: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), meter: T.nilable(String), starting_after: T.nilable(String)).void
          }
@@ -59,14 +45,10 @@ module Stripe
           class Filter < Stripe::RequestParams
             # Limit the scope to this credit balance alert only to this customer.
             sig { returns(T.nilable(String)) }
-            def customer; end
-            sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-            def customer=(_customer); end
+            attr_accessor :customer
             # What type of filter is being applied to this credit balance alert.
             sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
+            attr_accessor :type
             sig { params(customer: T.nilable(String), type: String).void }
             def initialize(customer: nil, type: nil); end
           end
@@ -74,54 +56,36 @@ module Stripe
             class CustomPricingUnit < Stripe::RequestParams
               # The ID of the custom pricing unit.
               sig { returns(String) }
-              def id; end
-              sig { params(_id: String).returns(String) }
-              def id=(_id); end
+              attr_accessor :id
               # A positive decimal string representing the amount of the custom pricing unit threshold.
               sig { returns(String) }
-              def value; end
-              sig { params(_value: String).returns(String) }
-              def value=(_value); end
+              attr_accessor :value
               sig { params(id: String, value: String).void }
               def initialize(id: nil, value: nil); end
             end
             class Monetary < Stripe::RequestParams
               # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
               sig { returns(String) }
-              def currency; end
-              sig { params(_currency: String).returns(String) }
-              def currency=(_currency); end
+              attr_accessor :currency
               # An integer representing the amount of the threshold.
               sig { returns(Integer) }
-              def value; end
-              sig { params(_value: Integer).returns(Integer) }
-              def value=(_value); end
+              attr_accessor :value
               sig { params(currency: String, value: Integer).void }
               def initialize(currency: nil, value: nil); end
             end
             # Specify the type of this balance. We currently only support `monetary` billing credits.
             sig { returns(String) }
-            def balance_type; end
-            sig { params(_balance_type: String).returns(String) }
-            def balance_type=(_balance_type); end
+            attr_accessor :balance_type
             # The custom pricing unit amount.
             sig {
               returns(T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit))
              }
-            def custom_pricing_unit; end
-            sig {
-              params(_custom_pricing_unit: T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit)).returns(T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit))
-             }
-            def custom_pricing_unit=(_custom_pricing_unit); end
+            attr_accessor :custom_pricing_unit
             # The monetary amount.
             sig {
               returns(T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte::Monetary))
              }
-            def monetary; end
-            sig {
-              params(_monetary: T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte::Monetary)).returns(T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte::Monetary))
-             }
-            def monetary=(_monetary); end
+            attr_accessor :monetary
             sig {
               params(balance_type: String, custom_pricing_unit: T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte::CustomPricingUnit), monetary: T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte::Monetary)).void
              }
@@ -131,20 +95,12 @@ module Stripe
           sig {
             returns(T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Filter]))
            }
-          def filters; end
-          sig {
-            params(_filters: T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Filter])).returns(T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Filter]))
-           }
-          def filters=(_filters); end
+          attr_accessor :filters
           # Defines at which value the alert will fire.
           sig {
             returns(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte)
            }
-          def lte; end
-          sig {
-            params(_lte: ::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte).returns(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte)
-           }
-          def lte=(_lte); end
+          attr_accessor :lte
           sig {
             params(filters: T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Filter]), lte: ::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold::Lte).void
            }
@@ -154,14 +110,10 @@ module Stripe
           class Filter < Stripe::RequestParams
             # Limit the scope to this usage alert only to this customer.
             sig { returns(T.nilable(String)) }
-            def customer; end
-            sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-            def customer=(_customer); end
+            attr_accessor :customer
             # What type of filter is being applied to this usage alert.
             sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
+            attr_accessor :type
             sig { params(customer: T.nilable(String), type: String).void }
             def initialize(customer: nil, type: nil); end
           end
@@ -169,26 +121,16 @@ module Stripe
           sig {
             returns(T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::UsageThreshold::Filter]))
            }
-          def filters; end
-          sig {
-            params(_filters: T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::UsageThreshold::Filter])).returns(T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::UsageThreshold::Filter]))
-           }
-          def filters=(_filters); end
+          attr_accessor :filters
           # Defines at which value the alert will fire.
           sig { returns(Integer) }
-          def gte; end
-          sig { params(_gte: Integer).returns(Integer) }
-          def gte=(_gte); end
+          attr_accessor :gte
           # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
           sig { returns(String) }
-          def meter; end
-          sig { params(_meter: String).returns(String) }
-          def meter=(_meter); end
+          attr_accessor :meter
           # Whether the alert should only fire only once, or once per billing cycle.
           sig { returns(String) }
-          def recurrence; end
-          sig { params(_recurrence: String).returns(String) }
-          def recurrence=(_recurrence); end
+          attr_accessor :recurrence
           sig {
             params(filters: T.nilable(T::Array[::Stripe::Billing::AlertService::CreateParams::UsageThreshold::Filter]), gte: Integer, meter: String, recurrence: String).void
            }
@@ -196,35 +138,21 @@ module Stripe
         end
         # The type of alert to create.
         sig { returns(String) }
-        def alert_type; end
-        sig { params(_alert_type: String).returns(String) }
-        def alert_type=(_alert_type); end
+        attr_accessor :alert_type
         # The configuration of the credit balance threshold.
         sig {
           returns(T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold))
          }
-        def credit_balance_threshold; end
-        sig {
-          params(_credit_balance_threshold: T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold)).returns(T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold))
-         }
-        def credit_balance_threshold=(_credit_balance_threshold); end
+        attr_accessor :credit_balance_threshold
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The title of the alert.
         sig { returns(String) }
-        def title; end
-        sig { params(_title: String).returns(String) }
-        def title=(_title); end
+        attr_accessor :title
         # The configuration of the usage threshold.
         sig { returns(T.nilable(::Stripe::Billing::AlertService::CreateParams::UsageThreshold)) }
-        def usage_threshold; end
-        sig {
-          params(_usage_threshold: T.nilable(::Stripe::Billing::AlertService::CreateParams::UsageThreshold)).returns(T.nilable(::Stripe::Billing::AlertService::CreateParams::UsageThreshold))
-         }
-        def usage_threshold=(_usage_threshold); end
+        attr_accessor :usage_threshold
         sig {
           params(alert_type: String, credit_balance_threshold: T.nilable(::Stripe::Billing::AlertService::CreateParams::CreditBalanceThreshold), expand: T.nilable(T::Array[String]), title: String, usage_threshold: T.nilable(::Stripe::Billing::AlertService::CreateParams::UsageThreshold)).void
          }
@@ -239,36 +167,28 @@ module Stripe
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class ActivateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class ArchiveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class DeactivateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end

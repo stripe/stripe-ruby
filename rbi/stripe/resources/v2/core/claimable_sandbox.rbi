@@ -17,48 +17,48 @@ module Stripe
           # Used to communicate with [Stripe's MCP server](https://docs.stripe.com/mcp).
           # This allows LLM agents to securely operate on a Stripe account.
           sig { returns(T.nilable(String)) }
-          def mcp; end
+          attr_reader :mcp
           # Publicly accessible in a web or mobile app client-side code.
           sig { returns(String) }
-          def publishable; end
+          attr_reader :publishable
           # Should be stored securely in server-side code (such as an environment variable).
           sig { returns(String) }
-          def secret; end
+          attr_reader :secret
         end
         class Prefill < Stripe::StripeObject
           # Country in which the account holder resides, or in which the business is legally established.
           # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(String) }
-          def country; end
+          attr_reader :country
           # Email that this sandbox is meant to be claimed by. Stripe will
           # send an email to this email address before the sandbox expires.
           sig { returns(String) }
-          def email; end
+          attr_reader :email
           # Name for the sandbox.
           sig { returns(String) }
-          def name; end
+          attr_reader :name
         end
         # Keys that can be used to set up an integration for this sandbox and operate on the account.
         sig { returns(ApiKeys) }
-        def api_keys; end
+        attr_reader :api_keys
         # URL for user to claim sandbox into their existing Stripe account.
         sig { returns(String) }
-        def claim_url; end
+        attr_reader :claim_url
         # When the sandbox is created.
         sig { returns(String) }
-        def created; end
+        attr_reader :created
         # Unique identifier for the Claimable sandbox.
         sig { returns(String) }
-        def id; end
+        attr_reader :id
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        def object; end
+        attr_reader :object
         # Values prefilled during the creation of the sandbox.
         sig { returns(Prefill) }
-        def prefill; end
+        attr_reader :prefill
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        def livemode; end
+        attr_reader :livemode
       end
     end
   end

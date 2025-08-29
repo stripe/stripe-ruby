@@ -17,80 +17,64 @@ module Stripe
       class Scope < Stripe::StripeObject
         # The secret scope type.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
         # The user ID, if type is set to "user"
         sig { returns(String) }
-        def user; end
+        attr_reader :user
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def created; end
+      attr_reader :created
       # If true, indicates that this secret has been deleted
       sig { returns(T::Boolean) }
-      def deleted; end
+      attr_reader :deleted
       # The Unix timestamp for the expiry time of the secret, after which the secret deletes.
       sig { returns(T.nilable(Integer)) }
-      def expires_at; end
+      attr_reader :expires_at
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # A name for the secret that's unique within the scope.
       sig { returns(String) }
-      def name; end
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # The plaintext secret value to be stored.
       sig { returns(T.nilable(String)) }
-      def payload; end
+      attr_reader :payload
       # Attribute for field scope
       sig { returns(Scope) }
-      def scope; end
+      attr_reader :scope
       class ListParams < Stripe::RequestParams
         class Scope < Stripe::RequestParams
           # The secret scope type.
           sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
+          attr_accessor :type
           # The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
           sig { returns(T.nilable(String)) }
-          def user; end
-          sig { params(_user: T.nilable(String)).returns(T.nilable(String)) }
-          def user=(_user); end
+          attr_accessor :user
           sig { params(type: String, user: T.nilable(String)).void }
           def initialize(type: nil, user: nil); end
         end
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
         sig { returns(::Stripe::Apps::Secret::ListParams::Scope) }
-        def scope; end
-        sig {
-          params(_scope: ::Stripe::Apps::Secret::ListParams::Scope).returns(::Stripe::Apps::Secret::ListParams::Scope)
-         }
-        def scope=(_scope); end
+        attr_accessor :scope
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), scope: ::Stripe::Apps::Secret::ListParams::Scope, starting_after: T.nilable(String)).void
          }
@@ -106,44 +90,28 @@ module Stripe
         class Scope < Stripe::RequestParams
           # The secret scope type.
           sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
+          attr_accessor :type
           # The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
           sig { returns(T.nilable(String)) }
-          def user; end
-          sig { params(_user: T.nilable(String)).returns(T.nilable(String)) }
-          def user=(_user); end
+          attr_accessor :user
           sig { params(type: String, user: T.nilable(String)).void }
           def initialize(type: nil, user: nil); end
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The Unix timestamp for the expiry time of the secret, after which the secret deletes.
         sig { returns(T.nilable(Integer)) }
-        def expires_at; end
-        sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def expires_at=(_expires_at); end
+        attr_accessor :expires_at
         # A name for the secret that's unique within the scope.
         sig { returns(String) }
-        def name; end
-        sig { params(_name: String).returns(String) }
-        def name=(_name); end
+        attr_accessor :name
         # The plaintext secret value to be stored.
         sig { returns(String) }
-        def payload; end
-        sig { params(_payload: String).returns(String) }
-        def payload=(_payload); end
+        attr_accessor :payload
         # Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
         sig { returns(::Stripe::Apps::Secret::CreateParams::Scope) }
-        def scope; end
-        sig {
-          params(_scope: ::Stripe::Apps::Secret::CreateParams::Scope).returns(::Stripe::Apps::Secret::CreateParams::Scope)
-         }
-        def scope=(_scope); end
+        attr_accessor :scope
         sig {
           params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), name: String, payload: String, scope: ::Stripe::Apps::Secret::CreateParams::Scope).void
          }
@@ -153,34 +121,22 @@ module Stripe
         class Scope < Stripe::RequestParams
           # The secret scope type.
           sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
+          attr_accessor :type
           # The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
           sig { returns(T.nilable(String)) }
-          def user; end
-          sig { params(_user: T.nilable(String)).returns(T.nilable(String)) }
-          def user=(_user); end
+          attr_accessor :user
           sig { params(type: String, user: T.nilable(String)).void }
           def initialize(type: nil, user: nil); end
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A name for the secret that's unique within the scope.
         sig { returns(String) }
-        def name; end
-        sig { params(_name: String).returns(String) }
-        def name=(_name); end
+        attr_accessor :name
         # Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
         sig { returns(::Stripe::Apps::Secret::FindParams::Scope) }
-        def scope; end
-        sig {
-          params(_scope: ::Stripe::Apps::Secret::FindParams::Scope).returns(::Stripe::Apps::Secret::FindParams::Scope)
-         }
-        def scope=(_scope); end
+        attr_accessor :scope
         sig {
           params(expand: T.nilable(T::Array[String]), name: String, scope: ::Stripe::Apps::Secret::FindParams::Scope).void
          }
@@ -190,34 +146,22 @@ module Stripe
         class Scope < Stripe::RequestParams
           # The secret scope type.
           sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
+          attr_accessor :type
           # The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
           sig { returns(T.nilable(String)) }
-          def user; end
-          sig { params(_user: T.nilable(String)).returns(T.nilable(String)) }
-          def user=(_user); end
+          attr_accessor :user
           sig { params(type: String, user: T.nilable(String)).void }
           def initialize(type: nil, user: nil); end
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A name for the secret that's unique within the scope.
         sig { returns(String) }
-        def name; end
-        sig { params(_name: String).returns(String) }
-        def name=(_name); end
+        attr_accessor :name
         # Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
         sig { returns(::Stripe::Apps::Secret::DeleteWhereParams::Scope) }
-        def scope; end
-        sig {
-          params(_scope: ::Stripe::Apps::Secret::DeleteWhereParams::Scope).returns(::Stripe::Apps::Secret::DeleteWhereParams::Scope)
-         }
-        def scope=(_scope); end
+        attr_accessor :scope
         sig {
           params(expand: T.nilable(T::Array[String]), name: String, scope: ::Stripe::Apps::Secret::DeleteWhereParams::Scope).void
          }

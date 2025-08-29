@@ -7,9 +7,7 @@ module Stripe
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
@@ -19,23 +17,13 @@ module Stripe
           class Schedule < Stripe::RequestParams
             # How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
             sig { returns(T.nilable(String)) }
-            def interval; end
-            sig { params(_interval: T.nilable(String)).returns(T.nilable(String)) }
-            def interval=(_interval); end
+            attr_accessor :interval
             # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
             sig { returns(T.nilable(T::Array[Integer])) }
-            def monthly_payout_days; end
-            sig {
-              params(_monthly_payout_days: T.nilable(T::Array[Integer])).returns(T.nilable(T::Array[Integer]))
-             }
-            def monthly_payout_days=(_monthly_payout_days); end
+            attr_accessor :monthly_payout_days
             # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
             sig { returns(T.nilable(T::Array[String])) }
-            def weekly_payout_days; end
-            sig {
-              params(_weekly_payout_days: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-             }
-            def weekly_payout_days=(_weekly_payout_days); end
+            attr_accessor :weekly_payout_days
             sig {
               params(interval: T.nilable(String), monthly_payout_days: T.nilable(T::Array[Integer]), weekly_payout_days: T.nilable(T::Array[String])).void
              }
@@ -45,16 +33,10 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts::Schedule))
            }
-          def schedule; end
-          sig {
-            params(_schedule: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts::Schedule)).returns(T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts::Schedule))
-           }
-          def schedule=(_schedule); end
+          attr_accessor :schedule
           # The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
           sig { returns(T.nilable(String)) }
-          def statement_descriptor; end
-          sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
-          def statement_descriptor=(_statement_descriptor); end
+          attr_accessor :statement_descriptor
           sig {
             params(schedule: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts::Schedule), statement_descriptor: T.nilable(String)).void
            }
@@ -63,37 +45,23 @@ module Stripe
         class SettlementTiming < Stripe::RequestParams
           # The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](/connect/manage-payout-schedule).
           sig { returns(T.nilable(Integer)) }
-          def delay_days_override; end
-          sig { params(_delay_days_override: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def delay_days_override=(_delay_days_override); end
+          attr_accessor :delay_days_override
           sig { params(delay_days_override: T.nilable(Integer)).void }
           def initialize(delay_days_override: nil); end
         end
         # A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](/connect/account-balances).
         sig { returns(T.nilable(T::Boolean)) }
-        def debit_negative_balances; end
-        sig {
-          params(_debit_negative_balances: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
-         }
-        def debit_negative_balances=(_debit_negative_balances); end
+        attr_accessor :debit_negative_balances
         # Settings specific to the account's payouts.
         sig {
           returns(T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts))
          }
-        def payouts; end
-        sig {
-          params(_payouts: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts)).returns(T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts))
-         }
-        def payouts=(_payouts); end
+        attr_accessor :payouts
         # Settings related to the account's balance settlement timing.
         sig {
           returns(T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::SettlementTiming))
          }
-        def settlement_timing; end
-        sig {
-          params(_settlement_timing: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::SettlementTiming)).returns(T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::SettlementTiming))
-         }
-        def settlement_timing=(_settlement_timing); end
+        attr_accessor :settlement_timing
         sig {
           params(debit_negative_balances: T.nilable(T::Boolean), payouts: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts), settlement_timing: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::SettlementTiming)).void
          }
@@ -101,16 +69,10 @@ module Stripe
       end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # Settings that apply to the [Payments Balance](https://docs.stripe.com/api/balance).
       sig { returns(::Stripe::BalanceSettingsService::UpdateParams::Payments) }
-      def payments; end
-      sig {
-        params(_payments: ::Stripe::BalanceSettingsService::UpdateParams::Payments).returns(::Stripe::BalanceSettingsService::UpdateParams::Payments)
-       }
-      def payments=(_payments); end
+      attr_accessor :payments
       sig {
         params(expand: T.nilable(T::Array[String]), payments: ::Stripe::BalanceSettingsService::UpdateParams::Payments).void
        }

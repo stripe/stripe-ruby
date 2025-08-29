@@ -11,19 +11,13 @@ module Stripe
         class AccountHolder < Stripe::RequestParams
           # The ID of the Stripe account whose accounts will be retrieved.
           sig { returns(T.nilable(String)) }
-          def account; end
-          sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
-          def account=(_account); end
+          attr_accessor :account
           # The ID of the Stripe customer whose accounts will be retrieved.
           sig { returns(T.nilable(String)) }
-          def customer; end
-          sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-          def customer=(_customer); end
+          attr_accessor :customer
           # The Account ID of the Stripe customer whose accounts will be retrieved.
           sig { returns(T.nilable(String)) }
-          def customer_account; end
-          sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
-          def customer_account=(_customer_account); end
+          attr_accessor :customer_account
           sig {
             params(account: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String)).void
            }
@@ -33,36 +27,22 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::FinancialConnections::AccountService::ListParams::AccountHolder))
          }
-        def account_holder; end
-        sig {
-          params(_account_holder: T.nilable(::Stripe::FinancialConnections::AccountService::ListParams::AccountHolder)).returns(T.nilable(::Stripe::FinancialConnections::AccountService::ListParams::AccountHolder))
-         }
-        def account_holder=(_account_holder); end
+        attr_accessor :account_holder
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # If present, only return accounts that were collected as part of the given session.
         sig { returns(T.nilable(String)) }
-        def session; end
-        sig { params(_session: T.nilable(String)).returns(T.nilable(String)) }
-        def session=(_session); end
+        attr_accessor :session
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         sig {
           params(account_holder: T.nilable(::Stripe::FinancialConnections::AccountService::ListParams::AccountHolder), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), session: T.nilable(String), starting_after: T.nilable(String)).void
          }
@@ -78,60 +58,44 @@ module Stripe
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class DisconnectParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class RefreshParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The list of account features that you would like to refresh.
         sig { returns(T::Array[String]) }
-        def features; end
-        sig { params(_features: T::Array[String]).returns(T::Array[String]) }
-        def features=(_features); end
+        attr_accessor :features
         sig { params(expand: T.nilable(T::Array[String]), features: T::Array[String]).void }
         def initialize(expand: nil, features: nil); end
       end
       class SubscribeParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The list of account features to which you would like to subscribe.
         sig { returns(T::Array[String]) }
-        def features; end
-        sig { params(_features: T::Array[String]).returns(T::Array[String]) }
-        def features=(_features); end
+        attr_accessor :features
         sig { params(expand: T.nilable(T::Array[String]), features: T::Array[String]).void }
         def initialize(expand: nil, features: nil); end
       end
       class UnsubscribeParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # The list of account features from which you would like to unsubscribe.
         sig { returns(T::Array[String]) }
-        def features; end
-        sig { params(_features: T::Array[String]).returns(T::Array[String]) }
-        def features=(_features); end
+        attr_accessor :features
         sig { params(expand: T.nilable(T::Array[String]), features: T::Array[String]).void }
         def initialize(expand: nil, features: nil); end
       end

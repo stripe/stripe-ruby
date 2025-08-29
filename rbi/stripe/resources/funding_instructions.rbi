@@ -15,423 +15,423 @@ module Stripe
           class AccountHolderAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
-          def account_holder_address; end
+          attr_reader :account_holder_address
           # The account holder name
           sig { returns(String) }
-          def account_holder_name; end
+          attr_reader :account_holder_name
           # The ABA account number
           sig { returns(String) }
-          def account_number; end
+          attr_reader :account_number
           # The account type
           sig { returns(String) }
-          def account_type; end
+          attr_reader :account_type
           # Attribute for field bank_address
           sig { returns(BankAddress) }
-          def bank_address; end
+          attr_reader :bank_address
           # The bank name
           sig { returns(String) }
-          def bank_name; end
+          attr_reader :bank_name
           # The ABA routing number
           sig { returns(String) }
-          def routing_number; end
+          attr_reader :routing_number
         end
         class Iban < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
-          def account_holder_address; end
+          attr_reader :account_holder_address
           # The name of the person or business that owns the bank account
           sig { returns(String) }
-          def account_holder_name; end
+          attr_reader :account_holder_name
           # Attribute for field bank_address
           sig { returns(BankAddress) }
-          def bank_address; end
+          attr_reader :bank_address
           # The BIC/SWIFT code of the account.
           sig { returns(String) }
-          def bic; end
+          attr_reader :bic
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(String) }
-          def country; end
+          attr_reader :country
           # The IBAN of the account.
           sig { returns(String) }
-          def iban; end
+          attr_reader :iban
         end
         class SortCode < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
-          def account_holder_address; end
+          attr_reader :account_holder_address
           # The name of the person or business that owns the bank account
           sig { returns(String) }
-          def account_holder_name; end
+          attr_reader :account_holder_name
           # The account number
           sig { returns(String) }
-          def account_number; end
+          attr_reader :account_number
           # Attribute for field bank_address
           sig { returns(BankAddress) }
-          def bank_address; end
+          attr_reader :bank_address
           # The six-digit sort code
           sig { returns(String) }
-          def sort_code; end
+          attr_reader :sort_code
         end
         class Spei < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
-          def account_holder_address; end
+          attr_reader :account_holder_address
           # The account holder name
           sig { returns(String) }
-          def account_holder_name; end
+          attr_reader :account_holder_name
           # Attribute for field bank_address
           sig { returns(BankAddress) }
-          def bank_address; end
+          attr_reader :bank_address
           # The three-digit bank code
           sig { returns(String) }
-          def bank_code; end
+          attr_reader :bank_code
           # The short banking institution name
           sig { returns(String) }
-          def bank_name; end
+          attr_reader :bank_name
           # The CLABE number
           sig { returns(String) }
-          def clabe; end
+          attr_reader :clabe
         end
         class Swift < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
-          def account_holder_address; end
+          attr_reader :account_holder_address
           # The account holder name
           sig { returns(String) }
-          def account_holder_name; end
+          attr_reader :account_holder_name
           # The account number
           sig { returns(String) }
-          def account_number; end
+          attr_reader :account_number
           # The account type
           sig { returns(String) }
-          def account_type; end
+          attr_reader :account_type
           # Attribute for field bank_address
           sig { returns(BankAddress) }
-          def bank_address; end
+          attr_reader :bank_address
           # The bank name
           sig { returns(String) }
-          def bank_name; end
+          attr_reader :bank_name
           # The SWIFT code
           sig { returns(String) }
-          def swift_code; end
+          attr_reader :swift_code
         end
         class Zengin < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            def city; end
+            attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            def country; end
+            attr_reader :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            def line1; end
+            attr_reader :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            def line2; end
+            attr_reader :line2
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            def postal_code; end
+            attr_reader :postal_code
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            def state; end
+            attr_reader :state
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
-          def account_holder_address; end
+          attr_reader :account_holder_address
           # The account holder name
           sig { returns(T.nilable(String)) }
-          def account_holder_name; end
+          attr_reader :account_holder_name
           # The account number
           sig { returns(T.nilable(String)) }
-          def account_number; end
+          attr_reader :account_number
           # The bank account type. In Japan, this can only be `futsu` or `toza`.
           sig { returns(T.nilable(String)) }
-          def account_type; end
+          attr_reader :account_type
           # Attribute for field bank_address
           sig { returns(BankAddress) }
-          def bank_address; end
+          attr_reader :bank_address
           # The bank code of the account
           sig { returns(T.nilable(String)) }
-          def bank_code; end
+          attr_reader :bank_code
           # The bank name of the account
           sig { returns(T.nilable(String)) }
-          def bank_name; end
+          attr_reader :bank_name
           # The branch code of the account
           sig { returns(T.nilable(String)) }
-          def branch_code; end
+          attr_reader :branch_code
           # The branch name of the account
           sig { returns(T.nilable(String)) }
-          def branch_name; end
+          attr_reader :branch_name
         end
         # ABA Records contain U.S. bank account details per the ABA format.
         sig { returns(Aba) }
-        def aba; end
+        attr_reader :aba
         # Iban Records contain E.U. bank account details per the SEPA format.
         sig { returns(Iban) }
-        def iban; end
+        attr_reader :iban
         # Sort Code Records contain U.K. bank account details per the sort code format.
         sig { returns(SortCode) }
-        def sort_code; end
+        attr_reader :sort_code
         # SPEI Records contain Mexico bank account details per the SPEI format.
         sig { returns(Spei) }
-        def spei; end
+        attr_reader :spei
         # The payment networks supported by this FinancialAddress
         sig { returns(T::Array[String]) }
-        def supported_networks; end
+        attr_reader :supported_networks
         # SWIFT Records contain U.S. bank account details per the SWIFT format.
         sig { returns(Swift) }
-        def swift; end
+        attr_reader :swift
         # The type of financial address
         sig { returns(String) }
-        def type; end
+        attr_reader :type
         # Zengin Records contain Japan bank account details per the Zengin format.
         sig { returns(Zengin) }
-        def zengin; end
+        attr_reader :zengin
       end
       # The country of the bank account to fund
       sig { returns(String) }
-      def country; end
+      attr_reader :country
       # A list of financial addresses that can be used to fund a particular balance
       sig { returns(T::Array[FinancialAddress]) }
-      def financial_addresses; end
+      attr_reader :financial_addresses
       # The bank_transfer type
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     # Attribute for field bank_transfer
     sig { returns(BankTransfer) }
-    def bank_transfer; end
+    attr_reader :bank_transfer
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
-    def currency; end
+    attr_reader :currency
     # The `funding_type` of the returned instructions
     sig { returns(String) }
-    def funding_type; end
+    attr_reader :funding_type
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    def livemode; end
+    attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
   end
 end

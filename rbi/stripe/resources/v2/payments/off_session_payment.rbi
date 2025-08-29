@@ -10,10 +10,10 @@ module Stripe
         class RetryDetails < Stripe::StripeObject
           # Number of authorization attempts so far.
           sig { returns(Integer) }
-          def attempts; end
+          attr_reader :attempts
           # Indicates the strategy for how you want Stripe to retry the payment.
           sig { returns(String) }
-          def retry_strategy; end
+          attr_reader :retry_strategy
         end
         class TransferData < Stripe::StripeObject
           # The amount transferred to the destination account. This transfer will occur
@@ -24,85 +24,85 @@ module Stripe
           # and must be a positive integer representing how much to transfer in the smallest
           # currency unit (e.g., 100 cents to charge $1.00).
           sig { returns(T.nilable(Integer)) }
-          def amount; end
+          attr_reader :amount
           # The account (if any) that the payment is attributed to for tax reporting, and
           # where funds from the payment are transferred to after payment success.
           sig { returns(String) }
-          def destination; end
+          attr_reader :destination
         end
         # The “presentment amount” to be collected from the customer.
         sig { returns(Stripe::V2::Amount) }
-        def amount_requested; end
+        attr_reader :amount_requested
         # The frequency of the underlying payment.
         sig { returns(String) }
-        def cadence; end
+        attr_reader :cadence
         # ID of the owning compartment.
         sig { returns(String) }
-        def compartment_id; end
+        attr_reader :compartment_id
         # Creation time of the OffSessionPayment. Represented as a RFC 3339 date & time UTC
         # value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
-        def created; end
+        attr_reader :created
         # ID of the Customer to which this OffSessionPayment belongs.
         sig { returns(String) }
-        def customer; end
+        attr_reader :customer
         # The reason why the OffSessionPayment failed.
         sig { returns(T.nilable(String)) }
-        def failure_reason; end
+        attr_reader :failure_reason
         # Unique identifier for the object..
         sig { returns(String) }
-        def id; end
+        attr_reader :id
         # The payment error encountered in the previous attempt to authorize the payment.
         sig { returns(T.nilable(String)) }
-        def last_authorization_attempt_error; end
+        attr_reader :last_authorization_attempt_error
         # Payment attempt record for the latest attempt, if one exists.
         sig { returns(T.nilable(String)) }
-        def latest_payment_attempt_record; end
+        attr_reader :latest_payment_attempt_record
         # Has the value true if the object exists in live mode or the value false if the object exists in test mode.
         sig { returns(T::Boolean) }
-        def livemode; end
+        attr_reader :livemode
         # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
         # attach to an object. This can be useful for storing additional information about
         # the object in a structured format. Learn more about
         # [storing information in metadata](https://docs.corp.stripe.com/payments/payment-intents#storing-information-in-metadata).
         sig { returns(T::Hash[String, String]) }
-        def metadata; end
+        attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        def object; end
+        attr_reader :object
         # The account (if any) for which the funds of the OffSessionPayment are intended.
         sig { returns(T.nilable(String)) }
-        def on_behalf_of; end
+        attr_reader :on_behalf_of
         # ID of the payment method used in this OffSessionPayment.
         sig { returns(String) }
-        def payment_method; end
+        attr_reader :payment_method
         # Payment record associated with the OffSessionPayment.
         sig { returns(T.nilable(String)) }
-        def payment_record; end
+        attr_reader :payment_record
         # Details about the OffSessionPayment retries.
         sig { returns(RetryDetails) }
-        def retry_details; end
+        attr_reader :retry_details
         # Text that appears on the customer’s statement as the statement descriptor for a
         # non-card charge. This value overrides the account’s default statement descriptor.
         # For information about requirements, including the 22-character limit, see the
         # [Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         sig { returns(T.nilable(String)) }
-        def statement_descriptor; end
+        attr_reader :statement_descriptor
         # Provides information about a card charge. Concatenated to the account’s
         # [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
         # to form the complete statement descriptor that appears on the customer’s statement.
         sig { returns(T.nilable(String)) }
-        def statement_descriptor_suffix; end
+        attr_reader :statement_descriptor_suffix
         # Status of this OffSessionPayment, one of `pending`, `pending_retry`, `processing`,
         # `failed`, `canceled`, `requires_capture`, or `succeeded`.
         sig { returns(String) }
-        def status; end
+        attr_reader :status
         # Test clock that can be used to advance the retry attempts in a sandbox.
         sig { returns(T.nilable(String)) }
-        def test_clock; end
+        attr_reader :test_clock
         # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
         sig { returns(T.nilable(TransferData)) }
-        def transfer_data; end
+        attr_reader :transfer_data
       end
     end
   end

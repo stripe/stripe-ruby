@@ -39,190 +39,190 @@ module Stripe
     class AmountsDue < Stripe::StripeObject
       # Incremental amount due for this payment in cents (or local equivalent).
       sig { returns(Integer) }
-      def amount; end
+      attr_reader :amount
       # The amount in cents (or local equivalent) that was paid for this payment.
       sig { returns(Integer) }
-      def amount_paid; end
+      attr_reader :amount_paid
       # The difference between the payment’s amount and amount_paid, in cents (or local equivalent).
       sig { returns(Integer) }
-      def amount_remaining; end
+      attr_reader :amount_remaining
       # Number of days from when invoice is finalized until the payment is due.
       sig { returns(T.nilable(Integer)) }
-      def days_until_due; end
+      attr_reader :days_until_due
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
-      def description; end
+      attr_reader :description
       # Date on which a payment plan’s payment is due.
       sig { returns(T.nilable(Integer)) }
-      def due_date; end
+      attr_reader :due_date
       # Timestamp when the payment was paid.
       sig { returns(T.nilable(Integer)) }
-      def paid_at; end
+      attr_reader :paid_at
       # The status of the payment, one of `open`, `paid`, or `past_due`
       sig { returns(String) }
-      def status; end
+      attr_reader :status
     end
     class AppliesTo < Stripe::StripeObject
       # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
       sig { returns(T.nilable(String)) }
-      def new_reference; end
+      attr_reader :new_reference
       # The ID of the schedule the line applies to.
       sig { returns(T.nilable(String)) }
-      def subscription_schedule; end
+      attr_reader :subscription_schedule
       # Describes whether the quote line is affecting a new schedule or an existing schedule.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     class AutomaticTax < Stripe::StripeObject
       class Liability < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.any(String, Stripe::Account)) }
-        def account; end
+        attr_reader :account
         # Type of the account referenced.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
       end
       # If Stripe disabled automatic tax, this enum describes why.
       sig { returns(T.nilable(String)) }
-      def disabled_reason; end
+      attr_reader :disabled_reason
       # Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
       sig { returns(T::Boolean) }
-      def enabled; end
+      attr_reader :enabled
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       sig { returns(T.nilable(Liability)) }
-      def liability; end
+      attr_reader :liability
       # The tax provider powering automatic tax.
       sig { returns(T.nilable(String)) }
-      def provider; end
+      attr_reader :provider
       # The status of the most recent automated tax calculation for this invoice.
       sig { returns(T.nilable(String)) }
-      def status; end
+      attr_reader :status
     end
     class ConfirmationSecret < Stripe::StripeObject
       # The client_secret of the payment that Stripe creates for the invoice after finalization.
       sig { returns(String) }
-      def client_secret; end
+      attr_reader :client_secret
       # The type of client_secret. Currently this is always payment_intent, referencing the default payment_intent that Stripe creates during invoice finalization
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     class CustomField < Stripe::StripeObject
       # The name of the custom field.
       sig { returns(String) }
-      def name; end
+      attr_reader :name
       # The value of the custom field.
       sig { returns(String) }
-      def value; end
+      attr_reader :value
     end
     class CustomerAddress < Stripe::StripeObject
       # City, district, suburb, town, or village.
       sig { returns(T.nilable(String)) }
-      def city; end
+      attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       sig { returns(T.nilable(String)) }
-      def country; end
+      attr_reader :country
       # Address line 1 (e.g., street, PO Box, or company name).
       sig { returns(T.nilable(String)) }
-      def line1; end
+      attr_reader :line1
       # Address line 2 (e.g., apartment, suite, unit, or building).
       sig { returns(T.nilable(String)) }
-      def line2; end
+      attr_reader :line2
       # ZIP or postal code.
       sig { returns(T.nilable(String)) }
-      def postal_code; end
+      attr_reader :postal_code
       # State, county, province, or region.
       sig { returns(T.nilable(String)) }
-      def state; end
+      attr_reader :state
     end
     class CustomerShipping < Stripe::StripeObject
       class Address < Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
-        def city; end
+        attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(T.nilable(String)) }
-        def country; end
+        attr_reader :country
         # Address line 1 (e.g., street, PO Box, or company name).
         sig { returns(T.nilable(String)) }
-        def line1; end
+        attr_reader :line1
         # Address line 2 (e.g., apartment, suite, unit, or building).
         sig { returns(T.nilable(String)) }
-        def line2; end
+        attr_reader :line2
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
-        def postal_code; end
+        attr_reader :postal_code
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
-        def state; end
+        attr_reader :state
       end
       # Attribute for field address
       sig { returns(Address) }
-      def address; end
+      attr_reader :address
       # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
       sig { returns(T.nilable(String)) }
-      def carrier; end
+      attr_reader :carrier
       # Recipient name.
       sig { returns(String) }
-      def name; end
+      attr_reader :name
       # Recipient phone (including extension).
       sig { returns(T.nilable(String)) }
-      def phone; end
+      attr_reader :phone
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       sig { returns(T.nilable(String)) }
-      def tracking_number; end
+      attr_reader :tracking_number
     end
     class CustomerTaxId < Stripe::StripeObject
       # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
       sig { returns(String) }
-      def type; end
+      attr_reader :type
       # The value of the tax ID.
       sig { returns(T.nilable(String)) }
-      def value; end
+      attr_reader :value
     end
     class FromInvoice < Stripe::StripeObject
       # The relation between this invoice and the cloned invoice
       sig { returns(String) }
-      def action; end
+      attr_reader :action
       # The invoice that was cloned.
       sig { returns(T.any(String, Stripe::Invoice)) }
-      def invoice; end
+      attr_reader :invoice
     end
     class Issuer < Stripe::StripeObject
       # The connected account being referenced when `type` is `account`.
       sig { returns(T.any(String, Stripe::Account)) }
-      def account; end
+      attr_reader :account
       # Type of the account referenced.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     class LastFinalizationError < Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
       sig { returns(String) }
-      def advice_code; end
+      attr_reader :advice_code
       # For card errors, the ID of the failed charge.
       sig { returns(String) }
-      def charge; end
+      attr_reader :charge
       # For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
       sig { returns(String) }
-      def code; end
+      attr_reader :code
       # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
       sig { returns(String) }
-      def decline_code; end
+      attr_reader :decline_code
       # A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
       sig { returns(String) }
-      def doc_url; end
+      attr_reader :doc_url
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       sig { returns(String) }
-      def message; end
+      attr_reader :message
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
       sig { returns(String) }
-      def network_advice_code; end
+      attr_reader :network_advice_code
       # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
       sig { returns(String) }
-      def network_decline_code; end
+      attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
       sig { returns(String) }
-      def param; end
+      attr_reader :param
       # A PaymentIntent guides you through the process of collecting a payment from your customer.
       # We recommend that you create exactly one PaymentIntent for each order or
       # customer session in your system. You can reference the PaymentIntent later to
@@ -235,20 +235,20 @@ module Stripe
       #
       # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
       sig { returns(Stripe::PaymentIntent) }
-      def payment_intent; end
+      attr_reader :payment_intent
       # PaymentMethod objects represent your customer's payment instruments.
       # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
       # Customer objects to store instrument details for future payments.
       #
       # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
       sig { returns(Stripe::PaymentMethod) }
-      def payment_method; end
+      attr_reader :payment_method
       # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
       sig { returns(String) }
-      def payment_method_type; end
+      attr_reader :payment_method_type
       # A URL to the request log entry in your dashboard.
       sig { returns(String) }
-      def request_log_url; end
+      attr_reader :request_log_url
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
       # Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
@@ -271,60 +271,60 @@ module Stripe
       #
       # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
       sig { returns(Stripe::SetupIntent) }
-      def setup_intent; end
+      attr_reader :setup_intent
       # Attribute for field source
       sig { returns(T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source)) }
-      def source; end
+      attr_reader :source
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     class Parent < Stripe::StripeObject
       class BillingCadenceDetails < Stripe::StripeObject
         # The billing cadence that generated this invoice
         sig { returns(String) }
-        def billing_cadence; end
+        attr_reader :billing_cadence
       end
       class QuoteDetails < Stripe::StripeObject
         # The quote that generated this invoice
         sig { returns(String) }
-        def quote; end
+        attr_reader :quote
       end
       class SubscriptionDetails < Stripe::StripeObject
         class PauseCollection < Stripe::StripeObject
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           sig { returns(T.nilable(String)) }
-          def behavior; end
+          attr_reader :behavior
           # The time after which the subscription will resume collecting payments.
           sig { returns(T.nilable(Integer)) }
-          def resumes_at; end
+          attr_reader :resumes_at
         end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
         #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
         sig { returns(T.nilable(T::Hash[String, String])) }
-        def metadata; end
+        attr_reader :metadata
         # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         sig { returns(T.nilable(PauseCollection)) }
-        def pause_collection; end
+        attr_reader :pause_collection
         # The subscription that generated this invoice
         sig { returns(T.any(String, Stripe::Subscription)) }
-        def subscription; end
+        attr_reader :subscription
         # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
         sig { returns(Integer) }
-        def subscription_proration_date; end
+        attr_reader :subscription_proration_date
       end
       # Details about the billing cadence that generated this invoice
       sig { returns(T.nilable(BillingCadenceDetails)) }
-      def billing_cadence_details; end
+      attr_reader :billing_cadence_details
       # Details about the quote that generated this invoice
       sig { returns(T.nilable(QuoteDetails)) }
-      def quote_details; end
+      attr_reader :quote_details
       # Details about the subscription that generated this invoice
       sig { returns(T.nilable(SubscriptionDetails)) }
-      def subscription_details; end
+      attr_reader :subscription_details
       # The type of parent that generated this invoice
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     class PaymentSettings < Stripe::StripeObject
       class PaymentMethodOptions < Stripe::StripeObject
@@ -332,53 +332,53 @@ module Stripe
           class MandateOptions < Stripe::StripeObject
             # Transaction type of the mandate.
             sig { returns(T.nilable(String)) }
-            def transaction_type; end
+            attr_reader :transaction_type
           end
           # Attribute for field mandate_options
           sig { returns(MandateOptions) }
-          def mandate_options; end
+          attr_reader :mandate_options
           # Bank account verification method.
           sig { returns(String) }
-          def verification_method; end
+          attr_reader :verification_method
         end
         class Bancontact < Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(String) }
-          def preferred_language; end
+          attr_reader :preferred_language
         end
         class Card < Stripe::StripeObject
           class Installments < Stripe::StripeObject
             # Whether Installments are enabled for this Invoice.
             sig { returns(T.nilable(T::Boolean)) }
-            def enabled; end
+            attr_reader :enabled
           end
           # Attribute for field installments
           sig { returns(Installments) }
-          def installments; end
+          attr_reader :installments
           # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           sig { returns(T.nilable(String)) }
-          def request_three_d_secure; end
+          attr_reader :request_three_d_secure
         end
         class CustomerBalance < Stripe::StripeObject
           class BankTransfer < Stripe::StripeObject
             class EuBankTransfer < Stripe::StripeObject
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
-              def country; end
+              attr_reader :country
             end
             # Attribute for field eu_bank_transfer
             sig { returns(EuBankTransfer) }
-            def eu_bank_transfer; end
+            attr_reader :eu_bank_transfer
             # The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
             sig { returns(T.nilable(String)) }
-            def type; end
+            attr_reader :type
           end
           # Attribute for field bank_transfer
           sig { returns(BankTransfer) }
-          def bank_transfer; end
+          attr_reader :bank_transfer
           # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
           sig { returns(T.nilable(String)) }
-          def funding_type; end
+          attr_reader :funding_type
         end
         class IdBankTransfer < Stripe::StripeObject; end
         class Konbini < Stripe::StripeObject; end
@@ -387,308 +387,308 @@ module Stripe
           class MandateOptions < Stripe::StripeObject
             # Amount to be charged for future payments.
             sig { returns(T.nilable(Integer)) }
-            def amount; end
+            attr_reader :amount
             # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
             sig { returns(T.nilable(String)) }
-            def amount_type; end
+            attr_reader :amount_type
             # A description of the mandate or subscription that is meant to be displayed to the customer.
             sig { returns(T.nilable(String)) }
-            def description; end
+            attr_reader :description
             # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
             sig { returns(T.nilable(Integer)) }
-            def end_date; end
+            attr_reader :end_date
           end
           # Attribute for field mandate_options
           sig { returns(MandateOptions) }
-          def mandate_options; end
+          attr_reader :mandate_options
         end
         class UsBankAccount < Stripe::StripeObject
           class FinancialConnections < Stripe::StripeObject
             class Filters < Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               sig { returns(T::Array[String]) }
-              def account_subcategories; end
+              attr_reader :account_subcategories
               # The institution to use to filter for possible accounts to link.
               sig { returns(String) }
-              def institution; end
+              attr_reader :institution
             end
             # Attribute for field filters
             sig { returns(Filters) }
-            def filters; end
+            attr_reader :filters
             # The list of permissions to request. The `payment_method` permission must be included.
             sig { returns(T::Array[String]) }
-            def permissions; end
+            attr_reader :permissions
             # Data features requested to be retrieved upon account creation.
             sig { returns(T.nilable(T::Array[String])) }
-            def prefetch; end
+            attr_reader :prefetch
           end
           # Attribute for field financial_connections
           sig { returns(FinancialConnections) }
-          def financial_connections; end
+          attr_reader :financial_connections
           # Bank account verification method.
           sig { returns(String) }
-          def verification_method; end
+          attr_reader :verification_method
         end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(AcssDebit)) }
-        def acss_debit; end
+        attr_reader :acss_debit
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Bancontact)) }
-        def bancontact; end
+        attr_reader :bancontact
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Card)) }
-        def card; end
+        attr_reader :card
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(CustomerBalance)) }
-        def customer_balance; end
+        attr_reader :customer_balance
         # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(IdBankTransfer)) }
-        def id_bank_transfer; end
+        attr_reader :id_bank_transfer
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Konbini)) }
-        def konbini; end
+        attr_reader :konbini
         # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(SepaDebit)) }
-        def sepa_debit; end
+        attr_reader :sepa_debit
         # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Upi)) }
-        def upi; end
+        attr_reader :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(UsBankAccount)) }
-        def us_bank_account; end
+        attr_reader :us_bank_account
       end
       # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.
       sig { returns(T.nilable(String)) }
-      def default_mandate; end
+      attr_reader :default_mandate
       # Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
       sig { returns(T.nilable(PaymentMethodOptions)) }
-      def payment_method_options; end
+      attr_reader :payment_method_options
       # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
       sig { returns(T.nilable(T::Array[String])) }
-      def payment_method_types; end
+      attr_reader :payment_method_types
     end
     class Rendering < Stripe::StripeObject
       class Pdf < Stripe::StripeObject
         # Page size of invoice pdf. Options include a4, letter, and auto. If set to auto, page size will be switched to a4 or letter based on customer locale.
         sig { returns(T.nilable(String)) }
-        def page_size; end
+        attr_reader :page_size
       end
       # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
       sig { returns(T.nilable(String)) }
-      def amount_tax_display; end
+      attr_reader :amount_tax_display
       # Invoice pdf rendering options
       sig { returns(T.nilable(Pdf)) }
-      def pdf; end
+      attr_reader :pdf
       # ID of the rendering template that the invoice is formatted by.
       sig { returns(T.nilable(String)) }
-      def template; end
+      attr_reader :template
       # Version of the rendering template that the invoice is using.
       sig { returns(T.nilable(Integer)) }
-      def template_version; end
+      attr_reader :template_version
     end
     class ShippingCost < Stripe::StripeObject
       class Tax < Stripe::StripeObject
         # Amount of tax applied for this rate.
         sig { returns(Integer) }
-        def amount; end
+        attr_reader :amount
         # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
         #
         # Related guide: [Tax rates](/billing/taxes/tax-rates)
         sig { returns(Stripe::TaxRate) }
-        def rate; end
+        attr_reader :rate
         # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
         sig { returns(T.nilable(String)) }
-        def taxability_reason; end
+        attr_reader :taxability_reason
         # The amount on which tax is calculated, in cents (or local equivalent).
         sig { returns(T.nilable(Integer)) }
-        def taxable_amount; end
+        attr_reader :taxable_amount
       end
       # Total shipping cost before any taxes are applied.
       sig { returns(Integer) }
-      def amount_subtotal; end
+      attr_reader :amount_subtotal
       # Total tax amount applied due to shipping costs. If no tax was applied, defaults to 0.
       sig { returns(Integer) }
-      def amount_tax; end
+      attr_reader :amount_tax
       # Total shipping cost after taxes are applied.
       sig { returns(Integer) }
-      def amount_total; end
+      attr_reader :amount_total
       # The ID of the ShippingRate for this invoice.
       sig { returns(T.nilable(T.any(String, Stripe::ShippingRate))) }
-      def shipping_rate; end
+      attr_reader :shipping_rate
       # The taxes applied to the shipping rate.
       sig { returns(T::Array[Tax]) }
-      def taxes; end
+      attr_reader :taxes
     end
     class ShippingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
-        def city; end
+        attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(T.nilable(String)) }
-        def country; end
+        attr_reader :country
         # Address line 1 (e.g., street, PO Box, or company name).
         sig { returns(T.nilable(String)) }
-        def line1; end
+        attr_reader :line1
         # Address line 2 (e.g., apartment, suite, unit, or building).
         sig { returns(T.nilable(String)) }
-        def line2; end
+        attr_reader :line2
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
-        def postal_code; end
+        attr_reader :postal_code
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
-        def state; end
+        attr_reader :state
       end
       # Attribute for field address
       sig { returns(Address) }
-      def address; end
+      attr_reader :address
       # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
       sig { returns(T.nilable(String)) }
-      def carrier; end
+      attr_reader :carrier
       # Recipient name.
       sig { returns(String) }
-      def name; end
+      attr_reader :name
       # Recipient phone (including extension).
       sig { returns(T.nilable(String)) }
-      def phone; end
+      attr_reader :phone
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       sig { returns(T.nilable(String)) }
-      def tracking_number; end
+      attr_reader :tracking_number
     end
     class StatusTransitions < Stripe::StripeObject
       # The time that the invoice draft was finalized.
       sig { returns(T.nilable(Integer)) }
-      def finalized_at; end
+      attr_reader :finalized_at
       # The time that the invoice was marked uncollectible.
       sig { returns(T.nilable(Integer)) }
-      def marked_uncollectible_at; end
+      attr_reader :marked_uncollectible_at
       # The time that the invoice was paid.
       sig { returns(T.nilable(Integer)) }
-      def paid_at; end
+      attr_reader :paid_at
       # The time that the invoice was voided.
       sig { returns(T.nilable(Integer)) }
-      def voided_at; end
+      attr_reader :voided_at
     end
     class ThresholdReason < Stripe::StripeObject
       class ItemReason < Stripe::StripeObject
         # The IDs of the line items that triggered the threshold invoice.
         sig { returns(T::Array[String]) }
-        def line_item_ids; end
+        attr_reader :line_item_ids
         # The quantity threshold boundary that applied to the given line item.
         sig { returns(Integer) }
-        def usage_gte; end
+        attr_reader :usage_gte
       end
       # The total invoice amount threshold boundary if it triggered the threshold invoice.
       sig { returns(T.nilable(Integer)) }
-      def amount_gte; end
+      attr_reader :amount_gte
       # Indicates which line items triggered a threshold invoice.
       sig { returns(T::Array[ItemReason]) }
-      def item_reasons; end
+      attr_reader :item_reasons
     end
     class TotalDiscountAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       sig { returns(Integer) }
-      def amount; end
+      attr_reader :amount
       # The discount that was applied to get this discount amount.
       sig { returns(T.any(String, Stripe::Discount)) }
-      def discount; end
+      attr_reader :discount
     end
     class TotalMarginAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the reduction in line item amount.
       sig { returns(Integer) }
-      def amount; end
+      attr_reader :amount
       # The margin that was applied to get this margin amount.
       sig { returns(T.any(String, Stripe::Margin)) }
-      def margin; end
+      attr_reader :margin
     end
     class TotalPretaxCreditAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       sig { returns(Integer) }
-      def amount; end
+      attr_reader :amount
       # The credit balance transaction that was applied to get this pretax credit amount.
       sig { returns(T.nilable(T.any(String, Stripe::Billing::CreditBalanceTransaction))) }
-      def credit_balance_transaction; end
+      attr_reader :credit_balance_transaction
       # The discount that was applied to get this pretax credit amount.
       sig { returns(T.any(String, Stripe::Discount)) }
-      def discount; end
+      attr_reader :discount
       # The margin that was applied to get this pretax credit amount.
       sig { returns(T.any(String, Stripe::Margin)) }
-      def margin; end
+      attr_reader :margin
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     class TotalTax < Stripe::StripeObject
       class TaxRateDetails < Stripe::StripeObject
         # Attribute for field tax_rate
         sig { returns(String) }
-        def tax_rate; end
+        attr_reader :tax_rate
       end
       # The amount of the tax, in cents (or local equivalent).
       sig { returns(Integer) }
-      def amount; end
+      attr_reader :amount
       # Whether this tax is inclusive or exclusive.
       sig { returns(String) }
-      def tax_behavior; end
+      attr_reader :tax_behavior
       # Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
       sig { returns(T.nilable(TaxRateDetails)) }
-      def tax_rate_details; end
+      attr_reader :tax_rate_details
       # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
       sig { returns(String) }
-      def taxability_reason; end
+      attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       sig { returns(T.nilable(Integer)) }
-      def taxable_amount; end
+      attr_reader :taxable_amount
       # The type of tax information.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     # The country of the business associated with this invoice, most often the business creating the invoice.
     sig { returns(T.nilable(String)) }
-    def account_country; end
+    attr_reader :account_country
     # The public name of the business associated with this invoice, most often the business creating the invoice.
     sig { returns(T.nilable(String)) }
-    def account_name; end
+    attr_reader :account_name
     # The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
     sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxId)])) }
-    def account_tax_ids; end
+    attr_reader :account_tax_ids
     # Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`.
     sig { returns(Integer) }
-    def amount_due; end
+    attr_reader :amount_due
     # Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
     sig { returns(Integer) }
-    def amount_overpaid; end
+    attr_reader :amount_overpaid
     # The amount, in cents (or local equivalent), that was paid.
     sig { returns(Integer) }
-    def amount_paid; end
+    attr_reader :amount_paid
     # The difference between amount_due and amount_paid, in cents (or local equivalent).
     sig { returns(Integer) }
-    def amount_remaining; end
+    attr_reader :amount_remaining
     # This is the sum of all the shipping amounts.
     sig { returns(Integer) }
-    def amount_shipping; end
+    attr_reader :amount_shipping
     # List of expected payments and corresponding due dates. This value will be null for invoices where collection_method=charge_automatically.
     sig { returns(T.nilable(T::Array[AmountsDue])) }
-    def amounts_due; end
+    attr_reader :amounts_due
     # ID of the Connect Application that created the invoice.
     sig { returns(T.nilable(T.any(String, Stripe::Application))) }
-    def application; end
+    attr_reader :application
     # Attribute for field applies_to
     sig { returns(AppliesTo) }
-    def applies_to; end
+    attr_reader :applies_to
     # Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any payment attempt counts as the first attempt, and subsequently only automatic retries increment the attempt count. In other words, manual payment attempts after the first attempt do not affect the retry schedule. If a failure is returned with a non-retryable return code, the invoice can no longer be retried unless a new payment method is obtained. Retries will continue to be scheduled, and attempt_count will continue to increment, but retries will only be executed if a new payment method is obtained.
     sig { returns(Integer) }
-    def attempt_count; end
+    attr_reader :attempt_count
     # Whether an attempt has been made to pay the invoice. An invoice is not attempted until 1 hour after the `invoice.created` webhook, for example, so you might not want to display that invoice as unpaid to your users.
     sig { returns(T::Boolean) }
-    def attempted; end
+    attr_reader :attempted
     # Attribute for field automatic_tax
     sig { returns(AutomaticTax) }
-    def automatic_tax; end
+    attr_reader :automatic_tax
     # The time when this invoice is currently scheduled to be automatically finalized. The field will be `null` if the invoice is not scheduled to finalize in the future. If the invoice is not in the draft state, this field will always be `null` - see `finalized_at` for the time when an already-finalized invoice was finalized.
     sig { returns(T.nilable(Integer)) }
-    def automatically_finalizes_at; end
+    attr_reader :automatically_finalizes_at
     # Indicates the reason why the invoice was created.
     #
     # * `manual`: Unrelated to a subscription, for example, created via the invoice editor.
@@ -699,194 +699,194 @@ module Stripe
     # * `subscription_update`: A subscription was updated.
     # * `upcoming`: Reserved for simulated invoices, per the upcoming invoice endpoint.
     sig { returns(T.nilable(String)) }
-    def billing_reason; end
+    attr_reader :billing_reason
     # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
     sig { returns(String) }
-    def collection_method; end
+    attr_reader :collection_method
     # The confirmation secret associated with this invoice. Currently, this contains the client_secret of the PaymentIntent that Stripe creates during invoice finalization.
     sig { returns(T.nilable(ConfirmationSecret)) }
-    def confirmation_secret; end
+    attr_reader :confirmation_secret
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    def created; end
+    attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
-    def currency; end
+    attr_reader :currency
     # Custom fields displayed on the invoice.
     sig { returns(T.nilable(T::Array[CustomField])) }
-    def custom_fields; end
+    attr_reader :custom_fields
     # The ID of the account who will be billed.
     sig { returns(T.nilable(String)) }
-    def customer_account; end
+    attr_reader :customer_account
     # The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(CustomerAddress)) }
-    def customer_address; end
+    attr_reader :customer_address
     # The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(String)) }
-    def customer_email; end
+    attr_reader :customer_email
     # The customer's name. Until the invoice is finalized, this field will equal `customer.name`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(String)) }
-    def customer_name; end
+    attr_reader :customer_name
     # The customer's phone number. Until the invoice is finalized, this field will equal `customer.phone`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(String)) }
-    def customer_phone; end
+    attr_reader :customer_phone
     # The customer's shipping information. Until the invoice is finalized, this field will equal `customer.shipping`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(CustomerShipping)) }
-    def customer_shipping; end
+    attr_reader :customer_shipping
     # The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(String)) }
-    def customer_tax_exempt; end
+    attr_reader :customer_tax_exempt
     # The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(T::Array[CustomerTaxId])) }
-    def customer_tax_ids; end
+    attr_reader :customer_tax_ids
     # The margins applied to the invoice. Can be overridden by line item `margins`. Use `expand[]=default_margins` to expand each margin.
     sig { returns(T.nilable(T::Array[T.any(String, Stripe::Margin)])) }
-    def default_margins; end
+    attr_reader :default_margins
     # ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
     sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
-    def default_payment_method; end
+    attr_reader :default_payment_method
     # ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source.
     sig {
       returns(T.nilable(T.any(String, T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source))))
      }
-    def default_source; end
+    attr_reader :default_source
     # The tax rates applied to this invoice, if any.
     sig { returns(T::Array[Stripe::TaxRate]) }
-    def default_tax_rates; end
+    attr_reader :default_tax_rates
     # An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
     sig { returns(T.nilable(String)) }
-    def description; end
+    attr_reader :description
     # The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     sig { returns(T::Array[T.any(String, Stripe::Discount)]) }
-    def discounts; end
+    attr_reader :discounts
     # The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
     sig { returns(T.nilable(Integer)) }
-    def due_date; end
+    attr_reader :due_date
     # The date when this invoice is in effect. Same as `finalized_at` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the invoice PDF and receipt.
     sig { returns(T.nilable(Integer)) }
-    def effective_at; end
+    attr_reader :effective_at
     # Ending customer balance after the invoice is finalized. Invoices are finalized approximately an hour after successful webhook delivery or when payment collection is attempted for the invoice. If the invoice has not been finalized yet, this will be null.
     sig { returns(T.nilable(Integer)) }
-    def ending_balance; end
+    attr_reader :ending_balance
     # Footer displayed on the invoice.
     sig { returns(T.nilable(String)) }
-    def footer; end
+    attr_reader :footer
     # Details of the invoice that was cloned. See the [revision documentation](https://stripe.com/docs/invoicing/invoice-revisions) for more details.
     sig { returns(T.nilable(FromInvoice)) }
-    def from_invoice; end
+    attr_reader :from_invoice
     # Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
     sig { returns(String) }
-    def id; end
+    attr_reader :id
     # Attribute for field issuer
     sig { returns(Issuer) }
-    def issuer; end
+    attr_reader :issuer
     # The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized.
     sig { returns(T.nilable(LastFinalizationError)) }
-    def last_finalization_error; end
+    attr_reader :last_finalization_error
     # The ID of the most recent non-draft revision of this invoice
     sig { returns(T.nilable(T.any(String, Stripe::Invoice))) }
-    def latest_revision; end
+    attr_reader :latest_revision
     # The individual line items that make up the invoice. `lines` is sorted as follows: (1) pending invoice items (including prorations) in reverse chronological order, (2) subscription items in reverse chronological order, and (3) invoice items added after invoice creation in chronological order.
     sig { returns(Stripe::ListObject) }
-    def lines; end
+    attr_reader :lines
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    def livemode; end
+    attr_reader :livemode
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
-    def metadata; end
+    attr_reader :metadata
     # The time at which payment will next be attempted. This value will be `null` for invoices where `collection_method=send_invoice`.
     sig { returns(T.nilable(Integer)) }
-    def next_payment_attempt; end
+    attr_reader :next_payment_attempt
     # A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer's unique invoice_prefix if it is specified.
     sig { returns(T.nilable(String)) }
-    def number; end
+    attr_reader :number
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
     # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     sig { returns(T.nilable(T.any(String, Stripe::Account))) }
-    def on_behalf_of; end
+    attr_reader :on_behalf_of
     # The parent that generated this invoice
     sig { returns(T.nilable(Parent)) }
-    def parent; end
+    attr_reader :parent
     # Attribute for field payment_settings
     sig { returns(PaymentSettings) }
-    def payment_settings; end
+    attr_reader :payment_settings
     # Payments for this invoice
     sig { returns(Stripe::ListObject) }
-    def payments; end
+    attr_reader :payments
     # End of the usage period during which invoice items were added to this invoice. This looks back one period for a subscription invoice. Use the [line item period](/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
     sig { returns(Integer) }
-    def period_end; end
+    attr_reader :period_end
     # Start of the usage period during which invoice items were added to this invoice. This looks back one period for a subscription invoice. Use the [line item period](/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
     sig { returns(Integer) }
-    def period_start; end
+    attr_reader :period_start
     # Total amount of all post-payment credit notes issued for this invoice.
     sig { returns(Integer) }
-    def post_payment_credit_notes_amount; end
+    attr_reader :post_payment_credit_notes_amount
     # Total amount of all pre-payment credit notes issued for this invoice.
     sig { returns(Integer) }
-    def pre_payment_credit_notes_amount; end
+    attr_reader :pre_payment_credit_notes_amount
     # This is the transaction number that appears on email receipts sent for this invoice.
     sig { returns(T.nilable(String)) }
-    def receipt_number; end
+    attr_reader :receipt_number
     # The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
     sig { returns(T.nilable(Rendering)) }
-    def rendering; end
+    attr_reader :rendering
     # The details of the cost of shipping, including the ShippingRate applied on the invoice.
     sig { returns(T.nilable(ShippingCost)) }
-    def shipping_cost; end
+    attr_reader :shipping_cost
     # Shipping details for the invoice. The Invoice PDF will use the `shipping_details` value if it is set, otherwise the PDF will render the shipping address from the customer.
     sig { returns(T.nilable(ShippingDetails)) }
-    def shipping_details; end
+    attr_reader :shipping_details
     # Starting customer balance before the invoice is finalized. If the invoice has not been finalized yet, this will be the current customer balance. For revision invoices, this also includes any customer balance that was applied to the original invoice.
     sig { returns(Integer) }
-    def starting_balance; end
+    attr_reader :starting_balance
     # Extra information about an invoice for the customer's credit card statement.
     sig { returns(T.nilable(String)) }
-    def statement_descriptor; end
+    attr_reader :statement_descriptor
     # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
     sig { returns(T.nilable(String)) }
-    def status; end
+    attr_reader :status
     # Attribute for field status_transitions
     sig { returns(StatusTransitions) }
-    def status_transitions; end
+    attr_reader :status_transitions
     # Attribute for field subscription
     sig { returns(T.nilable(T.any(String, Stripe::Subscription))) }
-    def subscription; end
+    attr_reader :subscription
     # Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated
     sig { returns(Integer) }
-    def subtotal; end
+    attr_reader :subtotal
     # The integer amount in cents (or local equivalent) representing the subtotal of the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated
     sig { returns(T.nilable(Integer)) }
-    def subtotal_excluding_tax; end
+    attr_reader :subtotal_excluding_tax
     # ID of the test clock this invoice belongs to.
     sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
-    def test_clock; end
+    attr_reader :test_clock
     # Attribute for field threshold_reason
     sig { returns(ThresholdReason) }
-    def threshold_reason; end
+    attr_reader :threshold_reason
     # Total after discounts and taxes.
     sig { returns(Integer) }
-    def total; end
+    attr_reader :total
     # The aggregate amounts calculated per discount across all line items.
     sig { returns(T.nilable(T::Array[TotalDiscountAmount])) }
-    def total_discount_amounts; end
+    attr_reader :total_discount_amounts
     # The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax.
     sig { returns(T.nilable(Integer)) }
-    def total_excluding_tax; end
+    attr_reader :total_excluding_tax
     # The aggregate amounts calculated per margin across all line items.
     sig { returns(T.nilable(T::Array[TotalMarginAmount])) }
-    def total_margin_amounts; end
+    attr_reader :total_margin_amounts
     # Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this invoice. This is a combined list of total_pretax_credit_amounts across all invoice line items.
     sig { returns(T.nilable(T::Array[TotalPretaxCreditAmount])) }
-    def total_pretax_credit_amounts; end
+    attr_reader :total_pretax_credit_amounts
     # The aggregate tax information of all line items.
     sig { returns(T.nilable(T::Array[TotalTax])) }
-    def total_taxes; end
+    attr_reader :total_taxes
     # Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
     sig { returns(T.nilable(Integer)) }
-    def webhooks_delivered_at; end
+    attr_reader :webhooks_delivered_at
   end
 end

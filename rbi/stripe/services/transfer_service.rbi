@@ -9,24 +9,16 @@ module Stripe
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def gt; end
-        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gt=(_gt); end
+        attr_accessor :gt
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def gte; end
-        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gte=(_gte); end
+        attr_accessor :gte
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def lt; end
-        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lt=(_lt); end
+        attr_accessor :lt
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def lte; end
-        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lte=(_lte); end
+        attr_accessor :lte
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -34,41 +26,25 @@ module Stripe
       end
       # Only return transfers that were created during the given date interval.
       sig { returns(T.nilable(T.any(::Stripe::TransferService::ListParams::Created, Integer))) }
-      def created; end
-      sig {
-        params(_created: T.nilable(T.any(::Stripe::TransferService::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::TransferService::ListParams::Created, Integer)))
-       }
-      def created=(_created); end
+      attr_accessor :created
       # Only return transfers for the destination specified by this account ID.
       sig { returns(T.nilable(String)) }
-      def destination; end
-      sig { params(_destination: T.nilable(String)).returns(T.nilable(String)) }
-      def destination=(_destination); end
+      attr_accessor :destination
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      def ending_before; end
-      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-      def ending_before=(_ending_before); end
+      attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      def limit; end
-      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def limit=(_limit); end
+      attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      def starting_after; end
-      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-      def starting_after=(_starting_after); end
+      attr_accessor :starting_after
       # Only return transfers with the specified transfer group.
       sig { returns(T.nilable(String)) }
-      def transfer_group; end
-      sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
-      def transfer_group=(_transfer_group); end
+      attr_accessor :transfer_group
       sig {
         params(created: T.nilable(T.any(::Stripe::TransferService::ListParams::Created, Integer)), destination: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), transfer_group: T.nilable(String)).void
        }
@@ -85,56 +61,34 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       # A positive integer in cents (or local equivalent) representing how much to transfer.
       sig { returns(T.nilable(Integer)) }
-      def amount; end
-      sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def amount=(_amount); end
+      attr_accessor :amount
       # Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies).
       sig { returns(String) }
-      def currency; end
-      sig { params(_currency: String).returns(String) }
-      def currency=(_currency); end
+      attr_accessor :currency
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
-      def description; end
-      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
-      def description=(_description); end
+      attr_accessor :description
       # The ID of a connected Stripe account. <a href="/docs/connect/separate-charges-and-transfers">See the Connect documentation</a> for details.
       sig { returns(String) }
-      def destination; end
-      sig { params(_destination: String).returns(String) }
-      def destination=(_destination); end
+      attr_accessor :destination
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the transfer amount to the destination currency.
       sig { returns(T.nilable(String)) }
-      def fx_quote; end
-      sig { params(_fx_quote: T.nilable(String)).returns(T.nilable(String)) }
-      def fx_quote=(_fx_quote); end
+      attr_accessor :fx_quote
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
-      def metadata; end
-      sig {
-        params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-       }
-      def metadata=(_metadata); end
+      attr_accessor :metadata
       # You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details.
       sig { returns(T.nilable(String)) }
-      def source_transaction; end
-      sig { params(_source_transaction: T.nilable(String)).returns(T.nilable(String)) }
-      def source_transaction=(_source_transaction); end
+      attr_accessor :source_transaction
       # The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`.
       sig { returns(T.nilable(String)) }
-      def source_type; end
-      sig { params(_source_type: T.nilable(String)).returns(T.nilable(String)) }
-      def source_type=(_source_type); end
+      attr_accessor :source_type
       # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
       sig { returns(T.nilable(String)) }
-      def transfer_group; end
-      sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
-      def transfer_group=(_transfer_group); end
+      attr_accessor :transfer_group
       sig {
         params(amount: T.nilable(Integer), currency: String, description: T.nilable(String), destination: String, expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), source_transaction: T.nilable(String), source_type: T.nilable(String), transfer_group: T.nilable(String)).void
        }
@@ -154,30 +108,20 @@ module Stripe
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     class UpdateParams < Stripe::RequestParams
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
-      def description; end
-      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
-      def description=(_description); end
+      attr_accessor :description
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      def metadata; end
-      sig {
-        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
-       }
-      def metadata=(_metadata); end
+      attr_accessor :metadata
       sig {
         params(description: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }

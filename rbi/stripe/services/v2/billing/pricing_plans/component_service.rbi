@@ -10,23 +10,15 @@ module Stripe
           class ListParams < Stripe::RequestParams
             # Optionally set the maximum number of results per page. Defaults to 20.
             sig { returns(T.nilable(Integer)) }
-            def limit; end
-            sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def limit=(_limit); end
+            attr_accessor :limit
             # Filter by lookup keys. Mutually exclusive with `pricing_plan_version`.
             # You can specify up to 10 lookup keys.
             sig { returns(T.nilable(T::Array[String])) }
-            def lookup_keys; end
-            sig {
-              params(_lookup_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-             }
-            def lookup_keys=(_lookup_keys); end
+            attr_accessor :lookup_keys
             # The ID of the Pricing Plan Version to list components for. Will use the latest version if not provided.
             # Mutually exclusive with `lookup_keys`.
             sig { returns(T.nilable(String)) }
-            def pricing_plan_version; end
-            sig { params(_pricing_plan_version: T.nilable(String)).returns(T.nilable(String)) }
-            def pricing_plan_version=(_pricing_plan_version); end
+            attr_accessor :pricing_plan_version
             sig {
               params(limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String]), pricing_plan_version: T.nilable(String)).void
              }
@@ -36,84 +28,54 @@ module Stripe
             class LicenseFee < Stripe::RequestParams
               # The ID of the License Fee.
               sig { returns(String) }
-              def id; end
-              sig { params(_id: String).returns(String) }
-              def id=(_id); end
+              attr_accessor :id
               # The version of the LicenseFee. Defaults to 'latest', if not specified.
               sig { returns(T.nilable(String)) }
-              def version; end
-              sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
-              def version=(_version); end
+              attr_accessor :version
               sig { params(id: String, version: T.nilable(String)).void }
               def initialize(id: nil, version: nil); end
             end
             class RateCard < Stripe::RequestParams
               # The ID of the Rate Card.
               sig { returns(String) }
-              def id; end
-              sig { params(_id: String).returns(String) }
-              def id=(_id); end
+              attr_accessor :id
               # The version of the RateCard. Defaults to 'latest', if not specified.
               sig { returns(T.nilable(String)) }
-              def version; end
-              sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
-              def version=(_version); end
+              attr_accessor :version
               sig { params(id: String, version: T.nilable(String)).void }
               def initialize(id: nil, version: nil); end
             end
             class ServiceAction < Stripe::RequestParams
               # The ID of the service action.
               sig { returns(String) }
-              def id; end
-              sig { params(_id: String).returns(String) }
-              def id=(_id); end
+              attr_accessor :id
               sig { params(id: String).void }
               def initialize(id: nil); end
             end
             # An identifier that can be used to find this component.
             sig { returns(T.nilable(String)) }
-            def lookup_key; end
-            sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
-            def lookup_key=(_lookup_key); end
+            attr_accessor :lookup_key
             # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             sig { returns(T.nilable(T::Hash[String, String])) }
-            def metadata; end
-            sig {
-              params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-             }
-            def metadata=(_metadata); end
+            attr_accessor :metadata
             # The type of the PricingPlanComponent.
             sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
+            attr_accessor :type
             # Details if this component is a License Fee.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::LicenseFee))
              }
-            def license_fee; end
-            sig {
-              params(_license_fee: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::LicenseFee)).returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::LicenseFee))
-             }
-            def license_fee=(_license_fee); end
+            attr_accessor :license_fee
             # Details if this component is a Rate Card.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::RateCard))
              }
-            def rate_card; end
-            sig {
-              params(_rate_card: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::RateCard)).returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::RateCard))
-             }
-            def rate_card=(_rate_card); end
+            attr_accessor :rate_card
             # Details if this component is a Service Action.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::ServiceAction))
              }
-            def service_action; end
-            sig {
-              params(_service_action: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::ServiceAction)).returns(T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::ServiceAction))
-             }
-            def service_action=(_service_action); end
+            attr_accessor :service_action
             sig {
               params(lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), type: String, license_fee: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::LicenseFee), rate_card: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::RateCard), service_action: T.nilable(::Stripe::V2::Billing::PricingPlans::ComponentService::CreateParams::ServiceAction)).void
              }
@@ -131,16 +93,10 @@ module Stripe
           class UpdateParams < Stripe::RequestParams
             # An identifier that can be used to find this component. Maximum length of 200 characters.
             sig { returns(T.nilable(String)) }
-            def lookup_key; end
-            sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
-            def lookup_key=(_lookup_key); end
+            attr_accessor :lookup_key
             # Set of key-value pairs that you can attach to an object.
             sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
-            def metadata; end
-            sig {
-              params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
-             }
-            def metadata=(_metadata); end
+            attr_accessor :metadata
             sig {
               params(lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
              }

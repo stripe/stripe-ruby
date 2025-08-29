@@ -8,16 +8,16 @@ module Stripe
     class AccountOwnership < StripeObject
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def created; end
+      attr_reader :created
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # A paginated list of owners for this account.
       sig { returns(Stripe::ListObject) }
-      def owners; end
+      attr_reader :owners
     end
   end
 end

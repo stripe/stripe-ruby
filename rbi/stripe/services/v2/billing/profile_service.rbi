@@ -10,33 +10,23 @@ module Stripe
           # Filter billing profiles by a customer. Mutually exclusive
           # with `lookup_keys` and `default_payment_method`.
           sig { returns(T.nilable(String)) }
-          def customer; end
-          sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-          def customer=(_customer); end
+          attr_accessor :customer
           # Filter billing profiles by a default payment method. Mutually exclusive
           # with `customer` and `lookup_keys`.
           sig { returns(T.nilable(String)) }
-          def default_payment_method; end
-          sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
-          def default_payment_method=(_default_payment_method); end
+          attr_accessor :default_payment_method
           # Optionally set the maximum number of results per page. Defaults to 10.
           sig { returns(T.nilable(Integer)) }
-          def limit; end
-          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def limit=(_limit); end
+          attr_accessor :limit
           # Filter billing profiles by lookup keys. Mutually exclusive
           # with `customer` and `default_payment_method`.
           # You can specify up to 10 lookup_keys.
           sig { returns(T::Array[String]) }
-          def lookup_keys; end
-          sig { params(_lookup_keys: T::Array[String]).returns(T::Array[String]) }
-          def lookup_keys=(_lookup_keys); end
+          attr_accessor :lookup_keys
           # Filter billing profiles by status. Can be combined
           # with all other filters. If not provided, all billing profiles will be returned.
           sig { returns(T.nilable(String)) }
-          def status; end
-          sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
-          def status=(_status); end
+          attr_accessor :status
           sig {
             params(customer: T.nilable(String), default_payment_method: T.nilable(String), limit: T.nilable(Integer), lookup_keys: T::Array[String], status: T.nilable(String)).void
            }
@@ -51,33 +41,21 @@ module Stripe
         class CreateParams < Stripe::RequestParams
           # The ID of the customer object.
           sig { returns(String) }
-          def customer; end
-          sig { params(_customer: String).returns(String) }
-          def customer=(_customer); end
+          attr_accessor :customer
           # The ID of the payment method object.
           sig { returns(T.nilable(String)) }
-          def default_payment_method; end
-          sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
-          def default_payment_method=(_default_payment_method); end
+          attr_accessor :default_payment_method
           # A customer-facing name for the billing profile.
           # Maximum length of 250 characters.
           sig { returns(T.nilable(String)) }
-          def display_name; end
-          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
-          def display_name=(_display_name); end
+          attr_accessor :display_name
           # An internal key you can use to search for a particular billing profile. It must be unique among billing profiles for a given customer.
           # Maximum length of 200 characters.
           sig { returns(T.nilable(String)) }
-          def lookup_key; end
-          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
-          def lookup_key=(_lookup_key); end
+          attr_accessor :lookup_key
           # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          def metadata; end
-          sig {
-            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-           }
-          def metadata=(_metadata); end
+          attr_accessor :metadata
           sig {
             params(customer: String, default_payment_method: T.nilable(String), display_name: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String])).void
            }
@@ -93,34 +71,20 @@ module Stripe
         class UpdateParams < Stripe::RequestParams
           # The ID of the payment method object.
           sig { returns(T.nilable(String)) }
-          def default_payment_method; end
-          sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
-          def default_payment_method=(_default_payment_method); end
+          attr_accessor :default_payment_method
           # A customer-facing name for the billing profile.
           # Maximum length of 250 characters.
           # To remove the display_name from the object, set it to null in the request.
           sig { returns(T.nilable(T.nilable(String))) }
-          def display_name; end
-          sig {
-            params(_display_name: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-           }
-          def display_name=(_display_name); end
+          attr_accessor :display_name
           # An internal key you can use to search for a particular billing profile. It must be unique among billing profiles for a given customer.
           # Maximum length of 200 characters.
           # To remove the lookup_key from the object, set it to null in the request.
           sig { returns(T.nilable(T.nilable(String))) }
-          def lookup_key; end
-          sig {
-            params(_lookup_key: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-           }
-          def lookup_key=(_lookup_key); end
+          attr_accessor :lookup_key
           # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
-          def metadata; end
-          sig {
-            params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
-           }
-          def metadata=(_metadata); end
+          attr_accessor :metadata
           sig {
             params(default_payment_method: T.nilable(String), display_name: T.nilable(T.nilable(String)), lookup_key: T.nilable(T.nilable(String)), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
            }

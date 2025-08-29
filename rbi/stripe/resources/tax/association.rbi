@@ -10,52 +10,48 @@ module Stripe
         class Committed < Stripe::StripeObject
           # The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
           sig { returns(String) }
-          def transaction; end
+          attr_reader :transaction
         end
         class Errored < Stripe::StripeObject
           # Details on why we couldn't commit the tax transaction.
           sig { returns(String) }
-          def reason; end
+          attr_reader :reason
         end
         # Attribute for field committed
         sig { returns(Committed) }
-        def committed; end
+        attr_reader :committed
         # Attribute for field errored
         sig { returns(Errored) }
-        def errored; end
+        attr_reader :errored
         # The source of the tax transaction attempt. This is either a refund or a payment intent.
         sig { returns(String) }
-        def source; end
+        attr_reader :source
         # The status of the transaction attempt. This can be `errored` or `committed`.
         sig { returns(String) }
-        def status; end
+        attr_reader :status
       end
       # The [Tax Calculation](https://stripe.com/docs/api/tax/calculations/object) that was included in PaymentIntent.
       sig { returns(String) }
-      def calculation; end
+      attr_reader :calculation
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # The [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) that this Tax Association is tracking.
       sig { returns(String) }
-      def payment_intent; end
+      attr_reader :payment_intent
       # Information about the tax transactions linked to this payment intent
       sig { returns(T.nilable(T::Array[TaxTransactionAttempt])) }
-      def tax_transaction_attempts; end
+      attr_reader :tax_transaction_attempts
       class FindParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # Valid [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) id
         sig { returns(String) }
-        def payment_intent; end
-        sig { params(_payment_intent: String).returns(String) }
-        def payment_intent=(_payment_intent); end
+        attr_accessor :payment_intent
         sig { params(expand: T.nilable(T::Array[String]), payment_intent: String).void }
         def initialize(expand: nil, payment_intent: nil); end
       end

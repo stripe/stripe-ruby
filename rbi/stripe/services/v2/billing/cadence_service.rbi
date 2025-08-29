@@ -10,41 +10,27 @@ module Stripe
           class Payer < Stripe::RequestParams
             # The ID of the Customer object. If provided, only cadences that specifically reference the provided customer ID will be returned.
             sig { returns(T.nilable(String)) }
-            def customer; end
-            sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-            def customer=(_customer); end
+            attr_accessor :customer
             # A string identifying the type of the payer. Currently the only supported value is `customer`.
             sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
+            attr_accessor :type
             sig { params(customer: T.nilable(String), type: String).void }
             def initialize(customer: nil, type: nil); end
           end
           # Additional resource to include in the response.
           sig { returns(T.nilable(T::Array[String])) }
-          def include; end
-          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def include=(_include); end
+          attr_accessor :include
           # Optionally set the maximum number of results per page. Defaults to 20.
           sig { returns(T.nilable(Integer)) }
-          def limit; end
-          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def limit=(_limit); end
+          attr_accessor :limit
           # If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock`.
           sig { returns(T.nilable(::Stripe::V2::Billing::CadenceService::ListParams::Payer)) }
-          def payer; end
-          sig {
-            params(_payer: T.nilable(::Stripe::V2::Billing::CadenceService::ListParams::Payer)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::ListParams::Payer))
-           }
-          def payer=(_payer); end
+          attr_accessor :payer
           # If provided, only cadences that specifically reference the provided test clock ID (via the
           # customer's test clock) will be returned.
           # Mutually exclusive with `payer`.
           sig { returns(T.nilable(String)) }
-          def test_clock; end
-          sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
-          def test_clock=(_test_clock); end
+          attr_accessor :test_clock
           sig {
             params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer), payer: T.nilable(::Stripe::V2::Billing::CadenceService::ListParams::Payer), test_clock: T.nilable(String)).void
            }
@@ -58,21 +44,15 @@ module Stripe
                 # This must be an integer between 0 and 23, inclusive.
                 # 0 represents midnight, and 23 represents 11 PM.
                 sig { returns(Integer) }
-                def hour; end
-                sig { params(_hour: Integer).returns(Integer) }
-                def hour=(_hour); end
+                attr_accessor :hour
                 # The minute at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
                 sig { returns(Integer) }
-                def minute; end
-                sig { params(_minute: Integer).returns(Integer) }
-                def minute=(_minute); end
+                attr_accessor :minute
                 # The second at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
                 sig { returns(Integer) }
-                def second; end
-                sig { params(_second: Integer).returns(Integer) }
-                def second=(_second); end
+                attr_accessor :second
                 sig { params(hour: Integer, minute: Integer, second: Integer).void }
                 def initialize(hour: nil, minute: nil, second: nil); end
               end
@@ -82,11 +62,7 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Day::Time))
                }
-              def time; end
-              sig {
-                params(_time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Day::Time)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Day::Time))
-               }
-              def time=(_time); end
+              attr_accessor :time
               sig {
                 params(time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Day::Time)).void
                }
@@ -98,21 +74,15 @@ module Stripe
                 # This must be an integer between 0 and 23, inclusive.
                 # 0 represents midnight, and 23 represents 11 PM.
                 sig { returns(Integer) }
-                def hour; end
-                sig { params(_hour: Integer).returns(Integer) }
-                def hour=(_hour); end
+                attr_accessor :hour
                 # The minute at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
                 sig { returns(Integer) }
-                def minute; end
-                sig { params(_minute: Integer).returns(Integer) }
-                def minute=(_minute); end
+                attr_accessor :minute
                 # The second at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
                 sig { returns(Integer) }
-                def second; end
-                sig { params(_second: Integer).returns(Integer) }
-                def second=(_second); end
+                attr_accessor :second
                 sig { params(hour: Integer, minute: Integer, second: Integer).void }
                 def initialize(hour: nil, minute: nil, second: nil); end
               end
@@ -121,20 +91,14 @@ module Stripe
               # billed, this will anchor to the last day of the month. If not provided,
               # this will default to the day the cadence was created.
               sig { returns(Integer) }
-              def day_of_month; end
-              sig { params(_day_of_month: Integer).returns(Integer) }
-              def day_of_month=(_day_of_month); end
+              attr_accessor :day_of_month
               # The time at which the billing cycle ends.
               # This field is optional, and if not provided, it will default to
               # the time at which the cadence was created in UTC timezone.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time))
                }
-              def time; end
-              sig {
-                params(_time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time))
-               }
-              def time=(_time); end
+              attr_accessor :time
               sig {
                 params(day_of_month: Integer, time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time)).void
                }
@@ -146,21 +110,15 @@ module Stripe
                 # This must be an integer between 0 and 23, inclusive.
                 # 0 represents midnight, and 23 represents 11 PM.
                 sig { returns(Integer) }
-                def hour; end
-                sig { params(_hour: Integer).returns(Integer) }
-                def hour=(_hour); end
+                attr_accessor :hour
                 # The minute at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
                 sig { returns(Integer) }
-                def minute; end
-                sig { params(_minute: Integer).returns(Integer) }
-                def minute=(_minute); end
+                attr_accessor :minute
                 # The second at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
                 sig { returns(Integer) }
-                def second; end
-                sig { params(_second: Integer).returns(Integer) }
-                def second=(_second); end
+                attr_accessor :second
                 sig { params(hour: Integer, minute: Integer, second: Integer).void }
                 def initialize(hour: nil, minute: nil, second: nil); end
               end
@@ -169,20 +127,14 @@ module Stripe
               # week day numbering. If not provided, this will default to the day the
               # cadence was created.
               sig { returns(Integer) }
-              def day_of_week; end
-              sig { params(_day_of_week: Integer).returns(Integer) }
-              def day_of_week=(_day_of_week); end
+              attr_accessor :day_of_week
               # The time at which the billing cycle ends.
               # This field is optional, and if not provided, it will default to
               # the time at which the cadence was created in UTC timezone.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Week::Time))
                }
-              def time; end
-              sig {
-                params(_time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Week::Time)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Week::Time))
-               }
-              def time=(_time); end
+              attr_accessor :time
               sig {
                 params(day_of_week: Integer, time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Week::Time)).void
                }
@@ -194,21 +146,15 @@ module Stripe
                 # This must be an integer between 0 and 23, inclusive.
                 # 0 represents midnight, and 23 represents 11 PM.
                 sig { returns(Integer) }
-                def hour; end
-                sig { params(_hour: Integer).returns(Integer) }
-                def hour=(_hour); end
+                attr_accessor :hour
                 # The minute at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
                 sig { returns(Integer) }
-                def minute; end
-                sig { params(_minute: Integer).returns(Integer) }
-                def minute=(_minute); end
+                attr_accessor :minute
                 # The second at which the billing cycle ends.
                 # Must be an integer between 0 and 59, inclusive.
                 sig { returns(Integer) }
-                def second; end
-                sig { params(_second: Integer).returns(Integer) }
-                def second=(_second); end
+                attr_accessor :second
                 sig { params(hour: Integer, minute: Integer, second: Integer).void }
                 def initialize(hour: nil, minute: nil, second: nil); end
               end
@@ -217,26 +163,18 @@ module Stripe
               # billed, this will anchor to the last day of the month. If not provided,
               # this will default to the day the cadence was created.
               sig { returns(T.nilable(Integer)) }
-              def day_of_month; end
-              sig { params(_day_of_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def day_of_month=(_day_of_month); end
+              attr_accessor :day_of_month
               # The month to bill on from 1-12. If not provided, this will default to the
               # month the cadence was created.
               sig { returns(T.nilable(Integer)) }
-              def month_of_year; end
-              sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def month_of_year=(_month_of_year); end
+              attr_accessor :month_of_year
               # The time at which the billing cycle ends.
               # This field is optional, and if not provided, it will default to
               # the time at which the cadence was created in UTC timezone.
               sig {
                 returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Year::Time))
                }
-              def time; end
-              sig {
-                params(_time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Year::Time)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Year::Time))
-               }
-              def time=(_time); end
+              attr_accessor :time
               sig {
                 params(day_of_month: T.nilable(Integer), month_of_year: T.nilable(Integer), time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Year::Time)).void
                }
@@ -246,50 +184,30 @@ module Stripe
             # cadence billings. For example, type=month and interval_count=3 bills every
             # 3 months. If this is not provided, it will default to 1.
             sig { returns(T.nilable(Integer)) }
-            def interval_count; end
-            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def interval_count=(_interval_count); end
+            attr_accessor :interval_count
             # The frequency at which a cadence bills.
             sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
+            attr_accessor :type
             # Specific configuration for determining billing dates when type=day.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Day))
              }
-            def day; end
-            sig {
-              params(_day: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Day)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Day))
-             }
-            def day=(_day); end
+            attr_accessor :day
             # Specific configuration for determining billing dates when type=month.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month))
              }
-            def month; end
-            sig {
-              params(_month: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month))
-             }
-            def month=(_month); end
+            attr_accessor :month
             # Specific configuration for determining billing dates when type=week.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Week))
              }
-            def week; end
-            sig {
-              params(_week: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Week)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Week))
-             }
-            def week=(_week); end
+            attr_accessor :week
             # Specific configuration for determining billing dates when type=year.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Year))
              }
-            def year; end
-            sig {
-              params(_year: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Year)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Year))
-             }
-            def year=(_year); end
+            attr_accessor :year
             sig {
               params(interval_count: T.nilable(Integer), type: String, day: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Day), month: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month), week: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Week), year: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Year)).void
              }
@@ -306,19 +224,13 @@ module Stripe
             # The ID of the Billing Profile object which determines how a bill will be paid. If provided, the created cadence will be
             # associated with the provided Billing Profile. If not provided, a new Billing Profile will be created and associated with the cadence.
             sig { returns(T.nilable(String)) }
-            def billing_profile; end
-            sig { params(_billing_profile: T.nilable(String)).returns(T.nilable(String)) }
-            def billing_profile=(_billing_profile); end
+            attr_accessor :billing_profile
             # The ID of the Customer object.
             sig { returns(T.nilable(String)) }
-            def customer; end
-            sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-            def customer=(_customer); end
+            attr_accessor :customer
             # A string identifying the type of the payer. Currently the only supported value is `customer`.
             sig { returns(T.nilable(String)) }
-            def type; end
-            sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-            def type=(_type); end
+            attr_accessor :type
             sig {
               params(billing_profile: T.nilable(String), customer: T.nilable(String), type: T.nilable(String)).void
              }
@@ -328,30 +240,22 @@ module Stripe
             class Bill < Stripe::RequestParams
               # The ID of the referenced settings object.
               sig { returns(String) }
-              def id; end
-              sig { params(_id: String).returns(String) }
-              def id=(_id); end
+              attr_accessor :id
               # An optional field to specify the version of the Settings to use.
               # If not provided, this will always default to the live version any time the settings are used.
               sig { returns(T.nilable(String)) }
-              def version; end
-              sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
-              def version=(_version); end
+              attr_accessor :version
               sig { params(id: String, version: T.nilable(String)).void }
               def initialize(id: nil, version: nil); end
             end
             class Collection < Stripe::RequestParams
               # The ID of the referenced settings object.
               sig { returns(String) }
-              def id; end
-              sig { params(_id: String).returns(String) }
-              def id=(_id); end
+              attr_accessor :id
               # An optional field to specify the version of the Settings to use.
               # If not provided, this will always default to the live version any time the settings are used.
               sig { returns(T.nilable(String)) }
-              def version; end
-              sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
-              def version=(_version); end
+              attr_accessor :version
               sig { params(id: String, version: T.nilable(String)).void }
               def initialize(id: nil, version: nil); end
             end
@@ -361,22 +265,14 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings::Bill))
              }
-            def bill; end
-            sig {
-              params(_bill: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings::Bill)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings::Bill))
-             }
-            def bill=(_bill); end
+            attr_accessor :bill
             # Settings that configure and manage the behavior of collecting payments.
             # If no setting is provided here, the settings from the customer referenced from the payer will be used if they exist.
             # If no customer settings are present, the merchant default settings will be used.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings::Collection))
              }
-            def collection; end
-            sig {
-              params(_collection: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings::Collection)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings::Collection))
-             }
-            def collection=(_collection); end
+            attr_accessor :collection
             sig {
               params(bill: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings::Bill), collection: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings::Collection)).void
              }
@@ -384,37 +280,19 @@ module Stripe
           end
           # The billing cycle is the object that defines future billing cycle dates.
           sig { returns(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle) }
-          def billing_cycle; end
-          sig {
-            params(_billing_cycle: ::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle).returns(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle)
-           }
-          def billing_cycle=(_billing_cycle); end
+          attr_accessor :billing_cycle
           # Additional resource to include in the response.
           sig { returns(T.nilable(T::Array[String])) }
-          def include; end
-          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def include=(_include); end
+          attr_accessor :include
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          def metadata; end
-          sig {
-            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-           }
-          def metadata=(_metadata); end
+          attr_accessor :metadata
           # The payer determines the entity financially responsible for the bill.
           sig { returns(::Stripe::V2::Billing::CadenceService::CreateParams::Payer) }
-          def payer; end
-          sig {
-            params(_payer: ::Stripe::V2::Billing::CadenceService::CreateParams::Payer).returns(::Stripe::V2::Billing::CadenceService::CreateParams::Payer)
-           }
-          def payer=(_payer); end
+          attr_accessor :payer
           # The settings associated with the cadence.
           sig { returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings)) }
-          def settings; end
-          sig {
-            params(_settings: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings))
-           }
-          def settings=(_settings); end
+          attr_accessor :settings
           sig {
             params(billing_cycle: ::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payer: ::Stripe::V2::Billing::CadenceService::CreateParams::Payer, settings: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings)).void
            }
@@ -429,9 +307,7 @@ module Stripe
         class RetrieveParams < Stripe::RequestParams
           # Additional resource to include in the response.
           sig { returns(T.nilable(T::Array[String])) }
-          def include; end
-          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def include=(_include); end
+          attr_accessor :include
           sig { params(include: T.nilable(T::Array[String])).void }
           def initialize(include: nil); end
         end
@@ -439,9 +315,7 @@ module Stripe
           class Payer < Stripe::RequestParams
             # The ID of the Billing Profile object which determines how a bill will be paid.
             sig { returns(T.nilable(String)) }
-            def billing_profile; end
-            sig { params(_billing_profile: T.nilable(String)).returns(T.nilable(String)) }
-            def billing_profile=(_billing_profile); end
+            attr_accessor :billing_profile
             sig { params(billing_profile: T.nilable(String)).void }
             def initialize(billing_profile: nil); end
           end
@@ -449,38 +323,26 @@ module Stripe
             class Bill < Stripe::RequestParams
               # The ID of the referenced settings object.
               sig { returns(String) }
-              def id; end
-              sig { params(_id: String).returns(String) }
-              def id=(_id); end
+              attr_accessor :id
               # An optional field to specify the version of Settings to use.
               # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
               # Using a specific version here will prevent the settings from updating, and is discouraged for cadences.
               # To clear a pinned version, set the version to null.
               sig { returns(T.nilable(T.nilable(String))) }
-              def version; end
-              sig {
-                params(_version: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
-              def version=(_version); end
+              attr_accessor :version
               sig { params(id: String, version: T.nilable(T.nilable(String))).void }
               def initialize(id: nil, version: nil); end
             end
             class Collection < Stripe::RequestParams
               # The ID of the referenced settings object.
               sig { returns(String) }
-              def id; end
-              sig { params(_id: String).returns(String) }
-              def id=(_id); end
+              attr_accessor :id
               # An optional field to specify the version of Settings to use.
               # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
               # Using a specific version here will prevent the settings from updating, and is discouraged for cadences.
               # To clear a pinned version, set the version to null.
               sig { returns(T.nilable(T.nilable(String))) }
-              def version; end
-              sig {
-                params(_version: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
-              def version=(_version); end
+              attr_accessor :version
               sig { params(id: String, version: T.nilable(T.nilable(String))).void }
               def initialize(id: nil, version: nil); end
             end
@@ -488,20 +350,12 @@ module Stripe
             sig {
               returns(T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill)))
              }
-            def bill; end
-            sig {
-              params(_bill: T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill))).returns(T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill)))
-             }
-            def bill=(_bill); end
+            attr_accessor :bill
             # Settings that configure and manage the behavior of collecting payments. If null is provided, the current collection settings will be removed from the billing cadence.
             sig {
               returns(T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection)))
              }
-            def collection; end
-            sig {
-              params(_collection: T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection))).returns(T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection)))
-             }
-            def collection=(_collection); end
+            attr_accessor :collection
             sig {
               params(bill: T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill)), collection: T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection))).void
              }
@@ -509,30 +363,16 @@ module Stripe
           end
           # Additional resource to include in the response.
           sig { returns(T.nilable(T::Array[String])) }
-          def include; end
-          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def include=(_include); end
+          attr_accessor :include
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
-          def metadata; end
-          sig {
-            params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
-           }
-          def metadata=(_metadata); end
+          attr_accessor :metadata
           # The payer determines the entity financially responsible for the bill.
           sig { returns(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Payer)) }
-          def payer; end
-          sig {
-            params(_payer: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Payer)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Payer))
-           }
-          def payer=(_payer); end
+          attr_accessor :payer
           # The settings associated with the cadence.
           sig { returns(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings)) }
-          def settings; end
-          sig {
-            params(_settings: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings))
-           }
-          def settings=(_settings); end
+          attr_accessor :settings
           sig {
             params(include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), payer: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Payer), settings: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings)).void
            }
@@ -541,9 +381,7 @@ module Stripe
         class CancelParams < Stripe::RequestParams
           # Additional resource to include in the response.
           sig { returns(T.nilable(T::Array[String])) }
-          def include; end
-          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-          def include=(_include); end
+          attr_accessor :include
           sig { params(include: T.nilable(T::Array[String])).void }
           def initialize(include: nil); end
         end

@@ -25,113 +25,105 @@ module Stripe
     class Data < Stripe::StripeObject
       # Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
       sig { returns(T::Hash[String, T.untyped]) }
-      def object; end
+      attr_reader :object
       # Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
       sig { returns(T::Hash[String, T.untyped]) }
-      def previous_attributes; end
+      attr_reader :previous_attributes
     end
     class Reason < Stripe::StripeObject
       class AutomationAction < Stripe::StripeObject
         class StripeSendWebhookCustomEvent < Stripe::StripeObject
           # Set of key-value pairs attached to the action when creating an Automation.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          def custom_data; end
+          attr_reader :custom_data
         end
         # Attribute for field stripe_send_webhook_custom_event
         sig { returns(StripeSendWebhookCustomEvent) }
-        def stripe_send_webhook_custom_event; end
+        attr_reader :stripe_send_webhook_custom_event
         # The trigger name of the automation that triggered this action.
         #  Please visit [Revenue and retention automations](https://docs.stripe.com/billing/automations#choose-a-trigger) for all possible trigger names.
         sig { returns(String) }
-        def trigger; end
+        attr_reader :trigger
         # The type of the `automation_action`.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
       end
       class Request < Stripe::StripeObject
         # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
         sig { returns(T.nilable(String)) }
-        def id; end
+        attr_reader :id
         # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
         sig { returns(T.nilable(String)) }
-        def idempotency_key; end
+        attr_reader :idempotency_key
       end
       # Attribute for field automation_action
       sig { returns(AutomationAction) }
-      def automation_action; end
+      attr_reader :automation_action
       # Attribute for field request
       sig { returns(Request) }
-      def request; end
+      attr_reader :request
       # The type of the reason for the event.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
     class Request < Stripe::StripeObject
       # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
       sig { returns(T.nilable(String)) }
-      def id; end
+      attr_reader :id
       # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
       sig { returns(T.nilable(String)) }
-      def idempotency_key; end
+      attr_reader :idempotency_key
     end
     # The connected account that originates the event.
     sig { returns(String) }
-    def account; end
+    attr_reader :account
     # The Stripe API version used to render `data` when the event was created. The contents of `data` never change, so this value remains static regardless of the API version currently in use. This property is populated only for events created on or after October 31, 2014.
     sig { returns(T.nilable(String)) }
-    def api_version; end
+    attr_reader :api_version
     # Authentication context needed to fetch the event or related object.
     sig { returns(String) }
-    def context; end
+    attr_reader :context
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    def created; end
+    attr_reader :created
     # Attribute for field data
     sig { returns(Data) }
-    def data; end
+    attr_reader :data
     # Unique identifier for the object.
     sig { returns(String) }
-    def id; end
+    attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    def livemode; end
+    attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
     # Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
     sig { returns(Integer) }
-    def pending_webhooks; end
+    attr_reader :pending_webhooks
     # Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://docs.stripe.com/billing/automations) action.
     sig { returns(T.nilable(Reason)) }
-    def reason; end
+    attr_reader :reason
     # Information on the API request that triggers the event.
     sig { returns(T.nilable(Request)) }
-    def request; end
+    attr_reader :request
     # Description of the event (for example, `invoice.created` or `charge.refunded`).
     sig { returns(String) }
-    def type; end
+    attr_reader :type
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def gt; end
-        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gt=(_gt); end
+        attr_accessor :gt
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def gte; end
-        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def gte=(_gte); end
+        attr_accessor :gte
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        def lt; end
-        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lt=(_lt); end
+        attr_accessor :lt
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        def lte; end
-        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def lte=(_lte); end
+        attr_accessor :lte
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -139,46 +131,28 @@ module Stripe
       end
       # Only return events that were created during the given date interval.
       sig { returns(T.nilable(T.any(::Stripe::Event::ListParams::Created, Integer))) }
-      def created; end
-      sig {
-        params(_created: T.nilable(T.any(::Stripe::Event::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Event::ListParams::Created, Integer)))
-       }
-      def created=(_created); end
+      attr_accessor :created
       # Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned.
       sig { returns(T.nilable(T::Boolean)) }
-      def delivery_success; end
-      sig { params(_delivery_success: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-      def delivery_success=(_delivery_success); end
+      attr_accessor :delivery_success
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      def ending_before; end
-      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-      def ending_before=(_ending_before); end
+      attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
+      attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      def limit; end
-      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def limit=(_limit); end
+      attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      def starting_after; end
-      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-      def starting_after=(_starting_after); end
+      attr_accessor :starting_after
       # A string containing a specific event name, or group of events using * as a wildcard. The list will be filtered to include only events with a matching event property.
       sig { returns(T.nilable(String)) }
-      def type; end
-      sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-      def type=(_type); end
+      attr_accessor :type
       # An array of up to 20 strings containing specific event names. The list will be filtered to include only events with a matching event property. You may pass either `type` or `types`, but not both.
       sig { returns(T.nilable(T::Array[String])) }
-      def types; end
-      sig { params(_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def types=(_types); end
+      attr_accessor :types
       sig {
         params(created: T.nilable(T.any(::Stripe::Event::ListParams::Created, Integer)), delivery_success: T.nilable(T::Boolean), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String), types: T.nilable(T::Array[String])).void
        }

@@ -8,16 +8,16 @@ module Stripe
     class ActiveEntitlementSummary < APIResource
       # The customer that is entitled to this feature.
       sig { returns(String) }
-      def customer; end
+      attr_reader :customer
       # The list of entitlements this customer has.
       sig { returns(Stripe::ListObject) }
-      def entitlements; end
+      attr_reader :entitlements
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
     end
   end
 end

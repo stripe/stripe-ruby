@@ -10,61 +10,51 @@ module Stripe
     class ValueList < APIResource
       # The name of the value list for use in rules.
       sig { returns(String) }
-      def alias; end
+      attr_reader :alias
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def created; end
+      attr_reader :created
       # The name or email address of the user who created this value list.
       sig { returns(String) }
-      def created_by; end
+      attr_reader :created_by
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
       sig { returns(String) }
-      def item_type; end
+      attr_reader :item_type
       # List of items contained within this value list.
       sig { returns(Stripe::ListObject) }
-      def list_items; end
+      attr_reader :list_items
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
-      def metadata; end
+      attr_reader :metadata
       # The name of the value list.
       sig { returns(String) }
-      def name; end
+      attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # Always true for a deleted object
       sig { returns(T::Boolean) }
-      def deleted; end
+      attr_reader :deleted
       class DeleteParams < Stripe::RequestParams; end
       class UpdateParams < Stripe::RequestParams
         # The name of the value list for use in rules.
         sig { returns(T.nilable(String)) }
-        def alias; end
-        sig { params(_alias: T.nilable(String)).returns(T.nilable(String)) }
-        def alias=(_alias); end
+        attr_accessor :alias
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        def metadata; end
-        sig {
-          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-         }
-        def metadata=(_metadata); end
+        attr_accessor :metadata
         # The human-readable name of the value list.
         sig { returns(T.nilable(String)) }
-        def name; end
-        sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-        def name=(_name); end
+        attr_accessor :name
         sig {
           params(alias_: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String)).void
          }
@@ -74,24 +64,16 @@ module Stripe
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           sig { returns(T.nilable(Integer)) }
-          def gt; end
-          sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def gt=(_gt); end
+          attr_accessor :gt
           # Minimum value to filter by (inclusive)
           sig { returns(T.nilable(Integer)) }
-          def gte; end
-          sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def gte=(_gte); end
+          attr_accessor :gte
           # Maximum value to filter by (exclusive)
           sig { returns(T.nilable(Integer)) }
-          def lt; end
-          sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def lt=(_lt); end
+          attr_accessor :lt
           # Maximum value to filter by (inclusive)
           sig { returns(T.nilable(Integer)) }
-          def lte; end
-          sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def lte=(_lte); end
+          attr_accessor :lte
           sig {
             params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
            }
@@ -99,41 +81,25 @@ module Stripe
         end
         # The alias used to reference the value list when writing rules.
         sig { returns(T.nilable(String)) }
-        def alias; end
-        sig { params(_alias: T.nilable(String)).returns(T.nilable(String)) }
-        def alias=(_alias); end
+        attr_accessor :alias
         # A value contained within a value list - returns all value lists containing this value.
         sig { returns(T.nilable(String)) }
-        def contains; end
-        sig { params(_contains: T.nilable(String)).returns(T.nilable(String)) }
-        def contains=(_contains); end
+        attr_accessor :contains
         # Only return value lists that were created during the given date interval.
         sig { returns(T.nilable(T.any(::Stripe::Radar::ValueList::ListParams::Created, Integer))) }
-        def created; end
-        sig {
-          params(_created: T.nilable(T.any(::Stripe::Radar::ValueList::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Radar::ValueList::ListParams::Created, Integer)))
-         }
-        def created=(_created); end
+        attr_accessor :created
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         sig {
           params(alias_: T.nilable(String), contains: T.nilable(String), created: T.nilable(T.any(::Stripe::Radar::ValueList::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }
@@ -150,31 +116,19 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         # The name of the value list for use in rules.
         sig { returns(String) }
-        def alias; end
-        sig { params(_alias: String).returns(String) }
-        def alias=(_alias); end
+        attr_accessor :alias
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`. Use `string` if the item type is unknown or mixed.
         sig { returns(T.nilable(String)) }
-        def item_type; end
-        sig { params(_item_type: T.nilable(String)).returns(T.nilable(String)) }
-        def item_type=(_item_type); end
+        attr_accessor :item_type
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        def metadata; end
-        sig {
-          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-         }
-        def metadata=(_metadata); end
+        attr_accessor :metadata
         # The human-readable name of the value list.
         sig { returns(String) }
-        def name; end
-        sig { params(_name: String).returns(String) }
-        def name=(_name); end
+        attr_accessor :name
         sig {
           params(alias_: String, expand: T.nilable(T::Array[String]), item_type: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), name: String).void
          }

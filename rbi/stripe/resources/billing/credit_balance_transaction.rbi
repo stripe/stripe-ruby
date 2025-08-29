@@ -12,68 +12,68 @@ module Stripe
             class CustomPricingUnitDetails < Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               sig { returns(Integer) }
-              def created; end
+              attr_reader :created
               # The name of the custom pricing unit.
               sig { returns(String) }
-              def display_name; end
+              attr_reader :display_name
               # Unique identifier for the object.
               sig { returns(String) }
-              def id; end
+              attr_reader :id
               # A lookup key for the custom pricing unit.
               sig { returns(T.nilable(String)) }
-              def lookup_key; end
+              attr_reader :lookup_key
               # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               sig { returns(T::Hash[String, String]) }
-              def metadata; end
+              attr_reader :metadata
               # The status of the custom pricing unit.
               sig { returns(String) }
-              def status; end
+              attr_reader :status
             end
             # The custom pricing unit object.
             sig { returns(T.nilable(CustomPricingUnitDetails)) }
-            def custom_pricing_unit_details; end
+            attr_reader :custom_pricing_unit_details
             # Unique identifier for the object.
             sig { returns(String) }
-            def id; end
+            attr_reader :id
             # A positive integer representing the amount.
             sig { returns(String) }
-            def value; end
+            attr_reader :value
           end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            def currency; end
+            attr_reader :currency
             # A positive integer representing the amount.
             sig { returns(Integer) }
-            def value; end
+            attr_reader :value
           end
           # The custom pricing unit amount.
           sig { returns(T.nilable(CustomPricingUnit)) }
-          def custom_pricing_unit; end
+          attr_reader :custom_pricing_unit
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
-          def monetary; end
+          attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
-          def type; end
+          attr_reader :type
         end
         class CreditsApplicationInvoiceVoided < Stripe::StripeObject
           # The invoice to which the reinstated billing credits were originally applied.
           sig { returns(T.any(String, Stripe::Invoice)) }
-          def invoice; end
+          attr_reader :invoice
           # The invoice line item to which the reinstated billing credits were originally applied.
           sig { returns(String) }
-          def invoice_line_item; end
+          attr_reader :invoice_line_item
         end
         # Attribute for field amount
         sig { returns(Amount) }
-        def amount; end
+        attr_reader :amount
         # Details of the invoice to which the reinstated credits were originally applied. Only present if `type` is `credits_application_invoice_voided`.
         sig { returns(T.nilable(CreditsApplicationInvoiceVoided)) }
-        def credits_application_invoice_voided; end
+        attr_reader :credits_application_invoice_voided
         # The type of credit transaction.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
       end
       class Debit < Stripe::StripeObject
         class Amount < Stripe::StripeObject
@@ -81,135 +81,121 @@ module Stripe
             class CustomPricingUnitDetails < Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               sig { returns(Integer) }
-              def created; end
+              attr_reader :created
               # The name of the custom pricing unit.
               sig { returns(String) }
-              def display_name; end
+              attr_reader :display_name
               # Unique identifier for the object.
               sig { returns(String) }
-              def id; end
+              attr_reader :id
               # A lookup key for the custom pricing unit.
               sig { returns(T.nilable(String)) }
-              def lookup_key; end
+              attr_reader :lookup_key
               # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               sig { returns(T::Hash[String, String]) }
-              def metadata; end
+              attr_reader :metadata
               # The status of the custom pricing unit.
               sig { returns(String) }
-              def status; end
+              attr_reader :status
             end
             # The custom pricing unit object.
             sig { returns(T.nilable(CustomPricingUnitDetails)) }
-            def custom_pricing_unit_details; end
+            attr_reader :custom_pricing_unit_details
             # Unique identifier for the object.
             sig { returns(String) }
-            def id; end
+            attr_reader :id
             # A positive integer representing the amount.
             sig { returns(String) }
-            def value; end
+            attr_reader :value
           end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            def currency; end
+            attr_reader :currency
             # A positive integer representing the amount.
             sig { returns(Integer) }
-            def value; end
+            attr_reader :value
           end
           # The custom pricing unit amount.
           sig { returns(T.nilable(CustomPricingUnit)) }
-          def custom_pricing_unit; end
+          attr_reader :custom_pricing_unit
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
-          def monetary; end
+          attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
-          def type; end
+          attr_reader :type
         end
         class CreditsApplied < Stripe::StripeObject
           # The invoice to which the billing credits were applied.
           sig { returns(T.any(String, Stripe::Invoice)) }
-          def invoice; end
+          attr_reader :invoice
           # The invoice line item to which the billing credits were applied.
           sig { returns(String) }
-          def invoice_line_item; end
+          attr_reader :invoice_line_item
         end
         # Attribute for field amount
         sig { returns(Amount) }
-        def amount; end
+        attr_reader :amount
         # Details of how the billing credits were applied to an invoice. Only present if `type` is `credits_applied`.
         sig { returns(T.nilable(CreditsApplied)) }
-        def credits_applied; end
+        attr_reader :credits_applied
         # The type of debit transaction.
         sig { returns(String) }
-        def type; end
+        attr_reader :type
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def created; end
+      attr_reader :created
       # Credit details for this credit balance transaction. Only present if type is `credit`.
       sig { returns(T.nilable(Credit)) }
-      def credit; end
+      attr_reader :credit
       # The credit grant associated with this credit balance transaction.
       sig { returns(T.any(String, Stripe::Billing::CreditGrant)) }
-      def credit_grant; end
+      attr_reader :credit_grant
       # Debit details for this credit balance transaction. Only present if type is `debit`.
       sig { returns(T.nilable(Debit)) }
-      def debit; end
+      attr_reader :debit
       # The effective time of this credit balance transaction.
       sig { returns(Integer) }
-      def effective_at; end
+      attr_reader :effective_at
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # ID of the test clock this credit balance transaction belongs to.
       sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
-      def test_clock; end
+      attr_reader :test_clock
       # The type of credit balance transaction (credit or debit).
       sig { returns(T.nilable(String)) }
-      def type; end
+      attr_reader :type
       class ListParams < Stripe::RequestParams
         # The credit grant for which to fetch credit balance transactions.
         sig { returns(T.nilable(String)) }
-        def credit_grant; end
-        sig { params(_credit_grant: T.nilable(String)).returns(T.nilable(String)) }
-        def credit_grant=(_credit_grant); end
+        attr_accessor :credit_grant
         # The customer for which to fetch credit balance transactions.
         sig { returns(T.nilable(String)) }
-        def customer; end
-        sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-        def customer=(_customer); end
+        attr_accessor :customer
         # The account for which to fetch credit balance transactions.
         sig { returns(T.nilable(String)) }
-        def customer_account; end
-        sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
-        def customer_account=(_customer_account); end
+        attr_accessor :customer_account
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        def ending_before; end
-        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-        def ending_before=(_ending_before); end
+        attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
+        attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        def limit; end
-        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def limit=(_limit); end
+        attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        def starting_after; end
-        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-        def starting_after=(_starting_after); end
+        attr_accessor :starting_after
         sig {
           params(credit_grant: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }

@@ -8,79 +8,79 @@ module Stripe
       class Card < Stripe::StripeObject
         # Attribute for field commodity_code
         sig { returns(T.nilable(String)) }
-        def commodity_code; end
+        attr_reader :commodity_code
       end
       class CardPresent < Stripe::StripeObject
         # Attribute for field commodity_code
         sig { returns(T.nilable(String)) }
-        def commodity_code; end
+        attr_reader :commodity_code
       end
       class Klarna < Stripe::StripeObject
         # Attribute for field image_url
         sig { returns(T.nilable(String)) }
-        def image_url; end
+        attr_reader :image_url
         # Attribute for field product_url
         sig { returns(T.nilable(String)) }
-        def product_url; end
+        attr_reader :product_url
       end
       class Paypal < Stripe::StripeObject
         # Type of the line item.
         sig { returns(String) }
-        def category; end
+        attr_reader :category
         # Description of the line item.
         sig { returns(String) }
-        def description; end
+        attr_reader :description
         # The Stripe account ID of the connected account that sells the item. This is only needed when using [Separate Charges and Transfers](https://docs.stripe.com/connect/separate-charges-and-transfers).
         sig { returns(String) }
-        def sold_by; end
+        attr_reader :sold_by
       end
       # Attribute for field card
       sig { returns(Card) }
-      def card; end
+      attr_reader :card
       # Attribute for field card_present
       sig { returns(CardPresent) }
-      def card_present; end
+      attr_reader :card_present
       # Attribute for field klarna
       sig { returns(Klarna) }
-      def klarna; end
+      attr_reader :klarna
       # Attribute for field paypal
       sig { returns(Paypal) }
-      def paypal; end
+      attr_reader :paypal
     end
     class Tax < Stripe::StripeObject
       # Total portion of the amount that is for tax.
       sig { returns(Integer) }
-      def total_tax_amount; end
+      attr_reader :total_tax_amount
     end
     # The amount an item was discounted for. Positive integer.
     sig { returns(T.nilable(Integer)) }
-    def discount_amount; end
+    attr_reader :discount_amount
     # Unique identifier for the object.
     sig { returns(String) }
-    def id; end
+    attr_reader :id
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    def object; end
+    attr_reader :object
     # Payment method-specific information for line items.
     sig { returns(T.nilable(PaymentMethodOptions)) }
-    def payment_method_options; end
+    attr_reader :payment_method_options
     # Unique identifier of the product. At most 12 characters long.
     sig { returns(T.nilable(String)) }
-    def product_code; end
+    attr_reader :product_code
     # Name of the product. At most 100 characters long.
     sig { returns(String) }
-    def product_name; end
+    attr_reader :product_name
     # Number of items of the product. Positive integer.
     sig { returns(Integer) }
-    def quantity; end
+    attr_reader :quantity
     # Contains information about the tax on the item.
     sig { returns(T.nilable(Tax)) }
-    def tax; end
+    attr_reader :tax
     # Cost of the product. Non-negative integer.
     sig { returns(Integer) }
-    def unit_cost; end
+    attr_reader :unit_cost
     # A unit of measure for the line item, such as gallons, feet, meters, etc.
     sig { returns(T.nilable(String)) }
-    def unit_of_measure; end
+    attr_reader :unit_of_measure
   end
 end

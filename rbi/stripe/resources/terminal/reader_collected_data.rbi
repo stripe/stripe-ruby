@@ -9,26 +9,26 @@ module Stripe
       class Magstripe < Stripe::StripeObject
         # The raw magstripe data collected by the reader.
         sig { returns(T.nilable(String)) }
-        def data; end
+        attr_reader :data
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      def created; end
+      attr_reader :created
       # Unique identifier for the object.
       sig { returns(String) }
-      def id; end
+      attr_reader :id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      def livemode; end
+      attr_reader :livemode
       # The magstripe data collected by the reader.
       sig { returns(T.nilable(Magstripe)) }
-      def magstripe; end
+      attr_reader :magstripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      def object; end
+      attr_reader :object
       # The type of data collected by the reader.
       sig { returns(String) }
-      def type; end
+      attr_reader :type
     end
   end
 end

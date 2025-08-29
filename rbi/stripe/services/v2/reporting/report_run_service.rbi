@@ -11,9 +11,7 @@ module Stripe
             class ArrayValue < Stripe::RequestParams
               # The list of string values in the array.
               sig { returns(T::Array[String]) }
-              def items; end
-              sig { params(_items: T::Array[String]).returns(T::Array[String]) }
-              def items=(_items); end
+              attr_accessor :items
               sig { params(items: T::Array[String]).void }
               def initialize(items: nil); end
             end
@@ -21,21 +19,13 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Reporting::ReportRunService::CreateParams::ReportParameters::ArrayValue))
              }
-            def array_value; end
-            sig {
-              params(_array_value: T.nilable(::Stripe::V2::Reporting::ReportRunService::CreateParams::ReportParameters::ArrayValue)).returns(T.nilable(::Stripe::V2::Reporting::ReportRunService::CreateParams::ReportParameters::ArrayValue))
-             }
-            def array_value=(_array_value); end
+            attr_accessor :array_value
             # Parameter with a string data type.
             sig { returns(T.nilable(String)) }
-            def string_value; end
-            sig { params(_string_value: T.nilable(String)).returns(T.nilable(String)) }
-            def string_value=(_string_value); end
+            attr_accessor :string_value
             # Parameter with a timestamp data type.
             sig { returns(T.nilable(String)) }
-            def timestamp_value; end
-            sig { params(_timestamp_value: T.nilable(String)).returns(T.nilable(String)) }
-            def timestamp_value=(_timestamp_value); end
+            attr_accessor :timestamp_value
             sig {
               params(array_value: T.nilable(::Stripe::V2::Reporting::ReportRunService::CreateParams::ReportParameters::ArrayValue), string_value: T.nilable(String), timestamp_value: T.nilable(String)).void
              }
@@ -45,36 +35,24 @@ module Stripe
             # If set, the generated report file will be compressed into a ZIP folder.
             # This is useful for reducing file size and download time for large reports.
             sig { returns(T.nilable(T::Boolean)) }
-            def compress_file; end
-            sig { params(_compress_file: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-            def compress_file=(_compress_file); end
+            attr_accessor :compress_file
             sig { params(compress_file: T.nilable(T::Boolean)).void }
             def initialize(compress_file: nil); end
           end
           # The unique identifier of the `Report` being requested.
           sig { returns(String) }
-          def report; end
-          sig { params(_report: String).returns(String) }
-          def report=(_report); end
+          attr_accessor :report
           # A map of parameter names to values, specifying how the report should be customized.
           # The accepted parameters depend on the specific `Report` being run.
           sig {
             returns(T::Hash[String, ::Stripe::V2::Reporting::ReportRunService::CreateParams::ReportParameters])
            }
-          def report_parameters; end
-          sig {
-            params(_report_parameters: T::Hash[String, ::Stripe::V2::Reporting::ReportRunService::CreateParams::ReportParameters]).returns(T::Hash[String, ::Stripe::V2::Reporting::ReportRunService::CreateParams::ReportParameters])
-           }
-          def report_parameters=(_report_parameters); end
+          attr_accessor :report_parameters
           # Optional settings to customize the results of the `ReportRun`.
           sig {
             returns(T.nilable(::Stripe::V2::Reporting::ReportRunService::CreateParams::ResultOptions))
            }
-          def result_options; end
-          sig {
-            params(_result_options: T.nilable(::Stripe::V2::Reporting::ReportRunService::CreateParams::ResultOptions)).returns(T.nilable(::Stripe::V2::Reporting::ReportRunService::CreateParams::ResultOptions))
-           }
-          def result_options=(_result_options); end
+          attr_accessor :result_options
           sig {
             params(report: String, report_parameters: T::Hash[String, ::Stripe::V2::Reporting::ReportRunService::CreateParams::ReportParameters], result_options: T.nilable(::Stripe::V2::Reporting::ReportRunService::CreateParams::ResultOptions)).void
            }

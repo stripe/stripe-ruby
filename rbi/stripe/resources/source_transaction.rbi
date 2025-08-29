@@ -11,117 +11,117 @@ module Stripe
     class AchCreditTransfer < Stripe::StripeObject
       # Customer data associated with the transfer.
       sig { returns(String) }
-      attr_reader :customer_data
+      def customer_data; end
       # Bank account fingerprint associated with the transfer.
       sig { returns(String) }
-      attr_reader :fingerprint
+      def fingerprint; end
       # Last 4 digits of the account number associated with the transfer.
       sig { returns(String) }
-      attr_reader :last4
+      def last4; end
       # Routing number associated with the transfer.
       sig { returns(String) }
-      attr_reader :routing_number
+      def routing_number; end
     end
     class ChfCreditTransfer < Stripe::StripeObject
       # Reference associated with the transfer.
       sig { returns(String) }
-      attr_reader :reference
+      def reference; end
       # Sender's country address.
       sig { returns(String) }
-      attr_reader :sender_address_country
+      def sender_address_country; end
       # Sender's line 1 address.
       sig { returns(String) }
-      attr_reader :sender_address_line1
+      def sender_address_line1; end
       # Sender's bank account IBAN.
       sig { returns(String) }
-      attr_reader :sender_iban
+      def sender_iban; end
       # Sender's name.
       sig { returns(String) }
-      attr_reader :sender_name
+      def sender_name; end
     end
     class GbpCreditTransfer < Stripe::StripeObject
       # Bank account fingerprint associated with the Stripe owned bank account receiving the transfer.
       sig { returns(String) }
-      attr_reader :fingerprint
+      def fingerprint; end
       # The credit transfer rails the sender used to push this transfer. The possible rails are: Faster Payments, BACS, CHAPS, and wire transfers. Currently only Faster Payments is supported.
       sig { returns(String) }
-      attr_reader :funding_method
+      def funding_method; end
       # Last 4 digits of sender account number associated with the transfer.
       sig { returns(String) }
-      attr_reader :last4
+      def last4; end
       # Sender entered arbitrary information about the transfer.
       sig { returns(String) }
-      attr_reader :reference
+      def reference; end
       # Sender account number associated with the transfer.
       sig { returns(String) }
-      attr_reader :sender_account_number
+      def sender_account_number; end
       # Sender name associated with the transfer.
       sig { returns(String) }
-      attr_reader :sender_name
+      def sender_name; end
       # Sender sort code associated with the transfer.
       sig { returns(String) }
-      attr_reader :sender_sort_code
+      def sender_sort_code; end
     end
     class PaperCheck < Stripe::StripeObject
       # Time at which the deposited funds will be available for use. Measured in seconds since the Unix epoch.
       sig { returns(String) }
-      attr_reader :available_at
+      def available_at; end
       # Comma-separated list of invoice IDs associated with the paper check.
       sig { returns(String) }
-      attr_reader :invoices
+      def invoices; end
     end
     class SepaCreditTransfer < Stripe::StripeObject
       # Reference associated with the transfer.
       sig { returns(String) }
-      attr_reader :reference
+      def reference; end
       # Sender's bank account IBAN.
       sig { returns(String) }
-      attr_reader :sender_iban
+      def sender_iban; end
       # Sender's name.
       sig { returns(String) }
-      attr_reader :sender_name
+      def sender_name; end
     end
     # Attribute for field ach_credit_transfer
     sig { returns(AchCreditTransfer) }
-    attr_reader :ach_credit_transfer
+    def ach_credit_transfer; end
     # A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the amount your customer has pushed to the receiver.
     sig { returns(Integer) }
-    attr_reader :amount
+    def amount; end
     # Attribute for field chf_credit_transfer
     sig { returns(ChfCreditTransfer) }
-    attr_reader :chf_credit_transfer
+    def chf_credit_transfer; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    attr_reader :created
+    def created; end
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
-    attr_reader :currency
+    def currency; end
     # Attribute for field gbp_credit_transfer
     sig { returns(GbpCreditTransfer) }
-    attr_reader :gbp_credit_transfer
+    def gbp_credit_transfer; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # Attribute for field paper_check
     sig { returns(PaperCheck) }
-    attr_reader :paper_check
+    def paper_check; end
     # Attribute for field sepa_credit_transfer
     sig { returns(SepaCreditTransfer) }
-    attr_reader :sepa_credit_transfer
+    def sepa_credit_transfer; end
     # The ID of the source this transaction is attached to.
     sig { returns(String) }
-    attr_reader :source
+    def source; end
     # The status of the transaction, one of `succeeded`, `pending`, or `failed`.
     sig { returns(String) }
-    attr_reader :status
+    def status; end
     # The type of source this transaction is attached to.
     sig { returns(String) }
-    attr_reader :type
+    def type; end
   end
 end

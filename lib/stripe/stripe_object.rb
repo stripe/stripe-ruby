@@ -163,11 +163,9 @@ module Stripe
     private def convert_value_with_inner_types(key, value, opts)
       inner_class = _get_inner_class_type(key)
 
-      # Only use inner class type if it's not the Class class itself (which happens when .class is used)
-      if inner_class && inner_class != Class
+      if inner_class
         Util.convert_to_stripe_object(value, opts, api_mode: @api_mode, requestor: @requestor, klass: inner_class)
       else
-        # Fall back to regular conversion without inner class type
         Util.convert_to_stripe_object(value, opts, api_mode: @api_mode, requestor: @requestor)
       end
     end

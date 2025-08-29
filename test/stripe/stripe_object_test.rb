@@ -695,6 +695,7 @@ module Stripe
         account = Stripe::Util.convert_to_stripe_object(test_data)
         assert account.is_a?(Stripe::Account)
         assert account.business_profile.is_a?(Stripe::Account::BusinessProfile)
+        assert_nil account.company
       end
 
       should "handle empty inner class types gracefully" do

@@ -53,7 +53,7 @@ module Stripe
             attr_accessor :interval
             # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
             attr_accessor :monthly_payout_days
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_payout_days
 
             def initialize(interval: nil, monthly_payout_days: nil, weekly_payout_days: nil)
@@ -74,7 +74,7 @@ module Stripe
         end
 
         class SettlementTiming < Stripe::RequestParams
-          # The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](/connect/manage-payout-schedule).
+          # The number of days charge funds are held before becoming available. The default value is `minimum`, representing the lowest available value for the account. The maximum value is 31. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling delay days](/connect/manage-payout-schedule).
           attr_accessor :delay_days_override
 
           def initialize(delay_days_override: nil)

@@ -29,7 +29,7 @@ module Stripe
               params(_monthly_payout_days: T.nilable(T::Array[Integer])).returns(T.nilable(T::Array[Integer]))
              }
             def monthly_payout_days=(_monthly_payout_days); end
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             sig { returns(T.nilable(T::Array[String])) }
             def weekly_payout_days; end
             sig {
@@ -61,7 +61,7 @@ module Stripe
           def initialize(schedule: nil, statement_descriptor: nil); end
         end
         class SettlementTiming < Stripe::RequestParams
-          # The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](/connect/manage-payout-schedule).
+          # The number of days charge funds are held before becoming available. The default value is `minimum`, representing the lowest available value for the account. The maximum value is 31. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling delay days](/connect/manage-payout-schedule).
           sig { returns(T.nilable(Integer)) }
           def delay_days_override; end
           sig { params(_delay_days_override: T.nilable(Integer)).returns(T.nilable(Integer)) }

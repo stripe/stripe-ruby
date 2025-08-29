@@ -1177,8 +1177,6 @@ module Stripe
          }
         def initialize(exp_month: nil, exp_year: nil, networks: nil); end
       end
-      class Link < Stripe::RequestParams; end
-      class PayByBank < Stripe::RequestParams; end
       class Payto < Stripe::RequestParams
         # The account number for the bank account.
         sig { returns(T.nilable(String)) }
@@ -1238,13 +1236,6 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
-      sig { returns(T.nilable(::Stripe::PaymentMethodService::UpdateParams::Link)) }
-      def link; end
-      sig {
-        params(_link: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Link)).returns(T.nilable(::Stripe::PaymentMethodService::UpdateParams::Link))
-       }
-      def link=(_link); end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
@@ -1252,13 +1243,6 @@ module Stripe
         params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
        }
       def metadata=(_metadata); end
-      # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
-      sig { returns(T.nilable(::Stripe::PaymentMethodService::UpdateParams::PayByBank)) }
-      def pay_by_bank; end
-      sig {
-        params(_pay_by_bank: T.nilable(::Stripe::PaymentMethodService::UpdateParams::PayByBank)).returns(T.nilable(::Stripe::PaymentMethodService::UpdateParams::PayByBank))
-       }
-      def pay_by_bank=(_pay_by_bank); end
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       sig { returns(T.nilable(::Stripe::PaymentMethodService::UpdateParams::Payto)) }
       def payto; end
@@ -1274,16 +1258,14 @@ module Stripe
        }
       def us_bank_account=(_us_bank_account); end
       sig {
-        params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodService::UpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Card), expand: T.nilable(T::Array[String]), link: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Link), metadata: T.nilable(T.any(String, T::Hash[String, String])), pay_by_bank: T.nilable(::Stripe::PaymentMethodService::UpdateParams::PayByBank), payto: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Payto), us_bank_account: T.nilable(::Stripe::PaymentMethodService::UpdateParams::UsBankAccount)).void
+        params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodService::UpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Card), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payto: T.nilable(::Stripe::PaymentMethodService::UpdateParams::Payto), us_bank_account: T.nilable(::Stripe::PaymentMethodService::UpdateParams::UsBankAccount)).void
        }
       def initialize(
         allow_redisplay: nil,
         billing_details: nil,
         card: nil,
         expand: nil,
-        link: nil,
         metadata: nil,
-        pay_by_bank: nil,
         payto: nil,
         us_bank_account: nil
       ); end

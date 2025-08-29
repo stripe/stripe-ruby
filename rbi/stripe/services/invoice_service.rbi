@@ -544,7 +544,7 @@ module Stripe
           params(_payment_method_options: T.nilable(::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions)).returns(T.nilable(::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions))
          }
         def payment_method_options=(_payment_method_options); end
-        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         def payment_method_types; end
         sig {
@@ -1747,7 +1747,7 @@ module Stripe
           params(_payment_method_options: T.nilable(::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions)).returns(T.nilable(::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions))
          }
         def payment_method_options=(_payment_method_options); end
-        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         def payment_method_types; end
         sig {
@@ -4848,7 +4848,7 @@ module Stripe
               params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
              }
             def metadata=(_metadata); end
-            # The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+            # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
             sig {
               returns(T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period))
              }

@@ -3059,12 +3059,12 @@ module Stripe
               params(_monthly_payout_days: T.nilable(T::Array[Integer])).returns(T.nilable(T::Array[Integer]))
              }
             def monthly_payout_days=(_monthly_payout_days); end
-            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
             sig { returns(T.nilable(String)) }
             def weekly_anchor; end
             sig { params(_weekly_anchor: T.nilable(String)).returns(T.nilable(String)) }
             def weekly_anchor=(_weekly_anchor); end
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             sig { returns(T.nilable(T::Array[String])) }
             def weekly_payout_days; end
             sig {
@@ -6635,12 +6635,12 @@ module Stripe
               params(_monthly_payout_days: T.nilable(T::Array[Integer])).returns(T.nilable(T::Array[Integer]))
              }
             def monthly_payout_days=(_monthly_payout_days); end
-            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
             sig { returns(T.nilable(String)) }
             def weekly_anchor; end
             sig { params(_weekly_anchor: T.nilable(String)).returns(T.nilable(String)) }
             def weekly_anchor=(_weekly_anchor); end
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             sig { returns(T.nilable(T::Array[String])) }
             def weekly_payout_days; end
             sig {

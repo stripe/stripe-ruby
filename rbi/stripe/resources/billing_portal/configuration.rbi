@@ -106,6 +106,9 @@ module Stripe
           # Attribute for field schedule_at_period_end
           sig { returns(ScheduleAtPeriodEnd) }
           def schedule_at_period_end; end
+          # Determines how handle updates to trialing subscriptions. Valid values are `end_trial` and `continue_trial`. Defaults to a value of `end_trial` if you don't set it during creation.
+          sig { returns(String) }
+          def trial_update_behavior; end
         end
         # Attribute for field customer_update
         sig { returns(CustomerUpdate) }
@@ -434,15 +437,21 @@ module Stripe
               params(_schedule_at_period_end: T.nilable(::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).returns(T.nilable(::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd))
              }
             def schedule_at_period_end=(_schedule_at_period_end); end
+            # The behavior when updating a subscription that is trialing.
+            sig { returns(T.nilable(String)) }
+            def trial_update_behavior; end
+            sig { params(_trial_update_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def trial_update_behavior=(_trial_update_behavior); end
             sig {
-              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T::Boolean, products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).void
+              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T::Boolean, products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd), trial_update_behavior: T.nilable(String)).void
              }
             def initialize(
               default_allowed_updates: nil,
               enabled: nil,
               products: nil,
               proration_behavior: nil,
-              schedule_at_period_end: nil
+              schedule_at_period_end: nil,
+              trial_update_behavior: nil
             ); end
           end
           # Information about updating the customer details in the portal.
@@ -786,15 +795,21 @@ module Stripe
               params(_schedule_at_period_end: T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).returns(T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd))
              }
             def schedule_at_period_end=(_schedule_at_period_end); end
+            # The behavior when updating a subscription that is trialing.
+            sig { returns(T.nilable(String)) }
+            def trial_update_behavior; end
+            sig { params(_trial_update_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def trial_update_behavior=(_trial_update_behavior); end
             sig {
-              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean), products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).void
+              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean), products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd), trial_update_behavior: T.nilable(String)).void
              }
             def initialize(
               default_allowed_updates: nil,
               enabled: nil,
               products: nil,
               proration_behavior: nil,
-              schedule_at_period_end: nil
+              schedule_at_period_end: nil,
+              trial_update_behavior: nil
             ); end
           end
           # Information about updating the customer details in the portal.

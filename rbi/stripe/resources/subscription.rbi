@@ -692,7 +692,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         sig { returns(T.nilable(::Stripe::Subscription::UpdateParams::AddInvoiceItem::Period)) }
         def period; end
         sig {
@@ -2194,7 +2194,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         sig { returns(T.nilable(::Stripe::Subscription::CreateParams::AddInvoiceItem::Period)) }
         def period; end
         sig {

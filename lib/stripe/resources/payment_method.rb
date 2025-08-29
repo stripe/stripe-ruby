@@ -1476,9 +1476,6 @@ module Stripe
         end
       end
 
-      class Link < Stripe::RequestParams; end
-      class PayByBank < Stripe::RequestParams; end
-
       class Payto < Stripe::RequestParams
         # The account number for the bank account.
         attr_accessor :account_number
@@ -1513,12 +1510,8 @@ module Stripe
       attr_accessor :card
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
-      attr_accessor :link
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-      # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
-      attr_accessor :pay_by_bank
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       attr_accessor :payto
       # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -1529,9 +1522,7 @@ module Stripe
         billing_details: nil,
         card: nil,
         expand: nil,
-        link: nil,
         metadata: nil,
-        pay_by_bank: nil,
         payto: nil,
         us_bank_account: nil
       )
@@ -1539,9 +1530,7 @@ module Stripe
         @billing_details = billing_details
         @card = card
         @expand = expand
-        @link = link
         @metadata = metadata
-        @pay_by_bank = pay_by_bank
         @payto = payto
         @us_bank_account = us_bank_account
       end

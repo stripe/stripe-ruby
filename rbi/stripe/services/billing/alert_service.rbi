@@ -59,7 +59,7 @@ module Stripe
           # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
           sig { returns(String) }
           attr_accessor :meter
-          # Whether the alert should only fire only once, or once per billing cycle.
+          # Defines how the alert will behave.
           sig { returns(String) }
           attr_accessor :recurrence
           sig {

@@ -184,15 +184,19 @@ module Stripe
               returns(T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd))
              }
             attr_accessor :schedule_at_period_end
+            # The behavior when updating a subscription that is trialing.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :trial_update_behavior
             sig {
-              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T::Boolean, products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).void
+              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T::Boolean, products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationService::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd), trial_update_behavior: T.nilable(String)).void
              }
             def initialize(
               default_allowed_updates: nil,
               enabled: nil,
               products: nil,
               proration_behavior: nil,
-              schedule_at_period_end: nil
+              schedule_at_period_end: nil,
+              trial_update_behavior: nil
             ); end
           end
           # Information about updating the customer details in the portal.
@@ -433,15 +437,19 @@ module Stripe
               returns(T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd))
              }
             attr_accessor :schedule_at_period_end
+            # The behavior when updating a subscription that is trialing.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :trial_update_behavior
             sig {
-              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean), products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)).void
+              params(default_allowed_updates: T.nilable(T.any(String, T::Array[String])), enabled: T.nilable(T::Boolean), products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::Product])), proration_behavior: T.nilable(String), schedule_at_period_end: T.nilable(::Stripe::BillingPortal::ConfigurationService::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd), trial_update_behavior: T.nilable(String)).void
              }
             def initialize(
               default_allowed_updates: nil,
               enabled: nil,
               products: nil,
               proration_behavior: nil,
-              schedule_at_period_end: nil
+              schedule_at_period_end: nil,
+              trial_update_behavior: nil
             ); end
           end
           # Information about updating the customer details in the portal.

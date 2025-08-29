@@ -10,16 +10,24 @@ module Stripe
           class CreateParams < Stripe::RequestParams
             # The account number of the bank account.
             sig { returns(String) }
-            attr_accessor :account_number
+            def account_number; end
+            sig { params(_account_number: String).returns(String) }
+            def account_number=(_account_number); end
             # Closed Enum. The type of the bank account (checking or savings).
             sig { returns(T.nilable(String)) }
-            attr_accessor :bank_account_type
+            def bank_account_type; end
+            sig { params(_bank_account_type: T.nilable(String)).returns(T.nilable(String)) }
+            def bank_account_type=(_bank_account_type); end
             # The fedwire routing number of the bank account. Note that certain banks have the same ACH and wire routing number.
             sig { returns(T.nilable(String)) }
-            attr_accessor :fedwire_routing_number
+            def fedwire_routing_number; end
+            sig { params(_fedwire_routing_number: T.nilable(String)).returns(T.nilable(String)) }
+            def fedwire_routing_number=(_fedwire_routing_number); end
             # The ACH routing number of the bank account. Note that certain banks have the same ACH and wire routing number.
             sig { returns(T.nilable(String)) }
-            attr_accessor :routing_number
+            def routing_number; end
+            sig { params(_routing_number: T.nilable(String)).returns(T.nilable(String)) }
+            def routing_number=(_routing_number); end
             sig {
               params(account_number: String, bank_account_type: T.nilable(String), fedwire_routing_number: T.nilable(String), routing_number: T.nilable(String)).void
              }
@@ -34,10 +42,14 @@ module Stripe
           class UpdateParams < Stripe::RequestParams
             # The bank account's fedwire routing number can be provided for update it was were empty previously.
             sig { returns(T.nilable(String)) }
-            attr_accessor :fedwire_routing_number
+            def fedwire_routing_number; end
+            sig { params(_fedwire_routing_number: T.nilable(String)).returns(T.nilable(String)) }
+            def fedwire_routing_number=(_fedwire_routing_number); end
             # The bank account's ACH routing number can be provided for update if it was empty previously.
             sig { returns(T.nilable(String)) }
-            attr_accessor :routing_number
+            def routing_number; end
+            sig { params(_routing_number: T.nilable(String)).returns(T.nilable(String)) }
+            def routing_number=(_routing_number); end
             sig {
               params(fedwire_routing_number: T.nilable(String), routing_number: T.nilable(String)).void
              }

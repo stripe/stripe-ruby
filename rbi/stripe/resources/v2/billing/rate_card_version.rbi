@@ -8,19 +8,19 @@ module Stripe
       class RateCardVersion < APIResource
         # Timestamp of when the object was created.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # Unique identifier for the object.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # The ID of the Rate Card that this version belongs to.
         sig { returns(String) }
-        attr_reader :rate_card_id
+        def rate_card_id; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
       end
     end
   end

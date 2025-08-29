@@ -9,60 +9,60 @@ module Stripe
         class LicenseFee < Stripe::StripeObject
           # The ID of the License Fee.
           sig { returns(String) }
-          attr_reader :id
+          def id; end
           # The version of the LicenseFee. Defaults to 'latest', if not specified.
           sig { returns(T.nilable(String)) }
-          attr_reader :version
+          def version; end
         end
         class RateCard < Stripe::StripeObject
           # The ID of the Rate Card.
           sig { returns(String) }
-          attr_reader :id
+          def id; end
           # The version of the RateCard. Defaults to 'latest', if not specified.
           sig { returns(T.nilable(String)) }
-          attr_reader :version
+          def version; end
         end
         class ServiceAction < Stripe::StripeObject
           # The ID of the service action.
           sig { returns(String) }
-          attr_reader :id
+          def id; end
         end
         # Time at which the object was created.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # Unique identifier for the object.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # An internal key you can use to search for a particular PricingPlanComponent.
         sig { returns(T.nilable(String)) }
-        attr_reader :lookup_key
+        def lookup_key; end
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_reader :metadata
+        def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # The ID of the Pricing Plan this component belongs to.
         sig { returns(String) }
-        attr_reader :pricing_plan
+        def pricing_plan; end
         # The ID of the Pricing Plan Version this component belongs to.
         sig { returns(String) }
-        attr_reader :pricing_plan_version
+        def pricing_plan_version; end
         # The type of the PricingPlanComponent.
         sig { returns(String) }
-        attr_reader :type
+        def type; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
         # Details if this component is a License Fee.
         sig { returns(T.nilable(LicenseFee)) }
-        attr_reader :license_fee
+        def license_fee; end
         # Details if this component is a Rate Card.
         sig { returns(T.nilable(RateCard)) }
-        attr_reader :rate_card
+        def rate_card; end
         # Details if this component is a Service Action.
         sig { returns(T.nilable(ServiceAction)) }
-        attr_reader :service_action
+        def service_action; end
       end
     end
   end

@@ -9,25 +9,39 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # Filter for Transactions created at an exact time.
           sig { returns(T.nilable(String)) }
-          attr_accessor :created
+          def created; end
+          sig { params(_created: T.nilable(String)).returns(T.nilable(String)) }
+          def created=(_created); end
           # Filter for Transactions created after the specified timestamp.
           sig { returns(T.nilable(String)) }
-          attr_accessor :created_gt
+          def created_gt; end
+          sig { params(_created_gt: T.nilable(String)).returns(T.nilable(String)) }
+          def created_gt=(_created_gt); end
           # Filter for Transactions created at or after the specified timestamp.
           sig { returns(T.nilable(String)) }
-          attr_accessor :created_gte
+          def created_gte; end
+          sig { params(_created_gte: T.nilable(String)).returns(T.nilable(String)) }
+          def created_gte=(_created_gte); end
           # Filter for Transactions created before the specified timestamp.
           sig { returns(T.nilable(String)) }
-          attr_accessor :created_lt
+          def created_lt; end
+          sig { params(_created_lt: T.nilable(String)).returns(T.nilable(String)) }
+          def created_lt=(_created_lt); end
           # Filter for Transactions created at or before the specified timestamp.
           sig { returns(T.nilable(String)) }
-          attr_accessor :created_lte
+          def created_lte; end
+          sig { params(_created_lte: T.nilable(String)).returns(T.nilable(String)) }
+          def created_lte=(_created_lte); end
           # The page limit.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
+          def limit; end
+          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def limit=(_limit); end
           # Filter for TransactionEntries belonging to a Transaction.
           sig { returns(T.nilable(String)) }
-          attr_accessor :transaction
+          def transaction; end
+          sig { params(_transaction: T.nilable(String)).returns(T.nilable(String)) }
+          def transaction=(_transaction); end
           sig {
             params(created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer), transaction: T.nilable(String)).void
            }

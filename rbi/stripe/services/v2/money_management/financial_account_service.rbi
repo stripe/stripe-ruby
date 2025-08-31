@@ -9,10 +9,14 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # The page limit.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
+          def limit; end
+          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def limit=(_limit); end
           # The status of the FinancialAccount to filter by. By default, closed FinancialAccounts are not returned.
           sig { returns(T.nilable(String)) }
-          attr_accessor :status
+          def status; end
+          sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+          def status=(_status); end
           sig { params(limit: T.nilable(Integer), status: T.nilable(String)).void }
           def initialize(limit: nil, status: nil); end
         end
@@ -20,24 +24,38 @@ module Stripe
           class Storage < Stripe::RequestParams
             # The currencies that this FinancialAccount can hold.
             sig { returns(T::Array[String]) }
-            attr_accessor :holds_currencies
+            def holds_currencies; end
+            sig { params(_holds_currencies: T::Array[String]).returns(T::Array[String]) }
+            def holds_currencies=(_holds_currencies); end
             sig { params(holds_currencies: T::Array[String]).void }
             def initialize(holds_currencies: nil); end
           end
           # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
           sig { returns(T.nilable(String)) }
-          attr_accessor :display_name
+          def display_name; end
+          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+          def display_name=(_display_name); end
           # Metadata associated with the FinancialAccount.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          attr_accessor :metadata
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
           # Parameters specific to creating `storage` type FinancialAccounts.
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CreateParams::Storage))
            }
-          attr_accessor :storage
+          def storage; end
+          sig {
+            params(_storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CreateParams::Storage)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CreateParams::Storage))
+           }
+          def storage=(_storage); end
           # The type of FinancialAccount to create.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(display_name: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CreateParams::Storage), type: String).void
            }
@@ -48,10 +66,14 @@ module Stripe
           class ForwardingSettings < Stripe::RequestParams
             # The address to send forwarded payments to.
             sig { returns(T.nilable(String)) }
-            attr_accessor :payment_method
+            def payment_method; end
+            sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+            def payment_method=(_payment_method); end
             # The address to send forwarded payouts to.
             sig { returns(T.nilable(String)) }
-            attr_accessor :payout_method
+            def payout_method; end
+            sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
+            def payout_method=(_payout_method); end
             sig { params(payment_method: T.nilable(String), payout_method: T.nilable(String)).void }
             def initialize(payment_method: nil, payout_method: nil); end
           end
@@ -59,7 +81,11 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CloseParams::ForwardingSettings))
            }
-          attr_accessor :forwarding_settings
+          def forwarding_settings; end
+          sig {
+            params(_forwarding_settings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CloseParams::ForwardingSettings)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CloseParams::ForwardingSettings))
+           }
+          def forwarding_settings=(_forwarding_settings); end
           sig {
             params(forwarding_settings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountService::CloseParams::ForwardingSettings)).void
            }

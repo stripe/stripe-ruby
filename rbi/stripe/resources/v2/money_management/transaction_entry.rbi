@@ -10,78 +10,78 @@ module Stripe
         class BalanceImpact < Stripe::StripeObject
           # Impact to the available balance.
           sig { returns(Stripe::V2::Amount) }
-          attr_reader :available
+          def available; end
           # Impact to the inbound_pending balance.
           sig { returns(Stripe::V2::Amount) }
-          attr_reader :inbound_pending
+          def inbound_pending; end
           # Impact to the outbound_pending balance.
           sig { returns(Stripe::V2::Amount) }
-          attr_reader :outbound_pending
+          def outbound_pending; end
         end
         class TransactionDetails < Stripe::StripeObject
           class Flow < Stripe::StripeObject
             # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
             sig { returns(String) }
-            attr_reader :type
+            def type; end
             # If applicable, the ID of the Adjustment that created this Transaction.
             sig { returns(T.nilable(String)) }
-            attr_reader :adjustment
+            def adjustment; end
             # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
             sig { returns(T.nilable(String)) }
-            attr_reader :currency_conversion
+            def currency_conversion; end
             # If applicable, the ID of the FeeTransaction that created this Transaction.
             sig { returns(T.nilable(String)) }
-            attr_reader :fee_transaction
+            def fee_transaction; end
             # If applicable, the ID of the InboundTransfer that created this Transaction.
             sig { returns(T.nilable(String)) }
-            attr_reader :inbound_transfer
+            def inbound_transfer; end
             # If applicable, the ID of the OutboundPayment that created this Transaction.
             sig { returns(T.nilable(String)) }
-            attr_reader :outbound_payment
+            def outbound_payment; end
             # If applicable, the ID of the OutboundTransfer that created this Transaction.
             sig { returns(T.nilable(String)) }
-            attr_reader :outbound_transfer
+            def outbound_transfer; end
             # If applicable, the ID of the ReceivedCredit that created this Transaction.
             sig { returns(T.nilable(String)) }
-            attr_reader :received_credit
+            def received_credit; end
             # If applicable, the ID of the ReceivedDebit that created this Transaction.
             sig { returns(T.nilable(String)) }
-            attr_reader :received_debit
+            def received_debit; end
           end
           # Closed Enum for now, and will be turned into an Open Enum soon. A descriptive category used to classify the Transaction.
           sig { returns(String) }
-          attr_reader :category
+          def category; end
           # Indicates the FinancialAccount affected by this Transaction.
           sig { returns(String) }
-          attr_reader :financial_account
+          def financial_account; end
           # Details about the Flow object that created the Transaction.
           sig { returns(Flow) }
-          attr_reader :flow
+          def flow; end
         end
         # The delta to the FinancialAccount's balance.
         sig { returns(BalanceImpact) }
-        attr_reader :balance_impact
+        def balance_impact; end
         # Time at which the object was created.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # Time at which the entry impacted (or will impact if it's in the future) the FinancialAccount balance.
         sig { returns(String) }
-        attr_reader :effective_at
+        def effective_at; end
         # Unique identifier for the object.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # The Transaction that this TransactionEntry belongs to.
         sig { returns(String) }
-        attr_reader :transaction
+        def transaction; end
         # Details copied from the transaction that this TransactionEntry belongs to.
         sig { returns(TransactionDetails) }
-        attr_reader :transaction_details
+        def transaction_details; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
       end
     end
   end

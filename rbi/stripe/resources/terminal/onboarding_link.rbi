@@ -10,39 +10,43 @@ module Stripe
         class AppleTermsAndConditions < Stripe::StripeObject
           # Whether the link should also support users relinking their Apple account.
           sig { returns(T.nilable(T::Boolean)) }
-          attr_reader :allow_relinking
+          def allow_relinking; end
           # The business name of the merchant accepting Apple's Terms and Conditions.
           sig { returns(String) }
-          attr_reader :merchant_display_name
+          def merchant_display_name; end
         end
         # The options associated with the Apple Terms and Conditions link type.
         sig { returns(T.nilable(AppleTermsAndConditions)) }
-        attr_reader :apple_terms_and_conditions
+        def apple_terms_and_conditions; end
       end
       # Link type options associated with the current onboarding link object.
       sig { returns(LinkOptions) }
-      attr_reader :link_options
+      def link_options; end
       # The type of link being generated.
       sig { returns(String) }
-      attr_reader :link_type
+      def link_type; end
       # Attribute for field object
       sig { returns(String) }
-      attr_reader :object
+      def object; end
       # Stripe account ID to generate the link for.
       sig { returns(T.nilable(String)) }
-      attr_reader :on_behalf_of
+      def on_behalf_of; end
       # The link passed back to the user for their onboarding.
       sig { returns(String) }
-      attr_reader :redirect_url
+      def redirect_url; end
       class CreateParams < Stripe::RequestParams
         class LinkOptions < Stripe::RequestParams
           class AppleTermsAndConditions < Stripe::RequestParams
             # Whether the link should also support users relinking their Apple account.
             sig { returns(T.nilable(T::Boolean)) }
-            attr_accessor :allow_relinking
+            def allow_relinking; end
+            sig { params(_allow_relinking: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+            def allow_relinking=(_allow_relinking); end
             # The business name of the merchant accepting Apple's Terms and Conditions.
             sig { returns(String) }
-            attr_accessor :merchant_display_name
+            def merchant_display_name; end
+            sig { params(_merchant_display_name: String).returns(String) }
+            def merchant_display_name=(_merchant_display_name); end
             sig {
               params(allow_relinking: T.nilable(T::Boolean), merchant_display_name: String).void
              }
@@ -52,7 +56,11 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Terminal::OnboardingLink::CreateParams::LinkOptions::AppleTermsAndConditions))
            }
-          attr_accessor :apple_terms_and_conditions
+          def apple_terms_and_conditions; end
+          sig {
+            params(_apple_terms_and_conditions: T.nilable(::Stripe::Terminal::OnboardingLink::CreateParams::LinkOptions::AppleTermsAndConditions)).returns(T.nilable(::Stripe::Terminal::OnboardingLink::CreateParams::LinkOptions::AppleTermsAndConditions))
+           }
+          def apple_terms_and_conditions=(_apple_terms_and_conditions); end
           sig {
             params(apple_terms_and_conditions: T.nilable(::Stripe::Terminal::OnboardingLink::CreateParams::LinkOptions::AppleTermsAndConditions)).void
            }
@@ -60,16 +68,26 @@ module Stripe
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # Specific fields needed to generate the desired link type.
         sig { returns(::Stripe::Terminal::OnboardingLink::CreateParams::LinkOptions) }
-        attr_accessor :link_options
+        def link_options; end
+        sig {
+          params(_link_options: ::Stripe::Terminal::OnboardingLink::CreateParams::LinkOptions).returns(::Stripe::Terminal::OnboardingLink::CreateParams::LinkOptions)
+         }
+        def link_options=(_link_options); end
         # The type of link being generated.
         sig { returns(String) }
-        attr_accessor :link_type
+        def link_type; end
+        sig { params(_link_type: String).returns(String) }
+        def link_type=(_link_type); end
         # Stripe account ID to generate the link for.
         sig { returns(T.nilable(String)) }
-        attr_accessor :on_behalf_of
+        def on_behalf_of; end
+        sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
+        def on_behalf_of=(_on_behalf_of); end
         sig {
           params(expand: T.nilable(T::Array[String]), link_options: ::Stripe::Terminal::OnboardingLink::CreateParams::LinkOptions, link_type: String, on_behalf_of: T.nilable(String)).void
          }

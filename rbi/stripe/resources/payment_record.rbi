@@ -11,986 +11,986 @@ module Stripe
     class Amount < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      attr_reader :currency
+      def currency; end
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
-      attr_reader :value
+      def value; end
     end
     class AmountAuthorized < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      attr_reader :currency
+      def currency; end
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
-      attr_reader :value
+      def value; end
     end
     class AmountCanceled < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      attr_reader :currency
+      def currency; end
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
-      attr_reader :value
+      def value; end
     end
     class AmountFailed < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      attr_reader :currency
+      def currency; end
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
-      attr_reader :value
+      def value; end
     end
     class AmountGuaranteed < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      attr_reader :currency
+      def currency; end
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
-      attr_reader :value
+      def value; end
     end
     class AmountRefunded < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      attr_reader :currency
+      def currency; end
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
-      attr_reader :value
+      def value; end
     end
     class AmountRequested < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      attr_reader :currency
+      def currency; end
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       sig { returns(Integer) }
-      attr_reader :value
+      def value; end
     end
     class CustomerDetails < Stripe::StripeObject
       # ID of the Stripe Customer associated with this payment.
       sig { returns(T.nilable(String)) }
-      attr_reader :customer
+      def customer; end
       # The customer's email address.
       sig { returns(T.nilable(String)) }
-      attr_reader :email
+      def email; end
       # The customer's name.
       sig { returns(T.nilable(String)) }
-      attr_reader :name
+      def name; end
       # The customer's phone number.
       sig { returns(T.nilable(String)) }
-      attr_reader :phone
+      def phone; end
     end
     class PaymentMethodDetails < Stripe::StripeObject
       class AchCreditTransfer < Stripe::StripeObject
         # Account number to transfer funds to.
         sig { returns(T.nilable(String)) }
-        attr_reader :account_number
+        def account_number; end
         # Name of the bank associated with the routing number.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_name
+        def bank_name; end
         # Routing transit number for the bank account to transfer funds to.
         sig { returns(T.nilable(String)) }
-        attr_reader :routing_number
+        def routing_number; end
         # SWIFT code of the bank associated with the routing number.
         sig { returns(T.nilable(String)) }
-        attr_reader :swift_code
+        def swift_code; end
       end
       class AchDebit < Stripe::StripeObject
         # Type of entity that holds the account. This can be either `individual` or `company`.
         sig { returns(T.nilable(String)) }
-        attr_reader :account_holder_type
+        def account_holder_type; end
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_name
+        def bank_name; end
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(T.nilable(String)) }
-        attr_reader :country
+        def country; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Last four digits of the bank account number.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # Routing transit number of the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :routing_number
+        def routing_number; end
       end
       class AcssDebit < Stripe::StripeObject
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_name
+        def bank_name; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Institution number of the bank account
         sig { returns(T.nilable(String)) }
-        attr_reader :institution_number
+        def institution_number; end
         # Last four digits of the bank account number.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # ID of the mandate used to make this payment.
         sig { returns(String) }
-        attr_reader :mandate
+        def mandate; end
         # Transit number of the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :transit_number
+        def transit_number; end
       end
       class Affirm < Stripe::StripeObject
         # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(String) }
-        attr_reader :location
+        def location; end
         # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
         sig { returns(String) }
-        attr_reader :reader
+        def reader; end
         # The Affirm transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class AfterpayClearpay < Stripe::StripeObject
         # The Afterpay order ID associated with this payment intent.
         sig { returns(T.nilable(String)) }
-        attr_reader :order_id
+        def order_id; end
         # Order identifier shown to the merchant in Afterpay’s online portal.
         sig { returns(T.nilable(String)) }
-        attr_reader :reference
+        def reference; end
       end
       class Alipay < Stripe::StripeObject
         # Uniquely identifies this particular Alipay account. You can use this attribute to check whether two Alipay accounts are the same.
         sig { returns(String) }
-        attr_reader :buyer_id
+        def buyer_id; end
         # Uniquely identifies this particular Alipay account. You can use this attribute to check whether two Alipay accounts are the same.
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Transaction ID of this particular Alipay transaction.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class Alma < Stripe::StripeObject
         class Installments < Stripe::StripeObject
           # The number of installments.
           sig { returns(Integer) }
-          attr_reader :count
+          def count; end
         end
         # Attribute for field installments
         sig { returns(Installments) }
-        attr_reader :installments
+        def installments; end
         # The Alma transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class AmazonPay < Stripe::StripeObject
         class Funding < Stripe::StripeObject
           class Card < Stripe::StripeObject
             # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             sig { returns(T.nilable(String)) }
-            attr_reader :brand
+            def brand; end
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
             sig { returns(T.nilable(String)) }
-            attr_reader :brand_product
+            def brand_product; end
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             sig { returns(T.nilable(String)) }
-            attr_reader :country
+            def country; end
             # Two-digit number representing the card's expiration month.
             sig { returns(T.nilable(Integer)) }
-            attr_reader :exp_month
+            def exp_month; end
             # Four-digit number representing the card's expiration year.
             sig { returns(T.nilable(Integer)) }
-            attr_reader :exp_year
+            def exp_year; end
             # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
             sig { returns(T.nilable(String)) }
-            attr_reader :funding
+            def funding; end
             # The last four digits of the card.
             sig { returns(T.nilable(String)) }
-            attr_reader :last4
+            def last4; end
           end
           # Attribute for field card
           sig { returns(Card) }
-          attr_reader :card
+          def card; end
           # funding type of the underlying payment method.
           sig { returns(T.nilable(String)) }
-          attr_reader :type
+          def type; end
         end
         # Attribute for field funding
         sig { returns(Funding) }
-        attr_reader :funding
+        def funding; end
         # The Amazon Pay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class AuBecsDebit < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bsb_number
+        def bsb_number; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Last four digits of the bank account number.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # ID of the mandate used to make this payment.
         sig { returns(String) }
-        attr_reader :mandate
+        def mandate; end
       end
       class BacsDebit < Stripe::StripeObject
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Last four digits of the bank account number.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # ID of the mandate used to make this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :mandate
+        def mandate; end
         # Sort code of the bank account. (e.g., `10-20-30`)
         sig { returns(T.nilable(String)) }
-        attr_reader :sort_code
+        def sort_code; end
       end
       class Bancontact < Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_code
+        def bank_code; end
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_name
+        def bank_name; end
         # Bank Identifier Code of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bic
+        def bic; end
         # The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
         sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
-        attr_reader :generated_sepa_debit
+        def generated_sepa_debit; end
         # The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
         sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
-        attr_reader :generated_sepa_debit_mandate
+        def generated_sepa_debit_mandate; end
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
-        attr_reader :iban_last4
+        def iban_last4; end
         # Preferred language of the Bancontact authorization page that the customer is redirected to.
         # Can be one of `en`, `de`, `fr`, or `nl`
         sig { returns(T.nilable(String)) }
-        attr_reader :preferred_language
+        def preferred_language; end
         # Owner's verified full name. Values are verified or provided by Bancontact directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
-        attr_reader :verified_name
+        def verified_name; end
       end
       class Billie < Stripe::StripeObject
         # The Billie transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class BillingDetails < Stripe::StripeObject
         class Address < Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
-          attr_reader :city
+          def city; end
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          attr_reader :country
+          def country; end
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(T.nilable(String)) }
-          attr_reader :line1
+          def line1; end
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(T.nilable(String)) }
-          attr_reader :line2
+          def line2; end
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
-          attr_reader :postal_code
+          def postal_code; end
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
-          attr_reader :state
+          def state; end
         end
         # A representation of a physical address.
         sig { returns(Address) }
-        attr_reader :address
+        def address; end
         # The billing email associated with the method of payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :email
+        def email; end
         # The billing name associated with the method of payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :name
+        def name; end
         # The billing phone number associated with the method of payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :phone
+        def phone; end
       end
       class Blik < Stripe::StripeObject
         # A unique and immutable identifier assigned by BLIK to every buyer.
         sig { returns(T.nilable(String)) }
-        attr_reader :buyer_id
+        def buyer_id; end
       end
       class Boleto < Stripe::StripeObject
         # The tax ID of the customer (CPF for individuals consumers or CNPJ for businesses consumers)
         sig { returns(String) }
-        attr_reader :tax_id
+        def tax_id; end
       end
       class Card < Stripe::StripeObject
         class Checks < Stripe::StripeObject
           # Attribute for field address_line1_check
           sig { returns(T.nilable(String)) }
-          attr_reader :address_line1_check
+          def address_line1_check; end
           # Attribute for field address_postal_code_check
           sig { returns(T.nilable(String)) }
-          attr_reader :address_postal_code_check
+          def address_postal_code_check; end
           # Attribute for field cvc_check
           sig { returns(T.nilable(String)) }
-          attr_reader :cvc_check
+          def cvc_check; end
         end
         class NetworkToken < Stripe::StripeObject
           # Attribute for field used
           sig { returns(T::Boolean) }
-          attr_reader :used
+          def used; end
         end
         class ThreeDSecure < Stripe::StripeObject
           # Attribute for field authentication_flow
           sig { returns(T.nilable(String)) }
-          attr_reader :authentication_flow
+          def authentication_flow; end
           # Attribute for field result
           sig { returns(T.nilable(String)) }
-          attr_reader :result
+          def result; end
           # Attribute for field result_reason
           sig { returns(T.nilable(String)) }
-          attr_reader :result_reason
+          def result_reason; end
           # Attribute for field version
           sig { returns(T.nilable(String)) }
-          attr_reader :version
+          def version; end
         end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(String) }
-        attr_reader :brand
+        def brand; end
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
         sig { returns(Integer) }
-        attr_reader :capture_before
+        def capture_before; end
         # Check results by Card networks on Card address and CVC at time of payment.
         sig { returns(T.nilable(Checks)) }
-        attr_reader :checks
+        def checks; end
         # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
         sig { returns(T.nilable(String)) }
-        attr_reader :country
+        def country; end
         # Two-digit number representing the card's expiration month.
         sig { returns(Integer) }
-        attr_reader :exp_month
+        def exp_month; end
         # Four-digit number representing the card's expiration year.
         sig { returns(Integer) }
-        attr_reader :exp_year
+        def exp_year; end
         # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
         #
         # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
         sig { returns(String) }
-        attr_reader :funding
+        def funding; end
         # The last four digits of the card.
         sig { returns(String) }
-        attr_reader :last4
+        def last4; end
         # True if this payment was marked as MOTO and out of scope for SCA.
         sig { returns(T::Boolean) }
-        attr_reader :moto
+        def moto; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
-        attr_reader :network
+        def network; end
         # If this card has network token credentials, this contains the details of the network token credentials.
         sig { returns(T.nilable(NetworkToken)) }
-        attr_reader :network_token
+        def network_token; end
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         sig { returns(T.nilable(String)) }
-        attr_reader :network_transaction_id
+        def network_transaction_id; end
         # Populated if this transaction used 3D Secure authentication.
         sig { returns(T.nilable(ThreeDSecure)) }
-        attr_reader :three_d_secure
+        def three_d_secure; end
       end
       class CardPresent < Stripe::StripeObject
         class Offline < Stripe::StripeObject
           # Time at which the payment was collected while offline
           sig { returns(T.nilable(Integer)) }
-          attr_reader :stored_at
+          def stored_at; end
           # The method used to process this payment method offline. Only deferred is allowed.
           sig { returns(T.nilable(String)) }
-          attr_reader :type
+          def type; end
         end
         class Receipt < Stripe::StripeObject
           # The type of account being debited or credited
           sig { returns(String) }
-          attr_reader :account_type
+          def account_type; end
           # The Application Cryptogram, a unique value generated by the card to authenticate the transaction with issuers.
           sig { returns(T.nilable(String)) }
-          attr_reader :application_cryptogram
+          def application_cryptogram; end
           # The Application Identifier (AID) on the card used to determine which networks are eligible to process the transaction. Referenced from EMV tag 9F12, data encoded on the card's chip.
           sig { returns(T.nilable(String)) }
-          attr_reader :application_preferred_name
+          def application_preferred_name; end
           # Identifier for this transaction.
           sig { returns(T.nilable(String)) }
-          attr_reader :authorization_code
+          def authorization_code; end
           # EMV tag 8A. A code returned by the card issuer.
           sig { returns(T.nilable(String)) }
-          attr_reader :authorization_response_code
+          def authorization_response_code; end
           # Describes the method used by the cardholder to verify ownership of the card. One of the following: `approval`, `failure`, `none`, `offline_pin`, `offline_pin_and_signature`, `online_pin`, or `signature`.
           sig { returns(T.nilable(String)) }
-          attr_reader :cardholder_verification_method
+          def cardholder_verification_method; end
           # Similar to the application_preferred_name, identifying the applications (AIDs) available on the card. Referenced from EMV tag 84.
           sig { returns(T.nilable(String)) }
-          attr_reader :dedicated_file_name
+          def dedicated_file_name; end
           # A 5-byte string that records the checks and validations that occur between the card and the terminal. These checks determine how the terminal processes the transaction and what risk tolerance is acceptable. Referenced from EMV Tag 95.
           sig { returns(T.nilable(String)) }
-          attr_reader :terminal_verification_results
+          def terminal_verification_results; end
           # An indication of which steps were completed during the card read process. Referenced from EMV Tag 9B.
           sig { returns(T.nilable(String)) }
-          attr_reader :transaction_status_information
+          def transaction_status_information; end
         end
         class Wallet < Stripe::StripeObject
           # The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
         end
         # The authorized amount
         sig { returns(T.nilable(Integer)) }
-        attr_reader :amount_authorized
+        def amount_authorized; end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(T.nilable(String)) }
-        attr_reader :brand
+        def brand; end
         # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
         sig { returns(T.nilable(String)) }
-        attr_reader :brand_product
+        def brand_product; end
         # When using manual capture, a future timestamp after which the charge will be automatically refunded if uncaptured.
         sig { returns(Integer) }
-        attr_reader :capture_before
+        def capture_before; end
         # The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay.
         sig { returns(T.nilable(String)) }
-        attr_reader :cardholder_name
+        def cardholder_name; end
         # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
         sig { returns(T.nilable(String)) }
-        attr_reader :country
+        def country; end
         # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
         sig { returns(T.nilable(String)) }
-        attr_reader :description
+        def description; end
         # Authorization response cryptogram.
         sig { returns(T.nilable(String)) }
-        attr_reader :emv_auth_data
+        def emv_auth_data; end
         # Two-digit number representing the card's expiration month.
         sig { returns(Integer) }
-        attr_reader :exp_month
+        def exp_month; end
         # Four-digit number representing the card's expiration year.
         sig { returns(Integer) }
-        attr_reader :exp_year
+        def exp_year; end
         # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
         #
         # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
         sig { returns(T.nilable(String)) }
-        attr_reader :funding
+        def funding; end
         # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
         sig { returns(T.nilable(String)) }
-        attr_reader :generated_card
+        def generated_card; end
         # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
         sig { returns(T.nilable(String)) }
-        attr_reader :iin
+        def iin; end
         # Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
         sig { returns(T::Boolean) }
-        attr_reader :incremental_authorization_supported
+        def incremental_authorization_supported; end
         # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
         sig { returns(T.nilable(String)) }
-        attr_reader :issuer
+        def issuer; end
         # The last four digits of the card.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
-        attr_reader :network
+        def network; end
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         sig { returns(T.nilable(String)) }
-        attr_reader :network_transaction_id
+        def network_transaction_id; end
         # Details about payments collected offline.
         sig { returns(T.nilable(Offline)) }
-        attr_reader :offline
+        def offline; end
         # Defines whether the authorized amount can be over-captured or not
         sig { returns(T::Boolean) }
-        attr_reader :overcapture_supported
+        def overcapture_supported; end
         # The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_reader :preferred_locales
+        def preferred_locales; end
         # How card details were read in this transaction.
         sig { returns(T.nilable(String)) }
-        attr_reader :read_method
+        def read_method; end
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         sig { returns(T.nilable(Receipt)) }
-        attr_reader :receipt
+        def receipt; end
         # Attribute for field wallet
         sig { returns(Wallet) }
-        attr_reader :wallet
+        def wallet; end
       end
       class Cashapp < Stripe::StripeObject
         # A unique and immutable identifier assigned by Cash App to every buyer.
         sig { returns(T.nilable(String)) }
-        attr_reader :buyer_id
+        def buyer_id; end
         # A public identifier for buyers using Cash App.
         sig { returns(T.nilable(String)) }
-        attr_reader :cashtag
+        def cashtag; end
         # A unique and immutable identifier of payments assigned by Cash App
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class Crypto < Stripe::StripeObject
         # The wallet address of the customer.
         sig { returns(String) }
-        attr_reader :buyer_address
+        def buyer_address; end
         # The blockchain network that the transaction was sent on.
         sig { returns(String) }
-        attr_reader :network
+        def network; end
         # The token currency that the transaction was sent with.
         sig { returns(String) }
-        attr_reader :token_currency
+        def token_currency; end
         # The blockchain transaction hash of the crypto payment.
         sig { returns(String) }
-        attr_reader :transaction_hash
+        def transaction_hash; end
       end
       class Custom < Stripe::StripeObject
         # Display name for the custom (user-defined) payment method type used to make this payment.
         sig { returns(String) }
-        attr_reader :display_name
+        def display_name; end
         # The custom payment method type associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :type
+        def type; end
       end
       class CustomerBalance < Stripe::StripeObject; end
       class Eps < Stripe::StripeObject
         # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank
+        def bank; end
         # Owner's verified full name. Values are verified or provided by EPS directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         # EPS rarely provides this information so the attribute is usually empty.
         sig { returns(T.nilable(String)) }
-        attr_reader :verified_name
+        def verified_name; end
       end
       class Fpx < Stripe::StripeObject
         # Account holder type, if provided. Can be one of `individual` or `company`.
         sig { returns(T.nilable(String)) }
-        attr_reader :account_holder_type
+        def account_holder_type; end
         # The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
         sig { returns(String) }
-        attr_reader :bank
+        def bank; end
         # Unique transaction id generated by FPX for every request from the merchant
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class Giropay < Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_code
+        def bank_code; end
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_name
+        def bank_name; end
         # Bank Identifier Code of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bic
+        def bic; end
         # Owner's verified full name. Values are verified or provided by Giropay directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         # Giropay rarely provides this information so the attribute is usually empty.
         sig { returns(T.nilable(String)) }
-        attr_reader :verified_name
+        def verified_name; end
       end
       class Gopay < Stripe::StripeObject; end
       class Grabpay < Stripe::StripeObject
         # Unique transaction id generated by GrabPay
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class IdBankTransfer < Stripe::StripeObject
         # Account number of the bank account to transfer funds to.
         sig { returns(String) }
-        attr_reader :account_number
+        def account_number; end
         # Bank where the account is located.
         sig { returns(String) }
-        attr_reader :bank
+        def bank; end
         # Local bank code of the bank.
         sig { returns(String) }
-        attr_reader :bank_code
+        def bank_code; end
         # Name of the bank associated with the bank account.
         sig { returns(String) }
-        attr_reader :bank_name
+        def bank_name; end
         # Merchant name and billing details name, for the customer to check for the correct merchant when performing the bank transfer.
         sig { returns(String) }
-        attr_reader :display_name
+        def display_name; end
       end
       class Ideal < Stripe::StripeObject
         # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank
+        def bank; end
         # The Bank Identifier Code of the customer's bank.
         sig { returns(T.nilable(String)) }
-        attr_reader :bic
+        def bic; end
         # The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
         sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
-        attr_reader :generated_sepa_debit
+        def generated_sepa_debit; end
         # The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
         sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
-        attr_reader :generated_sepa_debit_mandate
+        def generated_sepa_debit_mandate; end
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
-        attr_reader :iban_last4
+        def iban_last4; end
         # Owner's verified full name. Values are verified or provided by iDEAL directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
-        attr_reader :verified_name
+        def verified_name; end
       end
       class InteracPresent < Stripe::StripeObject
         class Receipt < Stripe::StripeObject
           # The type of account being debited or credited
           sig { returns(String) }
-          attr_reader :account_type
+          def account_type; end
           # The Application Cryptogram, a unique value generated by the card to authenticate the transaction with issuers.
           sig { returns(T.nilable(String)) }
-          attr_reader :application_cryptogram
+          def application_cryptogram; end
           # The Application Identifier (AID) on the card used to determine which networks are eligible to process the transaction. Referenced from EMV tag 9F12, data encoded on the card's chip.
           sig { returns(T.nilable(String)) }
-          attr_reader :application_preferred_name
+          def application_preferred_name; end
           # Identifier for this transaction.
           sig { returns(T.nilable(String)) }
-          attr_reader :authorization_code
+          def authorization_code; end
           # EMV tag 8A. A code returned by the card issuer.
           sig { returns(T.nilable(String)) }
-          attr_reader :authorization_response_code
+          def authorization_response_code; end
           # Describes the method used by the cardholder to verify ownership of the card. One of the following: `approval`, `failure`, `none`, `offline_pin`, `offline_pin_and_signature`, `online_pin`, or `signature`.
           sig { returns(T.nilable(String)) }
-          attr_reader :cardholder_verification_method
+          def cardholder_verification_method; end
           # Similar to the application_preferred_name, identifying the applications (AIDs) available on the card. Referenced from EMV tag 84.
           sig { returns(T.nilable(String)) }
-          attr_reader :dedicated_file_name
+          def dedicated_file_name; end
           # A 5-byte string that records the checks and validations that occur between the card and the terminal. These checks determine how the terminal processes the transaction and what risk tolerance is acceptable. Referenced from EMV Tag 95.
           sig { returns(T.nilable(String)) }
-          attr_reader :terminal_verification_results
+          def terminal_verification_results; end
           # An indication of which steps were completed during the card read process. Referenced from EMV Tag 9B.
           sig { returns(T.nilable(String)) }
-          attr_reader :transaction_status_information
+          def transaction_status_information; end
         end
         # Card brand. Can be `interac`, `mastercard` or `visa`.
         sig { returns(T.nilable(String)) }
-        attr_reader :brand
+        def brand; end
         # The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay.
         sig { returns(T.nilable(String)) }
-        attr_reader :cardholder_name
+        def cardholder_name; end
         # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
         sig { returns(T.nilable(String)) }
-        attr_reader :country
+        def country; end
         # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
         sig { returns(T.nilable(String)) }
-        attr_reader :description
+        def description; end
         # Authorization response cryptogram.
         sig { returns(T.nilable(String)) }
-        attr_reader :emv_auth_data
+        def emv_auth_data; end
         # Two-digit number representing the card's expiration month.
         sig { returns(Integer) }
-        attr_reader :exp_month
+        def exp_month; end
         # Four-digit number representing the card's expiration year.
         sig { returns(Integer) }
-        attr_reader :exp_year
+        def exp_year; end
         # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
         #
         # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
         sig { returns(T.nilable(String)) }
-        attr_reader :funding
+        def funding; end
         # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
         sig { returns(T.nilable(String)) }
-        attr_reader :generated_card
+        def generated_card; end
         # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
         sig { returns(T.nilable(String)) }
-        attr_reader :iin
+        def iin; end
         # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
         sig { returns(T.nilable(String)) }
-        attr_reader :issuer
+        def issuer; end
         # The last four digits of the card.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
-        attr_reader :network
+        def network; end
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         sig { returns(T.nilable(String)) }
-        attr_reader :network_transaction_id
+        def network_transaction_id; end
         # The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_reader :preferred_locales
+        def preferred_locales; end
         # How card details were read in this transaction.
         sig { returns(T.nilable(String)) }
-        attr_reader :read_method
+        def read_method; end
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         sig { returns(T.nilable(Receipt)) }
-        attr_reader :receipt
+        def receipt; end
       end
       class KakaoPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
-        attr_reader :buyer_id
+        def buyer_id; end
         # The Kakao Pay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class Klarna < Stripe::StripeObject
         class PayerDetails < Stripe::StripeObject
           class Address < Stripe::StripeObject
             # The payer address country
             sig { returns(T.nilable(String)) }
-            attr_reader :country
+            def country; end
           end
           # The payer's address
           sig { returns(T.nilable(Address)) }
-          attr_reader :address
+          def address; end
         end
         # The payer details for this transaction.
         sig { returns(T.nilable(PayerDetails)) }
-        attr_reader :payer_details
+        def payer_details; end
         # The Klarna payment method used for this transaction.
         # Can be one of `pay_later`, `pay_now`, `pay_with_financing`, or `pay_in_installments`
         sig { returns(T.nilable(String)) }
-        attr_reader :payment_method_category
+        def payment_method_category; end
         # Preferred language of the Klarna authorization page that the customer is redirected to.
         # Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
         sig { returns(T.nilable(String)) }
-        attr_reader :preferred_locale
+        def preferred_locale; end
       end
       class Konbini < Stripe::StripeObject
         class Store < Stripe::StripeObject
           # The name of the convenience store chain where the payment was completed.
           sig { returns(T.nilable(String)) }
-          attr_reader :chain
+          def chain; end
         end
         # If the payment succeeded, this contains the details of the convenience store where the payment was completed.
         sig { returns(T.nilable(Store)) }
-        attr_reader :store
+        def store; end
       end
       class KrCard < Stripe::StripeObject
         # The local credit or debit card brand.
         sig { returns(T.nilable(String)) }
-        attr_reader :brand
+        def brand; end
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
-        attr_reader :buyer_id
+        def buyer_id; end
         # The last four digits of the card. This may not be present for American Express cards.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # The Korean Card transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class Link < Stripe::StripeObject
         # Two-letter ISO code representing the funding source country beneath the Link payment.
         # You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
-        attr_reader :country
+        def country; end
       end
       class MbWay < Stripe::StripeObject; end
       class Mobilepay < Stripe::StripeObject
         class Card < Stripe::StripeObject
           # Brand of the card used in the transaction
           sig { returns(T.nilable(String)) }
-          attr_reader :brand
+          def brand; end
           # Two-letter ISO code representing the country of the card
           sig { returns(T.nilable(String)) }
-          attr_reader :country
+          def country; end
           # Two digit number representing the card's expiration month
           sig { returns(T.nilable(Integer)) }
-          attr_reader :exp_month
+          def exp_month; end
           # Two digit number representing the card's expiration year
           sig { returns(T.nilable(Integer)) }
-          attr_reader :exp_year
+          def exp_year; end
           # The last 4 digits of the card
           sig { returns(T.nilable(String)) }
-          attr_reader :last4
+          def last4; end
         end
         # Internal card details
         sig { returns(T.nilable(Card)) }
-        attr_reader :card
+        def card; end
       end
       class Multibanco < Stripe::StripeObject
         # Entity number associated with this Multibanco payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :entity
+        def entity; end
         # Reference number associated with this Multibanco payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :reference
+        def reference; end
       end
       class NaverPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
-        attr_reader :buyer_id
+        def buyer_id; end
         # The Naver Pay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class NzBankAccount < Stripe::StripeObject
         # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
         sig { returns(T.nilable(String)) }
-        attr_reader :account_holder_name
+        def account_holder_name; end
         # The numeric code for the bank account's bank.
         sig { returns(String) }
-        attr_reader :bank_code
+        def bank_code; end
         # The name of the bank.
         sig { returns(String) }
-        attr_reader :bank_name
+        def bank_name; end
         # The numeric code for the bank account's bank branch.
         sig { returns(String) }
-        attr_reader :branch_code
+        def branch_code; end
         # Last four digits of the bank account number.
         sig { returns(String) }
-        attr_reader :last4
+        def last4; end
         # The suffix of the bank account number.
         sig { returns(T.nilable(String)) }
-        attr_reader :suffix
+        def suffix; end
       end
       class Oxxo < Stripe::StripeObject
         # OXXO reference number
         sig { returns(T.nilable(String)) }
-        attr_reader :number
+        def number; end
       end
       class P24 < Stripe::StripeObject
         # The customer's bank. Can be one of `ing`, `citi_handlowy`, `tmobile_usbugi_bankowe`, `plus_bank`, `etransfer_pocztowy24`, `banki_spbdzielcze`, `bank_nowy_bfg_sa`, `getin_bank`, `velobank`, `blik`, `noble_pay`, `ideabank`, `envelobank`, `santander_przelew24`, `nest_przelew`, `mbank_mtransfer`, `inteligo`, `pbac_z_ipko`, `bnp_paribas`, `credit_agricole`, `toyota_bank`, `bank_pekao_sa`, `volkswagen_bank`, `bank_millennium`, `alior_bank`, or `boz`.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank
+        def bank; end
         # Unique reference for this Przelewy24 payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :reference
+        def reference; end
         # Owner's verified full name. Values are verified or provided by Przelewy24 directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         # Przelewy24 rarely provides this information so the attribute is usually empty.
         sig { returns(T.nilable(String)) }
-        attr_reader :verified_name
+        def verified_name; end
       end
       class PayByBank < Stripe::StripeObject; end
       class Payco < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
-        attr_reader :buyer_id
+        def buyer_id; end
         # The Payco transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class Paynow < Stripe::StripeObject
         # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(String) }
-        attr_reader :location
+        def location; end
         # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
         sig { returns(String) }
-        attr_reader :reader
+        def reader; end
         # Reference number associated with this PayNow payment
         sig { returns(T.nilable(String)) }
-        attr_reader :reference
+        def reference; end
       end
       class Paypal < Stripe::StripeObject
         class SellerProtection < Stripe::StripeObject
           # An array of conditions that are covered for the transaction, if applicable.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_reader :dispute_categories
+          def dispute_categories; end
           # Indicates whether the transaction is eligible for PayPal's seller protection.
           sig { returns(String) }
-          attr_reader :status
+          def status; end
         end
         class Shipping < Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
-          attr_reader :city
+          def city; end
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          attr_reader :country
+          def country; end
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(T.nilable(String)) }
-          attr_reader :line1
+          def line1; end
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(T.nilable(String)) }
-          attr_reader :line2
+          def line2; end
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
-          attr_reader :postal_code
+          def postal_code; end
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
-          attr_reader :state
+          def state; end
         end
         class VerifiedAddress < Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
-          attr_reader :city
+          def city; end
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          attr_reader :country
+          def country; end
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(T.nilable(String)) }
-          attr_reader :line1
+          def line1; end
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(T.nilable(String)) }
-          attr_reader :line2
+          def line2; end
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
-          attr_reader :postal_code
+          def postal_code; end
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
-          attr_reader :state
+          def state; end
         end
         # Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
-        attr_reader :country
+        def country; end
         # Owner's email. Values are provided by PayPal directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
-        attr_reader :payer_email
+        def payer_email; end
         # PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
         sig { returns(T.nilable(String)) }
-        attr_reader :payer_id
+        def payer_id; end
         # Owner's full name. Values provided by PayPal directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
-        attr_reader :payer_name
+        def payer_name; end
         # The level of protection offered as defined by PayPal Seller Protection for Merchants, for this transaction.
         sig { returns(T.nilable(SellerProtection)) }
-        attr_reader :seller_protection
+        def seller_protection; end
         # The shipping address for the customer, as supplied by the merchant at the point of payment
         # execution. This shipping address will not be updated if the merchant updates the shipping
         # address on the PaymentIntent after the PaymentIntent was successfully confirmed.
         sig { returns(T.nilable(Shipping)) }
-        attr_reader :shipping
+        def shipping; end
         # A unique ID generated by PayPal for this transaction.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
         # The shipping address for the customer, as supplied by the merchant at the point of payment
         # execution. This shipping address will not be updated if the merchant updates the shipping
         # address on the PaymentIntent after the PaymentIntent was successfully confirmed.
         sig { returns(T.nilable(VerifiedAddress)) }
-        attr_reader :verified_address
+        def verified_address; end
         # Owner's verified email. Values are verified or provided by PayPal directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
-        attr_reader :verified_email
+        def verified_email; end
         # Owner's verified full name. Values are verified or provided by PayPal directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
-        attr_reader :verified_name
+        def verified_name; end
       end
       class Payto < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bsb_number
+        def bsb_number; end
         # Last four digits of the bank account number.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # ID of the mandate used to make this payment.
         sig { returns(String) }
-        attr_reader :mandate
+        def mandate; end
         # The PayID alias for the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :pay_id
+        def pay_id; end
       end
       class Pix < Stripe::StripeObject
         # Unique transaction id generated by BCB
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_transaction_id
+        def bank_transaction_id; end
         # ID of the multi use Mandate generated by the PaymentIntent
         sig { returns(String) }
-        attr_reader :mandate
+        def mandate; end
       end
       class Promptpay < Stripe::StripeObject
         # Bill reference generated by PromptPay
         sig { returns(T.nilable(String)) }
-        attr_reader :reference
+        def reference; end
       end
       class Qris < Stripe::StripeObject; end
       class Rechnung < Stripe::StripeObject; end
@@ -999,503 +999,507 @@ module Stripe
           class Card < Stripe::StripeObject
             # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             sig { returns(T.nilable(String)) }
-            attr_reader :brand
+            def brand; end
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
             sig { returns(T.nilable(String)) }
-            attr_reader :brand_product
+            def brand_product; end
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             sig { returns(T.nilable(String)) }
-            attr_reader :country
+            def country; end
             # Two-digit number representing the card's expiration month.
             sig { returns(T.nilable(Integer)) }
-            attr_reader :exp_month
+            def exp_month; end
             # Four-digit number representing the card's expiration year.
             sig { returns(T.nilable(Integer)) }
-            attr_reader :exp_year
+            def exp_year; end
             # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
             sig { returns(T.nilable(String)) }
-            attr_reader :funding
+            def funding; end
             # The last four digits of the card.
             sig { returns(T.nilable(String)) }
-            attr_reader :last4
+            def last4; end
           end
           # Attribute for field card
           sig { returns(Card) }
-          attr_reader :card
+          def card; end
           # funding type of the underlying payment method.
           sig { returns(T.nilable(String)) }
-          attr_reader :type
+          def type; end
         end
         # Attribute for field funding
         sig { returns(Funding) }
-        attr_reader :funding
+        def funding; end
         # The Revolut Pay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class SamsungPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
-        attr_reader :buyer_id
+        def buyer_id; end
         # The Samsung Pay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class Satispay < Stripe::StripeObject
         # The Satispay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class SepaCreditTransfer < Stripe::StripeObject
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_name
+        def bank_name; end
         # Bank Identifier Code of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bic
+        def bic; end
         # IBAN of the bank account to transfer funds to.
         sig { returns(T.nilable(String)) }
-        attr_reader :iban
+        def iban; end
       end
       class SepaDebit < Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_code
+        def bank_code; end
         # Branch code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :branch_code
+        def branch_code; end
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(T.nilable(String)) }
-        attr_reader :country
+        def country; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
         sig { returns(T.nilable(String)) }
-        attr_reader :mandate
+        def mandate; end
       end
       class Shopeepay < Stripe::StripeObject; end
       class Sofort < Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_code
+        def bank_code; end
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_name
+        def bank_name; end
         # Bank Identifier Code of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bic
+        def bic; end
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(T.nilable(String)) }
-        attr_reader :country
+        def country; end
         # The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
         sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
-        attr_reader :generated_sepa_debit
+        def generated_sepa_debit; end
         # The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
         sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
-        attr_reader :generated_sepa_debit_mandate
+        def generated_sepa_debit_mandate; end
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
-        attr_reader :iban_last4
+        def iban_last4; end
         # Preferred language of the SOFORT authorization page that the customer is redirected to.
         # Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl`
         sig { returns(T.nilable(String)) }
-        attr_reader :preferred_language
+        def preferred_language; end
         # Owner's verified full name. Values are verified or provided by SOFORT directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
-        attr_reader :verified_name
+        def verified_name; end
       end
       class StripeAccount < Stripe::StripeObject; end
       class StripeBalance < Stripe::StripeObject
         # The connected account ID whose Stripe balance to use as the source of payment
         sig { returns(T.nilable(String)) }
-        attr_reader :account
+        def account; end
         # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         sig { returns(String) }
-        attr_reader :source_type
+        def source_type; end
       end
       class Swish < Stripe::StripeObject
         # Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Payer bank reference number for the payment
         sig { returns(T.nilable(String)) }
-        attr_reader :payment_reference
+        def payment_reference; end
         # The last four digits of the Swish account phone number
         sig { returns(T.nilable(String)) }
-        attr_reader :verified_phone_last4
+        def verified_phone_last4; end
       end
       class Twint < Stripe::StripeObject; end
       class UsBankAccount < Stripe::StripeObject
         # Attribute for field account_holder_type
         sig { returns(T.nilable(String)) }
-        attr_reader :account_holder_type
+        def account_holder_type; end
         # Attribute for field account_type
         sig { returns(T.nilable(String)) }
-        attr_reader :account_type
+        def account_type; end
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :bank_name
+        def bank_name; end
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # Last four digits of the bank account number.
         sig { returns(T.nilable(String)) }
-        attr_reader :last4
+        def last4; end
         # ID of the mandate used to make this payment.
         sig { returns(T.any(String, Stripe::Mandate)) }
-        attr_reader :mandate
+        def mandate; end
         # Reference number to locate ACH payments with customer’s bank.
         sig { returns(T.nilable(String)) }
-        attr_reader :payment_reference
+        def payment_reference; end
         # Routing number of the bank account.
         sig { returns(T.nilable(String)) }
-        attr_reader :routing_number
+        def routing_number; end
       end
       class Wechat < Stripe::StripeObject; end
       class WechatPay < Stripe::StripeObject
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
         sig { returns(T.nilable(String)) }
-        attr_reader :fingerprint
+        def fingerprint; end
         # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(String) }
-        attr_reader :location
+        def location; end
         # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
         sig { returns(String) }
-        attr_reader :reader
+        def reader; end
         # Transaction ID of this particular WeChat Pay transaction.
         sig { returns(T.nilable(String)) }
-        attr_reader :transaction_id
+        def transaction_id; end
       end
       class Zip < Stripe::StripeObject; end
       # Attribute for field ach_credit_transfer
       sig { returns(AchCreditTransfer) }
-      attr_reader :ach_credit_transfer
+      def ach_credit_transfer; end
       # Attribute for field ach_debit
       sig { returns(AchDebit) }
-      attr_reader :ach_debit
+      def ach_debit; end
       # Attribute for field acss_debit
       sig { returns(AcssDebit) }
-      attr_reader :acss_debit
+      def acss_debit; end
       # Attribute for field affirm
       sig { returns(Affirm) }
-      attr_reader :affirm
+      def affirm; end
       # Attribute for field afterpay_clearpay
       sig { returns(AfterpayClearpay) }
-      attr_reader :afterpay_clearpay
+      def afterpay_clearpay; end
       # Attribute for field alipay
       sig { returns(Alipay) }
-      attr_reader :alipay
+      def alipay; end
       # Attribute for field alma
       sig { returns(Alma) }
-      attr_reader :alma
+      def alma; end
       # Attribute for field amazon_pay
       sig { returns(AmazonPay) }
-      attr_reader :amazon_pay
+      def amazon_pay; end
       # Attribute for field au_becs_debit
       sig { returns(AuBecsDebit) }
-      attr_reader :au_becs_debit
+      def au_becs_debit; end
       # Attribute for field bacs_debit
       sig { returns(BacsDebit) }
-      attr_reader :bacs_debit
+      def bacs_debit; end
       # Attribute for field bancontact
       sig { returns(Bancontact) }
-      attr_reader :bancontact
+      def bancontact; end
       # Attribute for field billie
       sig { returns(Billie) }
-      attr_reader :billie
+      def billie; end
       # The billing details associated with the method of payment.
       sig { returns(T.nilable(BillingDetails)) }
-      attr_reader :billing_details
+      def billing_details; end
       # Attribute for field blik
       sig { returns(Blik) }
-      attr_reader :blik
+      def blik; end
       # Attribute for field boleto
       sig { returns(Boleto) }
-      attr_reader :boleto
+      def boleto; end
       # Details of the card used for this payment attempt.
       sig { returns(Card) }
-      attr_reader :card
+      def card; end
       # Attribute for field card_present
       sig { returns(CardPresent) }
-      attr_reader :card_present
+      def card_present; end
       # Attribute for field cashapp
       sig { returns(Cashapp) }
-      attr_reader :cashapp
+      def cashapp; end
       # Attribute for field crypto
       sig { returns(Crypto) }
-      attr_reader :crypto
+      def crypto; end
       # Custom Payment Methods represent Payment Method types not modeled directly in
       # the Stripe API. This resource consists of details about the custom payment method
       # used for this payment attempt.
       sig { returns(Custom) }
-      attr_reader :custom
+      def custom; end
       # Attribute for field customer_balance
       sig { returns(CustomerBalance) }
-      attr_reader :customer_balance
+      def customer_balance; end
       # Attribute for field eps
       sig { returns(Eps) }
-      attr_reader :eps
+      def eps; end
       # Attribute for field fpx
       sig { returns(Fpx) }
-      attr_reader :fpx
+      def fpx; end
       # Attribute for field giropay
       sig { returns(Giropay) }
-      attr_reader :giropay
+      def giropay; end
       # Attribute for field gopay
       sig { returns(Gopay) }
-      attr_reader :gopay
+      def gopay; end
       # Attribute for field grabpay
       sig { returns(Grabpay) }
-      attr_reader :grabpay
+      def grabpay; end
       # Attribute for field id_bank_transfer
       sig { returns(IdBankTransfer) }
-      attr_reader :id_bank_transfer
+      def id_bank_transfer; end
       # Attribute for field ideal
       sig { returns(Ideal) }
-      attr_reader :ideal
+      def ideal; end
       # Attribute for field interac_present
       sig { returns(InteracPresent) }
-      attr_reader :interac_present
+      def interac_present; end
       # Attribute for field kakao_pay
       sig { returns(KakaoPay) }
-      attr_reader :kakao_pay
+      def kakao_pay; end
       # Attribute for field klarna
       sig { returns(Klarna) }
-      attr_reader :klarna
+      def klarna; end
       # Attribute for field konbini
       sig { returns(Konbini) }
-      attr_reader :konbini
+      def konbini; end
       # Attribute for field kr_card
       sig { returns(KrCard) }
-      attr_reader :kr_card
+      def kr_card; end
       # Attribute for field link
       sig { returns(Link) }
-      attr_reader :link
+      def link; end
       # Attribute for field mb_way
       sig { returns(MbWay) }
-      attr_reader :mb_way
+      def mb_way; end
       # Attribute for field mobilepay
       sig { returns(Mobilepay) }
-      attr_reader :mobilepay
+      def mobilepay; end
       # Attribute for field multibanco
       sig { returns(Multibanco) }
-      attr_reader :multibanco
+      def multibanco; end
       # Attribute for field naver_pay
       sig { returns(NaverPay) }
-      attr_reader :naver_pay
+      def naver_pay; end
       # Attribute for field nz_bank_account
       sig { returns(NzBankAccount) }
-      attr_reader :nz_bank_account
+      def nz_bank_account; end
       # Attribute for field oxxo
       sig { returns(Oxxo) }
-      attr_reader :oxxo
+      def oxxo; end
       # Attribute for field p24
       sig { returns(P24) }
-      attr_reader :p24
+      def p24; end
       # Attribute for field pay_by_bank
       sig { returns(PayByBank) }
-      attr_reader :pay_by_bank
+      def pay_by_bank; end
       # Attribute for field payco
       sig { returns(Payco) }
-      attr_reader :payco
+      def payco; end
       # ID of the Stripe PaymentMethod used to make this payment.
       sig { returns(T.nilable(String)) }
-      attr_reader :payment_method
+      def payment_method; end
       # Attribute for field paynow
       sig { returns(Paynow) }
-      attr_reader :paynow
+      def paynow; end
       # Attribute for field paypal
       sig { returns(Paypal) }
-      attr_reader :paypal
+      def paypal; end
       # Attribute for field payto
       sig { returns(Payto) }
-      attr_reader :payto
+      def payto; end
       # Attribute for field pix
       sig { returns(Pix) }
-      attr_reader :pix
+      def pix; end
       # Attribute for field promptpay
       sig { returns(Promptpay) }
-      attr_reader :promptpay
+      def promptpay; end
       # Attribute for field qris
       sig { returns(Qris) }
-      attr_reader :qris
+      def qris; end
       # Attribute for field rechnung
       sig { returns(Rechnung) }
-      attr_reader :rechnung
+      def rechnung; end
       # Attribute for field revolut_pay
       sig { returns(RevolutPay) }
-      attr_reader :revolut_pay
+      def revolut_pay; end
       # Attribute for field samsung_pay
       sig { returns(SamsungPay) }
-      attr_reader :samsung_pay
+      def samsung_pay; end
       # Attribute for field satispay
       sig { returns(Satispay) }
-      attr_reader :satispay
+      def satispay; end
       # Attribute for field sepa_credit_transfer
       sig { returns(SepaCreditTransfer) }
-      attr_reader :sepa_credit_transfer
+      def sepa_credit_transfer; end
       # Attribute for field sepa_debit
       sig { returns(SepaDebit) }
-      attr_reader :sepa_debit
+      def sepa_debit; end
       # Attribute for field shopeepay
       sig { returns(Shopeepay) }
-      attr_reader :shopeepay
+      def shopeepay; end
       # Attribute for field sofort
       sig { returns(Sofort) }
-      attr_reader :sofort
+      def sofort; end
       # Attribute for field stripe_account
       sig { returns(StripeAccount) }
-      attr_reader :stripe_account
+      def stripe_account; end
       # Attribute for field stripe_balance
       sig { returns(StripeBalance) }
-      attr_reader :stripe_balance
+      def stripe_balance; end
       # Attribute for field swish
       sig { returns(Swish) }
-      attr_reader :swish
+      def swish; end
       # Attribute for field twint
       sig { returns(Twint) }
-      attr_reader :twint
+      def twint; end
       # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
       # An additional hash is included on `payment_method_details` with a name matching this value.
       # It contains information specific to the payment method.
       sig { returns(String) }
-      attr_reader :type
+      def type; end
       # Details of the US Bank Account used for this payment attempt.
       sig { returns(UsBankAccount) }
-      attr_reader :us_bank_account
+      def us_bank_account; end
       # Attribute for field wechat
       sig { returns(Wechat) }
-      attr_reader :wechat
+      def wechat; end
       # Attribute for field wechat_pay
       sig { returns(WechatPay) }
-      attr_reader :wechat_pay
+      def wechat_pay; end
       # Attribute for field zip
       sig { returns(Zip) }
-      attr_reader :zip
+      def zip; end
     end
     class ProcessorDetails < Stripe::StripeObject
       class Custom < Stripe::StripeObject
         # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
         sig { returns(String) }
-        attr_reader :payment_reference
+        def payment_reference; end
       end
       # Custom processors represent payment processors not modeled directly in
       # the Stripe API. This resource consists of details about the custom processor
       # used for this payment attempt.
       sig { returns(Custom) }
-      attr_reader :custom
+      def custom; end
       # The processor used for this payment attempt.
       sig { returns(String) }
-      attr_reader :type
+      def type; end
     end
     class ShippingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
-        attr_reader :city
+        def city; end
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(T.nilable(String)) }
-        attr_reader :country
+        def country; end
         # Address line 1 (e.g., street, PO Box, or company name).
         sig { returns(T.nilable(String)) }
-        attr_reader :line1
+        def line1; end
         # Address line 2 (e.g., apartment, suite, unit, or building).
         sig { returns(T.nilable(String)) }
-        attr_reader :line2
+        def line2; end
         # ZIP or postal code.
         sig { returns(T.nilable(String)) }
-        attr_reader :postal_code
+        def postal_code; end
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
-        attr_reader :state
+        def state; end
       end
       # A representation of a physical address.
       sig { returns(Address) }
-      attr_reader :address
+      def address; end
       # The shipping recipient's name.
       sig { returns(T.nilable(String)) }
-      attr_reader :name
+      def name; end
       # The shipping recipient's phone number.
       sig { returns(T.nilable(String)) }
-      attr_reader :phone
+      def phone; end
     end
     # A representation of an amount of money, consisting of an amount and a currency.
     sig { returns(Amount) }
-    attr_reader :amount
+    def amount; end
     # A representation of an amount of money, consisting of an amount and a currency.
     sig { returns(AmountAuthorized) }
-    attr_reader :amount_authorized
+    def amount_authorized; end
     # A representation of an amount of money, consisting of an amount and a currency.
     sig { returns(AmountCanceled) }
-    attr_reader :amount_canceled
+    def amount_canceled; end
     # A representation of an amount of money, consisting of an amount and a currency.
     sig { returns(AmountFailed) }
-    attr_reader :amount_failed
+    def amount_failed; end
     # A representation of an amount of money, consisting of an amount and a currency.
     sig { returns(AmountGuaranteed) }
-    attr_reader :amount_guaranteed
+    def amount_guaranteed; end
     # A representation of an amount of money, consisting of an amount and a currency.
     sig { returns(AmountRefunded) }
-    attr_reader :amount_refunded
+    def amount_refunded; end
     # A representation of an amount of money, consisting of an amount and a currency.
     sig { returns(AmountRequested) }
-    attr_reader :amount_requested
+    def amount_requested; end
     # ID of the Connect application that created the PaymentRecord.
     sig { returns(T.nilable(String)) }
-    attr_reader :application
+    def application; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    attr_reader :created
+    def created; end
     # Customer information for this payment.
     sig { returns(T.nilable(CustomerDetails)) }
-    attr_reader :customer_details
+    def customer_details; end
     # Indicates whether the customer was present in your checkout flow during this payment.
     sig { returns(T.nilable(String)) }
-    attr_reader :customer_presence
+    def customer_presence; end
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
-    attr_reader :description
+    def description; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # ID of the latest Payment Attempt Record attached to this Payment Record.
     sig { returns(T.nilable(String)) }
-    attr_reader :latest_payment_attempt_record
+    def latest_payment_attempt_record; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
-    attr_reader :metadata
+    def metadata; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # Information about the Payment Method debited for this payment.
     sig { returns(T.nilable(PaymentMethodDetails)) }
-    attr_reader :payment_method_details
+    def payment_method_details; end
     # Processor information associated with this payment.
     sig { returns(ProcessorDetails) }
-    attr_reader :processor_details
+    def processor_details; end
     # Shipping information for this payment.
     sig { returns(T.nilable(ShippingDetails)) }
-    attr_reader :shipping_details
+    def shipping_details; end
     class ReportPaymentAttemptParams < Stripe::RequestParams
       class Failed < Stripe::RequestParams
         # When the reported payment failed. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        attr_accessor :failed_at
+        def failed_at; end
+        sig { params(_failed_at: Integer).returns(Integer) }
+        def failed_at=(_failed_at); end
         sig { params(failed_at: Integer).void }
         def initialize(failed_at: nil); end
       end
       class Guaranteed < Stripe::RequestParams
         # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        attr_accessor :guaranteed_at
+        def guaranteed_at; end
+        sig { params(_guaranteed_at: Integer).returns(Integer) }
+        def guaranteed_at=(_guaranteed_at); end
         sig { params(guaranteed_at: Integer).void }
         def initialize(guaranteed_at: nil); end
       end
@@ -1504,22 +1508,34 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            attr_accessor :city
+            def city; end
+            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+            def city=(_city); end
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            attr_accessor :country
+            def country; end
+            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+            def country=(_country); end
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            attr_accessor :line1
+            def line1; end
+            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+            def line1=(_line1); end
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            attr_accessor :line2
+            def line2; end
+            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+            def line2=(_line2); end
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            attr_accessor :postal_code
+            def postal_code; end
+            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+            def postal_code=(_postal_code); end
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            attr_accessor :state
+            def state; end
+            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+            def state=(_state); end
             sig {
               params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
              }
@@ -1536,16 +1552,26 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address))
            }
-          attr_accessor :address
+          def address; end
+          sig {
+            params(_address: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address))
+           }
+          def address=(_address); end
           # The billing email associated with the method of payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :email
+          def email; end
+          sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+          def email=(_email); end
           # The billing name associated with the method of payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :name
+          def name; end
+          sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+          def name=(_name); end
           # The billing phone number associated with the method of payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :phone
+          def phone; end
+          sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+          def phone=(_phone); end
           sig {
             params(address: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
            }
@@ -1554,10 +1580,14 @@ module Stripe
         class Custom < Stripe::RequestParams
           # Display name for the custom (user-defined) payment method type used to make this payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :display_name
+          def display_name; end
+          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+          def display_name=(_display_name); end
           # The custom payment method type associated with this payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+          def type=(_type); end
           sig { params(display_name: T.nilable(String), type: T.nilable(String)).void }
           def initialize(display_name: nil, type: nil); end
         end
@@ -1565,18 +1595,30 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails))
          }
-        attr_accessor :billing_details
+        def billing_details; end
+        sig {
+          params(_billing_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails))
+         }
+        def billing_details=(_billing_details); end
         # Information about the custom (user-defined) payment method used to make this payment.
         sig {
           returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::Custom))
          }
-        attr_accessor :custom
+        def custom; end
+        sig {
+          params(_custom: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::Custom)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::Custom))
+         }
+        def custom=(_custom); end
         # ID of the Stripe Payment Method used to make this payment.
         sig { returns(T.nilable(String)) }
-        attr_accessor :payment_method
+        def payment_method; end
+        sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+        def payment_method=(_payment_method); end
         # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
         sig { returns(T.nilable(String)) }
-        attr_accessor :type
+        def type; end
+        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+        def type=(_type); end
         sig {
           params(billing_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails), custom: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String)).void
          }
@@ -1586,22 +1628,34 @@ module Stripe
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
-          attr_accessor :city
+          def city; end
+          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+          def city=(_city); end
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          attr_accessor :country
+          def country; end
+          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+          def country=(_country); end
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(T.nilable(String)) }
-          attr_accessor :line1
+          def line1; end
+          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+          def line1=(_line1); end
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(T.nilable(String)) }
-          attr_accessor :line2
+          def line2; end
+          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+          def line2=(_line2); end
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
-          attr_accessor :postal_code
+          def postal_code; end
+          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+          def postal_code=(_postal_code); end
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
-          attr_accessor :state
+          def state; end
+          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+          def state=(_state); end
           sig {
             params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
            }
@@ -1618,13 +1672,21 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::ShippingDetails::Address))
          }
-        attr_accessor :address
+        def address; end
+        sig {
+          params(_address: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::ShippingDetails::Address)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::ShippingDetails::Address))
+         }
+        def address=(_address); end
         # The shipping recipient's name.
         sig { returns(T.nilable(String)) }
-        attr_accessor :name
+        def name; end
+        sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+        def name=(_name); end
         # The shipping recipient's phone number.
         sig { returns(T.nilable(String)) }
-        attr_accessor :phone
+        def phone; end
+        sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+        def phone=(_phone); end
         sig {
           params(address: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::ShippingDetails::Address), name: T.nilable(String), phone: T.nilable(String)).void
          }
@@ -1632,35 +1694,63 @@ module Stripe
       end
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
-      attr_accessor :description
+      def description; end
+      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+      def description=(_description); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # Information about the payment attempt failure.
       sig { returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::Failed)) }
-      attr_accessor :failed
+      def failed; end
+      sig {
+        params(_failed: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::Failed)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::Failed))
+       }
+      def failed=(_failed); end
       # Information about the payment attempt guarantee.
       sig { returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::Guaranteed)) }
-      attr_accessor :guaranteed
+      def guaranteed; end
+      sig {
+        params(_guaranteed: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::Guaranteed)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::Guaranteed))
+       }
+      def guaranteed=(_guaranteed); end
       # When the reported payment was initiated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      attr_accessor :initiated_at
+      def initiated_at; end
+      sig { params(_initiated_at: Integer).returns(Integer) }
+      def initiated_at=(_initiated_at); end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      attr_accessor :metadata
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
       # The outcome of the reported payment.
       sig { returns(T.nilable(String)) }
-      attr_accessor :outcome
+      def outcome; end
+      sig { params(_outcome: T.nilable(String)).returns(T.nilable(String)) }
+      def outcome=(_outcome); end
       # Information about the Payment Method debited for this payment.
       sig {
         returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails))
        }
-      attr_accessor :payment_method_details
+      def payment_method_details; end
+      sig {
+        params(_payment_method_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails))
+       }
+      def payment_method_details=(_payment_method_details); end
       # Shipping information for this payment.
       sig {
         returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::ShippingDetails))
        }
-      attr_accessor :shipping_details
+      def shipping_details; end
+      sig {
+        params(_shipping_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::ShippingDetails)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::ShippingDetails))
+       }
+      def shipping_details=(_shipping_details); end
       sig {
         params(description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::Failed), guaranteed: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), payment_method_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::PaymentMethodDetails), shipping_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentAttemptParams::ShippingDetails)).void
        }
@@ -1679,13 +1769,21 @@ module Stripe
     class ReportPaymentAttemptCanceledParams < Stripe::RequestParams
       # When the reported payment was canceled. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      attr_accessor :canceled_at
+      def canceled_at; end
+      sig { params(_canceled_at: Integer).returns(Integer) }
+      def canceled_at=(_canceled_at); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # Attribute for param field metadata
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      attr_accessor :metadata
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
       sig {
         params(canceled_at: Integer, expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
@@ -1694,13 +1792,21 @@ module Stripe
     class ReportPaymentAttemptFailedParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      attr_accessor :failed_at
+      def failed_at; end
+      sig { params(_failed_at: Integer).returns(Integer) }
+      def failed_at=(_failed_at); end
       # Attribute for param field metadata
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      attr_accessor :metadata
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
       sig {
         params(expand: T.nilable(T::Array[String]), failed_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
@@ -1709,13 +1815,21 @@ module Stripe
     class ReportPaymentAttemptGuaranteedParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      attr_accessor :guaranteed_at
+      def guaranteed_at; end
+      sig { params(_guaranteed_at: Integer).returns(Integer) }
+      def guaranteed_at=(_guaranteed_at); end
       # Attribute for param field metadata
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      attr_accessor :metadata
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
       sig {
         params(expand: T.nilable(T::Array[String]), guaranteed_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
        }
@@ -1725,26 +1839,38 @@ module Stripe
       class AmountRequested < Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
-        attr_accessor :currency
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
         # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         sig { returns(Integer) }
-        attr_accessor :value
+        def value; end
+        sig { params(_value: Integer).returns(Integer) }
+        def value=(_value); end
         sig { params(currency: String, value: Integer).void }
         def initialize(currency: nil, value: nil); end
       end
       class CustomerDetails < Stripe::RequestParams
         # The customer who made the payment.
         sig { returns(T.nilable(String)) }
-        attr_accessor :customer
+        def customer; end
+        sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
+        def customer=(_customer); end
         # The customer's phone number.
         sig { returns(T.nilable(String)) }
-        attr_accessor :email
+        def email; end
+        sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+        def email=(_email); end
         # The customer's name.
         sig { returns(T.nilable(String)) }
-        attr_accessor :name
+        def name; end
+        sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+        def name=(_name); end
         # The customer's phone number.
         sig { returns(T.nilable(String)) }
-        attr_accessor :phone
+        def phone; end
+        sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+        def phone=(_phone); end
         sig {
           params(customer: T.nilable(String), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
          }
@@ -1753,14 +1879,18 @@ module Stripe
       class Failed < Stripe::RequestParams
         # When the reported payment failed. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        attr_accessor :failed_at
+        def failed_at; end
+        sig { params(_failed_at: Integer).returns(Integer) }
+        def failed_at=(_failed_at); end
         sig { params(failed_at: Integer).void }
         def initialize(failed_at: nil); end
       end
       class Guaranteed < Stripe::RequestParams
         # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        attr_accessor :guaranteed_at
+        def guaranteed_at; end
+        sig { params(_guaranteed_at: Integer).returns(Integer) }
+        def guaranteed_at=(_guaranteed_at); end
         sig { params(guaranteed_at: Integer).void }
         def initialize(guaranteed_at: nil); end
       end
@@ -1769,22 +1899,34 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
-            attr_accessor :city
+            def city; end
+            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+            def city=(_city); end
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
-            attr_accessor :country
+            def country; end
+            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+            def country=(_country); end
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
-            attr_accessor :line1
+            def line1; end
+            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+            def line1=(_line1); end
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            attr_accessor :line2
+            def line2; end
+            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+            def line2=(_line2); end
             # ZIP or postal code.
             sig { returns(T.nilable(String)) }
-            attr_accessor :postal_code
+            def postal_code; end
+            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+            def postal_code=(_postal_code); end
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            attr_accessor :state
+            def state; end
+            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+            def state=(_state); end
             sig {
               params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
              }
@@ -1801,16 +1943,26 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::BillingDetails::Address))
            }
-          attr_accessor :address
+          def address; end
+          sig {
+            params(_address: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::BillingDetails::Address)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::BillingDetails::Address))
+           }
+          def address=(_address); end
           # The billing email associated with the method of payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :email
+          def email; end
+          sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+          def email=(_email); end
           # The billing name associated with the method of payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :name
+          def name; end
+          sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+          def name=(_name); end
           # The billing phone number associated with the method of payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :phone
+          def phone; end
+          sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+          def phone=(_phone); end
           sig {
             params(address: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
            }
@@ -1819,10 +1971,14 @@ module Stripe
         class Custom < Stripe::RequestParams
           # Display name for the custom (user-defined) payment method type used to make this payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :display_name
+          def display_name; end
+          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+          def display_name=(_display_name); end
           # The custom payment method type associated with this payment.
           sig { returns(T.nilable(String)) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+          def type=(_type); end
           sig { params(display_name: T.nilable(String), type: T.nilable(String)).void }
           def initialize(display_name: nil, type: nil); end
         end
@@ -1830,18 +1986,30 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::BillingDetails))
          }
-        attr_accessor :billing_details
+        def billing_details; end
+        sig {
+          params(_billing_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::BillingDetails)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::BillingDetails))
+         }
+        def billing_details=(_billing_details); end
         # Information about the custom (user-defined) payment method used to make this payment.
         sig {
           returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::Custom))
          }
-        attr_accessor :custom
+        def custom; end
+        sig {
+          params(_custom: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::Custom)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::Custom))
+         }
+        def custom=(_custom); end
         # ID of the Stripe Payment Method used to make this payment.
         sig { returns(T.nilable(String)) }
-        attr_accessor :payment_method
+        def payment_method; end
+        sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+        def payment_method=(_payment_method); end
         # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
         sig { returns(T.nilable(String)) }
-        attr_accessor :type
+        def type; end
+        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+        def type=(_type); end
         sig {
           params(billing_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::BillingDetails), custom: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String)).void
          }
@@ -1851,7 +2019,9 @@ module Stripe
         class Custom < Stripe::RequestParams
           # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
           sig { returns(String) }
-          attr_accessor :payment_reference
+          def payment_reference; end
+          sig { params(_payment_reference: String).returns(String) }
+          def payment_reference=(_payment_reference); end
           sig { params(payment_reference: String).void }
           def initialize(payment_reference: nil); end
         end
@@ -1859,10 +2029,16 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ProcessorDetails::Custom))
          }
-        attr_accessor :custom
+        def custom; end
+        sig {
+          params(_custom: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ProcessorDetails::Custom)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ProcessorDetails::Custom))
+         }
+        def custom=(_custom); end
         # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
         sig { returns(String) }
-        attr_accessor :type
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
         sig {
           params(custom: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ProcessorDetails::Custom), type: String).void
          }
@@ -1872,22 +2048,34 @@ module Stripe
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
-          attr_accessor :city
+          def city; end
+          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+          def city=(_city); end
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          attr_accessor :country
+          def country; end
+          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+          def country=(_country); end
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(T.nilable(String)) }
-          attr_accessor :line1
+          def line1; end
+          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+          def line1=(_line1); end
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(T.nilable(String)) }
-          attr_accessor :line2
+          def line2; end
+          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+          def line2=(_line2); end
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
-          attr_accessor :postal_code
+          def postal_code; end
+          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+          def postal_code=(_postal_code); end
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
-          attr_accessor :state
+          def state; end
+          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+          def state=(_state); end
           sig {
             params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
            }
@@ -1904,13 +2092,21 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ShippingDetails::Address))
          }
-        attr_accessor :address
+        def address; end
+        sig {
+          params(_address: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ShippingDetails::Address)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ShippingDetails::Address))
+         }
+        def address=(_address); end
         # The shipping recipient's name.
         sig { returns(T.nilable(String)) }
-        attr_accessor :name
+        def name; end
+        sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+        def name=(_name); end
         # The shipping recipient's phone number.
         sig { returns(T.nilable(String)) }
-        attr_accessor :phone
+        def phone; end
+        sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+        def phone=(_phone); end
         sig {
           params(address: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ShippingDetails::Address), name: T.nilable(String), phone: T.nilable(String)).void
          }
@@ -1918,43 +2114,85 @@ module Stripe
       end
       # The amount you initially requested for this payment.
       sig { returns(::Stripe::PaymentRecord::ReportPaymentParams::AmountRequested) }
-      attr_accessor :amount_requested
+      def amount_requested; end
+      sig {
+        params(_amount_requested: ::Stripe::PaymentRecord::ReportPaymentParams::AmountRequested).returns(::Stripe::PaymentRecord::ReportPaymentParams::AmountRequested)
+       }
+      def amount_requested=(_amount_requested); end
       # Customer information for this payment.
       sig { returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::CustomerDetails)) }
-      attr_accessor :customer_details
+      def customer_details; end
+      sig {
+        params(_customer_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::CustomerDetails)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::CustomerDetails))
+       }
+      def customer_details=(_customer_details); end
       # Indicates whether the customer was present in your checkout flow during this payment.
       sig { returns(T.nilable(String)) }
-      attr_accessor :customer_presence
+      def customer_presence; end
+      sig { params(_customer_presence: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_presence=(_customer_presence); end
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
-      attr_accessor :description
+      def description; end
+      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+      def description=(_description); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # Information about the payment attempt failure.
       sig { returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::Failed)) }
-      attr_accessor :failed
+      def failed; end
+      sig {
+        params(_failed: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::Failed)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::Failed))
+       }
+      def failed=(_failed); end
       # Information about the payment attempt guarantee.
       sig { returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::Guaranteed)) }
-      attr_accessor :guaranteed
+      def guaranteed; end
+      sig {
+        params(_guaranteed: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::Guaranteed)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::Guaranteed))
+       }
+      def guaranteed=(_guaranteed); end
       # When the reported payment was initiated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      attr_accessor :initiated_at
+      def initiated_at; end
+      sig { params(_initiated_at: Integer).returns(Integer) }
+      def initiated_at=(_initiated_at); end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      attr_accessor :metadata
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
       # The outcome of the reported payment.
       sig { returns(T.nilable(String)) }
-      attr_accessor :outcome
+      def outcome; end
+      sig { params(_outcome: T.nilable(String)).returns(T.nilable(String)) }
+      def outcome=(_outcome); end
       # Information about the Payment Method debited for this payment.
       sig { returns(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails) }
-      attr_accessor :payment_method_details
+      def payment_method_details; end
+      sig {
+        params(_payment_method_details: ::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails).returns(::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails)
+       }
+      def payment_method_details=(_payment_method_details); end
       # Processor information for this payment.
       sig { returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ProcessorDetails)) }
-      attr_accessor :processor_details
+      def processor_details; end
+      sig {
+        params(_processor_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ProcessorDetails)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ProcessorDetails))
+       }
+      def processor_details=(_processor_details); end
       # Shipping information for this payment.
       sig { returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ShippingDetails)) }
-      attr_accessor :shipping_details
+      def shipping_details; end
+      sig {
+        params(_shipping_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ShippingDetails)).returns(T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ShippingDetails))
+       }
+      def shipping_details=(_shipping_details); end
       sig {
         params(amount_requested: ::Stripe::PaymentRecord::ReportPaymentParams::AmountRequested, customer_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::CustomerDetails), customer_presence: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::Failed), guaranteed: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), payment_method_details: ::Stripe::PaymentRecord::ReportPaymentParams::PaymentMethodDetails, processor_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ProcessorDetails), shipping_details: T.nilable(::Stripe::PaymentRecord::ReportPaymentParams::ShippingDetails)).void
        }

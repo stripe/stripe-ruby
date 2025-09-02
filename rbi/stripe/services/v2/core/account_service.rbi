@@ -10,10 +10,16 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :applied_configurations
+          def applied_configurations; end
+          sig {
+            params(_applied_configurations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def applied_configurations=(_applied_configurations); end
           # The upper limit on the number of accounts returned by the List Account request.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
+          def limit; end
+          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def limit=(_limit); end
           sig {
             params(applied_configurations: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void
            }
@@ -25,13 +31,19 @@ module Stripe
               class AutomaticIndirectTax < Stripe::RequestParams
                 # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :exempt
+                def exempt; end
+                sig { params(_exempt: T.nilable(String)).returns(T.nilable(String)) }
+                def exempt=(_exempt); end
                 # A recent IP address of the customer used for tax reporting and tax location inference.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :ip_address
+                def ip_address; end
+                sig { params(_ip_address: T.nilable(String)).returns(T.nilable(String)) }
+                def ip_address=(_ip_address); end
                 # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :location_source
+                def location_source; end
+                sig { params(_location_source: T.nilable(String)).returns(T.nilable(String)) }
+                def location_source=(_location_source); end
                 sig {
                   params(exempt: T.nilable(String), ip_address: T.nilable(String), location_source: T.nilable(String)).void
                  }
@@ -42,20 +54,30 @@ module Stripe
                   class CustomField < Stripe::RequestParams
                     # The name of the custom field. This may be up to 40 characters.
                     sig { returns(String) }
-                    attr_accessor :name
+                    def name; end
+                    sig { params(_name: String).returns(String) }
+                    def name=(_name); end
                     # The value of the custom field. This may be up to 140 characters. When updating, pass an empty string to remove previously-defined values.
                     sig { returns(String) }
-                    attr_accessor :value
+                    def value; end
+                    sig { params(_value: String).returns(String) }
+                    def value=(_value); end
                     sig { params(name: String, value: String).void }
                     def initialize(name: nil, value: nil); end
                   end
                   class Rendering < Stripe::RequestParams
                     # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :amount_tax_display
+                    def amount_tax_display; end
+                    sig {
+                      params(_amount_tax_display: T.nilable(String)).returns(T.nilable(String))
+                     }
+                    def amount_tax_display=(_amount_tax_display); end
                     # ID of the invoice rendering template to use for future invoices.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :template
+                    def template; end
+                    sig { params(_template: T.nilable(String)).returns(T.nilable(String)) }
+                    def template=(_template); end
                     sig {
                       params(amount_tax_display: T.nilable(String), template: T.nilable(String)).void
                      }
@@ -65,21 +87,35 @@ module Stripe
                   sig {
                     returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice::CustomField]))
                    }
-                  attr_accessor :custom_fields
+                  def custom_fields; end
+                  sig {
+                    params(_custom_fields: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice::CustomField])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice::CustomField]))
+                   }
+                  def custom_fields=(_custom_fields); end
                   # Default footer to be displayed on invoices for this customer.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :footer
+                  def footer; end
+                  sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
+                  def footer=(_footer); end
                   # The sequence to be used on the customer's next invoice. Defaults to 1.
                   sig { returns(T.nilable(Integer)) }
-                  attr_accessor :next_sequence
+                  def next_sequence; end
+                  sig { params(_next_sequence: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def next_sequence=(_next_sequence); end
                   # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :prefix
+                  def prefix; end
+                  sig { params(_prefix: T.nilable(String)).returns(T.nilable(String)) }
+                  def prefix=(_prefix); end
                   # Default options for invoice PDF rendering for this customer.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice::Rendering))
                    }
-                  attr_accessor :rendering
+                  def rendering; end
+                  sig {
+                    params(_rendering: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice::Rendering)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice::Rendering))
+                   }
+                  def rendering=(_rendering); end
                   sig {
                     params(custom_fields: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice::CustomField]), footer: T.nilable(String), next_sequence: T.nilable(Integer), prefix: T.nilable(String), rendering: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice::Rendering)).void
                    }
@@ -95,7 +131,11 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice))
                  }
-                attr_accessor :invoice
+                def invoice; end
+                sig {
+                  params(_invoice: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice))
+                 }
+                def invoice=(_invoice); end
                 sig {
                   params(invoice: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing::Invoice)).void
                  }
@@ -105,7 +145,9 @@ module Stripe
                 class AutomaticIndirectTax < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
@@ -113,7 +155,11 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax))
                  }
-                attr_accessor :automatic_indirect_tax
+                def automatic_indirect_tax; end
+                sig {
+                  params(_automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax))
+                 }
+                def automatic_indirect_tax=(_automatic_indirect_tax); end
                 sig {
                   params(automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax)).void
                  }
@@ -123,22 +169,34 @@ module Stripe
                 class Address < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :city
+                  def city; end
+                  sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :country
+                  def country; end
+                  sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :state
+                  def state; end
+                  sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                  def state=(_state); end
                   sig {
                     params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
                    }
@@ -155,13 +213,21 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Shipping::Address))
                  }
-                attr_accessor :address
+                def address; end
+                sig {
+                  params(_address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Shipping::Address)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Shipping::Address))
+                 }
+                def address=(_address); end
                 # Customer name.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :name
+                def name; end
+                sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+                def name=(_name); end
                 # Customer phone (including extension).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :phone
+                def phone; end
+                sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+                def phone=(_phone); end
                 sig {
                   params(address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Shipping::Address), name: T.nilable(String), phone: T.nilable(String)).void
                  }
@@ -171,25 +237,43 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::AutomaticIndirectTax))
                }
-              attr_accessor :automatic_indirect_tax
+              def automatic_indirect_tax; end
+              sig {
+                params(_automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::AutomaticIndirectTax)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::AutomaticIndirectTax))
+               }
+              def automatic_indirect_tax=(_automatic_indirect_tax); end
               # Billing settings - default settings used for this customer in Billing flows such as Invoices and Subscriptions.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing))
                }
-              attr_accessor :billing
+              def billing; end
+              sig {
+                params(_billing: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing))
+               }
+              def billing=(_billing); end
               # Capabilities that have been requested on the Customer Configuration.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Capabilities))
                }
-              attr_accessor :capabilities
+              def capabilities; end
+              sig {
+                params(_capabilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Capabilities))
+               }
+              def capabilities=(_capabilities); end
               # The customer's shipping information. Appears on invoices emailed to this customer.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Shipping))
                }
-              attr_accessor :shipping
+              def shipping; end
+              sig {
+                params(_shipping: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Shipping)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Shipping))
+               }
+              def shipping=(_shipping); end
               # ID of the test clock to attach to the customer. Can only be set on testmode Accounts, and when the Customer Configuration is first set on an Account.
               sig { returns(T.nilable(String)) }
-              attr_accessor :test_clock
+              def test_clock; end
+              sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
+              def test_clock=(_test_clock); end
               sig {
                 params(automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::AutomaticIndirectTax), billing: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Billing), capabilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Capabilities), shipping: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer::Shipping), test_clock: T.nilable(String)).void
                }
@@ -205,23 +289,33 @@ module Stripe
               class BacsDebitPayments < Stripe::RequestParams
                 # Display name for Bacs debit payments.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :display_name
+                def display_name; end
+                sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+                def display_name=(_display_name); end
                 sig { params(display_name: T.nilable(String)).void }
                 def initialize(display_name: nil); end
               end
               class Branding < Stripe::RequestParams
                 # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :icon
+                def icon; end
+                sig { params(_icon: T.nilable(String)).returns(T.nilable(String)) }
+                def icon=(_icon); end
                 # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :logo
+                def logo; end
+                sig { params(_logo: T.nilable(String)).returns(T.nilable(String)) }
+                def logo=(_logo); end
                 # A CSS hex color value representing the primary branding color for the merchant.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :primary_color
+                def primary_color; end
+                sig { params(_primary_color: T.nilable(String)).returns(T.nilable(String)) }
+                def primary_color=(_primary_color); end
                 # A CSS hex color value representing the secondary branding color for the merchant.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :secondary_color
+                def secondary_color; end
+                sig { params(_secondary_color: T.nilable(String)).returns(T.nilable(String)) }
+                def secondary_color=(_secondary_color); end
                 sig {
                   params(icon: T.nilable(String), logo: T.nilable(String), primary_color: T.nilable(String), secondary_color: T.nilable(String)).void
                  }
@@ -231,308 +325,396 @@ module Stripe
                 class AchDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class AcssDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class AffirmPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class AfterpayClearpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class AlmaPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class AmazonPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class AuBecsDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class BacsDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class BancontactPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class BlikPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class BoletoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class CardPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class CartesBancairesPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class CashappPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class EpsPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class FpxPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class GbBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class GrabpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class IdealPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class JcbPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class JpBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class KakaoPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class KlarnaPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class KonbiniPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class KrCardPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class LinkPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class MobilepayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class MultibancoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class MxBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class NaverPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class OxxoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class P24Payments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class PayByBankPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class PaycoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class PaynowPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class PromptpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class RevolutPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class SamsungPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class SepaBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class SepaDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class SwishPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class TwintPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class UsBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
                 class ZipPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
@@ -540,222 +722,398 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AchDebitPayments))
                  }
-                attr_accessor :ach_debit_payments
+                def ach_debit_payments; end
+                sig {
+                  params(_ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AchDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AchDebitPayments))
+                 }
+                def ach_debit_payments=(_ach_debit_payments); end
                 # Allow the merchant to process ACSS debit payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments))
                  }
-                attr_accessor :acss_debit_payments
+                def acss_debit_payments; end
+                sig {
+                  params(_acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments))
+                 }
+                def acss_debit_payments=(_acss_debit_payments); end
                 # Allow the merchant to process Affirm payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AffirmPayments))
                  }
-                attr_accessor :affirm_payments
+                def affirm_payments; end
+                sig {
+                  params(_affirm_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AffirmPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AffirmPayments))
+                 }
+                def affirm_payments=(_affirm_payments); end
                 # Allow the merchant to process Afterpay/Clearpay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments))
                  }
-                attr_accessor :afterpay_clearpay_payments
+                def afterpay_clearpay_payments; end
+                sig {
+                  params(_afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments))
+                 }
+                def afterpay_clearpay_payments=(_afterpay_clearpay_payments); end
                 # Allow the merchant to process Alma payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AlmaPayments))
                  }
-                attr_accessor :alma_payments
+                def alma_payments; end
+                sig {
+                  params(_alma_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AlmaPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AlmaPayments))
+                 }
+                def alma_payments=(_alma_payments); end
                 # Allow the merchant to process Amazon Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments))
                  }
-                attr_accessor :amazon_pay_payments
+                def amazon_pay_payments; end
+                sig {
+                  params(_amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments))
+                 }
+                def amazon_pay_payments=(_amazon_pay_payments); end
                 # Allow the merchant to process Australian BECS Direct Debit payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments))
                  }
-                attr_accessor :au_becs_debit_payments
+                def au_becs_debit_payments; end
+                sig {
+                  params(_au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments))
+                 }
+                def au_becs_debit_payments=(_au_becs_debit_payments); end
                 # Allow the merchant to process BACS Direct Debit payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments))
                  }
-                attr_accessor :bacs_debit_payments
+                def bacs_debit_payments; end
+                sig {
+                  params(_bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments))
+                 }
+                def bacs_debit_payments=(_bacs_debit_payments); end
                 # Allow the merchant to process Bancontact payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BancontactPayments))
                  }
-                attr_accessor :bancontact_payments
+                def bancontact_payments; end
+                sig {
+                  params(_bancontact_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BancontactPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BancontactPayments))
+                 }
+                def bancontact_payments=(_bancontact_payments); end
                 # Allow the merchant to process BLIK payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BlikPayments))
                  }
-                attr_accessor :blik_payments
+                def blik_payments; end
+                sig {
+                  params(_blik_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BlikPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BlikPayments))
+                 }
+                def blik_payments=(_blik_payments); end
                 # Allow the merchant to process Boleto payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BoletoPayments))
                  }
-                attr_accessor :boleto_payments
+                def boleto_payments; end
+                sig {
+                  params(_boleto_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BoletoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BoletoPayments))
+                 }
+                def boleto_payments=(_boleto_payments); end
                 # Allow the merchant to collect card payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CardPayments))
                  }
-                attr_accessor :card_payments
+                def card_payments; end
+                sig {
+                  params(_card_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CardPayments))
+                 }
+                def card_payments=(_card_payments); end
                 # Allow the merchant to process Cartes Bancaires payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments))
                  }
-                attr_accessor :cartes_bancaires_payments
+                def cartes_bancaires_payments; end
+                sig {
+                  params(_cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments))
+                 }
+                def cartes_bancaires_payments=(_cartes_bancaires_payments); end
                 # Allow the merchant to process Cash App payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CashappPayments))
                  }
-                attr_accessor :cashapp_payments
+                def cashapp_payments; end
+                sig {
+                  params(_cashapp_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CashappPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CashappPayments))
+                 }
+                def cashapp_payments=(_cashapp_payments); end
                 # Allow the merchant to process EPS payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::EpsPayments))
                  }
-                attr_accessor :eps_payments
+                def eps_payments; end
+                sig {
+                  params(_eps_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::EpsPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::EpsPayments))
+                 }
+                def eps_payments=(_eps_payments); end
                 # Allow the merchant to process FPX payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::FpxPayments))
                  }
-                attr_accessor :fpx_payments
+                def fpx_payments; end
+                sig {
+                  params(_fpx_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::FpxPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::FpxPayments))
+                 }
+                def fpx_payments=(_fpx_payments); end
                 # Allow the merchant to process UK bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments))
                  }
-                attr_accessor :gb_bank_transfer_payments
+                def gb_bank_transfer_payments; end
+                sig {
+                  params(_gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments))
+                 }
+                def gb_bank_transfer_payments=(_gb_bank_transfer_payments); end
                 # Allow the merchant to process GrabPay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::GrabpayPayments))
                  }
-                attr_accessor :grabpay_payments
+                def grabpay_payments; end
+                sig {
+                  params(_grabpay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::GrabpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::GrabpayPayments))
+                 }
+                def grabpay_payments=(_grabpay_payments); end
                 # Allow the merchant to process iDEAL payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::IdealPayments))
                  }
-                attr_accessor :ideal_payments
+                def ideal_payments; end
+                sig {
+                  params(_ideal_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::IdealPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::IdealPayments))
+                 }
+                def ideal_payments=(_ideal_payments); end
                 # Allow the merchant to process JCB card payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::JcbPayments))
                  }
-                attr_accessor :jcb_payments
+                def jcb_payments; end
+                sig {
+                  params(_jcb_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::JcbPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::JcbPayments))
+                 }
+                def jcb_payments=(_jcb_payments); end
                 # Allow the merchant to process Japanese bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments))
                  }
-                attr_accessor :jp_bank_transfer_payments
+                def jp_bank_transfer_payments; end
+                sig {
+                  params(_jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments))
+                 }
+                def jp_bank_transfer_payments=(_jp_bank_transfer_payments); end
                 # Allow the merchant to process Kakao Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments))
                  }
-                attr_accessor :kakao_pay_payments
+                def kakao_pay_payments; end
+                sig {
+                  params(_kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments))
+                 }
+                def kakao_pay_payments=(_kakao_pay_payments); end
                 # Allow the merchant to process Klarna payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KlarnaPayments))
                  }
-                attr_accessor :klarna_payments
+                def klarna_payments; end
+                sig {
+                  params(_klarna_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KlarnaPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KlarnaPayments))
+                 }
+                def klarna_payments=(_klarna_payments); end
                 # Allow the merchant to process Konbini convenience store payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KonbiniPayments))
                  }
-                attr_accessor :konbini_payments
+                def konbini_payments; end
+                sig {
+                  params(_konbini_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KonbiniPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KonbiniPayments))
+                 }
+                def konbini_payments=(_konbini_payments); end
                 # Allow the merchant to process Korean card payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KrCardPayments))
                  }
-                attr_accessor :kr_card_payments
+                def kr_card_payments; end
+                sig {
+                  params(_kr_card_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KrCardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KrCardPayments))
+                 }
+                def kr_card_payments=(_kr_card_payments); end
                 # Allow the merchant to process Link payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::LinkPayments))
                  }
-                attr_accessor :link_payments
+                def link_payments; end
+                sig {
+                  params(_link_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::LinkPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::LinkPayments))
+                 }
+                def link_payments=(_link_payments); end
                 # Allow the merchant to process MobilePay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MobilepayPayments))
                  }
-                attr_accessor :mobilepay_payments
+                def mobilepay_payments; end
+                sig {
+                  params(_mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MobilepayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MobilepayPayments))
+                 }
+                def mobilepay_payments=(_mobilepay_payments); end
                 # Allow the merchant to process Multibanco payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MultibancoPayments))
                  }
-                attr_accessor :multibanco_payments
+                def multibanco_payments; end
+                sig {
+                  params(_multibanco_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MultibancoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MultibancoPayments))
+                 }
+                def multibanco_payments=(_multibanco_payments); end
                 # Allow the merchant to process Mexican bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments))
                  }
-                attr_accessor :mx_bank_transfer_payments
+                def mx_bank_transfer_payments; end
+                sig {
+                  params(_mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments))
+                 }
+                def mx_bank_transfer_payments=(_mx_bank_transfer_payments); end
                 # Allow the merchant to process Naver Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::NaverPayPayments))
                  }
-                attr_accessor :naver_pay_payments
+                def naver_pay_payments; end
+                sig {
+                  params(_naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::NaverPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::NaverPayPayments))
+                 }
+                def naver_pay_payments=(_naver_pay_payments); end
                 # Allow the merchant to process OXXO payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::OxxoPayments))
                  }
-                attr_accessor :oxxo_payments
+                def oxxo_payments; end
+                sig {
+                  params(_oxxo_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::OxxoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::OxxoPayments))
+                 }
+                def oxxo_payments=(_oxxo_payments); end
                 # Allow the merchant to process Przelewy24 (P24) payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::P24Payments))
                  }
-                attr_accessor :p24_payments
+                def p24_payments; end
+                sig {
+                  params(_p24_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::P24Payments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::P24Payments))
+                 }
+                def p24_payments=(_p24_payments); end
                 # Allow the merchant to process Pay by Bank payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PayByBankPayments))
                  }
-                attr_accessor :pay_by_bank_payments
+                def pay_by_bank_payments; end
+                sig {
+                  params(_pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PayByBankPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PayByBankPayments))
+                 }
+                def pay_by_bank_payments=(_pay_by_bank_payments); end
                 # Allow the merchant to process PAYCO payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PaycoPayments))
                  }
-                attr_accessor :payco_payments
+                def payco_payments; end
+                sig {
+                  params(_payco_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PaycoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PaycoPayments))
+                 }
+                def payco_payments=(_payco_payments); end
                 # Allow the merchant to process PayNow payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PaynowPayments))
                  }
-                attr_accessor :paynow_payments
+                def paynow_payments; end
+                sig {
+                  params(_paynow_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PaynowPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PaynowPayments))
+                 }
+                def paynow_payments=(_paynow_payments); end
                 # Allow the merchant to process PromptPay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PromptpayPayments))
                  }
-                attr_accessor :promptpay_payments
+                def promptpay_payments; end
+                sig {
+                  params(_promptpay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PromptpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PromptpayPayments))
+                 }
+                def promptpay_payments=(_promptpay_payments); end
                 # Allow the merchant to process Revolut Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments))
                  }
-                attr_accessor :revolut_pay_payments
+                def revolut_pay_payments; end
+                sig {
+                  params(_revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments))
+                 }
+                def revolut_pay_payments=(_revolut_pay_payments); end
                 # Allow the merchant to process Samsung Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments))
                  }
-                attr_accessor :samsung_pay_payments
+                def samsung_pay_payments; end
+                sig {
+                  params(_samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments))
+                 }
+                def samsung_pay_payments=(_samsung_pay_payments); end
                 # Allow the merchant to process SEPA bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments))
                  }
-                attr_accessor :sepa_bank_transfer_payments
+                def sepa_bank_transfer_payments; end
+                sig {
+                  params(_sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments))
+                 }
+                def sepa_bank_transfer_payments=(_sepa_bank_transfer_payments); end
                 # Allow the merchant to process SEPA Direct Debit payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments))
                  }
-                attr_accessor :sepa_debit_payments
+                def sepa_debit_payments; end
+                sig {
+                  params(_sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments))
+                 }
+                def sepa_debit_payments=(_sepa_debit_payments); end
                 # Allow the merchant to process Swish payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SwishPayments))
                  }
-                attr_accessor :swish_payments
+                def swish_payments; end
+                sig {
+                  params(_swish_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SwishPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SwishPayments))
+                 }
+                def swish_payments=(_swish_payments); end
                 # Allow the merchant to process TWINT payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::TwintPayments))
                  }
-                attr_accessor :twint_payments
+                def twint_payments; end
+                sig {
+                  params(_twint_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::TwintPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::TwintPayments))
+                 }
+                def twint_payments=(_twint_payments); end
                 # Allow the merchant to process US bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
                  }
-                attr_accessor :us_bank_transfer_payments
+                def us_bank_transfer_payments; end
+                sig {
+                  params(_us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
+                 }
+                def us_bank_transfer_payments=(_us_bank_transfer_payments); end
                 # Allow the merchant to process Zip payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::ZipPayments))
                  }
-                attr_accessor :zip_payments
+                def zip_payments; end
+                sig {
+                  params(_zip_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::ZipPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::ZipPayments))
+                 }
+                def zip_payments=(_zip_payments); end
                 sig {
                   params(ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AchDebitPayments), acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BancontactPayments), blik_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BlikPayments), boleto_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::BoletoPayments), card_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments), grabpay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::IdealPayments), jcb_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::KrCardPayments), link_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments), swish_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::SwishPayments), twint_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::TwintPayments), us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities::ZipPayments)).void
                  }
@@ -810,10 +1168,14 @@ module Stripe
                 class DeclineOn < Stripe::RequestParams
                   # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :avs_failure
+                  def avs_failure; end
+                  sig { params(_avs_failure: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def avs_failure=(_avs_failure); end
                   # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :cvc_failure
+                  def cvc_failure; end
+                  sig { params(_cvc_failure: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def cvc_failure=(_cvc_failure); end
                   sig {
                     params(avs_failure: T.nilable(T::Boolean), cvc_failure: T.nilable(T::Boolean)).void
                    }
@@ -823,7 +1185,11 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::CardPayments::DeclineOn))
                  }
-                attr_accessor :decline_on
+                def decline_on; end
+                sig {
+                  params(_decline_on: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::CardPayments::DeclineOn)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::CardPayments::DeclineOn))
+                 }
+                def decline_on=(_decline_on); end
                 sig {
                   params(decline_on: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::CardPayments::DeclineOn)).void
                  }
@@ -832,10 +1198,14 @@ module Stripe
               class StatementDescriptor < Stripe::RequestParams
                 # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :descriptor
+                def descriptor; end
+                sig { params(_descriptor: T.nilable(String)).returns(T.nilable(String)) }
+                def descriptor=(_descriptor); end
                 # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :prefix
+                def prefix; end
+                sig { params(_prefix: T.nilable(String)).returns(T.nilable(String)) }
+                def prefix=(_prefix); end
                 sig { params(descriptor: T.nilable(String), prefix: T.nilable(String)).void }
                 def initialize(descriptor: nil, prefix: nil); end
               end
@@ -843,25 +1213,39 @@ module Stripe
                 class Address < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :city
+                  def city; end
+                  sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(String) }
-                  attr_accessor :country
+                  def country; end
+                  sig { params(_country: String).returns(String) }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :state
+                  def state; end
+                  sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :town
+                  def town; end
+                  sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                    }
@@ -879,16 +1263,26 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Support::Address))
                  }
-                attr_accessor :address
+                def address; end
+                sig {
+                  params(_address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Support::Address)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Support::Address))
+                 }
+                def address=(_address); end
                 # A publicly available email address for sending support issues to.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :email
+                def email; end
+                sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+                def email=(_email); end
                 # A publicly available phone number to call with support issues.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :phone
+                def phone; end
+                sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+                def phone=(_phone); end
                 # A publicly available website for handling support issues.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :url
+                def url; end
+                sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
+                def url=(_url); end
                 sig {
                   params(address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Support::Address), email: T.nilable(String), phone: T.nilable(String), url: T.nilable(String)).void
                  }
@@ -898,35 +1292,61 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::BacsDebitPayments))
                }
-              attr_accessor :bacs_debit_payments
+              def bacs_debit_payments; end
+              sig {
+                params(_bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::BacsDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::BacsDebitPayments))
+               }
+              def bacs_debit_payments=(_bacs_debit_payments); end
               # Settings used to apply the merchant's branding to email receipts, invoices, Checkout, and other products.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Branding))
                }
-              attr_accessor :branding
+              def branding; end
+              sig {
+                params(_branding: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Branding)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Branding))
+               }
+              def branding=(_branding); end
               # Capabilities to request on the Merchant Configuration.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities))
                }
-              attr_accessor :capabilities
+              def capabilities; end
+              sig {
+                params(_capabilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities))
+               }
+              def capabilities=(_capabilities); end
               # Card payments settings.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::CardPayments))
                }
-              attr_accessor :card_payments
+              def card_payments; end
+              sig {
+                params(_card_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::CardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::CardPayments))
+               }
+              def card_payments=(_card_payments); end
               # The merchant category code for the Merchant Configuration. MCCs are used to classify businesses based on the goods or services they provide.
               sig { returns(T.nilable(String)) }
-              attr_accessor :mcc
+              def mcc; end
+              sig { params(_mcc: T.nilable(String)).returns(T.nilable(String)) }
+              def mcc=(_mcc); end
               # Statement descriptor.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::StatementDescriptor))
                }
-              attr_accessor :statement_descriptor
+              def statement_descriptor; end
+              sig {
+                params(_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::StatementDescriptor)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::StatementDescriptor))
+               }
+              def statement_descriptor=(_statement_descriptor); end
               # Publicly available contact information for sending support issues to.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Support))
                }
-              attr_accessor :support
+              def support; end
+              sig {
+                params(_support: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Support)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Support))
+               }
+              def support=(_support); end
               sig {
                 params(bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::CardPayments), mcc: T.nilable(String), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant::Support)).void
                }
@@ -946,14 +1366,18 @@ module Stripe
                   class Local < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
                   class Wire < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
@@ -961,12 +1385,20 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
                    }
-                  attr_accessor :local
+                  def local; end
+                  sig {
+                    params(_local: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
+                   }
+                  def local=(_local); end
                   # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
                    }
-                  attr_accessor :wire
+                  def wire; end
+                  sig {
+                    params(_wire: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
+                   }
+                  def wire=(_wire); end
                   sig {
                     params(local: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local), wire: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).void
                    }
@@ -975,7 +1407,9 @@ module Stripe
                 class Cards < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T::Boolean) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
@@ -983,7 +1417,9 @@ module Stripe
                   class StripeTransfers < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
@@ -991,7 +1427,11 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                    }
-                  attr_accessor :stripe_transfers
+                  def stripe_transfers; end
+                  sig {
+                    params(_stripe_transfers: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
+                   }
+                  def stripe_transfers=(_stripe_transfers); end
                   sig {
                     params(stripe_transfers: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).void
                    }
@@ -1001,17 +1441,29 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts))
                  }
-                attr_accessor :bank_accounts
+                def bank_accounts; end
+                sig {
+                  params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts))
+                 }
+                def bank_accounts=(_bank_accounts); end
                 # Capabilities that enable OutboundPayments to a card linked to this Account.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::Cards))
                  }
-                attr_accessor :cards
+                def cards; end
+                sig {
+                  params(_cards: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::Cards)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::Cards))
+                 }
+                def cards=(_cards); end
                 # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance))
                  }
-                attr_accessor :stripe_balance
+                def stripe_balance; end
+                sig {
+                  params(_stripe_balance: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance))
+                 }
+                def stripe_balance=(_stripe_balance); end
                 sig {
                   params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::Cards), stripe_balance: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
                  }
@@ -1021,7 +1473,11 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities))
                }
-              attr_accessor :capabilities
+              def capabilities; end
+              sig {
+                params(_capabilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities))
+               }
+              def capabilities=(_capabilities); end
               sig {
                 params(capabilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities)).void
                }
@@ -1033,7 +1489,9 @@ module Stripe
                   class BankAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
@@ -1041,7 +1499,11 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
                    }
-                  attr_accessor :bank_accounts
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
                   sig {
                     params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).void
                    }
@@ -1051,7 +1513,9 @@ module Stripe
                   class Gbp < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
@@ -1059,7 +1523,11 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
                    }
-                  attr_accessor :gbp
+                  def gbp; end
+                  sig {
+                    params(_gbp: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
+                   }
+                  def gbp=(_gbp); end
                   sig {
                     params(gbp: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).void
                    }
@@ -1069,7 +1537,9 @@ module Stripe
                   class BankAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
@@ -1077,7 +1547,11 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
                    }
-                  attr_accessor :bank_accounts
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
                   sig {
                     params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).void
                    }
@@ -1087,21 +1561,27 @@ module Stripe
                   class BankAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
                   class Cards < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
                   class FinancialAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
@@ -1109,17 +1589,29 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
                    }
-                  attr_accessor :bank_accounts
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
                   # Can send funds from a FinancialAccount to a debit card owned by someone else.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
                    }
-                  attr_accessor :cards
+                  def cards; end
+                  sig {
+                    params(_cards: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
+                   }
+                  def cards=(_cards); end
                   # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
                    }
-                  attr_accessor :financial_accounts
+                  def financial_accounts; end
+                  sig {
+                    params(_financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
+                   }
+                  def financial_accounts=(_financial_accounts); end
                   sig {
                     params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).void
                    }
@@ -1129,14 +1621,18 @@ module Stripe
                   class BankAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
                   class FinancialAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T::Boolean) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
@@ -1144,12 +1640,20 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
                    }
-                  attr_accessor :bank_accounts
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
                   # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
                    }
-                  attr_accessor :financial_accounts
+                  def financial_accounts; end
+                  sig {
+                    params(_financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
+                   }
+                  def financial_accounts=(_financial_accounts); end
                   sig {
                     params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts), financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).void
                    }
@@ -1159,27 +1663,47 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses))
                  }
-                attr_accessor :financial_addresses
+                def financial_addresses; end
+                sig {
+                  params(_financial_addresses: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses))
+                 }
+                def financial_addresses=(_financial_addresses); end
                 # Can hold storage-type funds on Stripe.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
                  }
-                attr_accessor :holds_currencies
+                def holds_currencies; end
+                sig {
+                  params(_holds_currencies: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
+                 }
+                def holds_currencies=(_holds_currencies); end
                 # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers))
                  }
-                attr_accessor :inbound_transfers
+                def inbound_transfers; end
+                sig {
+                  params(_inbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers))
+                 }
+                def inbound_transfers=(_inbound_transfers); end
                 # Can send funds from a FinancialAccount to a destination owned by someone else.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments))
                  }
-                attr_accessor :outbound_payments
+                def outbound_payments; end
+                sig {
+                  params(_outbound_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments))
+                 }
+                def outbound_payments=(_outbound_payments); end
                 # Can send funds from a FinancialAccount to a destination owned by yourself.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers))
                  }
-                attr_accessor :outbound_transfers
+                def outbound_transfers; end
+                sig {
+                  params(_outbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers))
+                 }
+                def outbound_transfers=(_outbound_transfers); end
                 sig {
                   params(financial_addresses: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::FinancialAddresses), holds_currencies: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::HoldsCurrencies), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities::OutboundTransfers)).void
                  }
@@ -1195,7 +1719,11 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities))
                }
-              attr_accessor :capabilities
+              def capabilities; end
+              sig {
+                params(_capabilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities))
+               }
+              def capabilities=(_capabilities); end
               sig {
                 params(capabilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer::Capabilities)).void
                }
@@ -1205,22 +1733,38 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer))
              }
-            attr_accessor :customer
+            def customer; end
+            sig {
+              params(_customer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer))
+             }
+            def customer=(_customer); end
             # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant))
              }
-            attr_accessor :merchant
+            def merchant; end
+            sig {
+              params(_merchant: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant))
+             }
+            def merchant=(_merchant); end
             # The Recipient Configuration allows the Account to receive funds.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient))
              }
-            attr_accessor :recipient
+            def recipient; end
+            sig {
+              params(_recipient: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient))
+             }
+            def recipient=(_recipient); end
             # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer))
              }
-            attr_accessor :storer
+            def storer; end
+            sig {
+              params(_storer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer))
+             }
+            def storer=(_storer); end
             sig {
               params(customer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer), merchant: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant), recipient: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient), storer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Storer)).void
              }
@@ -1230,24 +1774,38 @@ module Stripe
             class Responsibilities < Stripe::RequestParams
               # A value indicating the party responsible for collecting fees from this account.
               sig { returns(String) }
-              attr_accessor :fees_collector
+              def fees_collector; end
+              sig { params(_fees_collector: String).returns(String) }
+              def fees_collector=(_fees_collector); end
               # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
               sig { returns(String) }
-              attr_accessor :losses_collector
+              def losses_collector; end
+              sig { params(_losses_collector: String).returns(String) }
+              def losses_collector=(_losses_collector); end
               sig { params(fees_collector: String, losses_collector: String).void }
               def initialize(fees_collector: nil, losses_collector: nil); end
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(T.nilable(String)) }
-            attr_accessor :currency
+            def currency; end
+            sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+            def currency=(_currency); end
             # The Account's preferred locales (languages), ordered by preference.
             sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :locales
+            def locales; end
+            sig {
+              params(_locales: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def locales=(_locales); end
             # Default responsibilities held by either Stripe or the platform.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Responsibilities))
              }
-            attr_accessor :responsibilities
+            def responsibilities; end
+            sig {
+              params(_responsibilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Responsibilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Responsibilities))
+             }
+            def responsibilities=(_responsibilities); end
             sig {
               params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), responsibilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Responsibilities)).void
              }
@@ -1258,13 +1816,19 @@ module Stripe
               class DirectorshipDeclaration < Stripe::RequestParams
                 # The time marking when the director attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :date
+                def date; end
+                sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                def date=(_date); end
                 # The IP address from which the director attestation was made.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :ip
+                def ip; end
+                sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                def ip=(_ip); end
                 # The user agent of the browser from which the director attestation was made.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :user_agent
+                def user_agent; end
+                sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                def user_agent=(_user_agent); end
                 sig {
                   params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
                  }
@@ -1273,13 +1837,19 @@ module Stripe
               class OwnershipDeclaration < Stripe::RequestParams
                 # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :date
+                def date; end
+                sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                def date=(_date); end
                 # The IP address from which the beneficial owner attestation was made.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :ip
+                def ip; end
+                sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                def ip=(_ip); end
                 # The user agent of the browser from which the beneficial owner attestation was made.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :user_agent
+                def user_agent; end
+                sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                def user_agent=(_user_agent); end
                 sig {
                   params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
                  }
@@ -1288,16 +1858,26 @@ module Stripe
               class PersonsProvided < Stripe::RequestParams
                 # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
                 sig { returns(T.nilable(T::Boolean)) }
-                attr_accessor :directors
+                def directors; end
+                sig { params(_directors: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def directors=(_directors); end
                 # Whether the company’s executives have been provided. Set this Boolean to true after creating all the company’s executives with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
                 sig { returns(T.nilable(T::Boolean)) }
-                attr_accessor :executives
+                def executives; end
+                sig { params(_executives: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def executives=(_executives); end
                 # Whether the company’s owners have been provided. Set this Boolean to true after creating all the company’s owners with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
                 sig { returns(T.nilable(T::Boolean)) }
-                attr_accessor :owners
+                def owners; end
+                sig { params(_owners: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def owners=(_owners); end
                 # Reason for why the company is exempt from providing ownership information.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :ownership_exemption_reason
+                def ownership_exemption_reason; end
+                sig {
+                  params(_ownership_exemption_reason: T.nilable(String)).returns(T.nilable(String))
+                 }
+                def ownership_exemption_reason=(_ownership_exemption_reason); end
                 sig {
                   params(directors: T.nilable(T::Boolean), executives: T.nilable(T::Boolean), owners: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(String)).void
                  }
@@ -1312,26 +1892,38 @@ module Stripe
                 class Account < Stripe::RequestParams
                   # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                   sig { returns(String) }
-                  attr_accessor :date
+                  def date; end
+                  sig { params(_date: String).returns(String) }
+                  def date=(_date); end
                   # The IP address from which the Account's representative accepted the terms of service.
                   sig { returns(String) }
-                  attr_accessor :ip
+                  def ip; end
+                  sig { params(_ip: String).returns(String) }
+                  def ip=(_ip); end
                   # The user agent of the browser from which the Account's representative accepted the terms of service.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :user_agent
+                  def user_agent; end
+                  sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                  def user_agent=(_user_agent); end
                   sig { params(date: String, ip: String, user_agent: T.nilable(String)).void }
                   def initialize(date: nil, ip: nil, user_agent: nil); end
                 end
                 class Storer < Stripe::RequestParams
                   # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                   sig { returns(String) }
-                  attr_accessor :date
+                  def date; end
+                  sig { params(_date: String).returns(String) }
+                  def date=(_date); end
                   # The IP address from which the Account's representative accepted the terms of service.
                   sig { returns(String) }
-                  attr_accessor :ip
+                  def ip; end
+                  sig { params(_ip: String).returns(String) }
+                  def ip=(_ip); end
                   # The user agent of the browser from which the Account's representative accepted the terms of service.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :user_agent
+                  def user_agent; end
+                  sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                  def user_agent=(_user_agent); end
                   sig { params(date: String, ip: String, user_agent: T.nilable(String)).void }
                   def initialize(date: nil, ip: nil, user_agent: nil); end
                 end
@@ -1339,12 +1931,20 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Account))
                  }
-                attr_accessor :account
+                def account; end
+                sig {
+                  params(_account: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Account)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Account))
+                 }
+                def account=(_account); end
                 # Details on the Account's acceptance of Treasury-specific terms of service.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Storer))
                  }
-                attr_accessor :storer
+                def storer; end
+                sig {
+                  params(_storer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Storer)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Storer))
+                 }
+                def storer=(_storer); end
                 sig {
                   params(account: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Account), storer: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService::Storer)).void
                  }
@@ -1354,22 +1954,38 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::DirectorshipDeclaration))
                }
-              attr_accessor :directorship_declaration
+              def directorship_declaration; end
+              sig {
+                params(_directorship_declaration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::DirectorshipDeclaration)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::DirectorshipDeclaration))
+               }
+              def directorship_declaration=(_directorship_declaration); end
               # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::OwnershipDeclaration))
                }
-              attr_accessor :ownership_declaration
+              def ownership_declaration; end
+              sig {
+                params(_ownership_declaration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::OwnershipDeclaration)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::OwnershipDeclaration))
+               }
+              def ownership_declaration=(_ownership_declaration); end
               # Attestation that all Persons with a specific Relationship value have been provided.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::PersonsProvided))
                }
-              attr_accessor :persons_provided
+              def persons_provided; end
+              sig {
+                params(_persons_provided: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::PersonsProvided)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::PersonsProvided))
+               }
+              def persons_provided=(_persons_provided); end
               # Attestations of accepted terms of service agreements.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService))
                }
-              attr_accessor :terms_of_service
+              def terms_of_service; end
+              sig {
+                params(_terms_of_service: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService))
+               }
+              def terms_of_service=(_terms_of_service); end
               sig {
                 params(directorship_declaration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::DirectorshipDeclaration), ownership_declaration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::OwnershipDeclaration), persons_provided: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::PersonsProvided), terms_of_service: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations::TermsOfService)).void
                }
@@ -1384,25 +2000,39 @@ module Stripe
               class Address < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :city
+                def city; end
+                sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 sig { returns(String) }
-                attr_accessor :country
+                def country; end
+                sig { params(_country: String).returns(String) }
+                def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :line1
+                def line1; end
+                sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                def line1=(_line1); end
                 # Address line 2 (e.g., apartment, suite, unit, or building).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :line2
+                def line2; end
+                sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                def line2=(_line2); end
                 # ZIP or postal code.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :postal_code
+                def postal_code; end
+                sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                def postal_code=(_postal_code); end
                 # State, county, province, or region.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :state
+                def state; end
+                sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                def state=(_state); end
                 # Town or cho-me.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :town
+                def town; end
+                sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+                def town=(_town); end
                 sig {
                   params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                  }
@@ -1419,10 +2049,16 @@ module Stripe
               class AnnualRevenue < Stripe::RequestParams
                 # A non-negative integer representing the amount in the smallest currency unit.
                 sig { returns(T.nilable(Stripe::V2::Amount)) }
-                attr_accessor :amount
+                def amount; end
+                sig {
+                  params(_amount: T.nilable(Stripe::V2::Amount)).returns(T.nilable(Stripe::V2::Amount))
+                 }
+                def amount=(_amount); end
                 # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :fiscal_year_end
+                def fiscal_year_end; end
+                sig { params(_fiscal_year_end: T.nilable(String)).returns(T.nilable(String)) }
+                def fiscal_year_end=(_fiscal_year_end); end
                 sig {
                   params(amount: T.nilable(Stripe::V2::Amount), fiscal_year_end: T.nilable(String)).void
                  }
@@ -1432,60 +2068,84 @@ module Stripe
                 class BankAccountOwnershipVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyLicense < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyMemorandumOfAssociation < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyMinisterialDecree < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyRegistrationVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyTaxIdVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
@@ -1493,10 +2153,14 @@ module Stripe
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :back
+                    def back; end
+                    sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
+                    def back=(_back); end
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(String) }
-                    attr_accessor :front
+                    def front; end
+                    sig { params(_front: String).returns(String) }
+                    def front=(_front); end
                     sig { params(back: T.nilable(String), front: String).void }
                     def initialize(back: nil, front: nil); end
                   end
@@ -1504,10 +2168,16 @@ module Stripe
                   sig {
                     returns(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
                    }
-                  attr_accessor :front_back
+                  def front_back; end
+                  sig {
+                    params(_front_back: ::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack).returns(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
+                   }
+                  def front_back=(_front_back); end
                   # The format of the verification document. Currently supports `front_back` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
                     params(front_back: ::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack, type: String).void
                    }
@@ -1516,30 +2186,42 @@ module Stripe
                 class ProofOfAddress < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class ProofOfRegistration < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
@@ -1547,52 +2229,94 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification))
                  }
-                attr_accessor :bank_account_ownership_verification
+                def bank_account_ownership_verification; end
+                sig {
+                  params(_bank_account_ownership_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification))
+                 }
+                def bank_account_ownership_verification=(_bank_account_ownership_verification); end
                 # One or more documents that demonstrate proof of a company’s license to operate.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyLicense))
                  }
-                attr_accessor :company_license
+                def company_license; end
+                sig {
+                  params(_company_license: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyLicense)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyLicense))
+                 }
+                def company_license=(_company_license); end
                 # One or more documents showing the company’s Memorandum of Association.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation))
                  }
-                attr_accessor :company_memorandum_of_association
+                def company_memorandum_of_association; end
+                sig {
+                  params(_company_memorandum_of_association: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation))
+                 }
+                def company_memorandum_of_association=(_company_memorandum_of_association); end
                 # Certain countries only: One or more documents showing the ministerial decree legalizing the company’s establishment.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree))
                  }
-                attr_accessor :company_ministerial_decree
+                def company_ministerial_decree; end
+                sig {
+                  params(_company_ministerial_decree: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree))
+                 }
+                def company_ministerial_decree=(_company_ministerial_decree); end
                 # One or more documents that demonstrate proof of a company’s registration with the appropriate local authorities.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification))
                  }
-                attr_accessor :company_registration_verification
+                def company_registration_verification; end
+                sig {
+                  params(_company_registration_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification))
+                 }
+                def company_registration_verification=(_company_registration_verification); end
                 # One or more documents that demonstrate proof of a company’s tax ID.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification))
                  }
-                attr_accessor :company_tax_id_verification
+                def company_tax_id_verification; end
+                sig {
+                  params(_company_tax_id_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification))
+                 }
+                def company_tax_id_verification=(_company_tax_id_verification); end
                 # A document verifying the business.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification))
                  }
-                attr_accessor :primary_verification
+                def primary_verification; end
+                sig {
+                  params(_primary_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification))
+                 }
+                def primary_verification=(_primary_verification); end
                 # One or more documents that demonstrate proof of address.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
                  }
-                attr_accessor :proof_of_address
+                def proof_of_address; end
+                sig {
+                  params(_proof_of_address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfAddress)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
+                 }
+                def proof_of_address=(_proof_of_address); end
                 # One or more documents showing the company’s proof of registration with the national business registry.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
                  }
-                attr_accessor :proof_of_registration
+                def proof_of_registration; end
+                sig {
+                  params(_proof_of_registration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
+                 }
+                def proof_of_registration=(_proof_of_registration); end
                 # One or more documents that demonstrate proof of ultimate beneficial ownership.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership))
                  }
-                attr_accessor :proof_of_ultimate_beneficial_ownership
+                def proof_of_ultimate_beneficial_ownership; end
+                sig {
+                  params(_proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership))
+                 }
+                def proof_of_ultimate_beneficial_ownership=(
+                  _proof_of_ultimate_beneficial_ownership
+                ); end
                 sig {
                   params(bank_account_ownership_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification), primary_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::PrimaryVerification), proof_of_address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfAddress), proof_of_registration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
                  }
@@ -1612,20 +2336,30 @@ module Stripe
               class IdNumber < Stripe::RequestParams
                 # The registrar of the ID number (Only valid for DE ID number types).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :registrar
+                def registrar; end
+                sig { params(_registrar: T.nilable(String)).returns(T.nilable(String)) }
+                def registrar=(_registrar); end
                 # Open Enum. The ID number type of a business entity.
                 sig { returns(String) }
-                attr_accessor :type
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
                 # The value of the ID number.
                 sig { returns(String) }
-                attr_accessor :value
+                def value; end
+                sig { params(_value: String).returns(String) }
+                def value=(_value); end
                 sig { params(registrar: T.nilable(String), type: String, value: String).void }
                 def initialize(registrar: nil, type: nil, value: nil); end
               end
               class MonthlyEstimatedRevenue < Stripe::RequestParams
                 # A non-negative integer representing the amount in the smallest currency unit.
                 sig { returns(T.nilable(Stripe::V2::Amount)) }
-                attr_accessor :amount
+                def amount; end
+                sig {
+                  params(_amount: T.nilable(Stripe::V2::Amount)).returns(T.nilable(Stripe::V2::Amount))
+                 }
+                def amount=(_amount); end
                 sig { params(amount: T.nilable(Stripe::V2::Amount)).void }
                 def initialize(amount: nil); end
               end
@@ -1633,25 +2367,39 @@ module Stripe
                 class Kana < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :city
+                  def city; end
+                  sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(String) }
-                  attr_accessor :country
+                  def country; end
+                  sig { params(_country: String).returns(String) }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :state
+                  def state; end
+                  sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :town
+                  def town; end
+                  sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                    }
@@ -1668,25 +2416,39 @@ module Stripe
                 class Kanji < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :city
+                  def city; end
+                  sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(String) }
-                  attr_accessor :country
+                  def country; end
+                  sig { params(_country: String).returns(String) }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :state
+                  def state; end
+                  sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :town
+                  def town; end
+                  sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                    }
@@ -1704,12 +2466,20 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses::Kana))
                  }
-                attr_accessor :kana
+                def kana; end
+                sig {
+                  params(_kana: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses::Kana)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses::Kana))
+                 }
+                def kana=(_kana); end
                 # Kanji Address.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji))
                  }
-                attr_accessor :kanji
+                def kanji; end
+                sig {
+                  params(_kanji: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji))
+                 }
+                def kanji=(_kanji); end
                 sig {
                   params(kana: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses::Kana), kanji: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses::Kanji)).void
                  }
@@ -1719,14 +2489,18 @@ module Stripe
                 class Kana < Stripe::RequestParams
                   # Registered name of the business.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :registered_name
+                  def registered_name; end
+                  sig { params(_registered_name: T.nilable(String)).returns(T.nilable(String)) }
+                  def registered_name=(_registered_name); end
                   sig { params(registered_name: T.nilable(String)).void }
                   def initialize(registered_name: nil); end
                 end
                 class Kanji < Stripe::RequestParams
                   # Registered name of the business.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :registered_name
+                  def registered_name; end
+                  sig { params(_registered_name: T.nilable(String)).returns(T.nilable(String)) }
+                  def registered_name=(_registered_name); end
                   sig { params(registered_name: T.nilable(String)).void }
                   def initialize(registered_name: nil); end
                 end
@@ -1734,12 +2508,20 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames::Kana))
                  }
-                attr_accessor :kana
+                def kana; end
+                sig {
+                  params(_kana: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames::Kana)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames::Kana))
+                 }
+                def kana=(_kana); end
                 # Kanji name.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames::Kanji))
                  }
-                attr_accessor :kanji
+                def kanji; end
+                sig {
+                  params(_kanji: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames::Kanji)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames::Kanji))
+                 }
+                def kanji=(_kanji); end
                 sig {
                   params(kana: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames::Kana), kanji: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames::Kanji)).void
                  }
@@ -1749,58 +2531,102 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Address))
                }
-              attr_accessor :address
+              def address; end
+              sig {
+                params(_address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Address)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Address))
+               }
+              def address=(_address); end
               # The business gross annual revenue for its preceding fiscal year.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::AnnualRevenue))
                }
-              attr_accessor :annual_revenue
+              def annual_revenue; end
+              sig {
+                params(_annual_revenue: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::AnnualRevenue)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::AnnualRevenue))
+               }
+              def annual_revenue=(_annual_revenue); end
               # A document verifying the business.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents))
                }
-              attr_accessor :documents
+              def documents; end
+              sig {
+                params(_documents: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents))
+               }
+              def documents=(_documents); end
               # The name which is used by the business.
               sig { returns(T.nilable(String)) }
-              attr_accessor :doing_business_as
+              def doing_business_as; end
+              sig { params(_doing_business_as: T.nilable(String)).returns(T.nilable(String)) }
+              def doing_business_as=(_doing_business_as); end
               # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :estimated_worker_count
+              def estimated_worker_count; end
+              sig {
+                params(_estimated_worker_count: T.nilable(Integer)).returns(T.nilable(Integer))
+               }
+              def estimated_worker_count=(_estimated_worker_count); end
               # The ID numbers of a business entity.
               sig {
                 returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::IdNumber]))
                }
-              attr_accessor :id_numbers
+              def id_numbers; end
+              sig {
+                params(_id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::IdNumber])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::IdNumber]))
+               }
+              def id_numbers=(_id_numbers); end
               # An estimate of the monthly revenue of the business.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue))
                }
-              attr_accessor :monthly_estimated_revenue
+              def monthly_estimated_revenue; end
+              sig {
+                params(_monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue))
+               }
+              def monthly_estimated_revenue=(_monthly_estimated_revenue); end
               # The phone number of the Business Entity.
               sig { returns(T.nilable(String)) }
-              attr_accessor :phone
+              def phone; end
+              sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+              def phone=(_phone); end
               # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
               sig { returns(T.nilable(String)) }
-              attr_accessor :product_description
+              def product_description; end
+              sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
+              def product_description=(_product_description); end
               # The business legal name.
               sig { returns(T.nilable(String)) }
-              attr_accessor :registered_name
+              def registered_name; end
+              sig { params(_registered_name: T.nilable(String)).returns(T.nilable(String)) }
+              def registered_name=(_registered_name); end
               # The business registration address of the business entity in non latin script.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses))
                }
-              attr_accessor :script_addresses
+              def script_addresses; end
+              sig {
+                params(_script_addresses: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses))
+               }
+              def script_addresses=(_script_addresses); end
               # The business legal name in non latin script.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames))
                }
-              attr_accessor :script_names
+              def script_names; end
+              sig {
+                params(_script_names: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames))
+               }
+              def script_names=(_script_names); end
               # The category identifying the legal structure of the business.
               sig { returns(T.nilable(String)) }
-              attr_accessor :structure
+              def structure; end
+              sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
+              def structure=(_structure); end
               # The business's publicly available website.
               sig { returns(T.nilable(String)) }
-              attr_accessor :url
+              def url; end
+              sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
+              def url=(_url); end
               sig {
                 params(address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents), doing_business_as: T.nilable(String), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), product_description: T.nilable(String), registered_name: T.nilable(String), script_addresses: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String), url: T.nilable(String)).void
                }
@@ -1825,28 +2651,44 @@ module Stripe
               class AdditionalAddress < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :city
+                def city; end
+                sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 sig { returns(String) }
-                attr_accessor :country
+                def country; end
+                sig { params(_country: String).returns(String) }
+                def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :line1
+                def line1; end
+                sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                def line1=(_line1); end
                 # Address line 2 (e.g., apartment, suite, unit, or building).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :line2
+                def line2; end
+                sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                def line2=(_line2); end
                 # ZIP or postal code.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :postal_code
+                def postal_code; end
+                sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                def postal_code=(_postal_code); end
                 # Purpose of additional address.
                 sig { returns(String) }
-                attr_accessor :purpose
+                def purpose; end
+                sig { params(_purpose: String).returns(String) }
+                def purpose=(_purpose); end
                 # State, county, province, or region.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :state
+                def state; end
+                sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                def state=(_state); end
                 # Town or cho-me.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :town
+                def town; end
+                sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+                def town=(_town); end
                 sig {
                   params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
                  }
@@ -1864,16 +2706,24 @@ module Stripe
               class AdditionalName < Stripe::RequestParams
                 # The person's full name.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :full_name
+                def full_name; end
+                sig { params(_full_name: T.nilable(String)).returns(T.nilable(String)) }
+                def full_name=(_full_name); end
                 # The person's first or given name.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :given_name
+                def given_name; end
+                sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
+                def given_name=(_given_name); end
                 # The purpose or type of the additional name.
                 sig { returns(String) }
-                attr_accessor :purpose
+                def purpose; end
+                sig { params(_purpose: String).returns(String) }
+                def purpose=(_purpose); end
                 # The person's last or family name.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :surname
+                def surname; end
+                sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
+                def surname=(_surname); end
                 sig {
                   params(full_name: T.nilable(String), given_name: T.nilable(String), purpose: String, surname: T.nilable(String)).void
                  }
@@ -1882,25 +2732,39 @@ module Stripe
               class Address < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :city
+                def city; end
+                sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 sig { returns(String) }
-                attr_accessor :country
+                def country; end
+                sig { params(_country: String).returns(String) }
+                def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :line1
+                def line1; end
+                sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                def line1=(_line1); end
                 # Address line 2 (e.g., apartment, suite, unit, or building).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :line2
+                def line2; end
+                sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                def line2=(_line2); end
                 # ZIP or postal code.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :postal_code
+                def postal_code; end
+                sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                def postal_code=(_postal_code); end
                 # State, county, province, or region.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :state
+                def state; end
+                sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                def state=(_state); end
                 # Town or cho-me.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :town
+                def town; end
+                sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+                def town=(_town); end
                 sig {
                   params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                  }
@@ -1917,13 +2781,19 @@ module Stripe
               class DateOfBirth < Stripe::RequestParams
                 # The day of birth.
                 sig { returns(Integer) }
-                attr_accessor :day
+                def day; end
+                sig { params(_day: Integer).returns(Integer) }
+                def day=(_day); end
                 # The month of birth.
                 sig { returns(Integer) }
-                attr_accessor :month
+                def month; end
+                sig { params(_month: Integer).returns(Integer) }
+                def month=(_month); end
                 # The year of birth.
                 sig { returns(Integer) }
-                attr_accessor :year
+                def year; end
+                sig { params(_year: Integer).returns(Integer) }
+                def year=(_year); end
                 sig { params(day: Integer, month: Integer, year: Integer).void }
                 def initialize(day: nil, month: nil, year: nil); end
               end
@@ -1931,20 +2801,28 @@ module Stripe
                 class CompanyAuthorization < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class Passport < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
@@ -1952,10 +2830,14 @@ module Stripe
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :back
+                    def back; end
+                    sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
+                    def back=(_back); end
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(String) }
-                    attr_accessor :front
+                    def front; end
+                    sig { params(_front: String).returns(String) }
+                    def front=(_front); end
                     sig { params(back: T.nilable(String), front: String).void }
                     def initialize(back: nil, front: nil); end
                   end
@@ -1963,10 +2845,16 @@ module Stripe
                   sig {
                     returns(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
                    }
-                  attr_accessor :front_back
+                  def front_back; end
+                  sig {
+                    params(_front_back: ::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack).returns(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
+                   }
+                  def front_back=(_front_back); end
                   # The format of the verification document. Currently supports `front_back` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
                     params(front_back: ::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack, type: String).void
                    }
@@ -1976,10 +2864,14 @@ module Stripe
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :back
+                    def back; end
+                    sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
+                    def back=(_back); end
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(String) }
-                    attr_accessor :front
+                    def front; end
+                    sig { params(_front: String).returns(String) }
+                    def front=(_front); end
                     sig { params(back: T.nilable(String), front: String).void }
                     def initialize(back: nil, front: nil); end
                   end
@@ -1987,10 +2879,16 @@ module Stripe
                   sig {
                     returns(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
                    }
-                  attr_accessor :front_back
+                  def front_back; end
+                  sig {
+                    params(_front_back: ::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack).returns(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
+                   }
+                  def front_back=(_front_back); end
                   # The format of the verification document. Currently supports `front_back` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
                     params(front_back: ::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack, type: String).void
                    }
@@ -1999,10 +2897,14 @@ module Stripe
                 class Visa < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
@@ -2010,27 +2912,47 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::CompanyAuthorization))
                  }
-                attr_accessor :company_authorization
+                def company_authorization; end
+                sig {
+                  params(_company_authorization: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::CompanyAuthorization)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::CompanyAuthorization))
+                 }
+                def company_authorization=(_company_authorization); end
                 # One or more documents showing the person’s passport page with photo and personal data.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::Passport))
                  }
-                attr_accessor :passport
+                def passport; end
+                sig {
+                  params(_passport: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::Passport)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::Passport))
+                 }
+                def passport=(_passport); end
                 # An identifying document showing the person's name, either a passport or local ID card.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::PrimaryVerification))
                  }
-                attr_accessor :primary_verification
+                def primary_verification; end
+                sig {
+                  params(_primary_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::PrimaryVerification)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::PrimaryVerification))
+                 }
+                def primary_verification=(_primary_verification); end
                 # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::SecondaryVerification))
                  }
-                attr_accessor :secondary_verification
+                def secondary_verification; end
+                sig {
+                  params(_secondary_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::SecondaryVerification)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::SecondaryVerification))
+                 }
+                def secondary_verification=(_secondary_verification); end
                 # One or more documents showing the person’s visa required for living in the country where they are residing.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::Visa))
                  }
-                attr_accessor :visa
+                def visa; end
+                sig {
+                  params(_visa: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::Visa)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::Visa))
+                 }
+                def visa=(_visa); end
                 sig {
                   params(company_authorization: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::CompanyAuthorization), passport: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::Passport), primary_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::PrimaryVerification), secondary_verification: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::SecondaryVerification), visa: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents::Visa)).void
                  }
@@ -2045,29 +2967,43 @@ module Stripe
               class IdNumber < Stripe::RequestParams
                 # The ID number type of an individual.
                 sig { returns(String) }
-                attr_accessor :type
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
                 # The value of the ID number.
                 sig { returns(String) }
-                attr_accessor :value
+                def value; end
+                sig { params(_value: String).returns(String) }
+                def value=(_value); end
                 sig { params(type: String, value: String).void }
                 def initialize(type: nil, value: nil); end
               end
               class Relationship < Stripe::RequestParams
                 # Whether the person is a director of the account's identity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
                 sig { returns(T.nilable(T::Boolean)) }
-                attr_accessor :director
+                def director; end
+                sig { params(_director: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def director=(_director); end
                 # Whether the person has significant responsibility to control, manage, or direct the organization.
                 sig { returns(T.nilable(T::Boolean)) }
-                attr_accessor :executive
+                def executive; end
+                sig { params(_executive: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def executive=(_executive); end
                 # Whether the person is an owner of the account’s identity.
                 sig { returns(T.nilable(T::Boolean)) }
-                attr_accessor :owner
+                def owner; end
+                sig { params(_owner: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def owner=(_owner); end
                 # The percent owned by the person of the account's legal entity.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :percent_ownership
+                def percent_ownership; end
+                sig { params(_percent_ownership: T.nilable(String)).returns(T.nilable(String)) }
+                def percent_ownership=(_percent_ownership); end
                 # The person's title (e.g., CEO, Support Engineer).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :title
+                def title; end
+                sig { params(_title: T.nilable(String)).returns(T.nilable(String)) }
+                def title=(_title); end
                 sig {
                   params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(String), title: T.nilable(String)).void
                  }
@@ -2083,25 +3019,39 @@ module Stripe
                 class Kana < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :city
+                  def city; end
+                  sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(String) }
-                  attr_accessor :country
+                  def country; end
+                  sig { params(_country: String).returns(String) }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :state
+                  def state; end
+                  sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :town
+                  def town; end
+                  sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                    }
@@ -2118,25 +3068,39 @@ module Stripe
                 class Kanji < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :city
+                  def city; end
+                  sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(String) }
-                  attr_accessor :country
+                  def country; end
+                  sig { params(_country: String).returns(String) }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :state
+                  def state; end
+                  sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :town
+                  def town; end
+                  sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                    }
@@ -2154,12 +3118,20 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses::Kana))
                  }
-                attr_accessor :kana
+                def kana; end
+                sig {
+                  params(_kana: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses::Kana)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses::Kana))
+                 }
+                def kana=(_kana); end
                 # Kanji Address.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses::Kanji))
                  }
-                attr_accessor :kanji
+                def kanji; end
+                sig {
+                  params(_kanji: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses::Kanji)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses::Kanji))
+                 }
+                def kanji=(_kanji); end
                 sig {
                   params(kana: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses::Kana), kanji: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses::Kanji)).void
                  }
@@ -2169,20 +3141,28 @@ module Stripe
                 class Kana < Stripe::RequestParams
                   # The person's first or given name.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :given_name
+                  def given_name; end
+                  sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
+                  def given_name=(_given_name); end
                   # The person's last or family name.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :surname
+                  def surname; end
+                  sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
+                  def surname=(_surname); end
                   sig { params(given_name: T.nilable(String), surname: T.nilable(String)).void }
                   def initialize(given_name: nil, surname: nil); end
                 end
                 class Kanji < Stripe::RequestParams
                   # The person's first or given name.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :given_name
+                  def given_name; end
+                  sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
+                  def given_name=(_given_name); end
                   # The person's last or family name.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :surname
+                  def surname; end
+                  sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
+                  def surname=(_surname); end
                   sig { params(given_name: T.nilable(String), surname: T.nilable(String)).void }
                   def initialize(given_name: nil, surname: nil); end
                 end
@@ -2190,12 +3170,20 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames::Kana))
                  }
-                attr_accessor :kana
+                def kana; end
+                sig {
+                  params(_kana: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames::Kana)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames::Kana))
+                 }
+                def kana=(_kana); end
                 # Persons name in kanji script.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames::Kanji))
                  }
-                attr_accessor :kanji
+                def kanji; end
+                sig {
+                  params(_kanji: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames::Kanji)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames::Kanji))
+                 }
+                def kanji=(_kanji); end
                 sig {
                   params(kana: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames::Kana), kanji: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames::Kanji)).void
                  }
@@ -2205,71 +3193,127 @@ module Stripe
               sig {
                 returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::AdditionalAddress]))
                }
-              attr_accessor :additional_addresses
+              def additional_addresses; end
+              sig {
+                params(_additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::AdditionalAddress])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::AdditionalAddress]))
+               }
+              def additional_addresses=(_additional_addresses); end
               # Additional names (e.g. aliases) associated with the individual.
               sig {
                 returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::AdditionalName]))
                }
-              attr_accessor :additional_names
+              def additional_names; end
+              sig {
+                params(_additional_names: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::AdditionalName])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::AdditionalName]))
+               }
+              def additional_names=(_additional_names); end
               # The individual's residential address.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Address))
                }
-              attr_accessor :address
+              def address; end
+              sig {
+                params(_address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Address)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Address))
+               }
+              def address=(_address); end
               # The individual's date of birth.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::DateOfBirth))
                }
-              attr_accessor :date_of_birth
+              def date_of_birth; end
+              sig {
+                params(_date_of_birth: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::DateOfBirth)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::DateOfBirth))
+               }
+              def date_of_birth=(_date_of_birth); end
               # Documents that may be submitted to satisfy various informational requests.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents))
                }
-              attr_accessor :documents
+              def documents; end
+              sig {
+                params(_documents: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents))
+               }
+              def documents=(_documents); end
               # The individual's email address.
               sig { returns(T.nilable(String)) }
-              attr_accessor :email
+              def email; end
+              sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+              def email=(_email); end
               # The individual's first name.
               sig { returns(T.nilable(String)) }
-              attr_accessor :given_name
+              def given_name; end
+              sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
+              def given_name=(_given_name); end
               # The identification numbers (e.g., SSN) associated with the individual.
               sig {
                 returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::IdNumber]))
                }
-              attr_accessor :id_numbers
+              def id_numbers; end
+              sig {
+                params(_id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::IdNumber])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::IdNumber]))
+               }
+              def id_numbers=(_id_numbers); end
               # The individual's gender (International regulations require either "male" or "female").
               sig { returns(T.nilable(String)) }
-              attr_accessor :legal_gender
+              def legal_gender; end
+              sig { params(_legal_gender: T.nilable(String)).returns(T.nilable(String)) }
+              def legal_gender=(_legal_gender); end
               # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               sig { returns(T.nilable(T::Hash[String, String])) }
-              attr_accessor :metadata
+              def metadata; end
+              sig {
+                params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+               }
+              def metadata=(_metadata); end
               # The countries where the individual is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               sig { returns(T.nilable(T::Array[String])) }
-              attr_accessor :nationalities
+              def nationalities; end
+              sig {
+                params(_nationalities: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
+              def nationalities=(_nationalities); end
               # The individual's phone number.
               sig { returns(T.nilable(String)) }
-              attr_accessor :phone
+              def phone; end
+              sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+              def phone=(_phone); end
               # The individual's political exposure.
               sig { returns(T.nilable(String)) }
-              attr_accessor :political_exposure
+              def political_exposure; end
+              sig { params(_political_exposure: T.nilable(String)).returns(T.nilable(String)) }
+              def political_exposure=(_political_exposure); end
               # The relationship that this individual has with the account's identity.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Relationship))
                }
-              attr_accessor :relationship
+              def relationship; end
+              sig {
+                params(_relationship: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Relationship)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Relationship))
+               }
+              def relationship=(_relationship); end
               # The script addresses (e.g., non-Latin characters) associated with the individual.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses))
                }
-              attr_accessor :script_addresses
+              def script_addresses; end
+              sig {
+                params(_script_addresses: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses))
+               }
+              def script_addresses=(_script_addresses); end
               # The individuals primary name in non latin script.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames))
                }
-              attr_accessor :script_names
+              def script_names; end
+              sig {
+                params(_script_names: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames))
+               }
+              def script_names=(_script_names); end
               # The individual's last name.
               sig { returns(T.nilable(String)) }
-              attr_accessor :surname
+              def surname; end
+              sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
+              def surname=(_surname); end
               sig {
                 params(additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::AdditionalAddress]), additional_names: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::AdditionalName]), address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Address), date_of_birth: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::DateOfBirth), documents: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Documents), email: T.nilable(String), given_name: T.nilable(String), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::IdNumber]), legal_gender: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), nationalities: T.nilable(T::Array[String]), phone: T.nilable(String), political_exposure: T.nilable(String), relationship: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::Relationship), script_addresses: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual::ScriptNames), surname: T.nilable(String)).void
                }
@@ -2297,23 +3341,39 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations))
              }
-            attr_accessor :attestations
+            def attestations; end
+            sig {
+              params(_attestations: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations))
+             }
+            def attestations=(_attestations); end
             # Information about the company or business.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails))
              }
-            attr_accessor :business_details
+            def business_details; end
+            sig {
+              params(_business_details: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails))
+             }
+            def business_details=(_business_details); end
             # The country in which the account holder resides, or in which the business is legally established. This should be an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
             sig { returns(T.nilable(String)) }
-            attr_accessor :country
+            def country; end
+            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+            def country=(_country); end
             # The entity type.
             sig { returns(T.nilable(String)) }
-            attr_accessor :entity_type
+            def entity_type; end
+            sig { params(_entity_type: T.nilable(String)).returns(T.nilable(String)) }
+            def entity_type=(_entity_type); end
             # Information about the person represented by the account.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual))
              }
-            attr_accessor :individual
+            def individual; end
+            sig {
+              params(_individual: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual))
+             }
+            def individual=(_individual); end
             sig {
               params(attestations: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Attestations), business_details: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails), country: T.nilable(String), entity_type: T.nilable(String), individual: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::Individual)).void
              }
@@ -2329,28 +3389,52 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration))
            }
-          attr_accessor :configuration
+          def configuration; end
+          sig {
+            params(_configuration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration))
+           }
+          def configuration=(_configuration); end
           # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
           sig { returns(T.nilable(String)) }
-          attr_accessor :contact_email
+          def contact_email; end
+          sig { params(_contact_email: T.nilable(String)).returns(T.nilable(String)) }
+          def contact_email=(_contact_email); end
           # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
           sig { returns(T.nilable(String)) }
-          attr_accessor :dashboard
+          def dashboard; end
+          sig { params(_dashboard: T.nilable(String)).returns(T.nilable(String)) }
+          def dashboard=(_dashboard); end
           # Default values to be used on Account Configurations.
           sig { returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults)) }
-          attr_accessor :defaults
+          def defaults; end
+          sig {
+            params(_defaults: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults))
+           }
+          def defaults=(_defaults); end
           # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
           sig { returns(T.nilable(String)) }
-          attr_accessor :display_name
+          def display_name; end
+          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+          def display_name=(_display_name); end
           # Information about the company, individual, and business represented by the Account.
           sig { returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity)) }
-          attr_accessor :identity
+          def identity; end
+          sig {
+            params(_identity: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity))
+           }
+          def identity=(_identity); end
           # Additional fields to include in the response.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :include
+          def include; end
+          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def include=(_include); end
           # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          attr_accessor :metadata
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
           sig {
             params(configuration: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration), contact_email: T.nilable(String), dashboard: T.nilable(String), defaults: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults), display_name: T.nilable(String), identity: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
            }
@@ -2368,7 +3452,9 @@ module Stripe
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :include
+          def include; end
+          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def include=(_include); end
           sig { params(include: T.nilable(T::Array[String])).void }
           def initialize(include: nil); end
         end
@@ -2378,16 +3464,24 @@ module Stripe
               class AutomaticIndirectTax < Stripe::RequestParams
                 # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :exempt
+                def exempt; end
+                sig { params(_exempt: T.nilable(String)).returns(T.nilable(String)) }
+                def exempt=(_exempt); end
                 # A recent IP address of the customer used for tax reporting and tax location inference.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :ip_address
+                def ip_address; end
+                sig { params(_ip_address: T.nilable(String)).returns(T.nilable(String)) }
+                def ip_address=(_ip_address); end
                 # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :location_source
+                def location_source; end
+                sig { params(_location_source: T.nilable(String)).returns(T.nilable(String)) }
+                def location_source=(_location_source); end
                 # A per-request flag that indicates when Stripe should validate the customer tax location - defaults to 'auto'.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :validate_location
+                def validate_location; end
+                sig { params(_validate_location: T.nilable(String)).returns(T.nilable(String)) }
+                def validate_location=(_validate_location); end
                 sig {
                   params(exempt: T.nilable(String), ip_address: T.nilable(String), location_source: T.nilable(String), validate_location: T.nilable(String)).void
                  }
@@ -2403,20 +3497,30 @@ module Stripe
                   class CustomField < Stripe::RequestParams
                     # The name of the custom field. This may be up to 40 characters.
                     sig { returns(String) }
-                    attr_accessor :name
+                    def name; end
+                    sig { params(_name: String).returns(String) }
+                    def name=(_name); end
                     # The value of the custom field. This may be up to 140 characters. When updating, pass an empty string to remove previously-defined values.
                     sig { returns(String) }
-                    attr_accessor :value
+                    def value; end
+                    sig { params(_value: String).returns(String) }
+                    def value=(_value); end
                     sig { params(name: String, value: String).void }
                     def initialize(name: nil, value: nil); end
                   end
                   class Rendering < Stripe::RequestParams
                     # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :amount_tax_display
+                    def amount_tax_display; end
+                    sig {
+                      params(_amount_tax_display: T.nilable(String)).returns(T.nilable(String))
+                     }
+                    def amount_tax_display=(_amount_tax_display); end
                     # ID of the invoice rendering template to use for future invoices.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :template
+                    def template; end
+                    sig { params(_template: T.nilable(String)).returns(T.nilable(String)) }
+                    def template=(_template); end
                     sig {
                       params(amount_tax_display: T.nilable(String), template: T.nilable(String)).void
                      }
@@ -2426,21 +3530,35 @@ module Stripe
                   sig {
                     returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice::CustomField]))
                    }
-                  attr_accessor :custom_fields
+                  def custom_fields; end
+                  sig {
+                    params(_custom_fields: T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice::CustomField])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice::CustomField]))
+                   }
+                  def custom_fields=(_custom_fields); end
                   # Default footer to be displayed on invoices for this customer.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :footer
+                  def footer; end
+                  sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
+                  def footer=(_footer); end
                   # The sequence to be used on the customer's next invoice. Defaults to 1.
                   sig { returns(T.nilable(Integer)) }
-                  attr_accessor :next_sequence
+                  def next_sequence; end
+                  sig { params(_next_sequence: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def next_sequence=(_next_sequence); end
                   # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :prefix
+                  def prefix; end
+                  sig { params(_prefix: T.nilable(String)).returns(T.nilable(String)) }
+                  def prefix=(_prefix); end
                   # Default options for invoice PDF rendering for this customer.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice::Rendering))
                    }
-                  attr_accessor :rendering
+                  def rendering; end
+                  sig {
+                    params(_rendering: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice::Rendering)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice::Rendering))
+                   }
+                  def rendering=(_rendering); end
                   sig {
                     params(custom_fields: T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice::CustomField]), footer: T.nilable(String), next_sequence: T.nilable(Integer), prefix: T.nilable(String), rendering: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice::Rendering)).void
                    }
@@ -2454,12 +3572,20 @@ module Stripe
                 end
                 # ID of a payment method that’s attached to the customer, to be used as the customer’s default payment method for invoices and subscriptions.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :default_payment_method
+                def default_payment_method; end
+                sig {
+                  params(_default_payment_method: T.nilable(String)).returns(T.nilable(String))
+                 }
+                def default_payment_method=(_default_payment_method); end
                 # Default settings used on invoices for this customer.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice))
                  }
-                attr_accessor :invoice
+                def invoice; end
+                sig {
+                  params(_invoice: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice))
+                 }
+                def invoice=(_invoice); end
                 sig {
                   params(default_payment_method: T.nilable(String), invoice: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing::Invoice)).void
                  }
@@ -2469,7 +3595,9 @@ module Stripe
                 class AutomaticIndirectTax < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
@@ -2477,7 +3605,11 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax))
                  }
-                attr_accessor :automatic_indirect_tax
+                def automatic_indirect_tax; end
+                sig {
+                  params(_automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax))
+                 }
+                def automatic_indirect_tax=(_automatic_indirect_tax); end
                 sig {
                   params(automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities::AutomaticIndirectTax)).void
                  }
@@ -2487,22 +3619,34 @@ module Stripe
                 class Address < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :city
+                  def city; end
+                  sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :country
+                  def country; end
+                  sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :state
+                  def state; end
+                  sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+                  def state=(_state); end
                   sig {
                     params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
                    }
@@ -2519,13 +3663,21 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping::Address))
                  }
-                attr_accessor :address
+                def address; end
+                sig {
+                  params(_address: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping::Address)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping::Address))
+                 }
+                def address=(_address); end
                 # Customer name.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :name
+                def name; end
+                sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+                def name=(_name); end
                 # Customer phone (including extension).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :phone
+                def phone; end
+                sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+                def phone=(_phone); end
                 sig {
                   params(address: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping::Address), name: T.nilable(String), phone: T.nilable(String)).void
                  }
@@ -2533,30 +3685,50 @@ module Stripe
               end
               # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
               sig { returns(T.nilable(T::Boolean)) }
-              attr_accessor :applied
+              def applied; end
+              sig { params(_applied: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+              def applied=(_applied); end
               # Automatic indirect tax settings to be used when automatic tax calculation is enabled on the customer's invoices, subscriptions, checkout sessions, or payment links. Surfaces if automatic tax calculation is possible given the current customer location information.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::AutomaticIndirectTax))
                }
-              attr_accessor :automatic_indirect_tax
+              def automatic_indirect_tax; end
+              sig {
+                params(_automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::AutomaticIndirectTax)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::AutomaticIndirectTax))
+               }
+              def automatic_indirect_tax=(_automatic_indirect_tax); end
               # Billing settings - default settings used for this customer in Billing flows such as Invoices and Subscriptions.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing))
                }
-              attr_accessor :billing
+              def billing; end
+              sig {
+                params(_billing: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing))
+               }
+              def billing=(_billing); end
               # Capabilities that have been requested on the Customer Configuration.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities))
                }
-              attr_accessor :capabilities
+              def capabilities; end
+              sig {
+                params(_capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities))
+               }
+              def capabilities=(_capabilities); end
               # The customer's shipping information. Appears on invoices emailed to this customer.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping))
                }
-              attr_accessor :shipping
+              def shipping; end
+              sig {
+                params(_shipping: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping))
+               }
+              def shipping=(_shipping); end
               # ID of the test clock to attach to the customer. Can only be set on testmode Accounts, and when the Customer Configuration is first set on an Account.
               sig { returns(T.nilable(String)) }
-              attr_accessor :test_clock
+              def test_clock; end
+              sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
+              def test_clock=(_test_clock); end
               sig {
                 params(applied: T.nilable(T::Boolean), automatic_indirect_tax: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::AutomaticIndirectTax), billing: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Billing), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Capabilities), shipping: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer::Shipping), test_clock: T.nilable(String)).void
                }
@@ -2573,23 +3745,33 @@ module Stripe
               class BacsDebitPayments < Stripe::RequestParams
                 # Display name for Bacs debit payments.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :display_name
+                def display_name; end
+                sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+                def display_name=(_display_name); end
                 sig { params(display_name: T.nilable(String)).void }
                 def initialize(display_name: nil); end
               end
               class Branding < Stripe::RequestParams
                 # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :icon
+                def icon; end
+                sig { params(_icon: T.nilable(String)).returns(T.nilable(String)) }
+                def icon=(_icon); end
                 # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :logo
+                def logo; end
+                sig { params(_logo: T.nilable(String)).returns(T.nilable(String)) }
+                def logo=(_logo); end
                 # A CSS hex color value representing the primary branding color for the merchant.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :primary_color
+                def primary_color; end
+                sig { params(_primary_color: T.nilable(String)).returns(T.nilable(String)) }
+                def primary_color=(_primary_color); end
                 # A CSS hex color value representing the secondary branding color for the merchant.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :secondary_color
+                def secondary_color; end
+                sig { params(_secondary_color: T.nilable(String)).returns(T.nilable(String)) }
+                def secondary_color=(_secondary_color); end
                 sig {
                   params(icon: T.nilable(String), logo: T.nilable(String), primary_color: T.nilable(String), secondary_color: T.nilable(String)).void
                  }
@@ -2599,308 +3781,396 @@ module Stripe
                 class AchDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class AcssDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class AffirmPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class AfterpayClearpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class AlmaPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class AmazonPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class AuBecsDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class BacsDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class BancontactPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class BlikPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class BoletoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class CardPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class CartesBancairesPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class CashappPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class EpsPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class FpxPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class GbBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class GrabpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class IdealPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class JcbPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class JpBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class KakaoPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class KlarnaPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class KonbiniPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class KrCardPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class LinkPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class MobilepayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class MultibancoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class MxBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class NaverPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class OxxoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class P24Payments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class PayByBankPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class PaycoPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class PaynowPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class PromptpayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class RevolutPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class SamsungPayPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class SepaBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class SepaDebitPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class SwishPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class TwintPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class UsBankTransferPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
                 class ZipPayments < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
@@ -2908,222 +4178,398 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AchDebitPayments))
                  }
-                attr_accessor :ach_debit_payments
+                def ach_debit_payments; end
+                sig {
+                  params(_ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AchDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AchDebitPayments))
+                 }
+                def ach_debit_payments=(_ach_debit_payments); end
                 # Allow the merchant to process ACSS debit payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AcssDebitPayments))
                  }
-                attr_accessor :acss_debit_payments
+                def acss_debit_payments; end
+                sig {
+                  params(_acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AcssDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AcssDebitPayments))
+                 }
+                def acss_debit_payments=(_acss_debit_payments); end
                 # Allow the merchant to process Affirm payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AffirmPayments))
                  }
-                attr_accessor :affirm_payments
+                def affirm_payments; end
+                sig {
+                  params(_affirm_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AffirmPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AffirmPayments))
+                 }
+                def affirm_payments=(_affirm_payments); end
                 # Allow the merchant to process Afterpay/Clearpay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments))
                  }
-                attr_accessor :afterpay_clearpay_payments
+                def afterpay_clearpay_payments; end
+                sig {
+                  params(_afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments))
+                 }
+                def afterpay_clearpay_payments=(_afterpay_clearpay_payments); end
                 # Allow the merchant to process Alma payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AlmaPayments))
                  }
-                attr_accessor :alma_payments
+                def alma_payments; end
+                sig {
+                  params(_alma_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AlmaPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AlmaPayments))
+                 }
+                def alma_payments=(_alma_payments); end
                 # Allow the merchant to process Amazon Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AmazonPayPayments))
                  }
-                attr_accessor :amazon_pay_payments
+                def amazon_pay_payments; end
+                sig {
+                  params(_amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AmazonPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AmazonPayPayments))
+                 }
+                def amazon_pay_payments=(_amazon_pay_payments); end
                 # Allow the merchant to process Australian BECS Direct Debit payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments))
                  }
-                attr_accessor :au_becs_debit_payments
+                def au_becs_debit_payments; end
+                sig {
+                  params(_au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments))
+                 }
+                def au_becs_debit_payments=(_au_becs_debit_payments); end
                 # Allow the merchant to process BACS Direct Debit payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BacsDebitPayments))
                  }
-                attr_accessor :bacs_debit_payments
+                def bacs_debit_payments; end
+                sig {
+                  params(_bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BacsDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BacsDebitPayments))
+                 }
+                def bacs_debit_payments=(_bacs_debit_payments); end
                 # Allow the merchant to process Bancontact payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BancontactPayments))
                  }
-                attr_accessor :bancontact_payments
+                def bancontact_payments; end
+                sig {
+                  params(_bancontact_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BancontactPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BancontactPayments))
+                 }
+                def bancontact_payments=(_bancontact_payments); end
                 # Allow the merchant to process BLIK payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BlikPayments))
                  }
-                attr_accessor :blik_payments
+                def blik_payments; end
+                sig {
+                  params(_blik_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BlikPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BlikPayments))
+                 }
+                def blik_payments=(_blik_payments); end
                 # Allow the merchant to process Boleto payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BoletoPayments))
                  }
-                attr_accessor :boleto_payments
+                def boleto_payments; end
+                sig {
+                  params(_boleto_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BoletoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BoletoPayments))
+                 }
+                def boleto_payments=(_boleto_payments); end
                 # Allow the merchant to collect card payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CardPayments))
                  }
-                attr_accessor :card_payments
+                def card_payments; end
+                sig {
+                  params(_card_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CardPayments))
+                 }
+                def card_payments=(_card_payments); end
                 # Allow the merchant to process Cartes Bancaires payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments))
                  }
-                attr_accessor :cartes_bancaires_payments
+                def cartes_bancaires_payments; end
+                sig {
+                  params(_cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments))
+                 }
+                def cartes_bancaires_payments=(_cartes_bancaires_payments); end
                 # Allow the merchant to process Cash App payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CashappPayments))
                  }
-                attr_accessor :cashapp_payments
+                def cashapp_payments; end
+                sig {
+                  params(_cashapp_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CashappPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CashappPayments))
+                 }
+                def cashapp_payments=(_cashapp_payments); end
                 # Allow the merchant to process EPS payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::EpsPayments))
                  }
-                attr_accessor :eps_payments
+                def eps_payments; end
+                sig {
+                  params(_eps_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::EpsPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::EpsPayments))
+                 }
+                def eps_payments=(_eps_payments); end
                 # Allow the merchant to process FPX payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::FpxPayments))
                  }
-                attr_accessor :fpx_payments
+                def fpx_payments; end
+                sig {
+                  params(_fpx_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::FpxPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::FpxPayments))
+                 }
+                def fpx_payments=(_fpx_payments); end
                 # Allow the merchant to process UK bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments))
                  }
-                attr_accessor :gb_bank_transfer_payments
+                def gb_bank_transfer_payments; end
+                sig {
+                  params(_gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments))
+                 }
+                def gb_bank_transfer_payments=(_gb_bank_transfer_payments); end
                 # Allow the merchant to process GrabPay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::GrabpayPayments))
                  }
-                attr_accessor :grabpay_payments
+                def grabpay_payments; end
+                sig {
+                  params(_grabpay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::GrabpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::GrabpayPayments))
+                 }
+                def grabpay_payments=(_grabpay_payments); end
                 # Allow the merchant to process iDEAL payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::IdealPayments))
                  }
-                attr_accessor :ideal_payments
+                def ideal_payments; end
+                sig {
+                  params(_ideal_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::IdealPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::IdealPayments))
+                 }
+                def ideal_payments=(_ideal_payments); end
                 # Allow the merchant to process JCB card payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::JcbPayments))
                  }
-                attr_accessor :jcb_payments
+                def jcb_payments; end
+                sig {
+                  params(_jcb_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::JcbPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::JcbPayments))
+                 }
+                def jcb_payments=(_jcb_payments); end
                 # Allow the merchant to process Japanese bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments))
                  }
-                attr_accessor :jp_bank_transfer_payments
+                def jp_bank_transfer_payments; end
+                sig {
+                  params(_jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments))
+                 }
+                def jp_bank_transfer_payments=(_jp_bank_transfer_payments); end
                 # Allow the merchant to process Kakao Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KakaoPayPayments))
                  }
-                attr_accessor :kakao_pay_payments
+                def kakao_pay_payments; end
+                sig {
+                  params(_kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KakaoPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KakaoPayPayments))
+                 }
+                def kakao_pay_payments=(_kakao_pay_payments); end
                 # Allow the merchant to process Klarna payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KlarnaPayments))
                  }
-                attr_accessor :klarna_payments
+                def klarna_payments; end
+                sig {
+                  params(_klarna_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KlarnaPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KlarnaPayments))
+                 }
+                def klarna_payments=(_klarna_payments); end
                 # Allow the merchant to process Konbini convenience store payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KonbiniPayments))
                  }
-                attr_accessor :konbini_payments
+                def konbini_payments; end
+                sig {
+                  params(_konbini_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KonbiniPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KonbiniPayments))
+                 }
+                def konbini_payments=(_konbini_payments); end
                 # Allow the merchant to process Korean card payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KrCardPayments))
                  }
-                attr_accessor :kr_card_payments
+                def kr_card_payments; end
+                sig {
+                  params(_kr_card_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KrCardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KrCardPayments))
+                 }
+                def kr_card_payments=(_kr_card_payments); end
                 # Allow the merchant to process Link payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::LinkPayments))
                  }
-                attr_accessor :link_payments
+                def link_payments; end
+                sig {
+                  params(_link_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::LinkPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::LinkPayments))
+                 }
+                def link_payments=(_link_payments); end
                 # Allow the merchant to process MobilePay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MobilepayPayments))
                  }
-                attr_accessor :mobilepay_payments
+                def mobilepay_payments; end
+                sig {
+                  params(_mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MobilepayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MobilepayPayments))
+                 }
+                def mobilepay_payments=(_mobilepay_payments); end
                 # Allow the merchant to process Multibanco payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MultibancoPayments))
                  }
-                attr_accessor :multibanco_payments
+                def multibanco_payments; end
+                sig {
+                  params(_multibanco_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MultibancoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MultibancoPayments))
+                 }
+                def multibanco_payments=(_multibanco_payments); end
                 # Allow the merchant to process Mexican bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments))
                  }
-                attr_accessor :mx_bank_transfer_payments
+                def mx_bank_transfer_payments; end
+                sig {
+                  params(_mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments))
+                 }
+                def mx_bank_transfer_payments=(_mx_bank_transfer_payments); end
                 # Allow the merchant to process Naver Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::NaverPayPayments))
                  }
-                attr_accessor :naver_pay_payments
+                def naver_pay_payments; end
+                sig {
+                  params(_naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::NaverPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::NaverPayPayments))
+                 }
+                def naver_pay_payments=(_naver_pay_payments); end
                 # Allow the merchant to process OXXO payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::OxxoPayments))
                  }
-                attr_accessor :oxxo_payments
+                def oxxo_payments; end
+                sig {
+                  params(_oxxo_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::OxxoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::OxxoPayments))
+                 }
+                def oxxo_payments=(_oxxo_payments); end
                 # Allow the merchant to process Przelewy24 (P24) payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::P24Payments))
                  }
-                attr_accessor :p24_payments
+                def p24_payments; end
+                sig {
+                  params(_p24_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::P24Payments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::P24Payments))
+                 }
+                def p24_payments=(_p24_payments); end
                 # Allow the merchant to process Pay by Bank payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PayByBankPayments))
                  }
-                attr_accessor :pay_by_bank_payments
+                def pay_by_bank_payments; end
+                sig {
+                  params(_pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PayByBankPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PayByBankPayments))
+                 }
+                def pay_by_bank_payments=(_pay_by_bank_payments); end
                 # Allow the merchant to process PAYCO payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PaycoPayments))
                  }
-                attr_accessor :payco_payments
+                def payco_payments; end
+                sig {
+                  params(_payco_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PaycoPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PaycoPayments))
+                 }
+                def payco_payments=(_payco_payments); end
                 # Allow the merchant to process PayNow payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PaynowPayments))
                  }
-                attr_accessor :paynow_payments
+                def paynow_payments; end
+                sig {
+                  params(_paynow_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PaynowPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PaynowPayments))
+                 }
+                def paynow_payments=(_paynow_payments); end
                 # Allow the merchant to process PromptPay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PromptpayPayments))
                  }
-                attr_accessor :promptpay_payments
+                def promptpay_payments; end
+                sig {
+                  params(_promptpay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PromptpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PromptpayPayments))
+                 }
+                def promptpay_payments=(_promptpay_payments); end
                 # Allow the merchant to process Revolut Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::RevolutPayPayments))
                  }
-                attr_accessor :revolut_pay_payments
+                def revolut_pay_payments; end
+                sig {
+                  params(_revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::RevolutPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::RevolutPayPayments))
+                 }
+                def revolut_pay_payments=(_revolut_pay_payments); end
                 # Allow the merchant to process Samsung Pay payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SamsungPayPayments))
                  }
-                attr_accessor :samsung_pay_payments
+                def samsung_pay_payments; end
+                sig {
+                  params(_samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SamsungPayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SamsungPayPayments))
+                 }
+                def samsung_pay_payments=(_samsung_pay_payments); end
                 # Allow the merchant to process SEPA bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments))
                  }
-                attr_accessor :sepa_bank_transfer_payments
+                def sepa_bank_transfer_payments; end
+                sig {
+                  params(_sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments))
+                 }
+                def sepa_bank_transfer_payments=(_sepa_bank_transfer_payments); end
                 # Allow the merchant to process SEPA Direct Debit payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SepaDebitPayments))
                  }
-                attr_accessor :sepa_debit_payments
+                def sepa_debit_payments; end
+                sig {
+                  params(_sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SepaDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SepaDebitPayments))
+                 }
+                def sepa_debit_payments=(_sepa_debit_payments); end
                 # Allow the merchant to process Swish payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SwishPayments))
                  }
-                attr_accessor :swish_payments
+                def swish_payments; end
+                sig {
+                  params(_swish_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SwishPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SwishPayments))
+                 }
+                def swish_payments=(_swish_payments); end
                 # Allow the merchant to process TWINT payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::TwintPayments))
                  }
-                attr_accessor :twint_payments
+                def twint_payments; end
+                sig {
+                  params(_twint_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::TwintPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::TwintPayments))
+                 }
+                def twint_payments=(_twint_payments); end
                 # Allow the merchant to process US bank transfer payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
                  }
-                attr_accessor :us_bank_transfer_payments
+                def us_bank_transfer_payments; end
+                sig {
+                  params(_us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
+                 }
+                def us_bank_transfer_payments=(_us_bank_transfer_payments); end
                 # Allow the merchant to process Zip payments.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::ZipPayments))
                  }
-                attr_accessor :zip_payments
+                def zip_payments; end
+                sig {
+                  params(_zip_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::ZipPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::ZipPayments))
+                 }
+                def zip_payments=(_zip_payments); end
                 sig {
                   params(ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AchDebitPayments), acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BancontactPayments), blik_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BlikPayments), boleto_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::BoletoPayments), card_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments), grabpay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::IdealPayments), jcb_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::KrCardPayments), link_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SamsungPayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SepaDebitPayments), swish_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::SwishPayments), twint_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::TwintPayments), us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities::ZipPayments)).void
                  }
@@ -3178,10 +4624,14 @@ module Stripe
                 class DeclineOn < Stripe::RequestParams
                   # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :avs_failure
+                  def avs_failure; end
+                  sig { params(_avs_failure: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def avs_failure=(_avs_failure); end
                   # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :cvc_failure
+                  def cvc_failure; end
+                  sig { params(_cvc_failure: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def cvc_failure=(_cvc_failure); end
                   sig {
                     params(avs_failure: T.nilable(T::Boolean), cvc_failure: T.nilable(T::Boolean)).void
                    }
@@ -3191,7 +4641,11 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments::DeclineOn))
                  }
-                attr_accessor :decline_on
+                def decline_on; end
+                sig {
+                  params(_decline_on: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments::DeclineOn)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments::DeclineOn))
+                 }
+                def decline_on=(_decline_on); end
                 sig {
                   params(decline_on: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments::DeclineOn)).void
                  }
@@ -3200,10 +4654,14 @@ module Stripe
               class StatementDescriptor < Stripe::RequestParams
                 # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :descriptor
+                def descriptor; end
+                sig { params(_descriptor: T.nilable(String)).returns(T.nilable(String)) }
+                def descriptor=(_descriptor); end
                 # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :prefix
+                def prefix; end
+                sig { params(_prefix: T.nilable(String)).returns(T.nilable(String)) }
+                def prefix=(_prefix); end
                 sig { params(descriptor: T.nilable(String), prefix: T.nilable(String)).void }
                 def initialize(descriptor: nil, prefix: nil); end
               end
@@ -3211,25 +4669,53 @@ module Stripe
                 class Address < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :city
+                  def city; end
+                  sig {
+                    params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :country
+                  def country; end
+                  sig {
+                    params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig {
+                    params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig {
+                    params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig {
+                    params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :state
+                  def state; end
+                  sig {
+                    params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :town
+                  def town; end
+                  sig {
+                    params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
                    }
@@ -3247,16 +4733,26 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support::Address))
                  }
-                attr_accessor :address
+                def address; end
+                sig {
+                  params(_address: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support::Address)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support::Address))
+                 }
+                def address=(_address); end
                 # A publicly available email address for sending support issues to.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :email
+                def email; end
+                sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+                def email=(_email); end
                 # A publicly available phone number to call with support issues.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :phone
+                def phone; end
+                sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
+                def phone=(_phone); end
                 # A publicly available website for handling support issues.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :url
+                def url; end
+                sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
+                def url=(_url); end
                 sig {
                   params(address: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support::Address), email: T.nilable(String), phone: T.nilable(String), url: T.nilable(String)).void
                  }
@@ -3264,40 +4760,68 @@ module Stripe
               end
               # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
               sig { returns(T.nilable(T::Boolean)) }
-              attr_accessor :applied
+              def applied; end
+              sig { params(_applied: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+              def applied=(_applied); end
               # Settings used for Bacs debit payments.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::BacsDebitPayments))
                }
-              attr_accessor :bacs_debit_payments
+              def bacs_debit_payments; end
+              sig {
+                params(_bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::BacsDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::BacsDebitPayments))
+               }
+              def bacs_debit_payments=(_bacs_debit_payments); end
               # Settings used to apply the merchant's branding to email receipts, invoices, Checkout, and other products.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Branding))
                }
-              attr_accessor :branding
+              def branding; end
+              sig {
+                params(_branding: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Branding)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Branding))
+               }
+              def branding=(_branding); end
               # Capabilities to request on the Merchant Configuration.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities))
                }
-              attr_accessor :capabilities
+              def capabilities; end
+              sig {
+                params(_capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities))
+               }
+              def capabilities=(_capabilities); end
               # Card payments settings.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments))
                }
-              attr_accessor :card_payments
+              def card_payments; end
+              sig {
+                params(_card_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments))
+               }
+              def card_payments=(_card_payments); end
               # The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
               sig { returns(T.nilable(String)) }
-              attr_accessor :mcc
+              def mcc; end
+              sig { params(_mcc: T.nilable(String)).returns(T.nilable(String)) }
+              def mcc=(_mcc); end
               # Statement descriptor.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::StatementDescriptor))
                }
-              attr_accessor :statement_descriptor
+              def statement_descriptor; end
+              sig {
+                params(_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::StatementDescriptor)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::StatementDescriptor))
+               }
+              def statement_descriptor=(_statement_descriptor); end
               # Publicly available contact information for sending support issues to.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support))
                }
-              attr_accessor :support
+              def support; end
+              sig {
+                params(_support: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support))
+               }
+              def support=(_support); end
               sig {
                 params(applied: T.nilable(T::Boolean), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::CardPayments), mcc: T.nilable(String), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant::Support)).void
                }
@@ -3318,14 +4842,18 @@ module Stripe
                   class Local < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
                   class Wire < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
@@ -3333,12 +4861,20 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
                    }
-                  attr_accessor :local
+                  def local; end
+                  sig {
+                    params(_local: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
+                   }
+                  def local=(_local); end
                   # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
                    }
-                  attr_accessor :wire
+                  def wire; end
+                  sig {
+                    params(_wire: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
+                   }
+                  def wire=(_wire); end
                   sig {
                     params(local: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local), wire: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).void
                    }
@@ -3347,7 +4883,9 @@ module Stripe
                 class Cards < Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
-                  attr_accessor :requested
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
@@ -3355,7 +4893,9 @@ module Stripe
                   class StripeTransfers < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
@@ -3363,7 +4903,11 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                    }
-                  attr_accessor :stripe_transfers
+                  def stripe_transfers; end
+                  sig {
+                    params(_stripe_transfers: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
+                   }
+                  def stripe_transfers=(_stripe_transfers); end
                   sig {
                     params(stripe_transfers: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).void
                    }
@@ -3373,17 +4917,29 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts))
                  }
-                attr_accessor :bank_accounts
+                def bank_accounts; end
+                sig {
+                  params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts))
+                 }
+                def bank_accounts=(_bank_accounts); end
                 # Capability that enable OutboundPayments to a debit card linked to this Account.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::Cards))
                  }
-                attr_accessor :cards
+                def cards; end
+                sig {
+                  params(_cards: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::Cards)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::Cards))
+                 }
+                def cards=(_cards); end
                 # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance))
                  }
-                attr_accessor :stripe_balance
+                def stripe_balance; end
+                sig {
+                  params(_stripe_balance: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance))
+                 }
+                def stripe_balance=(_stripe_balance); end
                 sig {
                   params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::Cards), stripe_balance: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
                  }
@@ -3391,15 +4947,25 @@ module Stripe
               end
               # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
               sig { returns(T.nilable(T::Boolean)) }
-              attr_accessor :applied
+              def applied; end
+              sig { params(_applied: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+              def applied=(_applied); end
               # Capabilities to request on the Recipient Configuration.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities))
                }
-              attr_accessor :capabilities
+              def capabilities; end
+              sig {
+                params(_capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities))
+               }
+              def capabilities=(_capabilities); end
               # The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination.
               sig { returns(T.nilable(String)) }
-              attr_accessor :default_outbound_destination
+              def default_outbound_destination; end
+              sig {
+                params(_default_outbound_destination: T.nilable(String)).returns(T.nilable(String))
+               }
+              def default_outbound_destination=(_default_outbound_destination); end
               sig {
                 params(applied: T.nilable(T::Boolean), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities), default_outbound_destination: T.nilable(String)).void
                }
@@ -3415,7 +4981,9 @@ module Stripe
                   class BankAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
@@ -3423,7 +4991,11 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
                    }
-                  attr_accessor :bank_accounts
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
                   sig {
                     params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses::BankAccounts)).void
                    }
@@ -3433,7 +5005,9 @@ module Stripe
                   class Gbp < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
@@ -3441,7 +5015,11 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
                    }
-                  attr_accessor :gbp
+                  def gbp; end
+                  sig {
+                    params(_gbp: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp))
+                   }
+                  def gbp=(_gbp); end
                   sig {
                     params(gbp: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies::Gbp)).void
                    }
@@ -3451,7 +5029,9 @@ module Stripe
                   class BankAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
@@ -3459,7 +5039,11 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
                    }
-                  attr_accessor :bank_accounts
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
                   sig {
                     params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers::BankAccounts)).void
                    }
@@ -3469,21 +5053,27 @@ module Stripe
                   class BankAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
                   class Cards < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
                   class FinancialAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
@@ -3491,17 +5081,29 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
                    }
-                  attr_accessor :bank_accounts
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
                   # Can send funds from a FinancialAccount to a debit card owned by someone else.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
                    }
-                  attr_accessor :cards
+                  def cards; end
+                  sig {
+                    params(_cards: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards))
+                   }
+                  def cards=(_cards); end
                   # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
                    }
-                  attr_accessor :financial_accounts
+                  def financial_accounts; end
+                  sig {
+                    params(_financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts))
+                   }
+                  def financial_accounts=(_financial_accounts); end
                   sig {
                     params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::Cards), financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments::FinancialAccounts)).void
                    }
@@ -3511,14 +5113,18 @@ module Stripe
                   class BankAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
                   class FinancialAccounts < Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
-                    attr_accessor :requested
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
@@ -3526,12 +5132,20 @@ module Stripe
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
                    }
-                  attr_accessor :bank_accounts
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
                   # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
                    }
-                  attr_accessor :financial_accounts
+                  def financial_accounts; end
+                  sig {
+                    params(_financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts))
+                   }
+                  def financial_accounts=(_financial_accounts); end
                   sig {
                     params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::BankAccounts), financial_accounts: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers::FinancialAccounts)).void
                    }
@@ -3541,27 +5155,47 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses))
                  }
-                attr_accessor :financial_addresses
+                def financial_addresses; end
+                sig {
+                  params(_financial_addresses: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses))
+                 }
+                def financial_addresses=(_financial_addresses); end
                 # Can hold storage-type funds on Stripe.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
                  }
-                attr_accessor :holds_currencies
+                def holds_currencies; end
+                sig {
+                  params(_holds_currencies: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies))
+                 }
+                def holds_currencies=(_holds_currencies); end
                 # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers))
                  }
-                attr_accessor :inbound_transfers
+                def inbound_transfers; end
+                sig {
+                  params(_inbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers))
+                 }
+                def inbound_transfers=(_inbound_transfers); end
                 # Can send funds from a FinancialAccount to a destination owned by someone else.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments))
                  }
-                attr_accessor :outbound_payments
+                def outbound_payments; end
+                sig {
+                  params(_outbound_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments))
+                 }
+                def outbound_payments=(_outbound_payments); end
                 # Can send funds from a FinancialAccount to a destination owned by yourself.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers))
                  }
-                attr_accessor :outbound_transfers
+                def outbound_transfers; end
+                sig {
+                  params(_outbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers))
+                 }
+                def outbound_transfers=(_outbound_transfers); end
                 sig {
                   params(financial_addresses: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::FinancialAddresses), holds_currencies: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::HoldsCurrencies), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities::OutboundTransfers)).void
                  }
@@ -3575,12 +5209,18 @@ module Stripe
               end
               # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
               sig { returns(T.nilable(T::Boolean)) }
-              attr_accessor :applied
+              def applied; end
+              sig { params(_applied: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+              def applied=(_applied); end
               # Capabilities to request on the Storer Configuration.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities))
                }
-              attr_accessor :capabilities
+              def capabilities; end
+              sig {
+                params(_capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities))
+               }
+              def capabilities=(_capabilities); end
               sig {
                 params(applied: T.nilable(T::Boolean), capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer::Capabilities)).void
                }
@@ -3590,22 +5230,38 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer))
              }
-            attr_accessor :customer
+            def customer; end
+            sig {
+              params(_customer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer))
+             }
+            def customer=(_customer); end
             # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant))
              }
-            attr_accessor :merchant
+            def merchant; end
+            sig {
+              params(_merchant: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant))
+             }
+            def merchant=(_merchant); end
             # The Recipient Configuration allows the Account to receive funds.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient))
              }
-            attr_accessor :recipient
+            def recipient; end
+            sig {
+              params(_recipient: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient))
+             }
+            def recipient=(_recipient); end
             # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer))
              }
-            attr_accessor :storer
+            def storer; end
+            sig {
+              params(_storer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer))
+             }
+            def storer=(_storer); end
             sig {
               params(customer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer), merchant: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant), recipient: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient), storer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Storer)).void
              }
@@ -3615,24 +5271,38 @@ module Stripe
             class Responsibilities < Stripe::RequestParams
               # A value indicating the party responsible for collecting fees from this account.
               sig { returns(String) }
-              attr_accessor :fees_collector
+              def fees_collector; end
+              sig { params(_fees_collector: String).returns(String) }
+              def fees_collector=(_fees_collector); end
               # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
               sig { returns(String) }
-              attr_accessor :losses_collector
+              def losses_collector; end
+              sig { params(_losses_collector: String).returns(String) }
+              def losses_collector=(_losses_collector); end
               sig { params(fees_collector: String, losses_collector: String).void }
               def initialize(fees_collector: nil, losses_collector: nil); end
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(T.nilable(String)) }
-            attr_accessor :currency
+            def currency; end
+            sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+            def currency=(_currency); end
             # The Account's preferred locales (languages), ordered by preference.
             sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :locales
+            def locales; end
+            sig {
+              params(_locales: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def locales=(_locales); end
             # Default responsibilities held by either Stripe or the platform.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Responsibilities))
              }
-            attr_accessor :responsibilities
+            def responsibilities; end
+            sig {
+              params(_responsibilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Responsibilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Responsibilities))
+             }
+            def responsibilities=(_responsibilities); end
             sig {
               params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), responsibilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Responsibilities)).void
              }
@@ -3643,13 +5313,19 @@ module Stripe
               class DirectorshipDeclaration < Stripe::RequestParams
                 # The time marking when the director attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :date
+                def date; end
+                sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                def date=(_date); end
                 # The IP address from which the director attestation was made.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :ip
+                def ip; end
+                sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                def ip=(_ip); end
                 # The user agent of the browser from which the director attestation was made.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :user_agent
+                def user_agent; end
+                sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                def user_agent=(_user_agent); end
                 sig {
                   params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
                  }
@@ -3658,13 +5334,19 @@ module Stripe
               class OwnershipDeclaration < Stripe::RequestParams
                 # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :date
+                def date; end
+                sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                def date=(_date); end
                 # The IP address from which the beneficial owner attestation was made.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :ip
+                def ip; end
+                sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                def ip=(_ip); end
                 # The user agent of the browser from which the beneficial owner attestation was made.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :user_agent
+                def user_agent; end
+                sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                def user_agent=(_user_agent); end
                 sig {
                   params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
                  }
@@ -3673,16 +5355,26 @@ module Stripe
               class PersonsProvided < Stripe::RequestParams
                 # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
                 sig { returns(T.nilable(T::Boolean)) }
-                attr_accessor :directors
+                def directors; end
+                sig { params(_directors: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def directors=(_directors); end
                 # Whether the company’s executives have been provided. Set this Boolean to true after creating all the company’s executives with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
                 sig { returns(T.nilable(T::Boolean)) }
-                attr_accessor :executives
+                def executives; end
+                sig { params(_executives: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def executives=(_executives); end
                 # Whether the company’s owners have been provided. Set this Boolean to true after creating all the company’s owners with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
                 sig { returns(T.nilable(T::Boolean)) }
-                attr_accessor :owners
+                def owners; end
+                sig { params(_owners: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def owners=(_owners); end
                 # Reason for why the company is exempt from providing ownership information.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :ownership_exemption_reason
+                def ownership_exemption_reason; end
+                sig {
+                  params(_ownership_exemption_reason: T.nilable(String)).returns(T.nilable(String))
+                 }
+                def ownership_exemption_reason=(_ownership_exemption_reason); end
                 sig {
                   params(directors: T.nilable(T::Boolean), executives: T.nilable(T::Boolean), owners: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(String)).void
                  }
@@ -3697,13 +5389,19 @@ module Stripe
                 class Account < Stripe::RequestParams
                   # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :date
+                  def date; end
+                  sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                  def date=(_date); end
                   # The IP address from which the Account's representative accepted the terms of service.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :ip
+                  def ip; end
+                  sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                  def ip=(_ip); end
                   # The user agent of the browser from which the Account's representative accepted the terms of service.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :user_agent
+                  def user_agent; end
+                  sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                  def user_agent=(_user_agent); end
                   sig {
                     params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
                    }
@@ -3712,13 +5410,19 @@ module Stripe
                 class Storer < Stripe::RequestParams
                   # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :date
+                  def date; end
+                  sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                  def date=(_date); end
                   # The IP address from which the Account's representative accepted the terms of service.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :ip
+                  def ip; end
+                  sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                  def ip=(_ip); end
                   # The user agent of the browser from which the Account's representative accepted the terms of service.
                   sig { returns(T.nilable(String)) }
-                  attr_accessor :user_agent
+                  def user_agent; end
+                  sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                  def user_agent=(_user_agent); end
                   sig {
                     params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
                    }
@@ -3728,12 +5432,20 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Account))
                  }
-                attr_accessor :account
+                def account; end
+                sig {
+                  params(_account: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Account)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Account))
+                 }
+                def account=(_account); end
                 # Details on the Account's acceptance of Treasury-specific terms of service.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Storer))
                  }
-                attr_accessor :storer
+                def storer; end
+                sig {
+                  params(_storer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Storer)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Storer))
+                 }
+                def storer=(_storer); end
                 sig {
                   params(account: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Account), storer: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService::Storer)).void
                  }
@@ -3743,22 +5455,38 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::DirectorshipDeclaration))
                }
-              attr_accessor :directorship_declaration
+              def directorship_declaration; end
+              sig {
+                params(_directorship_declaration: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::DirectorshipDeclaration)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::DirectorshipDeclaration))
+               }
+              def directorship_declaration=(_directorship_declaration); end
               # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::OwnershipDeclaration))
                }
-              attr_accessor :ownership_declaration
+              def ownership_declaration; end
+              sig {
+                params(_ownership_declaration: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::OwnershipDeclaration)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::OwnershipDeclaration))
+               }
+              def ownership_declaration=(_ownership_declaration); end
               # Attestation that all Persons with a specific Relationship value have been provided.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::PersonsProvided))
                }
-              attr_accessor :persons_provided
+              def persons_provided; end
+              sig {
+                params(_persons_provided: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::PersonsProvided)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::PersonsProvided))
+               }
+              def persons_provided=(_persons_provided); end
               # Attestations of accepted terms of service agreements.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService))
                }
-              attr_accessor :terms_of_service
+              def terms_of_service; end
+              sig {
+                params(_terms_of_service: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService))
+               }
+              def terms_of_service=(_terms_of_service); end
               sig {
                 params(directorship_declaration: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::DirectorshipDeclaration), ownership_declaration: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::OwnershipDeclaration), persons_provided: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::PersonsProvided), terms_of_service: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations::TermsOfService)).void
                }
@@ -3773,25 +5501,53 @@ module Stripe
               class Address < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :city
+                def city; end
+                sig {
+                  params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :country
+                def country; end
+                sig {
+                  params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :line1
+                def line1; end
+                sig {
+                  params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def line1=(_line1); end
                 # Address line 2 (e.g., apartment, suite, unit, or building).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :line2
+                def line2; end
+                sig {
+                  params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def line2=(_line2); end
                 # ZIP or postal code.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :postal_code
+                def postal_code; end
+                sig {
+                  params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def postal_code=(_postal_code); end
                 # State, county, province, or region.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :state
+                def state; end
+                sig {
+                  params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def state=(_state); end
                 # Town or cho-me.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :town
+                def town; end
+                sig {
+                  params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def town=(_town); end
                 sig {
                   params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
                  }
@@ -3808,10 +5564,18 @@ module Stripe
               class AnnualRevenue < Stripe::RequestParams
                 # A non-negative integer representing the amount in the smallest currency unit.
                 sig { returns(T.nilable(Stripe::V2::Amount)) }
-                attr_accessor :amount
+                def amount; end
+                sig {
+                  params(_amount: T.nilable(Stripe::V2::Amount)).returns(T.nilable(Stripe::V2::Amount))
+                 }
+                def amount=(_amount); end
                 # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :fiscal_year_end
+                def fiscal_year_end; end
+                sig {
+                  params(_fiscal_year_end: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def fiscal_year_end=(_fiscal_year_end); end
                 sig {
                   params(amount: T.nilable(Stripe::V2::Amount), fiscal_year_end: T.nilable(T.nilable(String))).void
                  }
@@ -3821,60 +5585,84 @@ module Stripe
                 class BankAccountOwnershipVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyLicense < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyMemorandumOfAssociation < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyMinisterialDecree < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyRegistrationVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class CompanyTaxIdVerification < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
@@ -3882,10 +5670,16 @@ module Stripe
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(T.nilable(T.nilable(String))) }
-                    attr_accessor :back
+                    def back; end
+                    sig {
+                      params(_back: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                     }
+                    def back=(_back); end
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :front
+                    def front; end
+                    sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
+                    def front=(_front); end
                     sig {
                       params(back: T.nilable(T.nilable(String)), front: T.nilable(String)).void
                      }
@@ -3895,10 +5689,16 @@ module Stripe
                   sig {
                     returns(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
                    }
-                  attr_accessor :front_back
+                  def front_back; end
+                  sig {
+                    params(_front_back: ::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack).returns(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
+                   }
+                  def front_back=(_front_back); end
                   # The format of the verification document. Currently supports `front_back` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
                     params(front_back: ::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack, type: String).void
                    }
@@ -3907,30 +5707,42 @@ module Stripe
                 class ProofOfAddress < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class ProofOfRegistration < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
@@ -3938,52 +5750,94 @@ module Stripe
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification)))
                  }
-                attr_accessor :bank_account_ownership_verification
+                def bank_account_ownership_verification; end
+                sig {
+                  params(_bank_account_ownership_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification)))
+                 }
+                def bank_account_ownership_verification=(_bank_account_ownership_verification); end
                 # One or more documents that demonstrate proof of a company’s license to operate.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyLicense)))
                  }
-                attr_accessor :company_license
+                def company_license; end
+                sig {
+                  params(_company_license: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyLicense))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyLicense)))
+                 }
+                def company_license=(_company_license); end
                 # One or more documents showing the company’s Memorandum of Association.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation)))
                  }
-                attr_accessor :company_memorandum_of_association
+                def company_memorandum_of_association; end
+                sig {
+                  params(_company_memorandum_of_association: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation)))
+                 }
+                def company_memorandum_of_association=(_company_memorandum_of_association); end
                 # Certain countries only: One or more documents showing the ministerial decree legalizing the company’s establishment.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree)))
                  }
-                attr_accessor :company_ministerial_decree
+                def company_ministerial_decree; end
+                sig {
+                  params(_company_ministerial_decree: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree)))
+                 }
+                def company_ministerial_decree=(_company_ministerial_decree); end
                 # One or more documents that demonstrate proof of a company’s registration with the appropriate local authorities.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification)))
                  }
-                attr_accessor :company_registration_verification
+                def company_registration_verification; end
+                sig {
+                  params(_company_registration_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification)))
+                 }
+                def company_registration_verification=(_company_registration_verification); end
                 # One or more documents that demonstrate proof of a company’s tax ID.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification)))
                  }
-                attr_accessor :company_tax_id_verification
+                def company_tax_id_verification; end
+                sig {
+                  params(_company_tax_id_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification)))
+                 }
+                def company_tax_id_verification=(_company_tax_id_verification); end
                 # A document verifying the business.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification)))
                  }
-                attr_accessor :primary_verification
+                def primary_verification; end
+                sig {
+                  params(_primary_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification)))
+                 }
+                def primary_verification=(_primary_verification); end
                 # One or more documents that demonstrate proof of address.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
                  }
-                attr_accessor :proof_of_address
+                def proof_of_address; end
+                sig {
+                  params(_proof_of_address: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfAddress)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
+                 }
+                def proof_of_address=(_proof_of_address); end
                 # One or more documents showing the company’s proof of registration with the national business registry.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration)))
                  }
-                attr_accessor :proof_of_registration
+                def proof_of_registration; end
+                sig {
+                  params(_proof_of_registration: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration)))
+                 }
+                def proof_of_registration=(_proof_of_registration); end
                 # One or more documents that demonstrate proof of ultimate beneficial ownership.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership))
                  }
-                attr_accessor :proof_of_ultimate_beneficial_ownership
+                def proof_of_ultimate_beneficial_ownership; end
+                sig {
+                  params(_proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership))
+                 }
+                def proof_of_ultimate_beneficial_ownership=(
+                  _proof_of_ultimate_beneficial_ownership
+                ); end
                 sig {
                   params(bank_account_ownership_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification)), company_license: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyLicense)), company_memorandum_of_association: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation)), company_ministerial_decree: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree)), company_registration_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification)), company_tax_id_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification)), primary_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification)), proof_of_address: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfAddress), proof_of_registration: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfRegistration)), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
                  }
@@ -4003,20 +5857,30 @@ module Stripe
               class IdNumber < Stripe::RequestParams
                 # The registrar of the ID number (Only valid for DE ID number types).
                 sig { returns(T.nilable(String)) }
-                attr_accessor :registrar
+                def registrar; end
+                sig { params(_registrar: T.nilable(String)).returns(T.nilable(String)) }
+                def registrar=(_registrar); end
                 # Open Enum. The ID number type of a business entity.
                 sig { returns(String) }
-                attr_accessor :type
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
                 # The value of the ID number.
                 sig { returns(String) }
-                attr_accessor :value
+                def value; end
+                sig { params(_value: String).returns(String) }
+                def value=(_value); end
                 sig { params(registrar: T.nilable(String), type: String, value: String).void }
                 def initialize(registrar: nil, type: nil, value: nil); end
               end
               class MonthlyEstimatedRevenue < Stripe::RequestParams
                 # A non-negative integer representing the amount in the smallest currency unit.
                 sig { returns(T.nilable(Stripe::V2::Amount)) }
-                attr_accessor :amount
+                def amount; end
+                sig {
+                  params(_amount: T.nilable(Stripe::V2::Amount)).returns(T.nilable(Stripe::V2::Amount))
+                 }
+                def amount=(_amount); end
                 sig { params(amount: T.nilable(Stripe::V2::Amount)).void }
                 def initialize(amount: nil); end
               end
@@ -4024,25 +5888,53 @@ module Stripe
                 class Kana < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :city
+                  def city; end
+                  sig {
+                    params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :country
+                  def country; end
+                  sig {
+                    params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig {
+                    params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig {
+                    params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig {
+                    params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :state
+                  def state; end
+                  sig {
+                    params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :town
+                  def town; end
+                  sig {
+                    params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
                    }
@@ -4059,25 +5951,53 @@ module Stripe
                 class Kanji < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :city
+                  def city; end
+                  sig {
+                    params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :country
+                  def country; end
+                  sig {
+                    params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig {
+                    params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig {
+                    params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig {
+                    params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :state
+                  def state; end
+                  sig {
+                    params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :town
+                  def town; end
+                  sig {
+                    params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
                    }
@@ -4095,12 +6015,20 @@ module Stripe
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses::Kana)))
                  }
-                attr_accessor :kana
+                def kana; end
+                sig {
+                  params(_kana: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses::Kana))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses::Kana)))
+                 }
+                def kana=(_kana); end
                 # Kanji Address.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses::Kanji)))
                  }
-                attr_accessor :kanji
+                def kanji; end
+                sig {
+                  params(_kanji: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses::Kanji))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses::Kanji)))
+                 }
+                def kanji=(_kanji); end
                 sig {
                   params(kana: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses::Kana)), kanji: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses::Kanji))).void
                  }
@@ -4110,14 +6038,22 @@ module Stripe
                 class Kana < Stripe::RequestParams
                   # Registered name of the business.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :registered_name
+                  def registered_name; end
+                  sig {
+                    params(_registered_name: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def registered_name=(_registered_name); end
                   sig { params(registered_name: T.nilable(T.nilable(String))).void }
                   def initialize(registered_name: nil); end
                 end
                 class Kanji < Stripe::RequestParams
                   # Registered name of the business.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :registered_name
+                  def registered_name; end
+                  sig {
+                    params(_registered_name: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def registered_name=(_registered_name); end
                   sig { params(registered_name: T.nilable(T.nilable(String))).void }
                   def initialize(registered_name: nil); end
                 end
@@ -4125,12 +6061,20 @@ module Stripe
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames::Kana)))
                  }
-                attr_accessor :kana
+                def kana; end
+                sig {
+                  params(_kana: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames::Kana))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames::Kana)))
+                 }
+                def kana=(_kana); end
                 # Kanji name.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames::Kanji)))
                  }
-                attr_accessor :kanji
+                def kanji; end
+                sig {
+                  params(_kanji: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames::Kanji))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames::Kanji)))
+                 }
+                def kanji=(_kanji); end
                 sig {
                   params(kana: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames::Kana)), kanji: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames::Kanji))).void
                  }
@@ -4140,58 +6084,114 @@ module Stripe
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Address)))
                }
-              attr_accessor :address
+              def address; end
+              sig {
+                params(_address: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Address))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Address)))
+               }
+              def address=(_address); end
               # The business gross annual revenue for its preceding fiscal year.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::AnnualRevenue)))
                }
-              attr_accessor :annual_revenue
+              def annual_revenue; end
+              sig {
+                params(_annual_revenue: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::AnnualRevenue))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::AnnualRevenue)))
+               }
+              def annual_revenue=(_annual_revenue); end
               # A document verifying the business.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents)))
                }
-              attr_accessor :documents
+              def documents; end
+              sig {
+                params(_documents: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents)))
+               }
+              def documents=(_documents); end
               # The name which is used by the business.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :doing_business_as
+              def doing_business_as; end
+              sig {
+                params(_doing_business_as: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def doing_business_as=(_doing_business_as); end
               # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
               sig { returns(T.nilable(T.nilable(Integer))) }
-              attr_accessor :estimated_worker_count
+              def estimated_worker_count; end
+              sig {
+                params(_estimated_worker_count: T.nilable(T.nilable(Integer))).returns(T.nilable(T.nilable(Integer)))
+               }
+              def estimated_worker_count=(_estimated_worker_count); end
               # The ID numbers of a business entity.
               sig {
                 returns(T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::IdNumber])))
                }
-              attr_accessor :id_numbers
+              def id_numbers; end
+              sig {
+                params(_id_numbers: T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::IdNumber]))).returns(T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::IdNumber])))
+               }
+              def id_numbers=(_id_numbers); end
               # An estimate of the monthly revenue of the business.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue)))
                }
-              attr_accessor :monthly_estimated_revenue
+              def monthly_estimated_revenue; end
+              sig {
+                params(_monthly_estimated_revenue: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue)))
+               }
+              def monthly_estimated_revenue=(_monthly_estimated_revenue); end
               # The phone number of the Business Entity.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :phone
+              def phone; end
+              sig {
+                params(_phone: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def phone=(_phone); end
               # Internal-only description of the product sold or service provided by the business. It’s used by Stripe for risk and underwriting purposes.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :product_description
+              def product_description; end
+              sig {
+                params(_product_description: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def product_description=(_product_description); end
               # The business legal name.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :registered_name
+              def registered_name; end
+              sig {
+                params(_registered_name: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def registered_name=(_registered_name); end
               # The business registration address of the business entity in non latin script.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses)))
                }
-              attr_accessor :script_addresses
+              def script_addresses; end
+              sig {
+                params(_script_addresses: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses)))
+               }
+              def script_addresses=(_script_addresses); end
               # The business legal name in non latin script.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames)))
                }
-              attr_accessor :script_names
+              def script_names; end
+              sig {
+                params(_script_names: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames)))
+               }
+              def script_names=(_script_names); end
               # The category identifying the legal structure of the business.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :structure
+              def structure; end
+              sig {
+                params(_structure: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def structure=(_structure); end
               # The business's publicly available website.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :url
+              def url; end
+              sig {
+                params(_url: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def url=(_url); end
               sig {
                 params(address: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Address)), annual_revenue: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::AnnualRevenue)), documents: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents)), doing_business_as: T.nilable(T.nilable(String)), estimated_worker_count: T.nilable(T.nilable(Integer)), id_numbers: T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::IdNumber])), monthly_estimated_revenue: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue)), phone: T.nilable(T.nilable(String)), product_description: T.nilable(T.nilable(String)), registered_name: T.nilable(T.nilable(String)), script_addresses: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses)), script_names: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames)), structure: T.nilable(T.nilable(String)), url: T.nilable(T.nilable(String))).void
                }
@@ -4216,28 +6216,58 @@ module Stripe
               class AdditionalAddress < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :city
+                def city; end
+                sig {
+                  params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :country
+                def country; end
+                sig {
+                  params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :line1
+                def line1; end
+                sig {
+                  params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def line1=(_line1); end
                 # Address line 2 (e.g., apartment, suite, unit, or building).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :line2
+                def line2; end
+                sig {
+                  params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def line2=(_line2); end
                 # ZIP or postal code.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :postal_code
+                def postal_code; end
+                sig {
+                  params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def postal_code=(_postal_code); end
                 # Purpose of additional address.
                 sig { returns(String) }
-                attr_accessor :purpose
+                def purpose; end
+                sig { params(_purpose: String).returns(String) }
+                def purpose=(_purpose); end
                 # State, county, province, or region.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :state
+                def state; end
+                sig {
+                  params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def state=(_state); end
                 # Town or cho-me.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :town
+                def town; end
+                sig {
+                  params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def town=(_town); end
                 sig {
                   params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), purpose: String, state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
                  }
@@ -4255,16 +6285,24 @@ module Stripe
               class AdditionalName < Stripe::RequestParams
                 # The person's full name.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :full_name
+                def full_name; end
+                sig { params(_full_name: T.nilable(String)).returns(T.nilable(String)) }
+                def full_name=(_full_name); end
                 # The person's first or given name.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :given_name
+                def given_name; end
+                sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
+                def given_name=(_given_name); end
                 # The purpose or type of the additional name.
                 sig { returns(String) }
-                attr_accessor :purpose
+                def purpose; end
+                sig { params(_purpose: String).returns(String) }
+                def purpose=(_purpose); end
                 # The person's last or family name.
                 sig { returns(T.nilable(String)) }
-                attr_accessor :surname
+                def surname; end
+                sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
+                def surname=(_surname); end
                 sig {
                   params(full_name: T.nilable(String), given_name: T.nilable(String), purpose: String, surname: T.nilable(String)).void
                  }
@@ -4273,25 +6311,53 @@ module Stripe
               class Address < Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :city
+                def city; end
+                sig {
+                  params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :country
+                def country; end
+                sig {
+                  params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :line1
+                def line1; end
+                sig {
+                  params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def line1=(_line1); end
                 # Address line 2 (e.g., apartment, suite, unit, or building).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :line2
+                def line2; end
+                sig {
+                  params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def line2=(_line2); end
                 # ZIP or postal code.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :postal_code
+                def postal_code; end
+                sig {
+                  params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def postal_code=(_postal_code); end
                 # State, county, province, or region.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :state
+                def state; end
+                sig {
+                  params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def state=(_state); end
                 # Town or cho-me.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :town
+                def town; end
+                sig {
+                  params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def town=(_town); end
                 sig {
                   params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
                  }
@@ -4308,13 +6374,19 @@ module Stripe
               class DateOfBirth < Stripe::RequestParams
                 # The day of the birth.
                 sig { returns(Integer) }
-                attr_accessor :day
+                def day; end
+                sig { params(_day: Integer).returns(Integer) }
+                def day=(_day); end
                 # The month of birth.
                 sig { returns(Integer) }
-                attr_accessor :month
+                def month; end
+                sig { params(_month: Integer).returns(Integer) }
+                def month=(_month); end
                 # The year of birth.
                 sig { returns(Integer) }
-                attr_accessor :year
+                def year; end
+                sig { params(_year: Integer).returns(Integer) }
+                def year=(_year); end
                 sig { params(day: Integer, month: Integer, year: Integer).void }
                 def initialize(day: nil, month: nil, year: nil); end
               end
@@ -4322,20 +6394,28 @@ module Stripe
                 class CompanyAuthorization < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
                 class Passport < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
@@ -4343,10 +6423,16 @@ module Stripe
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(T.nilable(T.nilable(String))) }
-                    attr_accessor :back
+                    def back; end
+                    sig {
+                      params(_back: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                     }
+                    def back=(_back); end
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :front
+                    def front; end
+                    sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
+                    def front=(_front); end
                     sig {
                       params(back: T.nilable(T.nilable(String)), front: T.nilable(String)).void
                      }
@@ -4356,10 +6442,16 @@ module Stripe
                   sig {
                     returns(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
                    }
-                  attr_accessor :front_back
+                  def front_back; end
+                  sig {
+                    params(_front_back: ::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack).returns(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
+                   }
+                  def front_back=(_front_back); end
                   # The format of the verification document. Currently supports `front_back` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
                     params(front_back: ::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack, type: String).void
                    }
@@ -4369,10 +6461,16 @@ module Stripe
                   class FrontBack < Stripe::RequestParams
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(T.nilable(T.nilable(String))) }
-                    attr_accessor :back
+                    def back; end
+                    sig {
+                      params(_back: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                     }
+                    def back=(_back); end
                     # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                     sig { returns(T.nilable(String)) }
-                    attr_accessor :front
+                    def front; end
+                    sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
+                    def front=(_front); end
                     sig {
                       params(back: T.nilable(T.nilable(String)), front: T.nilable(String)).void
                      }
@@ -4382,10 +6480,16 @@ module Stripe
                   sig {
                     returns(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
                    }
-                  attr_accessor :front_back
+                  def front_back; end
+                  sig {
+                    params(_front_back: ::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack).returns(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
+                   }
+                  def front_back=(_front_back); end
                   # The format of the verification document. Currently supports `front_back` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig {
                     params(front_back: ::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack, type: String).void
                    }
@@ -4394,10 +6498,14 @@ module Stripe
                 class Visa < Stripe::RequestParams
                   # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                   sig { returns(T::Array[String]) }
-                  attr_accessor :files
+                  def files; end
+                  sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                  def files=(_files); end
                   # The format of the document. Currently supports `files` only.
                   sig { returns(String) }
-                  attr_accessor :type
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
                   sig { params(files: T::Array[String], type: String).void }
                   def initialize(files: nil, type: nil); end
                 end
@@ -4405,27 +6513,47 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::CompanyAuthorization))
                  }
-                attr_accessor :company_authorization
+                def company_authorization; end
+                sig {
+                  params(_company_authorization: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::CompanyAuthorization)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::CompanyAuthorization))
+                 }
+                def company_authorization=(_company_authorization); end
                 # One or more documents showing the person’s passport page with photo and personal data.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::Passport))
                  }
-                attr_accessor :passport
+                def passport; end
+                sig {
+                  params(_passport: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::Passport)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::Passport))
+                 }
+                def passport=(_passport); end
                 # An identifying document showing the person's name, either a passport or local ID card.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::PrimaryVerification)))
                  }
-                attr_accessor :primary_verification
+                def primary_verification; end
+                sig {
+                  params(_primary_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::PrimaryVerification))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::PrimaryVerification)))
+                 }
+                def primary_verification=(_primary_verification); end
                 # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::SecondaryVerification)))
                  }
-                attr_accessor :secondary_verification
+                def secondary_verification; end
+                sig {
+                  params(_secondary_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::SecondaryVerification))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::SecondaryVerification)))
+                 }
+                def secondary_verification=(_secondary_verification); end
                 # One or more documents showing the person’s visa required for living in the country where they are residing.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::Visa))
                  }
-                attr_accessor :visa
+                def visa; end
+                sig {
+                  params(_visa: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::Visa)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::Visa))
+                 }
+                def visa=(_visa); end
                 sig {
                   params(company_authorization: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::CompanyAuthorization), passport: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::Passport), primary_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::PrimaryVerification)), secondary_verification: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::SecondaryVerification)), visa: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents::Visa)).void
                  }
@@ -4440,29 +6568,53 @@ module Stripe
               class IdNumber < Stripe::RequestParams
                 # The ID number type of an individual.
                 sig { returns(String) }
-                attr_accessor :type
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
                 # The value of the ID number.
                 sig { returns(String) }
-                attr_accessor :value
+                def value; end
+                sig { params(_value: String).returns(String) }
+                def value=(_value); end
                 sig { params(type: String, value: String).void }
                 def initialize(type: nil, value: nil); end
               end
               class Relationship < Stripe::RequestParams
                 # Whether the person is a director of the account's identity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
                 sig { returns(T.nilable(T.nilable(T::Boolean))) }
-                attr_accessor :director
+                def director; end
+                sig {
+                  params(_director: T.nilable(T.nilable(T::Boolean))).returns(T.nilable(T.nilable(T::Boolean)))
+                 }
+                def director=(_director); end
                 # Whether the person has significant responsibility to control, manage, or direct the organization.
                 sig { returns(T.nilable(T.nilable(T::Boolean))) }
-                attr_accessor :executive
+                def executive; end
+                sig {
+                  params(_executive: T.nilable(T.nilable(T::Boolean))).returns(T.nilable(T.nilable(T::Boolean)))
+                 }
+                def executive=(_executive); end
                 # Whether the person is an owner of the account’s identity.
                 sig { returns(T.nilable(T.nilable(T::Boolean))) }
-                attr_accessor :owner
+                def owner; end
+                sig {
+                  params(_owner: T.nilable(T.nilable(T::Boolean))).returns(T.nilable(T.nilable(T::Boolean)))
+                 }
+                def owner=(_owner); end
                 # The percent owned by the person of the account's legal entity.
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :percent_ownership
+                def percent_ownership; end
+                sig {
+                  params(_percent_ownership: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def percent_ownership=(_percent_ownership); end
                 # The person's title (e.g., CEO, Support Engineer).
                 sig { returns(T.nilable(T.nilable(String))) }
-                attr_accessor :title
+                def title; end
+                sig {
+                  params(_title: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                 }
+                def title=(_title); end
                 sig {
                   params(director: T.nilable(T.nilable(T::Boolean)), executive: T.nilable(T.nilable(T::Boolean)), owner: T.nilable(T.nilable(T::Boolean)), percent_ownership: T.nilable(T.nilable(String)), title: T.nilable(T.nilable(String))).void
                  }
@@ -4478,25 +6630,53 @@ module Stripe
                 class Kana < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :city
+                  def city; end
+                  sig {
+                    params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :country
+                  def country; end
+                  sig {
+                    params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig {
+                    params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig {
+                    params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig {
+                    params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :state
+                  def state; end
+                  sig {
+                    params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :town
+                  def town; end
+                  sig {
+                    params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
                    }
@@ -4513,25 +6693,53 @@ module Stripe
                 class Kanji < Stripe::RequestParams
                   # City, district, suburb, town, or village.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :city
+                  def city; end
+                  sig {
+                    params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def city=(_city); end
                   # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :country
+                  def country; end
+                  sig {
+                    params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def country=(_country); end
                   # Address line 1 (e.g., street, PO Box, or company name).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line1
+                  def line1; end
+                  sig {
+                    params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line1=(_line1); end
                   # Address line 2 (e.g., apartment, suite, unit, or building).
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :line2
+                  def line2; end
+                  sig {
+                    params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def line2=(_line2); end
                   # ZIP or postal code.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :postal_code
+                  def postal_code; end
+                  sig {
+                    params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def postal_code=(_postal_code); end
                   # State, county, province, or region.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :state
+                  def state; end
+                  sig {
+                    params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def state=(_state); end
                   # Town or cho-me.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :town
+                  def town; end
+                  sig {
+                    params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def town=(_town); end
                   sig {
                     params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
                    }
@@ -4549,12 +6757,20 @@ module Stripe
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses::Kana)))
                  }
-                attr_accessor :kana
+                def kana; end
+                sig {
+                  params(_kana: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses::Kana))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses::Kana)))
+                 }
+                def kana=(_kana); end
                 # Kanji Address.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses::Kanji)))
                  }
-                attr_accessor :kanji
+                def kanji; end
+                sig {
+                  params(_kanji: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses::Kanji))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses::Kanji)))
+                 }
+                def kanji=(_kanji); end
                 sig {
                   params(kana: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses::Kana)), kanji: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses::Kanji))).void
                  }
@@ -4564,10 +6780,18 @@ module Stripe
                 class Kana < Stripe::RequestParams
                   # The person's first or given name.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :given_name
+                  def given_name; end
+                  sig {
+                    params(_given_name: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def given_name=(_given_name); end
                   # The person's last or family name.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :surname
+                  def surname; end
+                  sig {
+                    params(_surname: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def surname=(_surname); end
                   sig {
                     params(given_name: T.nilable(T.nilable(String)), surname: T.nilable(T.nilable(String))).void
                    }
@@ -4576,10 +6800,18 @@ module Stripe
                 class Kanji < Stripe::RequestParams
                   # The person's first or given name.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :given_name
+                  def given_name; end
+                  sig {
+                    params(_given_name: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def given_name=(_given_name); end
                   # The person's last or family name.
                   sig { returns(T.nilable(T.nilable(String))) }
-                  attr_accessor :surname
+                  def surname; end
+                  sig {
+                    params(_surname: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+                   }
+                  def surname=(_surname); end
                   sig {
                     params(given_name: T.nilable(T.nilable(String)), surname: T.nilable(T.nilable(String))).void
                    }
@@ -4589,12 +6821,20 @@ module Stripe
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames::Kana)))
                  }
-                attr_accessor :kana
+                def kana; end
+                sig {
+                  params(_kana: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames::Kana))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames::Kana)))
+                 }
+                def kana=(_kana); end
                 # Persons name in kanji script.
                 sig {
                   returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames::Kanji)))
                  }
-                attr_accessor :kanji
+                def kanji; end
+                sig {
+                  params(_kanji: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames::Kanji))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames::Kanji)))
+                 }
+                def kanji=(_kanji); end
                 sig {
                   params(kana: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames::Kana)), kanji: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames::Kanji))).void
                  }
@@ -4604,71 +6844,139 @@ module Stripe
               sig {
                 returns(T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::AdditionalAddress])))
                }
-              attr_accessor :additional_addresses
+              def additional_addresses; end
+              sig {
+                params(_additional_addresses: T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::AdditionalAddress]))).returns(T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::AdditionalAddress])))
+               }
+              def additional_addresses=(_additional_addresses); end
               # Additional names (e.g. aliases) associated with the individual.
               sig {
                 returns(T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::AdditionalName])))
                }
-              attr_accessor :additional_names
+              def additional_names; end
+              sig {
+                params(_additional_names: T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::AdditionalName]))).returns(T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::AdditionalName])))
+               }
+              def additional_names=(_additional_names); end
               # The individual's residential address.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Address)))
                }
-              attr_accessor :address
+              def address; end
+              sig {
+                params(_address: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Address))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Address)))
+               }
+              def address=(_address); end
               # The individual's date of birth.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::DateOfBirth)))
                }
-              attr_accessor :date_of_birth
+              def date_of_birth; end
+              sig {
+                params(_date_of_birth: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::DateOfBirth))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::DateOfBirth)))
+               }
+              def date_of_birth=(_date_of_birth); end
               # Documents that may be submitted to satisfy various informational requests.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents)))
                }
-              attr_accessor :documents
+              def documents; end
+              sig {
+                params(_documents: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents)))
+               }
+              def documents=(_documents); end
               # The individual's email address.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :email
+              def email; end
+              sig {
+                params(_email: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def email=(_email); end
               # The individual's first name.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :given_name
+              def given_name; end
+              sig {
+                params(_given_name: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def given_name=(_given_name); end
               # The identification numbers (e.g., SSN) associated with the individual.
               sig {
                 returns(T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::IdNumber])))
                }
-              attr_accessor :id_numbers
+              def id_numbers; end
+              sig {
+                params(_id_numbers: T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::IdNumber]))).returns(T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::IdNumber])))
+               }
+              def id_numbers=(_id_numbers); end
               # The individual's gender (International regulations require either "male" or "female").
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :legal_gender
+              def legal_gender; end
+              sig {
+                params(_legal_gender: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def legal_gender=(_legal_gender); end
               # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
-              attr_accessor :metadata
+              def metadata; end
+              sig {
+                params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
+               }
+              def metadata=(_metadata); end
               # The countries where the individual is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               sig { returns(T.nilable(T::Array[String])) }
-              attr_accessor :nationalities
+              def nationalities; end
+              sig {
+                params(_nationalities: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
+              def nationalities=(_nationalities); end
               # The individual's phone number.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :phone
+              def phone; end
+              sig {
+                params(_phone: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def phone=(_phone); end
               # The individual's political exposure.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :political_exposure
+              def political_exposure; end
+              sig {
+                params(_political_exposure: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def political_exposure=(_political_exposure); end
               # The relationship that this individual has with the account's identity.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Relationship)))
                }
-              attr_accessor :relationship
+              def relationship; end
+              sig {
+                params(_relationship: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Relationship))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Relationship)))
+               }
+              def relationship=(_relationship); end
               # The script addresses (e.g., non-Latin characters) associated with the individual.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses)))
                }
-              attr_accessor :script_addresses
+              def script_addresses; end
+              sig {
+                params(_script_addresses: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses)))
+               }
+              def script_addresses=(_script_addresses); end
               # The individuals primary name in non latin script.
               sig {
                 returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames)))
                }
-              attr_accessor :script_names
+              def script_names; end
+              sig {
+                params(_script_names: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames))).returns(T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames)))
+               }
+              def script_names=(_script_names); end
               # The individual's last name.
               sig { returns(T.nilable(T.nilable(String))) }
-              attr_accessor :surname
+              def surname; end
+              sig {
+                params(_surname: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
+               }
+              def surname=(_surname); end
               sig {
                 params(additional_addresses: T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::AdditionalAddress])), additional_names: T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::AdditionalName])), address: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Address)), date_of_birth: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::DateOfBirth)), documents: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Documents)), email: T.nilable(T.nilable(String)), given_name: T.nilable(T.nilable(String)), id_numbers: T.nilable(T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::IdNumber])), legal_gender: T.nilable(T.nilable(String)), metadata: T.nilable(T::Hash[String, T.nilable(String)]), nationalities: T.nilable(T::Array[String]), phone: T.nilable(T.nilable(String)), political_exposure: T.nilable(T.nilable(String)), relationship: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::Relationship)), script_addresses: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptAddresses)), script_names: T.nilable(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual::ScriptNames)), surname: T.nilable(T.nilable(String))).void
                }
@@ -4696,23 +7004,39 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations))
              }
-            attr_accessor :attestations
+            def attestations; end
+            sig {
+              params(_attestations: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations))
+             }
+            def attestations=(_attestations); end
             # Information about the company or business.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails))
              }
-            attr_accessor :business_details
+            def business_details; end
+            sig {
+              params(_business_details: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails))
+             }
+            def business_details=(_business_details); end
             # The country in which the account holder resides, or in which the business is legally established. This should be an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
             sig { returns(T.nilable(String)) }
-            attr_accessor :country
+            def country; end
+            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+            def country=(_country); end
             # The entity type.
             sig { returns(T.nilable(String)) }
-            attr_accessor :entity_type
+            def entity_type; end
+            sig { params(_entity_type: T.nilable(String)).returns(T.nilable(String)) }
+            def entity_type=(_entity_type); end
             # Information about the individual represented by the Account. This property is `null` unless `entity_type` is set to `individual`.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual))
              }
-            attr_accessor :individual
+            def individual; end
+            sig {
+              params(_individual: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual))
+             }
+            def individual=(_individual); end
             sig {
               params(attestations: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Attestations), business_details: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails), country: T.nilable(String), entity_type: T.nilable(String), individual: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::Individual)).void
              }
@@ -4728,28 +7052,52 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration))
            }
-          attr_accessor :configuration
+          def configuration; end
+          sig {
+            params(_configuration: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration))
+           }
+          def configuration=(_configuration); end
           # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
           sig { returns(T.nilable(String)) }
-          attr_accessor :contact_email
+          def contact_email; end
+          sig { params(_contact_email: T.nilable(String)).returns(T.nilable(String)) }
+          def contact_email=(_contact_email); end
           # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
           sig { returns(T.nilable(String)) }
-          attr_accessor :dashboard
+          def dashboard; end
+          sig { params(_dashboard: T.nilable(String)).returns(T.nilable(String)) }
+          def dashboard=(_dashboard); end
           # Default values to be used on Account Configurations.
           sig { returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults)) }
-          attr_accessor :defaults
+          def defaults; end
+          sig {
+            params(_defaults: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults))
+           }
+          def defaults=(_defaults); end
           # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
           sig { returns(T.nilable(String)) }
-          attr_accessor :display_name
+          def display_name; end
+          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+          def display_name=(_display_name); end
           # Information about the company, individual, and business represented by the Account.
           sig { returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity)) }
-          attr_accessor :identity
+          def identity; end
+          sig {
+            params(_identity: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity))
+           }
+          def identity=(_identity); end
           # Additional fields to include in the response.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :include
+          def include; end
+          sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def include=(_include); end
           # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
-          attr_accessor :metadata
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
+           }
+          def metadata=(_metadata); end
           sig {
             params(configuration: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration), contact_email: T.nilable(String), dashboard: T.nilable(String), defaults: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults), display_name: T.nilable(String), identity: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
            }
@@ -4767,7 +7115,11 @@ module Stripe
         class CloseParams < Stripe::RequestParams
           # Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :applied_configurations
+          def applied_configurations; end
+          sig {
+            params(_applied_configurations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def applied_configurations=(_applied_configurations); end
           sig { params(applied_configurations: T.nilable(T::Array[String])).void }
           def initialize(applied_configurations: nil); end
         end

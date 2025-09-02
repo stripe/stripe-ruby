@@ -8,25 +8,25 @@ module Stripe
       class PricingPlanVersion < APIResource
         # Time at which the object was created.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # The timestamp when this version became inactive. Null if it's the latest version.
         sig { returns(T.nilable(String)) }
-        attr_reader :end_date
+        def end_date; end
         # Unique identifier for the object.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # The ID of the PricingPlan this version belongs to.
         sig { returns(String) }
-        attr_reader :pricing_plan
+        def pricing_plan; end
         # The timestamp when this version became active.
         sig { returns(String) }
-        attr_reader :start_date
+        def start_date; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
       end
     end
   end

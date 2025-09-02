@@ -10,34 +10,34 @@ module Stripe
         class UsBankAccount < APIResource
           # Whether this USBankAccount object was archived.
           sig { returns(T::Boolean) }
-          attr_reader :archived
+          def archived; end
           # Closed Enum. The type of bank account (checking or savings).
           sig { returns(String) }
-          attr_reader :bank_account_type
+          def bank_account_type; end
           # The name of the bank this bank account belongs to. This field is populated automatically by Stripe based on the routing number.
           sig { returns(String) }
-          attr_reader :bank_name
+          def bank_name; end
           # Creation time of the object.
           sig { returns(String) }
-          attr_reader :created
+          def created; end
           # The fedwire routing number of the bank account.
           sig { returns(T.nilable(String)) }
-          attr_reader :fedwire_routing_number
+          def fedwire_routing_number; end
           # The ID of the USBankAccount object.
           sig { returns(String) }
-          attr_reader :id
+          def id; end
           # The last 4 digits of the account number.
           sig { returns(String) }
-          attr_reader :last4
+          def last4; end
           # String representing the object's type. Objects of the same type share the same value of the object field.
           sig { returns(String) }
-          attr_reader :object
+          def object; end
           # The ACH routing number of the bank account.
           sig { returns(T.nilable(String)) }
-          attr_reader :routing_number
+          def routing_number; end
           # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
           sig { returns(T::Boolean) }
-          attr_reader :livemode
+          def livemode; end
         end
       end
     end

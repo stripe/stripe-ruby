@@ -12,77 +12,77 @@ module Stripe
             class CollectionOptions < Stripe::StripeObject
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
               sig { returns(T.nilable(String)) }
-              attr_reader :fields
+              def fields; end
               # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
               sig { returns(T.nilable(String)) }
-              attr_reader :future_requirements
+              def future_requirements; end
             end
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             sig { returns(T.nilable(CollectionOptions)) }
-            attr_reader :collection_options
+            def collection_options; end
             # Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
             sig { returns(T::Array[String]) }
-            attr_reader :configurations
+            def configurations; end
             # The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink’s URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.
             sig { returns(String) }
-            attr_reader :refresh_url
+            def refresh_url; end
             # The URL that the user will be redirected to upon completing the linked flow.
             sig { returns(T.nilable(String)) }
-            attr_reader :return_url
+            def return_url; end
           end
           class AccountUpdate < Stripe::StripeObject
             class CollectionOptions < Stripe::StripeObject
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
               sig { returns(T.nilable(String)) }
-              attr_reader :fields
+              def fields; end
               # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
               sig { returns(T.nilable(String)) }
-              attr_reader :future_requirements
+              def future_requirements; end
             end
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             sig { returns(T.nilable(CollectionOptions)) }
-            attr_reader :collection_options
+            def collection_options; end
             # Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
             sig { returns(T::Array[String]) }
-            attr_reader :configurations
+            def configurations; end
             # The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink’s URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.
             sig { returns(String) }
-            attr_reader :refresh_url
+            def refresh_url; end
             # The URL that the user will be redirected to upon completing the linked flow.
             sig { returns(T.nilable(String)) }
-            attr_reader :return_url
+            def return_url; end
           end
           # Open Enum. The type of AccountLink the user is requesting.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
           # Indicates that the AccountLink provided should onboard an account.
           sig { returns(T.nilable(AccountOnboarding)) }
-          attr_reader :account_onboarding
+          def account_onboarding; end
           # Indicates that the AccountLink provided should update a previously onboarded account.
           sig { returns(T.nilable(AccountUpdate)) }
-          attr_reader :account_update
+          def account_update; end
         end
         # The ID of the Account the link was created for.
         sig { returns(String) }
-        attr_reader :account
+        def account; end
         # The timestamp at which this AccountLink was created.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # The timestamp at which this AccountLink will expire.
         sig { returns(String) }
-        attr_reader :expires_at
+        def expires_at; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # The URL for the AccountLink.
         sig { returns(String) }
-        attr_reader :url
+        def url; end
         # The use case of AccountLink the user is requesting.
         sig { returns(UseCase) }
-        attr_reader :use_case
+        def use_case; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
       end
     end
   end

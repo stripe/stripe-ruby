@@ -12,135 +12,147 @@ module Stripe
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
-        attr_reader :error_message
+        def error_message; end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
-      attr_reader :status_details
+      def status_details; end
     end
     class ApplePay < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
-        attr_reader :error_message
+        def error_message; end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
-      attr_reader :status_details
+      def status_details; end
     end
     class GooglePay < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
-        attr_reader :error_message
+        def error_message; end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
-      attr_reader :status_details
+      def status_details; end
     end
     class Klarna < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
-        attr_reader :error_message
+        def error_message; end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
-      attr_reader :status_details
+      def status_details; end
     end
     class Link < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
-        attr_reader :error_message
+        def error_message; end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
-      attr_reader :status_details
+      def status_details; end
     end
     class Paypal < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
-        attr_reader :error_message
+        def error_message; end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
-      attr_reader :status_details
+      def status_details; end
     end
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(AmazonPay) }
-    attr_reader :amazon_pay
+    def amazon_pay; end
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(ApplePay) }
-    attr_reader :apple_pay
+    def apple_pay; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    attr_reader :created
+    def created; end
     # The domain name that this payment method domain object represents.
     sig { returns(String) }
-    attr_reader :domain_name
+    def domain_name; end
     # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
     sig { returns(T::Boolean) }
-    attr_reader :enabled
+    def enabled; end
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(GooglePay) }
-    attr_reader :google_pay
+    def google_pay; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(Klarna) }
-    attr_reader :klarna
+    def klarna; end
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(Link) }
-    attr_reader :link
+    def link; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(Paypal) }
-    attr_reader :paypal
+    def paypal; end
     class ListParams < Stripe::RequestParams
       # The domain name that this payment method domain object represents.
       sig { returns(T.nilable(String)) }
-      attr_accessor :domain_name
+      def domain_name; end
+      sig { params(_domain_name: T.nilable(String)).returns(T.nilable(String)) }
+      def domain_name=(_domain_name); end
       # Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements or Embedded Checkout
       sig { returns(T.nilable(T::Boolean)) }
-      attr_accessor :enabled
+      def enabled; end
+      sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def enabled=(_enabled); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :ending_before
+      def ending_before; end
+      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+      def ending_before=(_ending_before); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      attr_accessor :limit
+      def limit; end
+      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def limit=(_limit); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :starting_after
+      def starting_after; end
+      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+      def starting_after=(_starting_after); end
       sig {
         params(domain_name: T.nilable(String), enabled: T.nilable(T::Boolean), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
        }
@@ -156,13 +168,19 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       # The domain name that this payment method domain object represents.
       sig { returns(String) }
-      attr_accessor :domain_name
+      def domain_name; end
+      sig { params(_domain_name: String).returns(String) }
+      def domain_name=(_domain_name); end
       # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements or Embedded Checkout.
       sig { returns(T.nilable(T::Boolean)) }
-      attr_accessor :enabled
+      def enabled; end
+      sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def enabled=(_enabled); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       sig {
         params(domain_name: String, enabled: T.nilable(T::Boolean), expand: T.nilable(T::Array[String])).void
        }
@@ -171,17 +189,23 @@ module Stripe
     class UpdateParams < Stripe::RequestParams
       # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements or Embedded Checkout.
       sig { returns(T.nilable(T::Boolean)) }
-      attr_accessor :enabled
+      def enabled; end
+      sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def enabled=(_enabled); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       sig { params(enabled: T.nilable(T::Boolean), expand: T.nilable(T::Array[String])).void }
       def initialize(enabled: nil, expand: nil); end
     end
     class ValidateParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end

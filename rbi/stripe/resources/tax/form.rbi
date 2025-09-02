@@ -11,150 +11,156 @@ module Stripe
       class AuSerr < Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_end_date
+        def reporting_period_end_date; end
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_start_date
+        def reporting_period_start_date; end
       end
       class CaMrdp < Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_end_date
+        def reporting_period_end_date; end
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_start_date
+        def reporting_period_start_date; end
       end
       class EuDac7 < Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_end_date
+        def reporting_period_end_date; end
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_start_date
+        def reporting_period_start_date; end
       end
       class FilingStatus < Stripe::StripeObject
         class Jurisdiction < Stripe::StripeObject
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(String) }
-          attr_reader :country
+          def country; end
           # Indicates the level of the jurisdiction where the form was filed.
           sig { returns(String) }
-          attr_reader :level
+          def level; end
           # [ISO 3166-2 U.S. state code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix, if any. For example, "NY" for New York, United States. Null for non-U.S. forms.
           sig { returns(T.nilable(String)) }
-          attr_reader :state
+          def state; end
         end
         # Time when the filing status was updated.
         sig { returns(Integer) }
-        attr_reader :effective_at
+        def effective_at; end
         # Attribute for field jurisdiction
         sig { returns(Jurisdiction) }
-        attr_reader :jurisdiction
+        def jurisdiction; end
         # The current status of the filed form.
         sig { returns(String) }
-        attr_reader :value
+        def value; end
       end
       class GbMrdp < Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_end_date
+        def reporting_period_end_date; end
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_start_date
+        def reporting_period_start_date; end
       end
       class NzMrdp < Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_end_date
+        def reporting_period_end_date; end
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
-        attr_reader :reporting_period_start_date
+        def reporting_period_start_date; end
       end
       class Payee < Stripe::StripeObject
         # The ID of the payee's Stripe account.
         sig { returns(T.nilable(T.any(String, Stripe::Account))) }
-        attr_reader :account
+        def account; end
         # The external reference to this payee.
         sig { returns(T.nilable(String)) }
-        attr_reader :external_reference
+        def external_reference; end
         # Either `account` or `external_reference`.
         sig { returns(String) }
-        attr_reader :type
+        def type; end
       end
       class Us1099K < Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
-        attr_reader :reporting_year
+        def reporting_year; end
       end
       class Us1099Misc < Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
-        attr_reader :reporting_year
+        def reporting_year; end
       end
       class Us1099Nec < Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
-        attr_reader :reporting_year
+        def reporting_year; end
       end
       # Attribute for field au_serr
       sig { returns(AuSerr) }
-      attr_reader :au_serr
+      def au_serr; end
       # Attribute for field ca_mrdp
       sig { returns(CaMrdp) }
-      attr_reader :ca_mrdp
+      def ca_mrdp; end
       # The form that corrects this form, if any.
       sig { returns(T.nilable(T.any(String, Stripe::Tax::Form))) }
-      attr_reader :corrected_by
+      def corrected_by; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      attr_reader :created
+      def created; end
       # Attribute for field eu_dac7
       sig { returns(EuDac7) }
-      attr_reader :eu_dac7
+      def eu_dac7; end
       # A list of tax filing statuses. Note that a filing status will only be included if the form has been filed directly with the jurisdiction’s tax authority.
       sig { returns(T::Array[FilingStatus]) }
-      attr_reader :filing_statuses
+      def filing_statuses; end
       # Attribute for field gb_mrdp
       sig { returns(GbMrdp) }
-      attr_reader :gb_mrdp
+      def gb_mrdp; end
       # Unique identifier for the object.
       sig { returns(String) }
-      attr_reader :id
+      def id; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      attr_reader :livemode
+      def livemode; end
       # Attribute for field nz_mrdp
       sig { returns(NzMrdp) }
-      attr_reader :nz_mrdp
+      def nz_mrdp; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      attr_reader :object
+      def object; end
       # Attribute for field payee
       sig { returns(Payee) }
-      attr_reader :payee
+      def payee; end
       # The type of the tax form. An additional hash is included on the tax form with a name matching this value. It contains additional information specific to the tax form type.
       sig { returns(String) }
-      attr_reader :type
+      def type; end
       # Attribute for field us_1099_k
       sig { returns(Us1099K) }
-      attr_reader :us_1099_k
+      def us_1099_k; end
       # Attribute for field us_1099_misc
       sig { returns(Us1099Misc) }
-      attr_reader :us_1099_misc
+      def us_1099_misc; end
       # Attribute for field us_1099_nec
       sig { returns(Us1099Nec) }
-      attr_reader :us_1099_nec
+      def us_1099_nec; end
       class ListParams < Stripe::RequestParams
         class Payee < Stripe::RequestParams
           # The ID of the Stripe account whose forms will be retrieved.
           sig { returns(T.nilable(String)) }
-          attr_accessor :account
+          def account; end
+          sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+          def account=(_account); end
           # The external reference to the payee whose forms will be retrieved.
           sig { returns(T.nilable(String)) }
-          attr_accessor :external_reference
+          def external_reference; end
+          sig { params(_external_reference: T.nilable(String)).returns(T.nilable(String)) }
+          def external_reference=(_external_reference); end
           # Specifies the payee type. Either `account` or `external_reference`.
           sig { returns(T.nilable(String)) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+          def type=(_type); end
           sig {
             params(account: T.nilable(String), external_reference: T.nilable(String), type: T.nilable(String)).void
            }
@@ -162,22 +168,36 @@ module Stripe
         end
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        attr_accessor :ending_before
+        def ending_before; end
+        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+        def ending_before=(_ending_before); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :limit
+        def limit; end
+        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def limit=(_limit); end
         # The payee whose volume is represented on the tax form.
         sig { returns(::Stripe::Tax::Form::ListParams::Payee) }
-        attr_accessor :payee
+        def payee; end
+        sig {
+          params(_payee: ::Stripe::Tax::Form::ListParams::Payee).returns(::Stripe::Tax::Form::ListParams::Payee)
+         }
+        def payee=(_payee); end
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        attr_accessor :starting_after
+        def starting_after; end
+        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+        def starting_after=(_starting_after); end
         # An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
         sig { returns(T.nilable(String)) }
-        attr_accessor :type
+        def type; end
+        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+        def type=(_type); end
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payee: ::Stripe::Tax::Form::ListParams::Payee, starting_after: T.nilable(String), type: T.nilable(String)).void
          }
@@ -193,7 +213,9 @@ module Stripe
       class PdfParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end

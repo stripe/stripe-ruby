@@ -12,63 +12,63 @@ module Stripe
             class EnumDetails < Stripe::StripeObject
               # Allowed values of the enum.
               sig { returns(T::Array[String]) }
-              attr_reader :allowed_values
+              def allowed_values; end
             end
             # Data type of the elements in the array.
             sig { returns(String) }
-            attr_reader :element_type
+            def element_type; end
             # Details about enum elements in the array.
             sig { returns(T.nilable(EnumDetails)) }
-            attr_reader :enum_details
+            def enum_details; end
           end
           class EnumDetails < Stripe::StripeObject
             # Allowed values of the enum.
             sig { returns(T::Array[String]) }
-            attr_reader :allowed_values
+            def allowed_values; end
           end
           class TimestampDetails < Stripe::StripeObject
             # Maximum permitted timestamp which can be requested.
             sig { returns(String) }
-            attr_reader :max
+            def max; end
             # Minimum permitted timestamp which can be requested.
             sig { returns(String) }
-            attr_reader :min
+            def min; end
           end
           # For array parameters, provides details about the array elements.
           sig { returns(T.nilable(ArrayDetails)) }
-          attr_reader :array_details
+          def array_details; end
           # Explains the purpose and usage of the parameter.
           sig { returns(String) }
-          attr_reader :description
+          def description; end
           # For enum parameters, provides the list of allowed values.
           sig { returns(T.nilable(EnumDetails)) }
-          attr_reader :enum_details
+          def enum_details; end
           # Indicates whether the parameter must be provided.
           sig { returns(T::Boolean) }
-          attr_reader :required
+          def required; end
           # For timestamp parameters, specifies the allowed date range.
           sig { returns(T.nilable(TimestampDetails)) }
-          attr_reader :timestamp_details
+          def timestamp_details; end
           # The data type of the parameter.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
         end
         # The unique identifier of the `Report` object.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # The human-readable name of the `Report`.
         sig { returns(String) }
-        attr_reader :name
+        def name; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # Specification of the parameters that the `Report` accepts. It details each parameter's
         # name, description, whether it is required, and any validations performed.
         sig { returns(T::Hash[String, Parameters]) }
-        attr_reader :parameters
+        def parameters; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
       end
     end
   end

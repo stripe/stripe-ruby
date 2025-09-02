@@ -11,23 +11,35 @@ module Stripe
             # Country in which the account holder resides, or in which the business is legally established.
             # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(String) }
-            attr_accessor :country
+            def country; end
+            sig { params(_country: String).returns(String) }
+            def country=(_country); end
             # Email that this sandbox is meant to be claimed by. Stripe will
             # notify this email address before the sandbox expires.
             sig { returns(String) }
-            attr_accessor :email
+            def email; end
+            sig { params(_email: String).returns(String) }
+            def email=(_email); end
             # Name for the sandbox. If not provided, this will be generated.
             sig { returns(T.nilable(String)) }
-            attr_accessor :name
+            def name; end
+            sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+            def name=(_name); end
             sig { params(country: String, email: String, name: T.nilable(String)).void }
             def initialize(country: nil, email: nil, name: nil); end
           end
           # If true, returns a key that can be used with [Stripe's MCP server](https://docs.stripe.com/mcp).
           sig { returns(T::Boolean) }
-          attr_accessor :enable_mcp_access
+          def enable_mcp_access; end
+          sig { params(_enable_mcp_access: T::Boolean).returns(T::Boolean) }
+          def enable_mcp_access=(_enable_mcp_access); end
           # Values that are prefilled when a user claims the sandbox.
           sig { returns(::Stripe::V2::Core::ClaimableSandboxService::CreateParams::Prefill) }
-          attr_accessor :prefill
+          def prefill; end
+          sig {
+            params(_prefill: ::Stripe::V2::Core::ClaimableSandboxService::CreateParams::Prefill).returns(::Stripe::V2::Core::ClaimableSandboxService::CreateParams::Prefill)
+           }
+          def prefill=(_prefill); end
           sig {
             params(enable_mcp_access: T::Boolean, prefill: ::Stripe::V2::Core::ClaimableSandboxService::CreateParams::Prefill).void
            }

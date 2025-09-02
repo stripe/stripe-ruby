@@ -9,17 +9,23 @@ module Stripe
         class CreateParams < Stripe::RequestParams
           # The BillableItem ID to set automatic Tax configuration for.
           sig { returns(String) }
-          attr_accessor :billable_item
+          def billable_item; end
+          sig { params(_billable_item: String).returns(String) }
+          def billable_item=(_billable_item); end
           # The TaxCode object to be used for automatic tax calculations.
           sig { returns(String) }
-          attr_accessor :tax_code
+          def tax_code; end
+          sig { params(_tax_code: String).returns(String) }
+          def tax_code=(_tax_code); end
           sig { params(billable_item: String, tax_code: String).void }
           def initialize(billable_item: nil, tax_code: nil); end
         end
         class FindParams < Stripe::RequestParams
           # The BillableItem ID to search by.
           sig { returns(String) }
-          attr_accessor :billable_item
+          def billable_item; end
+          sig { params(_billable_item: String).returns(String) }
+          def billable_item=(_billable_item); end
           sig { params(billable_item: String).void }
           def initialize(billable_item: nil); end
         end
@@ -27,7 +33,9 @@ module Stripe
         class UpdateParams < Stripe::RequestParams
           # The TaxCode object to be used for automatic tax calculations.
           sig { returns(String) }
-          attr_accessor :tax_code
+          def tax_code; end
+          sig { params(_tax_code: String).returns(String) }
+          def tax_code=(_tax_code); end
           sig { params(tax_code: String).void }
           def initialize(tax_code: nil); end
         end

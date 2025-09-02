@@ -10,11 +10,17 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # Optionally set the maximum number of results per page. Defaults to 20.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :limit
+          def limit; end
+          sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def limit=(_limit); end
           # Only return the settings with these lookup_keys, if any exist.
           # You can specify up to 10 lookup_keys.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :lookup_keys
+          def lookup_keys; end
+          sig {
+            params(_lookup_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def lookup_keys=(_lookup_keys); end
           sig { params(limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String])).void }
           def initialize(limit: nil, lookup_keys: nil); end
         end
@@ -23,7 +29,9 @@ module Stripe
             class Tax < Stripe::RequestParams
               # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig { params(type: String).void }
               def initialize(type: nil); end
             end
@@ -31,7 +39,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Calculation::Tax))
              }
-            attr_accessor :tax
+            def tax; end
+            sig {
+              params(_tax: T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Calculation::Tax)).returns(T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Calculation::Tax))
+             }
+            def tax=(_tax); end
             sig {
               params(tax: T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Calculation::Tax)).void
              }
@@ -41,11 +53,15 @@ module Stripe
             class TimeUntilDue < Stripe::RequestParams
               # The interval unit for the time until due.
               sig { returns(String) }
-              attr_accessor :interval
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
               # The number of interval units. For example, if interval=day and interval_count=30,
               # the invoice will be due in 30 days.
               sig { returns(Integer) }
-              attr_accessor :interval_count
+              def interval_count; end
+              sig { params(_interval_count: Integer).returns(Integer) }
+              def interval_count=(_interval_count); end
               sig { params(interval: String, interval_count: Integer).void }
               def initialize(interval: nil, interval_count: nil); end
             end
@@ -53,7 +69,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Invoice::TimeUntilDue))
              }
-            attr_accessor :time_until_due
+            def time_until_due; end
+            sig {
+              params(_time_until_due: T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Invoice::TimeUntilDue)).returns(T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Invoice::TimeUntilDue))
+             }
+            def time_until_due=(_time_until_due); end
             sig {
               params(time_until_due: T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Invoice::TimeUntilDue)).void
              }
@@ -63,23 +83,37 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Calculation))
            }
-          attr_accessor :calculation
+          def calculation; end
+          sig {
+            params(_calculation: T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Calculation)).returns(T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Calculation))
+           }
+          def calculation=(_calculation); end
           # An optional customer-facing display name for the CollectionSetting object.
           # Maximum length of 250 characters.
           sig { returns(T.nilable(String)) }
-          attr_accessor :display_name
+          def display_name; end
+          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+          def display_name=(_display_name); end
           # Settings related to invoice behavior.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Invoice))
            }
-          attr_accessor :invoice
+          def invoice; end
+          sig {
+            params(_invoice: T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Invoice)).returns(T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Invoice))
+           }
+          def invoice=(_invoice); end
           # The ID of the invoice rendering template to be used when generating invoices.
           sig { returns(T.nilable(String)) }
-          attr_accessor :invoice_rendering_template
+          def invoice_rendering_template; end
+          sig { params(_invoice_rendering_template: T.nilable(String)).returns(T.nilable(String)) }
+          def invoice_rendering_template=(_invoice_rendering_template); end
           # A lookup key used to retrieve settings dynamically from a static string.
           # This may be up to 200 characters.
           sig { returns(T.nilable(String)) }
-          attr_accessor :lookup_key
+          def lookup_key; end
+          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+          def lookup_key=(_lookup_key); end
           sig {
             params(calculation: T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Calculation), display_name: T.nilable(String), invoice: T.nilable(::Stripe::V2::Billing::BillSettingService::CreateParams::Invoice), invoice_rendering_template: T.nilable(String), lookup_key: T.nilable(String)).void
            }
@@ -97,7 +131,9 @@ module Stripe
             class Tax < Stripe::RequestParams
               # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig { params(type: String).void }
               def initialize(type: nil); end
             end
@@ -105,7 +141,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Calculation::Tax))
              }
-            attr_accessor :tax
+            def tax; end
+            sig {
+              params(_tax: T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Calculation::Tax)).returns(T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Calculation::Tax))
+             }
+            def tax=(_tax); end
             sig {
               params(tax: T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Calculation::Tax)).void
              }
@@ -115,11 +155,15 @@ module Stripe
             class TimeUntilDue < Stripe::RequestParams
               # The interval unit for the time until due.
               sig { returns(String) }
-              attr_accessor :interval
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
               # The number of interval units. For example, if interval=day and interval_count=30,
               # the invoice will be due in 30 days.
               sig { returns(Integer) }
-              attr_accessor :interval_count
+              def interval_count; end
+              sig { params(_interval_count: Integer).returns(Integer) }
+              def interval_count=(_interval_count); end
               sig { params(interval: String, interval_count: Integer).void }
               def initialize(interval: nil, interval_count: nil); end
             end
@@ -127,7 +171,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Invoice::TimeUntilDue))
              }
-            attr_accessor :time_until_due
+            def time_until_due; end
+            sig {
+              params(_time_until_due: T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Invoice::TimeUntilDue)).returns(T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Invoice::TimeUntilDue))
+             }
+            def time_until_due=(_time_until_due); end
             sig {
               params(time_until_due: T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Invoice::TimeUntilDue)).void
              }
@@ -137,28 +185,44 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Calculation))
            }
-          attr_accessor :calculation
+          def calculation; end
+          sig {
+            params(_calculation: T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Calculation)).returns(T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Calculation))
+           }
+          def calculation=(_calculation); end
           # An optional customer-facing display name for the BillSetting object.
           # To remove the display name, set it to an empty string in the request.
           # Maximum length of 250 characters.
           sig { returns(T.nilable(String)) }
-          attr_accessor :display_name
+          def display_name; end
+          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+          def display_name=(_display_name); end
           # Settings related to invoice behavior.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Invoice))
            }
-          attr_accessor :invoice
+          def invoice; end
+          sig {
+            params(_invoice: T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Invoice)).returns(T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Invoice))
+           }
+          def invoice=(_invoice); end
           # The ID of the invoice rendering template to be used when generating invoices.
           sig { returns(T.nilable(String)) }
-          attr_accessor :invoice_rendering_template
+          def invoice_rendering_template; end
+          sig { params(_invoice_rendering_template: T.nilable(String)).returns(T.nilable(String)) }
+          def invoice_rendering_template=(_invoice_rendering_template); end
           # Optionally change the live version of the BillSetting. Providing `live_version = "latest"` will set the
           # BillSetting' `live_version` to its latest version.
           sig { returns(T.nilable(String)) }
-          attr_accessor :live_version
+          def live_version; end
+          sig { params(_live_version: T.nilable(String)).returns(T.nilable(String)) }
+          def live_version=(_live_version); end
           # A lookup key used to retrieve settings dynamically from a static string.
           # This may be up to 200 characters.
           sig { returns(T.nilable(String)) }
-          attr_accessor :lookup_key
+          def lookup_key; end
+          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+          def lookup_key=(_lookup_key); end
           sig {
             params(calculation: T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Calculation), display_name: T.nilable(String), invoice: T.nilable(::Stripe::V2::Billing::BillSettingService::UpdateParams::Invoice), invoice_rendering_template: T.nilable(String), live_version: T.nilable(String), lookup_key: T.nilable(String)).void
            }

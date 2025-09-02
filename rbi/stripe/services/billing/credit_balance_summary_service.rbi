@@ -11,14 +11,18 @@ module Stripe
             class BillableItem < Stripe::RequestParams
               # The billable item ID this credit grant should apply to.
               sig { returns(String) }
-              attr_accessor :id
+              def id; end
+              sig { params(_id: String).returns(String) }
+              def id=(_id); end
               sig { params(id: String).void }
               def initialize(id: nil); end
             end
             class Price < Stripe::RequestParams
               # The price ID this credit grant should apply to.
               sig { returns(String) }
-              attr_accessor :id
+              def id; end
+              sig { params(_id: String).returns(String) }
+              def id=(_id); end
               sig { params(id: String).void }
               def initialize(id: nil); end
             end
@@ -26,15 +30,25 @@ module Stripe
             sig {
               returns(T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::BillableItem]))
              }
-            attr_accessor :billable_items
+            def billable_items; end
+            sig {
+              params(_billable_items: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::BillableItem])).returns(T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::BillableItem]))
+             }
+            def billable_items=(_billable_items); end
             # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :price_type
+            def price_type; end
+            sig { params(_price_type: T.nilable(String)).returns(T.nilable(String)) }
+            def price_type=(_price_type); end
             # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             sig {
               returns(T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::Price]))
              }
-            attr_accessor :prices
+            def prices; end
+            sig {
+              params(_prices: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::Price])).returns(T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::Price]))
+             }
+            def prices=(_prices); end
             sig {
               params(billable_items: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::Price])).void
              }
@@ -44,13 +58,21 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope))
            }
-          attr_accessor :applicability_scope
+          def applicability_scope; end
+          sig {
+            params(_applicability_scope: T.nilable(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope)).returns(T.nilable(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope))
+           }
+          def applicability_scope=(_applicability_scope); end
           # The credit grant for which to fetch credit balance summary.
           sig { returns(T.nilable(String)) }
-          attr_accessor :credit_grant
+          def credit_grant; end
+          sig { params(_credit_grant: T.nilable(String)).returns(T.nilable(String)) }
+          def credit_grant=(_credit_grant); end
           # Specify the type of this filter.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(applicability_scope: T.nilable(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope), credit_grant: T.nilable(String), type: String).void
            }
@@ -58,16 +80,26 @@ module Stripe
         end
         # The customer for which to fetch credit balance summary.
         sig { returns(T.nilable(String)) }
-        attr_accessor :customer
+        def customer; end
+        sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
+        def customer=(_customer); end
         # The account for which to fetch credit balance summary.
         sig { returns(T.nilable(String)) }
-        attr_accessor :customer_account
+        def customer_account; end
+        sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+        def customer_account=(_customer_account); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # The filter criteria for the credit balance summary.
         sig { returns(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter) }
-        attr_accessor :filter
+        def filter; end
+        sig {
+          params(_filter: ::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter).returns(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter)
+         }
+        def filter=(_filter); end
         sig {
           params(customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), filter: ::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter).void
          }

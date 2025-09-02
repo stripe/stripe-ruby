@@ -12,123 +12,123 @@ module Stripe
             class CustomPricingUnitDetails < Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               sig { returns(Integer) }
-              attr_reader :created
+              def created; end
               # The name of the custom pricing unit.
               sig { returns(String) }
-              attr_reader :display_name
+              def display_name; end
               # Unique identifier for the object.
               sig { returns(String) }
-              attr_reader :id
+              def id; end
               # A lookup key for the custom pricing unit.
               sig { returns(T.nilable(String)) }
-              attr_reader :lookup_key
+              def lookup_key; end
               # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               sig { returns(T::Hash[String, String]) }
-              attr_reader :metadata
+              def metadata; end
               # The status of the custom pricing unit.
               sig { returns(String) }
-              attr_reader :status
+              def status; end
             end
             # The custom pricing unit object.
             sig { returns(T.nilable(CustomPricingUnitDetails)) }
-            attr_reader :custom_pricing_unit_details
+            def custom_pricing_unit_details; end
             # Unique identifier for the object.
             sig { returns(String) }
-            attr_reader :id
+            def id; end
             # A positive integer representing the amount.
             sig { returns(String) }
-            attr_reader :value
+            def value; end
           end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            attr_reader :currency
+            def currency; end
             # A positive integer representing the amount.
             sig { returns(Integer) }
-            attr_reader :value
+            def value; end
           end
           # The custom pricing unit amount.
           sig { returns(T.nilable(CustomPricingUnit)) }
-          attr_reader :custom_pricing_unit
+          def custom_pricing_unit; end
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
-          attr_reader :monetary
+          def monetary; end
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
         end
         class LedgerBalance < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
             class CustomPricingUnitDetails < Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               sig { returns(Integer) }
-              attr_reader :created
+              def created; end
               # The name of the custom pricing unit.
               sig { returns(String) }
-              attr_reader :display_name
+              def display_name; end
               # Unique identifier for the object.
               sig { returns(String) }
-              attr_reader :id
+              def id; end
               # A lookup key for the custom pricing unit.
               sig { returns(T.nilable(String)) }
-              attr_reader :lookup_key
+              def lookup_key; end
               # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               sig { returns(T::Hash[String, String]) }
-              attr_reader :metadata
+              def metadata; end
               # The status of the custom pricing unit.
               sig { returns(String) }
-              attr_reader :status
+              def status; end
             end
             # The custom pricing unit object.
             sig { returns(T.nilable(CustomPricingUnitDetails)) }
-            attr_reader :custom_pricing_unit_details
+            def custom_pricing_unit_details; end
             # Unique identifier for the object.
             sig { returns(String) }
-            attr_reader :id
+            def id; end
             # A positive integer representing the amount.
             sig { returns(String) }
-            attr_reader :value
+            def value; end
           end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            attr_reader :currency
+            def currency; end
             # A positive integer representing the amount.
             sig { returns(Integer) }
-            attr_reader :value
+            def value; end
           end
           # The custom pricing unit amount.
           sig { returns(T.nilable(CustomPricingUnit)) }
-          attr_reader :custom_pricing_unit
+          def custom_pricing_unit; end
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
-          attr_reader :monetary
+          def monetary; end
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
         end
         # Attribute for field available_balance
         sig { returns(AvailableBalance) }
-        attr_reader :available_balance
+        def available_balance; end
         # Attribute for field ledger_balance
         sig { returns(LedgerBalance) }
-        attr_reader :ledger_balance
+        def ledger_balance; end
       end
       # The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.
       sig { returns(T::Array[Balance]) }
-      attr_reader :balances
+      def balances; end
       # The customer the balance is for.
       sig { returns(T.any(String, Stripe::Customer)) }
-      attr_reader :customer
+      def customer; end
       # The account the balance is for.
       sig { returns(T.nilable(String)) }
-      attr_reader :customer_account
+      def customer_account; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      attr_reader :livemode
+      def livemode; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      attr_reader :object
+      def object; end
     end
   end
 end

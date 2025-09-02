@@ -8,36 +8,36 @@ module Stripe
       class Profile < APIResource
         # Timestamp of when the object was created.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # The ID of the customer object.
         sig { returns(T.nilable(String)) }
-        attr_reader :customer
+        def customer; end
         # The ID of the payment method object.
         sig { returns(T.nilable(String)) }
-        attr_reader :default_payment_method
+        def default_payment_method; end
         # A customer-facing name for the billing profile.
         # Maximum length of 250 characters.
         sig { returns(T.nilable(String)) }
-        attr_reader :display_name
+        def display_name; end
         # The ID of the billing profile object.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # An internal key you can use to search for a particular billing profile.
         # Maximum length of 200 characters.
         sig { returns(T.nilable(String)) }
-        attr_reader :lookup_key
+        def lookup_key; end
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_reader :metadata
+        def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # The current status of the billing profile.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
       end
     end
   end

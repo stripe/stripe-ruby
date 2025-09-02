@@ -1,5 +1,11 @@
 # Changelog
 
+## 15.6.0-alpha.2 - 2025-09-02
+* [#1642](https://github.com/stripe/stripe-ruby/pull/1642) Deserialize inner types in resources for more detailed types
+  * ⚠️ Deserialize inner classes, so inner class types will now reflect generated inner classes
+* [#1647](https://github.com/stripe/stripe-ruby/pull/1647) Update generated code for private-preview
+  * Explicitly define methods for RBIs to help Tapioca generation and ship combined RBI for Tapioca
+
 ## 15.6.0-alpha.1 - 2025-08-27
 * [#1640](https://github.com/stripe/stripe-ruby/pull/1640) Use the right API version 2025-08-27.preview
 * [#1636](https://github.com/stripe/stripe-ruby/pull/1636) Update generated code for private-preview

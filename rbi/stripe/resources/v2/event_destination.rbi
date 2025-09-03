@@ -10,82 +10,82 @@ module Stripe
         class Disabled < Stripe::StripeObject
           # Reason event destination has been disabled.
           sig { returns(String) }
-          attr_reader :reason
+          def reason; end
         end
         # Details about why the event destination has been disabled.
         sig { returns(T.nilable(Disabled)) }
-        attr_reader :disabled
+        def disabled; end
       end
       class AmazonEventbridge < Stripe::StripeObject
         # The AWS account ID.
         sig { returns(String) }
-        attr_reader :aws_account_id
+        def aws_account_id; end
         # The ARN of the AWS event source.
         sig { returns(String) }
-        attr_reader :aws_event_source_arn
+        def aws_event_source_arn; end
         # The state of the AWS event source.
         sig { returns(String) }
-        attr_reader :aws_event_source_status
+        def aws_event_source_status; end
       end
       class WebhookEndpoint < Stripe::StripeObject
         # The signing secret of the webhook endpoint, only includable on creation.
         sig { returns(T.nilable(String)) }
-        attr_reader :signing_secret
+        def signing_secret; end
         # The URL of the webhook endpoint, includable.
         sig { returns(T.nilable(String)) }
-        attr_reader :url
+        def url; end
       end
       # Time at which the object was created.
       sig { returns(String) }
-      attr_reader :created
+      def created; end
       # An optional description of what the event destination is used for.
       sig { returns(String) }
-      attr_reader :description
+      def description; end
       # The list of events to enable for this endpoint.
       sig { returns(T::Array[String]) }
-      attr_reader :enabled_events
+      def enabled_events; end
       # Payload type of events being subscribed to.
       sig { returns(String) }
-      attr_reader :event_payload
+      def event_payload; end
       # Where events should be routed from.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_reader :events_from
+      def events_from; end
       # Unique identifier for the object.
       sig { returns(String) }
-      attr_reader :id
+      def id; end
       # Metadata.
       sig { returns(T.nilable(T::Hash[String, String])) }
-      attr_reader :metadata
+      def metadata; end
       # Event destination name.
       sig { returns(String) }
-      attr_reader :name
+      def name; end
       # String representing the object's type. Objects of the same type share the same value of the object field.
       sig { returns(String) }
-      attr_reader :object
+      def object; end
       # If using the snapshot event payload, the API version events are rendered as.
       sig { returns(T.nilable(String)) }
-      attr_reader :snapshot_api_version
+      def snapshot_api_version; end
       # Status. It can be set to either enabled or disabled.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # Additional information about event destination status.
       sig { returns(T.nilable(StatusDetails)) }
-      attr_reader :status_details
+      def status_details; end
       # Event destination type.
       sig { returns(String) }
-      attr_reader :type
+      def type; end
       # Time at which the object was last updated.
       sig { returns(String) }
-      attr_reader :updated
+      def updated; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      attr_reader :livemode
+      def livemode; end
       # Amazon EventBridge configuration.
       sig { returns(T.nilable(AmazonEventbridge)) }
-      attr_reader :amazon_eventbridge
+      def amazon_eventbridge; end
       # Webhook endpoint configuration.
       sig { returns(T.nilable(WebhookEndpoint)) }
-      attr_reader :webhook_endpoint
+      def webhook_endpoint; end
     end
   end
 end

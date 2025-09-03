@@ -8,94 +8,94 @@ module Stripe
     class DiscountAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       sig { returns(Integer) }
-      attr_reader :amount
+      def amount; end
       # The discount that was applied to get this discount amount.
       sig { returns(T.any(String, Stripe::Discount)) }
-      attr_reader :discount
+      def discount; end
     end
     class PretaxCreditAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       sig { returns(Integer) }
-      attr_reader :amount
+      def amount; end
       # The credit balance transaction that was applied to get this pretax credit amount.
       sig { returns(T.any(String, Stripe::Billing::CreditBalanceTransaction)) }
-      attr_reader :credit_balance_transaction
+      def credit_balance_transaction; end
       # The discount that was applied to get this pretax credit amount.
       sig { returns(T.any(String, Stripe::Discount)) }
-      attr_reader :discount
+      def discount; end
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
-      attr_reader :type
+      def type; end
     end
     class Tax < Stripe::StripeObject
       class TaxRateDetails < Stripe::StripeObject
         # Attribute for field tax_rate
         sig { returns(String) }
-        attr_reader :tax_rate
+        def tax_rate; end
       end
       # The amount of the tax, in cents (or local equivalent).
       sig { returns(Integer) }
-      attr_reader :amount
+      def amount; end
       # Whether this tax is inclusive or exclusive.
       sig { returns(String) }
-      attr_reader :tax_behavior
+      def tax_behavior; end
       # Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
       sig { returns(T.nilable(TaxRateDetails)) }
-      attr_reader :tax_rate_details
+      def tax_rate_details; end
       # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
       sig { returns(String) }
-      attr_reader :taxability_reason
+      def taxability_reason; end
       # The amount on which tax is calculated, in cents (or local equivalent).
       sig { returns(T.nilable(Integer)) }
-      attr_reader :taxable_amount
+      def taxable_amount; end
       # The type of tax information.
       sig { returns(String) }
-      attr_reader :type
+      def type; end
     end
     # The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
     sig { returns(Integer) }
-    attr_reader :amount
+    def amount; end
     # Description of the item being credited.
     sig { returns(T.nilable(String)) }
-    attr_reader :description
+    def description; end
     # The integer amount in cents (or local equivalent) representing the discount being credited for this line item.
     sig { returns(Integer) }
-    attr_reader :discount_amount
+    def discount_amount; end
     # The amount of discount calculated per discount for this line item
     sig { returns(T::Array[DiscountAmount]) }
-    attr_reader :discount_amounts
+    def discount_amounts; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # ID of the invoice line item being credited
     sig { returns(String) }
-    attr_reader :invoice_line_item
+    def invoice_line_item; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # The pretax credit amounts (ex: discount, credit grants, etc) for this line item.
     sig { returns(T::Array[PretaxCreditAmount]) }
-    attr_reader :pretax_credit_amounts
+    def pretax_credit_amounts; end
     # The number of units of product being credited.
     sig { returns(T.nilable(Integer)) }
-    attr_reader :quantity
+    def quantity; end
     # The tax rates which apply to the line item.
     sig { returns(T::Array[Stripe::TaxRate]) }
-    attr_reader :tax_rates
+    def tax_rates; end
     # The tax information of the line item.
     sig { returns(T.nilable(T::Array[Tax])) }
-    attr_reader :taxes
+    def taxes; end
     # The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice.
     sig { returns(String) }
-    attr_reader :type
+    def type; end
     # The cost of each unit of product being credited.
     sig { returns(T.nilable(Integer)) }
-    attr_reader :unit_amount
+    def unit_amount; end
     # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
     sig { returns(T.nilable(String)) }
-    attr_reader :unit_amount_decimal
+    def unit_amount_decimal; end
   end
 end

@@ -11,141 +11,141 @@ module Stripe
     class AdjustedForOverdraft < Stripe::StripeObject
       # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
       sig { returns(T.any(String, Stripe::BalanceTransaction)) }
-      attr_reader :balance_transaction
+      def balance_transaction; end
       # The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
       sig { returns(T.any(String, Stripe::CustomerCashBalanceTransaction)) }
-      attr_reader :linked_transaction
+      def linked_transaction; end
     end
     class AppliedToPayment < Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to.
       sig { returns(T.any(String, Stripe::PaymentIntent)) }
-      attr_reader :payment_intent
+      def payment_intent; end
     end
     class Funded < Stripe::StripeObject
       class BankTransfer < Stripe::StripeObject
         class EuBankTransfer < Stripe::StripeObject
           # The BIC of the bank of the sender of the funding.
           sig { returns(T.nilable(String)) }
-          attr_reader :bic
+          def bic; end
           # The last 4 digits of the IBAN of the sender of the funding.
           sig { returns(T.nilable(String)) }
-          attr_reader :iban_last4
+          def iban_last4; end
           # The full name of the sender, as supplied by the sending bank.
           sig { returns(T.nilable(String)) }
-          attr_reader :sender_name
+          def sender_name; end
         end
         class GbBankTransfer < Stripe::StripeObject
           # The last 4 digits of the account number of the sender of the funding.
           sig { returns(T.nilable(String)) }
-          attr_reader :account_number_last4
+          def account_number_last4; end
           # The full name of the sender, as supplied by the sending bank.
           sig { returns(T.nilable(String)) }
-          attr_reader :sender_name
+          def sender_name; end
           # The sort code of the bank of the sender of the funding
           sig { returns(T.nilable(String)) }
-          attr_reader :sort_code
+          def sort_code; end
         end
         class JpBankTransfer < Stripe::StripeObject
           # The name of the bank of the sender of the funding.
           sig { returns(T.nilable(String)) }
-          attr_reader :sender_bank
+          def sender_bank; end
           # The name of the bank branch of the sender of the funding.
           sig { returns(T.nilable(String)) }
-          attr_reader :sender_branch
+          def sender_branch; end
           # The full name of the sender, as supplied by the sending bank.
           sig { returns(T.nilable(String)) }
-          attr_reader :sender_name
+          def sender_name; end
         end
         class UsBankTransfer < Stripe::StripeObject
           # The banking network used for this funding.
           sig { returns(String) }
-          attr_reader :network
+          def network; end
           # The full name of the sender, as supplied by the sending bank.
           sig { returns(T.nilable(String)) }
-          attr_reader :sender_name
+          def sender_name; end
         end
         # Attribute for field eu_bank_transfer
         sig { returns(EuBankTransfer) }
-        attr_reader :eu_bank_transfer
+        def eu_bank_transfer; end
         # Attribute for field gb_bank_transfer
         sig { returns(GbBankTransfer) }
-        attr_reader :gb_bank_transfer
+        def gb_bank_transfer; end
         # Attribute for field jp_bank_transfer
         sig { returns(JpBankTransfer) }
-        attr_reader :jp_bank_transfer
+        def jp_bank_transfer; end
         # The user-supplied reference field on the bank transfer.
         sig { returns(T.nilable(String)) }
-        attr_reader :reference
+        def reference; end
         # The funding method type used to fund the customer balance. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
         sig { returns(String) }
-        attr_reader :type
+        def type; end
         # Attribute for field us_bank_transfer
         sig { returns(UsBankTransfer) }
-        attr_reader :us_bank_transfer
+        def us_bank_transfer; end
       end
       # Attribute for field bank_transfer
       sig { returns(BankTransfer) }
-      attr_reader :bank_transfer
+      def bank_transfer; end
     end
     class RefundedFromPayment < Stripe::StripeObject
       # The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
       sig { returns(T.any(String, Stripe::Refund)) }
-      attr_reader :refund
+      def refund; end
     end
     class TransferredToBalance < Stripe::StripeObject
       # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
       sig { returns(T.any(String, Stripe::BalanceTransaction)) }
-      attr_reader :balance_transaction
+      def balance_transaction; end
     end
     class UnappliedFromPayment < Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
       sig { returns(T.any(String, Stripe::PaymentIntent)) }
-      attr_reader :payment_intent
+      def payment_intent; end
     end
     # Attribute for field adjusted_for_overdraft
     sig { returns(AdjustedForOverdraft) }
-    attr_reader :adjusted_for_overdraft
+    def adjusted_for_overdraft; end
     # Attribute for field applied_to_payment
     sig { returns(AppliedToPayment) }
-    attr_reader :applied_to_payment
+    def applied_to_payment; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    attr_reader :created
+    def created; end
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
-    attr_reader :currency
+    def currency; end
     # The customer whose available cash balance changed as a result of this transaction.
     sig { returns(T.any(String, Stripe::Customer)) }
-    attr_reader :customer
+    def customer; end
     # The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     sig { returns(Integer) }
-    attr_reader :ending_balance
+    def ending_balance; end
     # Attribute for field funded
     sig { returns(Funded) }
-    attr_reader :funded
+    def funded; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # The amount by which the cash balance changed, represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). A positive value represents funds being added to the cash balance, a negative value represents funds being removed from the cash balance.
     sig { returns(Integer) }
-    attr_reader :net_amount
+    def net_amount; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # Attribute for field refunded_from_payment
     sig { returns(RefundedFromPayment) }
-    attr_reader :refunded_from_payment
+    def refunded_from_payment; end
     # Attribute for field transferred_to_balance
     sig { returns(TransferredToBalance) }
-    attr_reader :transferred_to_balance
+    def transferred_to_balance; end
     # The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
     sig { returns(String) }
-    attr_reader :type
+    def type; end
     # Attribute for field unapplied_from_payment
     sig { returns(UnappliedFromPayment) }
-    attr_reader :unapplied_from_payment
+    def unapplied_from_payment; end
   end
 end

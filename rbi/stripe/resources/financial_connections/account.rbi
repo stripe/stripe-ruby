@@ -9,13 +9,13 @@ module Stripe
       class AccountHolder < Stripe::StripeObject
         # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
         sig { returns(T.any(String, Stripe::Account)) }
-        attr_reader :account
+        def account; end
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
         sig { returns(T.any(String, Stripe::Customer)) }
-        attr_reader :customer
+        def customer; end
         # Type of account holder that this account belongs to.
         sig { returns(String) }
-        attr_reader :type
+        def type; end
       end
       class Balance < Stripe::StripeObject
         class Cash < Stripe::StripeObject
@@ -25,7 +25,7 @@ module Stripe
           #
           # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
           sig { returns(T.nilable(T::Hash[String, Integer])) }
-          attr_reader :available
+          def available; end
         end
         class Credit < Stripe::StripeObject
           # The credit that has been used by the account holder.
@@ -34,109 +34,109 @@ module Stripe
           #
           # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
           sig { returns(T.nilable(T::Hash[String, Integer])) }
-          attr_reader :used
+          def used; end
         end
         # The time that the external institution calculated this balance. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        attr_reader :as_of
+        def as_of; end
         # Attribute for field cash
         sig { returns(Cash) }
-        attr_reader :cash
+        def cash; end
         # Attribute for field credit
         sig { returns(Credit) }
-        attr_reader :credit
+        def credit; end
         # The balances owed to (or by) the account holder, before subtracting any outbound pending transactions or adding any inbound pending transactions.
         #
         # Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
         #
         # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
         sig { returns(T::Hash[String, Integer]) }
-        attr_reader :current
+        def current; end
         # The `type` of the balance. An additional hash is included on the balance with a name matching this value.
         sig { returns(String) }
-        attr_reader :type
+        def type; end
       end
       class BalanceRefresh < Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        attr_reader :last_attempted_at
+        def last_attempted_at; end
         # Time at which the next balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
-        attr_reader :next_refresh_available_at
+        def next_refresh_available_at; end
         # The status of the last refresh attempt.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
       end
       class OwnershipRefresh < Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        attr_reader :last_attempted_at
+        def last_attempted_at; end
         # Time at which the next ownership refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
-        attr_reader :next_refresh_available_at
+        def next_refresh_available_at; end
         # The status of the last refresh attempt.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
       end
       class TransactionRefresh < Stripe::StripeObject
         # Unique identifier for the object.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
-        attr_reader :last_attempted_at
+        def last_attempted_at; end
         # Time at which the next transaction refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
-        attr_reader :next_refresh_available_at
+        def next_refresh_available_at; end
         # The status of the last refresh attempt.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
       end
       # The account holder that this account belongs to.
       sig { returns(T.nilable(AccountHolder)) }
-      attr_reader :account_holder
+      def account_holder; end
       # The most recent information about the account's balance.
       sig { returns(T.nilable(Balance)) }
-      attr_reader :balance
+      def balance; end
       # The state of the most recent attempt to refresh the account balance.
       sig { returns(T.nilable(BalanceRefresh)) }
-      attr_reader :balance_refresh
+      def balance_refresh; end
       # The type of the account. Account category is further divided in `subcategory`.
       sig { returns(String) }
-      attr_reader :category
+      def category; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      attr_reader :created
+      def created; end
       # A human-readable name that has been assigned to this account, either by the account holder or by the institution.
       sig { returns(T.nilable(String)) }
-      attr_reader :display_name
+      def display_name; end
       # Unique identifier for the object.
       sig { returns(String) }
-      attr_reader :id
+      def id; end
       # The name of the institution that holds this account.
       sig { returns(String) }
-      attr_reader :institution_name
+      def institution_name; end
       # The last 4 digits of the account number. If present, this will be 4 numeric characters.
       sig { returns(T.nilable(String)) }
-      attr_reader :last4
+      def last4; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      attr_reader :livemode
+      def livemode; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      attr_reader :object
+      def object; end
       # The most recent information about the account's owners.
       sig { returns(T.nilable(T.any(String, Stripe::FinancialConnections::AccountOwnership))) }
-      attr_reader :ownership
+      def ownership; end
       # The state of the most recent attempt to refresh the account owners.
       sig { returns(T.nilable(OwnershipRefresh)) }
-      attr_reader :ownership_refresh
+      def ownership_refresh; end
       # The list of permissions granted by this account.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_reader :permissions
+      def permissions; end
       # The status of the link to the account.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # If `category` is `cash`, one of:
       #
       #  - `checking`
@@ -152,24 +152,28 @@ module Stripe
       #
       # If `category` is `investment` or `other`, this will be `other`.
       sig { returns(String) }
-      attr_reader :subcategory
+      def subcategory; end
       # The list of data refresh subscriptions requested on this account.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_reader :subscriptions
+      def subscriptions; end
       # The [PaymentMethod type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
       sig { returns(T::Array[String]) }
-      attr_reader :supported_payment_method_types
+      def supported_payment_method_types; end
       # The state of the most recent attempt to refresh the account transactions.
       sig { returns(T.nilable(TransactionRefresh)) }
-      attr_reader :transaction_refresh
+      def transaction_refresh; end
       class ListParams < Stripe::RequestParams
         class AccountHolder < Stripe::RequestParams
           # The ID of the Stripe account whose accounts will be retrieved.
           sig { returns(T.nilable(String)) }
-          attr_accessor :account
+          def account; end
+          sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+          def account=(_account); end
           # The ID of the Stripe customer whose accounts will be retrieved.
           sig { returns(T.nilable(String)) }
-          attr_accessor :customer
+          def customer; end
+          sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
+          def customer=(_customer); end
           sig { params(account: T.nilable(String), customer: T.nilable(String)).void }
           def initialize(account: nil, customer: nil); end
         end
@@ -177,22 +181,36 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::FinancialConnections::Account::ListParams::AccountHolder))
          }
-        attr_accessor :account_holder
+        def account_holder; end
+        sig {
+          params(_account_holder: T.nilable(::Stripe::FinancialConnections::Account::ListParams::AccountHolder)).returns(T.nilable(::Stripe::FinancialConnections::Account::ListParams::AccountHolder))
+         }
+        def account_holder=(_account_holder); end
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        attr_accessor :ending_before
+        def ending_before; end
+        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+        def ending_before=(_ending_before); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :limit
+        def limit; end
+        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def limit=(_limit); end
         # If present, only return accounts that were collected as part of the given session.
         sig { returns(T.nilable(String)) }
-        attr_accessor :session
+        def session; end
+        sig { params(_session: T.nilable(String)).returns(T.nilable(String)) }
+        def session=(_session); end
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        attr_accessor :starting_after
+        def starting_after; end
+        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+        def starting_after=(_starting_after); end
         sig {
           params(account_holder: T.nilable(::Stripe::FinancialConnections::Account::ListParams::AccountHolder), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), session: T.nilable(String), starting_after: T.nilable(String)).void
          }
@@ -208,19 +226,29 @@ module Stripe
       class ListOwnersParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        attr_accessor :ending_before
+        def ending_before; end
+        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+        def ending_before=(_ending_before); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :limit
+        def limit; end
+        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def limit=(_limit); end
         # The ID of the ownership object to fetch owners from.
         sig { returns(String) }
-        attr_accessor :ownership
+        def ownership; end
+        sig { params(_ownership: String).returns(String) }
+        def ownership=(_ownership); end
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        attr_accessor :starting_after
+        def starting_after; end
+        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+        def starting_after=(_starting_after); end
         sig {
           params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), ownership: String, starting_after: T.nilable(String)).void
          }
@@ -235,37 +263,51 @@ module Stripe
       class DisconnectParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class RefreshAccountParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # The list of account features that you would like to refresh.
         sig { returns(T::Array[String]) }
-        attr_accessor :features
+        def features; end
+        sig { params(_features: T::Array[String]).returns(T::Array[String]) }
+        def features=(_features); end
         sig { params(expand: T.nilable(T::Array[String]), features: T::Array[String]).void }
         def initialize(expand: nil, features: nil); end
       end
       class SubscribeParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # The list of account features to which you would like to subscribe.
         sig { returns(T::Array[String]) }
-        attr_accessor :features
+        def features; end
+        sig { params(_features: T::Array[String]).returns(T::Array[String]) }
+        def features=(_features); end
         sig { params(expand: T.nilable(T::Array[String]), features: T::Array[String]).void }
         def initialize(expand: nil, features: nil); end
       end
       class UnsubscribeParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # The list of account features from which you would like to unsubscribe.
         sig { returns(T::Array[String]) }
-        attr_accessor :features
+        def features; end
+        sig { params(_features: T::Array[String]).returns(T::Array[String]) }
+        def features=(_features); end
         sig { params(expand: T.nilable(T::Array[String]), features: T::Array[String]).void }
         def initialize(expand: nil, features: nil); end
       end

@@ -11,250 +11,250 @@ module Stripe
         class StatusDetail < Stripe::StripeObject
           # Represents the reason why the status is `pending` or `restricted`.
           sig { returns(String) }
-          attr_reader :code
+          def code; end
           # Represents what the user should do, if anything, to activate the Feature.
           sig { returns(T.nilable(String)) }
-          attr_reader :resolution
+          def resolution; end
           # The `platform_restrictions` that are restricting this Feature.
           sig { returns(String) }
-          attr_reader :restriction
+          def restriction; end
         end
         # Whether the FinancialAccount should have the Feature.
         sig { returns(T::Boolean) }
-        attr_reader :requested
+        def requested; end
         # Whether the Feature is operational.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
         # Additional details; includes at least one entry when the status is not `active`.
         sig { returns(T::Array[StatusDetail]) }
-        attr_reader :status_details
+        def status_details; end
       end
       class DepositInsurance < Stripe::StripeObject
         class StatusDetail < Stripe::StripeObject
           # Represents the reason why the status is `pending` or `restricted`.
           sig { returns(String) }
-          attr_reader :code
+          def code; end
           # Represents what the user should do, if anything, to activate the Feature.
           sig { returns(T.nilable(String)) }
-          attr_reader :resolution
+          def resolution; end
           # The `platform_restrictions` that are restricting this Feature.
           sig { returns(String) }
-          attr_reader :restriction
+          def restriction; end
         end
         # Whether the FinancialAccount should have the Feature.
         sig { returns(T::Boolean) }
-        attr_reader :requested
+        def requested; end
         # Whether the Feature is operational.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
         # Additional details; includes at least one entry when the status is not `active`.
         sig { returns(T::Array[StatusDetail]) }
-        attr_reader :status_details
+        def status_details; end
       end
       class FinancialAddresses < Stripe::StripeObject
         class Aba < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
-            attr_reader :code
+            def code; end
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
-            attr_reader :resolution
+            def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
-            attr_reader :restriction
+            def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
-          attr_reader :requested
+          def requested; end
           # Whether the Feature is operational.
           sig { returns(String) }
-          attr_reader :status
+          def status; end
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
-          attr_reader :status_details
+          def status_details; end
         end
         # Toggle settings for enabling/disabling the ABA address feature
         sig { returns(Aba) }
-        attr_reader :aba
+        def aba; end
       end
       class InboundTransfers < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
-            attr_reader :code
+            def code; end
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
-            attr_reader :resolution
+            def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
-            attr_reader :restriction
+            def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
-          attr_reader :requested
+          def requested; end
           # Whether the Feature is operational.
           sig { returns(String) }
-          attr_reader :status
+          def status; end
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
-          attr_reader :status_details
+          def status_details; end
         end
         # Toggle settings for enabling/disabling an inbound ACH specific feature
         sig { returns(Ach) }
-        attr_reader :ach
+        def ach; end
       end
       class IntraStripeFlows < Stripe::StripeObject
         class StatusDetail < Stripe::StripeObject
           # Represents the reason why the status is `pending` or `restricted`.
           sig { returns(String) }
-          attr_reader :code
+          def code; end
           # Represents what the user should do, if anything, to activate the Feature.
           sig { returns(T.nilable(String)) }
-          attr_reader :resolution
+          def resolution; end
           # The `platform_restrictions` that are restricting this Feature.
           sig { returns(String) }
-          attr_reader :restriction
+          def restriction; end
         end
         # Whether the FinancialAccount should have the Feature.
         sig { returns(T::Boolean) }
-        attr_reader :requested
+        def requested; end
         # Whether the Feature is operational.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
         # Additional details; includes at least one entry when the status is not `active`.
         sig { returns(T::Array[StatusDetail]) }
-        attr_reader :status_details
+        def status_details; end
       end
       class OutboundPayments < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
-            attr_reader :code
+            def code; end
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
-            attr_reader :resolution
+            def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
-            attr_reader :restriction
+            def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
-          attr_reader :requested
+          def requested; end
           # Whether the Feature is operational.
           sig { returns(String) }
-          attr_reader :status
+          def status; end
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
-          attr_reader :status_details
+          def status_details; end
         end
         class UsDomesticWire < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
-            attr_reader :code
+            def code; end
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
-            attr_reader :resolution
+            def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
-            attr_reader :restriction
+            def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
-          attr_reader :requested
+          def requested; end
           # Whether the Feature is operational.
           sig { returns(String) }
-          attr_reader :status
+          def status; end
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
-          attr_reader :status_details
+          def status_details; end
         end
         # Toggle settings for enabling/disabling an outbound ACH specific feature
         sig { returns(Ach) }
-        attr_reader :ach
+        def ach; end
         # Toggle settings for enabling/disabling a feature
         sig { returns(UsDomesticWire) }
-        attr_reader :us_domestic_wire
+        def us_domestic_wire; end
       end
       class OutboundTransfers < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
-            attr_reader :code
+            def code; end
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
-            attr_reader :resolution
+            def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
-            attr_reader :restriction
+            def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
-          attr_reader :requested
+          def requested; end
           # Whether the Feature is operational.
           sig { returns(String) }
-          attr_reader :status
+          def status; end
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
-          attr_reader :status_details
+          def status_details; end
         end
         class UsDomesticWire < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
-            attr_reader :code
+            def code; end
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
-            attr_reader :resolution
+            def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
-            attr_reader :restriction
+            def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
-          attr_reader :requested
+          def requested; end
           # Whether the Feature is operational.
           sig { returns(String) }
-          attr_reader :status
+          def status; end
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
-          attr_reader :status_details
+          def status_details; end
         end
         # Toggle settings for enabling/disabling an outbound ACH specific feature
         sig { returns(Ach) }
-        attr_reader :ach
+        def ach; end
         # Toggle settings for enabling/disabling a feature
         sig { returns(UsDomesticWire) }
-        attr_reader :us_domestic_wire
+        def us_domestic_wire; end
       end
       # Toggle settings for enabling/disabling a feature
       sig { returns(CardIssuing) }
-      attr_reader :card_issuing
+      def card_issuing; end
       # Toggle settings for enabling/disabling a feature
       sig { returns(DepositInsurance) }
-      attr_reader :deposit_insurance
+      def deposit_insurance; end
       # Settings related to Financial Addresses features on a Financial Account
       sig { returns(FinancialAddresses) }
-      attr_reader :financial_addresses
+      def financial_addresses; end
       # InboundTransfers contains inbound transfers features for a FinancialAccount.
       sig { returns(InboundTransfers) }
-      attr_reader :inbound_transfers
+      def inbound_transfers; end
       # Toggle settings for enabling/disabling a feature
       sig { returns(IntraStripeFlows) }
-      attr_reader :intra_stripe_flows
+      def intra_stripe_flows; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      attr_reader :object
+      def object; end
       # Settings related to Outbound Payments features on a Financial Account
       sig { returns(OutboundPayments) }
-      attr_reader :outbound_payments
+      def outbound_payments; end
       # OutboundTransfers contains outbound transfers features for a FinancialAccount.
       sig { returns(OutboundTransfers) }
-      attr_reader :outbound_transfers
+      def outbound_transfers; end
     end
   end
 end

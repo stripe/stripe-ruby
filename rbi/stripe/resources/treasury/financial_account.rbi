@@ -10,129 +10,137 @@ module Stripe
       class Balance < Stripe::StripeObject
         # Funds the user can spend right now.
         sig { returns(T::Hash[String, Integer]) }
-        attr_reader :cash
+        def cash; end
         # Funds not spendable yet, but will become available at a later time.
         sig { returns(T::Hash[String, Integer]) }
-        attr_reader :inbound_pending
+        def inbound_pending; end
         # Funds in the account, but not spendable because they are being held for pending outbound flows.
         sig { returns(T::Hash[String, Integer]) }
-        attr_reader :outbound_pending
+        def outbound_pending; end
       end
       class FinancialAddress < Stripe::StripeObject
         class Aba < Stripe::StripeObject
           # The name of the person or business that owns the bank account.
           sig { returns(String) }
-          attr_reader :account_holder_name
+          def account_holder_name; end
           # The account number.
           sig { returns(T.nilable(String)) }
-          attr_reader :account_number
+          def account_number; end
           # The last four characters of the account number.
           sig { returns(String) }
-          attr_reader :account_number_last4
+          def account_number_last4; end
           # Name of the bank.
           sig { returns(String) }
-          attr_reader :bank_name
+          def bank_name; end
           # Routing number for the account.
           sig { returns(String) }
-          attr_reader :routing_number
+          def routing_number; end
         end
         # ABA Records contain U.S. bank account details per the ABA format.
         sig { returns(Aba) }
-        attr_reader :aba
+        def aba; end
         # The list of networks that the address supports
         sig { returns(T::Array[String]) }
-        attr_reader :supported_networks
+        def supported_networks; end
         # The type of financial address
         sig { returns(String) }
-        attr_reader :type
+        def type; end
       end
       class PlatformRestrictions < Stripe::StripeObject
         # Restricts all inbound money movement.
         sig { returns(T.nilable(String)) }
-        attr_reader :inbound_flows
+        def inbound_flows; end
         # Restricts all outbound money movement.
         sig { returns(T.nilable(String)) }
-        attr_reader :outbound_flows
+        def outbound_flows; end
       end
       class StatusDetails < Stripe::StripeObject
         class Closed < Stripe::StripeObject
           # The array that contains reasons for a FinancialAccount closure.
           sig { returns(T::Array[String]) }
-          attr_reader :reasons
+          def reasons; end
         end
         # Details related to the closure of this FinancialAccount
         sig { returns(T.nilable(Closed)) }
-        attr_reader :closed
+        def closed; end
       end
       # The array of paths to active Features in the Features hash.
       sig { returns(T::Array[String]) }
-      attr_reader :active_features
+      def active_features; end
       # Balance information for the FinancialAccount
       sig { returns(Balance) }
-      attr_reader :balance
+      def balance; end
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       sig { returns(String) }
-      attr_reader :country
+      def country; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      attr_reader :created
+      def created; end
       # Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
       # Stripe or the platform can control Features via the requested field.
       sig { returns(Stripe::Treasury::FinancialAccountFeatures) }
-      attr_reader :features
+      def features; end
       # The set of credentials that resolve to a FinancialAccount.
       sig { returns(T::Array[FinancialAddress]) }
-      attr_reader :financial_addresses
+      def financial_addresses; end
       # Unique identifier for the object.
       sig { returns(String) }
-      attr_reader :id
+      def id; end
       # Attribute for field is_default
       sig { returns(T::Boolean) }
-      attr_reader :is_default
+      def is_default; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      attr_reader :livemode
+      def livemode; end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
-      attr_reader :metadata
+      def metadata; end
       # The nickname for the FinancialAccount.
       sig { returns(T.nilable(String)) }
-      attr_reader :nickname
+      def nickname; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      attr_reader :object
+      def object; end
       # The array of paths to pending Features in the Features hash.
       sig { returns(T::Array[String]) }
-      attr_reader :pending_features
+      def pending_features; end
       # The set of functionalities that the platform can restrict on the FinancialAccount.
       sig { returns(T.nilable(PlatformRestrictions)) }
-      attr_reader :platform_restrictions
+      def platform_restrictions; end
       # The array of paths to restricted Features in the Features hash.
       sig { returns(T::Array[String]) }
-      attr_reader :restricted_features
+      def restricted_features; end
       # Status of this FinancialAccount.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # Attribute for field status_details
       sig { returns(StatusDetails) }
-      attr_reader :status_details
+      def status_details; end
       # The currencies the FinancialAccount can hold a balance in. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
       sig { returns(T::Array[String]) }
-      attr_reader :supported_currencies
+      def supported_currencies; end
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :gt
+          def gt; end
+          sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def gt=(_gt); end
           # Minimum value to filter by (inclusive)
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :gte
+          def gte; end
+          sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def gte=(_gte); end
           # Maximum value to filter by (exclusive)
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :lt
+          def lt; end
+          sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def lt=(_lt); end
           # Maximum value to filter by (inclusive)
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :lte
+          def lte; end
+          sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def lte=(_lte); end
           sig {
             params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
            }
@@ -142,22 +150,36 @@ module Stripe
         sig {
           returns(T.nilable(T.any(::Stripe::Treasury::FinancialAccount::ListParams::Created, Integer)))
          }
-        attr_accessor :created
+        def created; end
+        sig {
+          params(_created: T.nilable(T.any(::Stripe::Treasury::FinancialAccount::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Treasury::FinancialAccount::ListParams::Created, Integer)))
+         }
+        def created=(_created); end
         # An object ID cursor for use in pagination.
         sig { returns(T.nilable(String)) }
-        attr_accessor :ending_before
+        def ending_before; end
+        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+        def ending_before=(_ending_before); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # A limit ranging from 1 to 100 (defaults to 10).
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :limit
+        def limit; end
+        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def limit=(_limit); end
         # An object ID cursor for use in pagination.
         sig { returns(T.nilable(String)) }
-        attr_accessor :starting_after
+        def starting_after; end
+        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+        def starting_after=(_starting_after); end
         # Only return FinancialAccounts that have the given status: `open` or `closed`
         sig { returns(T.nilable(String)) }
-        attr_accessor :status
+        def status; end
+        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+        def status=(_status); end
         sig {
           params(created: T.nilable(T.any(::Stripe::Treasury::FinancialAccount::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
          }
@@ -175,14 +197,18 @@ module Stripe
           class CardIssuing < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
           class DepositInsurance < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
@@ -190,7 +216,9 @@ module Stripe
             class Aba < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
@@ -198,7 +226,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::FinancialAddresses::Aba))
              }
-            attr_accessor :aba
+            def aba; end
+            sig {
+              params(_aba: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::FinancialAddresses::Aba)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::FinancialAddresses::Aba))
+             }
+            def aba=(_aba); end
             sig {
               params(aba: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::FinancialAddresses::Aba)).void
              }
@@ -208,7 +240,9 @@ module Stripe
             class Ach < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
@@ -216,7 +250,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::InboundTransfers::Ach))
              }
-            attr_accessor :ach
+            def ach; end
+            sig {
+              params(_ach: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::InboundTransfers::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::InboundTransfers::Ach))
+             }
+            def ach=(_ach); end
             sig {
               params(ach: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::InboundTransfers::Ach)).void
              }
@@ -225,7 +263,9 @@ module Stripe
           class IntraStripeFlows < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
@@ -233,14 +273,18 @@ module Stripe
             class Ach < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
             class UsDomesticWire < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
@@ -248,12 +292,20 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments::Ach))
              }
-            attr_accessor :ach
+            def ach; end
+            sig {
+              params(_ach: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments::Ach))
+             }
+            def ach=(_ach); end
             # Enables US domestic wire transfers via the OutboundPayments API.
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments::UsDomesticWire))
              }
-            attr_accessor :us_domestic_wire
+            def us_domestic_wire; end
+            sig {
+              params(_us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments::UsDomesticWire)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments::UsDomesticWire))
+             }
+            def us_domestic_wire=(_us_domestic_wire); end
             sig {
               params(ach: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments::Ach), us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments::UsDomesticWire)).void
              }
@@ -263,14 +315,18 @@ module Stripe
             class Ach < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
             class UsDomesticWire < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
@@ -278,12 +334,20 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers::Ach))
              }
-            attr_accessor :ach
+            def ach; end
+            sig {
+              params(_ach: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers::Ach))
+             }
+            def ach=(_ach); end
             # Enables US domestic wire transfers via the OutboundTransfers API.
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers::UsDomesticWire))
              }
-            attr_accessor :us_domestic_wire
+            def us_domestic_wire; end
+            sig {
+              params(_us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers::UsDomesticWire)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers::UsDomesticWire))
+             }
+            def us_domestic_wire=(_us_domestic_wire); end
             sig {
               params(ach: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers::Ach), us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers::UsDomesticWire)).void
              }
@@ -293,37 +357,65 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::CardIssuing))
            }
-          attr_accessor :card_issuing
+          def card_issuing; end
+          sig {
+            params(_card_issuing: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::CardIssuing)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::CardIssuing))
+           }
+          def card_issuing=(_card_issuing); end
           # Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::DepositInsurance))
            }
-          attr_accessor :deposit_insurance
+          def deposit_insurance; end
+          sig {
+            params(_deposit_insurance: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::DepositInsurance)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::DepositInsurance))
+           }
+          def deposit_insurance=(_deposit_insurance); end
           # Contains Features that add FinancialAddresses to the FinancialAccount.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::FinancialAddresses))
            }
-          attr_accessor :financial_addresses
+          def financial_addresses; end
+          sig {
+            params(_financial_addresses: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::FinancialAddresses)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::FinancialAddresses))
+           }
+          def financial_addresses=(_financial_addresses); end
           # Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::InboundTransfers))
            }
-          attr_accessor :inbound_transfers
+          def inbound_transfers; end
+          sig {
+            params(_inbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::InboundTransfers)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::InboundTransfers))
+           }
+          def inbound_transfers=(_inbound_transfers); end
           # Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::IntraStripeFlows))
            }
-          attr_accessor :intra_stripe_flows
+          def intra_stripe_flows; end
+          sig {
+            params(_intra_stripe_flows: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::IntraStripeFlows)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::IntraStripeFlows))
+           }
+          def intra_stripe_flows=(_intra_stripe_flows); end
           # Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments))
            }
-          attr_accessor :outbound_payments
+          def outbound_payments; end
+          sig {
+            params(_outbound_payments: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments))
+           }
+          def outbound_payments=(_outbound_payments); end
           # Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers))
            }
-          attr_accessor :outbound_transfers
+          def outbound_transfers; end
+          sig {
+            params(_outbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers))
+           }
+          def outbound_transfers=(_outbound_transfers); end
           sig {
             params(card_issuing: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::CardIssuing), deposit_insurance: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::DepositInsurance), financial_addresses: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::FinancialAddresses), inbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::InboundTransfers), intra_stripe_flows: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::IntraStripeFlows), outbound_payments: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundPayments), outbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features::OutboundTransfers)).void
            }
@@ -340,33 +432,55 @@ module Stripe
         class PlatformRestrictions < Stripe::RequestParams
           # Restricts all inbound money movement.
           sig { returns(T.nilable(String)) }
-          attr_accessor :inbound_flows
+          def inbound_flows; end
+          sig { params(_inbound_flows: T.nilable(String)).returns(T.nilable(String)) }
+          def inbound_flows=(_inbound_flows); end
           # Restricts all outbound money movement.
           sig { returns(T.nilable(String)) }
-          attr_accessor :outbound_flows
+          def outbound_flows; end
+          sig { params(_outbound_flows: T.nilable(String)).returns(T.nilable(String)) }
+          def outbound_flows=(_outbound_flows); end
           sig { params(inbound_flows: T.nilable(String), outbound_flows: T.nilable(String)).void }
           def initialize(inbound_flows: nil, outbound_flows: nil); end
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # Encodes whether a FinancialAccount has access to a particular feature. Stripe or the platform can control features via the requested field.
         sig { returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features)) }
-        attr_accessor :features
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features))
+         }
+        def features=(_features); end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_accessor :metadata
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def metadata=(_metadata); end
         # The nickname for the FinancialAccount.
         sig { returns(T.nilable(String)) }
-        attr_accessor :nickname
+        def nickname; end
+        sig { params(_nickname: T.nilable(String)).returns(T.nilable(String)) }
+        def nickname=(_nickname); end
         # The set of functionalities that the platform can restrict on the FinancialAccount.
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::PlatformRestrictions))
          }
-        attr_accessor :platform_restrictions
+        def platform_restrictions; end
+        sig {
+          params(_platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::PlatformRestrictions)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::PlatformRestrictions))
+         }
+        def platform_restrictions=(_platform_restrictions); end
         # The currencies the FinancialAccount can hold a balance in.
         sig { returns(T::Array[String]) }
-        attr_accessor :supported_currencies
+        def supported_currencies; end
+        sig { params(_supported_currencies: T::Array[String]).returns(T::Array[String]) }
+        def supported_currencies=(_supported_currencies); end
         sig {
           params(expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::Features), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::CreateParams::PlatformRestrictions), supported_currencies: T::Array[String]).void
          }
@@ -384,14 +498,18 @@ module Stripe
           class CardIssuing < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
           class DepositInsurance < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
@@ -399,7 +517,9 @@ module Stripe
             class Aba < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
@@ -407,7 +527,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::FinancialAddresses::Aba))
              }
-            attr_accessor :aba
+            def aba; end
+            sig {
+              params(_aba: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::FinancialAddresses::Aba)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::FinancialAddresses::Aba))
+             }
+            def aba=(_aba); end
             sig {
               params(aba: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::FinancialAddresses::Aba)).void
              }
@@ -417,7 +541,9 @@ module Stripe
             class Ach < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
@@ -425,7 +551,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::InboundTransfers::Ach))
              }
-            attr_accessor :ach
+            def ach; end
+            sig {
+              params(_ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::InboundTransfers::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::InboundTransfers::Ach))
+             }
+            def ach=(_ach); end
             sig {
               params(ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::InboundTransfers::Ach)).void
              }
@@ -434,7 +564,9 @@ module Stripe
           class IntraStripeFlows < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
@@ -442,14 +574,18 @@ module Stripe
             class Ach < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
             class UsDomesticWire < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
@@ -457,12 +593,20 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments::Ach))
              }
-            attr_accessor :ach
+            def ach; end
+            sig {
+              params(_ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments::Ach))
+             }
+            def ach=(_ach); end
             # Enables US domestic wire transfers via the OutboundPayments API.
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments::UsDomesticWire))
              }
-            attr_accessor :us_domestic_wire
+            def us_domestic_wire; end
+            sig {
+              params(_us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments::UsDomesticWire)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments::UsDomesticWire))
+             }
+            def us_domestic_wire=(_us_domestic_wire); end
             sig {
               params(ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments::Ach), us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments::UsDomesticWire)).void
              }
@@ -472,14 +616,18 @@ module Stripe
             class Ach < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
             class UsDomesticWire < Stripe::RequestParams
               # Whether the FinancialAccount should have the Feature.
               sig { returns(T::Boolean) }
-              attr_accessor :requested
+              def requested; end
+              sig { params(_requested: T::Boolean).returns(T::Boolean) }
+              def requested=(_requested); end
               sig { params(requested: T::Boolean).void }
               def initialize(requested: nil); end
             end
@@ -487,12 +635,20 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers::Ach))
              }
-            attr_accessor :ach
+            def ach; end
+            sig {
+              params(_ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers::Ach))
+             }
+            def ach=(_ach); end
             # Enables US domestic wire transfers via the OutboundTransfers API.
             sig {
               returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers::UsDomesticWire))
              }
-            attr_accessor :us_domestic_wire
+            def us_domestic_wire; end
+            sig {
+              params(_us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers::UsDomesticWire)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers::UsDomesticWire))
+             }
+            def us_domestic_wire=(_us_domestic_wire); end
             sig {
               params(ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers::Ach), us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers::UsDomesticWire)).void
              }
@@ -502,37 +658,65 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::CardIssuing))
            }
-          attr_accessor :card_issuing
+          def card_issuing; end
+          sig {
+            params(_card_issuing: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::CardIssuing)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::CardIssuing))
+           }
+          def card_issuing=(_card_issuing); end
           # Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::DepositInsurance))
            }
-          attr_accessor :deposit_insurance
+          def deposit_insurance; end
+          sig {
+            params(_deposit_insurance: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::DepositInsurance)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::DepositInsurance))
+           }
+          def deposit_insurance=(_deposit_insurance); end
           # Contains Features that add FinancialAddresses to the FinancialAccount.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::FinancialAddresses))
            }
-          attr_accessor :financial_addresses
+          def financial_addresses; end
+          sig {
+            params(_financial_addresses: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::FinancialAddresses)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::FinancialAddresses))
+           }
+          def financial_addresses=(_financial_addresses); end
           # Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::InboundTransfers))
            }
-          attr_accessor :inbound_transfers
+          def inbound_transfers; end
+          sig {
+            params(_inbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::InboundTransfers)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::InboundTransfers))
+           }
+          def inbound_transfers=(_inbound_transfers); end
           # Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::IntraStripeFlows))
            }
-          attr_accessor :intra_stripe_flows
+          def intra_stripe_flows; end
+          sig {
+            params(_intra_stripe_flows: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::IntraStripeFlows)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::IntraStripeFlows))
+           }
+          def intra_stripe_flows=(_intra_stripe_flows); end
           # Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments))
            }
-          attr_accessor :outbound_payments
+          def outbound_payments; end
+          sig {
+            params(_outbound_payments: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments))
+           }
+          def outbound_payments=(_outbound_payments); end
           # Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers))
            }
-          attr_accessor :outbound_transfers
+          def outbound_transfers; end
+          sig {
+            params(_outbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers))
+           }
+          def outbound_transfers=(_outbound_transfers); end
           sig {
             params(card_issuing: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::CardIssuing), deposit_insurance: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::DepositInsurance), financial_addresses: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::FinancialAddresses), inbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::InboundTransfers), intra_stripe_flows: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::IntraStripeFlows), outbound_payments: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundPayments), outbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features::OutboundTransfers)).void
            }
@@ -549,13 +733,19 @@ module Stripe
         class ForwardingSettings < Stripe::RequestParams
           # The financial_account id
           sig { returns(T.nilable(String)) }
-          attr_accessor :financial_account
+          def financial_account; end
+          sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
+          def financial_account=(_financial_account); end
           # The payment_method or bank account id. This needs to be a verified bank account.
           sig { returns(T.nilable(String)) }
-          attr_accessor :payment_method
+          def payment_method; end
+          sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+          def payment_method=(_payment_method); end
           # The type of the bank account provided. This can be either "financial_account" or "payment_method"
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(financial_account: T.nilable(String), payment_method: T.nilable(String), type: String).void
            }
@@ -564,35 +754,59 @@ module Stripe
         class PlatformRestrictions < Stripe::RequestParams
           # Restricts all inbound money movement.
           sig { returns(T.nilable(String)) }
-          attr_accessor :inbound_flows
+          def inbound_flows; end
+          sig { params(_inbound_flows: T.nilable(String)).returns(T.nilable(String)) }
+          def inbound_flows=(_inbound_flows); end
           # Restricts all outbound money movement.
           sig { returns(T.nilable(String)) }
-          attr_accessor :outbound_flows
+          def outbound_flows; end
+          sig { params(_outbound_flows: T.nilable(String)).returns(T.nilable(String)) }
+          def outbound_flows=(_outbound_flows); end
           sig { params(inbound_flows: T.nilable(String), outbound_flows: T.nilable(String)).void }
           def initialize(inbound_flows: nil, outbound_flows: nil); end
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
         sig { returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features)) }
-        attr_accessor :features
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features))
+         }
+        def features=(_features); end
         # A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::ForwardingSettings))
          }
-        attr_accessor :forwarding_settings
+        def forwarding_settings; end
+        sig {
+          params(_forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::ForwardingSettings)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::ForwardingSettings))
+         }
+        def forwarding_settings=(_forwarding_settings); end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_accessor :metadata
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def metadata=(_metadata); end
         # The nickname for the FinancialAccount.
         sig { returns(T.nilable(String)) }
-        attr_accessor :nickname
+        def nickname; end
+        sig { params(_nickname: T.nilable(String)).returns(T.nilable(String)) }
+        def nickname=(_nickname); end
         # The set of functionalities that the platform can restrict on the FinancialAccount.
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::PlatformRestrictions))
          }
-        attr_accessor :platform_restrictions
+        def platform_restrictions; end
+        sig {
+          params(_platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::PlatformRestrictions)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::PlatformRestrictions))
+         }
+        def platform_restrictions=(_platform_restrictions); end
         sig {
           params(expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::Features), forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::ForwardingSettings), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateParams::PlatformRestrictions)).void
          }
@@ -608,7 +822,9 @@ module Stripe
       class RetrieveFeaturesParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
@@ -616,14 +832,18 @@ module Stripe
         class CardIssuing < Stripe::RequestParams
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
-          attr_accessor :requested
+          def requested; end
+          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+          def requested=(_requested); end
           sig { params(requested: T::Boolean).void }
           def initialize(requested: nil); end
         end
         class DepositInsurance < Stripe::RequestParams
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
-          attr_accessor :requested
+          def requested; end
+          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+          def requested=(_requested); end
           sig { params(requested: T::Boolean).void }
           def initialize(requested: nil); end
         end
@@ -631,7 +851,9 @@ module Stripe
           class Aba < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
@@ -639,7 +861,11 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::FinancialAddresses::Aba))
            }
-          attr_accessor :aba
+          def aba; end
+          sig {
+            params(_aba: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::FinancialAddresses::Aba)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::FinancialAddresses::Aba))
+           }
+          def aba=(_aba); end
           sig {
             params(aba: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::FinancialAddresses::Aba)).void
            }
@@ -649,7 +875,9 @@ module Stripe
           class Ach < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
@@ -657,7 +885,11 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::InboundTransfers::Ach))
            }
-          attr_accessor :ach
+          def ach; end
+          sig {
+            params(_ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::InboundTransfers::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::InboundTransfers::Ach))
+           }
+          def ach=(_ach); end
           sig {
             params(ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::InboundTransfers::Ach)).void
            }
@@ -666,7 +898,9 @@ module Stripe
         class IntraStripeFlows < Stripe::RequestParams
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
-          attr_accessor :requested
+          def requested; end
+          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+          def requested=(_requested); end
           sig { params(requested: T::Boolean).void }
           def initialize(requested: nil); end
         end
@@ -674,14 +908,18 @@ module Stripe
           class Ach < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
           class UsDomesticWire < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
@@ -689,12 +927,20 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments::Ach))
            }
-          attr_accessor :ach
+          def ach; end
+          sig {
+            params(_ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments::Ach))
+           }
+          def ach=(_ach); end
           # Enables US domestic wire transfers via the OutboundPayments API.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments::UsDomesticWire))
            }
-          attr_accessor :us_domestic_wire
+          def us_domestic_wire; end
+          sig {
+            params(_us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments::UsDomesticWire)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments::UsDomesticWire))
+           }
+          def us_domestic_wire=(_us_domestic_wire); end
           sig {
             params(ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments::Ach), us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments::UsDomesticWire)).void
            }
@@ -704,14 +950,18 @@ module Stripe
           class Ach < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
           class UsDomesticWire < Stripe::RequestParams
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
-            attr_accessor :requested
+            def requested; end
+            sig { params(_requested: T::Boolean).returns(T::Boolean) }
+            def requested=(_requested); end
             sig { params(requested: T::Boolean).void }
             def initialize(requested: nil); end
           end
@@ -719,12 +969,20 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers::Ach))
            }
-          attr_accessor :ach
+          def ach; end
+          sig {
+            params(_ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers::Ach)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers::Ach))
+           }
+          def ach=(_ach); end
           # Enables US domestic wire transfers via the OutboundTransfers API.
           sig {
             returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers::UsDomesticWire))
            }
-          attr_accessor :us_domestic_wire
+          def us_domestic_wire; end
+          sig {
+            params(_us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers::UsDomesticWire)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers::UsDomesticWire))
+           }
+          def us_domestic_wire=(_us_domestic_wire); end
           sig {
             params(ach: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers::Ach), us_domestic_wire: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers::UsDomesticWire)).void
            }
@@ -734,40 +992,70 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::CardIssuing))
          }
-        attr_accessor :card_issuing
+        def card_issuing; end
+        sig {
+          params(_card_issuing: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::CardIssuing)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::CardIssuing))
+         }
+        def card_issuing=(_card_issuing); end
         # Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::DepositInsurance))
          }
-        attr_accessor :deposit_insurance
+        def deposit_insurance; end
+        sig {
+          params(_deposit_insurance: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::DepositInsurance)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::DepositInsurance))
+         }
+        def deposit_insurance=(_deposit_insurance); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # Contains Features that add FinancialAddresses to the FinancialAccount.
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::FinancialAddresses))
          }
-        attr_accessor :financial_addresses
+        def financial_addresses; end
+        sig {
+          params(_financial_addresses: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::FinancialAddresses)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::FinancialAddresses))
+         }
+        def financial_addresses=(_financial_addresses); end
         # Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::InboundTransfers))
          }
-        attr_accessor :inbound_transfers
+        def inbound_transfers; end
+        sig {
+          params(_inbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::InboundTransfers)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::InboundTransfers))
+         }
+        def inbound_transfers=(_inbound_transfers); end
         # Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::IntraStripeFlows))
          }
-        attr_accessor :intra_stripe_flows
+        def intra_stripe_flows; end
+        sig {
+          params(_intra_stripe_flows: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::IntraStripeFlows)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::IntraStripeFlows))
+         }
+        def intra_stripe_flows=(_intra_stripe_flows); end
         # Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments))
          }
-        attr_accessor :outbound_payments
+        def outbound_payments; end
+        sig {
+          params(_outbound_payments: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments))
+         }
+        def outbound_payments=(_outbound_payments); end
         # Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers))
          }
-        attr_accessor :outbound_transfers
+        def outbound_transfers; end
+        sig {
+          params(_outbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers))
+         }
+        def outbound_transfers=(_outbound_transfers); end
         sig {
           params(card_issuing: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::CardIssuing), deposit_insurance: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::DepositInsurance), expand: T.nilable(T::Array[String]), financial_addresses: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::FinancialAddresses), inbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::InboundTransfers), intra_stripe_flows: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::IntraStripeFlows), outbound_payments: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundPayments), outbound_transfers: T.nilable(::Stripe::Treasury::FinancialAccount::UpdateFeaturesParams::OutboundTransfers)).void
          }
@@ -786,13 +1074,19 @@ module Stripe
         class ForwardingSettings < Stripe::RequestParams
           # The financial_account id
           sig { returns(T.nilable(String)) }
-          attr_accessor :financial_account
+          def financial_account; end
+          sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
+          def financial_account=(_financial_account); end
           # The payment_method or bank account id. This needs to be a verified bank account.
           sig { returns(T.nilable(String)) }
-          attr_accessor :payment_method
+          def payment_method; end
+          sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+          def payment_method=(_payment_method); end
           # The type of the bank account provided. This can be either "financial_account" or "payment_method"
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(financial_account: T.nilable(String), payment_method: T.nilable(String), type: String).void
            }
@@ -800,12 +1094,18 @@ module Stripe
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
         sig {
           returns(T.nilable(::Stripe::Treasury::FinancialAccount::CloseParams::ForwardingSettings))
          }
-        attr_accessor :forwarding_settings
+        def forwarding_settings; end
+        sig {
+          params(_forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccount::CloseParams::ForwardingSettings)).returns(T.nilable(::Stripe::Treasury::FinancialAccount::CloseParams::ForwardingSettings))
+         }
+        def forwarding_settings=(_forwarding_settings); end
         sig {
           params(expand: T.nilable(T::Array[String]), forwarding_settings: T.nilable(::Stripe::Treasury::FinancialAccount::CloseParams::ForwardingSettings)).void
          }

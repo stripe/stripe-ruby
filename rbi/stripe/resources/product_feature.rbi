@@ -9,18 +9,18 @@ module Stripe
     # A feature represents a monetizable ability or functionality in your system.
     # Features can be assigned to products, and when those products are purchased, Stripe will create an entitlement to the feature for the purchasing customer.
     sig { returns(Stripe::Entitlements::Feature) }
-    attr_reader :entitlement_feature
+    def entitlement_feature; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # Always true for a deleted object
     sig { returns(T::Boolean) }
-    attr_reader :deleted
+    def deleted; end
   end
 end

@@ -8,14 +8,34 @@ module Stripe
       "v2.core.event_destination.ping"
     end
 
-    # Retrieves the related object from the API. Make an API request on every call.
+    # Retrieves the related object from the API. Makes an API request on every call.
     def fetch_related_object
       _request(
         method: :get,
         path: related_object.url,
         base_address: :api,
-        opts: { stripe_account: context }
+        opts: { stripe_context: context }
       )
+    end
+  end
+
+  # A ping event used to test the connection to an EventDestination.
+  class V2CoreEventDestinationPingEventNotification < Stripe::V2::EventNotification
+    def self.lookup_type
+      "v2.core.event_destination.ping"
+    end
+
+    attr_reader :related_object
+
+    # Retrieves the EventDestination related to this EventNotification from the Stripe API. Makes an API request on every call.
+    def fetch_related_object
+      resp = @client.raw_request(
+        :get,
+        related_object.url,
+        opts: { stripe_context: context },
+        usage: ["fetch_related_object"]
+      )
+      @client.deserialize(resp.http_body, api_mode: Util.get_api_mode(related_object.url))
     end
   end
 end

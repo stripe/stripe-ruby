@@ -92,7 +92,7 @@ module Stripe
       context ".event_signing" do
         should "parse v2 events" do
           event = parse_signed_event(@v2_push_payload)
-          assert event.is_a?(Stripe::EventNotification)
+          assert event.is_a?(Stripe::V2::EventNotification)
           assert_equal "evt_234", event.id
           assert_equal "v1.billing.meter.error_report_triggered", event.type
           assert_equal "2022-02-15T00:27:45.330Z", event.created
@@ -101,7 +101,7 @@ module Stripe
 
         should "parse v2 events with livemode and reason" do
           event = parse_signed_event(@v2_push_payload_with_livemode_and_reason)
-          assert event.is_a?(Stripe::EventNotification)
+          assert event.is_a?(Stripe::V2::EventNotification)
           assert_equal "evt_234", event.id
           assert_equal "v1.billing.meter.error_report_triggered", event.type
           assert_equal "2022-02-15T00:27:45.330Z", event.created
@@ -121,7 +121,7 @@ module Stripe
 
       should "retrieve event data" do
         event = parse_signed_event(@v2_push_payload)
-        assert event.is_a?(Stripe::EventNotification)
+        assert event.is_a?(Stripe::V2::EventNotification)
 
         stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_234")
           .to_return(body: @v2_pull_payload)
@@ -139,7 +139,7 @@ module Stripe
           .to_return(body: @v2_pull_payload)
 
         event = parse_signed_event(@v2_push_payload)
-        assert event.is_a?(Stripe::EventNotification) # fixme, will get real type
+        assert event.is_a?(Stripe::V2::EventNotification) # fixme, will get real type
 
         ret_event = event.fetch_event
         assert ret_event.is_a?(Stripe::V1BillingMeterErrorReportTriggeredEvent)

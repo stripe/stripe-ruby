@@ -9,10 +9,10 @@ module Stripe
       class Details < Stripe::StripeObject
         class Transaction < Stripe::StripeObject
           # The linked payment ID.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def charge; end
           # The linked Treasury Financing Transaction ID.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def treasury_transaction; end
         end
         # The advance amount being repaid, paid out, or reversed in minor units.
@@ -25,20 +25,20 @@ module Stripe
         sig { returns(Integer) }
         def fee_amount; end
         # The linked payment for the transaction. This field only applies to financing transactions of type `paydown` and reason `automatic_withholding`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def linked_payment; end
         # The reason for the financing transaction (if applicable).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def reason; end
         # The reversed transaction. This field only applies to financing
         # transactions of type `reversal`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def reversed_transaction; end
         # The advance and fee amount being repaid, paid out, or reversed in minor units.
         sig { returns(Integer) }
         def total_amount; end
         # This is an object representing a linked transaction on a Capital Financing Transaction.
-        sig { returns(Transaction) }
+        sig { returns(T.nilable(Transaction)) }
         def transaction; end
       end
       # The ID of the merchant associated with this financing transaction.
@@ -59,7 +59,7 @@ module Stripe
       # The Capital transaction object that predates the Financing Transactions API and
       # corresponds with the balance transaction that was created as a result of this
       # financing transaction.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def legacy_balance_transaction_source; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }

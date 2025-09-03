@@ -31,14 +31,14 @@ module Stripe
     # They can be bank accounts or debit cards as well, and are documented in the links above.
     #
     # Related guide: [Bank debits and transfers](/payments/bank-debits-transfers)
-    sig { returns(Stripe::BankAccount) }
+    sig { returns(T.nilable(Stripe::BankAccount)) }
     def bank_account; end
     # You can store multiple cards on a customer in order to charge the customer
     # later. You can also store multiple debit cards on a recipient in order to
     # transfer to those cards later.
     #
     # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
-    sig { returns(Stripe::Card) }
+    sig { returns(T.nilable(Stripe::Card)) }
     def card; end
     # IP address of the client that generates the token.
     sig { returns(T.nilable(String)) }

@@ -37,10 +37,10 @@ module Stripe
           def routing_number; end
         end
         # ABA Records contain U.S. bank account details per the ABA format.
-        sig { returns(Aba) }
+        sig { returns(T.nilable(Aba)) }
         def aba; end
         # The list of networks that the address supports
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         def supported_networks; end
         # The type of financial address
         sig { returns(String) }
@@ -65,7 +65,7 @@ module Stripe
         def closed; end
       end
       # The array of paths to active Features in the Features hash.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       def active_features; end
       # Balance information for the FinancialAccount
       sig { returns(Balance) }
@@ -81,7 +81,7 @@ module Stripe
       def display_name; end
       # Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
       # Stripe or the platform can control Features via the requested field.
-      sig { returns(Stripe::Treasury::FinancialAccountFeatures) }
+      sig { returns(T.nilable(Stripe::Treasury::FinancialAccountFeatures)) }
       def features; end
       # The set of credentials that resolve to a FinancialAccount.
       sig { returns(T::Array[FinancialAddress]) }
@@ -90,7 +90,7 @@ module Stripe
       sig { returns(String) }
       def id; end
       # Attribute for field is_default
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def is_default; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
@@ -105,13 +105,13 @@ module Stripe
       sig { returns(String) }
       def object; end
       # The array of paths to pending Features in the Features hash.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       def pending_features; end
       # The set of functionalities that the platform can restrict on the FinancialAccount.
       sig { returns(T.nilable(PlatformRestrictions)) }
       def platform_restrictions; end
       # The array of paths to restricted Features in the Features hash.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       def restricted_features; end
       # Status of this FinancialAccount.
       sig { returns(String) }

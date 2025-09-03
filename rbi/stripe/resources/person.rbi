@@ -292,20 +292,20 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def details_code; end
       # Attribute for field document
-      sig { returns(Document) }
+      sig { returns(T.nilable(Document)) }
       def document; end
       # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://stripe.com/docs/connect/handling-api-verification) to handle verification updates.
       sig { returns(String) }
       def status; end
     end
     # The account the person is associated with.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def account; end
     # Attribute for field additional_tos_acceptances
-    sig { returns(AdditionalTosAcceptances) }
+    sig { returns(T.nilable(AdditionalTosAcceptances)) }
     def additional_tos_acceptances; end
     # Attribute for field address
-    sig { returns(Address) }
+    sig { returns(T.nilable(Address)) }
     def address; end
     # The Kana variation of the person's address (Japan only).
     sig { returns(T.nilable(AddressKana)) }
@@ -317,7 +317,7 @@ module Stripe
     sig { returns(Integer) }
     def created; end
     # Attribute for field dob
-    sig { returns(Dob) }
+    sig { returns(T.nilable(Dob)) }
     def dob; end
     # The person's email address. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
     sig { returns(T.nilable(String)) }
@@ -332,7 +332,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def first_name_kanji; end
     # A list of alternate names or aliases that the person is known by. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
-    sig { returns(T::Array[String]) }
+    sig { returns(T.nilable(T::Array[String])) }
     def full_name_aliases; end
     # Information about the [upcoming new requirements for this person](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
     sig { returns(T.nilable(FutureRequirements)) }
@@ -344,10 +344,10 @@ module Stripe
     sig { returns(String) }
     def id; end
     # Whether the person's `id_number` was provided. True if either the full ID number was provided or if only the required part of the ID number was provided (ex. last four of an individual's SSN for the US indicated by `ssn_last_4_provided`).
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def id_number_provided; end
     # Whether the person's `id_number_secondary` was provided.
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def id_number_secondary_provided; end
     # The person's last name. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
     sig { returns(T.nilable(String)) }
@@ -362,7 +362,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def maiden_name; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-    sig { returns(T::Hash[String, String]) }
+    sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # The country where the person is a national.
     sig { returns(T.nilable(String)) }
@@ -374,28 +374,28 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def phone; end
     # Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def political_exposure; end
     # Attribute for field registered_address
-    sig { returns(RegisteredAddress) }
+    sig { returns(T.nilable(RegisteredAddress)) }
     def registered_address; end
     # Attribute for field relationship
-    sig { returns(Relationship) }
+    sig { returns(T.nilable(Relationship)) }
     def relationship; end
     # Information about the requirements for this person, including what information needs to be collected, and by when.
     sig { returns(T.nilable(Requirements)) }
     def requirements; end
     # Whether the last four digits of the person's Social Security number have been provided (U.S. only).
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def ssn_last_4_provided; end
     # Demographic data related to the person.
     sig { returns(T.nilable(UsCfpbData)) }
     def us_cfpb_data; end
     # Attribute for field verification
-    sig { returns(Verification) }
+    sig { returns(T.nilable(Verification)) }
     def verification; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
   end
 end

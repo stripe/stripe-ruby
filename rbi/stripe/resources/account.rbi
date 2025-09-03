@@ -69,7 +69,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       def minority_owned_business_designation; end
       # Attribute for field monthly_estimated_revenue
-      sig { returns(MonthlyEstimatedRevenue) }
+      sig { returns(T.nilable(MonthlyEstimatedRevenue)) }
       def monthly_estimated_revenue; end
       # The customer-facing business name.
       sig { returns(T.nilable(String)) }
@@ -95,226 +95,226 @@ module Stripe
     end
     class Capabilities < Stripe::StripeObject
       # The status of the Canadian pre-authorized debits payments capability of the account, or whether the account can directly process Canadian pre-authorized debits charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def acss_debit_payments; end
       # The status of the Affirm capability of the account, or whether the account can directly process Affirm charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def affirm_payments; end
       # The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def afterpay_clearpay_payments; end
       # The status of the Alma capability of the account, or whether the account can directly process Alma payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def alma_payments; end
       # The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def amazon_pay_payments; end
       # The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def au_becs_debit_payments; end
       # The status of the automatic_indirect_tax capability of the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def automatic_indirect_tax; end
       # The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def bacs_debit_payments; end
       # The status of the Bancontact payments capability of the account, or whether the account can directly process Bancontact charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def bancontact_payments; end
       # The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def bank_transfer_payments; end
       # The status of the Billie capability of the account, or whether the account can directly process Billie payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def billie_payments; end
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def blik_payments; end
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def boleto_payments; end
       # The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def card_issuing; end
       # The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def card_payments; end
       # The status of the Cartes Bancaires payments capability of the account, or whether the account can directly process Cartes Bancaires card charges in EUR currency.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def cartes_bancaires_payments; end
       # The status of the Cash App Pay capability of the account, or whether the account can directly process Cash App Pay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def cashapp_payments; end
       # The status of the Crypto capability of the account, or whether the account can directly process Crypto payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def crypto_payments; end
       # The status of the EPS payments capability of the account, or whether the account can directly process EPS charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def eps_payments; end
       # The status of the FPX payments capability of the account, or whether the account can directly process FPX charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def fpx_payments; end
       # The status of the GB customer_balance payments (GBP currency) capability of the account, or whether the account can directly process GB customer_balance charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def gb_bank_transfer_payments; end
       # The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def giropay_payments; end
       # The status of the Gopay capability of the account, or whether the account can directly process Gopay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def gopay_payments; end
       # The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def grabpay_payments; end
       # The status of the Indonesia Bank Transfer payments capability of the account, or whether the account can directly process Indonesia Bank Transfer charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def id_bank_transfer_payments; end
       # The status of Bank BCA onboarding of the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def id_bank_transfer_payments_bca; end
       # The status of the iDEAL payments capability of the account, or whether the account can directly process iDEAL charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def ideal_payments; end
       # The status of the india_international_payments capability of the account, or whether the account can process international charges (non INR) in India.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def india_international_payments; end
       # The status of the JCB payments capability of the account, or whether the account (Japan only) can directly process JCB credit card charges in JPY currency.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def jcb_payments; end
       # The status of the Japanese customer_balance payments (JPY currency) capability of the account, or whether the account can directly process Japanese customer_balance charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def jp_bank_transfer_payments; end
       # The status of the KakaoPay capability of the account, or whether the account can directly process KakaoPay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def kakao_pay_payments; end
       # The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def klarna_payments; end
       # The status of the konbini payments capability of the account, or whether the account can directly process konbini charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def konbini_payments; end
       # The status of the KrCard capability of the account, or whether the account can directly process KrCard payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def kr_card_payments; end
       # The status of the legacy payments capability of the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def legacy_payments; end
       # The status of the link_payments capability of the account, or whether the account can directly process Link charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def link_payments; end
       # The status of the MB WAY payments capability of the account, or whether the account can directly process MB WAY charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def mb_way_payments; end
       # The status of the MobilePay capability of the account, or whether the account can directly process MobilePay charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def mobilepay_payments; end
       # The status of the Multibanco payments capability of the account, or whether the account can directly process Multibanco charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def multibanco_payments; end
       # The status of the Mexican customer_balance payments (MXN currency) capability of the account, or whether the account can directly process Mexican customer_balance charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def mx_bank_transfer_payments; end
       # The status of the NaverPay capability of the account, or whether the account can directly process NaverPay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def naver_pay_payments; end
       # The status of the New Zealand BECS Direct Debit payments capability of the account, or whether the account can directly process New Zealand BECS Direct Debit charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def nz_bank_account_becs_debit_payments; end
       # The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def oxxo_payments; end
       # The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def p24_payments; end
       # The status of the pay_by_bank payments capability of the account, or whether the account can directly process pay_by_bank charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def pay_by_bank_payments; end
       # The status of the Payco capability of the account, or whether the account can directly process Payco payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def payco_payments; end
       # The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def paynow_payments; end
       # The status of the PayPal payments capability of the account, or whether the account can directly process PayPal charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def paypal_payments; end
       # The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def paypay_payments; end
       # The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def payto_payments; end
       # The status of the pix payments capability of the account, or whether the account can directly process pix charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def pix_payments; end
       # The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def promptpay_payments; end
       # The status of the Qris capability of the account, or whether the account can directly process Qris payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def qris_payments; end
       # The status of the Rechnung capability of the account, or whether the account can directly process Rechnung payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def rechnung_payments; end
       # The status of the RevolutPay capability of the account, or whether the account can directly process RevolutPay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def revolut_pay_payments; end
       # The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def samsung_pay_payments; end
       # The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def satispay_payments; end
       # The status of the SEPA customer_balance payments (EUR currency) capability of the account, or whether the account can directly process SEPA customer_balance charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def sepa_bank_transfer_payments; end
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def sepa_debit_payments; end
       # The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def shopeepay_payments; end
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def sofort_payments; end
       # The status of the stripe_balance payments capability of the account, or whether the account can directly process stripe_balance charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def stripe_balance_payments; end
       # The status of the Swish capability of the account, or whether the account can directly process Swish payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def swish_payments; end
       # The status of the tax reporting 1099-K (US) capability of the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def tax_reporting_us_1099_k; end
       # The status of the tax reporting 1099-MISC (US) capability of the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def tax_reporting_us_1099_misc; end
       # The status of the transfers capability of the account, or whether your platform can transfer funds to the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def transfers; end
       # The status of the banking capability, or whether the account can have bank accounts.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def treasury; end
       # The status of the treasury_evolve capability of the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def treasury_evolve; end
       # The status of the treasury_fifth_third capability of the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def treasury_fifth_third; end
       # The status of the treasury_goldman_sachs capability of the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def treasury_goldman_sachs; end
       # The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def twint_payments; end
       # The status of the US bank account ACH payments capability of the account, or whether the account can directly process US bank account charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def us_bank_account_ach_payments; end
       # The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def us_bank_transfer_payments; end
       # The status of the Zip capability of the account, or whether the account can directly process Zip charges.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def zip_payments; end
     end
     class Company < Stripe::StripeObject
@@ -437,7 +437,7 @@ module Stripe
         def document; end
       end
       # Attribute for field address
-      sig { returns(Address) }
+      sig { returns(T.nilable(Address)) }
       def address; end
       # The Kana variation of the company's primary address (Japan only).
       sig { returns(T.nilable(AddressKana)) }
@@ -446,19 +446,19 @@ module Stripe
       sig { returns(T.nilable(AddressKanji)) }
       def address_kanji; end
       # Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided).
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def directors_provided; end
       # This hash is used to attest that the director information provided to Stripe is both current and correct.
       sig { returns(T.nilable(DirectorshipDeclaration)) }
       def directorship_declaration; end
       # Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def executives_provided; end
       # The export license ID number of the company, also referred as Import Export Code (India only).
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def export_license_id; end
       # The purpose code to use for export transactions (India only).
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def export_purpose_code; end
       # The company's legal name. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
       sig { returns(T.nilable(String)) }
@@ -470,31 +470,31 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def name_kanji; end
       # Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together).
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def owners_provided; end
       # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
       sig { returns(T.nilable(OwnershipDeclaration)) }
       def ownership_declaration; end
       # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def ownership_exemption_reason; end
       # The company's phone number (used for verification).
       sig { returns(T.nilable(String)) }
       def phone; end
       # Attribute for field registration_date
-      sig { returns(RegistrationDate) }
+      sig { returns(T.nilable(RegistrationDate)) }
       def registration_date; end
       # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def structure; end
       # Whether the company's business ID number was provided.
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def tax_id_provided; end
       # The jurisdiction in which the `tax_id` is registered (Germany-based companies only).
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def tax_id_registrar; end
       # Whether the company's business VAT number was provided.
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def vat_id_provided; end
       # Information on the verification state of the company.
       sig { returns(T.nilable(Verification)) }
@@ -533,25 +533,25 @@ module Stripe
         def type; end
       end
       # Attribute for field application
-      sig { returns(Application) }
+      sig { returns(T.nilable(Application)) }
       def application; end
       # Attribute for field dashboard
-      sig { returns(Dashboard) }
+      sig { returns(T.nilable(Dashboard)) }
       def dashboard; end
       # Attribute for field fees
-      sig { returns(Fees) }
+      sig { returns(T.nilable(Fees)) }
       def fees; end
       # `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://stripe.com/docs/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def is_controller; end
       # Attribute for field losses
-      sig { returns(Losses) }
+      sig { returns(T.nilable(Losses)) }
       def losses; end
       # A value indicating responsibility for collecting requirements on this account. Only returned when the Connect application retrieving the resource controls the account.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def requirement_collection; end
       # Attribute for field stripe_dashboard
-      sig { returns(StripeDashboard) }
+      sig { returns(T.nilable(StripeDashboard)) }
       def stripe_dashboard; end
       # The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
       sig { returns(String) }
@@ -684,10 +684,10 @@ module Stripe
       end
       class BankBcaOnboarding < Stripe::StripeObject
         # Bank BCA business account holder name.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def account_holder_name; end
         # Bank BCA business account number.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def business_account_number; end
       end
       class Branding < Stripe::StripeObject
@@ -706,10 +706,10 @@ module Stripe
       end
       class Capital < Stripe::StripeObject
         # Per-currency mapping of user-selected destination accounts used to pay out loans.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         def payout_destination; end
         # Per-currency mapping of all destination accounts eligible to receive loan payouts.
-        sig { returns(T::Hash[String, T::Array[String]]) }
+        sig { returns(T.nilable(T::Hash[String, T::Array[String]])) }
         def payout_destination_selector; end
       end
       class CardIssuing < Stripe::StripeObject
@@ -721,11 +721,11 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def ip; end
           # The user agent of the browser from which the account representative accepted the service agreement.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def user_agent; end
         end
         # Attribute for field tos_acceptance
-        sig { returns(TosAcceptance) }
+        sig { returns(T.nilable(TosAcceptance)) }
         def tos_acceptance; end
       end
       class CardPayments < Stripe::StripeObject
@@ -738,7 +738,7 @@ module Stripe
           def cvc_failure; end
         end
         # Attribute for field decline_on
-        sig { returns(DeclineOn) }
+        sig { returns(T.nilable(DeclineOn)) }
         def decline_on; end
         # The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. `statement_descriptor_prefix` is useful for maximizing descriptor space for the dynamic portion.
         sig { returns(T.nilable(String)) }
@@ -792,16 +792,16 @@ module Stripe
           sig { returns(String) }
           def interval; end
           # The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def monthly_anchor; end
           # The days of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
-          sig { returns(T::Array[Integer]) }
+          sig { returns(T.nilable(T::Array[Integer])) }
           def monthly_payout_days; end
           # The day of the week funds will be paid out, of the style 'monday', 'tuesday', etc. Only shown if `interval` is weekly.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def weekly_anchor; end
           # The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           def weekly_payout_days; end
         end
         # A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
@@ -816,7 +816,7 @@ module Stripe
       end
       class SepaDebitPayments < Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def creditor_id; end
       end
       class TaxForms < Stripe::StripeObject
@@ -833,27 +833,27 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def ip; end
           # The user agent of the browser from which the account representative accepted the service agreement.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def user_agent; end
         end
         # Attribute for field tos_acceptance
-        sig { returns(TosAcceptance) }
+        sig { returns(T.nilable(TosAcceptance)) }
         def tos_acceptance; end
       end
       # Attribute for field bacs_debit_payments
-      sig { returns(BacsDebitPayments) }
+      sig { returns(T.nilable(BacsDebitPayments)) }
       def bacs_debit_payments; end
       # Attribute for field bank_bca_onboarding
-      sig { returns(BankBcaOnboarding) }
+      sig { returns(T.nilable(BankBcaOnboarding)) }
       def bank_bca_onboarding; end
       # Attribute for field branding
       sig { returns(Branding) }
       def branding; end
       # Attribute for field capital
-      sig { returns(Capital) }
+      sig { returns(T.nilable(Capital)) }
       def capital; end
       # Attribute for field card_issuing
-      sig { returns(CardIssuing) }
+      sig { returns(T.nilable(CardIssuing)) }
       def card_issuing; end
       # Attribute for field card_payments
       sig { returns(CardPayments) }
@@ -862,22 +862,22 @@ module Stripe
       sig { returns(Dashboard) }
       def dashboard; end
       # Attribute for field invoices
-      sig { returns(Invoices) }
+      sig { returns(T.nilable(Invoices)) }
       def invoices; end
       # Attribute for field payments
       sig { returns(Payments) }
       def payments; end
       # Attribute for field payouts
-      sig { returns(Payouts) }
+      sig { returns(T.nilable(Payouts)) }
       def payouts; end
       # Attribute for field sepa_debit_payments
-      sig { returns(SepaDebitPayments) }
+      sig { returns(T.nilable(SepaDebitPayments)) }
       def sepa_debit_payments; end
       # Attribute for field tax_forms
-      sig { returns(TaxForms) }
+      sig { returns(T.nilable(TaxForms)) }
       def tax_forms; end
       # Attribute for field treasury
-      sig { returns(Treasury) }
+      sig { returns(T.nilable(Treasury)) }
       def treasury; end
     end
     class TosAcceptance < Stripe::StripeObject
@@ -888,7 +888,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def ip; end
       # The user's service agreement type
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def service_agreement; end
       # The user agent of the browser from which the account representative accepted their service agreement
       sig { returns(T.nilable(String)) }
@@ -901,37 +901,37 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def business_type; end
     # Attribute for field capabilities
-    sig { returns(Capabilities) }
+    sig { returns(T.nilable(Capabilities)) }
     def capabilities; end
     # Whether the account can process charges.
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def charges_enabled; end
     # Attribute for field company
-    sig { returns(Company) }
+    sig { returns(T.nilable(Company)) }
     def company; end
     # Attribute for field controller
-    sig { returns(Controller) }
+    sig { returns(T.nilable(Controller)) }
     def controller; end
     # The account's country.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def country; end
     # Time at which the account was connected. Measured in seconds since the Unix epoch.
-    sig { returns(Integer) }
+    sig { returns(T.nilable(Integer)) }
     def created; end
     # Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def default_currency; end
     # Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](/connect/onboarding) to finish submitting account details.
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def details_submitted; end
     # An email address associated with the account. It's not used for authentication and Stripe doesn't market to this field without explicit approval from the platform.
     sig { returns(T.nilable(String)) }
     def email; end
     # External accounts (bank accounts and debit cards) currently attached to this account. External accounts are only returned for requests where `controller[is_controller]` is true.
-    sig { returns(Stripe::ListObject) }
+    sig { returns(T.nilable(Stripe::ListObject)) }
     def external_accounts; end
     # Attribute for field future_requirements
-    sig { returns(FutureRequirements) }
+    sig { returns(T.nilable(FutureRequirements)) }
     def future_requirements; end
     # The groups associated with the account.
     sig { returns(T.nilable(Groups)) }
@@ -944,34 +944,34 @@ module Stripe
     # A platform can only access a subset of data in a person for an account where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
     #
     # See the [Standard onboarding](/connect/standard-accounts) or [Express onboarding](/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](/connect/handling-api-verification#person-information).
-    sig { returns(Stripe::Person) }
+    sig { returns(T.nilable(Stripe::Person)) }
     def individual; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-    sig { returns(T::Hash[String, String]) }
+    sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
     # Whether the funds in this account can be paid out.
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def payouts_enabled; end
     # Attribute for field requirements
-    sig { returns(Requirements) }
+    sig { returns(T.nilable(Requirements)) }
     def requirements; end
     # Attribute for field risk_controls
-    sig { returns(RiskControls) }
+    sig { returns(T.nilable(RiskControls)) }
     def risk_controls; end
     # Options for customizing how the account functions within Stripe.
     sig { returns(T.nilable(Settings)) }
     def settings; end
     # Attribute for field tos_acceptance
-    sig { returns(TosAcceptance) }
+    sig { returns(T.nilable(TosAcceptance)) }
     def tos_acceptance; end
     # The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def type; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams

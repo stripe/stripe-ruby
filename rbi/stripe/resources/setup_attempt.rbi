@@ -82,10 +82,10 @@ module Stripe
           class ApplePay < Stripe::StripeObject; end
           class GooglePay < Stripe::StripeObject; end
           # Attribute for field apple_pay
-          sig { returns(ApplePay) }
+          sig { returns(T.nilable(ApplePay)) }
           def apple_pay; end
           # Attribute for field google_pay
-          sig { returns(GooglePay) }
+          sig { returns(T.nilable(GooglePay)) }
           def google_pay; end
           # The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
           sig { returns(String) }
@@ -194,7 +194,7 @@ module Stripe
       class Link < Stripe::StripeObject; end
       class NaverPay < Stripe::StripeObject
         # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def buyer_id; end
       end
       class NzBankAccount < Stripe::StripeObject; end
@@ -234,111 +234,111 @@ module Stripe
       class StripeBalance < Stripe::StripeObject; end
       class UsBankAccount < Stripe::StripeObject; end
       # Attribute for field acss_debit
-      sig { returns(AcssDebit) }
+      sig { returns(T.nilable(AcssDebit)) }
       def acss_debit; end
       # Attribute for field amazon_pay
-      sig { returns(AmazonPay) }
+      sig { returns(T.nilable(AmazonPay)) }
       def amazon_pay; end
       # Attribute for field au_becs_debit
-      sig { returns(AuBecsDebit) }
+      sig { returns(T.nilable(AuBecsDebit)) }
       def au_becs_debit; end
       # Attribute for field bacs_debit
-      sig { returns(BacsDebit) }
+      sig { returns(T.nilable(BacsDebit)) }
       def bacs_debit; end
       # Attribute for field bancontact
-      sig { returns(Bancontact) }
+      sig { returns(T.nilable(Bancontact)) }
       def bancontact; end
       # Attribute for field boleto
-      sig { returns(Boleto) }
+      sig { returns(T.nilable(Boleto)) }
       def boleto; end
       # Attribute for field card
-      sig { returns(Card) }
+      sig { returns(T.nilable(Card)) }
       def card; end
       # Attribute for field card_present
-      sig { returns(CardPresent) }
+      sig { returns(T.nilable(CardPresent)) }
       def card_present; end
       # Attribute for field cashapp
-      sig { returns(Cashapp) }
+      sig { returns(T.nilable(Cashapp)) }
       def cashapp; end
       # Attribute for field id_bank_transfer
-      sig { returns(IdBankTransfer) }
+      sig { returns(T.nilable(IdBankTransfer)) }
       def id_bank_transfer; end
       # Attribute for field ideal
-      sig { returns(Ideal) }
+      sig { returns(T.nilable(Ideal)) }
       def ideal; end
       # Attribute for field kakao_pay
-      sig { returns(KakaoPay) }
+      sig { returns(T.nilable(KakaoPay)) }
       def kakao_pay; end
       # Attribute for field klarna
-      sig { returns(Klarna) }
+      sig { returns(T.nilable(Klarna)) }
       def klarna; end
       # Attribute for field kr_card
-      sig { returns(KrCard) }
+      sig { returns(T.nilable(KrCard)) }
       def kr_card; end
       # Attribute for field link
-      sig { returns(Link) }
+      sig { returns(T.nilable(Link)) }
       def link; end
       # Attribute for field naver_pay
-      sig { returns(NaverPay) }
+      sig { returns(T.nilable(NaverPay)) }
       def naver_pay; end
       # Attribute for field nz_bank_account
-      sig { returns(NzBankAccount) }
+      sig { returns(T.nilable(NzBankAccount)) }
       def nz_bank_account; end
       # Attribute for field paypal
-      sig { returns(Paypal) }
+      sig { returns(T.nilable(Paypal)) }
       def paypal; end
       # Attribute for field payto
-      sig { returns(Payto) }
+      sig { returns(T.nilable(Payto)) }
       def payto; end
       # Attribute for field pix
-      sig { returns(Pix) }
+      sig { returns(T.nilable(Pix)) }
       def pix; end
       # Attribute for field revolut_pay
-      sig { returns(RevolutPay) }
+      sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
       # Attribute for field sepa_debit
-      sig { returns(SepaDebit) }
+      sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
       # Attribute for field sofort
-      sig { returns(Sofort) }
+      sig { returns(T.nilable(Sofort)) }
       def sofort; end
       # Attribute for field stripe_balance
-      sig { returns(StripeBalance) }
+      sig { returns(T.nilable(StripeBalance)) }
       def stripe_balance; end
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       sig { returns(String) }
       def type; end
       # Attribute for field us_bank_account
-      sig { returns(UsBankAccount) }
+      sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
     end
     class SetupError < Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def advice_code; end
       # For card errors, the ID of the failed charge.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def charge; end
       # For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def code; end
       # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def decline_code; end
       # A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def doc_url; end
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def message; end
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def network_advice_code; end
       # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def network_decline_code; end
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def param; end
       # A PaymentIntent guides you through the process of collecting a payment from your customer.
       # We recommend that you create exactly one PaymentIntent for each order or
@@ -351,20 +351,20 @@ module Stripe
       # authentication flows and ultimately creates at most one successful charge.
       #
       # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
-      sig { returns(Stripe::PaymentIntent) }
+      sig { returns(T.nilable(Stripe::PaymentIntent)) }
       def payment_intent; end
       # PaymentMethod objects represent your customer's payment instruments.
       # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
       # Customer objects to store instrument details for future payments.
       #
       # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
-      sig { returns(Stripe::PaymentMethod) }
+      sig { returns(T.nilable(Stripe::PaymentMethod)) }
       def payment_method; end
       # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def payment_method_type; end
       # A URL to the request log entry in your dashboard.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def request_log_url; end
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
@@ -387,10 +387,12 @@ module Stripe
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
       #
       # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
-      sig { returns(Stripe::SetupIntent) }
+      sig { returns(T.nilable(Stripe::SetupIntent)) }
       def setup_intent; end
       # Attribute for field source
-      sig { returns(T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source)) }
+      sig {
+        returns(T.nilable(T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source)))
+       }
       def source; end
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
       sig { returns(String) }
@@ -402,7 +404,7 @@ module Stripe
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
     # It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def attach_to_self; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }

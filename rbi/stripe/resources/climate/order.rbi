@@ -56,7 +56,7 @@ module Stripe
       sig { returns(Integer) }
       def amount_total; end
       # Attribute for field beneficiary
-      sig { returns(Beneficiary) }
+      sig { returns(T.nilable(Beneficiary)) }
       def beneficiary; end
       # Time at which the order was canceled. Measured in seconds since the Unix epoch.
       sig { returns(T.nilable(Integer)) }

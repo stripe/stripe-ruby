@@ -1102,199 +1102,199 @@ module Stripe
       def display_preference; end
     end
     # Attribute for field acss_debit
-    sig { returns(AcssDebit) }
+    sig { returns(T.nilable(AcssDebit)) }
     def acss_debit; end
     # Whether the configuration can be used for new payments.
     sig { returns(T::Boolean) }
     def active; end
     # Attribute for field affirm
-    sig { returns(Affirm) }
+    sig { returns(T.nilable(Affirm)) }
     def affirm; end
     # Attribute for field afterpay_clearpay
-    sig { returns(AfterpayClearpay) }
+    sig { returns(T.nilable(AfterpayClearpay)) }
     def afterpay_clearpay; end
     # Attribute for field alipay
-    sig { returns(Alipay) }
+    sig { returns(T.nilable(Alipay)) }
     def alipay; end
     # Attribute for field alma
-    sig { returns(Alma) }
+    sig { returns(T.nilable(Alma)) }
     def alma; end
     # Attribute for field amazon_pay
-    sig { returns(AmazonPay) }
+    sig { returns(T.nilable(AmazonPay)) }
     def amazon_pay; end
     # Attribute for field apple_pay
-    sig { returns(ApplePay) }
+    sig { returns(T.nilable(ApplePay)) }
     def apple_pay; end
     # For child configs, the Connect application associated with the configuration.
     sig { returns(T.nilable(String)) }
     def application; end
     # Attribute for field au_becs_debit
-    sig { returns(AuBecsDebit) }
+    sig { returns(T.nilable(AuBecsDebit)) }
     def au_becs_debit; end
     # Attribute for field bacs_debit
-    sig { returns(BacsDebit) }
+    sig { returns(T.nilable(BacsDebit)) }
     def bacs_debit; end
     # Attribute for field bancontact
-    sig { returns(Bancontact) }
+    sig { returns(T.nilable(Bancontact)) }
     def bancontact; end
     # Attribute for field billie
-    sig { returns(Billie) }
+    sig { returns(T.nilable(Billie)) }
     def billie; end
     # Attribute for field blik
-    sig { returns(Blik) }
+    sig { returns(T.nilable(Blik)) }
     def blik; end
     # Attribute for field boleto
-    sig { returns(Boleto) }
+    sig { returns(T.nilable(Boleto)) }
     def boleto; end
     # Attribute for field card
-    sig { returns(Card) }
+    sig { returns(T.nilable(Card)) }
     def card; end
     # Attribute for field cartes_bancaires
-    sig { returns(CartesBancaires) }
+    sig { returns(T.nilable(CartesBancaires)) }
     def cartes_bancaires; end
     # Attribute for field cashapp
-    sig { returns(Cashapp) }
+    sig { returns(T.nilable(Cashapp)) }
     def cashapp; end
     # Attribute for field customer_balance
-    sig { returns(CustomerBalance) }
+    sig { returns(T.nilable(CustomerBalance)) }
     def customer_balance; end
     # Attribute for field eps
-    sig { returns(Eps) }
+    sig { returns(T.nilable(Eps)) }
     def eps; end
     # Attribute for field fpx
-    sig { returns(Fpx) }
+    sig { returns(T.nilable(Fpx)) }
     def fpx; end
     # Attribute for field giropay
-    sig { returns(Giropay) }
+    sig { returns(T.nilable(Giropay)) }
     def giropay; end
     # Attribute for field google_pay
-    sig { returns(GooglePay) }
+    sig { returns(T.nilable(GooglePay)) }
     def google_pay; end
     # Attribute for field gopay
-    sig { returns(Gopay) }
+    sig { returns(T.nilable(Gopay)) }
     def gopay; end
     # Attribute for field grabpay
-    sig { returns(Grabpay) }
+    sig { returns(T.nilable(Grabpay)) }
     def grabpay; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
     # Attribute for field id_bank_transfer
-    sig { returns(IdBankTransfer) }
+    sig { returns(T.nilable(IdBankTransfer)) }
     def id_bank_transfer; end
     # Attribute for field ideal
-    sig { returns(Ideal) }
+    sig { returns(T.nilable(Ideal)) }
     def ideal; end
     # The default configuration is used whenever a payment method configuration is not specified.
     sig { returns(T::Boolean) }
     def is_default; end
     # Attribute for field jcb
-    sig { returns(Jcb) }
+    sig { returns(T.nilable(Jcb)) }
     def jcb; end
     # Attribute for field kakao_pay
-    sig { returns(KakaoPay) }
+    sig { returns(T.nilable(KakaoPay)) }
     def kakao_pay; end
     # Attribute for field klarna
-    sig { returns(Klarna) }
+    sig { returns(T.nilable(Klarna)) }
     def klarna; end
     # Attribute for field konbini
-    sig { returns(Konbini) }
+    sig { returns(T.nilable(Konbini)) }
     def konbini; end
     # Attribute for field kr_card
-    sig { returns(KrCard) }
+    sig { returns(T.nilable(KrCard)) }
     def kr_card; end
     # Attribute for field link
-    sig { returns(Link) }
+    sig { returns(T.nilable(Link)) }
     def link; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
     # Attribute for field mobilepay
-    sig { returns(Mobilepay) }
+    sig { returns(T.nilable(Mobilepay)) }
     def mobilepay; end
     # Attribute for field multibanco
-    sig { returns(Multibanco) }
+    sig { returns(T.nilable(Multibanco)) }
     def multibanco; end
     # The configuration's name.
     sig { returns(String) }
     def name; end
     # Attribute for field naver_pay
-    sig { returns(NaverPay) }
+    sig { returns(T.nilable(NaverPay)) }
     def naver_pay; end
     # Attribute for field nz_bank_account
-    sig { returns(NzBankAccount) }
+    sig { returns(T.nilable(NzBankAccount)) }
     def nz_bank_account; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
     # Attribute for field oxxo
-    sig { returns(Oxxo) }
+    sig { returns(T.nilable(Oxxo)) }
     def oxxo; end
     # Attribute for field p24
-    sig { returns(P24) }
+    sig { returns(T.nilable(P24)) }
     def p24; end
     # For child configs, the configuration's parent configuration.
     sig { returns(T.nilable(String)) }
     def parent; end
     # Attribute for field pay_by_bank
-    sig { returns(PayByBank) }
+    sig { returns(T.nilable(PayByBank)) }
     def pay_by_bank; end
     # Attribute for field payco
-    sig { returns(Payco) }
+    sig { returns(T.nilable(Payco)) }
     def payco; end
     # Attribute for field paynow
-    sig { returns(Paynow) }
+    sig { returns(T.nilable(Paynow)) }
     def paynow; end
     # Attribute for field paypal
-    sig { returns(Paypal) }
+    sig { returns(T.nilable(Paypal)) }
     def paypal; end
     # Attribute for field paypay
-    sig { returns(Paypay) }
+    sig { returns(T.nilable(Paypay)) }
     def paypay; end
     # Attribute for field payto
-    sig { returns(Payto) }
+    sig { returns(T.nilable(Payto)) }
     def payto; end
     # Attribute for field pix
-    sig { returns(Pix) }
+    sig { returns(T.nilable(Pix)) }
     def pix; end
     # Attribute for field promptpay
-    sig { returns(Promptpay) }
+    sig { returns(T.nilable(Promptpay)) }
     def promptpay; end
     # Attribute for field qris
-    sig { returns(Qris) }
+    sig { returns(T.nilable(Qris)) }
     def qris; end
     # Attribute for field revolut_pay
-    sig { returns(RevolutPay) }
+    sig { returns(T.nilable(RevolutPay)) }
     def revolut_pay; end
     # Attribute for field samsung_pay
-    sig { returns(SamsungPay) }
+    sig { returns(T.nilable(SamsungPay)) }
     def samsung_pay; end
     # Attribute for field satispay
-    sig { returns(Satispay) }
+    sig { returns(T.nilable(Satispay)) }
     def satispay; end
     # Attribute for field sepa_debit
-    sig { returns(SepaDebit) }
+    sig { returns(T.nilable(SepaDebit)) }
     def sepa_debit; end
     # Attribute for field shopeepay
-    sig { returns(Shopeepay) }
+    sig { returns(T.nilable(Shopeepay)) }
     def shopeepay; end
     # Attribute for field sofort
-    sig { returns(Sofort) }
+    sig { returns(T.nilable(Sofort)) }
     def sofort; end
     # Attribute for field swish
-    sig { returns(Swish) }
+    sig { returns(T.nilable(Swish)) }
     def swish; end
     # Attribute for field twint
-    sig { returns(Twint) }
+    sig { returns(T.nilable(Twint)) }
     def twint; end
     # Attribute for field us_bank_account
-    sig { returns(UsBankAccount) }
+    sig { returns(T.nilable(UsBankAccount)) }
     def us_bank_account; end
     # Attribute for field wechat_pay
-    sig { returns(WechatPay) }
+    sig { returns(T.nilable(WechatPay)) }
     def wechat_pay; end
     # Attribute for field zip
-    sig { returns(Zip) }
+    sig { returns(T.nilable(Zip)) }
     def zip; end
     class ListParams < Stripe::RequestParams
       # The Connect application to filter by.

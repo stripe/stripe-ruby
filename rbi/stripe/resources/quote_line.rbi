@@ -69,7 +69,7 @@ module Stripe
         sig { returns(T.any(String, Stripe::Price)) }
         def price; end
         # Quantity of the plan to which the customer should be subscribed.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def quantity; end
         # The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
         sig { returns(T.nilable(T::Array[Stripe::TaxRate])) }
@@ -168,7 +168,7 @@ module Stripe
         sig { returns(T.any(String, Stripe::Price)) }
         def price; end
         # Quantity of the plan to which the customer should be subscribed.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def quantity; end
         # The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
         sig { returns(T.nilable(T::Array[Stripe::TaxRate])) }
@@ -311,7 +311,7 @@ module Stripe
       def end_behavior; end
     end
     # A list of items the customer is being quoted for.
-    sig { returns(T::Array[Action]) }
+    sig { returns(T.nilable(T::Array[Action])) }
     def actions; end
     # Details to identify the subscription schedule the quote line applies to.
     sig { returns(T.nilable(AppliesTo)) }

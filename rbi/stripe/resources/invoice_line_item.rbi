@@ -107,10 +107,10 @@ module Stripe
       sig { returns(T.nilable(T.any(String, Stripe::Billing::CreditBalanceTransaction))) }
       def credit_balance_transaction; end
       # The discount that was applied to get this pretax credit amount.
-      sig { returns(T.any(String, Stripe::Discount)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Discount))) }
       def discount; end
       # The margin that was applied to get this pretax credit amount.
-      sig { returns(T.any(String, Stripe::Margin)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Margin))) }
       def margin; end
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
@@ -126,7 +126,7 @@ module Stripe
         def product; end
       end
       # Attribute for field price_details
-      sig { returns(PriceDetails) }
+      sig { returns(T.nilable(PriceDetails)) }
       def price_details; end
       # The type of the pricing details.
       sig { returns(String) }

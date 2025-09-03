@@ -18,7 +18,7 @@ module Stripe
         sig { returns(String) }
         def subscription; end
         # The subscription item that generated this invoice item
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def subscription_item; end
       end
       # Details about the subscription that generated this invoice item
@@ -46,7 +46,7 @@ module Stripe
         def product; end
       end
       # Attribute for field price_details
-      sig { returns(PriceDetails) }
+      sig { returns(T.nilable(PriceDetails)) }
       def price_details; end
       # The type of the pricing details.
       sig { returns(String) }
@@ -119,7 +119,7 @@ module Stripe
     sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
     def test_clock; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams

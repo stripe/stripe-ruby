@@ -46,10 +46,10 @@ module Stripe
     end
     class FraudDetails < Stripe::StripeObject
       # Assessments from Stripe. If set, the value is `fraudulent`.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def stripe_report; end
       # Assessments reported by you. If set, possible values of are `safe` and `fraudulent`.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def user_report; end
     end
     class Level3 < Stripe::StripeObject
@@ -74,7 +74,7 @@ module Stripe
         def unit_cost; end
       end
       # Attribute for field customer_reference
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def customer_reference; end
       # Attribute for field line_items
       sig { returns(T::Array[LineItem]) }
@@ -83,13 +83,13 @@ module Stripe
       sig { returns(String) }
       def merchant_reference; end
       # Attribute for field shipping_address_zip
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def shipping_address_zip; end
       # Attribute for field shipping_amount
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def shipping_amount; end
       # Attribute for field shipping_from_zip
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def shipping_from_zip; end
     end
     class Outcome < Stripe::StripeObject
@@ -120,13 +120,13 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def reason; end
       # Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are `normal`, `elevated`, `highest`. For non-card payments, and card-based payments predating the public assignment of risk levels, this field will have the value `not_assessed`. In the event of an error in the evaluation, this field will have the value `unknown`. This field is only available with Radar.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def risk_level; end
       # Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are between 0 and 100. For non-card payments, card-based payments predating the public assignment of risk scores, or in the event of an error during evaluation, this field will not be present. This field is only available with Radar for Fraud Teams.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def risk_score; end
       # The ID of the Radar rule that matched the payment, if applicable.
-      sig { returns(T.any(String, Rule)) }
+      sig { returns(T.nilable(T.any(String, Rule))) }
       def rule; end
       # A human-readable description of the outcome type and reason, designed for you (the recipient of the payment), not your customer.
       sig { returns(T.nilable(String)) }
@@ -184,7 +184,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def last4; end
         # ID of the mandate used to make this payment.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def mandate; end
         # Transit number of the bank account.
         sig { returns(T.nilable(String)) }
@@ -192,10 +192,10 @@ module Stripe
       end
       class Affirm < Stripe::StripeObject
         # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def location; end
         # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def reader; end
         # The Affirm transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
@@ -211,7 +211,7 @@ module Stripe
       end
       class Alipay < Stripe::StripeObject
         # Uniquely identifies this particular Alipay account. You can use this attribute to check whether two Alipay accounts are the same.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def buyer_id; end
         # Uniquely identifies this particular Alipay account. You can use this attribute to check whether two Alipay accounts are the same.
         sig { returns(T.nilable(String)) }
@@ -227,7 +227,7 @@ module Stripe
           def count; end
         end
         # Attribute for field installments
-        sig { returns(Installments) }
+        sig { returns(T.nilable(Installments)) }
         def installments; end
         # The Alma transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
@@ -259,14 +259,14 @@ module Stripe
             def last4; end
           end
           # Attribute for field card
-          sig { returns(Card) }
+          sig { returns(T.nilable(Card)) }
           def card; end
           # funding type of the underlying payment method.
           sig { returns(T.nilable(String)) }
           def type; end
         end
         # Attribute for field funding
-        sig { returns(Funding) }
+        sig { returns(T.nilable(Funding)) }
         def funding; end
         # The Amazon Pay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
@@ -283,7 +283,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def last4; end
         # ID of the mandate used to make this payment.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def mandate; end
       end
       class BacsDebit < Stripe::StripeObject
@@ -424,7 +424,7 @@ module Stripe
           def exemption_indicator; end
           # Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on
           # the outcome of Stripe's internal risk assessment.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def exemption_indicator_applied; end
           # Indicates the outcome of 3D Secure authentication.
           sig { returns(T.nilable(String)) }
@@ -556,31 +556,31 @@ module Stripe
             def shipping_address; end
           end
           # Attribute for field amex_express_checkout
-          sig { returns(AmexExpressCheckout) }
+          sig { returns(T.nilable(AmexExpressCheckout)) }
           def amex_express_checkout; end
           # Attribute for field apple_pay
-          sig { returns(ApplePay) }
+          sig { returns(T.nilable(ApplePay)) }
           def apple_pay; end
           # (For tokenized numbers only.) The last four digits of the device account number.
           sig { returns(T.nilable(String)) }
           def dynamic_last4; end
           # Attribute for field google_pay
-          sig { returns(GooglePay) }
+          sig { returns(T.nilable(GooglePay)) }
           def google_pay; end
           # Attribute for field link
-          sig { returns(Link) }
+          sig { returns(T.nilable(Link)) }
           def link; end
           # Attribute for field masterpass
-          sig { returns(Masterpass) }
+          sig { returns(T.nilable(Masterpass)) }
           def masterpass; end
           # Attribute for field samsung_pay
-          sig { returns(SamsungPay) }
+          sig { returns(T.nilable(SamsungPay)) }
           def samsung_pay; end
           # The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
           sig { returns(String) }
           def type; end
           # Attribute for field visa_checkout
-          sig { returns(VisaCheckout) }
+          sig { returns(T.nilable(VisaCheckout)) }
           def visa_checkout; end
         end
         # The authorized amount.
@@ -596,7 +596,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def brand; end
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def capture_before; end
         # Check results by Card networks on Card address and CVC at time of payment.
         sig { returns(T.nilable(Checks)) }
@@ -605,7 +605,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def country; end
         # Attribute for field decremental_authorization
-        sig { returns(DecrementalAuthorization) }
+        sig { returns(T.nilable(DecrementalAuthorization)) }
         def decremental_authorization; end
         # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
         sig { returns(T.nilable(String)) }
@@ -617,7 +617,7 @@ module Stripe
         sig { returns(Integer) }
         def exp_year; end
         # Attribute for field extended_authorization
-        sig { returns(ExtendedAuthorization) }
+        sig { returns(T.nilable(ExtendedAuthorization)) }
         def extended_authorization; end
         # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
         #
@@ -631,7 +631,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def iin; end
         # Attribute for field incremental_authorization
-        sig { returns(IncrementalAuthorization) }
+        sig { returns(T.nilable(IncrementalAuthorization)) }
         def incremental_authorization; end
         # Installment details for this payment.
         #
@@ -651,7 +651,7 @@ module Stripe
         sig { returns(T.nilable(T::Boolean)) }
         def moto; end
         # Attribute for field multicapture
-        sig { returns(Multicapture) }
+        sig { returns(T.nilable(Multicapture)) }
         def multicapture; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
@@ -663,10 +663,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def network_transaction_id; end
         # Attribute for field overcapture
-        sig { returns(Overcapture) }
+        sig { returns(T.nilable(Overcapture)) }
         def overcapture; end
         # Attribute for field partial_authorization
-        sig { returns(PartialAuthorization) }
+        sig { returns(T.nilable(PartialAuthorization)) }
         def partial_authorization; end
         # Status of a card based on the card issuer.
         sig { returns(T.nilable(String)) }
@@ -689,7 +689,7 @@ module Stripe
         end
         class Receipt < Stripe::StripeObject
           # The type of account being debited or credited
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def account_type; end
           # The Application Cryptogram, a unique value generated by the card to authenticate the transaction with issuers.
           sig { returns(T.nilable(String)) }
@@ -731,7 +731,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def brand_product; end
         # When using manual capture, a future timestamp after which the charge will be automatically refunded if uncaptured.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def capture_before; end
         # The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay.
         sig { returns(T.nilable(String)) }
@@ -796,7 +796,7 @@ module Stripe
         sig { returns(T.nilable(Receipt)) }
         def receipt; end
         # Attribute for field wallet
-        sig { returns(Wallet) }
+        sig { returns(T.nilable(Wallet)) }
         def wallet; end
       end
       class Cashapp < Stripe::StripeObject
@@ -812,16 +812,16 @@ module Stripe
       end
       class Crypto < Stripe::StripeObject
         # The wallet address of the customer.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def buyer_address; end
         # The blockchain network that the transaction was sent on.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def network; end
         # The token currency that the transaction was sent with.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def token_currency; end
         # The blockchain transaction hash of the crypto payment.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def transaction_hash; end
       end
       class CustomerBalance < Stripe::StripeObject; end
@@ -876,13 +876,13 @@ module Stripe
         sig { returns(String) }
         def bank; end
         # Local bank code of the bank.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def bank_code; end
         # Name of the bank associated with the bank account.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def bank_name; end
         # Merchant name and billing details name, for the customer to check for the correct merchant when performing the bank transfer.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def display_name; end
       end
       class Ideal < Stripe::StripeObject
@@ -909,7 +909,7 @@ module Stripe
       class InteracPresent < Stripe::StripeObject
         class Receipt < Stripe::StripeObject
           # The type of account being debited or credited
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def account_type; end
           # The Application Cryptogram, a unique value generated by the card to authenticate the transaction with issuers.
           sig { returns(T.nilable(String)) }
@@ -1142,10 +1142,10 @@ module Stripe
       end
       class Paynow < Stripe::StripeObject
         # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def location; end
         # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def reader; end
         # Reference number associated with this PayNow payment
         sig { returns(T.nilable(String)) }
@@ -1248,7 +1248,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def last4; end
         # ID of the mandate used to make this payment.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def mandate; end
         # The PayID alias for the bank account.
         sig { returns(T.nilable(String)) }
@@ -1259,7 +1259,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def bank_transaction_id; end
         # ID of the multi use Mandate generated by the PaymentIntent
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def mandate; end
       end
       class Promptpay < Stripe::StripeObject
@@ -1295,14 +1295,14 @@ module Stripe
             def last4; end
           end
           # Attribute for field card
-          sig { returns(Card) }
+          sig { returns(T.nilable(Card)) }
           def card; end
           # funding type of the underlying payment method.
           sig { returns(T.nilable(String)) }
           def type; end
         end
         # Attribute for field funding
-        sig { returns(Funding) }
+        sig { returns(T.nilable(Funding)) }
         def funding; end
         # The Revolut Pay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
@@ -1422,7 +1422,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def last4; end
         # ID of the mandate used to make this payment.
-        sig { returns(T.any(String, Stripe::Mandate)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
         def mandate; end
         # Reference number to locate ACH payments with customer's bank.
         sig { returns(T.nilable(String)) }
@@ -1437,10 +1437,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def fingerprint; end
         # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def location; end
         # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def reader; end
         # Transaction ID of this particular WeChat Pay transaction.
         sig { returns(T.nilable(String)) }
@@ -1448,184 +1448,184 @@ module Stripe
       end
       class Zip < Stripe::StripeObject; end
       # Attribute for field ach_credit_transfer
-      sig { returns(AchCreditTransfer) }
+      sig { returns(T.nilable(AchCreditTransfer)) }
       def ach_credit_transfer; end
       # Attribute for field ach_debit
-      sig { returns(AchDebit) }
+      sig { returns(T.nilable(AchDebit)) }
       def ach_debit; end
       # Attribute for field acss_debit
-      sig { returns(AcssDebit) }
+      sig { returns(T.nilable(AcssDebit)) }
       def acss_debit; end
       # Attribute for field affirm
-      sig { returns(Affirm) }
+      sig { returns(T.nilable(Affirm)) }
       def affirm; end
       # Attribute for field afterpay_clearpay
-      sig { returns(AfterpayClearpay) }
+      sig { returns(T.nilable(AfterpayClearpay)) }
       def afterpay_clearpay; end
       # Attribute for field alipay
-      sig { returns(Alipay) }
+      sig { returns(T.nilable(Alipay)) }
       def alipay; end
       # Attribute for field alma
-      sig { returns(Alma) }
+      sig { returns(T.nilable(Alma)) }
       def alma; end
       # Attribute for field amazon_pay
-      sig { returns(AmazonPay) }
+      sig { returns(T.nilable(AmazonPay)) }
       def amazon_pay; end
       # Attribute for field au_becs_debit
-      sig { returns(AuBecsDebit) }
+      sig { returns(T.nilable(AuBecsDebit)) }
       def au_becs_debit; end
       # Attribute for field bacs_debit
-      sig { returns(BacsDebit) }
+      sig { returns(T.nilable(BacsDebit)) }
       def bacs_debit; end
       # Attribute for field bancontact
-      sig { returns(Bancontact) }
+      sig { returns(T.nilable(Bancontact)) }
       def bancontact; end
       # Attribute for field billie
-      sig { returns(Billie) }
+      sig { returns(T.nilable(Billie)) }
       def billie; end
       # Attribute for field blik
-      sig { returns(Blik) }
+      sig { returns(T.nilable(Blik)) }
       def blik; end
       # Attribute for field boleto
-      sig { returns(Boleto) }
+      sig { returns(T.nilable(Boleto)) }
       def boleto; end
       # Attribute for field card
-      sig { returns(Card) }
+      sig { returns(T.nilable(Card)) }
       def card; end
       # Attribute for field card_present
-      sig { returns(CardPresent) }
+      sig { returns(T.nilable(CardPresent)) }
       def card_present; end
       # Attribute for field cashapp
-      sig { returns(Cashapp) }
+      sig { returns(T.nilable(Cashapp)) }
       def cashapp; end
       # Attribute for field crypto
-      sig { returns(Crypto) }
+      sig { returns(T.nilable(Crypto)) }
       def crypto; end
       # Attribute for field customer_balance
-      sig { returns(CustomerBalance) }
+      sig { returns(T.nilable(CustomerBalance)) }
       def customer_balance; end
       # Attribute for field eps
-      sig { returns(Eps) }
+      sig { returns(T.nilable(Eps)) }
       def eps; end
       # Attribute for field fpx
-      sig { returns(Fpx) }
+      sig { returns(T.nilable(Fpx)) }
       def fpx; end
       # Attribute for field giropay
-      sig { returns(Giropay) }
+      sig { returns(T.nilable(Giropay)) }
       def giropay; end
       # Attribute for field gopay
-      sig { returns(Gopay) }
+      sig { returns(T.nilable(Gopay)) }
       def gopay; end
       # Attribute for field grabpay
-      sig { returns(Grabpay) }
+      sig { returns(T.nilable(Grabpay)) }
       def grabpay; end
       # Attribute for field id_bank_transfer
-      sig { returns(IdBankTransfer) }
+      sig { returns(T.nilable(IdBankTransfer)) }
       def id_bank_transfer; end
       # Attribute for field ideal
-      sig { returns(Ideal) }
+      sig { returns(T.nilable(Ideal)) }
       def ideal; end
       # Attribute for field interac_present
-      sig { returns(InteracPresent) }
+      sig { returns(T.nilable(InteracPresent)) }
       def interac_present; end
       # Attribute for field kakao_pay
-      sig { returns(KakaoPay) }
+      sig { returns(T.nilable(KakaoPay)) }
       def kakao_pay; end
       # Attribute for field klarna
-      sig { returns(Klarna) }
+      sig { returns(T.nilable(Klarna)) }
       def klarna; end
       # Attribute for field konbini
-      sig { returns(Konbini) }
+      sig { returns(T.nilable(Konbini)) }
       def konbini; end
       # Attribute for field kr_card
-      sig { returns(KrCard) }
+      sig { returns(T.nilable(KrCard)) }
       def kr_card; end
       # Attribute for field link
-      sig { returns(Link) }
+      sig { returns(T.nilable(Link)) }
       def link; end
       # Attribute for field mb_way
-      sig { returns(MbWay) }
+      sig { returns(T.nilable(MbWay)) }
       def mb_way; end
       # Attribute for field mobilepay
-      sig { returns(Mobilepay) }
+      sig { returns(T.nilable(Mobilepay)) }
       def mobilepay; end
       # Attribute for field multibanco
-      sig { returns(Multibanco) }
+      sig { returns(T.nilable(Multibanco)) }
       def multibanco; end
       # Attribute for field naver_pay
-      sig { returns(NaverPay) }
+      sig { returns(T.nilable(NaverPay)) }
       def naver_pay; end
       # Attribute for field nz_bank_account
-      sig { returns(NzBankAccount) }
+      sig { returns(T.nilable(NzBankAccount)) }
       def nz_bank_account; end
       # Attribute for field oxxo
-      sig { returns(Oxxo) }
+      sig { returns(T.nilable(Oxxo)) }
       def oxxo; end
       # Attribute for field p24
-      sig { returns(P24) }
+      sig { returns(T.nilable(P24)) }
       def p24; end
       # Attribute for field pay_by_bank
-      sig { returns(PayByBank) }
+      sig { returns(T.nilable(PayByBank)) }
       def pay_by_bank; end
       # Attribute for field payco
-      sig { returns(Payco) }
+      sig { returns(T.nilable(Payco)) }
       def payco; end
       # Attribute for field paynow
-      sig { returns(Paynow) }
+      sig { returns(T.nilable(Paynow)) }
       def paynow; end
       # Attribute for field paypal
-      sig { returns(Paypal) }
+      sig { returns(T.nilable(Paypal)) }
       def paypal; end
       # Attribute for field paypay
-      sig { returns(Paypay) }
+      sig { returns(T.nilable(Paypay)) }
       def paypay; end
       # Attribute for field payto
-      sig { returns(Payto) }
+      sig { returns(T.nilable(Payto)) }
       def payto; end
       # Attribute for field pix
-      sig { returns(Pix) }
+      sig { returns(T.nilable(Pix)) }
       def pix; end
       # Attribute for field promptpay
-      sig { returns(Promptpay) }
+      sig { returns(T.nilable(Promptpay)) }
       def promptpay; end
       # Attribute for field qris
-      sig { returns(Qris) }
+      sig { returns(T.nilable(Qris)) }
       def qris; end
       # Attribute for field rechnung
-      sig { returns(Rechnung) }
+      sig { returns(T.nilable(Rechnung)) }
       def rechnung; end
       # Attribute for field revolut_pay
-      sig { returns(RevolutPay) }
+      sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
       # Attribute for field samsung_pay
-      sig { returns(SamsungPay) }
+      sig { returns(T.nilable(SamsungPay)) }
       def samsung_pay; end
       # Attribute for field satispay
-      sig { returns(Satispay) }
+      sig { returns(T.nilable(Satispay)) }
       def satispay; end
       # Attribute for field sepa_credit_transfer
-      sig { returns(SepaCreditTransfer) }
+      sig { returns(T.nilable(SepaCreditTransfer)) }
       def sepa_credit_transfer; end
       # Attribute for field sepa_debit
-      sig { returns(SepaDebit) }
+      sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
       # Attribute for field shopeepay
-      sig { returns(Shopeepay) }
+      sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
       # Attribute for field sofort
-      sig { returns(Sofort) }
+      sig { returns(T.nilable(Sofort)) }
       def sofort; end
       # Attribute for field stripe_account
-      sig { returns(StripeAccount) }
+      sig { returns(T.nilable(StripeAccount)) }
       def stripe_account; end
       # Attribute for field stripe_balance
-      sig { returns(StripeBalance) }
+      sig { returns(T.nilable(StripeBalance)) }
       def stripe_balance; end
       # Attribute for field swish
-      sig { returns(Swish) }
+      sig { returns(T.nilable(Swish)) }
       def swish; end
       # Attribute for field twint
-      sig { returns(Twint) }
+      sig { returns(T.nilable(Twint)) }
       def twint; end
       # The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
       # An additional hash is included on `payment_method_details` with a name matching this value.
@@ -1633,16 +1633,16 @@ module Stripe
       sig { returns(String) }
       def type; end
       # Attribute for field us_bank_account
-      sig { returns(UsBankAccount) }
+      sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
       # Attribute for field wechat
-      sig { returns(Wechat) }
+      sig { returns(T.nilable(Wechat)) }
       def wechat; end
       # Attribute for field wechat_pay
-      sig { returns(WechatPay) }
+      sig { returns(T.nilable(WechatPay)) }
       def wechat_pay; end
       # Attribute for field zip
-      sig { returns(Zip) }
+      sig { returns(T.nilable(Zip)) }
       def zip; end
     end
     class PresentmentDetails < Stripe::StripeObject
@@ -1655,7 +1655,7 @@ module Stripe
     end
     class RadarOptions < Stripe::StripeObject
       # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def session; end
     end
     class Shipping < Stripe::StripeObject
@@ -1680,13 +1680,13 @@ module Stripe
         def state; end
       end
       # Attribute for field address
-      sig { returns(Address) }
+      sig { returns(T.nilable(Address)) }
       def address; end
       # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
       sig { returns(T.nilable(String)) }
       def carrier; end
       # Recipient name.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def name; end
       # Recipient phone (including extension).
       sig { returns(T.nilable(String)) }
@@ -1722,7 +1722,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def application_fee_amount; end
     # Authorization code on the charge.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def authorization_code; end
     # ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes).
     sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
@@ -1767,7 +1767,7 @@ module Stripe
     sig { returns(String) }
     def id; end
     # Attribute for field level3
-    sig { returns(Level3) }
+    sig { returns(T.nilable(Level3)) }
     def level3; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
@@ -1797,10 +1797,10 @@ module Stripe
     sig { returns(T.nilable(PaymentMethodDetails)) }
     def payment_method_details; end
     # Attribute for field presentment_details
-    sig { returns(PresentmentDetails) }
+    sig { returns(T.nilable(PresentmentDetails)) }
     def presentment_details; end
     # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
-    sig { returns(RadarOptions) }
+    sig { returns(T.nilable(RadarOptions)) }
     def radar_options; end
     # This is the email address that the receipt for this charge was sent to.
     sig { returns(T.nilable(String)) }
@@ -1843,7 +1843,7 @@ module Stripe
     sig { returns(String) }
     def status; end
     # ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter).
-    sig { returns(T.any(String, Stripe::Transfer)) }
+    sig { returns(T.nilable(T.any(String, Stripe::Transfer))) }
     def transfer; end
     # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
     sig { returns(T.nilable(TransferData)) }

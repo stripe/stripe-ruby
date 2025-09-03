@@ -179,7 +179,7 @@ module Stripe
       sig { returns(String) }
       def currency; end
       # The card's CVC. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def cvc; end
       # The expiration month of the card.
       sig { returns(Integer) }
@@ -203,7 +203,7 @@ module Stripe
       sig { returns(T::Hash[String, String]) }
       def metadata; end
       # The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def number; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }

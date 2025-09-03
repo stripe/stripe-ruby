@@ -9,16 +9,24 @@ module Stripe
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :gt
+          def gt; end
+          sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def gt=(_gt); end
           # Minimum value to filter by (inclusive)
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :gte
+          def gte; end
+          sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def gte=(_gte); end
           # Maximum value to filter by (exclusive)
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :lt
+          def lt; end
+          sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def lt=(_lt); end
           # Maximum value to filter by (inclusive)
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :lte
+          def lte; end
+          sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def lte=(_lte); end
           sig {
             params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
            }
@@ -28,31 +36,51 @@ module Stripe
         sig {
           returns(T.nilable(T.any(::Stripe::Issuing::CardholderService::ListParams::Created, Integer)))
          }
-        attr_accessor :created
+        def created; end
+        sig {
+          params(_created: T.nilable(T.any(::Stripe::Issuing::CardholderService::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::Issuing::CardholderService::ListParams::Created, Integer)))
+         }
+        def created=(_created); end
         # Only return cardholders that have the given email address.
         sig { returns(T.nilable(String)) }
-        attr_accessor :email
+        def email; end
+        sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+        def email=(_email); end
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(T.nilable(String)) }
-        attr_accessor :ending_before
+        def ending_before; end
+        sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+        def ending_before=(_ending_before); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :limit
+        def limit; end
+        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def limit=(_limit); end
         # Only return cardholders that have the given phone number.
         sig { returns(T.nilable(String)) }
-        attr_accessor :phone_number
+        def phone_number; end
+        sig { params(_phone_number: T.nilable(String)).returns(T.nilable(String)) }
+        def phone_number=(_phone_number); end
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(T.nilable(String)) }
-        attr_accessor :starting_after
+        def starting_after; end
+        sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+        def starting_after=(_starting_after); end
         # Only return cardholders that have the given status. One of `active`, `inactive`, or `blocked`.
         sig { returns(T.nilable(String)) }
-        attr_accessor :status
+        def status; end
+        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+        def status=(_status); end
         # Only return cardholders that have the given type. One of `individual` or `company`.
         sig { returns(T.nilable(String)) }
-        attr_accessor :type
+        def type; end
+        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+        def type=(_type); end
         sig {
           params(created: T.nilable(T.any(::Stripe::Issuing::CardholderService::ListParams::Created, Integer)), email: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), phone_number: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String)).void
          }
@@ -73,22 +101,34 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(String) }
-            attr_accessor :city
+            def city; end
+            sig { params(_city: String).returns(String) }
+            def city=(_city); end
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(String) }
-            attr_accessor :country
+            def country; end
+            sig { params(_country: String).returns(String) }
+            def country=(_country); end
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(String) }
-            attr_accessor :line1
+            def line1; end
+            sig { params(_line1: String).returns(String) }
+            def line1=(_line1); end
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            attr_accessor :line2
+            def line2; end
+            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+            def line2=(_line2); end
             # ZIP or postal code.
             sig { returns(String) }
-            attr_accessor :postal_code
+            def postal_code; end
+            sig { params(_postal_code: String).returns(String) }
+            def postal_code=(_postal_code); end
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            attr_accessor :state
+            def state; end
+            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+            def state=(_state); end
             sig {
               params(city: String, country: String, line1: String, line2: T.nilable(String), postal_code: String, state: T.nilable(String)).void
              }
@@ -103,7 +143,11 @@ module Stripe
           end
           # The cardholder’s billing address.
           sig { returns(::Stripe::Issuing::CardholderService::CreateParams::Billing::Address) }
-          attr_accessor :address
+          def address; end
+          sig {
+            params(_address: ::Stripe::Issuing::CardholderService::CreateParams::Billing::Address).returns(::Stripe::Issuing::CardholderService::CreateParams::Billing::Address)
+           }
+          def address=(_address); end
           sig {
             params(address: ::Stripe::Issuing::CardholderService::CreateParams::Billing::Address).void
            }
@@ -112,7 +156,9 @@ module Stripe
         class Company < Stripe::RequestParams
           # The entity's business ID number.
           sig { returns(T.nilable(String)) }
-          attr_accessor :tax_id
+          def tax_id; end
+          sig { params(_tax_id: T.nilable(String)).returns(T.nilable(String)) }
+          def tax_id=(_tax_id); end
           sig { params(tax_id: T.nilable(String)).void }
           def initialize(tax_id: nil); end
         end
@@ -121,13 +167,19 @@ module Stripe
             class UserTermsAcceptance < Stripe::RequestParams
               # The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :date
+              def date; end
+              sig { params(_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def date=(_date); end
               # The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
               sig { returns(T.nilable(String)) }
-              attr_accessor :ip
+              def ip; end
+              sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+              def ip=(_ip); end
               # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
               sig { returns(T.nilable(String)) }
-              attr_accessor :user_agent
+              def user_agent; end
+              sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+              def user_agent=(_user_agent); end
               sig {
                 params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
                }
@@ -137,7 +189,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::CardIssuing::UserTermsAcceptance))
              }
-            attr_accessor :user_terms_acceptance
+            def user_terms_acceptance; end
+            sig {
+              params(_user_terms_acceptance: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::CardIssuing::UserTermsAcceptance)).returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::CardIssuing::UserTermsAcceptance))
+             }
+            def user_terms_acceptance=(_user_terms_acceptance); end
             sig {
               params(user_terms_acceptance: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::CardIssuing::UserTermsAcceptance)).void
              }
@@ -146,13 +202,19 @@ module Stripe
           class Dob < Stripe::RequestParams
             # The day of birth, between 1 and 31.
             sig { returns(Integer) }
-            attr_accessor :day
+            def day; end
+            sig { params(_day: Integer).returns(Integer) }
+            def day=(_day); end
             # The month of birth, between 1 and 12.
             sig { returns(Integer) }
-            attr_accessor :month
+            def month; end
+            sig { params(_month: Integer).returns(Integer) }
+            def month=(_month); end
             # The four-digit year of birth.
             sig { returns(Integer) }
-            attr_accessor :year
+            def year; end
+            sig { params(_year: Integer).returns(Integer) }
+            def year=(_year); end
             sig { params(day: Integer, month: Integer, year: Integer).void }
             def initialize(day: nil, month: nil, year: nil); end
           end
@@ -160,10 +222,14 @@ module Stripe
             class Document < Stripe::RequestParams
               # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
               sig { returns(T.nilable(String)) }
-              attr_accessor :back
+              def back; end
+              sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
+              def back=(_back); end
               # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
               sig { returns(T.nilable(String)) }
-              attr_accessor :front
+              def front; end
+              sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
+              def front=(_front); end
               sig { params(back: T.nilable(String), front: T.nilable(String)).void }
               def initialize(back: nil, front: nil); end
             end
@@ -171,7 +237,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Verification::Document))
              }
-            attr_accessor :document
+            def document; end
+            sig {
+              params(_document: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Verification::Document)).returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Verification::Document))
+             }
+            def document=(_document); end
             sig {
               params(document: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Verification::Document)).void
              }
@@ -181,23 +251,39 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::CardIssuing))
            }
-          attr_accessor :card_issuing
+          def card_issuing; end
+          sig {
+            params(_card_issuing: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::CardIssuing)).returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::CardIssuing))
+           }
+          def card_issuing=(_card_issuing); end
           # The date of birth of this cardholder. Cardholders must be older than 13 years old.
           sig {
             returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Dob))
            }
-          attr_accessor :dob
+          def dob; end
+          sig {
+            params(_dob: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Dob)).returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Dob))
+           }
+          def dob=(_dob); end
           # The first name of this cardholder. Required before activating Cards. This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
           sig { returns(T.nilable(String)) }
-          attr_accessor :first_name
+          def first_name; end
+          sig { params(_first_name: T.nilable(String)).returns(T.nilable(String)) }
+          def first_name=(_first_name); end
           # The last name of this cardholder. Required before activating Cards. This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
           sig { returns(T.nilable(String)) }
-          attr_accessor :last_name
+          def last_name; end
+          sig { params(_last_name: T.nilable(String)).returns(T.nilable(String)) }
+          def last_name=(_last_name); end
           # Government-issued ID document for this cardholder.
           sig {
             returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Verification))
            }
-          attr_accessor :verification
+          def verification; end
+          sig {
+            params(_verification: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Verification)).returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Verification))
+           }
+          def verification=(_verification); end
           sig {
             params(card_issuing: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::CardIssuing), dob: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Dob), first_name: T.nilable(String), last_name: T.nilable(String), verification: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual::Verification)).void
            }
@@ -213,13 +299,21 @@ module Stripe
           class SpendingLimit < Stripe::RequestParams
             # Maximum amount allowed to spend per interval.
             sig { returns(Integer) }
-            attr_accessor :amount
+            def amount; end
+            sig { params(_amount: Integer).returns(Integer) }
+            def amount=(_amount); end
             # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
             sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :categories
+            def categories; end
+            sig {
+              params(_categories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def categories=(_categories); end
             # Interval (or event) to which the amount applies.
             sig { returns(String) }
-            attr_accessor :interval
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
             sig {
               params(amount: Integer, categories: T.nilable(T::Array[String]), interval: String).void
              }
@@ -227,24 +321,46 @@ module Stripe
           end
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :allowed_categories
+          def allowed_categories; end
+          sig {
+            params(_allowed_categories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def allowed_categories=(_allowed_categories); end
           # Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :allowed_merchant_countries
+          def allowed_merchant_countries; end
+          sig {
+            params(_allowed_merchant_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def allowed_merchant_countries=(_allowed_merchant_countries); end
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :blocked_categories
+          def blocked_categories; end
+          sig {
+            params(_blocked_categories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def blocked_categories=(_blocked_categories); end
           # Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :blocked_merchant_countries
+          def blocked_merchant_countries; end
+          sig {
+            params(_blocked_merchant_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def blocked_merchant_countries=(_blocked_merchant_countries); end
           # Limit spending with amount-based rules that apply across this cardholder's cards.
           sig {
             returns(T.nilable(T::Array[::Stripe::Issuing::CardholderService::CreateParams::SpendingControls::SpendingLimit]))
            }
-          attr_accessor :spending_limits
+          def spending_limits; end
+          sig {
+            params(_spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardholderService::CreateParams::SpendingControls::SpendingLimit])).returns(T.nilable(T::Array[::Stripe::Issuing::CardholderService::CreateParams::SpendingControls::SpendingLimit]))
+           }
+          def spending_limits=(_spending_limits); end
           # Currency of amounts within `spending_limits`. Defaults to your merchant country's currency.
           sig { returns(T.nilable(String)) }
-          attr_accessor :spending_limits_currency
+          def spending_limits_currency; end
+          sig { params(_spending_limits_currency: T.nilable(String)).returns(T.nilable(String)) }
+          def spending_limits_currency=(_spending_limits_currency); end
           sig {
             params(allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardholderService::CreateParams::SpendingControls::SpendingLimit]), spending_limits_currency: T.nilable(String)).void
            }
@@ -259,43 +375,79 @@ module Stripe
         end
         # The cardholder's billing address.
         sig { returns(::Stripe::Issuing::CardholderService::CreateParams::Billing) }
-        attr_accessor :billing
+        def billing; end
+        sig {
+          params(_billing: ::Stripe::Issuing::CardholderService::CreateParams::Billing).returns(::Stripe::Issuing::CardholderService::CreateParams::Billing)
+         }
+        def billing=(_billing); end
         # Additional information about a `company` cardholder.
         sig { returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Company)) }
-        attr_accessor :company
+        def company; end
+        sig {
+          params(_company: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Company)).returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Company))
+         }
+        def company=(_company); end
         # The cardholder's email address.
         sig { returns(T.nilable(String)) }
-        attr_accessor :email
+        def email; end
+        sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+        def email=(_email); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # Additional information about an `individual` cardholder.
         sig { returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual)) }
-        attr_accessor :individual
+        def individual; end
+        sig {
+          params(_individual: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual)).returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual))
+         }
+        def individual=(_individual); end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_accessor :metadata
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def metadata=(_metadata); end
         # The cardholder's name. This will be printed on cards issued to them. The maximum length of this field is 24 characters. This field cannot contain any special characters or numbers.
         sig { returns(String) }
-        attr_accessor :name
+        def name; end
+        sig { params(_name: String).returns(String) }
+        def name=(_name); end
         # The cardholder's phone number. This will be transformed to [E.164](https://en.wikipedia.org/wiki/E.164) if it is not provided in that format already. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure#when-is-3d-secure-applied) for more details.
         sig { returns(T.nilable(String)) }
-        attr_accessor :phone_number
+        def phone_number; end
+        sig { params(_phone_number: T.nilable(String)).returns(T.nilable(String)) }
+        def phone_number=(_phone_number); end
         # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
         #  This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :preferred_locales
+        def preferred_locales; end
+        sig {
+          params(_preferred_locales: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def preferred_locales=(_preferred_locales); end
         # Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
         sig {
           returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::SpendingControls))
          }
-        attr_accessor :spending_controls
+        def spending_controls; end
+        sig {
+          params(_spending_controls: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::SpendingControls)).returns(T.nilable(::Stripe::Issuing::CardholderService::CreateParams::SpendingControls))
+         }
+        def spending_controls=(_spending_controls); end
         # Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`.
         sig { returns(T.nilable(String)) }
-        attr_accessor :status
+        def status; end
+        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+        def status=(_status); end
         # One of `individual` or `company`. See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details.
         sig { returns(T.nilable(String)) }
-        attr_accessor :type
+        def type; end
+        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+        def type=(_type); end
         sig {
           params(billing: ::Stripe::Issuing::CardholderService::CreateParams::Billing, company: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Company), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::Individual), metadata: T.nilable(T::Hash[String, String]), name: String, phone_number: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), spending_controls: T.nilable(::Stripe::Issuing::CardholderService::CreateParams::SpendingControls), status: T.nilable(String), type: T.nilable(String)).void
          }
@@ -317,7 +469,9 @@ module Stripe
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
@@ -326,22 +480,34 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(String) }
-            attr_accessor :city
+            def city; end
+            sig { params(_city: String).returns(String) }
+            def city=(_city); end
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(String) }
-            attr_accessor :country
+            def country; end
+            sig { params(_country: String).returns(String) }
+            def country=(_country); end
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(String) }
-            attr_accessor :line1
+            def line1; end
+            sig { params(_line1: String).returns(String) }
+            def line1=(_line1); end
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(T.nilable(String)) }
-            attr_accessor :line2
+            def line2; end
+            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+            def line2=(_line2); end
             # ZIP or postal code.
             sig { returns(String) }
-            attr_accessor :postal_code
+            def postal_code; end
+            sig { params(_postal_code: String).returns(String) }
+            def postal_code=(_postal_code); end
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
-            attr_accessor :state
+            def state; end
+            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+            def state=(_state); end
             sig {
               params(city: String, country: String, line1: String, line2: T.nilable(String), postal_code: String, state: T.nilable(String)).void
              }
@@ -356,7 +522,11 @@ module Stripe
           end
           # The cardholder’s billing address.
           sig { returns(::Stripe::Issuing::CardholderService::UpdateParams::Billing::Address) }
-          attr_accessor :address
+          def address; end
+          sig {
+            params(_address: ::Stripe::Issuing::CardholderService::UpdateParams::Billing::Address).returns(::Stripe::Issuing::CardholderService::UpdateParams::Billing::Address)
+           }
+          def address=(_address); end
           sig {
             params(address: ::Stripe::Issuing::CardholderService::UpdateParams::Billing::Address).void
            }
@@ -365,7 +535,9 @@ module Stripe
         class Company < Stripe::RequestParams
           # The entity's business ID number.
           sig { returns(T.nilable(String)) }
-          attr_accessor :tax_id
+          def tax_id; end
+          sig { params(_tax_id: T.nilable(String)).returns(T.nilable(String)) }
+          def tax_id=(_tax_id); end
           sig { params(tax_id: T.nilable(String)).void }
           def initialize(tax_id: nil); end
         end
@@ -374,13 +546,19 @@ module Stripe
             class UserTermsAcceptance < Stripe::RequestParams
               # The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :date
+              def date; end
+              sig { params(_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def date=(_date); end
               # The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
               sig { returns(T.nilable(String)) }
-              attr_accessor :ip
+              def ip; end
+              sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+              def ip=(_ip); end
               # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
               sig { returns(T.nilable(String)) }
-              attr_accessor :user_agent
+              def user_agent; end
+              sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+              def user_agent=(_user_agent); end
               sig {
                 params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
                }
@@ -390,7 +568,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::CardIssuing::UserTermsAcceptance))
              }
-            attr_accessor :user_terms_acceptance
+            def user_terms_acceptance; end
+            sig {
+              params(_user_terms_acceptance: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::CardIssuing::UserTermsAcceptance)).returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::CardIssuing::UserTermsAcceptance))
+             }
+            def user_terms_acceptance=(_user_terms_acceptance); end
             sig {
               params(user_terms_acceptance: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::CardIssuing::UserTermsAcceptance)).void
              }
@@ -399,13 +581,19 @@ module Stripe
           class Dob < Stripe::RequestParams
             # The day of birth, between 1 and 31.
             sig { returns(Integer) }
-            attr_accessor :day
+            def day; end
+            sig { params(_day: Integer).returns(Integer) }
+            def day=(_day); end
             # The month of birth, between 1 and 12.
             sig { returns(Integer) }
-            attr_accessor :month
+            def month; end
+            sig { params(_month: Integer).returns(Integer) }
+            def month=(_month); end
             # The four-digit year of birth.
             sig { returns(Integer) }
-            attr_accessor :year
+            def year; end
+            sig { params(_year: Integer).returns(Integer) }
+            def year=(_year); end
             sig { params(day: Integer, month: Integer, year: Integer).void }
             def initialize(day: nil, month: nil, year: nil); end
           end
@@ -413,10 +601,14 @@ module Stripe
             class Document < Stripe::RequestParams
               # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
               sig { returns(T.nilable(String)) }
-              attr_accessor :back
+              def back; end
+              sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
+              def back=(_back); end
               # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
               sig { returns(T.nilable(String)) }
-              attr_accessor :front
+              def front; end
+              sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
+              def front=(_front); end
               sig { params(back: T.nilable(String), front: T.nilable(String)).void }
               def initialize(back: nil, front: nil); end
             end
@@ -424,7 +616,11 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Verification::Document))
              }
-            attr_accessor :document
+            def document; end
+            sig {
+              params(_document: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Verification::Document)).returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Verification::Document))
+             }
+            def document=(_document); end
             sig {
               params(document: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Verification::Document)).void
              }
@@ -434,23 +630,39 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::CardIssuing))
            }
-          attr_accessor :card_issuing
+          def card_issuing; end
+          sig {
+            params(_card_issuing: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::CardIssuing)).returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::CardIssuing))
+           }
+          def card_issuing=(_card_issuing); end
           # The date of birth of this cardholder. Cardholders must be older than 13 years old.
           sig {
             returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Dob))
            }
-          attr_accessor :dob
+          def dob; end
+          sig {
+            params(_dob: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Dob)).returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Dob))
+           }
+          def dob=(_dob); end
           # The first name of this cardholder. Required before activating Cards. This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
           sig { returns(T.nilable(String)) }
-          attr_accessor :first_name
+          def first_name; end
+          sig { params(_first_name: T.nilable(String)).returns(T.nilable(String)) }
+          def first_name=(_first_name); end
           # The last name of this cardholder. Required before activating Cards. This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
           sig { returns(T.nilable(String)) }
-          attr_accessor :last_name
+          def last_name; end
+          sig { params(_last_name: T.nilable(String)).returns(T.nilable(String)) }
+          def last_name=(_last_name); end
           # Government-issued ID document for this cardholder.
           sig {
             returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Verification))
            }
-          attr_accessor :verification
+          def verification; end
+          sig {
+            params(_verification: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Verification)).returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Verification))
+           }
+          def verification=(_verification); end
           sig {
             params(card_issuing: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::CardIssuing), dob: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Dob), first_name: T.nilable(String), last_name: T.nilable(String), verification: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual::Verification)).void
            }
@@ -466,13 +678,21 @@ module Stripe
           class SpendingLimit < Stripe::RequestParams
             # Maximum amount allowed to spend per interval.
             sig { returns(Integer) }
-            attr_accessor :amount
+            def amount; end
+            sig { params(_amount: Integer).returns(Integer) }
+            def amount=(_amount); end
             # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
             sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :categories
+            def categories; end
+            sig {
+              params(_categories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def categories=(_categories); end
             # Interval (or event) to which the amount applies.
             sig { returns(String) }
-            attr_accessor :interval
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
             sig {
               params(amount: Integer, categories: T.nilable(T::Array[String]), interval: String).void
              }
@@ -480,24 +700,46 @@ module Stripe
           end
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :allowed_categories
+          def allowed_categories; end
+          sig {
+            params(_allowed_categories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def allowed_categories=(_allowed_categories); end
           # Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :allowed_merchant_countries
+          def allowed_merchant_countries; end
+          sig {
+            params(_allowed_merchant_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def allowed_merchant_countries=(_allowed_merchant_countries); end
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :blocked_categories
+          def blocked_categories; end
+          sig {
+            params(_blocked_categories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def blocked_categories=(_blocked_categories); end
           # Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :blocked_merchant_countries
+          def blocked_merchant_countries; end
+          sig {
+            params(_blocked_merchant_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def blocked_merchant_countries=(_blocked_merchant_countries); end
           # Limit spending with amount-based rules that apply across this cardholder's cards.
           sig {
             returns(T.nilable(T::Array[::Stripe::Issuing::CardholderService::UpdateParams::SpendingControls::SpendingLimit]))
            }
-          attr_accessor :spending_limits
+          def spending_limits; end
+          sig {
+            params(_spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardholderService::UpdateParams::SpendingControls::SpendingLimit])).returns(T.nilable(T::Array[::Stripe::Issuing::CardholderService::UpdateParams::SpendingControls::SpendingLimit]))
+           }
+          def spending_limits=(_spending_limits); end
           # Currency of amounts within `spending_limits`. Defaults to your merchant country's currency.
           sig { returns(T.nilable(String)) }
-          attr_accessor :spending_limits_currency
+          def spending_limits_currency; end
+          sig { params(_spending_limits_currency: T.nilable(String)).returns(T.nilable(String)) }
+          def spending_limits_currency=(_spending_limits_currency); end
           sig {
             params(allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardholderService::UpdateParams::SpendingControls::SpendingLimit]), spending_limits_currency: T.nilable(String)).void
            }
@@ -512,37 +754,69 @@ module Stripe
         end
         # The cardholder's billing address.
         sig { returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Billing)) }
-        attr_accessor :billing
+        def billing; end
+        sig {
+          params(_billing: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Billing)).returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Billing))
+         }
+        def billing=(_billing); end
         # Additional information about a `company` cardholder.
         sig { returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Company)) }
-        attr_accessor :company
+        def company; end
+        sig {
+          params(_company: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Company)).returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Company))
+         }
+        def company=(_company); end
         # The cardholder's email address.
         sig { returns(T.nilable(String)) }
-        attr_accessor :email
+        def email; end
+        sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
+        def email=(_email); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
+        def expand; end
+        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def expand=(_expand); end
         # Additional information about an `individual` cardholder.
         sig { returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual)) }
-        attr_accessor :individual
+        def individual; end
+        sig {
+          params(_individual: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual)).returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual))
+         }
+        def individual=(_individual); end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_accessor :metadata
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def metadata=(_metadata); end
         # The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure) for more details.
         sig { returns(T.nilable(String)) }
-        attr_accessor :phone_number
+        def phone_number; end
+        sig { params(_phone_number: T.nilable(String)).returns(T.nilable(String)) }
+        def phone_number=(_phone_number); end
         # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
         #  This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
         sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :preferred_locales
+        def preferred_locales; end
+        sig {
+          params(_preferred_locales: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def preferred_locales=(_preferred_locales); end
         # Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
         sig {
           returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::SpendingControls))
          }
-        attr_accessor :spending_controls
+        def spending_controls; end
+        sig {
+          params(_spending_controls: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::SpendingControls)).returns(T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::SpendingControls))
+         }
+        def spending_controls=(_spending_controls); end
         # Specifies whether to permit authorizations on this cardholder's cards.
         sig { returns(T.nilable(String)) }
-        attr_accessor :status
+        def status; end
+        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+        def status=(_status); end
         sig {
           params(billing: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Billing), company: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Company), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::Individual), metadata: T.nilable(T::Hash[String, String]), phone_number: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), spending_controls: T.nilable(::Stripe::Issuing::CardholderService::UpdateParams::SpendingControls), status: T.nilable(String)).void
          }

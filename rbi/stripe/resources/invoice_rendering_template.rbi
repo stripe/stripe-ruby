@@ -8,44 +8,54 @@ module Stripe
   class InvoiceRenderingTemplate < APIResource
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    attr_reader :created
+    def created; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
-    attr_reader :metadata
+    def metadata; end
     # A brief description of the template, hidden from customers
     sig { returns(T.nilable(String)) }
-    attr_reader :nickname
+    def nickname; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # The status of the template, one of `active` or `archived`.
     sig { returns(String) }
-    attr_reader :status
+    def status; end
     # Version of this template; version increases by one when an update on the template changes any field that controls invoice rendering
     sig { returns(Integer) }
-    attr_reader :version
+    def version; end
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :ending_before
+      def ending_before; end
+      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+      def ending_before=(_ending_before); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      attr_accessor :limit
+      def limit; end
+      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def limit=(_limit); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :starting_after
+      def starting_after; end
+      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+      def starting_after=(_starting_after); end
       # Attribute for param field status
       sig { returns(T.nilable(String)) }
-      attr_accessor :status
+      def status; end
+      sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+      def status=(_status); end
       sig {
         params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
        }
@@ -60,14 +70,18 @@ module Stripe
     class ArchiveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     class UnarchiveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end

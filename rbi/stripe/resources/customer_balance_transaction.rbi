@@ -12,45 +12,45 @@ module Stripe
   class CustomerBalanceTransaction < APIResource
     # The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`.
     sig { returns(Integer) }
-    attr_reader :amount
+    def amount; end
     # The ID of the checkout session (if any) that created the transaction.
     sig { returns(T.nilable(T.any(String, Stripe::Checkout::Session))) }
-    attr_reader :checkout_session
+    def checkout_session; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    attr_reader :created
+    def created; end
     # The ID of the credit note (if any) related to the transaction.
     sig { returns(T.nilable(T.any(String, Stripe::CreditNote))) }
-    attr_reader :credit_note
+    def credit_note; end
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
-    attr_reader :currency
+    def currency; end
     # The ID of the customer the transaction belongs to.
     sig { returns(T.any(String, Stripe::Customer)) }
-    attr_reader :customer
+    def customer; end
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
-    attr_reader :description
+    def description; end
     # The customer's `balance` after the transaction was applied. A negative value decreases the amount due on the customer's next invoice. A positive value increases the amount due on the customer's next invoice.
     sig { returns(Integer) }
-    attr_reader :ending_balance
+    def ending_balance; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # The ID of the invoice (if any) related to the transaction.
     sig { returns(T.nilable(T.any(String, Stripe::Invoice))) }
-    attr_reader :invoice
+    def invoice; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
-    attr_reader :metadata
+    def metadata; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, `unapplied_from_invoice`, `checkout_session_subscription_payment`, or `checkout_session_subscription_payment_canceled`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
     sig { returns(String) }
-    attr_reader :type
+    def type; end
   end
 end

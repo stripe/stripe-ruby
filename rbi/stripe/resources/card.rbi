@@ -66,7 +66,7 @@ module Stripe
     sig { returns(T.nilable(T::Boolean)) }
     def default_for_currency; end
     # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def description; end
     # (For tokenized numbers only.) The last four digits of the device account number.
     sig { returns(T.nilable(String)) }
@@ -89,10 +89,10 @@ module Stripe
     sig { returns(String) }
     def id; end
     # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def iin; end
     # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def issuer; end
     # The last four digits of the card.
     sig { returns(String) }
@@ -104,7 +104,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def name; end
     # Attribute for field networks
-    sig { returns(Networks) }
+    sig { returns(T.nilable(Networks)) }
     def networks; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
@@ -119,7 +119,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def tokenization_method; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
   end
 end

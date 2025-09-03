@@ -39,7 +39,7 @@ module Stripe
     class AutomaticTax < Stripe::StripeObject
       class Liability < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -119,13 +119,13 @@ module Stripe
         def state; end
       end
       # Attribute for field address
-      sig { returns(Address) }
+      sig { returns(T.nilable(Address)) }
       def address; end
       # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
       sig { returns(T.nilable(String)) }
       def carrier; end
       # Recipient name.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def name; end
       # Recipient phone (including extension).
       sig { returns(T.nilable(String)) }
@@ -152,7 +152,7 @@ module Stripe
     end
     class Issuer < Stripe::StripeObject
       # The connected account being referenced when `type` is `account`.
-      sig { returns(T.any(String, Stripe::Account)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Account))) }
       def account; end
       # Type of the account referenced.
       sig { returns(String) }
@@ -160,31 +160,31 @@ module Stripe
     end
     class LastFinalizationError < Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def advice_code; end
       # For card errors, the ID of the failed charge.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def charge; end
       # For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def code; end
       # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def decline_code; end
       # A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def doc_url; end
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def message; end
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def network_advice_code; end
       # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def network_decline_code; end
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def param; end
       # A PaymentIntent guides you through the process of collecting a payment from your customer.
       # We recommend that you create exactly one PaymentIntent for each order or
@@ -197,20 +197,20 @@ module Stripe
       # authentication flows and ultimately creates at most one successful charge.
       #
       # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
-      sig { returns(Stripe::PaymentIntent) }
+      sig { returns(T.nilable(Stripe::PaymentIntent)) }
       def payment_intent; end
       # PaymentMethod objects represent your customer's payment instruments.
       # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
       # Customer objects to store instrument details for future payments.
       #
       # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
-      sig { returns(Stripe::PaymentMethod) }
+      sig { returns(T.nilable(Stripe::PaymentMethod)) }
       def payment_method; end
       # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def payment_method_type; end
       # A URL to the request log entry in your dashboard.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def request_log_url; end
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
@@ -233,10 +233,12 @@ module Stripe
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
       #
       # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
-      sig { returns(Stripe::SetupIntent) }
+      sig { returns(T.nilable(Stripe::SetupIntent)) }
       def setup_intent; end
       # Attribute for field source
-      sig { returns(T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source)) }
+      sig {
+        returns(T.nilable(T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source)))
+       }
       def source; end
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
       sig { returns(String) }
@@ -257,7 +259,7 @@ module Stripe
         sig { returns(T.any(String, Stripe::Subscription)) }
         def subscription; end
         # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def subscription_proration_date; end
       end
       # Details about the quote that generated this invoice
@@ -279,10 +281,10 @@ module Stripe
             def transaction_type; end
           end
           # Attribute for field mandate_options
-          sig { returns(MandateOptions) }
+          sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
           # Bank account verification method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def verification_method; end
         end
         class Bancontact < Stripe::StripeObject
@@ -297,7 +299,7 @@ module Stripe
             def enabled; end
           end
           # Attribute for field installments
-          sig { returns(Installments) }
+          sig { returns(T.nilable(Installments)) }
           def installments; end
           # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           sig { returns(T.nilable(String)) }
@@ -311,14 +313,14 @@ module Stripe
               def country; end
             end
             # Attribute for field eu_bank_transfer
-            sig { returns(EuBankTransfer) }
+            sig { returns(T.nilable(EuBankTransfer)) }
             def eu_bank_transfer; end
             # The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
             sig { returns(T.nilable(String)) }
             def type; end
           end
           # Attribute for field bank_transfer
-          sig { returns(BankTransfer) }
+          sig { returns(T.nilable(BankTransfer)) }
           def bank_transfer; end
           # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
           sig { returns(T.nilable(String)) }
@@ -330,24 +332,24 @@ module Stripe
           class FinancialConnections < Stripe::StripeObject
             class Filters < Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
-              sig { returns(T::Array[String]) }
+              sig { returns(T.nilable(T::Array[String])) }
               def account_subcategories; end
             end
             # Attribute for field filters
-            sig { returns(Filters) }
+            sig { returns(T.nilable(Filters)) }
             def filters; end
             # The list of permissions to request. The `payment_method` permission must be included.
-            sig { returns(T::Array[String]) }
+            sig { returns(T.nilable(T::Array[String])) }
             def permissions; end
             # Data features requested to be retrieved upon account creation.
             sig { returns(T.nilable(T::Array[String])) }
             def prefetch; end
           end
           # Attribute for field financial_connections
-          sig { returns(FinancialConnections) }
+          sig { returns(T.nilable(FinancialConnections)) }
           def financial_connections; end
           # Bank account verification method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def verification_method; end
         end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
@@ -431,7 +433,7 @@ module Stripe
       sig { returns(T.nilable(T.any(String, Stripe::ShippingRate))) }
       def shipping_rate; end
       # The taxes applied to the shipping rate.
-      sig { returns(T::Array[Tax]) }
+      sig { returns(T.nilable(T::Array[Tax])) }
       def taxes; end
     end
     class ShippingDetails < Stripe::StripeObject
@@ -456,13 +458,13 @@ module Stripe
         def state; end
       end
       # Attribute for field address
-      sig { returns(Address) }
+      sig { returns(T.nilable(Address)) }
       def address; end
       # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
       sig { returns(T.nilable(String)) }
       def carrier; end
       # Recipient name.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def name; end
       # Recipient phone (including extension).
       sig { returns(T.nilable(String)) }
@@ -517,7 +519,7 @@ module Stripe
       sig { returns(T.nilable(T.any(String, Stripe::Billing::CreditBalanceTransaction))) }
       def credit_balance_transaction; end
       # The discount that was applied to get this pretax credit amount.
-      sig { returns(T.any(String, Stripe::Discount)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Discount))) }
       def discount; end
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
@@ -582,7 +584,7 @@ module Stripe
     sig { returns(T::Boolean) }
     def attempted; end
     # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def auto_advance; end
     # Attribute for field automatic_tax
     sig { returns(AutomaticTax) }
@@ -676,7 +678,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def hosted_invoice_url; end
     # Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def id; end
     # The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
     sig { returns(T.nilable(String)) }
@@ -718,7 +720,7 @@ module Stripe
     sig { returns(PaymentSettings) }
     def payment_settings; end
     # Payments for this invoice
-    sig { returns(Stripe::ListObject) }
+    sig { returns(T.nilable(Stripe::ListObject)) }
     def payments; end
     # End of the usage period during which invoice items were added to this invoice. This looks back one period for a subscription invoice. Use the [line item period](/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
     sig { returns(Integer) }
@@ -766,7 +768,7 @@ module Stripe
     sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
     def test_clock; end
     # Attribute for field threshold_reason
-    sig { returns(ThresholdReason) }
+    sig { returns(T.nilable(ThresholdReason)) }
     def threshold_reason; end
     # Total after discounts and taxes.
     sig { returns(Integer) }
@@ -787,7 +789,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def webhooks_delivered_at; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams

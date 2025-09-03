@@ -146,31 +146,31 @@ module Stripe
           def received_at; end
         end
         # Attribute for field canceled
-        sig { returns(Canceled) }
+        sig { returns(T.nilable(Canceled)) }
         def canceled; end
         # Attribute for field duplicate
-        sig { returns(Duplicate) }
+        sig { returns(T.nilable(Duplicate)) }
         def duplicate; end
         # Attribute for field fraudulent
-        sig { returns(Fraudulent) }
+        sig { returns(T.nilable(Fraudulent)) }
         def fraudulent; end
         # Attribute for field merchandise_not_as_described
-        sig { returns(MerchandiseNotAsDescribed) }
+        sig { returns(T.nilable(MerchandiseNotAsDescribed)) }
         def merchandise_not_as_described; end
         # Attribute for field no_valid_authorization
-        sig { returns(NoValidAuthorization) }
+        sig { returns(T.nilable(NoValidAuthorization)) }
         def no_valid_authorization; end
         # Attribute for field not_received
-        sig { returns(NotReceived) }
+        sig { returns(T.nilable(NotReceived)) }
         def not_received; end
         # Attribute for field other
-        sig { returns(Other) }
+        sig { returns(T.nilable(Other)) }
         def other; end
         # The reason for filing the dispute. Its value will match the field containing the evidence.
         sig { returns(String) }
         def reason; end
         # Attribute for field service_not_as_described
-        sig { returns(ServiceNotAsDescribed) }
+        sig { returns(T.nilable(ServiceNotAsDescribed)) }
         def service_not_as_described; end
       end
       class Treasury < Stripe::StripeObject
@@ -203,7 +203,7 @@ module Stripe
       sig { returns(T::Boolean) }
       def livemode; end
       # The enum that describes the dispute loss outcome. If the dispute is not lost, this field will be absent. New enum values may be added in the future, so be sure to handle unknown values.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def loss_reason; end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }

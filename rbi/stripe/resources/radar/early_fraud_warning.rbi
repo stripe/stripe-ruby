@@ -31,7 +31,7 @@ module Stripe
       sig { returns(String) }
       def object; end
       # ID of the Payment Intent this early fraud warning is for, optionally expanded.
-      sig { returns(T.any(String, Stripe::PaymentIntent)) }
+      sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
       def payment_intent; end
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams

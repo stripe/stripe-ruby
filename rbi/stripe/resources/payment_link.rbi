@@ -21,10 +21,10 @@ module Stripe
         def url; end
       end
       # Attribute for field hosted_confirmation
-      sig { returns(HostedConfirmation) }
+      sig { returns(T.nilable(HostedConfirmation)) }
       def hosted_confirmation; end
       # Attribute for field redirect
-      sig { returns(Redirect) }
+      sig { returns(T.nilable(Redirect)) }
       def redirect; end
       # The specified behavior after the purchase is complete.
       sig { returns(String) }
@@ -33,7 +33,7 @@ module Stripe
     class AutomaticTax < Stripe::StripeObject
       class Liability < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -112,7 +112,7 @@ module Stripe
         def minimum_length; end
       end
       # Attribute for field dropdown
-      sig { returns(Dropdown) }
+      sig { returns(T.nilable(Dropdown)) }
       def dropdown; end
       # String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
       sig { returns(String) }
@@ -121,13 +121,13 @@ module Stripe
       sig { returns(Label) }
       def label; end
       # Attribute for field numeric
-      sig { returns(Numeric) }
+      sig { returns(T.nilable(Numeric)) }
       def numeric; end
       # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
       sig { returns(T::Boolean) }
       def optional; end
       # Attribute for field text
-      sig { returns(Text) }
+      sig { returns(T.nilable(Text)) }
       def text; end
       # The type of the field.
       sig { returns(String) }
@@ -179,7 +179,7 @@ module Stripe
         end
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -302,7 +302,7 @@ module Stripe
       class InvoiceSettings < Stripe::StripeObject
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -403,7 +403,7 @@ module Stripe
     sig { returns(T.nilable(InvoiceCreation)) }
     def invoice_creation; end
     # The line items representing what is being sold.
-    sig { returns(Stripe::ListObject) }
+    sig { returns(T.nilable(Stripe::ListObject)) }
     def line_items; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }

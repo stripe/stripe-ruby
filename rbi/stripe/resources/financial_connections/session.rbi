@@ -8,10 +8,10 @@ module Stripe
     class Session < APIResource
       class AccountHolder < Stripe::StripeObject
         # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
-        sig { returns(T.any(String, Stripe::Customer)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
         def customer; end
         # Type of account holder that this account belongs to.
         sig { returns(String) }
@@ -35,7 +35,7 @@ module Stripe
       sig { returns(String) }
       def client_secret; end
       # Attribute for field filters
-      sig { returns(Filters) }
+      sig { returns(T.nilable(Filters)) }
       def filters; end
       # Unique identifier for the object.
       sig { returns(String) }
@@ -53,7 +53,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       def prefetch; end
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def return_url; end
       class CreateParams < Stripe::RequestParams
         class AccountHolder < Stripe::RequestParams

@@ -51,7 +51,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def description; end
     # The discounts applied to the line item.
-    sig { returns(T::Array[Discount]) }
+    sig { returns(T.nilable(T::Array[Discount])) }
     def discounts; end
     # Unique identifier for the object.
     sig { returns(String) }
@@ -66,7 +66,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def quantity; end
     # The taxes applied to the line item.
-    sig { returns(T::Array[Tax]) }
+    sig { returns(T.nilable(T::Array[Tax])) }
     def taxes; end
   end
 end

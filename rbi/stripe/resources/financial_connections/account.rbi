@@ -8,10 +8,10 @@ module Stripe
     class Account < APIResource
       class AccountHolder < Stripe::StripeObject
         # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
-        sig { returns(T.any(String, Stripe::Customer)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
         def customer; end
         # Type of account holder that this account belongs to.
         sig { returns(String) }
@@ -40,10 +40,10 @@ module Stripe
         sig { returns(Integer) }
         def as_of; end
         # Attribute for field cash
-        sig { returns(Cash) }
+        sig { returns(T.nilable(Cash)) }
         def cash; end
         # Attribute for field credit
-        sig { returns(Credit) }
+        sig { returns(T.nilable(Credit)) }
         def credit; end
         # The balances owed to (or by) the account holder, before subtracting any outbound pending transactions or adding any inbound pending transactions.
         #

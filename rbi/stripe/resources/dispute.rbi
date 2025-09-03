@@ -117,10 +117,10 @@ module Stripe
           def fee_acknowledged; end
         end
         # Attribute for field visa_compelling_evidence_3
-        sig { returns(VisaCompellingEvidence3) }
+        sig { returns(T.nilable(VisaCompellingEvidence3)) }
         def visa_compelling_evidence_3; end
         # Attribute for field visa_compliance
-        sig { returns(VisaCompliance) }
+        sig { returns(T.nilable(VisaCompliance)) }
         def visa_compliance; end
       end
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
@@ -224,10 +224,10 @@ module Stripe
           def status; end
         end
         # Attribute for field visa_compelling_evidence_3
-        sig { returns(VisaCompellingEvidence3) }
+        sig { returns(T.nilable(VisaCompellingEvidence3)) }
         def visa_compelling_evidence_3; end
         # Attribute for field visa_compliance
-        sig { returns(VisaCompliance) }
+        sig { returns(T.nilable(VisaCompliance)) }
         def visa_compliance; end
       end
       # Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
@@ -277,16 +277,16 @@ module Stripe
         def reason_code; end
       end
       # Attribute for field amazon_pay
-      sig { returns(AmazonPay) }
+      sig { returns(T.nilable(AmazonPay)) }
       def amazon_pay; end
       # Attribute for field card
-      sig { returns(Card) }
+      sig { returns(T.nilable(Card)) }
       def card; end
       # Attribute for field klarna
-      sig { returns(Klarna) }
+      sig { returns(T.nilable(Klarna)) }
       def klarna; end
       # Attribute for field paypal
-      sig { returns(Paypal) }
+      sig { returns(T.nilable(Paypal)) }
       def paypal; end
       # Payment method type.
       sig { returns(String) }
@@ -338,7 +338,7 @@ module Stripe
     sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
     def payment_intent; end
     # Attribute for field payment_method_details
-    sig { returns(PaymentMethodDetails) }
+    sig { returns(T.nilable(PaymentMethodDetails)) }
     def payment_method_details; end
     # Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).
     sig { returns(String) }

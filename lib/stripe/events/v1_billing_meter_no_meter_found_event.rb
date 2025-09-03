@@ -12,7 +12,7 @@ module Stripe
   end
 
   # Occurs when a Meter's id is missing or invalid in async usage events.
-  class V1BillingMeterNoMeterFoundEventNotification < Stripe::V2::EventNotification
+  class V1BillingMeterNoMeterFoundEventNotification < Stripe::EventNotification
     def self.lookup_type
       "v1.billing.meter.no_meter_found"
     end

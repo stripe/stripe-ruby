@@ -67,7 +67,9 @@ module Stripe
 
       parsed = JSON.parse(payload, symbolize_names: true)
 
-      Stripe::EventNotification.new(parsed, self)
+      cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::UnknownEventNotification)
+
+      cls.new(parsed, self)
     end
 
     def raw_request(method, url, base_address: :api, params: {}, opts: {}, usage: nil)

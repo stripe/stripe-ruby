@@ -21,7 +21,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def amount_off; end
     # Attribute for field applies_to
-    sig { returns(AppliesTo) }
+    sig { returns(T.nilable(AppliesTo)) }
     def applies_to; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -30,7 +30,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def currency; end
     # Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-    sig { returns(T::Hash[String, CurrencyOptions]) }
+    sig { returns(T.nilable(T::Hash[String, CurrencyOptions])) }
     def currency_options; end
     # One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
     sig { returns(String) }
@@ -69,7 +69,7 @@ module Stripe
     sig { returns(T::Boolean) }
     def valid; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams

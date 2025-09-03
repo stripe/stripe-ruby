@@ -16,7 +16,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def resolution; end
           # The `platform_restrictions` that are restricting this Feature.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def restriction; end
         end
         # Whether the FinancialAccount should have the Feature.
@@ -38,7 +38,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def resolution; end
           # The `platform_restrictions` that are restricting this Feature.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def restriction; end
         end
         # Whether the FinancialAccount should have the Feature.
@@ -61,7 +61,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
@@ -75,7 +75,7 @@ module Stripe
           def status_details; end
         end
         # Toggle settings for enabling/disabling the ABA address feature
-        sig { returns(Aba) }
+        sig { returns(T.nilable(Aba)) }
         def aba; end
       end
       class InboundTransfers < Stripe::StripeObject
@@ -88,7 +88,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
@@ -102,7 +102,7 @@ module Stripe
           def status_details; end
         end
         # Toggle settings for enabling/disabling an inbound ACH specific feature
-        sig { returns(Ach) }
+        sig { returns(T.nilable(Ach)) }
         def ach; end
       end
       class IntraStripeFlows < Stripe::StripeObject
@@ -114,7 +114,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def resolution; end
           # The `platform_restrictions` that are restricting this Feature.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def restriction; end
         end
         # Whether the FinancialAccount should have the Feature.
@@ -137,7 +137,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
@@ -159,7 +159,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
@@ -173,10 +173,10 @@ module Stripe
           def status_details; end
         end
         # Toggle settings for enabling/disabling an outbound ACH specific feature
-        sig { returns(Ach) }
+        sig { returns(T.nilable(Ach)) }
         def ach; end
         # Toggle settings for enabling/disabling a feature
-        sig { returns(UsDomesticWire) }
+        sig { returns(T.nilable(UsDomesticWire)) }
         def us_domestic_wire; end
       end
       class OutboundTransfers < Stripe::StripeObject
@@ -189,7 +189,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
@@ -211,7 +211,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def resolution; end
             # The `platform_restrictions` that are restricting this Feature.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def restriction; end
           end
           # Whether the FinancialAccount should have the Feature.
@@ -225,35 +225,35 @@ module Stripe
           def status_details; end
         end
         # Toggle settings for enabling/disabling an outbound ACH specific feature
-        sig { returns(Ach) }
+        sig { returns(T.nilable(Ach)) }
         def ach; end
         # Toggle settings for enabling/disabling a feature
-        sig { returns(UsDomesticWire) }
+        sig { returns(T.nilable(UsDomesticWire)) }
         def us_domestic_wire; end
       end
       # Toggle settings for enabling/disabling a feature
-      sig { returns(CardIssuing) }
+      sig { returns(T.nilable(CardIssuing)) }
       def card_issuing; end
       # Toggle settings for enabling/disabling a feature
-      sig { returns(DepositInsurance) }
+      sig { returns(T.nilable(DepositInsurance)) }
       def deposit_insurance; end
       # Settings related to Financial Addresses features on a Financial Account
-      sig { returns(FinancialAddresses) }
+      sig { returns(T.nilable(FinancialAddresses)) }
       def financial_addresses; end
       # InboundTransfers contains inbound transfers features for a FinancialAccount.
-      sig { returns(InboundTransfers) }
+      sig { returns(T.nilable(InboundTransfers)) }
       def inbound_transfers; end
       # Toggle settings for enabling/disabling a feature
-      sig { returns(IntraStripeFlows) }
+      sig { returns(T.nilable(IntraStripeFlows)) }
       def intra_stripe_flows; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
       # Settings related to Outbound Payments features on a Financial Account
-      sig { returns(OutboundPayments) }
+      sig { returns(T.nilable(OutboundPayments)) }
       def outbound_payments; end
       # OutboundTransfers contains outbound transfers features for a FinancialAccount.
-      sig { returns(OutboundTransfers) }
+      sig { returns(T.nilable(OutboundTransfers)) }
       def outbound_transfers; end
     end
   end

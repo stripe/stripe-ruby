@@ -58,22 +58,22 @@ module Stripe
           def routing_number; end
         end
         # Set when `type` is `balance`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def balance; end
         # Attribute for field billing_details
         sig { returns(BillingDetails) }
         def billing_details; end
         # Attribute for field financial_account
-        sig { returns(FinancialAccount) }
+        sig { returns(T.nilable(FinancialAccount)) }
         def financial_account; end
         # Set when `type` is `issuing_card`. This is an [Issuing Card](https://stripe.com/docs/api#issuing_cards) ID.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def issuing_card; end
         # Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
         sig { returns(String) }
         def type; end
         # Attribute for field us_bank_account
-        sig { returns(UsBankAccount) }
+        sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
       end
       class LinkedFlows < Stripe::StripeObject
@@ -126,7 +126,7 @@ module Stripe
       sig { returns(String) }
       def id; end
       # Attribute for field initiating_payment_method_details
-      sig { returns(InitiatingPaymentMethodDetails) }
+      sig { returns(T.nilable(InitiatingPaymentMethodDetails)) }
       def initiating_payment_method_details; end
       # Attribute for field linked_flows
       sig { returns(LinkedFlows) }

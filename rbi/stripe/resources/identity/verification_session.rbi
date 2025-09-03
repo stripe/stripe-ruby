@@ -27,59 +27,59 @@ module Stripe
       class Options < Stripe::StripeObject
         class Document < Stripe::StripeObject
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           def allowed_types; end
           # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def require_id_number; end
           # Disable image uploads, identity document images have to be captured using the device’s camera.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def require_live_capture; end
           # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def require_matching_selfie; end
         end
         class Email < Stripe::StripeObject
           # Request one time password verification of `provided_details.email`.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def require_verification; end
         end
         class IdNumber < Stripe::StripeObject; end
         class Matching < Stripe::StripeObject
           # Strictness of the DOB matching policy to apply.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def dob; end
           # Strictness of the name matching policy to apply.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def name; end
         end
         class Phone < Stripe::StripeObject
           # Request one time password verification of `provided_details.phone`.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def require_verification; end
         end
         # Attribute for field document
-        sig { returns(Document) }
+        sig { returns(T.nilable(Document)) }
         def document; end
         # Attribute for field email
-        sig { returns(Email) }
+        sig { returns(T.nilable(Email)) }
         def email; end
         # Attribute for field id_number
-        sig { returns(IdNumber) }
+        sig { returns(T.nilable(IdNumber)) }
         def id_number; end
         # Attribute for field matching
-        sig { returns(Matching) }
+        sig { returns(T.nilable(Matching)) }
         def matching; end
         # Attribute for field phone
-        sig { returns(Phone) }
+        sig { returns(T.nilable(Phone)) }
         def phone; end
       end
       class ProvidedDetails < Stripe::StripeObject
         # Email of user being verified
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def email; end
         # Phone number of user being verified
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def phone; end
       end
       class Redaction < Stripe::StripeObject
@@ -201,7 +201,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def related_customer; end
       # Attribute for field related_person
-      sig { returns(RelatedPerson) }
+      sig { returns(T.nilable(RelatedPerson)) }
       def related_person; end
       # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
       sig { returns(String) }
@@ -213,7 +213,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def url; end
       # The configuration token of a verification flow from the dashboard.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def verification_flow; end
       # The user’s verified data.
       sig { returns(T.nilable(VerifiedOutputs)) }

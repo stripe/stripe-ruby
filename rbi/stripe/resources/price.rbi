@@ -46,7 +46,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def tax_behavior; end
       # Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
-      sig { returns(T::Array[Tier]) }
+      sig { returns(T.nilable(T::Array[Tier])) }
       def tiers; end
       # The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`.
       sig { returns(T.nilable(Integer)) }
@@ -121,7 +121,7 @@ module Stripe
     sig { returns(String) }
     def currency; end
     # Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-    sig { returns(T::Hash[String, CurrencyOptions]) }
+    sig { returns(T.nilable(T::Hash[String, CurrencyOptions])) }
     def currency_options; end
     # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     sig { returns(T.nilable(CustomUnitAmount)) }
@@ -154,7 +154,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def tax_behavior; end
     # Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
-    sig { returns(T::Array[Tier]) }
+    sig { returns(T.nilable(T::Array[Tier])) }
     def tiers; end
     # Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
     sig { returns(T.nilable(String)) }
@@ -172,7 +172,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def unit_amount_decimal; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams

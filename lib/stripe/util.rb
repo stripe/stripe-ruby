@@ -30,8 +30,12 @@ module Stripe
       @v2_object_classes ||= Stripe::ObjectTypes.v2_object_names_to_classes
     end
 
-    def self.thin_event_classes
-      @thin_event_classes ||= Stripe::EventTypes.thin_event_names_to_classes
+    def self.v2_event_classes
+      @v2_event_classes ||= Stripe::EventTypes.v2_event_types_to_classes
+    end
+
+    def self.event_notification_classes
+      @event_notification_classes ||= Stripe::EventTypes.event_notification_types_to_classes
     end
 
     def self.object_name_matches_class?(object_name, klass)
@@ -143,8 +147,8 @@ module Stripe
         object_type = data[:type] || data["type"]
         object_name = data[:object] || data["object"]
         object_class = if api_mode == :v2
-                         if object_name == "v2.core.event" && thin_event_classes.key?(object_type)
-                           thin_event_classes.fetch(object_type)
+                         if object_name == "v2.core.event" && v2_event_classes.key?(object_type)
+                           v2_event_classes.fetch(object_type)
                          else
                            v2_object_classes.fetch(
                              object_name, StripeObject

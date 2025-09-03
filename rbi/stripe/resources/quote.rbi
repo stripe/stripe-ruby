@@ -9,7 +9,7 @@ module Stripe
     class AutomaticTax < Stripe::StripeObject
       class Liability < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -76,7 +76,7 @@ module Stripe
           sig { returns(Integer) }
           def amount_tax; end
           # Attribute for field breakdown
-          sig { returns(Breakdown) }
+          sig { returns(T.nilable(Breakdown)) }
           def breakdown; end
         end
         # Total before any discounts or taxes are applied.
@@ -142,7 +142,7 @@ module Stripe
           sig { returns(Integer) }
           def amount_tax; end
           # Attribute for field breakdown
-          sig { returns(Breakdown) }
+          sig { returns(T.nilable(Breakdown)) }
           def breakdown; end
         end
         # Total before any discounts or taxes are applied.
@@ -152,7 +152,7 @@ module Stripe
         sig { returns(Integer) }
         def amount_total; end
         # The line items that will appear on the next invoice after this quote is accepted. This does not include pending invoice items that exist on the customer but may still be included in the next invoice.
-        sig { returns(Stripe::ListObject) }
+        sig { returns(T.nilable(Stripe::ListObject)) }
         def line_items; end
         # Attribute for field total_details
         sig { returns(TotalDetails) }
@@ -176,7 +176,7 @@ module Stripe
     class InvoiceSettings < Stripe::StripeObject
       class Issuer < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -268,7 +268,7 @@ module Stripe
       sig { returns(Integer) }
       def amount_tax; end
       # Attribute for field breakdown
-      sig { returns(Breakdown) }
+      sig { returns(T.nilable(Breakdown)) }
       def breakdown; end
     end
     class TransferData < Stripe::StripeObject
@@ -316,7 +316,7 @@ module Stripe
     sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
     def customer; end
     # The tax rates applied to this quote.
-    sig { returns(T::Array[T.any(String, Stripe::TaxRate)]) }
+    sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxRate)])) }
     def default_tax_rates; end
     # A description that will be displayed on the quote PDF.
     sig { returns(T.nilable(String)) }
@@ -346,7 +346,7 @@ module Stripe
     sig { returns(InvoiceSettings) }
     def invoice_settings; end
     # A list of items the customer is being quoted for.
-    sig { returns(Stripe::ListObject) }
+    sig { returns(T.nilable(Stripe::ListObject)) }
     def line_items; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }

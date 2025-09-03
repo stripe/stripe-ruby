@@ -18,10 +18,10 @@ module Stripe
       sig { returns(Integer) }
       def amount; end
       # The credit balance transaction that was applied to get this pretax credit amount.
-      sig { returns(T.any(String, Stripe::Billing::CreditBalanceTransaction)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Billing::CreditBalanceTransaction))) }
       def credit_balance_transaction; end
       # The discount that was applied to get this pretax credit amount.
-      sig { returns(T.any(String, Stripe::Discount)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Discount))) }
       def discount; end
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
@@ -68,7 +68,7 @@ module Stripe
     sig { returns(String) }
     def id; end
     # ID of the invoice line item being credited
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def invoice_line_item; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }

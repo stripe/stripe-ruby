@@ -14,7 +14,7 @@ module Stripe
   class Product < APIResource
     class MarketingFeature < Stripe::StripeObject
       # The marketing feature name. Up to 80 characters long.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def name; end
     end
     class PackageDimensions < Stripe::StripeObject
@@ -89,7 +89,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def url; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams

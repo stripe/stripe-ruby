@@ -19,10 +19,10 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       def accepted_at; end
       # Attribute for field offline
-      sig { returns(Offline) }
+      sig { returns(T.nilable(Offline)) }
       def offline; end
       # Attribute for field online
-      sig { returns(Online) }
+      sig { returns(T.nilable(Online)) }
       def online; end
       # The mandate includes the type of customer acceptance information, such as: `online` or `offline`.
       sig { returns(String) }
@@ -32,7 +32,7 @@ module Stripe
     class PaymentMethodDetails < Stripe::StripeObject
       class AcssDebit < Stripe::StripeObject
         # List of Stripe products where this mandate can be selected automatically.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         def default_for; end
         # Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
         sig { returns(T.nilable(String)) }
@@ -91,59 +91,59 @@ module Stripe
       end
       class UsBankAccount < Stripe::StripeObject
         # Mandate collection method
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def collection_method; end
       end
       # Attribute for field acss_debit
-      sig { returns(AcssDebit) }
+      sig { returns(T.nilable(AcssDebit)) }
       def acss_debit; end
       # Attribute for field amazon_pay
-      sig { returns(AmazonPay) }
+      sig { returns(T.nilable(AmazonPay)) }
       def amazon_pay; end
       # Attribute for field au_becs_debit
-      sig { returns(AuBecsDebit) }
+      sig { returns(T.nilable(AuBecsDebit)) }
       def au_becs_debit; end
       # Attribute for field bacs_debit
-      sig { returns(BacsDebit) }
+      sig { returns(T.nilable(BacsDebit)) }
       def bacs_debit; end
       # Attribute for field card
-      sig { returns(Card) }
+      sig { returns(T.nilable(Card)) }
       def card; end
       # Attribute for field cashapp
-      sig { returns(Cashapp) }
+      sig { returns(T.nilable(Cashapp)) }
       def cashapp; end
       # Attribute for field kakao_pay
-      sig { returns(KakaoPay) }
+      sig { returns(T.nilable(KakaoPay)) }
       def kakao_pay; end
       # Attribute for field klarna
-      sig { returns(Klarna) }
+      sig { returns(T.nilable(Klarna)) }
       def klarna; end
       # Attribute for field kr_card
-      sig { returns(KrCard) }
+      sig { returns(T.nilable(KrCard)) }
       def kr_card; end
       # Attribute for field link
-      sig { returns(Link) }
+      sig { returns(T.nilable(Link)) }
       def link; end
       # Attribute for field naver_pay
-      sig { returns(NaverPay) }
+      sig { returns(T.nilable(NaverPay)) }
       def naver_pay; end
       # Attribute for field nz_bank_account
-      sig { returns(NzBankAccount) }
+      sig { returns(T.nilable(NzBankAccount)) }
       def nz_bank_account; end
       # Attribute for field paypal
-      sig { returns(Paypal) }
+      sig { returns(T.nilable(Paypal)) }
       def paypal; end
       # Attribute for field revolut_pay
-      sig { returns(RevolutPay) }
+      sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
       # Attribute for field sepa_debit
-      sig { returns(SepaDebit) }
+      sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
       # This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
       sig { returns(String) }
       def type; end
       # Attribute for field us_bank_account
-      sig { returns(UsBankAccount) }
+      sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
     end
     class SingleUse < Stripe::StripeObject
@@ -164,13 +164,13 @@ module Stripe
     sig { returns(T::Boolean) }
     def livemode; end
     # Attribute for field multi_use
-    sig { returns(MultiUse) }
+    sig { returns(T.nilable(MultiUse)) }
     def multi_use; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
     # The account (if any) that the mandate is intended for.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def on_behalf_of; end
     # ID of the payment method associated with this mandate.
     sig { returns(T.any(String, Stripe::PaymentMethod)) }
@@ -179,7 +179,7 @@ module Stripe
     sig { returns(PaymentMethodDetails) }
     def payment_method_details; end
     # Attribute for field single_use
-    sig { returns(SingleUse) }
+    sig { returns(T.nilable(SingleUse)) }
     def single_use; end
     # The mandate status indicates whether or not you can use it to initiate a payment.
     sig { returns(String) }

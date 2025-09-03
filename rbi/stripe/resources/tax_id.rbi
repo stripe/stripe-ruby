@@ -10,13 +10,13 @@ module Stripe
   class TaxId < APIResource
     class Owner < Stripe::StripeObject
       # The account being referenced when `type` is `account`.
-      sig { returns(T.any(String, Stripe::Account)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Account))) }
       def account; end
       # The Connect Application being referenced when `type` is `application`.
-      sig { returns(T.any(String, Stripe::Application)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Application))) }
       def application; end
       # The customer being referenced when `type` is `customer`.
-      sig { returns(T.any(String, Stripe::Customer)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
       def customer; end
       # Type of owner referenced.
       sig { returns(String) }
@@ -64,7 +64,7 @@ module Stripe
     sig { returns(T.nilable(Verification)) }
     def verification; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class ListParams < Stripe::RequestParams

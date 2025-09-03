@@ -78,13 +78,13 @@ module Stripe
         def state; end
       end
       # Attribute for field address
-      sig { returns(Address) }
+      sig { returns(T.nilable(Address)) }
       def address; end
       # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
       sig { returns(T.nilable(String)) }
       def carrier; end
       # Recipient name.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def name; end
       # Recipient phone (including extension).
       sig { returns(T.nilable(String)) }
@@ -119,7 +119,7 @@ module Stripe
     sig { returns(T.nilable(Address)) }
     def address; end
     # The current balance, if any, that's stored on the customer in their default currency. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize. For multi-currency balances, see [invoice_credit_balance](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance).
-    sig { returns(Integer) }
+    sig { returns(T.nilable(Integer)) }
     def balance; end
     # The current funds being held by Stripe on behalf of the customer. You can apply these funds towards payment intents when the source is "cash_balance". The `settings[reconciliation_mode]` field describes if these funds apply to these payment intents manually or automatically.
     sig { returns(T.nilable(Stripe::CashBalance)) }
@@ -160,25 +160,25 @@ module Stripe
     sig { returns(String) }
     def id; end
     # The current multi-currency balances, if any, that's stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that's added to their next invoice denominated in that currency. These balances don't apply to unpaid invoices. They solely track amounts that Stripe hasn't successfully applied to any invoice. Stripe only applies a balance in a specific currency to an invoice after that invoice (which is in the same currency) finalizes.
-    sig { returns(T::Hash[String, Integer]) }
+    sig { returns(T.nilable(T::Hash[String, Integer])) }
     def invoice_credit_balance; end
     # The prefix for the customer used to generate unique invoice numbers.
     sig { returns(T.nilable(String)) }
     def invoice_prefix; end
     # Attribute for field invoice_settings
-    sig { returns(InvoiceSettings) }
+    sig { returns(T.nilable(InvoiceSettings)) }
     def invoice_settings; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-    sig { returns(T::Hash[String, String]) }
+    sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # The customer's full name or business name.
     sig { returns(T.nilable(String)) }
     def name; end
     # The suffix of the customer's next invoice number (for example, 0001). When the account uses account level sequencing, this parameter is ignored in API requests and the field omitted in API responses.
-    sig { returns(Integer) }
+    sig { returns(T.nilable(Integer)) }
     def next_invoice_sequence; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
@@ -193,25 +193,25 @@ module Stripe
     sig { returns(T.nilable(Shipping)) }
     def shipping; end
     # The customer's payment sources, if any.
-    sig { returns(Stripe::ListObject) }
+    sig { returns(T.nilable(Stripe::ListObject)) }
     def sources; end
     # The customer's current subscriptions, if any.
-    sig { returns(Stripe::ListObject) }
+    sig { returns(T.nilable(Stripe::ListObject)) }
     def subscriptions; end
     # Attribute for field tax
-    sig { returns(Tax) }
+    sig { returns(T.nilable(Tax)) }
     def tax; end
     # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the following text: **"Reverse charge"**.
     sig { returns(T.nilable(String)) }
     def tax_exempt; end
     # The customer's tax IDs.
-    sig { returns(Stripe::ListObject) }
+    sig { returns(T.nilable(Stripe::ListObject)) }
     def tax_ids; end
     # ID of the test clock that this customer belongs to.
     sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
     def test_clock; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams

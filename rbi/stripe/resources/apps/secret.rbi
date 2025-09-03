@@ -19,14 +19,14 @@ module Stripe
         sig { returns(String) }
         def type; end
         # The user ID, if type is set to "user"
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def user; end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
       # If true, indicates that this secret has been deleted
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def deleted; end
       # The Unix timestamp for the expiry time of the secret, after which the secret deletes.
       sig { returns(T.nilable(Integer)) }

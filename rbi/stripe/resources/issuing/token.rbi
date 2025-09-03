@@ -9,27 +9,27 @@ module Stripe
       class NetworkData < Stripe::StripeObject
         class Device < Stripe::StripeObject
           # An obfuscated ID derived from the device ID.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def device_fingerprint; end
           # The IP address of the device at provisioning time.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def ip_address; end
           # The geographic latitude/longitude coordinates of the device at provisioning time. The format is [+-]decimal/[+-]decimal.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def location; end
           # The name of the device used for tokenization.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def name; end
           # The phone number of the device used for tokenization.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def phone_number; end
           # The type of device used for tokenization.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def type; end
         end
         class Mastercard < Stripe::StripeObject
           # A unique reference ID from MasterCard to represent the card account number.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def card_reference_id; end
           # The network-unique identifier for the token.
           sig { returns(String) }
@@ -38,7 +38,7 @@ module Stripe
           sig { returns(String) }
           def token_requestor_id; end
           # The name of the entity requesting tokenization, if known. This is directly provided from MasterCard.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def token_requestor_name; end
         end
         class Visa < Stripe::StripeObject
@@ -52,7 +52,7 @@ module Stripe
           sig { returns(String) }
           def token_requestor_id; end
           # Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def token_risk_score; end
         end
         class WalletProvider < Stripe::StripeObject
@@ -65,50 +65,50 @@ module Stripe
             def postal_code; end
           end
           # The wallet provider-given account ID of the digital wallet the token belongs to.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def account_id; end
           # An evaluation on the trustworthiness of the wallet account between 1 and 5. A higher score indicates more trustworthy.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def account_trust_score; end
           # The method used for tokenizing a card.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def card_number_source; end
           # Attribute for field cardholder_address
-          sig { returns(CardholderAddress) }
+          sig { returns(T.nilable(CardholderAddress)) }
           def cardholder_address; end
           # The name of the cardholder tokenizing the card.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def cardholder_name; end
           # An evaluation on the trustworthiness of the device. A higher score indicates more trustworthy.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def device_trust_score; end
           # The hashed email address of the cardholder's account with the wallet provider.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def hashed_account_email_address; end
           # The reasons for suggested tokenization given by the card network.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           def reason_codes; end
           # The recommendation on responding to the tokenization request.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def suggested_decision; end
           # The version of the standard for mapping reason codes followed by the wallet provider.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def suggested_decision_version; end
         end
         # Attribute for field device
-        sig { returns(Device) }
+        sig { returns(T.nilable(Device)) }
         def device; end
         # Attribute for field mastercard
-        sig { returns(Mastercard) }
+        sig { returns(T.nilable(Mastercard)) }
         def mastercard; end
         # The network that the token is associated with. An additional hash is included with a name matching this value, containing tokenization data specific to the card network.
         sig { returns(String) }
         def type; end
         # Attribute for field visa
-        sig { returns(Visa) }
+        sig { returns(T.nilable(Visa)) }
         def visa; end
         # Attribute for field wallet_provider
-        sig { returns(WalletProvider) }
+        sig { returns(T.nilable(WalletProvider)) }
         def wallet_provider; end
       end
       # Card associated with this token.
@@ -124,7 +124,7 @@ module Stripe
       sig { returns(String) }
       def id; end
       # The last four digits of the token.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def last4; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
@@ -133,7 +133,7 @@ module Stripe
       sig { returns(String) }
       def network; end
       # Attribute for field network_data
-      sig { returns(NetworkData) }
+      sig { returns(T.nilable(NetworkData)) }
       def network_data; end
       # Time at which the token was last updated by the card network. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -145,7 +145,7 @@ module Stripe
       sig { returns(String) }
       def status; end
       # The digital wallet for this token, if one was used.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def wallet_provider; end
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams

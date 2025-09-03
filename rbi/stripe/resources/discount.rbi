@@ -50,7 +50,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def subscription_item; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
   end
 end

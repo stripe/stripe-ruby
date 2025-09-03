@@ -71,13 +71,13 @@ module Stripe
             def id; end
           end
           # The billable items that credit grants can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
-          sig { returns(T::Array[BillableItem]) }
+          sig { returns(T.nilable(T::Array[BillableItem])) }
           def billable_items; end
           # The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `prices`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def price_type; end
           # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
-          sig { returns(T::Array[Price]) }
+          sig { returns(T.nilable(T::Array[Price])) }
           def prices; end
         end
         # Attribute for field scope

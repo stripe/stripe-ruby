@@ -18,7 +18,7 @@ module Stripe
       sig { returns(String) }
       def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
-      sig { returns(StatusDetails) }
+      sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
     end
     class ApplePay < Stripe::StripeObject
@@ -31,7 +31,7 @@ module Stripe
       sig { returns(String) }
       def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
-      sig { returns(StatusDetails) }
+      sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
     end
     class GooglePay < Stripe::StripeObject
@@ -44,7 +44,7 @@ module Stripe
       sig { returns(String) }
       def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
-      sig { returns(StatusDetails) }
+      sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
     end
     class Klarna < Stripe::StripeObject
@@ -57,7 +57,7 @@ module Stripe
       sig { returns(String) }
       def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
-      sig { returns(StatusDetails) }
+      sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
     end
     class Link < Stripe::StripeObject
@@ -70,7 +70,7 @@ module Stripe
       sig { returns(String) }
       def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
-      sig { returns(StatusDetails) }
+      sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
     end
     class Paypal < Stripe::StripeObject
@@ -83,7 +83,7 @@ module Stripe
       sig { returns(String) }
       def status; end
       # Contains additional details about the status of a payment method for a specific payment method domain.
-      sig { returns(StatusDetails) }
+      sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
     end
     # Indicates the status of a specific payment method on a payment method domain.

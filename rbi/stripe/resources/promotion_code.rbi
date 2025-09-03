@@ -16,7 +16,7 @@ module Stripe
         def minimum_amount; end
       end
       # Promotion code restrictions defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-      sig { returns(T::Hash[String, CurrencyOptions]) }
+      sig { returns(T.nilable(T::Hash[String, CurrencyOptions])) }
       def currency_options; end
       # A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices
       sig { returns(T::Boolean) }

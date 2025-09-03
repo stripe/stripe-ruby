@@ -20,10 +20,10 @@ module Stripe
       sig { returns(Integer) }
       def amount; end
       # The credit balance transaction that was applied to get this pretax credit amount.
-      sig { returns(T.any(String, Stripe::Billing::CreditBalanceTransaction)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Billing::CreditBalanceTransaction))) }
       def credit_balance_transaction; end
       # The discount that was applied to get this pretax credit amount.
-      sig { returns(T.any(String, Stripe::Discount)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Discount))) }
       def discount; end
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
@@ -67,7 +67,7 @@ module Stripe
       sig { returns(T.nilable(T.any(String, Stripe::ShippingRate))) }
       def shipping_rate; end
       # The taxes applied to the shipping rate.
-      sig { returns(T::Array[Tax]) }
+      sig { returns(T.nilable(T::Array[Tax])) }
       def taxes; end
     end
     class TotalTax < Stripe::StripeObject

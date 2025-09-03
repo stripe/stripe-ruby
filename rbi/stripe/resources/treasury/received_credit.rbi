@@ -58,42 +58,42 @@ module Stripe
           def routing_number; end
         end
         # Set when `type` is `balance`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def balance; end
         # Attribute for field billing_details
         sig { returns(BillingDetails) }
         def billing_details; end
         # Attribute for field financial_account
-        sig { returns(FinancialAccount) }
+        sig { returns(T.nilable(FinancialAccount)) }
         def financial_account; end
         # Set when `type` is `issuing_card`. This is an [Issuing Card](https://stripe.com/docs/api#issuing_cards) ID.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def issuing_card; end
         # Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
         sig { returns(String) }
         def type; end
         # Attribute for field us_bank_account
-        sig { returns(UsBankAccount) }
+        sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
       end
       class LinkedFlows < Stripe::StripeObject
         class SourceFlowDetails < Stripe::StripeObject
           # You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
-          sig { returns(Stripe::Treasury::CreditReversal) }
+          sig { returns(T.nilable(Stripe::Treasury::CreditReversal)) }
           def credit_reversal; end
           # Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
           #
           # Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
           #
           # Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
-          sig { returns(Stripe::Treasury::OutboundPayment) }
+          sig { returns(T.nilable(Stripe::Treasury::OutboundPayment)) }
           def outbound_payment; end
           # Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://stripe.com/docs/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
           #
           # Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
           #
           # Related guide: [Moving money with Treasury using OutboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers)
-          sig { returns(Stripe::Treasury::OutboundTransfer) }
+          sig { returns(T.nilable(Stripe::Treasury::OutboundTransfer)) }
           def outbound_transfer; end
           # A `Payout` object is created when you receive funds from Stripe, or when you
           # initiate a payout to either a bank account or debit card of a [connected
@@ -103,7 +103,7 @@ module Stripe
           # industry.
           #
           # Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
-          sig { returns(Stripe::Payout) }
+          sig { returns(T.nilable(Stripe::Payout)) }
           def payout; end
           # The type of the source flow that originated the ReceivedCredit.
           sig { returns(String) }

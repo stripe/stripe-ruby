@@ -18,10 +18,10 @@ module Stripe
           def reason; end
         end
         # Attribute for field committed
-        sig { returns(Committed) }
+        sig { returns(T.nilable(Committed)) }
         def committed; end
         # Attribute for field errored
-        sig { returns(Errored) }
+        sig { returns(T.nilable(Errored)) }
         def errored; end
         # The source of the tax transaction attempt. This is either a refund or a payment intent.
         sig { returns(String) }

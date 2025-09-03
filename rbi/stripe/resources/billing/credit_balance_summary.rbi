@@ -11,53 +11,53 @@ module Stripe
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            attr_reader :currency
+            def currency; end
             # A positive integer representing the amount.
             sig { returns(Integer) }
-            attr_reader :value
+            def value; end
           end
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
-          attr_reader :monetary
+          def monetary; end
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
         end
         class LedgerBalance < Stripe::StripeObject
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            attr_reader :currency
+            def currency; end
             # A positive integer representing the amount.
             sig { returns(Integer) }
-            attr_reader :value
+            def value; end
           end
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
-          attr_reader :monetary
+          def monetary; end
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
         end
         # Attribute for field available_balance
         sig { returns(AvailableBalance) }
-        attr_reader :available_balance
+        def available_balance; end
         # Attribute for field ledger_balance
         sig { returns(LedgerBalance) }
-        attr_reader :ledger_balance
+        def ledger_balance; end
       end
       # The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.
       sig { returns(T::Array[Balance]) }
-      attr_reader :balances
+      def balances; end
       # The customer the balance is for.
       sig { returns(T.any(String, Stripe::Customer)) }
-      attr_reader :customer
+      def customer; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      attr_reader :livemode
+      def livemode; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      attr_reader :object
+      def object; end
     end
   end
 end

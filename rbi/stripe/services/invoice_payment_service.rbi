@@ -8,34 +8,54 @@ module Stripe
       class Payment < Stripe::RequestParams
         # Only return invoice payments associated by this payment intent ID.
         sig { returns(T.nilable(String)) }
-        attr_accessor :payment_intent
+        def payment_intent; end
+        sig { params(_payment_intent: T.nilable(String)).returns(T.nilable(String)) }
+        def payment_intent=(_payment_intent); end
         # Only return invoice payments associated by this payment type.
         sig { returns(String) }
-        attr_accessor :type
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
         sig { params(payment_intent: T.nilable(String), type: String).void }
         def initialize(payment_intent: nil, type: nil); end
       end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :ending_before
+      def ending_before; end
+      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+      def ending_before=(_ending_before); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # The identifier of the invoice whose payments to return.
       sig { returns(T.nilable(String)) }
-      attr_accessor :invoice
+      def invoice; end
+      sig { params(_invoice: T.nilable(String)).returns(T.nilable(String)) }
+      def invoice=(_invoice); end
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      attr_accessor :limit
+      def limit; end
+      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def limit=(_limit); end
       # The payment details of the invoice payments to return.
       sig { returns(T.nilable(::Stripe::InvoicePaymentService::ListParams::Payment)) }
-      attr_accessor :payment
+      def payment; end
+      sig {
+        params(_payment: T.nilable(::Stripe::InvoicePaymentService::ListParams::Payment)).returns(T.nilable(::Stripe::InvoicePaymentService::ListParams::Payment))
+       }
+      def payment=(_payment); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :starting_after
+      def starting_after; end
+      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+      def starting_after=(_starting_after); end
       # The status of the invoice payments to return.
       sig { returns(T.nilable(String)) }
-      attr_accessor :status
+      def status; end
+      sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+      def status=(_status); end
       sig {
         params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), payment: T.nilable(::Stripe::InvoicePaymentService::ListParams::Payment), starting_after: T.nilable(String), status: T.nilable(String)).void
        }
@@ -52,7 +72,9 @@ module Stripe
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end

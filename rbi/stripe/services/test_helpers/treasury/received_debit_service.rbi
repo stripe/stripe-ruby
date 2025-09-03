@@ -11,13 +11,19 @@ module Stripe
             class UsBankAccount < Stripe::RequestParams
               # The bank account holder's name.
               sig { returns(T.nilable(String)) }
-              attr_accessor :account_holder_name
+              def account_holder_name; end
+              sig { params(_account_holder_name: T.nilable(String)).returns(T.nilable(String)) }
+              def account_holder_name=(_account_holder_name); end
               # The bank account number.
               sig { returns(T.nilable(String)) }
-              attr_accessor :account_number
+              def account_number; end
+              sig { params(_account_number: T.nilable(String)).returns(T.nilable(String)) }
+              def account_number=(_account_number); end
               # The bank account's routing number.
               sig { returns(T.nilable(String)) }
-              attr_accessor :routing_number
+              def routing_number; end
+              sig { params(_routing_number: T.nilable(String)).returns(T.nilable(String)) }
+              def routing_number=(_routing_number); end
               sig {
                 params(account_holder_name: T.nilable(String), account_number: T.nilable(String), routing_number: T.nilable(String)).void
                }
@@ -29,12 +35,18 @@ module Stripe
             end
             # The source type.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             # Optional fields for `us_bank_account`.
             sig {
               returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount))
              }
-            attr_accessor :us_bank_account
+            def us_bank_account; end
+            sig {
+              params(_us_bank_account: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount)).returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount))
+             }
+            def us_bank_account=(_us_bank_account); end
             sig {
               params(type: String, us_bank_account: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount)).void
              }
@@ -42,27 +54,43 @@ module Stripe
           end
           # Amount (in cents) to be transferred.
           sig { returns(Integer) }
-          attr_accessor :amount
+          def amount; end
+          sig { params(_amount: Integer).returns(Integer) }
+          def amount=(_amount); end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
-          attr_accessor :currency
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
           # An arbitrary string attached to the object. Often useful for displaying to users.
           sig { returns(T.nilable(String)) }
-          attr_accessor :description
+          def description; end
+          sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+          def description=(_description); end
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :expand
+          def expand; end
+          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def expand=(_expand); end
           # The FinancialAccount to pull funds from.
           sig { returns(String) }
-          attr_accessor :financial_account
+          def financial_account; end
+          sig { params(_financial_account: String).returns(String) }
+          def financial_account=(_financial_account); end
           # Initiating payment method details for the object.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails))
            }
-          attr_accessor :initiating_payment_method_details
+          def initiating_payment_method_details; end
+          sig {
+            params(_initiating_payment_method_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails)).returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails))
+           }
+          def initiating_payment_method_details=(_initiating_payment_method_details); end
           # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(String) }
-          attr_accessor :network
+          def network; end
+          sig { params(_network: String).returns(String) }
+          def network=(_network); end
           sig {
             params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, initiating_payment_method_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails), network: String).void
            }

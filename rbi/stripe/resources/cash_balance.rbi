@@ -8,25 +8,25 @@ module Stripe
     class Settings < Stripe::StripeObject
       # The configuration for how funds that land in the customer cash balance are reconciled.
       sig { returns(String) }
-      attr_reader :reconciliation_mode
+      def reconciliation_mode; end
       # A flag to indicate if reconciliation mode returned is the user's default or is specific to this customer cash balance
       sig { returns(T::Boolean) }
-      attr_reader :using_merchant_default
+      def using_merchant_default; end
     end
     # A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     sig { returns(T.nilable(T::Hash[String, Integer])) }
-    attr_reader :available
+    def available; end
     # The ID of the customer whose cash balance this object represents.
     sig { returns(String) }
-    attr_reader :customer
+    def customer; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # Attribute for field settings
     sig { returns(Settings) }
-    attr_reader :settings
+    def settings; end
   end
 end

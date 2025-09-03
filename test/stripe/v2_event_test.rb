@@ -157,8 +157,19 @@ module Stripe
         end
 
         should "parse unknown events" do
-          event = parse_signed_event(@v2_payload_fake_event)
-          assert event.instance_of?(Stripe::UnknownEventNotification)
+          event_notif = parse_signed_event(@v2_payload_fake_event)
+          assert event_notif.instance_of?(Stripe::UnknownEventNotification)
+
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_234")
+            .to_return(body: {
+              "id" => "evt_234",
+              "object" => "v2.core.event",
+              "type" => "whatever",
+              "created" => "2022-02-15T00:27:45.330Z",
+            }.to_json)
+
+          event = event_notif.fetch_event
+          assert event.instance_of?(Stripe::V2::Event)
         end
       end
     end

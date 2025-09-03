@@ -136,13 +136,13 @@ module Stripe
         sig { returns(Integer) }
         def amount_tax; end
         # The ID of an existing [ShippingRate](https://stripe.com/docs/api/shipping_rates/object).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def shipping_rate; end
         # Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
         sig { returns(String) }
         def tax_behavior; end
         # Detailed account of taxes relevant to shipping cost. (It is not populated for the transaction resource object and will be removed in the next API version.)
-        sig { returns(T::Array[TaxBreakdown]) }
+        sig { returns(T.nilable(T::Array[TaxBreakdown])) }
         def tax_breakdown; end
         # The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for shipping.
         sig { returns(String) }

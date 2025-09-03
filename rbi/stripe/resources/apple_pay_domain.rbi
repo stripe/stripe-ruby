@@ -21,7 +21,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class ListParams < Stripe::RequestParams

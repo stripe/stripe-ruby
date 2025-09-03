@@ -9,7 +9,7 @@ module Stripe
     class AutomaticTax < Stripe::StripeObject
       class Liability < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -95,7 +95,7 @@ module Stripe
           sig { returns(Integer) }
           def amount_tax; end
           # Attribute for field breakdown
-          sig { returns(Breakdown) }
+          sig { returns(T.nilable(Breakdown)) }
           def breakdown; end
         end
         # Total before any discounts or taxes are applied.
@@ -161,7 +161,7 @@ module Stripe
           sig { returns(Integer) }
           def amount_tax; end
           # Attribute for field breakdown
-          sig { returns(Breakdown) }
+          sig { returns(T.nilable(Breakdown)) }
           def breakdown; end
         end
         # Total before any discounts or taxes are applied.
@@ -171,7 +171,7 @@ module Stripe
         sig { returns(Integer) }
         def amount_total; end
         # The line items that will appear on the next invoice after this quote is accepted. This does not include pending invoice items that exist on the customer but may still be included in the next invoice.
-        sig { returns(Stripe::ListObject) }
+        sig { returns(T.nilable(Stripe::ListObject)) }
         def line_items; end
         # Attribute for field total_details
         sig { returns(TotalDetails) }
@@ -201,7 +201,7 @@ module Stripe
     class InvoiceSettings < Stripe::StripeObject
       class Issuer < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -244,31 +244,31 @@ module Stripe
             def previous_subscription_schedule; end
           end
           # The ID of the line that is invalid if the stale reason type is `line_invalid`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def line_invalid; end
           # The IDs of the lines that are invalid if the stale reason type is `lines_invalid`.
-          sig { returns(T::Array[LinesInvalid]) }
+          sig { returns(T.nilable(T::Array[LinesInvalid])) }
           def lines_invalid; end
           # The user supplied mark stale reason.
           sig { returns(T.nilable(String)) }
           def marked_stale; end
           # The ID of the subscription that was canceled.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def subscription_canceled; end
           # Attribute for field subscription_changed
-          sig { returns(SubscriptionChanged) }
+          sig { returns(T.nilable(SubscriptionChanged)) }
           def subscription_changed; end
           # The ID of the subscription that was expired.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def subscription_expired; end
           # The ID of the subscription schedule that was canceled.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def subscription_schedule_canceled; end
           # Attribute for field subscription_schedule_changed
-          sig { returns(SubscriptionScheduleChanged) }
+          sig { returns(T.nilable(SubscriptionScheduleChanged)) }
           def subscription_schedule_changed; end
           # The ID of the subscription schedule that was released.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def subscription_schedule_released; end
           # The reason the quote was marked as stale.
           sig { returns(T.nilable(String)) }
@@ -288,10 +288,10 @@ module Stripe
         def transitioned_at; end
       end
       # Attribute for field canceled
-      sig { returns(Canceled) }
+      sig { returns(T.nilable(Canceled)) }
       def canceled; end
       # Attribute for field stale
-      sig { returns(Stale) }
+      sig { returns(T.nilable(Stale)) }
       def stale; end
     end
     class StatusTransitions < Stripe::StripeObject
@@ -377,7 +377,7 @@ module Stripe
       sig { returns(T.nilable(BillOnAcceptance)) }
       def bill_on_acceptance; end
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def billing_behavior; end
       # Whether the subscription will always start a new billing period when the quote is accepted.
       sig { returns(T.nilable(String)) }
@@ -404,7 +404,7 @@ module Stripe
       sig { returns(T.nilable(Prebilling)) }
       def prebilling; end
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def proration_behavior; end
       # Integer representing the number of trial period days before the customer is charged for the first time.
       sig { returns(T.nilable(Integer)) }
@@ -486,7 +486,7 @@ module Stripe
       sig { returns(T.nilable(BillOnAcceptance)) }
       def bill_on_acceptance; end
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def billing_behavior; end
       # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
       sig { returns(T.nilable(String)) }
@@ -566,7 +566,7 @@ module Stripe
       sig { returns(Integer) }
       def amount_tax; end
       # Attribute for field breakdown
-      sig { returns(Breakdown) }
+      sig { returns(T.nilable(Breakdown)) }
       def breakdown; end
     end
     class TransferData < Stripe::StripeObject
@@ -620,7 +620,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def customer_account; end
     # The tax rates applied to this quote.
-    sig { returns(T::Array[T.any(String, Stripe::TaxRate)]) }
+    sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxRate)])) }
     def default_tax_rates; end
     # A description that will be displayed on the quote PDF.
     sig { returns(T.nilable(String)) }
@@ -650,7 +650,7 @@ module Stripe
     sig { returns(InvoiceSettings) }
     def invoice_settings; end
     # A list of items the customer is being quoted for.
-    sig { returns(Stripe::ListObject) }
+    sig { returns(T.nilable(Stripe::ListObject)) }
     def line_items; end
     # A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
     sig { returns(T.nilable(T::Array[String])) }

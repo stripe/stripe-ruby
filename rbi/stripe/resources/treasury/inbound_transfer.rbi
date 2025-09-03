@@ -67,7 +67,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def last4; end
           # ID of the mandate used to make this payment.
-          sig { returns(T.any(String, Stripe::Mandate)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
           def mandate; end
           # The network rails used. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(String) }
@@ -83,7 +83,7 @@ module Stripe
         sig { returns(String) }
         def type; end
         # Attribute for field us_bank_account
-        sig { returns(UsBankAccount) }
+        sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
       end
       class StatusTransitions < Stripe::StripeObject

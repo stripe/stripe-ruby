@@ -13,13 +13,13 @@ module Stripe
     class Available < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def bank_account; end
         # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def card; end
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def fpx; end
       end
       # Balance amount.
@@ -29,19 +29,19 @@ module Stripe
       sig { returns(String) }
       def currency; end
       # Attribute for field source_types
-      sig { returns(SourceTypes) }
+      sig { returns(T.nilable(SourceTypes)) }
       def source_types; end
     end
     class ConnectReserved < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def bank_account; end
         # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def card; end
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def fpx; end
       end
       # Balance amount.
@@ -51,20 +51,20 @@ module Stripe
       sig { returns(String) }
       def currency; end
       # Attribute for field source_types
-      sig { returns(SourceTypes) }
+      sig { returns(T.nilable(SourceTypes)) }
       def source_types; end
     end
     class InstantAvailable < Stripe::StripeObject
       class NetAvailable < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def bank_account; end
           # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def card; end
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def fpx; end
         end
         # Net balance amount, subtracting fees from platform-set pricing.
@@ -74,18 +74,18 @@ module Stripe
         sig { returns(String) }
         def destination; end
         # Attribute for field source_types
-        sig { returns(SourceTypes) }
+        sig { returns(T.nilable(SourceTypes)) }
         def source_types; end
       end
       class SourceTypes < Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def bank_account; end
         # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def card; end
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def fpx; end
       end
       # Balance amount.
@@ -95,23 +95,23 @@ module Stripe
       sig { returns(String) }
       def currency; end
       # Breakdown of balance by destination.
-      sig { returns(T::Array[NetAvailable]) }
+      sig { returns(T.nilable(T::Array[NetAvailable])) }
       def net_available; end
       # Attribute for field source_types
-      sig { returns(SourceTypes) }
+      sig { returns(T.nilable(SourceTypes)) }
       def source_types; end
     end
     class Issuing < Stripe::StripeObject
       class Available < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def bank_account; end
           # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def card; end
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def fpx; end
         end
         # Balance amount.
@@ -121,7 +121,7 @@ module Stripe
         sig { returns(String) }
         def currency; end
         # Attribute for field source_types
-        sig { returns(SourceTypes) }
+        sig { returns(T.nilable(SourceTypes)) }
         def source_types; end
       end
       # Funds that are available for use.
@@ -131,13 +131,13 @@ module Stripe
     class Pending < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def bank_account; end
         # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def card; end
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def fpx; end
       end
       # Balance amount.
@@ -147,20 +147,20 @@ module Stripe
       sig { returns(String) }
       def currency; end
       # Attribute for field source_types
-      sig { returns(SourceTypes) }
+      sig { returns(T.nilable(SourceTypes)) }
       def source_types; end
     end
     class RefundAndDisputePrefunding < Stripe::StripeObject
       class Available < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def bank_account; end
           # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def card; end
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def fpx; end
         end
         # Balance amount.
@@ -170,19 +170,19 @@ module Stripe
         sig { returns(String) }
         def currency; end
         # Attribute for field source_types
-        sig { returns(SourceTypes) }
+        sig { returns(T.nilable(SourceTypes)) }
         def source_types; end
       end
       class Pending < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def bank_account; end
           # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def card; end
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def fpx; end
         end
         # Balance amount.
@@ -192,7 +192,7 @@ module Stripe
         sig { returns(String) }
         def currency; end
         # Attribute for field source_types
-        sig { returns(SourceTypes) }
+        sig { returns(T.nilable(SourceTypes)) }
         def source_types; end
       end
       # Funds that are available for use.
@@ -206,13 +206,13 @@ module Stripe
     sig { returns(T::Array[Available]) }
     def available; end
     # Funds held due to negative balances on connected accounts where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
-    sig { returns(T::Array[ConnectReserved]) }
+    sig { returns(T.nilable(T::Array[ConnectReserved])) }
     def connect_reserved; end
     # Funds that you can pay out using Instant Payouts.
-    sig { returns(T::Array[InstantAvailable]) }
+    sig { returns(T.nilable(T::Array[InstantAvailable])) }
     def instant_available; end
     # Attribute for field issuing
-    sig { returns(Issuing) }
+    sig { returns(T.nilable(Issuing)) }
     def issuing; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
@@ -224,7 +224,7 @@ module Stripe
     sig { returns(T::Array[Pending]) }
     def pending; end
     # Attribute for field refund_and_dispute_prefunding
-    sig { returns(RefundAndDisputePrefunding) }
+    sig { returns(T.nilable(RefundAndDisputePrefunding)) }
     def refund_and_dispute_prefunding; end
   end
 end

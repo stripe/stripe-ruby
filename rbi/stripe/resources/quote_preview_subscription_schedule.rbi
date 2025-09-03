@@ -20,7 +20,7 @@ module Stripe
       sig { returns(String) }
       def type; end
       # Details on when the current billing_mode was adopted.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def updated_at; end
     end
     class CurrentPhase < Stripe::StripeObject
@@ -35,7 +35,7 @@ module Stripe
       class AutomaticTax < Stripe::StripeObject
         class Liability < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -62,7 +62,7 @@ module Stripe
       class InvoiceSettings < Stripe::StripeObject
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -90,7 +90,7 @@ module Stripe
       sig { returns(T.nilable(Float)) }
       def application_fee_percent; end
       # Attribute for field automatic_tax
-      sig { returns(AutomaticTax) }
+      sig { returns(T.nilable(AutomaticTax)) }
       def automatic_tax; end
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       sig { returns(String) }
@@ -163,7 +163,7 @@ module Stripe
         class Period < Stripe::StripeObject
           class End < Stripe::StripeObject
             # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             def timestamp; end
             # Select how to calculate the end of the invoice item period.
             sig { returns(String) }
@@ -171,7 +171,7 @@ module Stripe
           end
           class Start < Stripe::StripeObject
             # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             def timestamp; end
             # Select how to calculate the start of the invoice item period.
             sig { returns(String) }
@@ -206,7 +206,7 @@ module Stripe
       class AutomaticTax < Stripe::StripeObject
         class Liability < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -255,7 +255,7 @@ module Stripe
       class InvoiceSettings < Stripe::StripeObject
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -323,7 +323,7 @@ module Stripe
         sig { returns(T.any(String, Stripe::Price)) }
         def price; end
         # Quantity of the plan to which the customer should be subscribed.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def quantity; end
         # The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
         sig { returns(T.nilable(T::Array[Stripe::TaxRate])) }
@@ -362,7 +362,7 @@ module Stripe
       sig { returns(T.nilable(Float)) }
       def application_fee_percent; end
       # Attribute for field automatic_tax
-      sig { returns(AutomaticTax) }
+      sig { returns(T.nilable(AutomaticTax)) }
       def automatic_tax; end
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       sig { returns(T.nilable(String)) }
@@ -436,7 +436,7 @@ module Stripe
       sig { returns(Integer) }
       def period_start; end
       # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def update_behavior; end
     end
     # ID of the Connect Application that created the schedule.
@@ -446,7 +446,7 @@ module Stripe
     sig { returns(AppliesTo) }
     def applies_to; end
     # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def billing_behavior; end
     # The billing mode of the subscription.
     sig { returns(BillingMode) }

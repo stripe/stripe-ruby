@@ -37,13 +37,13 @@ module Stripe
       end
       class Card < Stripe::StripeObject
         # Value of the reference number assigned to the refund.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def reference; end
         # Status of the reference number on the refund. This can be `pending`, `available` or `unavailable`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def reference_status; end
         # Type of the reference number assigned to the refund.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def reference_type; end
         # The type of refund. This can be `refund`, `reversal`, or `pending`.
         sig { returns(String) }
@@ -151,106 +151,106 @@ module Stripe
       class WechatPay < Stripe::StripeObject; end
       class Zip < Stripe::StripeObject; end
       # Attribute for field affirm
-      sig { returns(Affirm) }
+      sig { returns(T.nilable(Affirm)) }
       def affirm; end
       # Attribute for field afterpay_clearpay
-      sig { returns(AfterpayClearpay) }
+      sig { returns(T.nilable(AfterpayClearpay)) }
       def afterpay_clearpay; end
       # Attribute for field alipay
-      sig { returns(Alipay) }
+      sig { returns(T.nilable(Alipay)) }
       def alipay; end
       # Attribute for field alma
-      sig { returns(Alma) }
+      sig { returns(T.nilable(Alma)) }
       def alma; end
       # Attribute for field amazon_pay
-      sig { returns(AmazonPay) }
+      sig { returns(T.nilable(AmazonPay)) }
       def amazon_pay; end
       # Attribute for field au_bank_transfer
-      sig { returns(AuBankTransfer) }
+      sig { returns(T.nilable(AuBankTransfer)) }
       def au_bank_transfer; end
       # Attribute for field blik
-      sig { returns(Blik) }
+      sig { returns(T.nilable(Blik)) }
       def blik; end
       # Attribute for field br_bank_transfer
-      sig { returns(BrBankTransfer) }
+      sig { returns(T.nilable(BrBankTransfer)) }
       def br_bank_transfer; end
       # Attribute for field card
-      sig { returns(Card) }
+      sig { returns(T.nilable(Card)) }
       def card; end
       # Attribute for field cashapp
-      sig { returns(Cashapp) }
+      sig { returns(T.nilable(Cashapp)) }
       def cashapp; end
       # Attribute for field customer_cash_balance
-      sig { returns(CustomerCashBalance) }
+      sig { returns(T.nilable(CustomerCashBalance)) }
       def customer_cash_balance; end
       # Attribute for field eps
-      sig { returns(Eps) }
+      sig { returns(T.nilable(Eps)) }
       def eps; end
       # Attribute for field eu_bank_transfer
-      sig { returns(EuBankTransfer) }
+      sig { returns(T.nilable(EuBankTransfer)) }
       def eu_bank_transfer; end
       # Attribute for field gb_bank_transfer
-      sig { returns(GbBankTransfer) }
+      sig { returns(T.nilable(GbBankTransfer)) }
       def gb_bank_transfer; end
       # Attribute for field giropay
-      sig { returns(Giropay) }
+      sig { returns(T.nilable(Giropay)) }
       def giropay; end
       # Attribute for field grabpay
-      sig { returns(Grabpay) }
+      sig { returns(T.nilable(Grabpay)) }
       def grabpay; end
       # Attribute for field id_bank_transfer
-      sig { returns(IdBankTransfer) }
+      sig { returns(T.nilable(IdBankTransfer)) }
       def id_bank_transfer; end
       # Attribute for field jp_bank_transfer
-      sig { returns(JpBankTransfer) }
+      sig { returns(T.nilable(JpBankTransfer)) }
       def jp_bank_transfer; end
       # Attribute for field klarna
-      sig { returns(Klarna) }
+      sig { returns(T.nilable(Klarna)) }
       def klarna; end
       # Attribute for field multibanco
-      sig { returns(Multibanco) }
+      sig { returns(T.nilable(Multibanco)) }
       def multibanco; end
       # Attribute for field mx_bank_transfer
-      sig { returns(MxBankTransfer) }
+      sig { returns(T.nilable(MxBankTransfer)) }
       def mx_bank_transfer; end
       # Attribute for field nz_bank_transfer
-      sig { returns(NzBankTransfer) }
+      sig { returns(T.nilable(NzBankTransfer)) }
       def nz_bank_transfer; end
       # Attribute for field p24
-      sig { returns(P24) }
+      sig { returns(T.nilable(P24)) }
       def p24; end
       # Attribute for field paynow
-      sig { returns(Paynow) }
+      sig { returns(T.nilable(Paynow)) }
       def paynow; end
       # Attribute for field paypal
-      sig { returns(Paypal) }
+      sig { returns(T.nilable(Paypal)) }
       def paypal; end
       # Attribute for field pix
-      sig { returns(Pix) }
+      sig { returns(T.nilable(Pix)) }
       def pix; end
       # Attribute for field revolut
-      sig { returns(Revolut) }
+      sig { returns(T.nilable(Revolut)) }
       def revolut; end
       # Attribute for field sofort
-      sig { returns(Sofort) }
+      sig { returns(T.nilable(Sofort)) }
       def sofort; end
       # Attribute for field swish
-      sig { returns(Swish) }
+      sig { returns(T.nilable(Swish)) }
       def swish; end
       # Attribute for field th_bank_transfer
-      sig { returns(ThBankTransfer) }
+      sig { returns(T.nilable(ThBankTransfer)) }
       def th_bank_transfer; end
       # The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction.
       sig { returns(String) }
       def type; end
       # Attribute for field us_bank_transfer
-      sig { returns(UsBankTransfer) }
+      sig { returns(T.nilable(UsBankTransfer)) }
       def us_bank_transfer; end
       # Attribute for field wechat_pay
-      sig { returns(WechatPay) }
+      sig { returns(T.nilable(WechatPay)) }
       def wechat_pay; end
       # Attribute for field zip
-      sig { returns(Zip) }
+      sig { returns(T.nilable(Zip)) }
       def zip; end
     end
     class NextAction < Stripe::StripeObject
@@ -271,7 +271,7 @@ module Stripe
         def expires_at; end
       end
       # Attribute for field display_details
-      sig { returns(DisplayDetails) }
+      sig { returns(T.nilable(DisplayDetails)) }
       def display_details; end
       # Type of the next action to perform.
       sig { returns(String) }
@@ -301,28 +301,28 @@ module Stripe
     sig { returns(String) }
     def currency; end
     # An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only).
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def description; end
     # Attribute for field destination_details
-    sig { returns(DestinationDetails) }
+    sig { returns(T.nilable(DestinationDetails)) }
     def destination_details; end
     # After the refund fails, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction.
-    sig { returns(T.any(String, Stripe::BalanceTransaction)) }
+    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
     def failure_balance_transaction; end
     # Provides the reason for the refund failure. Possible values are: `lost_or_stolen_card`, `expired_or_canceled_card`, `charge_for_pending_refund_disputed`, `insufficient_funds`, `declined`, `merchant_request`, or `unknown`.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def failure_reason; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
     # For payment methods without native refund support (for example, Konbini, PromptPay), provide an email address for the customer to receive refund instructions.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def instructions_email; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
     # Attribute for field next_action
-    sig { returns(NextAction) }
+    sig { returns(T.nilable(NextAction)) }
     def next_action; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
@@ -331,10 +331,10 @@ module Stripe
     sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
     def payment_intent; end
     # Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def pending_reason; end
     # Attribute for field presentment_details
-    sig { returns(PresentmentDetails) }
+    sig { returns(T.nilable(PresentmentDetails)) }
     def presentment_details; end
     # Reason for the refund, which is either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`).
     sig { returns(T.nilable(String)) }

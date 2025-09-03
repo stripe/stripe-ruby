@@ -21,7 +21,7 @@ module Stripe
       sig { returns(Integer) }
       def data_load_time; end
       # Attribute for field error
-      sig { returns(Error) }
+      sig { returns(T.nilable(Error)) }
       def error; end
       # The file object representing the results of the query.
       sig { returns(T.nilable(Stripe::File)) }

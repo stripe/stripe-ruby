@@ -188,6 +188,8 @@ module Stripe
       attr_reader :paynow_payments
       # The status of the PayPal payments capability of the account, or whether the account can directly process PayPal charges.
       attr_reader :paypal_payments
+      # The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
+      attr_reader :paypay_payments
       # The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
       attr_reader :payto_payments
       # The status of the pix payments capability of the account, or whether the account can directly process pix charges.
@@ -1270,6 +1272,15 @@ module Stripe
           end
         end
 
+        class PaypayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaytoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -1590,6 +1601,8 @@ module Stripe
         attr_accessor :paynow_payments
         # The paypal_payments capability.
         attr_accessor :paypal_payments
+        # The paypay_payments capability.
+        attr_accessor :paypay_payments
         # The payto_payments capability.
         attr_accessor :payto_payments
         # The pix_payments capability.
@@ -1690,6 +1703,7 @@ module Stripe
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
+          paypay_payments: nil,
           payto_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
@@ -1764,6 +1778,7 @@ module Stripe
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments
+          @paypay_payments = paypay_payments
           @payto_payments = payto_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
@@ -3583,6 +3598,15 @@ module Stripe
           end
         end
 
+        class PaypayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaytoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3903,6 +3927,8 @@ module Stripe
         attr_accessor :paynow_payments
         # The paypal_payments capability.
         attr_accessor :paypal_payments
+        # The paypay_payments capability.
+        attr_accessor :paypay_payments
         # The payto_payments capability.
         attr_accessor :payto_payments
         # The pix_payments capability.
@@ -4003,6 +4029,7 @@ module Stripe
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
+          paypay_payments: nil,
           payto_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
@@ -4077,6 +4104,7 @@ module Stripe
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments
+          @paypay_payments = paypay_payments
           @payto_payments = payto_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments

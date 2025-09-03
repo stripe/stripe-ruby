@@ -1239,6 +1239,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def verified_name; end
       end
+      class Paypay < Stripe::StripeObject; end
       class Payto < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         sig { returns(T.nilable(String)) }
@@ -1575,6 +1576,9 @@ module Stripe
       # Attribute for field paypal
       sig { returns(Paypal) }
       def paypal; end
+      # Attribute for field paypay
+      sig { returns(Paypay) }
+      def paypay; end
       # Attribute for field payto
       sig { returns(Payto) }
       def payto; end

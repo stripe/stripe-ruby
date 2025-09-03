@@ -641,6 +641,21 @@ module Stripe
       attr_reader :display_preference
     end
 
+    class Paypay < Stripe::StripeObject
+      class DisplayPreference < Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+    end
+
     class Payto < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1608,6 +1623,23 @@ module Stripe
         end
       end
 
+      class Paypay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Payto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1952,6 +1984,8 @@ module Stripe
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
       attr_accessor :paypal
+      # Customers can pay with PayPay online or using the PayPay app.
+      attr_accessor :paypay
       # PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
       attr_accessor :payto
       # Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
@@ -2029,6 +2063,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -2090,6 +2125,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
@@ -2823,6 +2859,23 @@ module Stripe
         end
       end
 
+      class Paypay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Payto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -3167,6 +3220,8 @@ module Stripe
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
       attr_accessor :paypal
+      # Customers can pay with PayPay online or using the PayPay app.
+      attr_accessor :paypay
       # PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
       attr_accessor :payto
       # Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
@@ -3244,6 +3299,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -3305,6 +3361,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
@@ -3420,6 +3477,8 @@ module Stripe
     attr_reader :paynow
     # Attribute for field paypal
     attr_reader :paypal
+    # Attribute for field paypay
+    attr_reader :paypay
     # Attribute for field payto
     attr_reader :payto
     # Attribute for field pix

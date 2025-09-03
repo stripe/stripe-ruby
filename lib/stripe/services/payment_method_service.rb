@@ -319,6 +319,7 @@ module Stripe
       class Payco < Stripe::RequestParams; end
       class Paynow < Stripe::RequestParams; end
       class Paypal < Stripe::RequestParams; end
+      class Paypay < Stripe::RequestParams; end
 
       class Payto < Stripe::RequestParams
         # The account number for the bank account.
@@ -531,6 +532,8 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
       attr_accessor :paypal
+      # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+      attr_accessor :paypay
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       attr_accessor :payto
       # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -617,6 +620,7 @@ module Stripe
         payment_method: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -683,6 +687,7 @@ module Stripe
         @payment_method = payment_method
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay

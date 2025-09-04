@@ -267,6 +267,9 @@ module Stripe
         def network_reason_code; end
       end
       class Klarna < Stripe::StripeObject
+        # Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+        sig { returns(T.nilable(String)) }
+        def chargeback_loss_reason_code; end
         # The reason for the dispute as defined by Klarna
         sig { returns(T.nilable(String)) }
         def reason_code; end

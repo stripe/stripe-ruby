@@ -312,6 +312,12 @@ module Stripe
 
         class IdBankTransfer < Stripe::StripeObject; end
         class Konbini < Stripe::StripeObject; end
+
+        class Pix < Stripe::StripeObject
+          # Determines if the amount includes the IOF tax.
+          attr_reader :amount_includes_iof
+        end
+
         class SepaDebit < Stripe::StripeObject; end
 
         class Upi < Stripe::StripeObject
@@ -361,6 +367,8 @@ module Stripe
         attr_reader :id_bank_transfer
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :konbini
+        # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :pix
         # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :sepa_debit
         # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -729,6 +737,16 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+
+            def initialize(amount_includes_iof: nil)
+              @amount_includes_iof = amount_includes_iof
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -805,6 +823,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -819,6 +839,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -829,6 +850,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -1472,6 +1494,16 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+
+            def initialize(amount_includes_iof: nil)
+              @amount_includes_iof = amount_includes_iof
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -1548,6 +1580,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -1562,6 +1596,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -1572,6 +1607,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account

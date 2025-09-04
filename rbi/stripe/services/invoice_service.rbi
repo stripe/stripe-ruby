@@ -325,6 +325,15 @@ module Stripe
           end
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+          class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            def amount_includes_iof; end
+            sig { params(_amount_includes_iof: T.nilable(String)).returns(T.nilable(String)) }
+            def amount_includes_iof=(_amount_includes_iof); end
+            sig { params(amount_includes_iof: T.nilable(String)).void }
+            def initialize(amount_includes_iof: nil); end
+          end
           class SepaDebit < Stripe::RequestParams; end
           class Upi < Stripe::RequestParams
             class MandateOptions < Stripe::RequestParams
@@ -488,6 +497,15 @@ module Stripe
             params(_konbini: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini))).returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
            }
           def konbini=(_konbini); end
+          # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix)))
+           }
+          def pix; end
+          sig {
+            params(_pix: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix))).returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix)))
+           }
+          def pix=(_pix); end
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
             returns(T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
@@ -516,7 +534,7 @@ module Stripe
            }
           def us_bank_account=(_us_bank_account); end
           sig {
-            params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+            params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), pix: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
            }
           def initialize(
             acss_debit: nil,
@@ -525,6 +543,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -1528,6 +1547,15 @@ module Stripe
           end
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+          class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            sig { returns(T.nilable(String)) }
+            def amount_includes_iof; end
+            sig { params(_amount_includes_iof: T.nilable(String)).returns(T.nilable(String)) }
+            def amount_includes_iof=(_amount_includes_iof); end
+            sig { params(amount_includes_iof: T.nilable(String)).void }
+            def initialize(amount_includes_iof: nil); end
+          end
           class SepaDebit < Stripe::RequestParams; end
           class Upi < Stripe::RequestParams
             class MandateOptions < Stripe::RequestParams
@@ -1691,6 +1719,15 @@ module Stripe
             params(_konbini: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini))).returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
            }
           def konbini=(_konbini); end
+          # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Pix)))
+           }
+          def pix; end
+          sig {
+            params(_pix: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Pix))).returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Pix)))
+           }
+          def pix=(_pix); end
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
             returns(T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
@@ -1719,7 +1756,7 @@ module Stripe
            }
           def us_bank_account=(_us_bank_account); end
           sig {
-            params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+            params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), pix: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
            }
           def initialize(
             acss_debit: nil,
@@ -1728,6 +1765,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil

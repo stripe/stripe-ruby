@@ -156,6 +156,22 @@ module Stripe
 
         class IdBankTransfer < Stripe::StripeObject; end
         class Konbini < Stripe::StripeObject; end
+
+        class Pix < Stripe::StripeObject
+          class MandateOptions < Stripe::StripeObject
+            # Amount to be charged for future payments.
+            attr_reader :amount
+            # Determines if the amount includes the IOF tax.
+            attr_reader :amount_includes_iof
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            attr_reader :end_date
+            # Schedule at which the future payments will be charged.
+            attr_reader :payment_schedule
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+        end
+
         class SepaDebit < Stripe::StripeObject; end
 
         class Upi < Stripe::StripeObject
@@ -205,6 +221,8 @@ module Stripe
         attr_reader :id_bank_transfer
         # This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
         attr_reader :konbini
+        # This sub-hash contains details about the Pix payment method options to pass to invoices created by the subscription.
+        attr_reader :pix
         # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
         attr_reader :sepa_debit
         # This sub-hash contains details about the UPI payment method options to pass to invoices created by the subscription.
@@ -800,6 +818,38 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments. If not provided, defaults to 40000.
+              attr_accessor :amount
+              # Determines if the amount includes the IOF tax. Defaults to `never`.
+              attr_accessor :amount_includes_iof
+              # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+              attr_accessor :end_date
+              # Schedule at which the future payments will be charged. Defaults to `weekly`.
+              attr_accessor :payment_schedule
+
+              def initialize(
+                amount: nil,
+                amount_includes_iof: nil,
+                end_date: nil,
+                payment_schedule: nil
+              )
+                @amount = amount
+                @amount_includes_iof = amount_includes_iof
+                @end_date = end_date
+                @payment_schedule = payment_schedule
+              end
+            end
+            # Configuration options for setting up a mandate
+            attr_accessor :mandate_options
+
+            def initialize(mandate_options: nil)
+              @mandate_options = mandate_options
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -876,6 +926,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # This sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # This sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # This sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -890,6 +942,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -900,6 +953,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -1758,6 +1812,38 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments. If not provided, defaults to 40000.
+              attr_accessor :amount
+              # Determines if the amount includes the IOF tax. Defaults to `never`.
+              attr_accessor :amount_includes_iof
+              # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+              attr_accessor :end_date
+              # Schedule at which the future payments will be charged. Defaults to `weekly`.
+              attr_accessor :payment_schedule
+
+              def initialize(
+                amount: nil,
+                amount_includes_iof: nil,
+                end_date: nil,
+                payment_schedule: nil
+              )
+                @amount = amount
+                @amount_includes_iof = amount_includes_iof
+                @end_date = end_date
+                @payment_schedule = payment_schedule
+              end
+            end
+            # Configuration options for setting up a mandate
+            attr_accessor :mandate_options
+
+            def initialize(mandate_options: nil)
+              @mandate_options = mandate_options
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -1834,6 +1920,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # This sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # This sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # This sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -1848,6 +1936,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -1858,6 +1947,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account

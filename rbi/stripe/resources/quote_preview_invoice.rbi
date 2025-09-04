@@ -376,6 +376,11 @@ module Stripe
         end
         class IdBankTransfer < Stripe::StripeObject; end
         class Konbini < Stripe::StripeObject; end
+        class Pix < Stripe::StripeObject
+          # Determines if the amount includes the IOF tax.
+          sig { returns(T.nilable(String)) }
+          def amount_includes_iof; end
+        end
         class SepaDebit < Stripe::StripeObject; end
         class Upi < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
@@ -441,6 +446,9 @@ module Stripe
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Konbini)) }
         def konbini; end
+        # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(Pix)) }
+        def pix; end
         # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end

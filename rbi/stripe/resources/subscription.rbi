@@ -178,6 +178,25 @@ module Stripe
         end
         class IdBankTransfer < Stripe::StripeObject; end
         class Konbini < Stripe::StripeObject; end
+        class Pix < Stripe::StripeObject
+          class MandateOptions < Stripe::StripeObject
+            # Amount to be charged for future payments.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # Determines if the amount includes the IOF tax.
+            sig { returns(T.nilable(String)) }
+            def amount_includes_iof; end
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            sig { returns(T.nilable(String)) }
+            def end_date; end
+            # Schedule at which the future payments will be charged.
+            sig { returns(T.nilable(String)) }
+            def payment_schedule; end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+        end
         class SepaDebit < Stripe::StripeObject; end
         class Upi < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
@@ -243,6 +262,9 @@ module Stripe
         # This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Konbini)) }
         def konbini; end
+        # This sub-hash contains details about the Pix payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(Pix)) }
+        def pix; end
         # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
@@ -1278,6 +1300,52 @@ module Stripe
           end
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+          class Pix < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments. If not provided, defaults to 40000.
+              sig { returns(T.nilable(Integer)) }
+              def amount; end
+              sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def amount=(_amount); end
+              # Determines if the amount includes the IOF tax. Defaults to `never`.
+              sig { returns(T.nilable(String)) }
+              def amount_includes_iof; end
+              sig { params(_amount_includes_iof: T.nilable(String)).returns(T.nilable(String)) }
+              def amount_includes_iof=(_amount_includes_iof); end
+              # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+              sig { returns(T.nilable(String)) }
+              def end_date; end
+              sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
+              def end_date=(_end_date); end
+              # Schedule at which the future payments will be charged. Defaults to `weekly`.
+              sig { returns(T.nilable(String)) }
+              def payment_schedule; end
+              sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
+              def payment_schedule=(_payment_schedule); end
+              sig {
+                params(amount: T.nilable(Integer), amount_includes_iof: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String)).void
+               }
+              def initialize(
+                amount: nil,
+                amount_includes_iof: nil,
+                end_date: nil,
+                payment_schedule: nil
+              ); end
+            end
+            # Configuration options for setting up a mandate
+            sig {
+              returns(T.nilable(::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions))
+             }
+            def mandate_options; end
+            sig {
+              params(_mandate_options: T.nilable(::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions)).returns(T.nilable(::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions))
+             }
+            def mandate_options=(_mandate_options); end
+            sig {
+              params(mandate_options: T.nilable(::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions)).void
+             }
+            def initialize(mandate_options: nil); end
+          end
           class SepaDebit < Stripe::RequestParams; end
           class Upi < Stripe::RequestParams
             class MandateOptions < Stripe::RequestParams
@@ -1441,6 +1509,15 @@ module Stripe
             params(_konbini: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini))).returns(T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
            }
           def konbini=(_konbini); end
+          # This sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix)))
+           }
+          def pix; end
+          sig {
+            params(_pix: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix))).returns(T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix)))
+           }
+          def pix=(_pix); end
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
             returns(T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
@@ -1469,7 +1546,7 @@ module Stripe
            }
           def us_bank_account=(_us_bank_account); end
           sig {
-            params(acss_debit: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), sepa_debit: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+            params(acss_debit: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), pix: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::Subscription::UpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
            }
           def initialize(
             acss_debit: nil,
@@ -1478,6 +1555,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -2796,6 +2874,52 @@ module Stripe
           end
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+          class Pix < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments. If not provided, defaults to 40000.
+              sig { returns(T.nilable(Integer)) }
+              def amount; end
+              sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def amount=(_amount); end
+              # Determines if the amount includes the IOF tax. Defaults to `never`.
+              sig { returns(T.nilable(String)) }
+              def amount_includes_iof; end
+              sig { params(_amount_includes_iof: T.nilable(String)).returns(T.nilable(String)) }
+              def amount_includes_iof=(_amount_includes_iof); end
+              # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+              sig { returns(T.nilable(String)) }
+              def end_date; end
+              sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
+              def end_date=(_end_date); end
+              # Schedule at which the future payments will be charged. Defaults to `weekly`.
+              sig { returns(T.nilable(String)) }
+              def payment_schedule; end
+              sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
+              def payment_schedule=(_payment_schedule); end
+              sig {
+                params(amount: T.nilable(Integer), amount_includes_iof: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String)).void
+               }
+              def initialize(
+                amount: nil,
+                amount_includes_iof: nil,
+                end_date: nil,
+                payment_schedule: nil
+              ); end
+            end
+            # Configuration options for setting up a mandate
+            sig {
+              returns(T.nilable(::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions))
+             }
+            def mandate_options; end
+            sig {
+              params(_mandate_options: T.nilable(::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions)).returns(T.nilable(::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions))
+             }
+            def mandate_options=(_mandate_options); end
+            sig {
+              params(mandate_options: T.nilable(::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Pix::MandateOptions)).void
+             }
+            def initialize(mandate_options: nil); end
+          end
           class SepaDebit < Stripe::RequestParams; end
           class Upi < Stripe::RequestParams
             class MandateOptions < Stripe::RequestParams
@@ -2959,6 +3083,15 @@ module Stripe
             params(_konbini: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini))).returns(T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
            }
           def konbini=(_konbini); end
+          # This sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Pix)))
+           }
+          def pix; end
+          sig {
+            params(_pix: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Pix))).returns(T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Pix)))
+           }
+          def pix=(_pix); end
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           sig {
             returns(T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)))
@@ -2987,7 +3120,7 @@ module Stripe
            }
           def us_bank_account=(_us_bank_account); end
           sig {
-            params(acss_debit: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), sepa_debit: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+            params(acss_debit: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), pix: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::Subscription::CreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
            }
           def initialize(
             acss_debit: nil,
@@ -2996,6 +3129,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil

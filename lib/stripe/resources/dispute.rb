@@ -205,6 +205,8 @@ module Stripe
       end
 
       class Klarna < Stripe::StripeObject
+        # Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+        attr_reader :chargeback_loss_reason_code
         # The reason for the dispute as defined by Klarna
         attr_reader :reason_code
       end

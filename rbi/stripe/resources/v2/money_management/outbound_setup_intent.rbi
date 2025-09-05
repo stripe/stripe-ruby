@@ -11,42 +11,42 @@ module Stripe
           class ConfirmationOfPayee < Stripe::StripeObject
             # The type of the credential.
             sig { returns(String) }
-            attr_reader :object
+            def object; end
             # The Confirmation of Payee status.
             sig { returns(String) }
-            attr_reader :status
+            def status; end
           end
           # The type of next action.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
           # Confirmation of Payee details.
           sig { returns(T.nilable(ConfirmationOfPayee)) }
-          attr_reader :confirmation_of_payee
+          def confirmation_of_payee; end
         end
         # Created timestamp.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # ID of the outbound setup intent.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # Specifies which actions needs to be taken next to continue setup of the credential.
         sig { returns(T.nilable(NextAction)) }
-        attr_reader :next_action
+        def next_action; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # Information about the payout method that’s created and linked to this outbound setup intent.
         sig { returns(Stripe::V2::MoneyManagement::PayoutMethod) }
-        attr_reader :payout_method
+        def payout_method; end
         # Closed Enum. Status of the outbound setup intent.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
         # The intended money movement flow this payout method should be set up for, specified in params.
         sig { returns(String) }
-        attr_reader :usage_intent
+        def usage_intent; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
       end
     end
   end

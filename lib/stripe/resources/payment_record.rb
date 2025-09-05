@@ -764,6 +764,8 @@ module Stripe
         attr_reader :verified_name
       end
 
+      class Paypay < Stripe::StripeObject; end
+
       class Payto < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         attr_reader :bsb_number
@@ -1027,6 +1029,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix

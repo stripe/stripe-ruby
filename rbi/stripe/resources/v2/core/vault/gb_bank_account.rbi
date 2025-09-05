@@ -14,75 +14,75 @@ module Stripe
                 # The business type given by the bank for this account, in case of a MATCH or PARTIAL_MATCH.
                 # Closed enum.
                 sig { returns(T.nilable(String)) }
-                attr_reader :business_type
+                def business_type; end
                 # The name given by the bank for this account, in case of a MATCH or PARTIAL_MATCH.
                 sig { returns(T.nilable(String)) }
-                attr_reader :name
+                def name; end
               end
               class Provided < Stripe::StripeObject
                 # The provided or Legal Entity business type to match against the CoP service. Closed enum.
                 sig { returns(String) }
-                attr_reader :business_type
+                def business_type; end
                 # The provided or Legal Entity name to match against the CoP service.
                 sig { returns(String) }
-                attr_reader :name
+                def name; end
               end
               # When the CoP result was created.
               sig { returns(String) }
-              attr_reader :created
+              def created; end
               # Whether or not the information of the bank account matches what you have provided. Closed enum.
               sig { returns(String) }
-              attr_reader :match_result
+              def match_result; end
               # The fields that CoP service matched against. Only has value if MATCH or PARTIAL_MATCH, empty otherwise.
               sig { returns(Matched) }
-              attr_reader :matched
+              def matched; end
               # Human-readable message describing the match result.
               sig { returns(String) }
-              attr_reader :message
+              def message; end
               # The fields that are matched against what the network has on file.
               sig { returns(Provided) }
-              attr_reader :provided
+              def provided; end
             end
             # The result of the Confirmation of Payee check, once the check has been initiated. Closed enum.
             sig { returns(Result) }
-            attr_reader :result
+            def result; end
             # The current state of Confirmation of Payee on this bank account. Closed enum.
             sig { returns(String) }
-            attr_reader :status
+            def status; end
           end
           # Whether this bank account object was archived. Bank account objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived bank account objects
           # cannot be used as outbound destinations and will not appear in the outbound destination list.
           sig { returns(T::Boolean) }
-          attr_reader :archived
+          def archived; end
           # Closed Enum. The type of the bank account (checking or savings).
           sig { returns(String) }
-          attr_reader :bank_account_type
+          def bank_account_type; end
           # The name of the bank.
           sig { returns(String) }
-          attr_reader :bank_name
+          def bank_name; end
           # Information around the status of Confirmation of Payee matching done on this bank account.
           # Confirmation of Payee is a name matching service that must be done before making OutboundPayments in the UK.
           sig { returns(ConfirmationOfPayee) }
-          attr_reader :confirmation_of_payee
+          def confirmation_of_payee; end
           # Creation time.
           sig { returns(String) }
-          attr_reader :created
+          def created; end
           # The ID of the GBBankAccount object.
           sig { returns(String) }
-          attr_reader :id
+          def id; end
           # The last 4 digits of the account number or IBAN.
           sig { returns(String) }
-          attr_reader :last4
+          def last4; end
           # String representing the object's type. Objects of the same type share the same value of the object field.
           sig { returns(String) }
-          attr_reader :object
+          def object; end
           # The Sort Code of the bank account.
           sig { returns(String) }
-          attr_reader :sort_code
+          def sort_code; end
           # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
           sig { returns(T::Boolean) }
-          attr_reader :livemode
+          def livemode; end
         end
       end
     end

@@ -1572,6 +1572,8 @@ module Stripe
         attr_reader :subsellers
       end
 
+      class Paypay < Stripe::StripeObject; end
+
       class Payto < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -1917,6 +1919,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix
@@ -3248,6 +3252,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
 
         class Payto < Stripe::RequestParams
           # The account number for the bank account.
@@ -3452,6 +3457,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -3534,6 +3541,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -3596,6 +3604,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -4913,6 +4922,19 @@ module Stripe
           end
         end
 
+        class Paypay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Payto < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -5470,6 +5492,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
@@ -5547,6 +5571,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -5606,6 +5631,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -7054,6 +7080,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
 
         class Payto < Stripe::RequestParams
           # The account number for the bank account.
@@ -7258,6 +7285,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -7340,6 +7369,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -7402,6 +7432,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -8719,6 +8750,19 @@ module Stripe
           end
         end
 
+        class Paypay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Payto < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -9276,6 +9320,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
@@ -9353,6 +9399,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -9412,6 +9459,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -11784,6 +11832,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
 
         class Payto < Stripe::RequestParams
           # The account number for the bank account.
@@ -11988,6 +12037,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -12070,6 +12121,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -12132,6 +12184,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -13449,6 +13502,19 @@ module Stripe
           end
         end
 
+        class Paypay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Payto < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -14006,6 +14072,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
@@ -14083,6 +14151,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -14142,6 +14211,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay

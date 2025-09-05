@@ -7,16 +7,24 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :ending_before
+      def ending_before; end
+      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+      def ending_before=(_ending_before); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      attr_accessor :limit
+      def limit; end
+      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def limit=(_limit); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :starting_after
+      def starting_after; end
+      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+      def starting_after=(_starting_after); end
       sig {
         params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
        }
@@ -29,12 +37,16 @@ module Stripe
           #
           # This field should match the account ID that would be used in the PaymentIntent’s transfer_data[destination] field.
           sig { returns(T.nilable(String)) }
-          attr_accessor :destination
+          def destination; end
+          sig { params(_destination: T.nilable(String)).returns(T.nilable(String)) }
+          def destination=(_destination); end
           # The Stripe account ID that these funds are intended for.
           #
           # This field should match the account ID that would be used in the PaymentIntent’s on_behalf_of field.
           sig { returns(T.nilable(String)) }
-          attr_accessor :on_behalf_of
+          def on_behalf_of; end
+          sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
+          def on_behalf_of=(_on_behalf_of); end
           sig { params(destination: T.nilable(String), on_behalf_of: T.nilable(String)).void }
           def initialize(destination: nil, on_behalf_of: nil); end
         end
@@ -43,21 +55,33 @@ module Stripe
           #
           # This field should match the account ID that would be used in the Transfer’s destination field.
           sig { returns(String) }
-          attr_accessor :destination
+          def destination; end
+          sig { params(_destination: String).returns(String) }
+          def destination=(_destination); end
           sig { params(destination: String).void }
           def initialize(destination: nil); end
         end
         # The payment transaction details that are intended for the FX Quote.
         sig { returns(T.nilable(::Stripe::FxQuoteService::CreateParams::Usage::Payment)) }
-        attr_accessor :payment
+        def payment; end
+        sig {
+          params(_payment: T.nilable(::Stripe::FxQuoteService::CreateParams::Usage::Payment)).returns(T.nilable(::Stripe::FxQuoteService::CreateParams::Usage::Payment))
+         }
+        def payment=(_payment); end
         # The transfer transaction details that are intended for the FX Quote.
         sig { returns(T.nilable(::Stripe::FxQuoteService::CreateParams::Usage::Transfer)) }
-        attr_accessor :transfer
+        def transfer; end
+        sig {
+          params(_transfer: T.nilable(::Stripe::FxQuoteService::CreateParams::Usage::Transfer)).returns(T.nilable(::Stripe::FxQuoteService::CreateParams::Usage::Transfer))
+         }
+        def transfer=(_transfer); end
         # Which transaction the FX Quote will be used for
         #
         # Can be “payment” | “transfer”
         sig { returns(String) }
-        attr_accessor :type
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
         sig {
           params(payment: T.nilable(::Stripe::FxQuoteService::CreateParams::Usage::Payment), transfer: T.nilable(::Stripe::FxQuoteService::CreateParams::Usage::Transfer), type: String).void
          }
@@ -65,19 +89,31 @@ module Stripe
       end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # A list of three letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be [supported currencies](https://stripe.com/docs/currencies).
       sig { returns(T::Array[String]) }
-      attr_accessor :from_currencies
+      def from_currencies; end
+      sig { params(_from_currencies: T::Array[String]).returns(T::Array[String]) }
+      def from_currencies=(_from_currencies); end
       # The duration that you wish the quote to be locked for. The quote will be usable for the duration specified. The default is `none`. The maximum is 1 day.
       sig { returns(String) }
-      attr_accessor :lock_duration
+      def lock_duration; end
+      sig { params(_lock_duration: String).returns(String) }
+      def lock_duration=(_lock_duration); end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      attr_accessor :to_currency
+      def to_currency; end
+      sig { params(_to_currency: String).returns(String) }
+      def to_currency=(_to_currency); end
       # The usage specific information for the quote.
       sig { returns(T.nilable(::Stripe::FxQuoteService::CreateParams::Usage)) }
-      attr_accessor :usage
+      def usage; end
+      sig {
+        params(_usage: T.nilable(::Stripe::FxQuoteService::CreateParams::Usage)).returns(T.nilable(::Stripe::FxQuoteService::CreateParams::Usage))
+       }
+      def usage=(_usage); end
       sig {
         params(expand: T.nilable(T::Array[String]), from_currencies: T::Array[String], lock_duration: String, to_currency: String, usage: T.nilable(::Stripe::FxQuoteService::CreateParams::Usage)).void
        }
@@ -92,7 +128,9 @@ module Stripe
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end

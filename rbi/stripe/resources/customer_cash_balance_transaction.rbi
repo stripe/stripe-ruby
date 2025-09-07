@@ -15,11 +15,23 @@ module Stripe
       # The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
       sig { returns(T.any(String, Stripe::CustomerCashBalanceTransaction)) }
       def linked_transaction; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class AppliedToPayment < Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to.
       sig { returns(T.any(String, Stripe::PaymentIntent)) }
       def payment_intent; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Funded < Stripe::StripeObject
       class BankTransfer < Stripe::StripeObject
@@ -33,6 +45,12 @@ module Stripe
           # The full name of the sender, as supplied by the sending bank.
           sig { returns(T.nilable(String)) }
           def sender_name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class GbBankTransfer < Stripe::StripeObject
           # The last 4 digits of the account number of the sender of the funding.
@@ -44,6 +62,12 @@ module Stripe
           # The sort code of the bank of the sender of the funding
           sig { returns(T.nilable(String)) }
           def sort_code; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class JpBankTransfer < Stripe::StripeObject
           # The name of the bank of the sender of the funding.
@@ -55,6 +79,12 @@ module Stripe
           # The full name of the sender, as supplied by the sending bank.
           sig { returns(T.nilable(String)) }
           def sender_name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class UsBankTransfer < Stripe::StripeObject
           # The banking network used for this funding.
@@ -63,6 +93,12 @@ module Stripe
           # The full name of the sender, as supplied by the sending bank.
           sig { returns(T.nilable(String)) }
           def sender_name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field eu_bank_transfer
         sig { returns(T.nilable(EuBankTransfer)) }
@@ -82,25 +118,60 @@ module Stripe
         # Attribute for field us_bank_transfer
         sig { returns(T.nilable(UsBankTransfer)) }
         def us_bank_transfer; end
+        def self.inner_class_types
+          @inner_class_types = {
+            eu_bank_transfer: EuBankTransfer,
+            gb_bank_transfer: GbBankTransfer,
+            jp_bank_transfer: JpBankTransfer,
+            us_bank_transfer: UsBankTransfer,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field bank_transfer
       sig { returns(BankTransfer) }
       def bank_transfer; end
+      def self.inner_class_types
+        @inner_class_types = {bank_transfer: BankTransfer}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class RefundedFromPayment < Stripe::StripeObject
       # The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
       sig { returns(T.any(String, Stripe::Refund)) }
       def refund; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TransferredToBalance < Stripe::StripeObject
       # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
       sig { returns(T.any(String, Stripe::BalanceTransaction)) }
       def balance_transaction; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class UnappliedFromPayment < Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
       sig { returns(T.any(String, Stripe::PaymentIntent)) }
       def payment_intent; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field adjusted_for_overdraft
     sig { returns(T.nilable(AdjustedForOverdraft)) }

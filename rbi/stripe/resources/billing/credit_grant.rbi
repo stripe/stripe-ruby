@@ -16,6 +16,12 @@ module Stripe
           # A positive integer representing the amount.
           sig { returns(Integer) }
           def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The monetary amount.
         sig { returns(T.nilable(Monetary)) }
@@ -23,6 +29,12 @@ module Stripe
         # The type of this amount. We currently only support `monetary` billing credits.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {monetary: Monetary}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class ApplicabilityConfig < Stripe::StripeObject
         class Scope < Stripe::StripeObject
@@ -30,6 +42,12 @@ module Stripe
             # Unique identifier for the object.
             sig { returns(T.nilable(String)) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `prices`.
           sig { returns(T.nilable(String)) }
@@ -37,10 +55,22 @@ module Stripe
           # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
           sig { returns(T.nilable(T::Array[Price])) }
           def prices; end
+          def self.inner_class_types
+            @inner_class_types = {prices: Price}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field scope
         sig { returns(Scope) }
         def scope; end
+        def self.inner_class_types
+          @inner_class_types = {scope: Scope}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field amount
       sig { returns(Amount) }

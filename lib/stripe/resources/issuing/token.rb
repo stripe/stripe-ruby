@@ -27,6 +27,14 @@ module Stripe
           attr_reader :phone_number
           # The type of device used for tokenization.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Mastercard < Stripe::StripeObject
@@ -38,6 +46,14 @@ module Stripe
           attr_reader :token_requestor_id
           # The name of the entity requesting tokenization, if known. This is directly provided from MasterCard.
           attr_reader :token_requestor_name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Visa < Stripe::StripeObject
@@ -49,6 +65,14 @@ module Stripe
           attr_reader :token_requestor_id
           # Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
           attr_reader :token_risk_score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class WalletProvider < Stripe::StripeObject
@@ -57,6 +81,14 @@ module Stripe
             attr_reader :line1
             # The postal code of the cardholder tokenizing the card.
             attr_reader :postal_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The wallet provider-given account ID of the digital wallet the token belongs to.
           attr_reader :account_id
@@ -78,6 +110,14 @@ module Stripe
           attr_reader :suggested_decision
           # The version of the standard for mapping reason codes followed by the wallet provider.
           attr_reader :suggested_decision_version
+
+          def self.inner_class_types
+            @inner_class_types = { cardholder_address: CardholderAddress }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field device
         attr_reader :device
@@ -89,6 +129,19 @@ module Stripe
         attr_reader :visa
         # Attribute for field wallet_provider
         attr_reader :wallet_provider
+
+        def self.inner_class_types
+          @inner_class_types = {
+            device: Device,
+            mastercard: Mastercard,
+            visa: Visa,
+            wallet_provider: WalletProvider,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -192,6 +245,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { network_data: NetworkData }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

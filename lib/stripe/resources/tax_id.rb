@@ -25,6 +25,14 @@ module Stripe
       attr_reader :customer
       # Type of owner referenced.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Verification < Stripe::StripeObject
@@ -34,6 +42,14 @@ module Stripe
       attr_reader :verified_address
       # Verified name.
       attr_reader :verified_name
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class DeleteParams < Stripe::RequestParams; end
@@ -155,6 +171,14 @@ module Stripe
     # Returns a list of tax IDs.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/tax_ids", params: params, opts: opts)
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { owner: Owner, verification: Verification }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

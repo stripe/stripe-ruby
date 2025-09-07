@@ -12,11 +12,23 @@ module Stripe
         # Reason for the failure.
         sig { returns(String) }
         def code; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class LinkedFlows < Stripe::StripeObject
         # If funds for this flow were returned after the flow went to the `succeeded` state, this field contains a reference to the ReceivedDebit return.
         sig { returns(T.nilable(String)) }
         def received_debit; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class OriginPaymentMethodDetails < Stripe::StripeObject
         class BillingDetails < Stripe::StripeObject
@@ -39,6 +51,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field address
           sig { returns(Address) }
@@ -49,6 +67,12 @@ module Stripe
           # Full name.
           sig { returns(T.nilable(String)) }
           def name; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class UsBankAccount < Stripe::StripeObject
           # Account holder type: individual or company.
@@ -75,6 +99,12 @@ module Stripe
           # Routing number of the bank account.
           sig { returns(T.nilable(String)) }
           def routing_number; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field billing_details
         sig { returns(BillingDetails) }
@@ -85,6 +115,12 @@ module Stripe
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        def self.inner_class_types
+          @inner_class_types = {billing_details: BillingDetails, us_bank_account: UsBankAccount}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class StatusTransitions < Stripe::StripeObject
         # Timestamp describing when an InboundTransfer changed status to `canceled`.
@@ -96,6 +132,12 @@ module Stripe
         # Timestamp describing when an InboundTransfer changed status to `succeeded`.
         sig { returns(T.nilable(Integer)) }
         def succeeded_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Amount (in cents) transferred.
       sig { returns(Integer) }

@@ -351,6 +351,26 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def version; end
         end
+        class Wallet < Stripe::StripeObject
+          class ApplePay < Stripe::StripeObject
+            # Type of the apple_pay transaction, one of `apple_pay` or `apple_pay_later`.
+            sig { returns(String) }
+            def type; end
+          end
+          class GooglePay < Stripe::StripeObject; end
+          # Attribute for field apple_pay
+          sig { returns(T.nilable(ApplePay)) }
+          def apple_pay; end
+          # (For tokenized numbers only.) The last four digits of the device account number.
+          sig { returns(T.nilable(String)) }
+          def dynamic_last4; end
+          # Attribute for field google_pay
+          sig { returns(T.nilable(GooglePay)) }
+          def google_pay; end
+          # The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+          sig { returns(String) }
+          def type; end
+        end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(String) }
         def brand; end
@@ -395,6 +415,9 @@ module Stripe
         # Populated if this transaction used 3D Secure authentication.
         sig { returns(T.nilable(ThreeDSecure)) }
         def three_d_secure; end
+        # If this Card is part of a card wallet, this contains the details of the card wallet.
+        sig { returns(T.nilable(Wallet)) }
+        def wallet; end
       end
       class CardPresent < Stripe::StripeObject
         class Offline < Stripe::StripeObject

@@ -289,6 +289,23 @@ module Stripe
           # Attribute for field version
           attr_reader :version
         end
+
+        class Wallet < Stripe::StripeObject
+          class ApplePay < Stripe::StripeObject
+            # Type of the apple_pay transaction, one of `apple_pay` or `apple_pay_later`.
+            attr_reader :type
+          end
+
+          class GooglePay < Stripe::StripeObject; end
+          # Attribute for field apple_pay
+          attr_reader :apple_pay
+          # (For tokenized numbers only.) The last four digits of the device account number.
+          attr_reader :dynamic_last4
+          # Attribute for field google_pay
+          attr_reader :google_pay
+          # The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+          attr_reader :type
+        end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
@@ -319,6 +336,8 @@ module Stripe
         attr_reader :network_transaction_id
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
+        # If this Card is part of a card wallet, this contains the details of the card wallet.
+        attr_reader :wallet
       end
 
       class CardPresent < Stripe::StripeObject

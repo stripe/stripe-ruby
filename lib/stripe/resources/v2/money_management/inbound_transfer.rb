@@ -38,15 +38,10 @@ module Stripe
             attr_reader :failure_reason
           end
 
-          class BankDebitProcessing < Stripe::StripeObject; end
-          class BankDebitQueued < Stripe::StripeObject; end
-
           class BankDebitReturned < Stripe::StripeObject
             # Open Enum. The return reason for the returned InboundTransfer.
             attr_reader :return_reason
           end
-
-          class BankDebitSucceeded < Stripe::StripeObject; end
           # Creation time of the HistoryEntry in RFC 3339 format and UTC.
           attr_reader :created
           # Effective at time of the HistoryEntry in RFC 3339 format and UTC.

@@ -35,7 +35,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Information about the payout method that’s created and linked to this outbound setup intent.
+        # Use the PayoutMethods API to list and interact with PayoutMethod objects.
         sig { returns(Stripe::V2::MoneyManagement::PayoutMethod) }
         def payout_method; end
         # Closed Enum. Status of the outbound setup intent.

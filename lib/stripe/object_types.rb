@@ -192,7 +192,7 @@ module Stripe
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
         V2::Core::Account.object_name => V2::Core::Account,
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
-        V2::Core::Person.object_name => V2::Core::Person,
+        V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
         V2::Event.object_name => V2::Event,

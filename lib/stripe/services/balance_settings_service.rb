@@ -29,12 +29,15 @@ module Stripe
               @weekly_payout_days = weekly_payout_days
             end
           end
+          # The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](/payouts/minimum-balances-for-automatic-payouts).
+          attr_accessor :minimum_balance_by_currency
           # Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](/connect/bank-transfers#payout-information) documentation.
           attr_accessor :schedule
           # The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
           attr_accessor :statement_descriptor
 
-          def initialize(schedule: nil, statement_descriptor: nil)
+          def initialize(minimum_balance_by_currency: nil, schedule: nil, statement_descriptor: nil)
+            @minimum_balance_by_currency = minimum_balance_by_currency
             @schedule = schedule
             @statement_descriptor = statement_descriptor
           end

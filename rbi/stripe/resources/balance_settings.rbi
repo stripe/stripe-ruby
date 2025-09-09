@@ -22,6 +22,9 @@ module Stripe
           sig { returns(T.nilable(T::Array[String])) }
           def weekly_payout_days; end
         end
+        # The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](/payouts/minimum-balances-for-automatic-payouts).
+        sig { returns(T.nilable(T::Hash[String, Integer])) }
+        def minimum_balance_by_currency; end
         # Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation for details.
         sig { returns(T.nilable(Schedule)) }
         def schedule; end
@@ -81,6 +84,13 @@ module Stripe
              }
             def initialize(interval: nil, monthly_payout_days: nil, weekly_payout_days: nil); end
           end
+          # The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](/payouts/minimum-balances-for-automatic-payouts).
+          sig { returns(T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)]))) }
+          def minimum_balance_by_currency; end
+          sig {
+            params(_minimum_balance_by_currency: T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)]))).returns(T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)])))
+           }
+          def minimum_balance_by_currency=(_minimum_balance_by_currency); end
           # Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](/connect/bank-transfers#payout-information) documentation.
           sig {
             returns(T.nilable(::Stripe::BalanceSettings::UpdateParams::Payments::Payouts::Schedule))
@@ -96,9 +106,13 @@ module Stripe
           sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
           def statement_descriptor=(_statement_descriptor); end
           sig {
-            params(schedule: T.nilable(::Stripe::BalanceSettings::UpdateParams::Payments::Payouts::Schedule), statement_descriptor: T.nilable(String)).void
+            params(minimum_balance_by_currency: T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)])), schedule: T.nilable(::Stripe::BalanceSettings::UpdateParams::Payments::Payouts::Schedule), statement_descriptor: T.nilable(String)).void
            }
-          def initialize(schedule: nil, statement_descriptor: nil); end
+          def initialize(
+            minimum_balance_by_currency: nil,
+            schedule: nil,
+            statement_descriptor: nil
+          ); end
         end
         class SettlementTiming < Stripe::RequestParams
           # The number of days charge funds are held before becoming available. The default value is `minimum`, representing the lowest available value for the account. The maximum value is 31. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling delay days](/connect/manage-payout-schedule).

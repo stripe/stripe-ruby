@@ -25,6 +25,8 @@ module Stripe
           # The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
           attr_reader :weekly_payout_days
         end
+        # The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](/payouts/minimum-balances-for-automatic-payouts).
+        attr_reader :minimum_balance_by_currency
         # Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation for details.
         attr_reader :schedule
         # The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
@@ -62,12 +64,15 @@ module Stripe
               @weekly_payout_days = weekly_payout_days
             end
           end
+          # The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](/payouts/minimum-balances-for-automatic-payouts).
+          attr_accessor :minimum_balance_by_currency
           # Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](/connect/bank-transfers#payout-information) documentation.
           attr_accessor :schedule
           # The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
           attr_accessor :statement_descriptor
 
-          def initialize(schedule: nil, statement_descriptor: nil)
+          def initialize(minimum_balance_by_currency: nil, schedule: nil, statement_descriptor: nil)
+            @minimum_balance_by_currency = minimum_balance_by_currency
             @schedule = schedule
             @statement_descriptor = statement_descriptor
           end

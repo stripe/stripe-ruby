@@ -18,6 +18,14 @@ module Stripe
       attr_reader :object
       # A paginated list of owners for this account.
       attr_reader :owners
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

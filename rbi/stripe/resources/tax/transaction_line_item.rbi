@@ -9,6 +9,12 @@ module Stripe
         # The `id` of the line item to reverse in the original transaction.
         sig { returns(String) }
         def original_line_item; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The line item amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
       sig { returns(Integer) }

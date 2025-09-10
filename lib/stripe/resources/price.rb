@@ -27,6 +27,14 @@ module Stripe
         attr_reader :minimum
         # The starting unit amount which can be updated by the customer.
         attr_reader :preset
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Tier < Stripe::StripeObject
@@ -40,6 +48,14 @@ module Stripe
         attr_reader :unit_amount_decimal
         # Up to and including to this quantity will be contained in the tier.
         attr_reader :up_to
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
       attr_reader :custom_unit_amount
@@ -51,6 +67,14 @@ module Stripe
       attr_reader :unit_amount
       # The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
       attr_reader :unit_amount_decimal
+
+      def self.inner_class_types
+        @inner_class_types = { custom_unit_amount: CustomUnitAmount, tiers: Tier }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CustomUnitAmount < Stripe::StripeObject
@@ -60,6 +84,14 @@ module Stripe
       attr_reader :minimum
       # The starting unit amount which can be updated by the customer.
       attr_reader :preset
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Recurring < Stripe::StripeObject
@@ -73,6 +105,14 @@ module Stripe
       attr_reader :trial_period_days
       # Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
       attr_reader :usage_type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Tier < Stripe::StripeObject
@@ -86,6 +126,14 @@ module Stripe
       attr_reader :unit_amount_decimal
       # Up to and including to this quantity will be contained in the tier.
       attr_reader :up_to
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TransformQuantity < Stripe::StripeObject
@@ -93,6 +141,14 @@ module Stripe
       attr_reader :divide_by
       # After division, either round the result `up` or `down`.
       attr_reader :round
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -649,6 +705,20 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        currency_options: CurrencyOptions,
+        custom_unit_amount: CustomUnitAmount,
+        recurring: Recurring,
+        tiers: Tier,
+        transform_quantity: TransformQuantity,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

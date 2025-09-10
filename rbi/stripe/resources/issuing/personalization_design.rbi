@@ -19,6 +19,12 @@ module Stripe
         # The header title text of the carrier letter.
         sig { returns(T.nilable(String)) }
         def header_title; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Preferences < Stripe::StripeObject
         # Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
@@ -27,6 +33,12 @@ module Stripe
         # Whether this personalization design is used to create cards when one is not specified and a default for this connected account does not exist.
         sig { returns(T.nilable(T::Boolean)) }
         def is_platform_default; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class RejectionReasons < Stripe::StripeObject
         # The reason(s) the card logo was rejected.
@@ -35,6 +47,12 @@ module Stripe
         # The reason(s) the carrier text was rejected.
         sig { returns(T.nilable(T::Array[String])) }
         def carrier_text; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
       sig { returns(T.nilable(T.any(String, Stripe::File))) }

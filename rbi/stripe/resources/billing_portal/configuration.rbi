@@ -16,6 +16,12 @@ module Stripe
         # A link to the business’s publicly available terms of service.
         sig { returns(T.nilable(String)) }
         def terms_of_service_url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Features < Stripe::StripeObject
         class CustomerUpdate < Stripe::StripeObject
@@ -25,16 +31,34 @@ module Stripe
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           def enabled; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class InvoiceHistory < Stripe::StripeObject
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           def enabled; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class PaymentMethodUpdate < Stripe::StripeObject
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           def enabled; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class SubscriptionCancel < Stripe::StripeObject
           class CancellationReason < Stripe::StripeObject
@@ -44,6 +68,12 @@ module Stripe
             # Which cancellation reasons will be given as options to the customer.
             sig { returns(T::Array[String]) }
             def options; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field cancellation_reason
           sig { returns(CancellationReason) }
@@ -57,6 +87,12 @@ module Stripe
           # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`.
           sig { returns(String) }
           def proration_behavior; end
+          def self.inner_class_types
+            @inner_class_types = {cancellation_reason: CancellationReason}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class SubscriptionUpdate < Stripe::StripeObject
           class Product < Stripe::StripeObject
@@ -70,6 +106,12 @@ module Stripe
               # The minimum quantity that can be set for the product.
               sig { returns(Integer) }
               def minimum; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field adjustable_quantity
             sig { returns(AdjustableQuantity) }
@@ -80,16 +122,34 @@ module Stripe
             # The product ID.
             sig { returns(String) }
             def product; end
+            def self.inner_class_types
+              @inner_class_types = {adjustable_quantity: AdjustableQuantity}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class ScheduleAtPeriodEnd < Stripe::StripeObject
             class Condition < Stripe::StripeObject
               # The type of condition.
               sig { returns(String) }
               def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # List of conditions. When any condition is true, an update will be scheduled at the end of the current period.
             sig { returns(T::Array[Condition]) }
             def conditions; end
+            def self.inner_class_types
+              @inner_class_types = {conditions: Condition}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The types of subscription updates that are supported for items listed in the `products` attribute. When empty, subscriptions are not updateable.
           sig { returns(T::Array[String]) }
@@ -106,6 +166,12 @@ module Stripe
           # Attribute for field schedule_at_period_end
           sig { returns(ScheduleAtPeriodEnd) }
           def schedule_at_period_end; end
+          def self.inner_class_types
+            @inner_class_types = {products: Product, schedule_at_period_end: ScheduleAtPeriodEnd}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field customer_update
         sig { returns(CustomerUpdate) }
@@ -122,6 +188,18 @@ module Stripe
         # Attribute for field subscription_update
         sig { returns(SubscriptionUpdate) }
         def subscription_update; end
+        def self.inner_class_types
+          @inner_class_types = {
+            customer_update: CustomerUpdate,
+            invoice_history: InvoiceHistory,
+            payment_method_update: PaymentMethodUpdate,
+            subscription_cancel: SubscriptionCancel,
+            subscription_update: SubscriptionUpdate,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class LoginPage < Stripe::StripeObject
         # If `true`, a shareable `url` will be generated that will take your customers to a hosted login page for the customer portal.
@@ -132,6 +210,12 @@ module Stripe
         # A shareable URL to the hosted portal login page. Your customers will be able to log in with their [email](https://stripe.com/docs/api/customers/object#customer_object-email) and receive a link to their customer portal.
         sig { returns(T.nilable(String)) }
         def url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Whether the configuration is active and can be used to create portal sessions.
       sig { returns(T::Boolean) }

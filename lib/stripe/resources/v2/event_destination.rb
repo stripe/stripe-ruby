@@ -14,9 +14,25 @@ module Stripe
         class Disabled < Stripe::StripeObject
           # Reason event destination has been disabled.
           attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Details about why the event destination has been disabled.
         attr_reader :disabled
+
+        def self.inner_class_types
+          @inner_class_types = { disabled: Disabled }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AmazonEventbridge < Stripe::StripeObject
@@ -26,6 +42,14 @@ module Stripe
         attr_reader :aws_event_source_arn
         # The state of the AWS event source.
         attr_reader :aws_event_source_status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class WebhookEndpoint < Stripe::StripeObject
@@ -33,6 +57,14 @@ module Stripe
         attr_reader :signing_secret
         # The URL of the webhook endpoint, includable.
         attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Time at which the object was created.
       attr_reader :created
@@ -68,6 +100,18 @@ module Stripe
       attr_reader :amazon_eventbridge
       # Webhook endpoint configuration.
       attr_reader :webhook_endpoint
+
+      def self.inner_class_types
+        @inner_class_types = {
+          status_details: StatusDetails,
+          amazon_eventbridge: AmazonEventbridge,
+          webhook_endpoint: WebhookEndpoint,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

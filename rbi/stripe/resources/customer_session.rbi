@@ -15,6 +15,12 @@ module Stripe
         # Whether the buy button is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PaymentElement < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -44,6 +50,12 @@ module Stripe
           # When using SetupIntents, directly configure the [`usage`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-usage) value on SetupIntent creation.
           sig { returns(T.nilable(String)) }
           def payment_method_save_usage; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the Payment Element is enabled.
         sig { returns(T::Boolean) }
@@ -51,11 +63,23 @@ module Stripe
         # This hash defines whether the Payment Element supports certain features.
         sig { returns(T.nilable(Features)) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PricingTable < Stripe::StripeObject
         # Whether the pricing table is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # This hash contains whether the buy button is enabled.
       sig { returns(BuyButton) }
@@ -66,6 +90,16 @@ module Stripe
       # This hash contains whether the pricing table is enabled.
       sig { returns(PricingTable) }
       def pricing_table; end
+      def self.inner_class_types
+        @inner_class_types = {
+          buy_button: BuyButton,
+          payment_element: PaymentElement,
+          pricing_table: PricingTable,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The client secret of this Customer Session. Used on the client to set up secure access to the given `customer`.
     #

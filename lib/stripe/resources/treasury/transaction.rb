@@ -19,6 +19,14 @@ module Stripe
         attr_reader :inbound_pending
         # The change made to funds in the account, but not spendable because they are being held for pending outbound flows.
         attr_reader :outbound_pending
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class FlowDetails < Stripe::StripeObject
@@ -54,6 +62,14 @@ module Stripe
         attr_reader :received_debit
         # Type of the flow that created the Transaction. Set to the same value as `flow_type`.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class StatusTransitions < Stripe::StripeObject
@@ -61,6 +77,14 @@ module Stripe
         attr_reader :posted_at
         # Timestamp describing when the Transaction changed status to `void`.
         attr_reader :void_at
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -187,6 +211,18 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          balance_impact: BalanceImpact,
+          flow_details: FlowDetails,
+          status_transitions: StatusTransitions,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

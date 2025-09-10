@@ -21,6 +21,12 @@ module Stripe
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         sig { returns(T.nilable(Integer)) }
         def fpx; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Balance amount.
       sig { returns(Integer) }
@@ -31,6 +37,12 @@ module Stripe
       # Attribute for field source_types
       sig { returns(T.nilable(SourceTypes)) }
       def source_types; end
+      def self.inner_class_types
+        @inner_class_types = {source_types: SourceTypes}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class ConnectReserved < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
@@ -43,6 +55,12 @@ module Stripe
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         sig { returns(T.nilable(Integer)) }
         def fpx; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Balance amount.
       sig { returns(Integer) }
@@ -53,6 +71,12 @@ module Stripe
       # Attribute for field source_types
       sig { returns(T.nilable(SourceTypes)) }
       def source_types; end
+      def self.inner_class_types
+        @inner_class_types = {source_types: SourceTypes}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class InstantAvailable < Stripe::StripeObject
       class NetAvailable < Stripe::StripeObject
@@ -66,6 +90,12 @@ module Stripe
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           sig { returns(T.nilable(Integer)) }
           def fpx; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Net balance amount, subtracting fees from platform-set pricing.
         sig { returns(Integer) }
@@ -76,6 +106,12 @@ module Stripe
         # Attribute for field source_types
         sig { returns(T.nilable(SourceTypes)) }
         def source_types; end
+        def self.inner_class_types
+          @inner_class_types = {source_types: SourceTypes}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class SourceTypes < Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
@@ -87,6 +123,12 @@ module Stripe
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         sig { returns(T.nilable(Integer)) }
         def fpx; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Balance amount.
       sig { returns(Integer) }
@@ -100,6 +142,12 @@ module Stripe
       # Attribute for field source_types
       sig { returns(T.nilable(SourceTypes)) }
       def source_types; end
+      def self.inner_class_types
+        @inner_class_types = {net_available: NetAvailable, source_types: SourceTypes}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Issuing < Stripe::StripeObject
       class Available < Stripe::StripeObject
@@ -113,6 +161,12 @@ module Stripe
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           sig { returns(T.nilable(Integer)) }
           def fpx; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Balance amount.
         sig { returns(Integer) }
@@ -123,10 +177,22 @@ module Stripe
         # Attribute for field source_types
         sig { returns(T.nilable(SourceTypes)) }
         def source_types; end
+        def self.inner_class_types
+          @inner_class_types = {source_types: SourceTypes}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Funds that are available for use.
       sig { returns(T::Array[Available]) }
       def available; end
+      def self.inner_class_types
+        @inner_class_types = {available: Available}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Pending < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
@@ -139,6 +205,12 @@ module Stripe
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         sig { returns(T.nilable(Integer)) }
         def fpx; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Balance amount.
       sig { returns(Integer) }
@@ -149,6 +221,12 @@ module Stripe
       # Attribute for field source_types
       sig { returns(T.nilable(SourceTypes)) }
       def source_types; end
+      def self.inner_class_types
+        @inner_class_types = {source_types: SourceTypes}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class RefundAndDisputePrefunding < Stripe::StripeObject
       class Available < Stripe::StripeObject
@@ -162,6 +240,12 @@ module Stripe
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           sig { returns(T.nilable(Integer)) }
           def fpx; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Balance amount.
         sig { returns(Integer) }
@@ -172,6 +256,12 @@ module Stripe
         # Attribute for field source_types
         sig { returns(T.nilable(SourceTypes)) }
         def source_types; end
+        def self.inner_class_types
+          @inner_class_types = {source_types: SourceTypes}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Pending < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
@@ -184,6 +274,12 @@ module Stripe
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           sig { returns(T.nilable(Integer)) }
           def fpx; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Balance amount.
         sig { returns(Integer) }
@@ -194,6 +290,12 @@ module Stripe
         # Attribute for field source_types
         sig { returns(T.nilable(SourceTypes)) }
         def source_types; end
+        def self.inner_class_types
+          @inner_class_types = {source_types: SourceTypes}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Funds that are available for use.
       sig { returns(T::Array[Available]) }
@@ -201,6 +303,12 @@ module Stripe
       # Funds that are pending
       sig { returns(T::Array[Pending]) }
       def pending; end
+      def self.inner_class_types
+        @inner_class_types = {available: Available, pending: Pending}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
     sig { returns(T::Array[Available]) }

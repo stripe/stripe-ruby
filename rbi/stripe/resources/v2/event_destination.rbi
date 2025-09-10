@@ -11,10 +11,22 @@ module Stripe
           # Reason event destination has been disabled.
           sig { returns(String) }
           def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Details about why the event destination has been disabled.
         sig { returns(T.nilable(Disabled)) }
         def disabled; end
+        def self.inner_class_types
+          @inner_class_types = {disabled: Disabled}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class AmazonEventbridge < Stripe::StripeObject
         # The AWS account ID.
@@ -26,6 +38,12 @@ module Stripe
         # The state of the AWS event source.
         sig { returns(String) }
         def aws_event_source_status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class WebhookEndpoint < Stripe::StripeObject
         # The signing secret of the webhook endpoint, only includable on creation.
@@ -34,6 +52,12 @@ module Stripe
         # The URL of the webhook endpoint, includable.
         sig { returns(T.nilable(String)) }
         def url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Time at which the object was created.
       sig { returns(String) }

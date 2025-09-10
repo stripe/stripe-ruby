@@ -15,21 +15,45 @@ module Stripe
         # The method for mapping a meter event to a customer.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class DefaultAggregation < Stripe::StripeObject
         # Specifies how events are aggregated.
         sig { returns(String) }
         def formula; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class StatusTransitions < Stripe::StripeObject
         # The time the meter was deactivated, if any. Measured in seconds since Unix epoch.
         sig { returns(T.nilable(Integer)) }
         def deactivated_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class ValueSettings < Stripe::StripeObject
         # The key in the meter event payload to use as the value for this meter.
         sig { returns(String) }
         def event_payload_key; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

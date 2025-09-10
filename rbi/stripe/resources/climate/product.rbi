@@ -17,6 +17,12 @@ module Stripe
         # Total for one metric ton of carbon removal (including fees) in the currency's smallest unit.
         sig { returns(Integer) }
         def amount_total; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

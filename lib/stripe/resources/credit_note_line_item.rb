@@ -14,6 +14,14 @@ module Stripe
       attr_reader :amount
       # The discount that was applied to get this discount amount.
       attr_reader :discount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PretaxCreditAmount < Stripe::StripeObject
@@ -25,12 +33,28 @@ module Stripe
       attr_reader :discount
       # Type of the pretax credit amount referenced.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Tax < Stripe::StripeObject
       class TaxRateDetails < Stripe::StripeObject
         # Attribute for field tax_rate
         attr_reader :tax_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The amount of the tax, in cents (or local equivalent).
       attr_reader :amount
@@ -44,6 +68,14 @@ module Stripe
       attr_reader :taxable_amount
       # The type of tax information.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { tax_rate_details: TaxRateDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
     attr_reader :amount
@@ -75,5 +107,17 @@ module Stripe
     attr_reader :unit_amount
     # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
     attr_reader :unit_amount_decimal
+
+    def self.inner_class_types
+      @inner_class_types = {
+        discount_amounts: DiscountAmount,
+        pretax_credit_amounts: PretaxCreditAmount,
+        taxes: Tax,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

@@ -19,6 +19,12 @@ module Stripe
           # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
           sig { returns(T.nilable(String)) }
           def state; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TaxRateDetails < Stripe::StripeObject
           # A localized display name for tax type, intended to be human-readable. For example, "Local Sales and Use Tax", "Value-added tax (VAT)", or "Umsatzsteuer (USt.)".
@@ -30,6 +36,12 @@ module Stripe
           # The tax type, such as `vat` or `sales_tax`.
           sig { returns(String) }
           def tax_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         sig { returns(Integer) }
@@ -49,6 +61,12 @@ module Stripe
         # The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         sig { returns(Integer) }
         def taxable_amount; end
+        def self.inner_class_types
+          @inner_class_types = {jurisdiction: Jurisdiction, tax_rate_details: TaxRateDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The line item amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
       sig { returns(Integer) }

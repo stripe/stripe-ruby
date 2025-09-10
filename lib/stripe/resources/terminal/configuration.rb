@@ -19,11 +19,27 @@ module Stripe
       class BbposWiseposE < Stripe::StripeObject
         # A File ID representing an image to display on the reader
         attr_reader :splashscreen
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Offline < Stripe::StripeObject
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         attr_reader :enabled
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RebootWindow < Stripe::StripeObject
@@ -31,11 +47,27 @@ module Stripe
         attr_reader :end_hour
         # Integer between 0 to 23 that represents the start hour of the reboot time window.
         attr_reader :start_hour
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class StripeS700 < Stripe::StripeObject
         # A File ID representing an image to display on the reader
         attr_reader :splashscreen
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Tipping < Stripe::StripeObject
@@ -46,6 +78,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Aud < Stripe::StripeObject
@@ -55,6 +95,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Bgn < Stripe::StripeObject
@@ -64,6 +112,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Cad < Stripe::StripeObject
@@ -73,6 +129,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Chf < Stripe::StripeObject
@@ -82,6 +146,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Czk < Stripe::StripeObject
@@ -91,6 +163,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Dkk < Stripe::StripeObject
@@ -100,6 +180,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Eur < Stripe::StripeObject
@@ -109,6 +197,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Gbp < Stripe::StripeObject
@@ -118,6 +214,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Hkd < Stripe::StripeObject
@@ -127,6 +231,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Huf < Stripe::StripeObject
@@ -136,6 +248,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Jpy < Stripe::StripeObject
@@ -145,6 +265,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Mxn < Stripe::StripeObject
@@ -154,6 +282,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Myr < Stripe::StripeObject
@@ -163,6 +299,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Nok < Stripe::StripeObject
@@ -172,6 +316,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Nzd < Stripe::StripeObject
@@ -181,6 +333,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Pln < Stripe::StripeObject
@@ -190,6 +350,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Ron < Stripe::StripeObject
@@ -199,6 +367,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Sek < Stripe::StripeObject
@@ -208,6 +384,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Sgd < Stripe::StripeObject
@@ -217,6 +401,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Usd < Stripe::StripeObject
@@ -226,6 +418,14 @@ module Stripe
           attr_reader :percentages
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field aed
         attr_reader :aed
@@ -269,11 +469,49 @@ module Stripe
         attr_reader :sgd
         # Attribute for field usd
         attr_reader :usd
+
+        def self.inner_class_types
+          @inner_class_types = {
+            aed: Aed,
+            aud: Aud,
+            bgn: Bgn,
+            cad: Cad,
+            chf: Chf,
+            czk: Czk,
+            dkk: Dkk,
+            eur: Eur,
+            gbp: Gbp,
+            hkd: Hkd,
+            huf: Huf,
+            jpy: Jpy,
+            mxn: Mxn,
+            myr: Myr,
+            nok: Nok,
+            nzd: Nzd,
+            pln: Pln,
+            ron: Ron,
+            sek: Sek,
+            sgd: Sgd,
+            usd: Usd,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class VerifoneP400 < Stripe::StripeObject
         # A File ID representing an image to display on the reader
         attr_reader :splashscreen
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Wifi < Stripe::StripeObject
@@ -286,6 +524,14 @@ module Stripe
           attr_reader :ssid
           # Username for connecting to the WiFi network
           attr_reader :username
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class EnterpriseEapTls < Stripe::StripeObject
@@ -299,6 +545,14 @@ module Stripe
           attr_reader :private_key_file_password
           # Name of the WiFi network
           attr_reader :ssid
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class PersonalPsk < Stripe::StripeObject
@@ -306,6 +560,14 @@ module Stripe
           attr_reader :password
           # Name of the WiFi network
           attr_reader :ssid
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field enterprise_eap_peap
         attr_reader :enterprise_eap_peap
@@ -315,6 +577,18 @@ module Stripe
         attr_reader :personal_psk
         # Security type of the WiFi network. The hash with the corresponding name contains the credentials for this security type.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            enterprise_eap_peap: EnterpriseEapPeap,
+            enterprise_eap_tls: EnterpriseEapTls,
+            personal_psk: PersonalPsk,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class DeleteParams < Stripe::RequestParams; end
@@ -1568,6 +1842,22 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          bbpos_wisepos_e: BbposWiseposE,
+          offline: Offline,
+          reboot_window: RebootWindow,
+          stripe_s700: StripeS700,
+          tipping: Tipping,
+          verifone_p400: VerifoneP400,
+          wifi: Wifi,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

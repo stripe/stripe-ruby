@@ -12,6 +12,12 @@ module Stripe
       # A flag to indicate if reconciliation mode returned is the user's default or is specific to this customer cash balance
       sig { returns(T::Boolean) }
       def using_merchant_default; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     sig { returns(T.nilable(T::Hash[String, Integer])) }

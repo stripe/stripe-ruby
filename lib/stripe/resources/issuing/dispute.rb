@@ -38,6 +38,14 @@ module Stripe
           attr_reader :return_status
           # Date when the product was returned or attempted to be returned.
           attr_reader :returned_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Duplicate < Stripe::StripeObject
@@ -53,6 +61,14 @@ module Stripe
           attr_reader :explanation
           # Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
           attr_reader :original_transaction
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Fraudulent < Stripe::StripeObject
@@ -60,6 +76,14 @@ module Stripe
           attr_reader :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
           attr_reader :explanation
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class MerchandiseNotAsDescribed < Stripe::StripeObject
@@ -75,6 +99,14 @@ module Stripe
           attr_reader :return_status
           # Date when the product was returned or attempted to be returned.
           attr_reader :returned_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class NoValidAuthorization < Stripe::StripeObject
@@ -82,6 +114,14 @@ module Stripe
           attr_reader :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
           attr_reader :explanation
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class NotReceived < Stripe::StripeObject
@@ -95,6 +135,14 @@ module Stripe
           attr_reader :product_description
           # Whether the product was a merchandise or service.
           attr_reader :product_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Other < Stripe::StripeObject
@@ -106,6 +154,14 @@ module Stripe
           attr_reader :product_description
           # Whether the product was a merchandise or service.
           attr_reader :product_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ServiceNotAsDescribed < Stripe::StripeObject
@@ -119,6 +175,14 @@ module Stripe
           attr_reader :explanation
           # Date when the product was received.
           attr_reader :received_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field canceled
         attr_reader :canceled
@@ -138,6 +202,23 @@ module Stripe
         attr_reader :reason
         # Attribute for field service_not_as_described
         attr_reader :service_not_as_described
+
+        def self.inner_class_types
+          @inner_class_types = {
+            canceled: Canceled,
+            duplicate: Duplicate,
+            fraudulent: Fraudulent,
+            merchandise_not_as_described: MerchandiseNotAsDescribed,
+            no_valid_authorization: NoValidAuthorization,
+            not_received: NotReceived,
+            other: Other,
+            service_not_as_described: ServiceNotAsDescribed,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Treasury < Stripe::StripeObject
@@ -145,6 +226,14 @@ module Stripe
         attr_reader :debit_reversal
         # The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) that is being disputed.
         attr_reader :received_debit
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -845,6 +934,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { evidence: Evidence, treasury: Treasury }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

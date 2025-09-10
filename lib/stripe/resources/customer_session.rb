@@ -20,6 +20,14 @@ module Stripe
       class BuyButton < Stripe::StripeObject
         # Whether the buy button is enabled.
         attr_reader :enabled
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PaymentElement < Stripe::StripeObject
@@ -44,16 +52,40 @@ module Stripe
           #
           # When using SetupIntents, directly configure the [`usage`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-usage) value on SetupIntent creation.
           attr_reader :payment_method_save_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the Payment Element is enabled.
         attr_reader :enabled
         # This hash defines whether the Payment Element supports certain features.
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PricingTable < Stripe::StripeObject
         # Whether the pricing table is enabled.
         attr_reader :enabled
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # This hash contains whether the buy button is enabled.
       attr_reader :buy_button
@@ -61,6 +93,18 @@ module Stripe
       attr_reader :payment_element
       # This hash contains whether the pricing table is enabled.
       attr_reader :pricing_table
+
+      def self.inner_class_types
+        @inner_class_types = {
+          buy_button: BuyButton,
+          payment_element: PaymentElement,
+          pricing_table: PricingTable,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CreateParams < Stripe::RequestParams
@@ -183,6 +227,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { components: Components }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

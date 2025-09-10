@@ -19,6 +19,12 @@ module Stripe
       # The trace ID value if `trace_id.status` is `supported`, otherwise `nil`.
       sig { returns(T.nilable(String)) }
       def value; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The amount (in cents (or local equivalent)) that transfers to your bank account or debit card.
     sig { returns(Integer) }

@@ -23,5 +23,13 @@ module Stripe
             "only be created using `Account.create_login_link('account_id', " \
             "create_params)`"
     end
+
+    def self.inner_class_types
+      @inner_class_types = {}
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

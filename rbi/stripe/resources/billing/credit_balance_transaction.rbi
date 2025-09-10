@@ -15,6 +15,12 @@ module Stripe
             # A positive integer representing the amount.
             sig { returns(Integer) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
@@ -22,6 +28,12 @@ module Stripe
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {monetary: Monetary}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class CreditsApplicationInvoiceVoided < Stripe::StripeObject
           # The invoice to which the reinstated billing credits were originally applied.
@@ -30,6 +42,12 @@ module Stripe
           # The invoice line item to which the reinstated billing credits were originally applied.
           sig { returns(String) }
           def invoice_line_item; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field amount
         sig { returns(Amount) }
@@ -40,6 +58,15 @@ module Stripe
         # The type of credit transaction.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            amount: Amount,
+            credits_application_invoice_voided: CreditsApplicationInvoiceVoided,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Debit < Stripe::StripeObject
         class Amount < Stripe::StripeObject
@@ -50,6 +77,12 @@ module Stripe
             # A positive integer representing the amount.
             sig { returns(Integer) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
@@ -57,6 +90,12 @@ module Stripe
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {monetary: Monetary}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class CreditsApplied < Stripe::StripeObject
           # The invoice to which the billing credits were applied.
@@ -65,6 +104,12 @@ module Stripe
           # The invoice line item to which the billing credits were applied.
           sig { returns(String) }
           def invoice_line_item; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field amount
         sig { returns(Amount) }
@@ -75,6 +120,12 @@ module Stripe
         # The type of debit transaction.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {amount: Amount, credits_applied: CreditsApplied}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

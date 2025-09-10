@@ -10,6 +10,12 @@ module Stripe
           # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
           sig { returns(String) }
           def identifier; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Specifies which event to cancel.
         sig { returns(Cancel) }

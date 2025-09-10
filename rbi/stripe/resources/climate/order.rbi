@@ -11,6 +11,12 @@ module Stripe
         # Publicly displayable name for the end beneficiary of carbon removal.
         sig { returns(String) }
         def public_name; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class DeliveryDetail < Stripe::StripeObject
         class Location < Stripe::StripeObject
@@ -29,6 +35,12 @@ module Stripe
           # The state/county/province/region where the supplier is located.
           sig { returns(T.nilable(String)) }
           def region; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time at which the delivery occurred. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
@@ -45,6 +57,12 @@ module Stripe
         # A supplier of carbon removal.
         sig { returns(Stripe::Climate::Supplier) }
         def supplier; end
+        def self.inner_class_types
+          @inner_class_types = {location: Location}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Total amount of [Frontier](https://frontierclimate.com/)'s service fees in the currency's smallest unit.
       sig { returns(Integer) }

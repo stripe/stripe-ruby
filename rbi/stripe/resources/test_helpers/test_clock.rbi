@@ -13,10 +13,22 @@ module Stripe
           # The `frozen_time` that the Test Clock is advancing towards.
           sig { returns(Integer) }
           def target_frozen_time; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field advancing
         sig { returns(T.nilable(Advancing)) }
         def advancing; end
+        def self.inner_class_types
+          @inner_class_types = {advancing: Advancing}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

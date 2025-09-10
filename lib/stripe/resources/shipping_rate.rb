@@ -20,6 +20,14 @@ module Stripe
         attr_reader :unit
         # Must be greater than 0.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Minimum < Stripe::StripeObject
@@ -27,11 +35,27 @@ module Stripe
         attr_reader :unit
         # Must be greater than 0.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
       attr_reader :maximum
       # The lower bound of the estimated range. If empty, represents no lower bound.
       attr_reader :minimum
+
+      def self.inner_class_types
+        @inner_class_types = { maximum: Maximum, minimum: Minimum }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class FixedAmount < Stripe::StripeObject
@@ -40,6 +64,14 @@ module Stripe
         attr_reader :amount
         # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
         attr_reader :tax_behavior
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A non-negative integer in cents representing how much to charge.
       attr_reader :amount
@@ -47,6 +79,14 @@ module Stripe
       attr_reader :currency
       # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency_options
+
+      def self.inner_class_types
+        @inner_class_types = { currency_options: CurrencyOptions }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -282,6 +322,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { delivery_estimate: DeliveryEstimate, fixed_amount: FixedAmount }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

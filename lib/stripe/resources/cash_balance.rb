@@ -14,6 +14,14 @@ module Stripe
       attr_reader :reconciliation_mode
       # A flag to indicate if reconciliation mode returned is the user's default or is specific to this customer cash balance
       attr_reader :using_merchant_default
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     attr_reader :available
@@ -38,6 +46,14 @@ module Stripe
       raise NotImplementedError,
             "Customer Cash Balance cannot be retrieved without a customer ID. " \
             "Retrieve a Customer Cash Balance using `Customer.retrieve_cash_balance('cus_123')`"
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { settings: Settings }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

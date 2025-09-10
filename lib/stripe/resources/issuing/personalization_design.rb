@@ -23,6 +23,14 @@ module Stripe
         attr_reader :header_body
         # The header title text of the carrier letter.
         attr_reader :header_title
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Preferences < Stripe::StripeObject
@@ -30,6 +38,14 @@ module Stripe
         attr_reader :is_default
         # Whether this personalization design is used to create cards when one is not specified and a default for this connected account does not exist.
         attr_reader :is_platform_default
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RejectionReasons < Stripe::StripeObject
@@ -37,6 +53,14 @@ module Stripe
         attr_reader :card_logo
         # The reason(s) the carrier text was rejected.
         attr_reader :carrier_text
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -389,6 +413,18 @@ module Stripe
             opts: opts
           )
         end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          carrier_text: CarrierText,
+          preferences: Preferences,
+          rejection_reasons: RejectionReasons,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

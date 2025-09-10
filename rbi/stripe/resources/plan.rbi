@@ -28,6 +28,12 @@ module Stripe
       # Up to and including to this quantity will be contained in the tier.
       sig { returns(T.nilable(Integer)) }
       def up_to; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TransformUsage < Stripe::StripeObject
       # Divide usage by this number.
@@ -36,6 +42,12 @@ module Stripe
       # After division, either round the result `up` or `down`.
       sig { returns(String) }
       def round; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Whether the plan can be used for new purchases.
     sig { returns(T::Boolean) }

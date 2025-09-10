@@ -60,5 +60,13 @@ module Stripe
       end
       super
     end
+
+    def self.inner_class_types
+      @inner_class_types = {}
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

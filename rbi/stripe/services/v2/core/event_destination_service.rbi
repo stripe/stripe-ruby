@@ -209,7 +209,7 @@ module Stripe
 
         # Delete an event destination.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::EventDestination)
+          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::DeletedObject)
          }
         def delete(id, params = {}, opts = {}); end
 

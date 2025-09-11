@@ -7,13 +7,13 @@ module Stripe
     class FinancialAddressCreditSimulation < APIResource
       # String representing the object's type. Objects of the same type share the same value of the object field.
       sig { returns(String) }
-      attr_reader :object
+      def object; end
       # The status of the request, signifying whether a simulated credit was initiated.
       sig { returns(String) }
-      attr_reader :status
+      def status; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
-      attr_reader :livemode
+      def livemode; end
     end
   end
 end

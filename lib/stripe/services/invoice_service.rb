@@ -235,6 +235,16 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+
+            def initialize(amount_includes_iof: nil)
+              @amount_includes_iof = amount_includes_iof
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -311,6 +321,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -325,6 +337,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -335,6 +348,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -344,7 +358,7 @@ module Stripe
         attr_accessor :default_mandate
         # Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
         attr_accessor :payment_method_options
-        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         attr_accessor :payment_method_types
 
         def initialize(default_mandate: nil, payment_method_options: nil, payment_method_types: nil)
@@ -978,6 +992,16 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+
+            def initialize(amount_includes_iof: nil)
+              @amount_includes_iof = amount_includes_iof
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -1054,6 +1078,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -1068,6 +1094,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -1078,6 +1105,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -1087,7 +1115,7 @@ module Stripe
         attr_accessor :default_mandate
         # Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
         attr_accessor :payment_method_options
-        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         attr_accessor :payment_method_types
 
         def initialize(default_mandate: nil, payment_method_options: nil, payment_method_types: nil)
@@ -3038,7 +3066,7 @@ module Stripe
             attr_accessor :discounts
             # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             attr_accessor :metadata
-            # The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+            # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
             attr_accessor :period
             # The ID of the price object. One of `price` or `price_data` is required.
             attr_accessor :price

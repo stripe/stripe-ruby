@@ -3,8 +3,7 @@
 
 module Stripe
   # The `Charge` object represents a single attempt to move money into your Stripe account.
-  # PaymentIntent confirmation is the most common way to create Charges, but transferring
-  # money to a different Stripe account through Connect also creates Charges.
+  # PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://stripe.com/docs/connect/account-debits) may also create Charges.
   # Some legacy payment flows create Charges directly, which is not recommended for new integrations.
   class Charge < APIResource
     extend Stripe::APIOperations::Create
@@ -974,6 +973,8 @@ module Stripe
         attr_reader :verified_name
       end
 
+      class Paypay < Stripe::StripeObject; end
+
       class Payto < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         attr_reader :bsb_number
@@ -1229,6 +1230,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix

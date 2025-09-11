@@ -5,7 +5,7 @@ module Stripe
   module V2
     module MoneyManagement
       # The PayoutMethodsBankAccountSpec object.
-      class PayoutMethodsBankAccountSpec < APIResource
+      class PayoutMethodsBankAccountSpec < SingletonAPIResource
         OBJECT_NAME = "v2.money_management.payout_methods_bank_account_spec"
         def self.object_name
           "v2.money_management.payout_methods_bank_account_spec"
@@ -14,9 +14,9 @@ module Stripe
         class Countries < Stripe::StripeObject
           class Field < Stripe::StripeObject
             class LocalNameHuman < Stripe::StripeObject
-              # Attribute for field content
+              # The default content of the localizable string.
               attr_reader :content
-              # Attribute for field localization_key
+              # A unique key representing the instance of this localizable string.
               attr_reader :localization_key
             end
             # The local name of the field.

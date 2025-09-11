@@ -605,6 +605,15 @@ module Stripe
           end
         end
 
+        class PaypayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaytoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -925,6 +934,8 @@ module Stripe
         attr_accessor :paynow_payments
         # The paypal_payments capability.
         attr_accessor :paypal_payments
+        # The paypay_payments capability.
+        attr_accessor :paypay_payments
         # The payto_payments capability.
         attr_accessor :payto_payments
         # The pix_payments capability.
@@ -1025,6 +1036,7 @@ module Stripe
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
+          paypay_payments: nil,
           payto_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
@@ -1099,6 +1111,7 @@ module Stripe
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments
+          @paypay_payments = paypay_payments
           @payto_payments = payto_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
@@ -2089,9 +2102,9 @@ module Stripe
             attr_accessor :monthly_anchor
             # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
             attr_accessor :monthly_payout_days
-            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_anchor
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_payout_days
 
             def initialize(
@@ -2927,6 +2940,15 @@ module Stripe
           end
         end
 
+        class PaypayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaytoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3247,6 +3269,8 @@ module Stripe
         attr_accessor :paynow_payments
         # The paypal_payments capability.
         attr_accessor :paypal_payments
+        # The paypay_payments capability.
+        attr_accessor :paypay_payments
         # The payto_payments capability.
         attr_accessor :payto_payments
         # The pix_payments capability.
@@ -3347,6 +3371,7 @@ module Stripe
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
+          paypay_payments: nil,
           payto_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
@@ -3421,6 +3446,7 @@ module Stripe
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments
+          @paypay_payments = paypay_payments
           @payto_payments = payto_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
@@ -4489,9 +4515,9 @@ module Stripe
             attr_accessor :monthly_anchor
             # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
             attr_accessor :monthly_payout_days
-            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_anchor
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_payout_days
 
             def initialize(

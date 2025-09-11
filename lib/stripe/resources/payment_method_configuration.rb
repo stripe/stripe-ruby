@@ -311,6 +311,21 @@ module Stripe
       attr_reader :display_preference
     end
 
+    class FrMealVoucherConecs < Stripe::StripeObject
+      class DisplayPreference < Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+    end
+
     class Giropay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -627,6 +642,21 @@ module Stripe
     end
 
     class Paypal < Stripe::StripeObject
+      class DisplayPreference < Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+    end
+
+    class Paypay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         attr_reader :overridable
@@ -1234,6 +1264,23 @@ module Stripe
         end
       end
 
+      class FrMealVoucherConecs < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Giropay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1608,6 +1655,23 @@ module Stripe
         end
       end
 
+      class Paypay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Payto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1904,6 +1968,8 @@ module Stripe
       attr_accessor :expand
       # Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
       attr_accessor :fpx
+      # Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs/payments/benefits/fr-meal-vouchers) for more details.
+      attr_accessor :fr_meal_voucher_conecs
       # giropay is a German payment method based on online banking, introduced in 2006. It allows customers to complete transactions online using their online banking environment, with funds debited from their bank account. Depending on their bank, customers confirm payments on giropay using a second factor of authentication or a PIN. giropay accounts for 10% of online checkouts in Germany. Check this [page](https://stripe.com/docs/payments/giropay) for more details.
       attr_accessor :giropay
       # Google Pay allows customers to make payments in your app or website using any credit or debit card saved to their Google Account, including those from Google Play, YouTube, Chrome, or an Android device. Use the Google Pay API to request any credit or debit card stored in your customer's Google account. Check this [page](https://stripe.com/docs/google-pay) for more details.
@@ -1952,6 +2018,8 @@ module Stripe
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
       attr_accessor :paypal
+      # Customers can pay with PayPay online or using the PayPay app.
+      attr_accessor :paypay
       # PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
       attr_accessor :payto
       # Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
@@ -2005,6 +2073,7 @@ module Stripe
         eps: nil,
         expand: nil,
         fpx: nil,
+        fr_meal_voucher_conecs: nil,
         giropay: nil,
         google_pay: nil,
         gopay: nil,
@@ -2029,6 +2098,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -2066,6 +2136,7 @@ module Stripe
         @eps = eps
         @expand = expand
         @fpx = fpx
+        @fr_meal_voucher_conecs = fr_meal_voucher_conecs
         @giropay = giropay
         @google_pay = google_pay
         @gopay = gopay
@@ -2090,6 +2161,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
@@ -2449,6 +2521,23 @@ module Stripe
         end
       end
 
+      class FrMealVoucherConecs < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Giropay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -2823,6 +2912,23 @@ module Stripe
         end
       end
 
+      class Paypay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Payto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -3121,6 +3227,8 @@ module Stripe
       attr_accessor :expand
       # Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
       attr_accessor :fpx
+      # Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs/payments/benefits/fr-meal-vouchers) for more details.
+      attr_accessor :fr_meal_voucher_conecs
       # giropay is a German payment method based on online banking, introduced in 2006. It allows customers to complete transactions online using their online banking environment, with funds debited from their bank account. Depending on their bank, customers confirm payments on giropay using a second factor of authentication or a PIN. giropay accounts for 10% of online checkouts in Germany. Check this [page](https://stripe.com/docs/payments/giropay) for more details.
       attr_accessor :giropay
       # Google Pay allows customers to make payments in your app or website using any credit or debit card saved to their Google Account, including those from Google Play, YouTube, Chrome, or an Android device. Use the Google Pay API to request any credit or debit card stored in your customer's Google account. Check this [page](https://stripe.com/docs/google-pay) for more details.
@@ -3167,6 +3275,8 @@ module Stripe
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
       attr_accessor :paypal
+      # Customers can pay with PayPay online or using the PayPay app.
+      attr_accessor :paypay
       # PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
       attr_accessor :payto
       # Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
@@ -3221,6 +3331,7 @@ module Stripe
         eps: nil,
         expand: nil,
         fpx: nil,
+        fr_meal_voucher_conecs: nil,
         giropay: nil,
         google_pay: nil,
         gopay: nil,
@@ -3244,6 +3355,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -3282,6 +3394,7 @@ module Stripe
         @eps = eps
         @expand = expand
         @fpx = fpx
+        @fr_meal_voucher_conecs = fr_meal_voucher_conecs
         @giropay = giropay
         @google_pay = google_pay
         @gopay = gopay
@@ -3305,6 +3418,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
@@ -3364,6 +3478,8 @@ module Stripe
     attr_reader :eps
     # Attribute for field fpx
     attr_reader :fpx
+    # Attribute for field fr_meal_voucher_conecs
+    attr_reader :fr_meal_voucher_conecs
     # Attribute for field giropay
     attr_reader :giropay
     # Attribute for field google_pay
@@ -3420,6 +3536,8 @@ module Stripe
     attr_reader :paynow
     # Attribute for field paypal
     attr_reader :paypal
+    # Attribute for field paypay
+    attr_reader :paypay
     # Attribute for field payto
     attr_reader :payto
     # Attribute for field pix

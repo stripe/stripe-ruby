@@ -10,18 +10,26 @@ module Stripe
           class FailureDetails < Stripe::RequestParams
             # Reason for the failure.
             sig { returns(T.nilable(String)) }
-            attr_accessor :code
+            def code; end
+            sig { params(_code: T.nilable(String)).returns(T.nilable(String)) }
+            def code=(_code); end
             sig { params(code: T.nilable(String)).void }
             def initialize(code: nil); end
           end
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :expand
+          def expand; end
+          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def expand=(_expand); end
           # Details about a failed InboundTransfer.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails))
            }
-          attr_accessor :failure_details
+          def failure_details; end
+          sig {
+            params(_failure_details: T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails)).returns(T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails))
+           }
+          def failure_details=(_failure_details); end
           sig {
             params(expand: T.nilable(T::Array[String]), failure_details: T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails)).void
            }
@@ -30,14 +38,18 @@ module Stripe
         class ReturnInboundTransferParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :expand
+          def expand; end
+          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def expand=(_expand); end
           sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class SucceedParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :expand
+          def expand; end
+          sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def expand=(_expand); end
           sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end

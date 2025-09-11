@@ -9,7 +9,11 @@ module Stripe
         class RetrieveParams < Stripe::RequestParams
           # The countries to fetch the bank account spec for.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :countries
+          def countries; end
+          sig {
+            params(_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def countries=(_countries); end
           sig { params(countries: T.nilable(T::Array[String])).void }
           def initialize(countries: nil); end
         end

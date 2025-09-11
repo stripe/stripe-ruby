@@ -13,51 +13,59 @@ module Stripe
   class File < APIResource
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    attr_reader :created
+    def created; end
     # The file expires and isn't available at this time in epoch seconds.
     sig { returns(T.nilable(Integer)) }
-    attr_reader :expires_at
+    def expires_at; end
     # The suitable name for saving the file to a filesystem.
     sig { returns(T.nilable(String)) }
-    attr_reader :filename
+    def filename; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # A list of [file links](https://stripe.com/docs/api#file_links) that point at this file.
     sig { returns(T.nilable(Stripe::ListObject)) }
-    attr_reader :links
+    def links; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
     sig { returns(String) }
-    attr_reader :purpose
+    def purpose; end
     # The size of the file object in bytes.
     sig { returns(Integer) }
-    attr_reader :size
+    def size; end
     # A suitable title for the document.
     sig { returns(T.nilable(String)) }
-    attr_reader :title
+    def title; end
     # The returned file type (for example, `csv`, `pdf`, `jpg`, or `png`).
     sig { returns(T.nilable(String)) }
-    attr_reader :type
+    def type; end
     # Use your live secret API key to download the file from this URL.
     sig { returns(T.nilable(String)) }
-    attr_reader :url
+    def url; end
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gt
+        def gt; end
+        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gt=(_gt); end
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gte
+        def gte; end
+        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gte=(_gte); end
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lt
+        def lt; end
+        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lt=(_lt); end
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lte
+        def lte; end
+        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lte=(_lte); end
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -65,22 +73,36 @@ module Stripe
       end
       # Only return files that were created during the given date interval.
       sig { returns(T.nilable(T.any(::Stripe::File::ListParams::Created, Integer))) }
-      attr_accessor :created
+      def created; end
+      sig {
+        params(_created: T.nilable(T.any(::Stripe::File::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::File::ListParams::Created, Integer)))
+       }
+      def created=(_created); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :ending_before
+      def ending_before; end
+      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+      def ending_before=(_ending_before); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      attr_accessor :limit
+      def limit; end
+      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def limit=(_limit); end
       # Filter queries by the file purpose. If you don't provide a purpose, the queries return unfiltered files.
       sig { returns(T.nilable(String)) }
-      attr_accessor :purpose
+      def purpose; end
+      sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
+      def purpose=(_purpose); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :starting_after
+      def starting_after; end
+      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+      def starting_after=(_starting_after); end
       sig {
         params(created: T.nilable(T.any(::Stripe::File::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), purpose: T.nilable(String), starting_after: T.nilable(String)).void
        }
@@ -97,13 +119,21 @@ module Stripe
       class FileLinkData < Stripe::RequestParams
         # Set this to `true` to create a file link for the newly created file. Creating a link is only possible when the file's `purpose` is one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `issuing_regulatory_reporting`, `pci_document`, `tax_document_user_upload`, `terminal_android_apk`, or `terminal_reader_splashscreen`.
         sig { returns(T::Boolean) }
-        attr_accessor :create
+        def create; end
+        sig { params(_create: T::Boolean).returns(T::Boolean) }
+        def create=(_create); end
         # The link isn't available after this future timestamp.
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :expires_at
+        def expires_at; end
+        sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def expires_at=(_expires_at); end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-        attr_accessor :metadata
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+         }
+        def metadata=(_metadata); end
         sig {
           params(create: T::Boolean, expires_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
          }
@@ -111,16 +141,26 @@ module Stripe
       end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the `multipart/form-data` protocol.
       sig { returns(T.untyped) }
-      attr_accessor :file
+      def file; end
+      sig { params(_file: T.untyped).returns(T.untyped) }
+      def file=(_file); end
       # Optional parameters that automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file.
       sig { returns(T.nilable(::Stripe::File::CreateParams::FileLinkData)) }
-      attr_accessor :file_link_data
+      def file_link_data; end
+      sig {
+        params(_file_link_data: T.nilable(::Stripe::File::CreateParams::FileLinkData)).returns(T.nilable(::Stripe::File::CreateParams::FileLinkData))
+       }
+      def file_link_data=(_file_link_data); end
       # The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
       sig { returns(String) }
-      attr_accessor :purpose
+      def purpose; end
+      sig { params(_purpose: String).returns(String) }
+      def purpose=(_purpose); end
       sig {
         params(expand: T.nilable(T::Array[String]), file: T.untyped, file_link_data: T.nilable(::Stripe::File::CreateParams::FileLinkData), purpose: String).void
        }

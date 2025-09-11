@@ -583,6 +583,8 @@ module Stripe
       attr_reader :verified_email
     end
 
+    class Paypay < Stripe::StripeObject; end
+
     class Payto < Stripe::StripeObject
       # Bank-State-Branch number of the bank account.
       attr_reader :bsb_number
@@ -1015,6 +1017,7 @@ module Stripe
       class Payco < Stripe::RequestParams; end
       class Paynow < Stripe::RequestParams; end
       class Paypal < Stripe::RequestParams; end
+      class Paypay < Stripe::RequestParams; end
 
       class Payto < Stripe::RequestParams
         # The account number for the bank account.
@@ -1227,6 +1230,8 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
       attr_accessor :paypal
+      # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+      attr_accessor :paypay
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       attr_accessor :payto
       # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -1313,6 +1318,7 @@ module Stripe
         payment_method: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -1379,6 +1385,7 @@ module Stripe
         @payment_method = payment_method
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
@@ -1476,9 +1483,6 @@ module Stripe
         end
       end
 
-      class Link < Stripe::RequestParams; end
-      class PayByBank < Stripe::RequestParams; end
-
       class Payto < Stripe::RequestParams
         # The account number for the bank account.
         attr_accessor :account_number
@@ -1513,12 +1517,8 @@ module Stripe
       attr_accessor :card
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
-      attr_accessor :link
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-      # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
-      attr_accessor :pay_by_bank
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       attr_accessor :payto
       # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -1529,9 +1529,7 @@ module Stripe
         billing_details: nil,
         card: nil,
         expand: nil,
-        link: nil,
         metadata: nil,
-        pay_by_bank: nil,
         payto: nil,
         us_bank_account: nil
       )
@@ -1539,9 +1537,7 @@ module Stripe
         @billing_details = billing_details
         @card = card
         @expand = expand
-        @link = link
         @metadata = metadata
-        @pay_by_bank = pay_by_bank
         @payto = payto
         @us_bank_account = us_bank_account
       end
@@ -1672,6 +1668,8 @@ module Stripe
     attr_reader :paynow
     # Attribute for field paypal
     attr_reader :paypal
+    # Attribute for field paypay
+    attr_reader :paypay
     # Attribute for field payto
     attr_reader :payto
     # Attribute for field pix

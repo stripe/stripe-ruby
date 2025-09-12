@@ -73,7 +73,7 @@ module Stripe
     sig { returns(String) }
     def client_secret; end
     # Configuration for the components supported by this Customer Session.
-    sig { returns(Components) }
+    sig { returns(T.nilable(Components)) }
     def components; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }

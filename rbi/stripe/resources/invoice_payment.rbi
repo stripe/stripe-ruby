@@ -14,13 +14,13 @@ module Stripe
   class InvoicePayment < APIResource
     class Payment < Stripe::StripeObject
       # ID of the successful charge for this payment when `type` is `charge`.Note: charge is only surfaced if the charge object is not associated with a payment intent. If the charge object does have a payment intent, the Invoice Payment surfaces the payment intent instead.
-      sig { returns(T.any(String, Stripe::Charge)) }
+      sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
       def charge; end
       # ID of the PaymentIntent associated with this payment when `type` is `payment_intent`. Note: This property is only populated for invoices finalized on or after March 15th, 2019.
-      sig { returns(T.any(String, Stripe::PaymentIntent)) }
+      sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
       def payment_intent; end
       # ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
-      sig { returns(T.any(String, Stripe::PaymentRecord)) }
+      sig { returns(T.nilable(T.any(String, Stripe::PaymentRecord))) }
       def payment_record; end
       # Type of payment object associated with this invoice payment.
       sig { returns(String) }

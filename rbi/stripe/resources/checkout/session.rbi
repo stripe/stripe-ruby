@@ -48,7 +48,7 @@ module Stripe
       class AutomaticTax < Stripe::StripeObject
         class Liability < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -220,7 +220,7 @@ module Stripe
           def value; end
         end
         # Attribute for field dropdown
-        sig { returns(Dropdown) }
+        sig { returns(T.nilable(Dropdown)) }
         def dropdown; end
         # String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
         sig { returns(String) }
@@ -229,13 +229,13 @@ module Stripe
         sig { returns(Label) }
         def label; end
         # Attribute for field numeric
-        sig { returns(Numeric) }
+        sig { returns(T.nilable(Numeric)) }
         def numeric; end
         # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
         sig { returns(T::Boolean) }
         def optional; end
         # Attribute for field text
-        sig { returns(Text) }
+        sig { returns(T.nilable(Text)) }
         def text; end
         # The type of the field.
         sig { returns(String) }
@@ -344,7 +344,7 @@ module Stripe
           end
           class Issuer < Stripe::StripeObject
             # The connected account being referenced when `type` is `account`.
-            sig { returns(T.any(String, Stripe::Account)) }
+            sig { returns(T.nilable(T.any(String, Stripe::Account))) }
             def account; end
             # Type of the account referenced.
             sig { returns(String) }
@@ -421,10 +421,10 @@ module Stripe
         class AcssDebit < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
             # A URL for custom mandate text
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def custom_mandate_url; end
             # List of Stripe products where this mandate can be selected automatically. Returned when the Session is in `setup` mode.
-            sig { returns(T::Array[String]) }
+            sig { returns(T.nilable(T::Array[String])) }
             def default_for; end
             # Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
             sig { returns(T.nilable(String)) }
@@ -437,10 +437,10 @@ module Stripe
             def transaction_type; end
           end
           # Currency supported by the bank account. Returned when the Session is in `setup` mode.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def currency; end
           # Attribute for field mandate_options
-          sig { returns(MandateOptions) }
+          sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -449,13 +449,13 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def target_date; end
           # Bank account verification method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def verification_method; end
         end
         class Affirm < Stripe::StripeObject
@@ -466,7 +466,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class AfterpayClearpay < Stripe::StripeObject
@@ -477,7 +477,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Alipay < Stripe::StripeObject
@@ -488,7 +488,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class AmazonPay < Stripe::StripeObject
@@ -499,7 +499,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class AuBecsDebit < Stripe::StripeObject
@@ -510,20 +510,20 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def target_date; end
         end
         class BacsDebit < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def reference_prefix; end
           end
           # Attribute for field mandate_options
-          sig { returns(MandateOptions) }
+          sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -532,10 +532,10 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def target_date; end
         end
         class Bancontact < Stripe::StripeObject
@@ -546,7 +546,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Boleto < Stripe::StripeObject
@@ -560,43 +560,43 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Card < Stripe::StripeObject
           class Installments < Stripe::StripeObject
             # Indicates if installments are enabled
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             def enabled; end
           end
           class Restrictions < Stripe::StripeObject
             # Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
-            sig { returns(T::Array[String]) }
+            sig { returns(T.nilable(T::Array[String])) }
             def brands_blocked; end
           end
           # Attribute for field installments
-          sig { returns(Installments) }
+          sig { returns(T.nilable(Installments)) }
           def installments; end
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def request_decremental_authorization; end
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def request_extended_authorization; end
           # Request ability to [increment the authorization](/payments/incremental-authorization) for this CheckoutSession.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def request_incremental_authorization; end
           # Request ability to make [multiple captures](/payments/multicapture) for this CheckoutSession.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def request_multicapture; end
           # Request ability to [overcapture](/payments/overcapture) for this CheckoutSession.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def request_overcapture; end
           # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           sig { returns(String) }
           def request_three_d_secure; end
           # Attribute for field restrictions
-          sig { returns(Restrictions) }
+          sig { returns(T.nilable(Restrictions)) }
           def restrictions; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -605,13 +605,13 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
           # Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def statement_descriptor_suffix_kana; end
           # Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def statement_descriptor_suffix_kanji; end
         end
         class Cashapp < Stripe::StripeObject
@@ -622,7 +622,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class CustomerBalance < Stripe::StripeObject
@@ -633,19 +633,19 @@ module Stripe
               def country; end
             end
             # Attribute for field eu_bank_transfer
-            sig { returns(EuBankTransfer) }
+            sig { returns(T.nilable(EuBankTransfer)) }
             def eu_bank_transfer; end
             # List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
             #
             # Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
-            sig { returns(T::Array[String]) }
+            sig { returns(T.nilable(T::Array[String])) }
             def requested_address_types; end
             # The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
             sig { returns(T.nilable(String)) }
             def type; end
           end
           # Attribute for field bank_transfer
-          sig { returns(BankTransfer) }
+          sig { returns(T.nilable(BankTransfer)) }
           def bank_transfer; end
           # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
           sig { returns(T.nilable(String)) }
@@ -657,7 +657,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Eps < Stripe::StripeObject
@@ -668,7 +668,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Fpx < Stripe::StripeObject
@@ -679,7 +679,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Giropay < Stripe::StripeObject
@@ -690,7 +690,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Grabpay < Stripe::StripeObject
@@ -701,7 +701,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Ideal < Stripe::StripeObject
@@ -712,12 +712,12 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class KakaoPay < Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -726,7 +726,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Klarna < Stripe::StripeObject
@@ -737,7 +737,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Konbini < Stripe::StripeObject
@@ -751,12 +751,12 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class KrCard < Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -765,7 +765,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Link < Stripe::StripeObject
@@ -776,7 +776,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Mobilepay < Stripe::StripeObject
@@ -787,7 +787,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Multibanco < Stripe::StripeObject
@@ -798,12 +798,12 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class NaverPay < Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -812,7 +812,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Oxxo < Stripe::StripeObject
@@ -826,7 +826,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class P24 < Stripe::StripeObject
@@ -837,12 +837,12 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Payco < Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def capture_method; end
         end
         class Paynow < Stripe::StripeObject
@@ -853,12 +853,12 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Paypal < Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def capture_method; end
           # Preferred locale of the PayPal checkout page that the customer is redirected to.
           sig { returns(T.nilable(String)) }
@@ -873,10 +873,10 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
           # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           def subsellers; end
         end
         class Payto < Stripe::StripeObject
@@ -904,7 +904,7 @@ module Stripe
             def start_date; end
           end
           # Attribute for field mandate_options
-          sig { returns(MandateOptions) }
+          sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -913,44 +913,44 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Pix < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
             # Amount to be charged for future payments.
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             def amount; end
             # Determines if the amount includes the IOF tax.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def amount_includes_iof; end
             # Type of amount.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def amount_type; end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def currency; end
             # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def end_date; end
             # Schedule at which the future payments will be charged.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def payment_schedule; end
             # Subscription name displayed to buyers in their bank app.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def reference; end
             # Start date of the mandate, in `YYYY-MM-DD`.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def start_date; end
           end
           # Determines if the amount includes the IOF tax.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def amount_includes_iof; end
           # The number of seconds after which Pix payment will expire.
           sig { returns(T.nilable(Integer)) }
           def expires_after_seconds; end
           # Attribute for field mandate_options
-          sig { returns(MandateOptions) }
+          sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -959,7 +959,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class RevolutPay < Stripe::StripeObject
@@ -970,22 +970,22 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class SamsungPay < Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def capture_method; end
         end
         class SepaDebit < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def reference_prefix; end
           end
           # Attribute for field mandate_options
-          sig { returns(MandateOptions) }
+          sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -994,10 +994,10 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def target_date; end
         end
         class Sofort < Stripe::StripeObject
@@ -1008,7 +1008,7 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
         class Swish < Stripe::StripeObject
@@ -1020,35 +1020,35 @@ module Stripe
           class FinancialConnections < Stripe::StripeObject
             class Filters < Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
-              sig { returns(T::Array[String]) }
+              sig { returns(T.nilable(T::Array[String])) }
               def account_subcategories; end
               # The institution to use to filter for possible accounts to link.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               def institution; end
             end
             class ManualEntry < Stripe::StripeObject
               # Settings for configuring manual entry of account details.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               def mode; end
             end
             # Attribute for field filters
-            sig { returns(Filters) }
+            sig { returns(T.nilable(Filters)) }
             def filters; end
             # Attribute for field manual_entry
-            sig { returns(ManualEntry) }
+            sig { returns(T.nilable(ManualEntry)) }
             def manual_entry; end
             # The list of permissions to request. The `payment_method` permission must be included.
-            sig { returns(T::Array[String]) }
+            sig { returns(T.nilable(T::Array[String])) }
             def permissions; end
             # Data features requested to be retrieved upon account creation.
             sig { returns(T.nilable(T::Array[String])) }
             def prefetch; end
             # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def return_url; end
           end
           # Attribute for field financial_connections
-          sig { returns(FinancialConnections) }
+          sig { returns(T.nilable(FinancialConnections)) }
           def financial_connections; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -1057,128 +1057,128 @@ module Stripe
           # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def target_date; end
           # Bank account verification method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def verification_method; end
         end
         # Attribute for field acss_debit
-        sig { returns(AcssDebit) }
+        sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
         # Attribute for field affirm
-        sig { returns(Affirm) }
+        sig { returns(T.nilable(Affirm)) }
         def affirm; end
         # Attribute for field afterpay_clearpay
-        sig { returns(AfterpayClearpay) }
+        sig { returns(T.nilable(AfterpayClearpay)) }
         def afterpay_clearpay; end
         # Attribute for field alipay
-        sig { returns(Alipay) }
+        sig { returns(T.nilable(Alipay)) }
         def alipay; end
         # Attribute for field amazon_pay
-        sig { returns(AmazonPay) }
+        sig { returns(T.nilable(AmazonPay)) }
         def amazon_pay; end
         # Attribute for field au_becs_debit
-        sig { returns(AuBecsDebit) }
+        sig { returns(T.nilable(AuBecsDebit)) }
         def au_becs_debit; end
         # Attribute for field bacs_debit
-        sig { returns(BacsDebit) }
+        sig { returns(T.nilable(BacsDebit)) }
         def bacs_debit; end
         # Attribute for field bancontact
-        sig { returns(Bancontact) }
+        sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
         # Attribute for field boleto
-        sig { returns(Boleto) }
+        sig { returns(T.nilable(Boleto)) }
         def boleto; end
         # Attribute for field card
-        sig { returns(Card) }
+        sig { returns(T.nilable(Card)) }
         def card; end
         # Attribute for field cashapp
-        sig { returns(Cashapp) }
+        sig { returns(T.nilable(Cashapp)) }
         def cashapp; end
         # Attribute for field customer_balance
-        sig { returns(CustomerBalance) }
+        sig { returns(T.nilable(CustomerBalance)) }
         def customer_balance; end
         # Attribute for field eps
-        sig { returns(Eps) }
+        sig { returns(T.nilable(Eps)) }
         def eps; end
         # Attribute for field fpx
-        sig { returns(Fpx) }
+        sig { returns(T.nilable(Fpx)) }
         def fpx; end
         # Attribute for field giropay
-        sig { returns(Giropay) }
+        sig { returns(T.nilable(Giropay)) }
         def giropay; end
         # Attribute for field grabpay
-        sig { returns(Grabpay) }
+        sig { returns(T.nilable(Grabpay)) }
         def grabpay; end
         # Attribute for field ideal
-        sig { returns(Ideal) }
+        sig { returns(T.nilable(Ideal)) }
         def ideal; end
         # Attribute for field kakao_pay
-        sig { returns(KakaoPay) }
+        sig { returns(T.nilable(KakaoPay)) }
         def kakao_pay; end
         # Attribute for field klarna
-        sig { returns(Klarna) }
+        sig { returns(T.nilable(Klarna)) }
         def klarna; end
         # Attribute for field konbini
-        sig { returns(Konbini) }
+        sig { returns(T.nilable(Konbini)) }
         def konbini; end
         # Attribute for field kr_card
-        sig { returns(KrCard) }
+        sig { returns(T.nilable(KrCard)) }
         def kr_card; end
         # Attribute for field link
-        sig { returns(Link) }
+        sig { returns(T.nilable(Link)) }
         def link; end
         # Attribute for field mobilepay
-        sig { returns(Mobilepay) }
+        sig { returns(T.nilable(Mobilepay)) }
         def mobilepay; end
         # Attribute for field multibanco
-        sig { returns(Multibanco) }
+        sig { returns(T.nilable(Multibanco)) }
         def multibanco; end
         # Attribute for field naver_pay
-        sig { returns(NaverPay) }
+        sig { returns(T.nilable(NaverPay)) }
         def naver_pay; end
         # Attribute for field oxxo
-        sig { returns(Oxxo) }
+        sig { returns(T.nilable(Oxxo)) }
         def oxxo; end
         # Attribute for field p24
-        sig { returns(P24) }
+        sig { returns(T.nilable(P24)) }
         def p24; end
         # Attribute for field payco
-        sig { returns(Payco) }
+        sig { returns(T.nilable(Payco)) }
         def payco; end
         # Attribute for field paynow
-        sig { returns(Paynow) }
+        sig { returns(T.nilable(Paynow)) }
         def paynow; end
         # Attribute for field paypal
-        sig { returns(Paypal) }
+        sig { returns(T.nilable(Paypal)) }
         def paypal; end
         # Attribute for field payto
-        sig { returns(Payto) }
+        sig { returns(T.nilable(Payto)) }
         def payto; end
         # Attribute for field pix
-        sig { returns(Pix) }
+        sig { returns(T.nilable(Pix)) }
         def pix; end
         # Attribute for field revolut_pay
-        sig { returns(RevolutPay) }
+        sig { returns(T.nilable(RevolutPay)) }
         def revolut_pay; end
         # Attribute for field samsung_pay
-        sig { returns(SamsungPay) }
+        sig { returns(T.nilable(SamsungPay)) }
         def samsung_pay; end
         # Attribute for field sepa_debit
-        sig { returns(SepaDebit) }
+        sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
         # Attribute for field sofort
-        sig { returns(Sofort) }
+        sig { returns(T.nilable(Sofort)) }
         def sofort; end
         # Attribute for field swish
-        sig { returns(Swish) }
+        sig { returns(T.nilable(Swish)) }
         def swish; end
         # Attribute for field us_bank_account
-        sig { returns(UsBankAccount) }
+        sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
       end
       class Permissions < Stripe::StripeObject
@@ -1276,7 +1276,7 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Stripe::ShippingRate))) }
         def shipping_rate; end
         # The taxes applied to the shipping rate.
-        sig { returns(T::Array[Tax]) }
+        sig { returns(T.nilable(T::Array[Tax])) }
         def taxes; end
       end
       class ShippingOption < Stripe::StripeObject
@@ -1341,17 +1341,17 @@ module Stripe
         sig { returns(Integer) }
         def amount_tax; end
         # Attribute for field breakdown
-        sig { returns(Breakdown) }
+        sig { returns(T.nilable(Breakdown)) }
         def breakdown; end
       end
       class WalletOptions < Stripe::StripeObject
         class Link < Stripe::StripeObject
           # Describes whether Checkout should display Link. Defaults to `auto`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def display; end
         end
         # Attribute for field link
-        sig { returns(Link) }
+        sig { returns(T.nilable(Link)) }
         def link; end
       end
       class CheckoutItem < Stripe::StripeObject
@@ -1366,7 +1366,7 @@ module Stripe
             sig { returns(String) }
             def type; end
             # Attribute for field license_fee_component
-            sig { returns(LicenseFeeComponent) }
+            sig { returns(T.nilable(LicenseFeeComponent)) }
             def license_fee_component; end
           end
           # Attribute for field pricing_plan
@@ -1382,10 +1382,10 @@ module Stripe
           sig { returns(T::Hash[String, ComponentConfigurations]) }
           def component_configurations; end
           # Attribute for field pricing_plan_subscription
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def pricing_plan_subscription; end
           # Attribute for field billing_cadence
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def billing_cadence; end
         end
         class RateCardSubscriptionItem < Stripe::StripeObject
@@ -1399,20 +1399,20 @@ module Stripe
           sig { returns(String) }
           def rate_card_version; end
           # Attribute for field billing_cadence
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def billing_cadence; end
           # Attribute for field rate_card_subscription
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def rate_card_subscription; end
         end
         # Attribute for field type
         sig { returns(String) }
         def type; end
         # Attribute for field rate_card_subscription_item
-        sig { returns(RateCardSubscriptionItem) }
+        sig { returns(T.nilable(RateCardSubscriptionItem)) }
         def rate_card_subscription_item; end
         # Attribute for field pricing_plan_subscription_item
-        sig { returns(PricingPlanSubscriptionItem) }
+        sig { returns(T.nilable(PricingPlanSubscriptionItem)) }
         def pricing_plan_subscription_item; end
       end
       # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
@@ -1511,7 +1511,7 @@ module Stripe
       sig { returns(T.nilable(InvoiceCreation)) }
       def invoice_creation; end
       # The line items purchased by the customer.
-      sig { returns(Stripe::ListObject) }
+      sig { returns(T.nilable(Stripe::ListObject)) }
       def line_items; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
@@ -1563,19 +1563,19 @@ module Stripe
       sig { returns(T.nilable(Permissions)) }
       def permissions; end
       # Attribute for field phone_number_collection
-      sig { returns(PhoneNumberCollection) }
+      sig { returns(T.nilable(PhoneNumberCollection)) }
       def phone_number_collection; end
       # Attribute for field presentment_details
-      sig { returns(PresentmentDetails) }
+      sig { returns(T.nilable(PresentmentDetails)) }
       def presentment_details; end
       # The ID of the original expired Checkout Session that triggered the recovery flow.
       sig { returns(T.nilable(String)) }
       def recovered_from; end
       # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def redirect_on_completion; end
       # Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def return_url; end
       # Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
       sig { returns(T.nilable(SavedPaymentMethodOptions)) }
@@ -1608,7 +1608,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def success_url; end
       # Attribute for field tax_id_collection
-      sig { returns(TaxIdCollection) }
+      sig { returns(T.nilable(TaxIdCollection)) }
       def tax_id_collection; end
       # Tax and discount details for the computed total amount.
       sig { returns(T.nilable(TotalDetails)) }
@@ -1624,7 +1624,7 @@ module Stripe
       sig { returns(T.nilable(WalletOptions)) }
       def wallet_options; end
       # Attribute for field checkout_items
-      sig { returns(T::Array[CheckoutItem]) }
+      sig { returns(T.nilable(T::Array[CheckoutItem])) }
       def checkout_items; end
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams

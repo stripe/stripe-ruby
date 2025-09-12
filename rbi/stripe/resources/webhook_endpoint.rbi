@@ -39,7 +39,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The endpoint's secret, used to generate [webhook signatures](https://docs.stripe.com/webhooks/signatures). Only returned at creation.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def secret; end
     # The status of the webhook. It can be `enabled` or `disabled`.
     sig { returns(String) }
@@ -48,7 +48,7 @@ module Stripe
     sig { returns(String) }
     def url; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams

@@ -188,24 +188,24 @@ module Stripe
       class Options < Stripe::StripeObject
         class Document < Stripe::StripeObject
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           def allowed_types; end
           # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def require_id_number; end
           # Disable image uploads, identity document images have to be captured using the device’s camera.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def require_live_capture; end
           # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def require_matching_selfie; end
         end
         class IdNumber < Stripe::StripeObject; end
         # Attribute for field document
-        sig { returns(Document) }
+        sig { returns(T.nilable(Document)) }
         def document; end
         # Attribute for field id_number
-        sig { returns(IdNumber) }
+        sig { returns(T.nilable(IdNumber)) }
         def id_number; end
       end
       class Phone < Stripe::StripeObject
@@ -256,16 +256,16 @@ module Stripe
       sig { returns(Integer) }
       def created; end
       # Result from a document check
-      sig { returns(Document) }
+      sig { returns(T.nilable(Document)) }
       def document; end
       # Result from a email check
-      sig { returns(Email) }
+      sig { returns(T.nilable(Email)) }
       def email; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
       # Result from an id_number check
-      sig { returns(IdNumber) }
+      sig { returns(T.nilable(IdNumber)) }
       def id_number; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
@@ -274,19 +274,19 @@ module Stripe
       sig { returns(String) }
       def object; end
       # Attribute for field options
-      sig { returns(Options) }
+      sig { returns(T.nilable(Options)) }
       def options; end
       # Result from a phone check
-      sig { returns(Phone) }
+      sig { returns(T.nilable(Phone)) }
       def phone; end
       # Result from a selfie check
-      sig { returns(Selfie) }
+      sig { returns(T.nilable(Selfie)) }
       def selfie; end
       # Type of report.
       sig { returns(String) }
       def type; end
       # The configuration token of a verification flow from the dashboard.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def verification_flow; end
       # ID of the VerificationSession that created this report.
       sig { returns(T.nilable(String)) }

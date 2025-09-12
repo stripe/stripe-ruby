@@ -27,7 +27,7 @@ module Stripe
       sig { returns(T::Hash[String, T.untyped]) }
       def object; end
       # Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
-      sig { returns(T::Hash[String, T.untyped]) }
+      sig { returns(T.nilable(T::Hash[String, T.untyped])) }
       def previous_attributes; end
     end
     class Reason < Stripe::StripeObject
@@ -38,7 +38,7 @@ module Stripe
           def custom_data; end
         end
         # Attribute for field stripe_send_webhook_custom_event
-        sig { returns(StripeSendWebhookCustomEvent) }
+        sig { returns(T.nilable(StripeSendWebhookCustomEvent)) }
         def stripe_send_webhook_custom_event; end
         # The trigger name of the automation that triggered this action.
         #  Please visit [Revenue and retention automations](https://docs.stripe.com/billing/automations#choose-a-trigger) for all possible trigger names.
@@ -57,10 +57,10 @@ module Stripe
         def idempotency_key; end
       end
       # Attribute for field automation_action
-      sig { returns(AutomationAction) }
+      sig { returns(T.nilable(AutomationAction)) }
       def automation_action; end
       # Attribute for field request
-      sig { returns(Request) }
+      sig { returns(T.nilable(Request)) }
       def request; end
       # The type of the reason for the event.
       sig { returns(String) }
@@ -75,13 +75,13 @@ module Stripe
       def idempotency_key; end
     end
     # The connected account that originates the event.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def account; end
     # The Stripe API version used to render `data` when the event was created. The contents of `data` never change, so this value remains static regardless of the API version currently in use. This property is populated only for events created on or after October 31, 2014.
     sig { returns(T.nilable(String)) }
     def api_version; end
     # Authentication context needed to fetch the event or related object.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def context; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }

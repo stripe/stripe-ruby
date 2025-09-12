@@ -83,7 +83,7 @@ module Stripe
     sig { returns(T.nilable(T.any(String, Stripe::Product))) }
     def product; end
     # Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
-    sig { returns(T::Array[Tier]) }
+    sig { returns(T.nilable(T::Array[Tier])) }
     def tiers; end
     # Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
     sig { returns(T.nilable(String)) }
@@ -98,7 +98,7 @@ module Stripe
     sig { returns(String) }
     def usage_type; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams

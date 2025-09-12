@@ -384,28 +384,28 @@ module Stripe
           def branch_name; end
         end
         # ABA Records contain U.S. bank account details per the ABA format.
-        sig { returns(Aba) }
+        sig { returns(T.nilable(Aba)) }
         def aba; end
         # Iban Records contain E.U. bank account details per the SEPA format.
-        sig { returns(Iban) }
+        sig { returns(T.nilable(Iban)) }
         def iban; end
         # Sort Code Records contain U.K. bank account details per the sort code format.
-        sig { returns(SortCode) }
+        sig { returns(T.nilable(SortCode)) }
         def sort_code; end
         # SPEI Records contain Mexico bank account details per the SPEI format.
-        sig { returns(Spei) }
+        sig { returns(T.nilable(Spei)) }
         def spei; end
         # The payment networks supported by this FinancialAddress
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         def supported_networks; end
         # SWIFT Records contain U.S. bank account details per the SWIFT format.
-        sig { returns(Swift) }
+        sig { returns(T.nilable(Swift)) }
         def swift; end
         # The type of financial address
         sig { returns(String) }
         def type; end
         # Zengin Records contain Japan bank account details per the Zengin format.
-        sig { returns(Zengin) }
+        sig { returns(T.nilable(Zengin)) }
         def zengin; end
       end
       # The country of the bank account to fund

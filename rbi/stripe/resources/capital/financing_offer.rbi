@@ -52,13 +52,13 @@ module Stripe
       # Stripe Capital to a Connected account. This resource represents
       # the terms accepted by the Connected account, which may differ from those
       # offered.
-      sig { returns(AcceptedTerms) }
+      sig { returns(T.nilable(AcceptedTerms)) }
       def accepted_terms; end
       # The ID of the merchant associated with this financing object.
       sig { returns(String) }
       def account; end
       # The time at which this financing offer was charged off, if applicable. Given in seconds since unix epoch.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def charged_off_at; end
       # Time at which the offer was created. Given in seconds since unix epoch.
       sig { returns(Integer) }
@@ -67,7 +67,7 @@ module Stripe
       sig { returns(Float) }
       def expires_after; end
       # The type of financing being offered.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def financing_type; end
       # A unique identifier for the financing object.
       sig { returns(String) }
@@ -76,7 +76,7 @@ module Stripe
       sig { returns(T::Boolean) }
       def livemode; end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-      sig { returns(T::Hash[String, String]) }
+      sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
       # The object type: financing_offer.
       sig { returns(String) }
@@ -84,22 +84,22 @@ module Stripe
       # This is an object representing the terms of an offer of financing from
       # Stripe Capital to a Connected account. This resource represents
       # both the terms offered to the Connected account.
-      sig { returns(OfferedTerms) }
+      sig { returns(T.nilable(OfferedTerms)) }
       def offered_terms; end
       # Financing product identifier.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def product_type; end
       # The ID of the financing offer that replaced this offer.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def replacement; end
       # The ID of the financing offer that this offer is a replacement for.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def replacement_for; end
       # The current status of the offer.
       sig { returns(String) }
       def status; end
       # See [financing_type](https://stripe.com/docs/api/capital/connect_financing_object#financing_offer_object-financing_type).
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def type; end
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams

@@ -101,7 +101,7 @@ module Stripe
     sig { returns(T.any(String, Stripe::Account)) }
     def account; end
     # Attribute for field future_requirements
-    sig { returns(FutureRequirements) }
+    sig { returns(T.nilable(FutureRequirements)) }
     def future_requirements; end
     # The identifier for the capability.
     sig { returns(String) }
@@ -116,7 +116,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def requested_at; end
     # Attribute for field requirements
-    sig { returns(Requirements) }
+    sig { returns(T.nilable(Requirements)) }
     def requirements; end
     # The status of the capability.
     sig { returns(String) }

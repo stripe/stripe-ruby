@@ -73,7 +73,7 @@ module Stripe
     sig { returns(String) }
     def opened_reason; end
     # The PaymentIntent ID associated with this review, if one exists.
-    sig { returns(T.any(String, Stripe::PaymentIntent)) }
+    sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
     def payment_intent; end
     # The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, `canceled`, `payment_never_settled`, or `acknowledged`.
     sig { returns(String) }

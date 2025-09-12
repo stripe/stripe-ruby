@@ -46,10 +46,10 @@ module Stripe
       sig { returns(String) }
       def object; end
       # The total amount of any additional fees assessed by the card network.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def other_fees_amount; end
       # The total number of additional fees assessed by the card network.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def other_fees_count; end
       # One of `international` or `uk_national_net`.
       sig { returns(String) }

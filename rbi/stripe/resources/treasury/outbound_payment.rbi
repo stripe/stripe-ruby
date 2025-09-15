@@ -67,7 +67,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def last4; end
           # ID of the mandate used to make this payment.
-          sig { returns(T.any(String, Stripe::Mandate)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
           def mandate; end
           # The network rails used. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(String) }
@@ -80,13 +80,13 @@ module Stripe
         sig { returns(BillingDetails) }
         def billing_details; end
         # Attribute for field financial_account
-        sig { returns(FinancialAccount) }
+        sig { returns(T.nilable(FinancialAccount)) }
         def financial_account; end
         # The type of the payment method used in the OutboundPayment.
         sig { returns(String) }
         def type; end
         # Attribute for field us_bank_account
-        sig { returns(UsBankAccount) }
+        sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
       end
       class EndUserDetails < Stripe::StripeObject
@@ -137,13 +137,13 @@ module Stripe
           def omad; end
         end
         # Attribute for field ach
-        sig { returns(Ach) }
+        sig { returns(T.nilable(Ach)) }
         def ach; end
         # The US bank account network used to send funds.
         sig { returns(String) }
         def type; end
         # Attribute for field us_domestic_wire
-        sig { returns(UsDomesticWire) }
+        sig { returns(T.nilable(UsDomesticWire)) }
         def us_domestic_wire; end
       end
       # Amount (in cents) transferred.

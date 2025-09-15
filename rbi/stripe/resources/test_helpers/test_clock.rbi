@@ -15,7 +15,7 @@ module Stripe
           def target_frozen_time; end
         end
         # Attribute for field advancing
-        sig { returns(Advancing) }
+        sig { returns(T.nilable(Advancing)) }
         def advancing; end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -46,7 +46,7 @@ module Stripe
       sig { returns(StatusDetails) }
       def status_details; end
       # Always true for a deleted object
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def deleted; end
       class DeleteParams < Stripe::RequestParams; end
       class ListParams < Stripe::RequestParams

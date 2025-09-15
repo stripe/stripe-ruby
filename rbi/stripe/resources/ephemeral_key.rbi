@@ -20,7 +20,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The key's secret. You can use this value to make authorized requests to the Stripe API.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def secret; end
     class DeleteParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.

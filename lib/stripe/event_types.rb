@@ -10,7 +10,6 @@ module Stripe
         V2BillingCadenceBilledEvent.lookup_type => V2BillingCadenceBilledEvent,
         V2BillingCadenceCanceledEvent.lookup_type => V2BillingCadenceCanceledEvent,
         V2BillingCadenceCreatedEvent.lookup_type => V2BillingCadenceCreatedEvent,
-        V2BillingCadenceErroredEvent.lookup_type => V2BillingCadenceErroredEvent,
         V2BillingLicenseFeeCreatedEvent.lookup_type => V2BillingLicenseFeeCreatedEvent,
         V2BillingLicenseFeeUpdatedEvent.lookup_type => V2BillingLicenseFeeUpdatedEvent,
         V2BillingLicenseFeeVersionCreatedEvent.lookup_type => V2BillingLicenseFeeVersionCreatedEvent,

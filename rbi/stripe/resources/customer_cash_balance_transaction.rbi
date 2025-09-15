@@ -58,20 +58,20 @@ module Stripe
         end
         class UsBankTransfer < Stripe::StripeObject
           # The banking network used for this funding.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def network; end
           # The full name of the sender, as supplied by the sending bank.
           sig { returns(T.nilable(String)) }
           def sender_name; end
         end
         # Attribute for field eu_bank_transfer
-        sig { returns(EuBankTransfer) }
+        sig { returns(T.nilable(EuBankTransfer)) }
         def eu_bank_transfer; end
         # Attribute for field gb_bank_transfer
-        sig { returns(GbBankTransfer) }
+        sig { returns(T.nilable(GbBankTransfer)) }
         def gb_bank_transfer; end
         # Attribute for field jp_bank_transfer
-        sig { returns(JpBankTransfer) }
+        sig { returns(T.nilable(JpBankTransfer)) }
         def jp_bank_transfer; end
         # The user-supplied reference field on the bank transfer.
         sig { returns(T.nilable(String)) }
@@ -80,7 +80,7 @@ module Stripe
         sig { returns(String) }
         def type; end
         # Attribute for field us_bank_transfer
-        sig { returns(UsBankTransfer) }
+        sig { returns(T.nilable(UsBankTransfer)) }
         def us_bank_transfer; end
       end
       # Attribute for field bank_transfer
@@ -103,10 +103,10 @@ module Stripe
       def payment_intent; end
     end
     # Attribute for field adjusted_for_overdraft
-    sig { returns(AdjustedForOverdraft) }
+    sig { returns(T.nilable(AdjustedForOverdraft)) }
     def adjusted_for_overdraft; end
     # Attribute for field applied_to_payment
-    sig { returns(AppliedToPayment) }
+    sig { returns(T.nilable(AppliedToPayment)) }
     def applied_to_payment; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -124,7 +124,7 @@ module Stripe
     sig { returns(Integer) }
     def ending_balance; end
     # Attribute for field funded
-    sig { returns(Funded) }
+    sig { returns(T.nilable(Funded)) }
     def funded; end
     # Unique identifier for the object.
     sig { returns(String) }
@@ -139,16 +139,16 @@ module Stripe
     sig { returns(String) }
     def object; end
     # Attribute for field refunded_from_payment
-    sig { returns(RefundedFromPayment) }
+    sig { returns(T.nilable(RefundedFromPayment)) }
     def refunded_from_payment; end
     # Attribute for field transferred_to_balance
-    sig { returns(TransferredToBalance) }
+    sig { returns(T.nilable(TransferredToBalance)) }
     def transferred_to_balance; end
     # The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
     sig { returns(String) }
     def type; end
     # Attribute for field unapplied_from_payment
-    sig { returns(UnappliedFromPayment) }
+    sig { returns(T.nilable(UnappliedFromPayment)) }
     def unapplied_from_payment; end
   end
 end

@@ -9,33 +9,33 @@ module Stripe
   class SourceMandateNotification < APIResource
     class AcssDebit < Stripe::StripeObject
       # The statement descriptor associate with the debit.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def statement_descriptor; end
     end
     class BacsDebit < Stripe::StripeObject
       # Last 4 digits of the account number associated with the debit.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def last4; end
     end
     class SepaDebit < Stripe::StripeObject
       # SEPA creditor ID.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def creditor_identifier; end
       # Last 4 digits of the account number associated with the debit.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def last4; end
       # Mandate reference associated with the debit.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def mandate_reference; end
     end
     # Attribute for field acss_debit
-    sig { returns(AcssDebit) }
+    sig { returns(T.nilable(AcssDebit)) }
     def acss_debit; end
     # A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the amount associated with the mandate notification. The amount is expressed in the currency of the underlying source. Required if the notification type is `debit_initiated`.
     sig { returns(T.nilable(Integer)) }
     def amount; end
     # Attribute for field bacs_debit
-    sig { returns(BacsDebit) }
+    sig { returns(T.nilable(BacsDebit)) }
     def bacs_debit; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -53,7 +53,7 @@ module Stripe
     sig { returns(String) }
     def reason; end
     # Attribute for field sepa_debit
-    sig { returns(SepaDebit) }
+    sig { returns(T.nilable(SepaDebit)) }
     def sepa_debit; end
     # `Source` objects allow you to accept a variety of payment methods. They
     # represent a customer's payment instrument, and can be used with the Stripe API

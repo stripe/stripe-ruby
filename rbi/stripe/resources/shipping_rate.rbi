@@ -46,7 +46,7 @@ module Stripe
       sig { returns(String) }
       def currency; end
       # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-      sig { returns(T::Hash[String, CurrencyOptions]) }
+      sig { returns(T.nilable(T::Hash[String, CurrencyOptions])) }
       def currency_options; end
     end
     # Whether the shipping rate can be used for new purchases. Defaults to `true`.
@@ -62,7 +62,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def display_name; end
     # Attribute for field fixed_amount
-    sig { returns(FixedAmount) }
+    sig { returns(T.nilable(FixedAmount)) }
     def fixed_amount; end
     # Unique identifier for the object.
     sig { returns(String) }

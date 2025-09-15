@@ -10,7 +10,7 @@ module Stripe
     class AutomaticTax < Stripe::StripeObject
       class Liability < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -48,7 +48,7 @@ module Stripe
       sig { returns(String) }
       def type; end
       # Details on when the current billing_mode was adopted.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       def updated_at; end
     end
     class BillingThresholds < Stripe::StripeObject
@@ -73,7 +73,7 @@ module Stripe
     class InvoiceSettings < Stripe::StripeObject
       class Issuer < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -122,10 +122,10 @@ module Stripe
             def transaction_type; end
           end
           # Attribute for field mandate_options
-          sig { returns(MandateOptions) }
+          sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
           # Bank account verification method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def verification_method; end
         end
         class Bancontact < Stripe::StripeObject
@@ -146,7 +146,7 @@ module Stripe
             def description; end
           end
           # Attribute for field mandate_options
-          sig { returns(MandateOptions) }
+          sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
           # Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
           sig { returns(T.nilable(String)) }
@@ -163,14 +163,14 @@ module Stripe
               def country; end
             end
             # Attribute for field eu_bank_transfer
-            sig { returns(EuBankTransfer) }
+            sig { returns(T.nilable(EuBankTransfer)) }
             def eu_bank_transfer; end
             # The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
             sig { returns(T.nilable(String)) }
             def type; end
           end
           # Attribute for field bank_transfer
-          sig { returns(BankTransfer) }
+          sig { returns(T.nilable(BankTransfer)) }
           def bank_transfer; end
           # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
           sig { returns(T.nilable(String)) }
@@ -195,34 +195,34 @@ module Stripe
             def end_date; end
           end
           # Attribute for field mandate_options
-          sig { returns(MandateOptions) }
+          sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
         end
         class UsBankAccount < Stripe::StripeObject
           class FinancialConnections < Stripe::StripeObject
             class Filters < Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
-              sig { returns(T::Array[String]) }
+              sig { returns(T.nilable(T::Array[String])) }
               def account_subcategories; end
               # The institution to use to filter for possible accounts to link.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               def institution; end
             end
             # Attribute for field filters
-            sig { returns(Filters) }
+            sig { returns(T.nilable(Filters)) }
             def filters; end
             # The list of permissions to request. The `payment_method` permission must be included.
-            sig { returns(T::Array[String]) }
+            sig { returns(T.nilable(T::Array[String])) }
             def permissions; end
             # Data features requested to be retrieved upon account creation.
             sig { returns(T.nilable(T::Array[String])) }
             def prefetch; end
           end
           # Attribute for field financial_connections
-          sig { returns(FinancialConnections) }
+          sig { returns(T.nilable(FinancialConnections)) }
           def financial_connections; end
           # Bank account verification method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def verification_method; end
         end
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
@@ -302,7 +302,7 @@ module Stripe
       sig { returns(Integer) }
       def period_start; end
       # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def update_behavior; end
     end
     class TransferData < Stripe::StripeObject
@@ -333,7 +333,7 @@ module Stripe
     sig { returns(AutomaticTax) }
     def automatic_tax; end
     # The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def billing_cadence; end
     # The reference point that aligns future [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     sig { returns(Integer) }

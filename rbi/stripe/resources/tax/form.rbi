@@ -97,10 +97,10 @@ module Stripe
         def reporting_year; end
       end
       # Attribute for field au_serr
-      sig { returns(AuSerr) }
+      sig { returns(T.nilable(AuSerr)) }
       def au_serr; end
       # Attribute for field ca_mrdp
-      sig { returns(CaMrdp) }
+      sig { returns(T.nilable(CaMrdp)) }
       def ca_mrdp; end
       # The form that corrects this form, if any.
       sig { returns(T.nilable(T.any(String, Stripe::Tax::Form))) }
@@ -109,13 +109,13 @@ module Stripe
       sig { returns(Integer) }
       def created; end
       # Attribute for field eu_dac7
-      sig { returns(EuDac7) }
+      sig { returns(T.nilable(EuDac7)) }
       def eu_dac7; end
       # A list of tax filing statuses. Note that a filing status will only be included if the form has been filed directly with the jurisdiction’s tax authority.
       sig { returns(T::Array[FilingStatus]) }
       def filing_statuses; end
       # Attribute for field gb_mrdp
-      sig { returns(GbMrdp) }
+      sig { returns(T.nilable(GbMrdp)) }
       def gb_mrdp; end
       # Unique identifier for the object.
       sig { returns(String) }
@@ -124,7 +124,7 @@ module Stripe
       sig { returns(T::Boolean) }
       def livemode; end
       # Attribute for field nz_mrdp
-      sig { returns(NzMrdp) }
+      sig { returns(T.nilable(NzMrdp)) }
       def nz_mrdp; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
@@ -136,13 +136,13 @@ module Stripe
       sig { returns(String) }
       def type; end
       # Attribute for field us_1099_k
-      sig { returns(Us1099K) }
+      sig { returns(T.nilable(Us1099K)) }
       def us_1099_k; end
       # Attribute for field us_1099_misc
-      sig { returns(Us1099Misc) }
+      sig { returns(T.nilable(Us1099Misc)) }
       def us_1099_misc; end
       # Attribute for field us_1099_nec
-      sig { returns(Us1099Nec) }
+      sig { returns(T.nilable(Us1099Nec)) }
       def us_1099_nec; end
       class ListParams < Stripe::RequestParams
         class Payee < Stripe::RequestParams

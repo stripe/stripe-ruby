@@ -9,7 +9,7 @@ module Stripe
     class Configuration < APIResource
       class BbposWiseposE < Stripe::StripeObject
         # A File ID representing an image to display on the reader
-        sig { returns(T.any(String, Stripe::File)) }
+        sig { returns(T.nilable(T.any(String, Stripe::File))) }
         def splashscreen; end
       end
       class Offline < Stripe::StripeObject
@@ -32,7 +32,7 @@ module Stripe
       end
       class StripeS700 < Stripe::StripeObject
         # A File ID representing an image to display on the reader
-        sig { returns(T.any(String, Stripe::File)) }
+        sig { returns(T.nilable(T.any(String, Stripe::File))) }
         def splashscreen; end
       end
       class Tipping < Stripe::StripeObject
@@ -44,7 +44,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Aud < Stripe::StripeObject
@@ -55,7 +55,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Bgn < Stripe::StripeObject
@@ -66,7 +66,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Cad < Stripe::StripeObject
@@ -77,7 +77,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Chf < Stripe::StripeObject
@@ -88,7 +88,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Czk < Stripe::StripeObject
@@ -99,7 +99,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Dkk < Stripe::StripeObject
@@ -110,7 +110,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Eur < Stripe::StripeObject
@@ -121,7 +121,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Gbp < Stripe::StripeObject
@@ -132,7 +132,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Hkd < Stripe::StripeObject
@@ -143,7 +143,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Huf < Stripe::StripeObject
@@ -154,7 +154,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Jpy < Stripe::StripeObject
@@ -165,7 +165,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Mxn < Stripe::StripeObject
@@ -176,7 +176,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Myr < Stripe::StripeObject
@@ -187,7 +187,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Nok < Stripe::StripeObject
@@ -198,7 +198,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Nzd < Stripe::StripeObject
@@ -209,7 +209,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Pln < Stripe::StripeObject
@@ -220,7 +220,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Ron < Stripe::StripeObject
@@ -231,7 +231,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Sek < Stripe::StripeObject
@@ -242,7 +242,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Sgd < Stripe::StripeObject
@@ -253,7 +253,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         class Usd < Stripe::StripeObject
@@ -264,82 +264,82 @@ module Stripe
           sig { returns(T.nilable(T::Array[Integer])) }
           def percentages; end
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
         end
         # Attribute for field aed
-        sig { returns(Aed) }
+        sig { returns(T.nilable(Aed)) }
         def aed; end
         # Attribute for field aud
-        sig { returns(Aud) }
+        sig { returns(T.nilable(Aud)) }
         def aud; end
         # Attribute for field bgn
-        sig { returns(Bgn) }
+        sig { returns(T.nilable(Bgn)) }
         def bgn; end
         # Attribute for field cad
-        sig { returns(Cad) }
+        sig { returns(T.nilable(Cad)) }
         def cad; end
         # Attribute for field chf
-        sig { returns(Chf) }
+        sig { returns(T.nilable(Chf)) }
         def chf; end
         # Attribute for field czk
-        sig { returns(Czk) }
+        sig { returns(T.nilable(Czk)) }
         def czk; end
         # Attribute for field dkk
-        sig { returns(Dkk) }
+        sig { returns(T.nilable(Dkk)) }
         def dkk; end
         # Attribute for field eur
-        sig { returns(Eur) }
+        sig { returns(T.nilable(Eur)) }
         def eur; end
         # Attribute for field gbp
-        sig { returns(Gbp) }
+        sig { returns(T.nilable(Gbp)) }
         def gbp; end
         # Attribute for field hkd
-        sig { returns(Hkd) }
+        sig { returns(T.nilable(Hkd)) }
         def hkd; end
         # Attribute for field huf
-        sig { returns(Huf) }
+        sig { returns(T.nilable(Huf)) }
         def huf; end
         # Attribute for field jpy
-        sig { returns(Jpy) }
+        sig { returns(T.nilable(Jpy)) }
         def jpy; end
         # Attribute for field mxn
-        sig { returns(Mxn) }
+        sig { returns(T.nilable(Mxn)) }
         def mxn; end
         # Attribute for field myr
-        sig { returns(Myr) }
+        sig { returns(T.nilable(Myr)) }
         def myr; end
         # Attribute for field nok
-        sig { returns(Nok) }
+        sig { returns(T.nilable(Nok)) }
         def nok; end
         # Attribute for field nzd
-        sig { returns(Nzd) }
+        sig { returns(T.nilable(Nzd)) }
         def nzd; end
         # Attribute for field pln
-        sig { returns(Pln) }
+        sig { returns(T.nilable(Pln)) }
         def pln; end
         # Attribute for field ron
-        sig { returns(Ron) }
+        sig { returns(T.nilable(Ron)) }
         def ron; end
         # Attribute for field sek
-        sig { returns(Sek) }
+        sig { returns(T.nilable(Sek)) }
         def sek; end
         # Attribute for field sgd
-        sig { returns(Sgd) }
+        sig { returns(T.nilable(Sgd)) }
         def sgd; end
         # Attribute for field usd
-        sig { returns(Usd) }
+        sig { returns(T.nilable(Usd)) }
         def usd; end
       end
       class VerifoneP400 < Stripe::StripeObject
         # A File ID representing an image to display on the reader
-        sig { returns(T.any(String, Stripe::File)) }
+        sig { returns(T.nilable(T.any(String, Stripe::File))) }
         def splashscreen; end
       end
       class Wifi < Stripe::StripeObject
         class EnterpriseEapPeap < Stripe::StripeObject
           # A File ID representing a PEM file containing the server certificate
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def ca_certificate_file; end
           # Password for connecting to the WiFi network
           sig { returns(String) }
@@ -353,7 +353,7 @@ module Stripe
         end
         class EnterpriseEapTls < Stripe::StripeObject
           # A File ID representing a PEM file containing the server certificate
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def ca_certificate_file; end
           # A File ID representing a PEM file containing the client certificate
           sig { returns(String) }
@@ -362,7 +362,7 @@ module Stripe
           sig { returns(String) }
           def private_key_file; end
           # Password for the private key file
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def private_key_file_password; end
           # Name of the WiFi network
           sig { returns(String) }
@@ -377,20 +377,20 @@ module Stripe
           def ssid; end
         end
         # Attribute for field enterprise_eap_peap
-        sig { returns(EnterpriseEapPeap) }
+        sig { returns(T.nilable(EnterpriseEapPeap)) }
         def enterprise_eap_peap; end
         # Attribute for field enterprise_eap_tls
-        sig { returns(EnterpriseEapTls) }
+        sig { returns(T.nilable(EnterpriseEapTls)) }
         def enterprise_eap_tls; end
         # Attribute for field personal_psk
-        sig { returns(PersonalPsk) }
+        sig { returns(T.nilable(PersonalPsk)) }
         def personal_psk; end
         # Security type of the WiFi network. The hash with the corresponding name contains the credentials for this security type.
         sig { returns(String) }
         def type; end
       end
       # Attribute for field bbpos_wisepos_e
-      sig { returns(BbposWiseposE) }
+      sig { returns(T.nilable(BbposWiseposE)) }
       def bbpos_wisepos_e; end
       # Unique identifier for the object.
       sig { returns(String) }
@@ -408,28 +408,28 @@ module Stripe
       sig { returns(String) }
       def object; end
       # Attribute for field offline
-      sig { returns(Offline) }
+      sig { returns(T.nilable(Offline)) }
       def offline; end
       # Attribute for field reader_security
-      sig { returns(ReaderSecurity) }
+      sig { returns(T.nilable(ReaderSecurity)) }
       def reader_security; end
       # Attribute for field reboot_window
-      sig { returns(RebootWindow) }
+      sig { returns(T.nilable(RebootWindow)) }
       def reboot_window; end
       # Attribute for field stripe_s700
-      sig { returns(StripeS700) }
+      sig { returns(T.nilable(StripeS700)) }
       def stripe_s700; end
       # Attribute for field tipping
-      sig { returns(Tipping) }
+      sig { returns(T.nilable(Tipping)) }
       def tipping; end
       # Attribute for field verifone_p400
-      sig { returns(VerifoneP400) }
+      sig { returns(T.nilable(VerifoneP400)) }
       def verifone_p400; end
       # Attribute for field wifi
-      sig { returns(Wifi) }
+      sig { returns(T.nilable(Wifi)) }
       def wifi; end
       # Always true for a deleted object
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def deleted; end
       class DeleteParams < Stripe::RequestParams; end
       class UpdateParams < Stripe::RequestParams

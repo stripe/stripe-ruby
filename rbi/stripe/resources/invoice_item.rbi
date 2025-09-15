@@ -46,7 +46,7 @@ module Stripe
         sig { returns(String) }
         def subscription; end
         # The subscription item that generated this invoice item
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def subscription_item; end
       end
       # Details about the license fee subscription that generated this invoice item
@@ -102,13 +102,13 @@ module Stripe
         def rate_card_rate; end
       end
       # Attribute for field license_fee_details
-      sig { returns(LicenseFeeDetails) }
+      sig { returns(T.nilable(LicenseFeeDetails)) }
       def license_fee_details; end
       # Attribute for field price_details
-      sig { returns(PriceDetails) }
+      sig { returns(T.nilable(PriceDetails)) }
       def price_details; end
       # Attribute for field rate_card_rate_details
-      sig { returns(RateCardRateDetails) }
+      sig { returns(T.nilable(RateCardRateDetails)) }
       def rate_card_rate_details; end
       # The type of the pricing details.
       sig { returns(String) }
@@ -181,7 +181,7 @@ module Stripe
     sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
     def test_clock; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams

@@ -18,7 +18,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in `country`.
           sig { returns(String) }
@@ -46,7 +46,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -59,7 +59,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in `country`.
           sig { returns(String) }
@@ -97,7 +97,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -115,7 +115,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -148,7 +148,7 @@ module Stripe
             def province; end
           end
           # Attribute for field province_standard
-          sig { returns(ProvinceStandard) }
+          sig { returns(T.nilable(ProvinceStandard)) }
           def province_standard; end
           # Type of registration in Canada.
           sig { returns(String) }
@@ -166,7 +166,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in `country`.
           sig { returns(String) }
@@ -204,7 +204,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -217,7 +217,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -230,7 +230,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -243,7 +243,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -261,7 +261,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -279,7 +279,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -297,7 +297,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -310,7 +310,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -323,7 +323,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in `country`.
           sig { returns(String) }
@@ -346,7 +346,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -359,7 +359,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -372,7 +372,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -390,7 +390,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -413,7 +413,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -426,7 +426,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in `country`.
           sig { returns(String) }
@@ -469,7 +469,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -482,7 +482,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -495,7 +495,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -533,7 +533,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -561,7 +561,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -574,7 +574,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in `country`.
           sig { returns(String) }
@@ -592,7 +592,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in `country`.
           sig { returns(String) }
@@ -620,7 +620,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -633,7 +633,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -646,7 +646,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -674,7 +674,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -687,7 +687,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in `country`.
           sig { returns(String) }
@@ -700,7 +700,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -713,7 +713,7 @@ module Stripe
             def place_of_supply_scheme; end
           end
           # Attribute for field standard
-          sig { returns(Standard) }
+          sig { returns(T.nilable(Standard)) }
           def standard; end
           # Type of registration in an EU country.
           sig { returns(String) }
@@ -773,27 +773,27 @@ module Stripe
           class StateSalesTax < Stripe::StripeObject
             class Election < Stripe::StripeObject
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               def jurisdiction; end
               # The type of the election for the state sales tax registration.
               sig { returns(String) }
               def type; end
             end
             # Elections for the state sales tax registration.
-            sig { returns(T::Array[Election]) }
+            sig { returns(T.nilable(T::Array[Election])) }
             def elections; end
           end
           # Attribute for field local_amusement_tax
-          sig { returns(LocalAmusementTax) }
+          sig { returns(T.nilable(LocalAmusementTax)) }
           def local_amusement_tax; end
           # Attribute for field local_lease_tax
-          sig { returns(LocalLeaseTax) }
+          sig { returns(T.nilable(LocalLeaseTax)) }
           def local_lease_tax; end
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(String) }
           def state; end
           # Attribute for field state_sales_tax
-          sig { returns(StateSalesTax) }
+          sig { returns(T.nilable(StateSalesTax)) }
           def state_sales_tax; end
           # Type of registration in the US.
           sig { returns(String) }
@@ -830,301 +830,301 @@ module Stripe
           def type; end
         end
         # Attribute for field ae
-        sig { returns(Ae) }
+        sig { returns(T.nilable(Ae)) }
         def ae; end
         # Attribute for field al
-        sig { returns(Al) }
+        sig { returns(T.nilable(Al)) }
         def al; end
         # Attribute for field am
-        sig { returns(Am) }
+        sig { returns(T.nilable(Am)) }
         def am; end
         # Attribute for field ao
-        sig { returns(Ao) }
+        sig { returns(T.nilable(Ao)) }
         def ao; end
         # Attribute for field at
-        sig { returns(At) }
+        sig { returns(T.nilable(At)) }
         def at; end
         # Attribute for field au
-        sig { returns(Au) }
+        sig { returns(T.nilable(Au)) }
         def au; end
         # Attribute for field aw
-        sig { returns(Aw) }
+        sig { returns(T.nilable(Aw)) }
         def aw; end
         # Attribute for field az
-        sig { returns(Az) }
+        sig { returns(T.nilable(Az)) }
         def az; end
         # Attribute for field ba
-        sig { returns(Ba) }
+        sig { returns(T.nilable(Ba)) }
         def ba; end
         # Attribute for field bb
-        sig { returns(Bb) }
+        sig { returns(T.nilable(Bb)) }
         def bb; end
         # Attribute for field bd
-        sig { returns(Bd) }
+        sig { returns(T.nilable(Bd)) }
         def bd; end
         # Attribute for field be
-        sig { returns(Be) }
+        sig { returns(T.nilable(Be)) }
         def be; end
         # Attribute for field bf
-        sig { returns(Bf) }
+        sig { returns(T.nilable(Bf)) }
         def bf; end
         # Attribute for field bg
-        sig { returns(Bg) }
+        sig { returns(T.nilable(Bg)) }
         def bg; end
         # Attribute for field bh
-        sig { returns(Bh) }
+        sig { returns(T.nilable(Bh)) }
         def bh; end
         # Attribute for field bj
-        sig { returns(Bj) }
+        sig { returns(T.nilable(Bj)) }
         def bj; end
         # Attribute for field bs
-        sig { returns(Bs) }
+        sig { returns(T.nilable(Bs)) }
         def bs; end
         # Attribute for field by
-        sig { returns(By) }
+        sig { returns(T.nilable(By)) }
         def by; end
         # Attribute for field ca
-        sig { returns(Ca) }
+        sig { returns(T.nilable(Ca)) }
         def ca; end
         # Attribute for field cd
-        sig { returns(Cd) }
+        sig { returns(T.nilable(Cd)) }
         def cd; end
         # Attribute for field ch
-        sig { returns(Ch) }
+        sig { returns(T.nilable(Ch)) }
         def ch; end
         # Attribute for field cl
-        sig { returns(Cl) }
+        sig { returns(T.nilable(Cl)) }
         def cl; end
         # Attribute for field cm
-        sig { returns(Cm) }
+        sig { returns(T.nilable(Cm)) }
         def cm; end
         # Attribute for field co
-        sig { returns(Co) }
+        sig { returns(T.nilable(Co)) }
         def co; end
         # Attribute for field cr
-        sig { returns(Cr) }
+        sig { returns(T.nilable(Cr)) }
         def cr; end
         # Attribute for field cv
-        sig { returns(Cv) }
+        sig { returns(T.nilable(Cv)) }
         def cv; end
         # Attribute for field cy
-        sig { returns(Cy) }
+        sig { returns(T.nilable(Cy)) }
         def cy; end
         # Attribute for field cz
-        sig { returns(Cz) }
+        sig { returns(T.nilable(Cz)) }
         def cz; end
         # Attribute for field de
-        sig { returns(De) }
+        sig { returns(T.nilable(De)) }
         def de; end
         # Attribute for field dk
-        sig { returns(Dk) }
+        sig { returns(T.nilable(Dk)) }
         def dk; end
         # Attribute for field ec
-        sig { returns(Ec) }
+        sig { returns(T.nilable(Ec)) }
         def ec; end
         # Attribute for field ee
-        sig { returns(Ee) }
+        sig { returns(T.nilable(Ee)) }
         def ee; end
         # Attribute for field eg
-        sig { returns(Eg) }
+        sig { returns(T.nilable(Eg)) }
         def eg; end
         # Attribute for field es
-        sig { returns(Es) }
+        sig { returns(T.nilable(Es)) }
         def es; end
         # Attribute for field et
-        sig { returns(Et) }
+        sig { returns(T.nilable(Et)) }
         def et; end
         # Attribute for field fi
-        sig { returns(Fi) }
+        sig { returns(T.nilable(Fi)) }
         def fi; end
         # Attribute for field fr
-        sig { returns(Fr) }
+        sig { returns(T.nilable(Fr)) }
         def fr; end
         # Attribute for field gb
-        sig { returns(Gb) }
+        sig { returns(T.nilable(Gb)) }
         def gb; end
         # Attribute for field ge
-        sig { returns(Ge) }
+        sig { returns(T.nilable(Ge)) }
         def ge; end
         # Attribute for field gn
-        sig { returns(Gn) }
+        sig { returns(T.nilable(Gn)) }
         def gn; end
         # Attribute for field gr
-        sig { returns(Gr) }
+        sig { returns(T.nilable(Gr)) }
         def gr; end
         # Attribute for field hr
-        sig { returns(Hr) }
+        sig { returns(T.nilable(Hr)) }
         def hr; end
         # Attribute for field hu
-        sig { returns(Hu) }
+        sig { returns(T.nilable(Hu)) }
         def hu; end
         # Attribute for field id
-        sig { returns(Id) }
+        sig { returns(T.nilable(Id)) }
         def id; end
         # Attribute for field ie
-        sig { returns(Ie) }
+        sig { returns(T.nilable(Ie)) }
         def ie; end
         # Attribute for field in
-        sig { returns(In) }
+        sig { returns(T.nilable(In)) }
         def in; end
         # Attribute for field is
-        sig { returns(Is) }
+        sig { returns(T.nilable(Is)) }
         def is; end
         # Attribute for field it
-        sig { returns(It) }
+        sig { returns(T.nilable(It)) }
         def it; end
         # Attribute for field jp
-        sig { returns(Jp) }
+        sig { returns(T.nilable(Jp)) }
         def jp; end
         # Attribute for field ke
-        sig { returns(Ke) }
+        sig { returns(T.nilable(Ke)) }
         def ke; end
         # Attribute for field kg
-        sig { returns(Kg) }
+        sig { returns(T.nilable(Kg)) }
         def kg; end
         # Attribute for field kh
-        sig { returns(Kh) }
+        sig { returns(T.nilable(Kh)) }
         def kh; end
         # Attribute for field kr
-        sig { returns(Kr) }
+        sig { returns(T.nilable(Kr)) }
         def kr; end
         # Attribute for field kz
-        sig { returns(Kz) }
+        sig { returns(T.nilable(Kz)) }
         def kz; end
         # Attribute for field la
-        sig { returns(La) }
+        sig { returns(T.nilable(La)) }
         def la; end
         # Attribute for field lt
-        sig { returns(Lt) }
+        sig { returns(T.nilable(Lt)) }
         def lt; end
         # Attribute for field lu
-        sig { returns(Lu) }
+        sig { returns(T.nilable(Lu)) }
         def lu; end
         # Attribute for field lv
-        sig { returns(Lv) }
+        sig { returns(T.nilable(Lv)) }
         def lv; end
         # Attribute for field ma
-        sig { returns(Ma) }
+        sig { returns(T.nilable(Ma)) }
         def ma; end
         # Attribute for field md
-        sig { returns(Md) }
+        sig { returns(T.nilable(Md)) }
         def md; end
         # Attribute for field me
-        sig { returns(Me) }
+        sig { returns(T.nilable(Me)) }
         def me; end
         # Attribute for field mk
-        sig { returns(Mk) }
+        sig { returns(T.nilable(Mk)) }
         def mk; end
         # Attribute for field mr
-        sig { returns(Mr) }
+        sig { returns(T.nilable(Mr)) }
         def mr; end
         # Attribute for field mt
-        sig { returns(Mt) }
+        sig { returns(T.nilable(Mt)) }
         def mt; end
         # Attribute for field mx
-        sig { returns(Mx) }
+        sig { returns(T.nilable(Mx)) }
         def mx; end
         # Attribute for field my
-        sig { returns(My) }
+        sig { returns(T.nilable(My)) }
         def my; end
         # Attribute for field ng
-        sig { returns(Ng) }
+        sig { returns(T.nilable(Ng)) }
         def ng; end
         # Attribute for field nl
-        sig { returns(Nl) }
+        sig { returns(T.nilable(Nl)) }
         def nl; end
         # Attribute for field no
-        sig { returns(No) }
+        sig { returns(T.nilable(No)) }
         def no; end
         # Attribute for field np
-        sig { returns(Np) }
+        sig { returns(T.nilable(Np)) }
         def np; end
         # Attribute for field nz
-        sig { returns(Nz) }
+        sig { returns(T.nilable(Nz)) }
         def nz; end
         # Attribute for field om
-        sig { returns(Om) }
+        sig { returns(T.nilable(Om)) }
         def om; end
         # Attribute for field pe
-        sig { returns(Pe) }
+        sig { returns(T.nilable(Pe)) }
         def pe; end
         # Attribute for field ph
-        sig { returns(Ph) }
+        sig { returns(T.nilable(Ph)) }
         def ph; end
         # Attribute for field pl
-        sig { returns(Pl) }
+        sig { returns(T.nilable(Pl)) }
         def pl; end
         # Attribute for field pt
-        sig { returns(Pt) }
+        sig { returns(T.nilable(Pt)) }
         def pt; end
         # Attribute for field ro
-        sig { returns(Ro) }
+        sig { returns(T.nilable(Ro)) }
         def ro; end
         # Attribute for field rs
-        sig { returns(Rs) }
+        sig { returns(T.nilable(Rs)) }
         def rs; end
         # Attribute for field ru
-        sig { returns(Ru) }
+        sig { returns(T.nilable(Ru)) }
         def ru; end
         # Attribute for field sa
-        sig { returns(Sa) }
+        sig { returns(T.nilable(Sa)) }
         def sa; end
         # Attribute for field se
-        sig { returns(Se) }
+        sig { returns(T.nilable(Se)) }
         def se; end
         # Attribute for field sg
-        sig { returns(Sg) }
+        sig { returns(T.nilable(Sg)) }
         def sg; end
         # Attribute for field si
-        sig { returns(Si) }
+        sig { returns(T.nilable(Si)) }
         def si; end
         # Attribute for field sk
-        sig { returns(Sk) }
+        sig { returns(T.nilable(Sk)) }
         def sk; end
         # Attribute for field sn
-        sig { returns(Sn) }
+        sig { returns(T.nilable(Sn)) }
         def sn; end
         # Attribute for field sr
-        sig { returns(Sr) }
+        sig { returns(T.nilable(Sr)) }
         def sr; end
         # Attribute for field th
-        sig { returns(Th) }
+        sig { returns(T.nilable(Th)) }
         def th; end
         # Attribute for field tj
-        sig { returns(Tj) }
+        sig { returns(T.nilable(Tj)) }
         def tj; end
         # Attribute for field tr
-        sig { returns(Tr) }
+        sig { returns(T.nilable(Tr)) }
         def tr; end
         # Attribute for field tz
-        sig { returns(Tz) }
+        sig { returns(T.nilable(Tz)) }
         def tz; end
         # Attribute for field ua
-        sig { returns(Ua) }
+        sig { returns(T.nilable(Ua)) }
         def ua; end
         # Attribute for field ug
-        sig { returns(Ug) }
+        sig { returns(T.nilable(Ug)) }
         def ug; end
         # Attribute for field us
-        sig { returns(Us) }
+        sig { returns(T.nilable(Us)) }
         def us; end
         # Attribute for field uy
-        sig { returns(Uy) }
+        sig { returns(T.nilable(Uy)) }
         def uy; end
         # Attribute for field uz
-        sig { returns(Uz) }
+        sig { returns(T.nilable(Uz)) }
         def uz; end
         # Attribute for field vn
-        sig { returns(Vn) }
+        sig { returns(T.nilable(Vn)) }
         def vn; end
         # Attribute for field za
-        sig { returns(Za) }
+        sig { returns(T.nilable(Za)) }
         def za; end
         # Attribute for field zm
-        sig { returns(Zm) }
+        sig { returns(T.nilable(Zm)) }
         def zm; end
         # Attribute for field zw
-        sig { returns(Zw) }
+        sig { returns(T.nilable(Zw)) }
         def zw; end
       end
       # Time at which the registration becomes active. Measured in seconds since the Unix epoch.

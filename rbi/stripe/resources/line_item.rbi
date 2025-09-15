@@ -84,10 +84,10 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def description; end
     # The discounts applied to the line item.
-    sig { returns(T::Array[Discount]) }
+    sig { returns(T.nilable(T::Array[Discount])) }
     def discounts; end
     # Attribute for field display
-    sig { returns(Display) }
+    sig { returns(T.nilable(Display)) }
     def display; end
     # Unique identifier for the object.
     sig { returns(String) }
@@ -104,7 +104,7 @@ module Stripe
     # The ID of the product for this line item.
     #
     # This will always be the same as `price.product`.
-    sig { returns(T.any(String, Stripe::Product)) }
+    sig { returns(T.nilable(T.any(String, Stripe::Product))) }
     def product; end
     # The quantity of products being purchased.
     sig { returns(T.nilable(Integer)) }
@@ -113,7 +113,7 @@ module Stripe
     sig { returns(T.nilable(TaxCalculationReference)) }
     def tax_calculation_reference; end
     # The taxes applied to the line item.
-    sig { returns(T::Array[Tax]) }
+    sig { returns(T.nilable(T::Array[Tax])) }
     def taxes; end
   end
 end

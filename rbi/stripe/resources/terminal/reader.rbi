@@ -90,28 +90,28 @@ module Stripe
             sig { returns(T.nilable(CustomText)) }
             def custom_text; end
             # Information about a email being collected using a reader
-            sig { returns(Email) }
+            sig { returns(T.nilable(Email)) }
             def email; end
             # Information about a number being collected using a reader
-            sig { returns(Numeric) }
+            sig { returns(T.nilable(Numeric)) }
             def numeric; end
             # Information about a phone number being collected using a reader
-            sig { returns(Phone) }
+            sig { returns(T.nilable(Phone)) }
             def phone; end
             # Indicate that this input is required, disabling the skip button.
             sig { returns(T.nilable(T::Boolean)) }
             def required; end
             # Information about a selection being collected using a reader
-            sig { returns(Selection) }
+            sig { returns(T.nilable(Selection)) }
             def selection; end
             # Information about a signature being collected using a reader
-            sig { returns(Signature) }
+            sig { returns(T.nilable(Signature)) }
             def signature; end
             # Indicate that this input was skipped by the user.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             def skipped; end
             # Information about text being collected using a reader
-            sig { returns(Text) }
+            sig { returns(T.nilable(Text)) }
             def text; end
             # List of toggles being collected. Values are present if collection is complete.
             sig { returns(T.nilable(T::Array[Toggle])) }
@@ -131,24 +131,24 @@ module Stripe
           class CollectConfig < Stripe::StripeObject
             class Tipping < Stripe::StripeObject
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
-              sig { returns(Integer) }
+              sig { returns(T.nilable(Integer)) }
               def amount_eligible; end
             end
             # Enable customer-initiated cancellation when processing this payment.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             def enable_customer_cancellation; end
             # Override showing a tipping selection screen on this transaction.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             def skip_tipping; end
             # Represents a per-transaction tipping configuration
-            sig { returns(Tipping) }
+            sig { returns(T.nilable(Tipping)) }
             def tipping; end
           end
           # Account the payment intent belongs to.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def account; end
           # Represents a per-transaction override of a reader configuration
-          sig { returns(CollectConfig) }
+          sig { returns(T.nilable(CollectConfig)) }
           def collect_config; end
           # Most recent PaymentIntent processed by the reader.
           sig { returns(T.any(String, Stripe::PaymentIntent)) }
@@ -158,20 +158,20 @@ module Stripe
           # Customer objects to store instrument details for future payments.
           #
           # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
-          sig { returns(Stripe::PaymentMethod) }
+          sig { returns(T.nilable(Stripe::PaymentMethod)) }
           def payment_method; end
         end
         class ConfirmPaymentIntent < Stripe::StripeObject
           class ConfirmConfig < Stripe::StripeObject
             # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def return_url; end
           end
           # Account the payment intent belongs to.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def account; end
           # Represents a per-transaction override of a reader configuration
-          sig { returns(ConfirmConfig) }
+          sig { returns(T.nilable(ConfirmConfig)) }
           def confirm_config; end
           # Most recent PaymentIntent processed by the reader.
           sig { returns(T.any(String, Stripe::PaymentIntent)) }
@@ -181,43 +181,43 @@ module Stripe
           class ProcessConfig < Stripe::StripeObject
             class Tipping < Stripe::StripeObject
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
-              sig { returns(Integer) }
+              sig { returns(T.nilable(Integer)) }
               def amount_eligible; end
             end
             # Enable customer-initiated cancellation when processing this payment.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             def enable_customer_cancellation; end
             # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def return_url; end
             # Override showing a tipping selection screen on this transaction.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             def skip_tipping; end
             # Represents a per-transaction tipping configuration
-            sig { returns(Tipping) }
+            sig { returns(T.nilable(Tipping)) }
             def tipping; end
           end
           # Account the payment intent belongs to.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def account; end
           # Most recent PaymentIntent processed by the reader.
           sig { returns(T.any(String, Stripe::PaymentIntent)) }
           def payment_intent; end
           # Represents a per-transaction override of a reader configuration
-          sig { returns(ProcessConfig) }
+          sig { returns(T.nilable(ProcessConfig)) }
           def process_config; end
         end
         class ProcessSetupIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
             # Enable customer-initiated cancellation when processing this SetupIntent.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             def enable_customer_cancellation; end
           end
           # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def generated_card; end
           # Represents a per-setup override of a reader configuration
-          sig { returns(ProcessConfig) }
+          sig { returns(T.nilable(ProcessConfig)) }
           def process_config; end
           # Most recent SetupIntent processed by the reader.
           sig { returns(T.any(String, Stripe::SetupIntent)) }
@@ -226,38 +226,38 @@ module Stripe
         class RefundPayment < Stripe::StripeObject
           class RefundPaymentConfig < Stripe::StripeObject
             # Enable customer-initiated cancellation when refunding this payment.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             def enable_customer_cancellation; end
           end
           # Account the payment intent belongs to.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def account; end
           # The amount being refunded.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def amount; end
           # Charge that is being refunded.
-          sig { returns(T.any(String, Stripe::Charge)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
           def charge; end
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-          sig { returns(T::Hash[String, String]) }
+          sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
           # Payment intent that is being refunded.
-          sig { returns(T.any(String, Stripe::PaymentIntent)) }
+          sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
           def payment_intent; end
           # The reason for the refund.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def reason; end
           # Unique identifier for the refund object.
-          sig { returns(T.any(String, Stripe::Refund)) }
+          sig { returns(T.nilable(T.any(String, Stripe::Refund))) }
           def refund; end
           # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def refund_application_fee; end
           # Represents a per-transaction override of a reader configuration
-          sig { returns(RefundPaymentConfig) }
+          sig { returns(T.nilable(RefundPaymentConfig)) }
           def refund_payment_config; end
           # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           def reverse_transfer; end
         end
         class SetReaderDisplay < Stripe::StripeObject
@@ -294,13 +294,13 @@ module Stripe
           def type; end
         end
         # Represents a reader action to collect customer inputs
-        sig { returns(CollectInputs) }
+        sig { returns(T.nilable(CollectInputs)) }
         def collect_inputs; end
         # Represents a reader action to collect a payment method
-        sig { returns(CollectPaymentMethod) }
+        sig { returns(T.nilable(CollectPaymentMethod)) }
         def collect_payment_method; end
         # Represents a reader action to confirm a payment
-        sig { returns(ConfirmPaymentIntent) }
+        sig { returns(T.nilable(ConfirmPaymentIntent)) }
         def confirm_payment_intent; end
         # Failure code, only set if status is `failed`.
         sig { returns(T.nilable(String)) }
@@ -309,16 +309,16 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def failure_message; end
         # Represents a reader action to process a payment intent
-        sig { returns(ProcessPaymentIntent) }
+        sig { returns(T.nilable(ProcessPaymentIntent)) }
         def process_payment_intent; end
         # Represents a reader action to process a setup intent
-        sig { returns(ProcessSetupIntent) }
+        sig { returns(T.nilable(ProcessSetupIntent)) }
         def process_setup_intent; end
         # Represents a reader action to refund a payment
-        sig { returns(RefundPayment) }
+        sig { returns(T.nilable(RefundPayment)) }
         def refund_payment; end
         # Represents a reader action to set the reader display
-        sig { returns(SetReaderDisplay) }
+        sig { returns(T.nilable(SetReaderDisplay)) }
         def set_reader_display; end
         # Status of the action performed by the reader.
         sig { returns(String) }
@@ -364,7 +364,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def status; end
       # Always true for a deleted object
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def deleted; end
       class DeleteParams < Stripe::RequestParams; end
       class UpdateParams < Stripe::RequestParams

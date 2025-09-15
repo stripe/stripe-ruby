@@ -62,7 +62,7 @@ module Stripe
     sig { returns(Stripe::Price) }
     def price; end
     # The [quantity](https://stripe.com/docs/subscriptions/quantities) of the plan to which the customer should be subscribed.
-    sig { returns(Integer) }
+    sig { returns(T.nilable(Integer)) }
     def quantity; end
     # The `subscription` this `subscription_item` belongs to.
     sig { returns(String) }
@@ -74,7 +74,7 @@ module Stripe
     sig { returns(T.nilable(Trial)) }
     def trial; end
     # Always true for a deleted object
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     class DeleteParams < Stripe::RequestParams
       # Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`.

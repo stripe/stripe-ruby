@@ -124,6 +124,14 @@ module Stripe
               def day_of_month; end
               sig { params(_day_of_month: Integer).returns(Integer) }
               def day_of_month=(_day_of_month); end
+              # The month to anchor the billing on for a type="month" billing cycle from
+              # 1-12. If not provided, this will default to the month the cadence was created.
+              # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
+              # All occurrences will be calculated from month provided.
+              sig { returns(T.nilable(Integer)) }
+              def month_of_year; end
+              sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def month_of_year=(_month_of_year); end
               # The time at which the billing cycle ends.
               # This field is optional, and if not provided, it will default to
               # the time at which the cadence was created in UTC timezone.
@@ -136,9 +144,9 @@ module Stripe
                }
               def time=(_time); end
               sig {
-                params(day_of_month: Integer, time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time)).void
+                params(day_of_month: Integer, month_of_year: T.nilable(Integer), time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time)).void
                }
-              def initialize(day_of_month: nil, time: nil); end
+              def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
             end
             class Week < Stripe::RequestParams
               class Time < Stripe::RequestParams

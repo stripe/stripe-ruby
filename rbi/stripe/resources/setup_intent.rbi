@@ -29,7 +29,7 @@ module Stripe
       # Controls whether this SetupIntent will accept redirect-based payment methods.
       #
       # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def allow_redirects; end
       # Automatically calculates compatible payment methods
       sig { returns(T.nilable(T::Boolean)) }
@@ -37,31 +37,31 @@ module Stripe
     end
     class LastSetupError < Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def advice_code; end
       # For card errors, the ID of the failed charge.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def charge; end
       # For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def code; end
       # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def decline_code; end
       # A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def doc_url; end
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def message; end
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def network_advice_code; end
       # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def network_decline_code; end
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def param; end
       # A PaymentIntent guides you through the process of collecting a payment from your customer.
       # We recommend that you create exactly one PaymentIntent for each order or
@@ -74,20 +74,20 @@ module Stripe
       # authentication flows and ultimately creates at most one successful charge.
       #
       # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
-      sig { returns(Stripe::PaymentIntent) }
+      sig { returns(T.nilable(Stripe::PaymentIntent)) }
       def payment_intent; end
       # PaymentMethod objects represent your customer's payment instruments.
       # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
       # Customer objects to store instrument details for future payments.
       #
       # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
-      sig { returns(Stripe::PaymentMethod) }
+      sig { returns(T.nilable(Stripe::PaymentMethod)) }
       def payment_method; end
       # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def payment_method_type; end
       # A URL to the request log entry in your dashboard.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def request_log_url; end
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
@@ -110,10 +110,12 @@ module Stripe
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
       #
       # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
-      sig { returns(Stripe::SetupIntent) }
+      sig { returns(T.nilable(Stripe::SetupIntent)) }
       def setup_intent; end
       # Attribute for field source
-      sig { returns(T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source)) }
+      sig {
+        returns(T.nilable(T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source)))
+       }
       def source; end
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
       sig { returns(String) }
@@ -144,19 +146,19 @@ module Stripe
       end
       class PixDisplayQrCode < Stripe::StripeObject
         # The raw data string used to generate QR code, it should be used together with QR code library.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def data; end
         # The date (unix timestamp) when the PIX expires.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def expires_at; end
         # The URL to the hosted pix instructions page, which allows customers to view the pix QR code.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def hosted_instructions_url; end
         # The image_url_png string used to render png QR code
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def image_url_png; end
         # The image_url_svg string used to render svg QR code
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def image_url_svg; end
       end
       class RedirectToUrl < Stripe::StripeObject
@@ -179,22 +181,22 @@ module Stripe
         def microdeposit_type; end
       end
       # Attribute for field cashapp_handle_redirect_or_display_qr_code
-      sig { returns(CashappHandleRedirectOrDisplayQrCode) }
+      sig { returns(T.nilable(CashappHandleRedirectOrDisplayQrCode)) }
       def cashapp_handle_redirect_or_display_qr_code; end
       # Attribute for field pix_display_qr_code
-      sig { returns(PixDisplayQrCode) }
+      sig { returns(T.nilable(PixDisplayQrCode)) }
       def pix_display_qr_code; end
       # Attribute for field redirect_to_url
-      sig { returns(RedirectToUrl) }
+      sig { returns(T.nilable(RedirectToUrl)) }
       def redirect_to_url; end
       # Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
       sig { returns(String) }
       def type; end
       # When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
-      sig { returns(T::Hash[String, T.untyped]) }
+      sig { returns(T.nilable(T::Hash[String, T.untyped])) }
       def use_stripe_sdk; end
       # Attribute for field verify_with_microdeposits
-      sig { returns(VerifyWithMicrodeposits) }
+      sig { returns(T.nilable(VerifyWithMicrodeposits)) }
       def verify_with_microdeposits; end
     end
     class PaymentMethodConfigurationDetails < Stripe::StripeObject
@@ -209,10 +211,10 @@ module Stripe
       class AcssDebit < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # A URL for custom mandate text
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def custom_mandate_url; end
           # List of Stripe products where this mandate can be selected automatically.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           def default_for; end
           # Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
           sig { returns(T.nilable(String)) }
@@ -228,21 +230,21 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def currency; end
         # Attribute for field mandate_options
-        sig { returns(MandateOptions) }
+        sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
         # Bank account verification method.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def verification_method; end
       end
       class AmazonPay < Stripe::StripeObject; end
       class BacsDebit < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def reference_prefix; end
         end
         # Attribute for field mandate_options
-        sig { returns(MandateOptions) }
+        sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
       end
       class Card < Stripe::StripeObject
@@ -310,7 +312,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def currency; end
         # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         def subsellers; end
       end
       class Payto < Stripe::StripeObject
@@ -338,131 +340,131 @@ module Stripe
           def start_date; end
         end
         # Attribute for field mandate_options
-        sig { returns(MandateOptions) }
+        sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
       end
       class Pix < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # Amount to be charged for future payments.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           def amount; end
           # Determines if the amount includes the IOF tax.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def amount_includes_iof; end
           # Type of amount.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def amount_type; end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def currency; end
           # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def end_date; end
           # Schedule at which the future payments will be charged.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def payment_schedule; end
           # Subscription name displayed to buyers in their bank app.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def reference; end
           # Start date of the mandate, in `YYYY-MM-DD`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def start_date; end
         end
         # Attribute for field mandate_options
-        sig { returns(MandateOptions) }
+        sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
       end
       class SepaDebit < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def reference_prefix; end
         end
         # Attribute for field mandate_options
-        sig { returns(MandateOptions) }
+        sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
       end
       class UsBankAccount < Stripe::StripeObject
         class FinancialConnections < Stripe::StripeObject
           class Filters < Stripe::StripeObject
             # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
-            sig { returns(T::Array[String]) }
+            sig { returns(T.nilable(T::Array[String])) }
             def account_subcategories; end
             # The institution to use to filter for possible accounts to link.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def institution; end
           end
           class ManualEntry < Stripe::StripeObject
             # Settings for configuring manual entry of account details.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def mode; end
           end
           # Attribute for field filters
-          sig { returns(Filters) }
+          sig { returns(T.nilable(Filters)) }
           def filters; end
           # Attribute for field manual_entry
-          sig { returns(ManualEntry) }
+          sig { returns(T.nilable(ManualEntry)) }
           def manual_entry; end
           # The list of permissions to request. The `payment_method` permission must be included.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           def permissions; end
           # Data features requested to be retrieved upon account creation.
           sig { returns(T.nilable(T::Array[String])) }
           def prefetch; end
           # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def return_url; end
         end
         class MandateOptions < Stripe::StripeObject
           # Mandate collection method
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def collection_method; end
         end
         # Attribute for field financial_connections
-        sig { returns(FinancialConnections) }
+        sig { returns(T.nilable(FinancialConnections)) }
         def financial_connections; end
         # Attribute for field mandate_options
-        sig { returns(MandateOptions) }
+        sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
         # Bank account verification method.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def verification_method; end
       end
       # Attribute for field acss_debit
-      sig { returns(AcssDebit) }
+      sig { returns(T.nilable(AcssDebit)) }
       def acss_debit; end
       # Attribute for field amazon_pay
-      sig { returns(AmazonPay) }
+      sig { returns(T.nilable(AmazonPay)) }
       def amazon_pay; end
       # Attribute for field bacs_debit
-      sig { returns(BacsDebit) }
+      sig { returns(T.nilable(BacsDebit)) }
       def bacs_debit; end
       # Attribute for field card
-      sig { returns(Card) }
+      sig { returns(T.nilable(Card)) }
       def card; end
       # Attribute for field card_present
-      sig { returns(CardPresent) }
+      sig { returns(T.nilable(CardPresent)) }
       def card_present; end
       # Attribute for field klarna
-      sig { returns(Klarna) }
+      sig { returns(T.nilable(Klarna)) }
       def klarna; end
       # Attribute for field link
-      sig { returns(Link) }
+      sig { returns(T.nilable(Link)) }
       def link; end
       # Attribute for field paypal
-      sig { returns(Paypal) }
+      sig { returns(T.nilable(Paypal)) }
       def paypal; end
       # Attribute for field payto
-      sig { returns(Payto) }
+      sig { returns(T.nilable(Payto)) }
       def payto; end
       # Attribute for field pix
-      sig { returns(Pix) }
+      sig { returns(T.nilable(Pix)) }
       def pix; end
       # Attribute for field sepa_debit
-      sig { returns(SepaDebit) }
+      sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
       # Attribute for field us_bank_account
-      sig { returns(UsBankAccount) }
+      sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
     end
     # ID of the Connect application that created the SetupIntent.
@@ -471,7 +473,7 @@ module Stripe
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
     # It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
-    sig { returns(T::Boolean) }
+    sig { returns(T.nilable(T::Boolean)) }
     def attach_to_self; end
     # Settings for dynamic payment methods compatible with this Setup Intent
     sig { returns(T.nilable(AutomaticPaymentMethods)) }

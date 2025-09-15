@@ -7,6 +7,8 @@ module Stripe
     def self.lookup_type
       "v2.billing.cadence.billed"
     end
+    # There is additional data present for this event, accessible with the `data` property.
+    # See the Stripe API docs for more information.
 
     # Retrieves the related object from the API. Make an API request on every call.
     def fetch_related_object

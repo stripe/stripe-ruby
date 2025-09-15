@@ -25,26 +25,26 @@ module Stripe
       end
       class Paypal < Stripe::StripeObject
         # Type of the line item.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def category; end
         # Description of the line item.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def description; end
         # The Stripe account ID of the connected account that sells the item. This is only needed when using [Separate Charges and Transfers](https://docs.stripe.com/connect/separate-charges-and-transfers).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def sold_by; end
       end
       # Attribute for field card
-      sig { returns(Card) }
+      sig { returns(T.nilable(Card)) }
       def card; end
       # Attribute for field card_present
-      sig { returns(CardPresent) }
+      sig { returns(T.nilable(CardPresent)) }
       def card_present; end
       # Attribute for field klarna
-      sig { returns(Klarna) }
+      sig { returns(T.nilable(Klarna)) }
       def klarna; end
       # Attribute for field paypal
-      sig { returns(Paypal) }
+      sig { returns(T.nilable(Paypal)) }
       def paypal; end
     end
     class Tax < Stripe::StripeObject

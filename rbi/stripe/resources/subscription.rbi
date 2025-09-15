@@ -2380,7 +2380,7 @@ module Stripe
         def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil); end
       end
       class BillingMode < Stripe::RequestParams
-        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
@@ -3260,7 +3260,7 @@ module Stripe
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def billing_cycle_anchor=(_billing_cycle_anchor); end
-      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
       sig { returns(T.nilable(::Stripe::Subscription::CreateParams::BillingCycleAnchorConfig)) }
       def billing_cycle_anchor_config; end
       sig {

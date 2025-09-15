@@ -3235,7 +3235,7 @@ module Stripe
 
         class SubscriptionData < Stripe::RequestParams
           class BillingMode < Stripe::RequestParams
-            # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+            # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
             attr_accessor :type
 
             def initialize(type: nil)

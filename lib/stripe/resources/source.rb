@@ -418,7 +418,7 @@ module Stripe
       attr_reader :failure_reason
       # The URL you provide to redirect the customer to after they authenticated their payment.
       attr_reader :return_url
-      # The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (succesful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
+      # The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (successful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
       attr_reader :status
       # The URL provided to you to redirect a customer to as part of a `redirect` authentication flow.
       attr_reader :url

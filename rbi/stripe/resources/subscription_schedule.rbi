@@ -695,7 +695,7 @@ module Stripe
     end
     class CreateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
@@ -1677,11 +1677,6 @@ module Stripe
           params(_items: T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Item]).returns(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Item])
          }
         def items=(_items); end
-        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        sig { returns(T.nilable(Integer)) }
-        def iterations; end
-        sig { params(_iterations: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def iterations=(_iterations); end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -1742,7 +1737,7 @@ module Stripe
          }
         def trial_settings=(_trial_settings); end
         sig {
-          params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionSchedule::CreateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Discount])), duration: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::Duration), end_date: T.nilable(Integer), invoice_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::InvoiceSettings), items: T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::TrialSettings)).void
+          params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionSchedule::CreateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Discount])), duration: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::Duration), end_date: T.nilable(Integer), invoice_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::InvoiceSettings), items: T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::TrialSettings)).void
          }
         def initialize(
           add_invoice_items: nil,
@@ -1760,7 +1755,6 @@ module Stripe
           end_date: nil,
           invoice_settings: nil,
           items: nil,
-          iterations: nil,
           metadata: nil,
           on_behalf_of: nil,
           pause_collection: nil,
@@ -2853,11 +2847,6 @@ module Stripe
           params(_items: T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Item]).returns(T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Item])
          }
         def items=(_items); end
-        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        sig { returns(T.nilable(Integer)) }
-        def iterations; end
-        sig { params(_iterations: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def iterations=(_iterations); end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -2927,7 +2916,7 @@ module Stripe
          }
         def trial_settings=(_trial_settings); end
         sig {
-          params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionSchedule::UpdateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Discount])), duration: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::InvoiceSettings), items: T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(T.any(Integer, String)), trial_settings: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::TrialSettings)).void
+          params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionSchedule::UpdateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Discount])), duration: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::InvoiceSettings), items: T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(T.any(Integer, String)), trial_settings: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::TrialSettings)).void
          }
         def initialize(
           add_invoice_items: nil,
@@ -2945,7 +2934,6 @@ module Stripe
           end_date: nil,
           invoice_settings: nil,
           items: nil,
-          iterations: nil,
           metadata: nil,
           on_behalf_of: nil,
           pause_collection: nil,

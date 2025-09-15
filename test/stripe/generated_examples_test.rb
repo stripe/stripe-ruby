@@ -4840,7 +4840,6 @@ module Stripe
                 quantity: 1,
               },
             ],
-            iterations: 12,
           },
         ],
       })
@@ -4864,7 +4863,6 @@ module Stripe
                 quantity: 1,
               },
             ],
-            iterations: 12,
           },
         ],
       })

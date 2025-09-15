@@ -556,7 +556,7 @@ module Stripe
       # The URL you provide to redirect the customer to after they authenticated their payment.
       sig { returns(String) }
       def return_url; end
-      # The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (succesful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
+      # The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (successful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
       sig { returns(String) }
       def status; end
       # The URL provided to you to redirect a customer to as part of a `redirect` authentication flow.

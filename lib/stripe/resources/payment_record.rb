@@ -273,7 +273,7 @@ module Stripe
         end
 
         class NetworkToken < Stripe::StripeObject
-          # Attribute for field used
+          # Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
           attr_reader :used
         end
 

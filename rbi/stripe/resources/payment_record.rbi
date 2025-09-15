@@ -333,7 +333,7 @@ module Stripe
           def cvc_check; end
         end
         class NetworkToken < Stripe::StripeObject
-          # Attribute for field used
+          # Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
           sig { returns(T::Boolean) }
           def used; end
         end

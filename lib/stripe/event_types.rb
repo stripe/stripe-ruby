@@ -91,6 +91,11 @@ module Stripe
         V2CoreAccountPersonDeletedEvent.lookup_type => V2CoreAccountPersonDeletedEvent,
         V2CoreAccountPersonUpdatedEvent.lookup_type => V2CoreAccountPersonUpdatedEvent,
         V2CoreAccountUpdatedEvent.lookup_type => V2CoreAccountUpdatedEvent,
+        V2CoreClaimableSandboxClaimedEvent.lookup_type => V2CoreClaimableSandboxClaimedEvent,
+        V2CoreClaimableSandboxExpiredEvent.lookup_type => V2CoreClaimableSandboxExpiredEvent,
+        V2CoreClaimableSandboxExpiringEvent.lookup_type => V2CoreClaimableSandboxExpiringEvent,
+        V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent.lookup_type =>
+        V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent,
         V2CoreEventDestinationPingEvent.lookup_type => V2CoreEventDestinationPingEvent,
         V2CoreHealthApiErrorFiringEvent.lookup_type => V2CoreHealthApiErrorFiringEvent,
         V2CoreHealthApiErrorResolvedEvent.lookup_type => V2CoreHealthApiErrorResolvedEvent,

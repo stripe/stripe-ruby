@@ -8805,7 +8805,7 @@ module Stripe
     end
     should "Test v2 core claimable sandbox post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/claimable_sandboxes").to_return(
-        body: '{"api_keys":{"mcp":null,"publishable":"publishable","secret":"secret"},"claim_url":"claim_url","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.core.claimable_sandbox","prefill":{"country":"af","email":"email","name":"name"},"livemode":true}',
+        body: '{"claim_url":null,"claimed_at":null,"created":"1970-01-12T21:42:34.472Z","expires_at":null,"id":"obj_123","object":"v2.core.claimable_sandbox","prefill":{"country":"af","email":"email","name":"name"},"sandbox_details":{"account":"account","api_keys":null,"owner_account":null},"status":"claimed","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8819,6 +8819,19 @@ module Stripe
         },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/claimable_sandboxes"
+    end
+    should "Test v2 core claimable sandbox get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/claimable_sandboxes/id_123"
+      ).to_return(
+        body: '{"claim_url":null,"claimed_at":null,"created":"1970-01-12T21:42:34.472Z","expires_at":null,"id":"obj_123","object":"v2.core.claimable_sandbox","prefill":{"country":"af","email":"email","name":"name"},"sandbox_details":{"account":"account","api_keys":null,"owner_account":null},"status":"claimed","livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      claimable_sandbox = client.v2.core.claimable_sandboxes.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/claimable_sandboxes/id_123"
     end
     should "Test v2 core event get (service)" do
       stub_request(

@@ -504,6 +504,48 @@ module Stripe
           end
         end
 
+        class RiskAssessment < Stripe::RequestParams
+          class CardTestingRisk < Stripe::RequestParams
+            # The % of declines due to a card number not existing in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of card testing activity, meaning bad actors may be attempting different card number combinations to guess a correct one. Takes on values between 0 and 100.
+            attr_accessor :invalid_account_number_decline_rate_past_hour
+            # The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
+            attr_accessor :invalid_credentials_decline_rate_past_hour
+            # The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
+            attr_accessor :risk_level
+
+            def initialize(
+              invalid_account_number_decline_rate_past_hour: nil,
+              invalid_credentials_decline_rate_past_hour: nil,
+              risk_level: nil
+            )
+              @invalid_account_number_decline_rate_past_hour = invalid_account_number_decline_rate_past_hour
+              @invalid_credentials_decline_rate_past_hour = invalid_credentials_decline_rate_past_hour
+              @risk_level = risk_level
+            end
+          end
+
+          class MerchantDisputeRisk < Stripe::RequestParams
+            # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
+            attr_accessor :dispute_rate
+            # The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
+            attr_accessor :risk_level
+
+            def initialize(dispute_rate: nil, risk_level: nil)
+              @dispute_rate = dispute_rate
+              @risk_level = risk_level
+            end
+          end
+          # Stripe's assessment of this authorization's likelihood of being card testing activity.
+          attr_accessor :card_testing_risk
+          # The dispute risk of the merchant (the seller on a purchase) on an authorization based on all Stripe Issuing activity.
+          attr_accessor :merchant_dispute_risk
+
+          def initialize(card_testing_risk: nil, merchant_dispute_risk: nil)
+            @card_testing_risk = card_testing_risk
+            @merchant_dispute_risk = merchant_dispute_risk
+          end
+        end
+
         class VerificationData < Stripe::RequestParams
           class AuthenticationExemption < Stripe::RequestParams
             # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
@@ -568,6 +610,8 @@ module Stripe
         attr_accessor :expand
         # Fleet-specific information for authorizations using Fleet cards.
         attr_accessor :fleet
+        # Probability that this transaction can be disputed in the event of fraud. Assessed by comparing the characteristics of the authorization to card network rules.
+        attr_accessor :fraud_disputability_likelihood
         # Information about fuel that was purchased with this transaction.
         attr_accessor :fuel
         # If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
@@ -580,6 +624,8 @@ module Stripe
         attr_accessor :merchant_data
         # Details about the authorization, such as identifiers, set by the card network.
         attr_accessor :network_data
+        # Stripe’s assessment of the fraud risk for this authorization.
+        attr_accessor :risk_assessment
         # Verifications that Stripe performed on information that the cardholder provided to the merchant.
         attr_accessor :verification_data
         # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
@@ -593,12 +639,14 @@ module Stripe
           currency: nil,
           expand: nil,
           fleet: nil,
+          fraud_disputability_likelihood: nil,
           fuel: nil,
           is_amount_controllable: nil,
           merchant_amount: nil,
           merchant_currency: nil,
           merchant_data: nil,
           network_data: nil,
+          risk_assessment: nil,
           verification_data: nil,
           wallet: nil
         )
@@ -609,12 +657,14 @@ module Stripe
           @currency = currency
           @expand = expand
           @fleet = fleet
+          @fraud_disputability_likelihood = fraud_disputability_likelihood
           @fuel = fuel
           @is_amount_controllable = is_amount_controllable
           @merchant_amount = merchant_amount
           @merchant_currency = merchant_currency
           @merchant_data = merchant_data
           @network_data = network_data
+          @risk_assessment = risk_assessment
           @verification_data = verification_data
           @wallet = wallet
         end

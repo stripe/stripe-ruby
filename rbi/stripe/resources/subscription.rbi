@@ -3531,7 +3531,7 @@ module Stripe
     end
     class MigrateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Attribute for param field type
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }

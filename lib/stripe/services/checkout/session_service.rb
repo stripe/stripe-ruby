@@ -2308,6 +2308,8 @@ module Stripe
         attr_accessor :customer_update
         # The coupon or promotion code to apply to this Session. Currently, only up to one may be specified.
         attr_accessor :discounts
+        # A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        attr_accessor :excluded_payment_method_types
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # The Epoch time in seconds at which the Checkout Session will expire. It can be anywhere from 30 minutes to 24 hours after Checkout Session creation. By default, this value is 24 hours from creation.
@@ -2424,6 +2426,7 @@ module Stripe
           customer_email: nil,
           customer_update: nil,
           discounts: nil,
+          excluded_payment_method_types: nil,
           expand: nil,
           expires_at: nil,
           invoice_creation: nil,
@@ -2471,6 +2474,7 @@ module Stripe
           @customer_email = customer_email
           @customer_update = customer_update
           @discounts = discounts
+          @excluded_payment_method_types = excluded_payment_method_types
           @expand = expand
           @expires_at = expires_at
           @invoice_creation = invoice_creation

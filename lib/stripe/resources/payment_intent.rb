@@ -9563,6 +9563,8 @@ module Stripe
       attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
+      # The list of payment method types to exclude from use with this payment.
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
@@ -9621,6 +9623,7 @@ module Stripe
         customer: nil,
         customer_account: nil,
         description: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         fx_quote: nil,
         hooks: nil,
@@ -9648,6 +9651,7 @@ module Stripe
         @customer = customer
         @customer_account = customer_account
         @description = description
+        @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @fx_quote = fx_quote
         @hooks = hooks
@@ -14303,6 +14307,8 @@ module Stripe
       attr_accessor :confirmation_token
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
       attr_accessor :error_on_requires_action
+      # The list of payment method types to exclude from use with this payment.
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
@@ -14357,6 +14363,7 @@ module Stripe
         capture_method: nil,
         confirmation_token: nil,
         error_on_requires_action: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         fx_quote: nil,
         hooks: nil,
@@ -14380,6 +14387,7 @@ module Stripe
         @capture_method = capture_method
         @confirmation_token = confirmation_token
         @error_on_requires_action = error_on_requires_action
+        @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @fx_quote = fx_quote
         @hooks = hooks

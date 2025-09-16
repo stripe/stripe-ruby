@@ -292,7 +292,7 @@ module Stripe
           sig { params(total_tax_amount: Integer).void }
           def initialize(total_tax_amount: nil); end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         sig { returns(T.nilable(T.any(String, Integer))) }
         def discount_amount; end
         sig {
@@ -6231,7 +6231,7 @@ module Stripe
           sig { params(total_tax_amount: Integer).void }
           def initialize(total_tax_amount: nil); end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         sig { returns(T.nilable(T.any(String, Integer))) }
         def discount_amount; end
         sig {
@@ -12082,7 +12082,7 @@ module Stripe
           sig { params(total_tax_amount: Integer).void }
           def initialize(total_tax_amount: nil); end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         sig { returns(T.nilable(T.any(String, Integer))) }
         def discount_amount; end
         sig {
@@ -13573,7 +13573,7 @@ module Stripe
           sig { params(total_tax_amount: Integer).void }
           def initialize(total_tax_amount: nil); end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         sig { returns(T.nilable(T.any(String, Integer))) }
         def discount_amount; end
         sig {
@@ -19457,7 +19457,7 @@ module Stripe
           sig { params(total_tax_amount: Integer).void }
           def initialize(total_tax_amount: nil); end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         sig { returns(T.nilable(T.any(String, Integer))) }
         def discount_amount; end
         sig {

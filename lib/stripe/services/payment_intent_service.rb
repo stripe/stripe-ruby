@@ -199,7 +199,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items
@@ -4061,7 +4061,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items
@@ -7860,7 +7860,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items
@@ -8805,7 +8805,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items
@@ -12611,7 +12611,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items

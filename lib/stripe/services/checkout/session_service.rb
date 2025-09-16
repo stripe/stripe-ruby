@@ -2513,6 +2513,26 @@ module Stripe
       end
 
       class UpdateParams < Stripe::RequestParams
+        class AutomaticTax < Stripe::RequestParams
+          class Liability < Stripe::RequestParams
+            # The connected account being referenced when `type` is `account`.
+            attr_accessor :account
+            # Type of the account referenced in the request.
+            attr_accessor :type
+
+            def initialize(account: nil, type: nil)
+              @account = account
+              @type = type
+            end
+          end
+          # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+          attr_accessor :liability
+
+          def initialize(liability: nil)
+            @liability = liability
+          end
+        end
+
         class CollectedInformation < Stripe::RequestParams
           class ShippingDetails < Stripe::RequestParams
             class Address < Stripe::RequestParams
@@ -2602,6 +2622,34 @@ module Stripe
           def initialize(coupon: nil, coupon_data: nil)
             @coupon = coupon
             @coupon_data = coupon_data
+          end
+        end
+
+        class InvoiceCreation < Stripe::RequestParams
+          class InvoiceData < Stripe::RequestParams
+            class Issuer < Stripe::RequestParams
+              # The connected account being referenced when `type` is `account`.
+              attr_accessor :account
+              # Type of the account referenced in the request.
+              attr_accessor :type
+
+              def initialize(account: nil, type: nil)
+                @account = account
+                @type = type
+              end
+            end
+            # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            attr_accessor :issuer
+
+            def initialize(issuer: nil)
+              @issuer = issuer
+            end
+          end
+          # Parameters passed when creating invoices for payment-mode Checkout Sessions.
+          attr_accessor :invoice_data
+
+          def initialize(invoice_data: nil)
+            @invoice_data = invoice_data
           end
         end
 
@@ -2828,22 +2876,48 @@ module Stripe
         end
 
         class SubscriptionData < Stripe::RequestParams
+          class InvoiceSettings < Stripe::RequestParams
+            class Issuer < Stripe::RequestParams
+              # The connected account being referenced when `type` is `account`.
+              attr_accessor :account
+              # Type of the account referenced in the request.
+              attr_accessor :type
+
+              def initialize(account: nil, type: nil)
+                @account = account
+                @type = type
+              end
+            end
+            # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            attr_accessor :issuer
+
+            def initialize(issuer: nil)
+              @issuer = issuer
+            end
+          end
+          # All invoices will be billed using the specified settings.
+          attr_accessor :invoice_settings
           # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
           attr_accessor :trial_end
           # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
           attr_accessor :trial_period_days
 
-          def initialize(trial_end: nil, trial_period_days: nil)
+          def initialize(invoice_settings: nil, trial_end: nil, trial_period_days: nil)
+            @invoice_settings = invoice_settings
             @trial_end = trial_end
             @trial_period_days = trial_period_days
           end
         end
+        # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
+        attr_accessor :automatic_tax
         # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         attr_accessor :collected_information
         # List of coupons and promotion codes attached to the Checkout Session.
         attr_accessor :discounts
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+        # Generate a post-purchase Invoice for one-time payments.
+        attr_accessor :invoice_creation
         # A list of items the customer is purchasing.
         #
         # When updating line items, you must retransmit the entire array of line items.
@@ -2866,17 +2940,21 @@ module Stripe
         attr_accessor :subscription_data
 
         def initialize(
+          automatic_tax: nil,
           collected_information: nil,
           discounts: nil,
           expand: nil,
+          invoice_creation: nil,
           line_items: nil,
           metadata: nil,
           shipping_options: nil,
           subscription_data: nil
         )
+          @automatic_tax = automatic_tax
           @collected_information = collected_information
           @discounts = discounts
           @expand = expand
+          @invoice_creation = invoice_creation
           @line_items = line_items
           @metadata = metadata
           @shipping_options = shipping_options

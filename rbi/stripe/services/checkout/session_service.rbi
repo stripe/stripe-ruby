@@ -3768,6 +3768,35 @@ module Stripe
         def initialize(expand: nil); end
       end
       class UpdateParams < Stripe::RequestParams
+        class AutomaticTax < Stripe::RequestParams
+          class Liability < Stripe::RequestParams
+            # The connected account being referenced when `type` is `account`.
+            sig { returns(T.nilable(String)) }
+            def account; end
+            sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+            def account=(_account); end
+            # Type of the account referenced in the request.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(account: T.nilable(String), type: String).void }
+            def initialize(account: nil, type: nil); end
+          end
+          # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::AutomaticTax::Liability))
+           }
+          def liability; end
+          sig {
+            params(_liability: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::AutomaticTax::Liability)).returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::AutomaticTax::Liability))
+           }
+          def liability=(_liability); end
+          sig {
+            params(liability: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::AutomaticTax::Liability)).void
+           }
+          def initialize(liability: nil); end
+        end
         class CollectedInformation < Stripe::RequestParams
           class ShippingDetails < Stripe::RequestParams
             class Address < Stripe::RequestParams
@@ -3910,6 +3939,50 @@ module Stripe
             params(coupon: T.nilable(String), coupon_data: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::Discount::CouponData)).void
            }
           def initialize(coupon: nil, coupon_data: nil); end
+        end
+        class InvoiceCreation < Stripe::RequestParams
+          class InvoiceData < Stripe::RequestParams
+            class Issuer < Stripe::RequestParams
+              # The connected account being referenced when `type` is `account`.
+              sig { returns(T.nilable(String)) }
+              def account; end
+              sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+              def account=(_account); end
+              # Type of the account referenced in the request.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig { params(account: T.nilable(String), type: String).void }
+              def initialize(account: nil, type: nil); end
+            end
+            # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation::InvoiceData::Issuer))
+             }
+            def issuer; end
+            sig {
+              params(_issuer: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation::InvoiceData::Issuer)).returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation::InvoiceData::Issuer))
+             }
+            def issuer=(_issuer); end
+            sig {
+              params(issuer: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation::InvoiceData::Issuer)).void
+             }
+            def initialize(issuer: nil); end
+          end
+          # Parameters passed when creating invoices for payment-mode Checkout Sessions.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation::InvoiceData))
+           }
+          def invoice_data; end
+          sig {
+            params(_invoice_data: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation::InvoiceData)).returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation::InvoiceData))
+           }
+          def invoice_data=(_invoice_data); end
+          sig {
+            params(invoice_data: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation::InvoiceData)).void
+           }
+          def initialize(invoice_data: nil); end
         end
         class LineItem < Stripe::RequestParams
           class AdjustableQuantity < Stripe::RequestParams
@@ -4276,6 +4349,44 @@ module Stripe
           def initialize(shipping_rate: nil, shipping_rate_data: nil); end
         end
         class SubscriptionData < Stripe::RequestParams
+          class InvoiceSettings < Stripe::RequestParams
+            class Issuer < Stripe::RequestParams
+              # The connected account being referenced when `type` is `account`.
+              sig { returns(T.nilable(String)) }
+              def account; end
+              sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+              def account=(_account); end
+              # Type of the account referenced in the request.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig { params(account: T.nilable(String), type: String).void }
+              def initialize(account: nil, type: nil); end
+            end
+            # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData::InvoiceSettings::Issuer))
+             }
+            def issuer; end
+            sig {
+              params(_issuer: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData::InvoiceSettings::Issuer)).returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData::InvoiceSettings::Issuer))
+             }
+            def issuer=(_issuer); end
+            sig {
+              params(issuer: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData::InvoiceSettings::Issuer)).void
+             }
+            def initialize(issuer: nil); end
+          end
+          # All invoices will be billed using the specified settings.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData::InvoiceSettings))
+           }
+          def invoice_settings; end
+          sig {
+            params(_invoice_settings: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData::InvoiceSettings)).returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData::InvoiceSettings))
+           }
+          def invoice_settings=(_invoice_settings); end
           # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
           sig { returns(T.nilable(Integer)) }
           def trial_end; end
@@ -4289,10 +4400,17 @@ module Stripe
            }
           def trial_period_days=(_trial_period_days); end
           sig {
-            params(trial_end: T.nilable(Integer), trial_period_days: T.nilable(T.any(String, Integer))).void
+            params(invoice_settings: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData::InvoiceSettings), trial_end: T.nilable(Integer), trial_period_days: T.nilable(T.any(String, Integer))).void
            }
-          def initialize(trial_end: nil, trial_period_days: nil); end
+          def initialize(invoice_settings: nil, trial_end: nil, trial_period_days: nil); end
         end
+        # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
+        sig { returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::AutomaticTax)) }
+        def automatic_tax; end
+        sig {
+          params(_automatic_tax: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::AutomaticTax)).returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::AutomaticTax))
+         }
+        def automatic_tax=(_automatic_tax); end
         # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         sig {
           returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::CollectedInformation))
@@ -4316,6 +4434,15 @@ module Stripe
         def expand; end
         sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def expand=(_expand); end
+        # Generate a post-purchase Invoice for one-time payments.
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation))
+         }
+        def invoice_creation; end
+        sig {
+          params(_invoice_creation: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation)).returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation))
+         }
+        def invoice_creation=(_invoice_creation); end
         # A list of items the customer is purchasing.
         #
         # When updating line items, you must retransmit the entire array of line items.
@@ -4363,12 +4490,14 @@ module Stripe
          }
         def subscription_data=(_subscription_data); end
         sig {
-          params(collected_information: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::CollectedInformation), discounts: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::UpdateParams::Discount])), expand: T.nilable(T::Array[String]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionService::UpdateParams::LineItem]), metadata: T.nilable(T.any(String, T::Hash[String, String])), shipping_options: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::UpdateParams::ShippingOption])), subscription_data: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData)).void
+          params(automatic_tax: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::AutomaticTax), collected_information: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::CollectedInformation), discounts: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::UpdateParams::Discount])), expand: T.nilable(T::Array[String]), invoice_creation: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionService::UpdateParams::LineItem]), metadata: T.nilable(T.any(String, T::Hash[String, String])), shipping_options: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::UpdateParams::ShippingOption])), subscription_data: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData)).void
          }
         def initialize(
+          automatic_tax: nil,
           collected_information: nil,
           discounts: nil,
           expand: nil,
+          invoice_creation: nil,
           line_items: nil,
           metadata: nil,
           shipping_options: nil,

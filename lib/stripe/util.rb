@@ -148,7 +148,9 @@ module Stripe
                          # Use the provided class for inner types
                          klass
                        elsif api_mode == :v2
-                         if object_name == "v2.core.event" && thin_event_classes.key?(object_type)
+                         if v2_deleted_object
+                           V2::DeletedObject
+                         elsif object_name == "v2.core.event" && thin_event_classes.key?(object_type)
                            thin_event_classes.fetch(object_type)
                          else
                            v2_object_classes.fetch(

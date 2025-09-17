@@ -59,7 +59,8 @@ module Stripe
         attr_reader :id
         # The ID of the license fee's most recently created version.
         attr_reader :latest_version
-        # The Licensed Item that this License Fee binds to.
+        # A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
+        # to specify the pricing and create subscriptions to these items.
         attr_reader :licensed_item
         # The ID of the License Fee Version that will be used by all subscriptions when no specific version is specified.
         attr_reader :live_version

@@ -226,9 +226,9 @@ module Stripe
           # A customer-facing name for the License Fee.
           # This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
           # Maximum length of 250 characters.
-          sig { returns(T.nilable(String)) }
+          sig { returns(String) }
           def display_name; end
-          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+          sig { params(_display_name: String).returns(String) }
           def display_name=(_display_name); end
           # Changes the version that new license fee will use. Providing `live_version = "latest"` will set the
           # license fee's `live_version` to its latest version.
@@ -280,7 +280,7 @@ module Stripe
           sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
           def unit_amount=(_unit_amount); end
           sig {
-            params(display_name: T.nilable(String), live_version: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::V2::Billing::LicenseFeeService::UpdateParams::Tier]), transform_quantity: T.nilable(::Stripe::V2::Billing::LicenseFeeService::UpdateParams::TransformQuantity), unit_amount: T.nilable(String)).void
+            params(display_name: String, live_version: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::V2::Billing::LicenseFeeService::UpdateParams::Tier]), transform_quantity: T.nilable(::Stripe::V2::Billing::LicenseFeeService::UpdateParams::TransformQuantity), unit_amount: T.nilable(String)).void
            }
           def initialize(
             display_name: nil,

@@ -38,14 +38,11 @@ module Stripe
             sig { returns(String) }
             def failure_reason; end
           end
-          class BankDebitProcessing < Stripe::StripeObject; end
-          class BankDebitQueued < Stripe::StripeObject; end
           class BankDebitReturned < Stripe::StripeObject
             # Open Enum. The return reason for the returned InboundTransfer.
             sig { returns(String) }
             def return_reason; end
           end
-          class BankDebitSucceeded < Stripe::StripeObject; end
           # Creation time of the HistoryEntry in RFC 3339 format and UTC.
           sig { returns(String) }
           def created; end
@@ -65,16 +62,16 @@ module Stripe
           sig { returns(T.nilable(BankDebitFailed)) }
           def bank_debit_failed; end
           # The history entry for a processing InboundTransfer.
-          sig { returns(T.nilable(BankDebitProcessing)) }
+          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
           def bank_debit_processing; end
           # The history entry for a queued InboundTransfer.
-          sig { returns(T.nilable(BankDebitQueued)) }
+          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
           def bank_debit_queued; end
           # The history entry for a returned InboundTransfer.
           sig { returns(T.nilable(BankDebitReturned)) }
           def bank_debit_returned; end
           # The history entry for a succeeded InboundTransfer.
-          sig { returns(T.nilable(BankDebitSucceeded)) }
+          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
           def bank_debit_succeeded; end
         end
         # The amount in specified currency that will land in the FinancialAccount balance.

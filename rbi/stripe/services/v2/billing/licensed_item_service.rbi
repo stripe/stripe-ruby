@@ -100,11 +100,9 @@ module Stripe
           # An internal key you can use to search for a particular billable item.
           # Maximum length of 200 characters.
           # To remove the lookup_key from the object, set it to null in the request.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           def lookup_key; end
-          sig {
-            params(_lookup_key: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-           }
+          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
           def lookup_key=(_lookup_key); end
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
@@ -125,14 +123,12 @@ module Stripe
           # The unit to use when displaying prices for this billable item in places like Checkout. For example, set this field
           # to "seat" for Checkout to display "(price) per seat", or "environment" to display "(price) per environment".
           # Maximum length of 100 characters.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           def unit_label; end
-          sig {
-            params(_unit_label: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-           }
+          sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
           def unit_label=(_unit_label); end
           sig {
-            params(display_name: T.nilable(String), lookup_key: T.nilable(T.nilable(String)), metadata: T.nilable(T::Hash[String, T.nilable(String)]), tax_details: T.nilable(::Stripe::V2::Billing::LicensedItemService::UpdateParams::TaxDetails), unit_label: T.nilable(T.nilable(String))).void
+            params(display_name: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), tax_details: T.nilable(::Stripe::V2::Billing::LicensedItemService::UpdateParams::TaxDetails), unit_label: T.nilable(String)).void
            }
           def initialize(
             display_name: nil,

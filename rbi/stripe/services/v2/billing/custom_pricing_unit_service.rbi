@@ -69,11 +69,9 @@ module Stripe
           sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
           def display_name=(_display_name); end
           # An internal key you can use to search for a particular CustomPricingUnit item.
-          sig { returns(T.nilable(T.nilable(String))) }
+          sig { returns(T.nilable(String)) }
           def lookup_key; end
-          sig {
-            params(_lookup_key: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-           }
+          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
           def lookup_key=(_lookup_key); end
           # Set of key-value pairs that you can attach to an object.
           sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
@@ -83,7 +81,7 @@ module Stripe
            }
           def metadata=(_metadata); end
           sig {
-            params(active: T.nilable(T::Boolean), display_name: T.nilable(String), lookup_key: T.nilable(T.nilable(String)), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
+            params(active: T.nilable(T::Boolean), display_name: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
            }
           def initialize(active: nil, display_name: nil, lookup_key: nil, metadata: nil); end
         end

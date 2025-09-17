@@ -124,14 +124,6 @@ module Stripe
               def day_of_month; end
               sig { params(_day_of_month: Integer).returns(Integer) }
               def day_of_month=(_day_of_month); end
-              # The month to anchor the billing on for a type="month" billing cycle from
-              # 1-12. If not provided, this will default to the month the cadence was created.
-              # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-              # All occurrences will be calculated from month provided.
-              sig { returns(T.nilable(Integer)) }
-              def month_of_year; end
-              sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
-              def month_of_year=(_month_of_year); end
               # The time at which the billing cycle ends.
               # This field is optional, and if not provided, it will default to
               # the time at which the cadence was created in UTC timezone.
@@ -144,9 +136,9 @@ module Stripe
                }
               def time=(_time); end
               sig {
-                params(day_of_month: Integer, month_of_year: T.nilable(Integer), time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time)).void
+                params(day_of_month: Integer, time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time)).void
                }
-              def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
+              def initialize(day_of_month: nil, time: nil); end
             end
             class Week < Stripe::RequestParams
               class Time < Stripe::RequestParams
@@ -464,13 +456,11 @@ module Stripe
               # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
               # Using a specific version here will prevent the settings from updating, and is discouraged for cadences.
               # To clear a pinned version, set the version to null.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def version; end
-              sig {
-                params(_version: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
               def version=(_version); end
-              sig { params(id: String, version: T.nilable(T.nilable(String))).void }
+              sig { params(id: String, version: T.nilable(String)).void }
               def initialize(id: nil, version: nil); end
             end
             class Collection < Stripe::RequestParams
@@ -483,35 +473,33 @@ module Stripe
               # If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
               # Using a specific version here will prevent the settings from updating, and is discouraged for cadences.
               # To clear a pinned version, set the version to null.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def version; end
-              sig {
-                params(_version: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
               def version=(_version); end
-              sig { params(id: String, version: T.nilable(T.nilable(String))).void }
+              sig { params(id: String, version: T.nilable(String)).void }
               def initialize(id: nil, version: nil); end
             end
             # Settings that configure bills generation, which includes calculating totals, tax, and presenting invoices. If null is provided, the current bill settings will be removed from the billing cadence.
             sig {
-              returns(T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill)))
+              returns(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill))
              }
             def bill; end
             sig {
-              params(_bill: T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill))).returns(T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill)))
+              params(_bill: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill))
              }
             def bill=(_bill); end
             # Settings that configure and manage the behavior of collecting payments. If null is provided, the current collection settings will be removed from the billing cadence.
             sig {
-              returns(T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection)))
+              returns(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection))
              }
             def collection; end
             sig {
-              params(_collection: T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection))).returns(T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection)))
+              params(_collection: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection)).returns(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection))
              }
             def collection=(_collection); end
             sig {
-              params(bill: T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill)), collection: T.nilable(T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection))).void
+              params(bill: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Bill), collection: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings::Collection)).void
              }
             def initialize(bill: nil, collection: nil); end
           end

@@ -50,7 +50,8 @@ module Stripe
         # The ID of the license fee's most recently created version.
         sig { returns(String) }
         def latest_version; end
-        # The Licensed Item that this License Fee binds to.
+        # A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
+        # to specify the pricing and create subscriptions to these items.
         sig { returns(Stripe::V2::Billing::LicensedItem) }
         def licensed_item; end
         # The ID of the License Fee Version that will be used by all subscriptions when no specific version is specified.

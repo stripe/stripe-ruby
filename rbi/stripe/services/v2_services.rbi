@@ -8,7 +8,6 @@ module Stripe
     attr_reader :core
     attr_reader :money_management
     attr_reader :payments
-    attr_reader :reporting
     attr_reader :tax
     attr_reader :test_helpers
   end

@@ -50,18 +50,12 @@ module Stripe
           # Defines the scope where the credit grant is applicable.
           sig { returns(ApplicabilityConfig) }
           def applicability_config; end
-          # The category of the credit grant.
-          sig { returns(T.nilable(String)) }
-          def category; end
           # The expiry configuration for the credit grant.
           sig { returns(ExpiryConfig) }
           def expiry_config; end
           # A descriptive name shown in dashboard.
           sig { returns(String) }
           def name; end
-          # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-          sig { returns(T.nilable(Integer)) }
-          def priority; end
         end
         class CreditGrantPerTenant < Stripe::StripeObject
           class Amount < Stripe::StripeObject
@@ -107,18 +101,12 @@ module Stripe
           # Defines the scope where the credit grant is applicable.
           sig { returns(ApplicabilityConfig) }
           def applicability_config; end
-          # The category of the credit grant.
-          sig { returns(T.nilable(String)) }
-          def category; end
           # The expiry configuration for the credit grant.
           sig { returns(ExpiryConfig) }
           def expiry_config; end
           # Customer-facing name for the credit grant.
           sig { returns(String) }
           def name; end
-          # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-          sig { returns(T.nilable(Integer)) }
-          def priority; end
         end
         # Timestamp of when the object was created.
         sig { returns(String) }

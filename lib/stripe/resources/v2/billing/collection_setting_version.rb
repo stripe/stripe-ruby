@@ -155,26 +155,6 @@ module Stripe
             end
           end
 
-          class Konbini < Stripe::StripeObject
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class SepaDebit < Stripe::StripeObject
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
           class UsBankAccount < Stripe::StripeObject
             class FinancialConnections < Stripe::StripeObject
               class Filters < Stripe::StripeObject
@@ -238,8 +218,6 @@ module Stripe
               bancontact: Bancontact,
               card: Card,
               customer_balance: CustomerBalance,
-              konbini: Konbini,
-              sepa_debit: SepaDebit,
               us_bank_account: UsBankAccount,
             }
           end

@@ -10,6 +10,7 @@ module Stripe
         V2BillingCadenceBilledEvent.lookup_type => V2BillingCadenceBilledEvent,
         V2BillingCadenceCanceledEvent.lookup_type => V2BillingCadenceCanceledEvent,
         V2BillingCadenceCreatedEvent.lookup_type => V2BillingCadenceCreatedEvent,
+        V2BillingCadenceErroredEvent.lookup_type => V2BillingCadenceErroredEvent,
         V2BillingLicenseFeeCreatedEvent.lookup_type => V2BillingLicenseFeeCreatedEvent,
         V2BillingLicenseFeeUpdatedEvent.lookup_type => V2BillingLicenseFeeUpdatedEvent,
         V2BillingLicenseFeeVersionCreatedEvent.lookup_type => V2BillingLicenseFeeVersionCreatedEvent,
@@ -91,11 +92,6 @@ module Stripe
         V2CoreAccountPersonDeletedEvent.lookup_type => V2CoreAccountPersonDeletedEvent,
         V2CoreAccountPersonUpdatedEvent.lookup_type => V2CoreAccountPersonUpdatedEvent,
         V2CoreAccountUpdatedEvent.lookup_type => V2CoreAccountUpdatedEvent,
-        V2CoreClaimableSandboxClaimedEvent.lookup_type => V2CoreClaimableSandboxClaimedEvent,
-        V2CoreClaimableSandboxExpiredEvent.lookup_type => V2CoreClaimableSandboxExpiredEvent,
-        V2CoreClaimableSandboxExpiringEvent.lookup_type => V2CoreClaimableSandboxExpiringEvent,
-        V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent.lookup_type =>
-        V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent,
         V2CoreEventDestinationPingEvent.lookup_type => V2CoreEventDestinationPingEvent,
         V2CoreHealthApiErrorFiringEvent.lookup_type => V2CoreHealthApiErrorFiringEvent,
         V2CoreHealthApiErrorResolvedEvent.lookup_type => V2CoreHealthApiErrorResolvedEvent,
@@ -193,10 +189,6 @@ module Stripe
         V2PaymentsOffSessionPaymentCreatedEvent.lookup_type => V2PaymentsOffSessionPaymentCreatedEvent,
         V2PaymentsOffSessionPaymentFailedEvent.lookup_type => V2PaymentsOffSessionPaymentFailedEvent,
         V2PaymentsOffSessionPaymentSucceededEvent.lookup_type => V2PaymentsOffSessionPaymentSucceededEvent,
-        V2ReportingReportRunCreatedEvent.lookup_type => V2ReportingReportRunCreatedEvent,
-        V2ReportingReportRunFailedEvent.lookup_type => V2ReportingReportRunFailedEvent,
-        V2ReportingReportRunSucceededEvent.lookup_type => V2ReportingReportRunSucceededEvent,
-        V2ReportingReportRunUpdatedEvent.lookup_type => V2ReportingReportRunUpdatedEvent,
         # The end of the section generated from our OpenAPI spec
       }
     end

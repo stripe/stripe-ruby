@@ -38,10 +38,6 @@ module Stripe
           attr_reader :canceled_at
           # When the servicing status transitioned to paused.
           attr_reader :paused_at
-          # When the servicing is scheduled to transition to activate.
-          attr_reader :will_activate_at
-          # When the servicing is scheduled to cancel.
-          attr_reader :will_cancel_at
 
           def self.inner_class_types
             @inner_class_types = {}

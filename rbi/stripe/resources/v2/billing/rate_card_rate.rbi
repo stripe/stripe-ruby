@@ -50,7 +50,8 @@ module Stripe
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
-        # The Metered Item that this rate binds to.
+        # A Metered Item represents a billable item whose pricing is based on usage, measured by a meter. You can use rate cards
+        # to specify the pricing and create subscriptions to these items.
         sig { returns(Stripe::V2::Billing::MeteredItem) }
         def metered_item; end
         # String representing the object's type. Objects of the same type share the same value of the object field.

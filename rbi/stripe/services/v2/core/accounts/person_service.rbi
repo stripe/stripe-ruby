@@ -773,39 +773,29 @@ module Stripe
           class UpdateParams < Stripe::RequestParams
             class AdditionalAddress < Stripe::RequestParams
               # City, district, suburb, town, or village.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def city; end
-              sig {
-                params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
               def city=(_city); end
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def country; end
-              sig {
-                params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
               def country=(_country); end
               # Address line 1 (e.g., street, PO Box, or company name).
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def line1; end
-              sig {
-                params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
               def line1=(_line1); end
               # Address line 2 (e.g., apartment, suite, unit, or building).
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def line2; end
-              sig {
-                params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
               def line2=(_line2); end
               # ZIP or postal code.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def postal_code; end
-              sig {
-                params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
               def postal_code=(_postal_code); end
               # Purpose of additional address.
               sig { returns(String) }
@@ -813,21 +803,17 @@ module Stripe
               sig { params(_purpose: String).returns(String) }
               def purpose=(_purpose); end
               # State, county, province, or region.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def state; end
-              sig {
-                params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
               # Town or cho-me.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def town; end
-              sig {
-                params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
               def town=(_town); end
               sig {
-                params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), purpose: String, state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
                }
               def initialize(
                 city: nil,
@@ -904,56 +890,42 @@ module Stripe
             end
             class Address < Stripe::RequestParams
               # City, district, suburb, town, or village.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def city; end
-              sig {
-                params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
               def city=(_city); end
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def country; end
-              sig {
-                params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
               def country=(_country); end
               # Address line 1 (e.g., street, PO Box, or company name).
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def line1; end
-              sig {
-                params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
               def line1=(_line1); end
               # Address line 2 (e.g., apartment, suite, unit, or building).
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def line2; end
-              sig {
-                params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
               def line2=(_line2); end
               # ZIP or postal code.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def postal_code; end
-              sig {
-                params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
               def postal_code=(_postal_code); end
               # State, county, province, or region.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def state; end
-              sig {
-                params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
               def state=(_state); end
               # Town or cho-me.
-              sig { returns(T.nilable(T.nilable(String))) }
+              sig { returns(T.nilable(String)) }
               def town; end
-              sig {
-                params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-               }
+              sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
               def town=(_town); end
               sig {
-                params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                }
               def initialize(
                 city: nil,
@@ -1016,18 +988,16 @@ module Stripe
               class PrimaryVerification < Stripe::RequestParams
                 class FrontBack < Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
-                  sig { returns(T.nilable(T.nilable(String))) }
+                  sig { returns(T.nilable(String)) }
                   def back; end
-                  sig {
-                    params(_back: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                   }
+                  sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
                   def back=(_back); end
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def front; end
                   sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
                   def front=(_front); end
-                  sig { params(back: T.nilable(T.nilable(String)), front: T.nilable(String)).void }
+                  sig { params(back: T.nilable(String), front: T.nilable(String)).void }
                   def initialize(back: nil, front: nil); end
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
@@ -1052,18 +1022,16 @@ module Stripe
               class SecondaryVerification < Stripe::RequestParams
                 class FrontBack < Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
-                  sig { returns(T.nilable(T.nilable(String))) }
+                  sig { returns(T.nilable(String)) }
                   def back; end
-                  sig {
-                    params(_back: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                   }
+                  sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
                   def back=(_back); end
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def front; end
                   sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
                   def front=(_front); end
-                  sig { params(back: T.nilable(T.nilable(String)), front: T.nilable(String)).void }
+                  sig { params(back: T.nilable(String), front: T.nilable(String)).void }
                   def initialize(back: nil, front: nil); end
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
@@ -1119,20 +1087,20 @@ module Stripe
               def passport=(_passport); end
               # An identifying document showing the person's name, either a passport or local ID card.
               sig {
-                returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::PrimaryVerification)))
+                returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::PrimaryVerification))
                }
               def primary_verification; end
               sig {
-                params(_primary_verification: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::PrimaryVerification))).returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::PrimaryVerification)))
+                params(_primary_verification: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::PrimaryVerification)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::PrimaryVerification))
                }
               def primary_verification=(_primary_verification); end
               # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
               sig {
-                returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::SecondaryVerification)))
+                returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::SecondaryVerification))
                }
               def secondary_verification; end
               sig {
-                params(_secondary_verification: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::SecondaryVerification))).returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::SecondaryVerification)))
+                params(_secondary_verification: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::SecondaryVerification)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::SecondaryVerification))
                }
               def secondary_verification=(_secondary_verification); end
               # One or more documents showing the person’s visa required for living in the country where they are residing.
@@ -1145,7 +1113,7 @@ module Stripe
                }
               def visa=(_visa); end
               sig {
-                params(company_authorization: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::CompanyAuthorization), passport: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::Passport), primary_verification: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::PrimaryVerification)), secondary_verification: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::SecondaryVerification)), visa: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::Visa)).void
+                params(company_authorization: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::CompanyAuthorization), passport: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::Passport), primary_verification: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::PrimaryVerification), secondary_verification: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::SecondaryVerification), visa: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents::Visa)).void
                }
               def initialize(
                 company_authorization: nil,
@@ -1227,56 +1195,42 @@ module Stripe
             class ScriptAddresses < Stripe::RequestParams
               class Kana < Stripe::RequestParams
                 # City, district, suburb, town, or village.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def city; end
-                sig {
-                  params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
                 def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def country; end
-                sig {
-                  params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def line1; end
-                sig {
-                  params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
                 def line1=(_line1); end
                 # Address line 2 (e.g., apartment, suite, unit, or building).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def line2; end
-                sig {
-                  params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
                 def line2=(_line2); end
                 # ZIP or postal code.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def postal_code; end
-                sig {
-                  params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
                 def postal_code=(_postal_code); end
                 # State, county, province, or region.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def state; end
-                sig {
-                  params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
                 # Town or cho-me.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def town; end
-                sig {
-                  params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
                 def town=(_town); end
                 sig {
-                  params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
+                  params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                  }
                 def initialize(
                   city: nil,
@@ -1290,56 +1244,42 @@ module Stripe
               end
               class Kanji < Stripe::RequestParams
                 # City, district, suburb, town, or village.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def city; end
-                sig {
-                  params(_city: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
                 def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def country; end
-                sig {
-                  params(_country: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def line1; end
-                sig {
-                  params(_line1: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
                 def line1=(_line1); end
                 # Address line 2 (e.g., apartment, suite, unit, or building).
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def line2; end
-                sig {
-                  params(_line2: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
                 def line2=(_line2); end
                 # ZIP or postal code.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def postal_code; end
-                sig {
-                  params(_postal_code: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
                 def postal_code=(_postal_code); end
                 # State, county, province, or region.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def state; end
-                sig {
-                  params(_state: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
                 def state=(_state); end
                 # Town or cho-me.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def town; end
-                sig {
-                  params(_town: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
                 def town=(_town); end
                 sig {
-                  params(city: T.nilable(T.nilable(String)), country: T.nilable(T.nilable(String)), line1: T.nilable(T.nilable(String)), line2: T.nilable(T.nilable(String)), postal_code: T.nilable(T.nilable(String)), state: T.nilable(T.nilable(String)), town: T.nilable(T.nilable(String))).void
+                  params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                  }
                 def initialize(
                   city: nil,
@@ -1353,88 +1293,76 @@ module Stripe
               end
               # Kana Address.
               sig {
-                returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kana)))
+                returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kana))
                }
               def kana; end
               sig {
-                params(_kana: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kana))).returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kana)))
+                params(_kana: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kana)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kana))
                }
               def kana=(_kana); end
               # Kanji Address.
               sig {
-                returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kanji)))
+                returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kanji))
                }
               def kanji; end
               sig {
-                params(_kanji: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kanji))).returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kanji)))
+                params(_kanji: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kanji)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kanji))
                }
               def kanji=(_kanji); end
               sig {
-                params(kana: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kana)), kanji: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kanji))).void
+                params(kana: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kana), kanji: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses::Kanji)).void
                }
               def initialize(kana: nil, kanji: nil); end
             end
             class ScriptNames < Stripe::RequestParams
               class Kana < Stripe::RequestParams
                 # The person's first or given name.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def given_name; end
-                sig {
-                  params(_given_name: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
                 def given_name=(_given_name); end
                 # The person's last or family name.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def surname; end
-                sig {
-                  params(_surname: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
                 def surname=(_surname); end
-                sig {
-                  params(given_name: T.nilable(T.nilable(String)), surname: T.nilable(T.nilable(String))).void
-                 }
+                sig { params(given_name: T.nilable(String), surname: T.nilable(String)).void }
                 def initialize(given_name: nil, surname: nil); end
               end
               class Kanji < Stripe::RequestParams
                 # The person's first or given name.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def given_name; end
-                sig {
-                  params(_given_name: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
                 def given_name=(_given_name); end
                 # The person's last or family name.
-                sig { returns(T.nilable(T.nilable(String))) }
+                sig { returns(T.nilable(String)) }
                 def surname; end
-                sig {
-                  params(_surname: T.nilable(T.nilable(String))).returns(T.nilable(T.nilable(String)))
-                 }
+                sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
                 def surname=(_surname); end
-                sig {
-                  params(given_name: T.nilable(T.nilable(String)), surname: T.nilable(T.nilable(String))).void
-                 }
+                sig { params(given_name: T.nilable(String), surname: T.nilable(String)).void }
                 def initialize(given_name: nil, surname: nil); end
               end
               # Persons name in kana script.
               sig {
-                returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kana)))
+                returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kana))
                }
               def kana; end
               sig {
-                params(_kana: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kana))).returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kana)))
+                params(_kana: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kana)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kana))
                }
               def kana=(_kana); end
               # Persons name in kanji script.
               sig {
-                returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kanji)))
+                returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kanji))
                }
               def kanji; end
               sig {
-                params(_kanji: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kanji))).returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kanji)))
+                params(_kanji: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kanji)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kanji))
                }
               def kanji=(_kanji); end
               sig {
-                params(kana: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kana)), kanji: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kanji))).void
+                params(kana: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kana), kanji: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames::Kanji)).void
                }
               def initialize(kana: nil, kanji: nil); end
             end
@@ -1551,20 +1479,20 @@ module Stripe
             def relationship=(_relationship); end
             # The script addresses (e.g., non-Latin characters) associated with the person.
             sig {
-              returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses)))
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses))
              }
             def script_addresses; end
             sig {
-              params(_script_addresses: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses))).returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses)))
+              params(_script_addresses: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses))
              }
             def script_addresses=(_script_addresses); end
             # The script names (e.g. non-Latin characters) associated with the person.
             sig {
-              returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames)))
+              returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames))
              }
             def script_names; end
             sig {
-              params(_script_names: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames))).returns(T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames)))
+              params(_script_names: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames))
              }
             def script_names=(_script_names); end
             # The person's last name.
@@ -1573,7 +1501,7 @@ module Stripe
             sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
             def surname=(_surname); end
             sig {
-              params(additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonService::UpdateParams::AdditionalAddress]), additional_names: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonService::UpdateParams::AdditionalName]), additional_terms_of_service: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::AdditionalTermsOfService), address: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Address), date_of_birth: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::DateOfBirth), documents: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents), email: T.nilable(String), given_name: T.nilable(String), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonService::UpdateParams::IdNumber]), legal_gender: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), nationalities: T.nilable(T::Array[String]), phone: T.nilable(String), political_exposure: T.nilable(String), relationship: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Relationship), script_addresses: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses)), script_names: T.nilable(T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames)), surname: T.nilable(String)).void
+              params(additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonService::UpdateParams::AdditionalAddress]), additional_names: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonService::UpdateParams::AdditionalName]), additional_terms_of_service: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::AdditionalTermsOfService), address: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Address), date_of_birth: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::DateOfBirth), documents: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Documents), email: T.nilable(String), given_name: T.nilable(String), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::Accounts::PersonService::UpdateParams::IdNumber]), legal_gender: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), nationalities: T.nilable(T::Array[String]), phone: T.nilable(String), political_exposure: T.nilable(String), relationship: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::Relationship), script_addresses: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::Accounts::PersonService::UpdateParams::ScriptNames), surname: T.nilable(String)).void
              }
             def initialize(
               additional_addresses: nil,
@@ -1598,13 +1526,13 @@ module Stripe
           end
           # Create a Person associated with an Account.
           sig {
-            params(account_id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Person)
+            params(account_id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::AccountPerson)
            }
           def create(account_id, params = {}, opts = {}); end
 
           # Delete a Person associated with an Account.
           sig {
-            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Person)
+            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::DeletedObject)
            }
           def delete(account_id, id, params = {}, opts = {}); end
 
@@ -1616,13 +1544,13 @@ module Stripe
 
           # Retrieves a Person associated with an Account.
           sig {
-            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Person)
+            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::AccountPerson)
            }
           def retrieve(account_id, id, params = {}, opts = {}); end
 
           # Updates a Person associated with an Account.
           sig {
-            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Person)
+            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::AccountPerson)
            }
           def update(account_id, id, params = {}, opts = {}); end
         end

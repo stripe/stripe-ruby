@@ -84,8 +84,6 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def funding_type; end
           end
-          class Konbini < Stripe::StripeObject; end
-          class SepaDebit < Stripe::StripeObject; end
           class UsBankAccount < Stripe::StripeObject
             class FinancialConnections < Stripe::StripeObject
               class Filters < Stripe::StripeObject
@@ -123,10 +121,10 @@ module Stripe
           sig { returns(T.nilable(CustomerBalance)) }
           def customer_balance; end
           # This sub-hash contains details about the Konbini payment method options.
-          sig { returns(T.nilable(Konbini)) }
+          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
           def konbini; end
           # This sub-hash contains details about the SEPA Direct Debit payment method options.
-          sig { returns(T.nilable(SepaDebit)) }
+          sig { returns(T.nilable(T::Hash[String, T.untyped])) }
           def sepa_debit; end
           # This sub-hash contains details about the ACH direct debit payment method options.
           sig { returns(T.nilable(UsBankAccount)) }

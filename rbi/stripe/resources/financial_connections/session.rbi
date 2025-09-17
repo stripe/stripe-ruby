@@ -8,13 +8,13 @@ module Stripe
     class Session < APIResource
       class AccountHolder < Stripe::StripeObject
         # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
-        sig { returns(T.any(String, Stripe::Account)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
         def account; end
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
-        sig { returns(T.any(String, Stripe::Customer)) }
+        sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
         def customer; end
         # Attribute for field customer_account
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def customer_account; end
         # Type of account holder that this account belongs to.
         sig { returns(String) }
@@ -28,7 +28,7 @@ module Stripe
         sig { returns(T.nilable(T::Array[String])) }
         def countries; end
         # Stripe ID of the institution with which the customer should be directed to log in.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def institution; end
       end
       class Limits < Stripe::StripeObject
@@ -44,7 +44,7 @@ module Stripe
           def reason; end
         end
         # Attribute for field cancelled
-        sig { returns(Cancelled) }
+        sig { returns(T.nilable(Cancelled)) }
         def cancelled; end
       end
       # The account holder for whom accounts are collected in this session.
@@ -57,19 +57,19 @@ module Stripe
       sig { returns(String) }
       def client_secret; end
       # Attribute for field filters
-      sig { returns(Filters) }
+      sig { returns(T.nilable(Filters)) }
       def filters; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
       # Attribute for field limits
-      sig { returns(Limits) }
+      sig { returns(T.nilable(Limits)) }
       def limits; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end
       # Attribute for field manual_entry
-      sig { returns(ManualEntry) }
+      sig { returns(T.nilable(ManualEntry)) }
       def manual_entry; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
@@ -81,13 +81,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       def prefetch; end
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def return_url; end
       # The current state of the session.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def status; end
       # Attribute for field status_details
-      sig { returns(StatusDetails) }
+      sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
       class CreateParams < Stripe::RequestParams
         class AccountHolder < Stripe::RequestParams

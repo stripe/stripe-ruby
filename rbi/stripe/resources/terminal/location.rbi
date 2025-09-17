@@ -32,7 +32,7 @@ module Stripe
       sig { returns(Address) }
       def address; end
       # The ID of a configuration that will be used to customize all readers in this location.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def configuration_overrides; end
       # The display name of the location.
       sig { returns(String) }
@@ -50,7 +50,7 @@ module Stripe
       sig { returns(String) }
       def object; end
       # Always true for a deleted object
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       def deleted; end
       class DeleteParams < Stripe::RequestParams; end
       class UpdateParams < Stripe::RequestParams

@@ -84,7 +84,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def price; end
             # [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             def quantity; end
           end
           # The coupon or promotion code to apply to this subscription update.

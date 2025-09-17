@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Occurs when a billing Cadence encounters an error during a tick.
-  class V2BillingCadenceErroredEvent < Stripe::V2::Event
+  # Occurs when a claimable sandbox expires.
+  class V2CoreClaimableSandboxExpiredEvent < Stripe::V2::Event
     def self.lookup_type
-      "v2.billing.cadence.errored"
+      "v2.core.claimable_sandbox.expired"
     end
 
     # Retrieves the related object from the API. Make an API request on every call.

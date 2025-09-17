@@ -36,10 +36,10 @@ module Stripe
     sig { returns(T.nilable(T.any(String, Stripe::Account))) }
     def destination; end
     # If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
-    sig { returns(T.any(String, Stripe::Charge)) }
+    sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
     def destination_payment; end
     # The FX Quote used for the transfer.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def fx_quote; end
     # Unique identifier for the object.
     sig { returns(String) }
@@ -63,7 +63,7 @@ module Stripe
     sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
     def source_transaction; end
     # The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def source_type; end
     # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
     sig { returns(T.nilable(String)) }

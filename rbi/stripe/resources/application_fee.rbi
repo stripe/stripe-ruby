@@ -6,10 +6,10 @@ module Stripe
   class ApplicationFee < APIResource
     class FeeSource < Stripe::StripeObject
       # Charge ID that created this application fee.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def charge; end
       # Payout ID that created this application fee.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       def payout; end
       # Type of object that created the application fee.
       sig { returns(String) }

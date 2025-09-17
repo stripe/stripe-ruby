@@ -49,10 +49,10 @@ module Stripe
           def missing_fields; end
         end
         # Attribute for field active
-        sig { returns(Active) }
+        sig { returns(T.nilable(Active)) }
         def active; end
         # Attribute for field pending
-        sig { returns(Pending) }
+        sig { returns(T.nilable(Pending)) }
         def pending; end
       end
       # Attribute for field defaults

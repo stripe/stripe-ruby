@@ -48,6 +48,10 @@ module Stripe
             # this will anchor to the last day of the month.
             sig { returns(Integer) }
             def day_of_month; end
+            # The month to anchor the billing on for a type="month" billing cycle from
+            # 1-12. Occurrences are calculated from the month anchor.
+            sig { returns(T.nilable(Integer)) }
+            def month_of_year; end
             # The time at which the billing cycle ends.
             sig { returns(Time) }
             def time; end

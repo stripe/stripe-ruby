@@ -263,6 +263,8 @@ module Stripe
       attr_accessor :address
       # An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
       attr_accessor :balance
+      # The customer's business name. This may be up to *150 characters*.
+      attr_accessor :business_name
       # Balance information and default balance settings for this customer.
       attr_accessor :cash_balance
       # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
@@ -277,6 +279,8 @@ module Stripe
       attr_accessor :email
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # The customer's full name. This may be up to *150 characters*.
+      attr_accessor :individual_name
       # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
       attr_accessor :invoice_prefix
       # Default invoice settings for this customer.
@@ -305,11 +309,13 @@ module Stripe
       def initialize(
         address: nil,
         balance: nil,
+        business_name: nil,
         cash_balance: nil,
         default_source: nil,
         description: nil,
         email: nil,
         expand: nil,
+        individual_name: nil,
         invoice_prefix: nil,
         invoice_settings: nil,
         metadata: nil,
@@ -325,11 +331,13 @@ module Stripe
       )
         @address = address
         @balance = balance
+        @business_name = business_name
         @cash_balance = cash_balance
         @default_source = default_source
         @description = description
         @email = email
         @expand = expand
+        @individual_name = individual_name
         @invoice_prefix = invoice_prefix
         @invoice_settings = invoice_settings
         @metadata = metadata
@@ -567,6 +575,8 @@ module Stripe
       attr_accessor :address
       # An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
       attr_accessor :balance
+      # The customer's business name. This may be up to *150 characters*.
+      attr_accessor :business_name
       # Balance information and default balance settings for this customer.
       attr_accessor :cash_balance
       # An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
@@ -575,6 +585,8 @@ module Stripe
       attr_accessor :email
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # The customer's full name. This may be up to *150 characters*.
+      attr_accessor :individual_name
       # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
       attr_accessor :invoice_prefix
       # Default invoice settings for this customer.
@@ -609,10 +621,12 @@ module Stripe
       def initialize(
         address: nil,
         balance: nil,
+        business_name: nil,
         cash_balance: nil,
         description: nil,
         email: nil,
         expand: nil,
+        individual_name: nil,
         invoice_prefix: nil,
         invoice_settings: nil,
         metadata: nil,
@@ -631,10 +645,12 @@ module Stripe
       )
         @address = address
         @balance = balance
+        @business_name = business_name
         @cash_balance = cash_balance
         @description = description
         @email = email
         @expand = expand
+        @individual_name = individual_name
         @invoice_prefix = invoice_prefix
         @invoice_settings = invoice_settings
         @metadata = metadata
@@ -783,6 +799,8 @@ module Stripe
     attr_reader :address
     # The current balance, if any, that's stored on the customer in their default currency. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize. For multi-currency balances, see [invoice_credit_balance](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance).
     attr_reader :balance
+    # The customer's business name.
+    attr_reader :business_name
     # The current funds being held by Stripe on behalf of the customer. You can apply these funds towards payment intents when the source is "cash_balance". The `settings[reconciliation_mode]` field describes if these funds apply to these payment intents manually or automatically.
     attr_reader :cash_balance
     # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -809,6 +827,8 @@ module Stripe
     attr_reader :email
     # Unique identifier for the object.
     attr_reader :id
+    # The customer's individual name.
+    attr_reader :individual_name
     # The current multi-currency balances, if any, that's stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that's added to their next invoice denominated in that currency. These balances don't apply to unpaid invoices. They solely track amounts that Stripe hasn't successfully applied to any invoice. Stripe only applies a balance in a specific currency to an invoice after that invoice (which is in the same currency) finalizes.
     attr_reader :invoice_credit_balance
     # The prefix for the customer used to generate unique invoice numbers.

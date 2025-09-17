@@ -118,6 +118,7 @@ module Stripe
     # * +last_response+ - The raw response associated with the object.
     # * +api_mode+ - The API mode to use when converting the object, either :v1 or :v2.
     # * +requestor+ - The requestor to use when constructing the object.
+    # * +v2_deleted_object+ - If true, ignore the object tag for casting purposes
     def self.convert_to_stripe_object_with_params(
       data,
       params,
@@ -125,7 +126,8 @@ module Stripe
       last_response = nil,
       api_mode: :v1,
       requestor: nil,
-      klass: nil
+      klass: nil,
+      v2_deleted_object: false
     )
       opts = normalize_opts(opts)
 

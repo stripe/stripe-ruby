@@ -1296,22 +1296,22 @@ module Stripe
         )
       end
 
-      #   %w[v1 v2].each do |mode|
-      #     should "correctly handle #{mode} delete request responses" do
-      #       stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/#{mode}/foo")
-      #         .to_return(body: JSON.generate(object: "customer", id: "abc_123"), status: 200)
+      %w[v1 v2].each do |mode|
+        should "correctly handle #{mode} delete request responses" do
+          stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/#{mode}/foo")
+            .to_return(body: JSON.generate(object: "customer", id: "abc_123"), status: 200)
 
-      #       requestor = APIRequestor.new("sk_test_123")
+          requestor = APIRequestor.new("sk_test_123")
 
-      #       response = requestor.execute_request(:delete, "/#{mode}/foo", :api)
+          response = requestor.execute_request(:delete, "/#{mode}/foo", :api)
 
-      #       if mode == "v1"
-      #         assert_instance_of Stripe::Customer, response
-      #       else
-      #         assert_instance_of Stripe::V2::DeletedObject, response
-      #       end
-      #     end
-      #   end
+          if mode == "v1"
+            assert_instance_of Stripe::Customer, response
+          else
+            assert_instance_of Stripe::V2::DeletedObject, response
+          end
+        end
+      end
     end
 
     context "#execute_request_stream" do

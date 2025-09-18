@@ -15,6 +15,8 @@ module Stripe
       end
 
       class Defaults < Stripe::StripeObject
+        # The tax calculation provider this account uses. Defaults to `stripe` when not using a [third-party provider](/tax/third-party-apps).
+        attr_reader :provider
         # Default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) used to specify whether the price is considered inclusive of taxes or exclusive of taxes. If the item's price has a tax behavior set, it will take precedence over the default tax behavior.
         attr_reader :tax_behavior
         # Default [tax code](https://stripe.com/docs/tax/tax-categories) used to classify your products and prices.

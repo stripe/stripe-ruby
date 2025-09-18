@@ -9,6 +9,9 @@ module Stripe
     # Related guide: [Using the Settings API](https://stripe.com/docs/tax/settings-api)
     class Settings < SingletonAPIResource
       class Defaults < Stripe::StripeObject
+        # The tax calculation provider this account uses. Defaults to `stripe` when not using a [third-party provider](/tax/third-party-apps).
+        sig { returns(String) }
+        def provider; end
         # Default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) used to specify whether the price is considered inclusive of taxes or exclusive of taxes. If the item's price has a tax behavior set, it will take precedence over the default tax behavior.
         sig { returns(T.nilable(String)) }
         def tax_behavior; end

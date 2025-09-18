@@ -73,9 +73,9 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
@@ -98,6 +98,8 @@ module Stripe
         attr_reader :business_name
         # Customer’s email for this Checkout Session
         attr_reader :email
+        # Customer’s individual name for this Checkout Session
+        attr_reader :individual_name
         # Customer’s phone number for this Checkout Session
         attr_reader :phone
         # Shipping information for this Checkout Session.
@@ -238,9 +240,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -256,9 +258,13 @@ module Stripe
         end
         # The customer's address after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
         attr_reader :address
+        # The customer's business name after a completed Checkout Session.
+        attr_reader :business_name
         # The email associated with the Customer, if one exists, on the Checkout Session after a completed Checkout Session or at time of session expiry.
         # Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form.
         attr_reader :email
+        # The customer's individual name after a completed Checkout Session.
+        attr_reader :individual_name
         # The customer's name after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
         attr_reader :name
         # The customer's phone number after a completed Checkout Session.
@@ -317,6 +323,26 @@ module Stripe
         attr_reader :enabled
         # Attribute for field invoice_data
         attr_reader :invoice_data
+      end
+
+      class NameCollection < Stripe::StripeObject
+        class Business < Stripe::StripeObject
+          # Indicates whether business name collection is enabled for the session
+          attr_reader :enabled
+          # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+          attr_reader :optional
+        end
+
+        class Individual < Stripe::StripeObject
+          # Indicates whether individual name collection is enabled for the session
+          attr_reader :enabled
+          # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+          attr_reader :optional
+        end
+        # Attribute for field business
+        attr_reader :business
+        # Attribute for field individual
+        attr_reader :individual
       end
 
       class OptionalItem < Stripe::StripeObject
@@ -1727,6 +1753,41 @@ module Stripe
           end
         end
 
+        class NameCollection < Stripe::RequestParams
+          class Business < Stripe::RequestParams
+            # Enable business name collection on the Checkout Session. Defaults to `false`.
+            attr_accessor :enabled
+            # Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
+            attr_accessor :optional
+
+            def initialize(enabled: nil, optional: nil)
+              @enabled = enabled
+              @optional = optional
+            end
+          end
+
+          class Individual < Stripe::RequestParams
+            # Enable individual name collection on the Checkout Session. Defaults to `false`.
+            attr_accessor :enabled
+            # Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
+            attr_accessor :optional
+
+            def initialize(enabled: nil, optional: nil)
+              @enabled = enabled
+              @optional = optional
+            end
+          end
+          # Controls settings applied for collecting the customer's business name on the session.
+          attr_accessor :business
+          # Controls settings applied for collecting the customer's individual name on the session.
+          attr_accessor :individual
+
+          def initialize(business: nil, individual: nil)
+            @business = business
+            @individual = individual
+          end
+        end
+
         class OptionalItem < Stripe::RequestParams
           class AdjustableQuantity < Stripe::RequestParams
             # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -1763,9 +1824,9 @@ module Stripe
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_accessor :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_accessor :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_accessor :line2
               # ZIP or postal code.
               attr_accessor :postal_code
@@ -3235,10 +3296,21 @@ module Stripe
 
         class SubscriptionData < Stripe::RequestParams
           class BillingMode < Stripe::RequestParams
+            class Flexible < Stripe::RequestParams
+              # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
+              attr_accessor :consistent_proration_discount_amounts
+
+              def initialize(consistent_proration_discount_amounts: nil)
+                @consistent_proration_discount_amounts = consistent_proration_discount_amounts
+              end
+            end
+            # Configure behavior for flexible billing mode.
+            attr_accessor :flexible
             # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
             attr_accessor :type
 
-            def initialize(type: nil)
+            def initialize(flexible: nil, type: nil)
+              @flexible = flexible
               @type = type
             end
           end
@@ -3459,6 +3531,12 @@ module Stripe
         attr_accessor :metadata
         # The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         attr_accessor :mode
+        # Controls name collection settings for the session.
+        #
+        # You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
+        #
+        # If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
+        attr_accessor :name_collection
         # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
         #
         # There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
@@ -3565,6 +3643,7 @@ module Stripe
           locale: nil,
           metadata: nil,
           mode: nil,
+          name_collection: nil,
           optional_items: nil,
           origin_context: nil,
           payment_intent_data: nil,
@@ -3613,6 +3692,7 @@ module Stripe
           @locale = locale
           @metadata = metadata
           @mode = mode
+          @name_collection = name_collection
           @optional_items = optional_items
           @origin_context = origin_context
           @payment_intent_data = payment_intent_data
@@ -3666,9 +3746,9 @@ module Stripe
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_accessor :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_accessor :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_accessor :line2
               # ZIP or postal code.
               attr_accessor :postal_code
@@ -4193,6 +4273,8 @@ module Stripe
       attr_reader :metadata
       # The mode of the Checkout Session.
       attr_reader :mode
+      # Attribute for field name_collection
+      attr_reader :name_collection
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # The optional items presented to the customer at checkout.

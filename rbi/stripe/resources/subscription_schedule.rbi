@@ -8,6 +8,14 @@ module Stripe
   # Related guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
   class SubscriptionSchedule < APIResource
     class BillingMode < Stripe::StripeObject
+      class Flexible < Stripe::StripeObject
+        # When true, proration line items will show accurate discount amounts and use gross amounts, making them consistent with non-proration line items.
+        sig { returns(T.nilable(T::Boolean)) }
+        def consistent_proration_discount_amounts; end
+      end
+      # Configure behavior for flexible billing mode
+      sig { returns(T.nilable(Flexible)) }
+      def flexible; end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       sig { returns(String) }
       def type; end
@@ -695,13 +703,35 @@ module Stripe
     end
     class CreateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
+        class Flexible < Stripe::RequestParams
+          # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
+          sig { returns(T.nilable(T::Boolean)) }
+          def consistent_proration_discount_amounts; end
+          sig {
+            params(_consistent_proration_discount_amounts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def consistent_proration_discount_amounts=(_consistent_proration_discount_amounts); end
+          sig { params(consistent_proration_discount_amounts: T.nilable(T::Boolean)).void }
+          def initialize(consistent_proration_discount_amounts: nil); end
+        end
+        # Configure behavior for flexible billing mode.
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionSchedule::CreateParams::BillingMode::Flexible))
+         }
+        def flexible; end
+        sig {
+          params(_flexible: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::BillingMode::Flexible)).returns(T.nilable(::Stripe::SubscriptionSchedule::CreateParams::BillingMode::Flexible))
+         }
+        def flexible=(_flexible); end
         # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
-        sig { params(type: String).void }
-        def initialize(type: nil); end
+        sig {
+          params(flexible: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::BillingMode::Flexible), type: String).void
+         }
+        def initialize(flexible: nil, type: nil); end
       end
       class DefaultSettings < Stripe::RequestParams
         class AutomaticTax < Stripe::RequestParams

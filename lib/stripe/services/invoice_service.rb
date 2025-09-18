@@ -508,9 +508,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -1265,9 +1265,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -2176,9 +2176,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -2208,9 +2208,9 @@ module Stripe
             attr_accessor :city
             # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -2948,10 +2948,21 @@ module Stripe
         end
 
         class BillingMode < Stripe::RequestParams
+          class Flexible < Stripe::RequestParams
+            # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
+            attr_accessor :consistent_proration_discount_amounts
+
+            def initialize(consistent_proration_discount_amounts: nil)
+              @consistent_proration_discount_amounts = consistent_proration_discount_amounts
+            end
+          end
+          # Configure behavior for flexible billing mode.
+          attr_accessor :flexible
           # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           attr_accessor :type
 
-          def initialize(type: nil)
+          def initialize(flexible: nil, type: nil)
+            @flexible = flexible
             @type = type
           end
         end
@@ -3587,10 +3598,21 @@ module Stripe
 
       class SubscriptionDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
+          class Flexible < Stripe::RequestParams
+            # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
+            attr_accessor :consistent_proration_discount_amounts
+
+            def initialize(consistent_proration_discount_amounts: nil)
+              @consistent_proration_discount_amounts = consistent_proration_discount_amounts
+            end
+          end
+          # Configure behavior for flexible billing mode.
+          attr_accessor :flexible
           # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           attr_accessor :type
 
-          def initialize(type: nil)
+          def initialize(flexible: nil, type: nil)
+            @flexible = flexible
             @type = type
           end
         end

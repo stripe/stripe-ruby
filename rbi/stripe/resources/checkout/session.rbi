@@ -76,10 +76,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -110,6 +110,9 @@ module Stripe
         # Customer’s email for this Checkout Session
         sig { returns(T.nilable(String)) }
         def email; end
+        # Customer’s individual name for this Checkout Session
+        sig { returns(T.nilable(String)) }
+        def individual_name; end
         # Customer’s phone number for this Checkout Session
         sig { returns(T.nilable(String)) }
         def phone; end
@@ -283,10 +286,10 @@ module Stripe
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
           def country; end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           # ZIP or postal code.
@@ -307,10 +310,16 @@ module Stripe
         # The customer's address after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
         sig { returns(T.nilable(Address)) }
         def address; end
+        # The customer's business name after a completed Checkout Session.
+        sig { returns(T.nilable(String)) }
+        def business_name; end
         # The email associated with the Customer, if one exists, on the Checkout Session after a completed Checkout Session or at time of session expiry.
         # Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form.
         sig { returns(T.nilable(String)) }
         def email; end
+        # The customer's individual name after a completed Checkout Session.
+        sig { returns(T.nilable(String)) }
+        def individual_name; end
         # The customer's name after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
         sig { returns(T.nilable(String)) }
         def name; end
@@ -386,6 +395,30 @@ module Stripe
         # Attribute for field invoice_data
         sig { returns(InvoiceData) }
         def invoice_data; end
+      end
+      class NameCollection < Stripe::StripeObject
+        class Business < Stripe::StripeObject
+          # Indicates whether business name collection is enabled for the session
+          sig { returns(T::Boolean) }
+          def enabled; end
+          # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+          sig { returns(T::Boolean) }
+          def optional; end
+        end
+        class Individual < Stripe::StripeObject
+          # Indicates whether individual name collection is enabled for the session
+          sig { returns(T::Boolean) }
+          def enabled; end
+          # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+          sig { returns(T::Boolean) }
+          def optional; end
+        end
+        # Attribute for field business
+        sig { returns(T.nilable(Business)) }
+        def business; end
+        # Attribute for field individual
+        sig { returns(T.nilable(Individual)) }
+        def individual; end
       end
       class OptionalItem < Stripe::StripeObject
         class AdjustableQuantity < Stripe::StripeObject
@@ -1467,6 +1500,9 @@ module Stripe
       # The mode of the Checkout Session.
       sig { returns(String) }
       def mode; end
+      # Attribute for field name_collection
+      sig { returns(T.nilable(NameCollection)) }
+      def name_collection; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
@@ -2456,6 +2492,58 @@ module Stripe
             tax_rates: nil
           ); end
         end
+        class NameCollection < Stripe::RequestParams
+          class Business < Stripe::RequestParams
+            # Enable business name collection on the Checkout Session. Defaults to `false`.
+            sig { returns(T::Boolean) }
+            def enabled; end
+            sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+            def enabled=(_enabled); end
+            # Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
+            sig { returns(T.nilable(T::Boolean)) }
+            def optional; end
+            sig { params(_optional: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+            def optional=(_optional); end
+            sig { params(enabled: T::Boolean, optional: T.nilable(T::Boolean)).void }
+            def initialize(enabled: nil, optional: nil); end
+          end
+          class Individual < Stripe::RequestParams
+            # Enable individual name collection on the Checkout Session. Defaults to `false`.
+            sig { returns(T::Boolean) }
+            def enabled; end
+            sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+            def enabled=(_enabled); end
+            # Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
+            sig { returns(T.nilable(T::Boolean)) }
+            def optional; end
+            sig { params(_optional: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+            def optional=(_optional); end
+            sig { params(enabled: T::Boolean, optional: T.nilable(T::Boolean)).void }
+            def initialize(enabled: nil, optional: nil); end
+          end
+          # Controls settings applied for collecting the customer's business name on the session.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection::Business))
+           }
+          def business; end
+          sig {
+            params(_business: T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection::Business)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection::Business))
+           }
+          def business=(_business); end
+          # Controls settings applied for collecting the customer's individual name on the session.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection::Individual))
+           }
+          def individual; end
+          sig {
+            params(_individual: T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection::Individual)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection::Individual))
+           }
+          def individual=(_individual); end
+          sig {
+            params(business: T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection::Business), individual: T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection::Individual)).void
+           }
+          def initialize(business: nil, individual: nil); end
+        end
         class OptionalItem < Stripe::RequestParams
           class AdjustableQuantity < Stripe::RequestParams
             # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -2515,12 +2603,12 @@ module Stripe
               def country; end
               sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
               def country=(_country); end
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               sig { returns(String) }
               def line1; end
               sig { params(_line1: String).returns(String) }
               def line1=(_line1); end
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               sig { returns(T.nilable(String)) }
               def line2; end
               sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -4657,13 +4745,37 @@ module Stripe
         end
         class SubscriptionData < Stripe::RequestParams
           class BillingMode < Stripe::RequestParams
+            class Flexible < Stripe::RequestParams
+              # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
+              sig { returns(T.nilable(T::Boolean)) }
+              def consistent_proration_discount_amounts; end
+              sig {
+                params(_consistent_proration_discount_amounts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+               }
+              def consistent_proration_discount_amounts=(
+                _consistent_proration_discount_amounts
+              ); end
+              sig { params(consistent_proration_discount_amounts: T.nilable(T::Boolean)).void }
+              def initialize(consistent_proration_discount_amounts: nil); end
+            end
+            # Configure behavior for flexible billing mode.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::BillingMode::Flexible))
+             }
+            def flexible; end
+            sig {
+              params(_flexible: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::BillingMode::Flexible)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::BillingMode::Flexible))
+             }
+            def flexible=(_flexible); end
             # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
             sig { returns(String) }
             def type; end
             sig { params(_type: String).returns(String) }
             def type=(_type); end
-            sig { params(type: String).void }
-            def initialize(type: nil); end
+            sig {
+              params(flexible: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::BillingMode::Flexible), type: String).void
+             }
+            def initialize(flexible: nil, type: nil); end
           end
           class InvoiceSettings < Stripe::RequestParams
             class Issuer < Stripe::RequestParams
@@ -5053,6 +5165,17 @@ module Stripe
         def mode; end
         sig { params(_mode: T.nilable(String)).returns(T.nilable(String)) }
         def mode=(_mode); end
+        # Controls name collection settings for the session.
+        #
+        # You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
+        #
+        # If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
+        sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection)) }
+        def name_collection; end
+        sig {
+          params(_name_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection))
+         }
+        def name_collection=(_name_collection); end
         # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
         #
         # There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
@@ -5235,7 +5358,7 @@ module Stripe
          }
         def wallet_options=(_wallet_options); end
         sig {
-          params(adaptive_pricing: T.nilable(::Stripe::Checkout::Session::CreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::Session::CreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::Session::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::Session::CreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::LineItem]), locale: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::Session::CreateParams::WalletOptions)).void
+          params(adaptive_pricing: T.nilable(::Stripe::Checkout::Session::CreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::Session::CreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::Session::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::Session::CreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::LineItem]), locale: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection), optional_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::Session::CreateParams::WalletOptions)).void
          }
         def initialize(
           adaptive_pricing: nil,
@@ -5263,6 +5386,7 @@ module Stripe
           locale: nil,
           metadata: nil,
           mode: nil,
+          name_collection: nil,
           optional_items: nil,
           origin_context: nil,
           payment_intent_data: nil,
@@ -5330,12 +5454,12 @@ module Stripe
               def country; end
               sig { params(_country: String).returns(String) }
               def country=(_country); end
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               sig { returns(String) }
               def line1; end
               sig { params(_line1: String).returns(String) }
               def line1=(_line1); end
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               sig { returns(T.nilable(String)) }
               def line2; end
               sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }

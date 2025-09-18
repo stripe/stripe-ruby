@@ -110,10 +110,10 @@ module Stripe
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       sig { returns(T.nilable(String)) }
       def country; end
-      # Address line 1 (e.g., street, PO Box, or company name).
+      # Address line 1, such as the street, PO Box, or company name.
       sig { returns(T.nilable(String)) }
       def line1; end
-      # Address line 2 (e.g., apartment, suite, unit, or building).
+      # Address line 2, such as the apartment, suite, unit, or building.
       sig { returns(T.nilable(String)) }
       def line2; end
       # ZIP or postal code.
@@ -131,10 +131,10 @@ module Stripe
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(T.nilable(String)) }
         def country; end
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         sig { returns(T.nilable(String)) }
         def line1; end
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         sig { returns(T.nilable(String)) }
         def line2; end
         # ZIP or postal code.
@@ -518,10 +518,10 @@ module Stripe
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(T.nilable(String)) }
         def country; end
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         sig { returns(T.nilable(String)) }
         def line1; end
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         sig { returns(T.nilable(String)) }
         def line2; end
         # ZIP or postal code.
@@ -1676,12 +1676,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -2888,12 +2888,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -4302,12 +4302,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -4346,12 +4346,12 @@ module Stripe
             def country; end
             sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
             def country=(_country); end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
             sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
             def line1=(_line1); end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -5545,13 +5545,35 @@ module Stripe
           ); end
         end
         class BillingMode < Stripe::RequestParams
+          class Flexible < Stripe::RequestParams
+            # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
+            sig { returns(T.nilable(T::Boolean)) }
+            def consistent_proration_discount_amounts; end
+            sig {
+              params(_consistent_proration_discount_amounts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+             }
+            def consistent_proration_discount_amounts=(_consistent_proration_discount_amounts); end
+            sig { params(consistent_proration_discount_amounts: T.nilable(T::Boolean)).void }
+            def initialize(consistent_proration_discount_amounts: nil); end
+          end
+          # Configure behavior for flexible billing mode.
+          sig {
+            returns(T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::BillingMode::Flexible))
+           }
+          def flexible; end
+          sig {
+            params(_flexible: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::BillingMode::Flexible)).returns(T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::BillingMode::Flexible))
+           }
+          def flexible=(_flexible); end
           # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          sig { params(type: String).void }
-          def initialize(type: nil); end
+          sig {
+            params(flexible: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::BillingMode::Flexible), type: String).void
+           }
+          def initialize(flexible: nil, type: nil); end
         end
         class Phase < Stripe::RequestParams
           class AddInvoiceItem < Stripe::RequestParams
@@ -6595,13 +6617,35 @@ module Stripe
       end
       class SubscriptionDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
+          class Flexible < Stripe::RequestParams
+            # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
+            sig { returns(T.nilable(T::Boolean)) }
+            def consistent_proration_discount_amounts; end
+            sig {
+              params(_consistent_proration_discount_amounts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+             }
+            def consistent_proration_discount_amounts=(_consistent_proration_discount_amounts); end
+            sig { params(consistent_proration_discount_amounts: T.nilable(T::Boolean)).void }
+            def initialize(consistent_proration_discount_amounts: nil); end
+          end
+          # Configure behavior for flexible billing mode.
+          sig {
+            returns(T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::BillingMode::Flexible))
+           }
+          def flexible; end
+          sig {
+            params(_flexible: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::BillingMode::Flexible)).returns(T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::BillingMode::Flexible))
+           }
+          def flexible=(_flexible); end
           # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          sig { params(type: String).void }
-          def initialize(type: nil); end
+          sig {
+            params(flexible: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::BillingMode::Flexible), type: String).void
+           }
+          def initialize(flexible: nil, type: nil); end
         end
         class Item < Stripe::RequestParams
           class BillingThresholds < Stripe::RequestParams

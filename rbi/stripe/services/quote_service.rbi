@@ -1287,13 +1287,35 @@ module Stripe
           def initialize(bill_from: nil, bill_until: nil); end
         end
         class BillingMode < Stripe::RequestParams
+          class Flexible < Stripe::RequestParams
+            # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
+            sig { returns(T.nilable(T::Boolean)) }
+            def consistent_proration_discount_amounts; end
+            sig {
+              params(_consistent_proration_discount_amounts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+             }
+            def consistent_proration_discount_amounts=(_consistent_proration_discount_amounts); end
+            sig { params(consistent_proration_discount_amounts: T.nilable(T::Boolean)).void }
+            def initialize(consistent_proration_discount_amounts: nil); end
+          end
+          # Configure behavior for flexible billing mode.
+          sig {
+            returns(T.nilable(::Stripe::QuoteService::CreateParams::SubscriptionData::BillingMode::Flexible))
+           }
+          def flexible; end
+          sig {
+            params(_flexible: T.nilable(::Stripe::QuoteService::CreateParams::SubscriptionData::BillingMode::Flexible)).returns(T.nilable(::Stripe::QuoteService::CreateParams::SubscriptionData::BillingMode::Flexible))
+           }
+          def flexible=(_flexible); end
           # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          sig { params(type: String).void }
-          def initialize(type: nil); end
+          sig {
+            params(flexible: T.nilable(::Stripe::QuoteService::CreateParams::SubscriptionData::BillingMode::Flexible), type: String).void
+           }
+          def initialize(flexible: nil, type: nil); end
         end
         class Prebilling < Stripe::RequestParams
           # This is used to determine the number of billing cycles to prebill.

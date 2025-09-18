@@ -12,6 +12,12 @@ module Stripe
       "discount"
     end
 
+    class Source < Stripe::StripeObject
+      # The coupon that was redeemed to create this discount.
+      attr_reader :coupon
+      # Attribute for field type
+      attr_reader :type
+    end
     # The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
     attr_reader :checkout_session
     # A coupon contains information about a percent-off or amount-off discount you
@@ -34,6 +40,8 @@ module Stripe
     attr_reader :object
     # The promotion code applied to create this discount.
     attr_reader :promotion_code
+    # Attribute for field source
+    attr_reader :source
     # Date that the coupon was applied.
     attr_reader :start
     # The subscription that this coupon is applied to, if it is applied to a particular subscription.

@@ -66,6 +66,25 @@ module Stripe
         attr_reader :status
       end
 
+      class BrandingSettings < Stripe::StripeObject
+        class Icon < Stripe::StripeObject; end
+        class Logo < Stripe::StripeObject; end
+        # A hex color value starting with `#` representing the background color for the Checkout Session.
+        attr_reader :background_color
+        # The border style for the Checkout Session. Must be one of `rounded`, `rectangular`, or `pill`.
+        attr_reader :border_style
+        # A hex color value starting with `#` representing the button color for the Checkout Session.
+        attr_reader :button_color
+        # The display name shown on the Checkout Session.
+        attr_reader :display_name
+        # The font family for the Checkout Session. Must be one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+        attr_reader :font_family
+        # The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        attr_reader :icon
+        # The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        attr_reader :logo
+      end
+
       class CollectedInformation < Stripe::StripeObject
         class ShippingDetails < Stripe::StripeObject
           class Address < Stripe::StripeObject
@@ -1303,6 +1322,70 @@ module Stripe
           def initialize(enabled: nil, liability: nil)
             @enabled = enabled
             @liability = liability
+          end
+        end
+
+        class BrandingSettings < Stripe::RequestParams
+          class Icon < Stripe::RequestParams
+            # The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+            attr_accessor :file
+            # The type of image for the icon. Must be one of `file` or `url`.
+            attr_accessor :type
+            # The URL of the image. Required if `type` is `url` and disallowed otherwise.
+            attr_accessor :url
+
+            def initialize(file: nil, type: nil, url: nil)
+              @file = file
+              @type = type
+              @url = url
+            end
+          end
+
+          class Logo < Stripe::RequestParams
+            # The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+            attr_accessor :file
+            # The type of image for the logo. Must be one of `file` or `url`.
+            attr_accessor :type
+            # The URL of the image. Required if `type` is `url` and disallowed otherwise.
+            attr_accessor :url
+
+            def initialize(file: nil, type: nil, url: nil)
+              @file = file
+              @type = type
+              @url = url
+            end
+          end
+          # A hex color value starting with `#` representing the background color for the Checkout Session.
+          attr_accessor :background_color
+          # The border style for the Checkout Session.
+          attr_accessor :border_style
+          # A hex color value starting with `#` representing the button color for the Checkout Session.
+          attr_accessor :button_color
+          # A string to override the business name shown on the Checkout Session.
+          attr_accessor :display_name
+          # The font family for the Checkout Session corresponding to one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+          attr_accessor :font_family
+          # The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+          attr_accessor :icon
+          # The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+          attr_accessor :logo
+
+          def initialize(
+            background_color: nil,
+            border_style: nil,
+            button_color: nil,
+            display_name: nil,
+            font_family: nil,
+            icon: nil,
+            logo: nil
+          )
+            @background_color = background_color
+            @border_style = border_style
+            @button_color = button_color
+            @display_name = display_name
+            @font_family = font_family
+            @icon = icon
+            @logo = logo
           end
         end
 
@@ -3463,6 +3546,8 @@ module Stripe
         attr_accessor :automatic_tax
         # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
         attr_accessor :billing_address_collection
+        # The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+        attr_accessor :branding_settings
         # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
         attr_accessor :cancel_url
         # A unique string to reference the Checkout Session. This can be a
@@ -3623,6 +3708,7 @@ module Stripe
           allow_promotion_codes: nil,
           automatic_tax: nil,
           billing_address_collection: nil,
+          branding_settings: nil,
           cancel_url: nil,
           client_reference_id: nil,
           consent_collection: nil,
@@ -3672,6 +3758,7 @@ module Stripe
           @allow_promotion_codes = allow_promotion_codes
           @automatic_tax = automatic_tax
           @billing_address_collection = billing_address_collection
+          @branding_settings = branding_settings
           @cancel_url = cancel_url
           @client_reference_id = client_reference_id
           @consent_collection = consent_collection
@@ -4208,6 +4295,8 @@ module Stripe
       attr_reader :automatic_tax
       # Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.
       attr_reader :billing_address_collection
+      # Attribute for field branding_settings
+      attr_reader :branding_settings
       # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
       attr_reader :cancel_url
       # A unique string to reference the Checkout Session. This can be a

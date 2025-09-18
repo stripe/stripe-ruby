@@ -67,6 +67,31 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def status; end
       end
+      class BrandingSettings < Stripe::StripeObject
+        class Icon < Stripe::StripeObject; end
+        class Logo < Stripe::StripeObject; end
+        # A hex color value starting with `#` representing the background color for the Checkout Session.
+        sig { returns(String) }
+        def background_color; end
+        # The border style for the Checkout Session. Must be one of `rounded`, `rectangular`, or `pill`.
+        sig { returns(String) }
+        def border_style; end
+        # A hex color value starting with `#` representing the button color for the Checkout Session.
+        sig { returns(String) }
+        def button_color; end
+        # The display name shown on the Checkout Session.
+        sig { returns(String) }
+        def display_name; end
+        # The font family for the Checkout Session. Must be one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+        sig { returns(String) }
+        def font_family; end
+        # The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        sig { returns(T.nilable(Icon)) }
+        def icon; end
+        # The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        sig { returns(T.nilable(Logo)) }
+        def logo; end
+      end
       class CollectedInformation < Stripe::StripeObject
         class ShippingDetails < Stripe::StripeObject
           class Address < Stripe::StripeObject
@@ -1408,6 +1433,9 @@ module Stripe
       # Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.
       sig { returns(T.nilable(String)) }
       def billing_address_collection; end
+      # Attribute for field branding_settings
+      sig { returns(T.nilable(BrandingSettings)) }
+      def branding_settings; end
       # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
       sig { returns(T.nilable(String)) }
       def cancel_url; end
@@ -1797,6 +1825,105 @@ module Stripe
             params(enabled: T::Boolean, liability: T.nilable(::Stripe::Checkout::Session::CreateParams::AutomaticTax::Liability)).void
            }
           def initialize(enabled: nil, liability: nil); end
+        end
+        class BrandingSettings < Stripe::RequestParams
+          class Icon < Stripe::RequestParams
+            # The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+            sig { returns(T.nilable(String)) }
+            def file; end
+            sig { params(_file: T.nilable(String)).returns(T.nilable(String)) }
+            def file=(_file); end
+            # The type of image for the icon. Must be one of `file` or `url`.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            # The URL of the image. Required if `type` is `url` and disallowed otherwise.
+            sig { returns(T.nilable(String)) }
+            def url; end
+            sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
+            def url=(_url); end
+            sig { params(file: T.nilable(String), type: String, url: T.nilable(String)).void }
+            def initialize(file: nil, type: nil, url: nil); end
+          end
+          class Logo < Stripe::RequestParams
+            # The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+            sig { returns(T.nilable(String)) }
+            def file; end
+            sig { params(_file: T.nilable(String)).returns(T.nilable(String)) }
+            def file=(_file); end
+            # The type of image for the logo. Must be one of `file` or `url`.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            # The URL of the image. Required if `type` is `url` and disallowed otherwise.
+            sig { returns(T.nilable(String)) }
+            def url; end
+            sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
+            def url=(_url); end
+            sig { params(file: T.nilable(String), type: String, url: T.nilable(String)).void }
+            def initialize(file: nil, type: nil, url: nil); end
+          end
+          # A hex color value starting with `#` representing the background color for the Checkout Session.
+          sig { returns(T.nilable(String)) }
+          def background_color; end
+          sig { params(_background_color: T.nilable(String)).returns(T.nilable(String)) }
+          def background_color=(_background_color); end
+          # The border style for the Checkout Session.
+          sig { returns(T.nilable(T.any(String, String))) }
+          def border_style; end
+          sig {
+            params(_border_style: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+           }
+          def border_style=(_border_style); end
+          # A hex color value starting with `#` representing the button color for the Checkout Session.
+          sig { returns(T.nilable(String)) }
+          def button_color; end
+          sig { params(_button_color: T.nilable(String)).returns(T.nilable(String)) }
+          def button_color=(_button_color); end
+          # A string to override the business name shown on the Checkout Session.
+          sig { returns(T.nilable(String)) }
+          def display_name; end
+          sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+          def display_name=(_display_name); end
+          # The font family for the Checkout Session corresponding to one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+          sig { returns(T.nilable(T.any(String, String))) }
+          def font_family; end
+          sig {
+            params(_font_family: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+           }
+          def font_family=(_font_family); end
+          # The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings::Icon))
+           }
+          def icon; end
+          sig {
+            params(_icon: T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings::Icon)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings::Icon))
+           }
+          def icon=(_icon); end
+          # The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings::Logo))
+           }
+          def logo; end
+          sig {
+            params(_logo: T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings::Logo)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings::Logo))
+           }
+          def logo=(_logo); end
+          sig {
+            params(background_color: T.nilable(String), border_style: T.nilable(T.any(String, String)), button_color: T.nilable(String), display_name: T.nilable(String), font_family: T.nilable(T.any(String, String)), icon: T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings::Icon), logo: T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings::Logo)).void
+           }
+          def initialize(
+            background_color: nil,
+            border_style: nil,
+            button_color: nil,
+            display_name: nil,
+            font_family: nil,
+            icon: nil,
+            logo: nil
+          ); end
         end
         class ConsentCollection < Stripe::RequestParams
           class PaymentMethodReuseAgreement < Stripe::RequestParams
@@ -5019,6 +5146,13 @@ module Stripe
         def billing_address_collection; end
         sig { params(_billing_address_collection: T.nilable(String)).returns(T.nilable(String)) }
         def billing_address_collection=(_billing_address_collection); end
+        # The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+        sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings)) }
+        def branding_settings; end
+        sig {
+          params(_branding_settings: T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings))
+         }
+        def branding_settings=(_branding_settings); end
         # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
         sig { returns(T.nilable(String)) }
         def cancel_url; end
@@ -5358,7 +5492,7 @@ module Stripe
          }
         def wallet_options=(_wallet_options); end
         sig {
-          params(adaptive_pricing: T.nilable(::Stripe::Checkout::Session::CreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::Session::CreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::Session::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::Session::CreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::LineItem]), locale: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection), optional_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::Session::CreateParams::WalletOptions)).void
+          params(adaptive_pricing: T.nilable(::Stripe::Checkout::Session::CreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::Session::CreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::Session::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::Session::CreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::Session::CreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::LineItem]), locale: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::NameCollection), optional_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::Session::CreateParams::WalletOptions)).void
          }
         def initialize(
           adaptive_pricing: nil,
@@ -5366,6 +5500,7 @@ module Stripe
           allow_promotion_codes: nil,
           automatic_tax: nil,
           billing_address_collection: nil,
+          branding_settings: nil,
           cancel_url: nil,
           client_reference_id: nil,
           consent_collection: nil,

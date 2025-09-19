@@ -342,15 +342,21 @@ module Stripe
           def tax_code; end
           sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
           def tax_code=(_tax_code); end
+          # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+          sig { returns(T.nilable(String)) }
+          def unit_label; end
+          sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
+          def unit_label=(_unit_label); end
           sig {
-            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String)).void
+            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
            }
           def initialize(
             description: nil,
             images: nil,
             metadata: nil,
             name: nil,
-            tax_code: nil
+            tax_code: nil,
+            unit_label: nil
           ); end
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

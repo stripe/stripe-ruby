@@ -11,14 +11,14 @@ module Stripe
           "billing.analytics.meter_usage"
         end
 
-        # The aggregated meter usage data for the specified customer and time range.
-        attr_reader :data
-        # Timestamp indicating how fresh the data is. Measured in seconds since the Unix epoch.
-        attr_reader :data_refreshed_at
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value.
         attr_reader :object
+        # The timestamp to indicate data freshness, measured in seconds since the Unix epoch.
+        attr_reader :refreshed_at
+        # Attribute for field rows
+        attr_reader :rows
       end
     end
   end

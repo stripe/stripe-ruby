@@ -24,9 +24,9 @@ module Stripe
             def dimension_group_by_keys=(_dimension_group_by_keys); end
             # Meter id to query usage for.
             sig { returns(String) }
-            def meter_id; end
-            sig { params(_meter_id: String).returns(String) }
-            def meter_id=(_meter_id); end
+            def meter; end
+            sig { params(_meter: String).returns(String) }
+            def meter=(_meter); end
             # Key-value pairs used to filter usage events by high cardinality tenant dimension values. If specified, usage will be filtered for matching usage events.
             sig { returns(T.nilable(T::Hash[String, String])) }
             def tenant_filters; end
@@ -35,12 +35,12 @@ module Stripe
              }
             def tenant_filters=(_tenant_filters); end
             sig {
-              params(dimension_filters: T.nilable(T::Hash[String, String]), dimension_group_by_keys: T.nilable(T::Array[String]), meter_id: String, tenant_filters: T.nilable(T::Hash[String, String])).void
+              params(dimension_filters: T.nilable(T::Hash[String, String]), dimension_group_by_keys: T.nilable(T::Array[String]), meter: String, tenant_filters: T.nilable(T::Hash[String, String])).void
              }
             def initialize(
               dimension_filters: nil,
               dimension_group_by_keys: nil,
-              meter_id: nil,
+              meter: nil,
               tenant_filters: nil
             ); end
           end
@@ -51,9 +51,9 @@ module Stripe
           def customer=(_customer); end
           # The timestamp from when to stop aggregating meter events (exclusive). Must be aligned with minute boundaries.
           sig { returns(Integer) }
-          def end_time; end
-          sig { params(_end_time: Integer).returns(Integer) }
-          def end_time=(_end_time); end
+          def ends_at; end
+          sig { params(_ends_at: Integer).returns(Integer) }
+          def ends_at=(_ends_at); end
           # Specifies which fields in the response should be expanded.
           sig { returns(T.nilable(T::Array[String])) }
           def expand; end
@@ -70,9 +70,9 @@ module Stripe
           def meters=(_meters); end
           # The timestamp from when to start aggregating meter events (inclusive). Must be aligned with minute boundaries.
           sig { returns(Integer) }
-          def start_time; end
-          sig { params(_start_time: Integer).returns(Integer) }
-          def start_time=(_start_time); end
+          def starts_at; end
+          sig { params(_starts_at: Integer).returns(Integer) }
+          def starts_at=(_starts_at); end
           # The timezone to use for the start and end times. Defaults to UTC if not specified.
           sig { returns(T.nilable(String)) }
           def timezone; end
@@ -84,14 +84,14 @@ module Stripe
           sig { params(_value_grouping_window: T.nilable(String)).returns(T.nilable(String)) }
           def value_grouping_window=(_value_grouping_window); end
           sig {
-            params(customer: String, end_time: Integer, expand: T.nilable(T::Array[String]), meters: T.nilable(T::Array[::Stripe::Billing::Analytics::MeterUsageService::RetrieveParams::Meter]), start_time: Integer, timezone: T.nilable(String), value_grouping_window: T.nilable(String)).void
+            params(customer: String, ends_at: Integer, expand: T.nilable(T::Array[String]), meters: T.nilable(T::Array[::Stripe::Billing::Analytics::MeterUsageService::RetrieveParams::Meter]), starts_at: Integer, timezone: T.nilable(String), value_grouping_window: T.nilable(String)).void
            }
           def initialize(
             customer: nil,
-            end_time: nil,
+            ends_at: nil,
             expand: nil,
             meters: nil,
-            start_time: nil,
+            starts_at: nil,
             timezone: nil,
             value_grouping_window: nil
           ); end

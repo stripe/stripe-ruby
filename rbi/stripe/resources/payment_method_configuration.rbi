@@ -379,25 +379,6 @@ module Stripe
       sig { returns(DisplayPreference) }
       def display_preference; end
     end
-    class FrMealVoucherConecs < Stripe::StripeObject
-      class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-        sig { returns(T.nilable(T::Boolean)) }
-        def overridable; end
-        # The account's display preference.
-        sig { returns(String) }
-        def preference; end
-        # The effective display preference value.
-        sig { returns(String) }
-        def value; end
-      end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-      sig { returns(T::Boolean) }
-      def available; end
-      # Attribute for field display_preference
-      sig { returns(DisplayPreference) }
-      def display_preference; end
-    end
     class Giropay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1183,9 +1164,6 @@ module Stripe
     # Attribute for field fpx
     sig { returns(T.nilable(Fpx)) }
     def fpx; end
-    # Attribute for field fr_meal_voucher_conecs
-    sig { returns(T.nilable(FrMealVoucherConecs)) }
-    def fr_meal_voucher_conecs; end
     # Attribute for field giropay
     sig { returns(T.nilable(Giropay)) }
     def giropay; end

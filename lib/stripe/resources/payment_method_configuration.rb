@@ -311,21 +311,6 @@ module Stripe
       attr_reader :display_preference
     end
 
-    class FrMealVoucherConecs < Stripe::StripeObject
-      class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-        attr_reader :overridable
-        # The account's display preference.
-        attr_reader :preference
-        # The effective display preference value.
-        attr_reader :value
-      end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-      attr_reader :available
-      # Attribute for field display_preference
-      attr_reader :display_preference
-    end
-
     class Giropay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -3478,8 +3463,6 @@ module Stripe
     attr_reader :eps
     # Attribute for field fpx
     attr_reader :fpx
-    # Attribute for field fr_meal_voucher_conecs
-    attr_reader :fr_meal_voucher_conecs
     # Attribute for field giropay
     attr_reader :giropay
     # Attribute for field google_pay

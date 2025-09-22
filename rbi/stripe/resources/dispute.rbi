@@ -300,7 +300,7 @@ module Stripe
     end
     class SmartDisputes < Stripe::StripeObject
       # Evidence that could be provided to improve the SmartDisputes packet
-      sig { returns(T.nilable(T::Array[String])) }
+      sig { returns(T.nilable(T::Array[T::Array[String]])) }
       def recommended_evidence; end
       # Smart Disputes auto representment packet availability status.
       sig { returns(String) }

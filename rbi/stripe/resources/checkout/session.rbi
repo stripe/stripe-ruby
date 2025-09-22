@@ -68,8 +68,28 @@ module Stripe
         def status; end
       end
       class BrandingSettings < Stripe::StripeObject
-        class Icon < Stripe::StripeObject; end
-        class Logo < Stripe::StripeObject; end
+        class Icon < Stripe::StripeObject
+          # The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+          sig { returns(T.nilable(String)) }
+          def file; end
+          # The type of image for the icon. Must be one of `file` or `url`.
+          sig { returns(String) }
+          def type; end
+          # The URL of the image. Present when `type` is `url`.
+          sig { returns(T.nilable(String)) }
+          def url; end
+        end
+        class Logo < Stripe::StripeObject
+          # The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+          sig { returns(T.nilable(String)) }
+          def file; end
+          # The type of image for the logo. Must be one of `file` or `url`.
+          sig { returns(String) }
+          def type; end
+          # The URL of the image. Present when `type` is `url`.
+          sig { returns(T.nilable(String)) }
+          def url; end
+        end
         # A hex color value starting with `#` representing the background color for the Checkout Session.
         sig { returns(String) }
         def background_color; end

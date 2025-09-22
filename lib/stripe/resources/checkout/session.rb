@@ -67,8 +67,23 @@ module Stripe
       end
 
       class BrandingSettings < Stripe::StripeObject
-        class Icon < Stripe::StripeObject; end
-        class Logo < Stripe::StripeObject; end
+        class Icon < Stripe::StripeObject
+          # The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+          attr_reader :file
+          # The type of image for the icon. Must be one of `file` or `url`.
+          attr_reader :type
+          # The URL of the image. Present when `type` is `url`.
+          attr_reader :url
+        end
+
+        class Logo < Stripe::StripeObject
+          # The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+          attr_reader :file
+          # The type of image for the logo. Must be one of `file` or `url`.
+          attr_reader :type
+          # The URL of the image. Present when `type` is `url`.
+          attr_reader :url
+        end
         # A hex color value starting with `#` representing the background color for the Checkout Session.
         attr_reader :background_color
         # The border style for the Checkout Session. Must be one of `rounded`, `rectangular`, or `pill`.

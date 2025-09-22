@@ -299,8 +299,8 @@ module Stripe
 
       class BillingMode < Stripe::StripeObject
         class Flexible < Stripe::StripeObject
-          # When true, proration line items will show accurate discount amounts and use gross amounts, making them consistent with non-proration line items.
-          attr_reader :consistent_proration_discount_amounts
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_reader :proration_discounts
         end
         # Attribute for field flexible
         attr_reader :flexible
@@ -1278,11 +1278,11 @@ module Stripe
 
         class BillingMode < Stripe::RequestParams
           class Flexible < Stripe::RequestParams
-            # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
-            attr_accessor :consistent_proration_discount_amounts
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            attr_accessor :proration_discounts
 
-            def initialize(consistent_proration_discount_amounts: nil)
-              @consistent_proration_discount_amounts = consistent_proration_discount_amounts
+            def initialize(proration_discounts: nil)
+              @proration_discounts = proration_discounts
             end
           end
           # Configure behavior for flexible billing mode.

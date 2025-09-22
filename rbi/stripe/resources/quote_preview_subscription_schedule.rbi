@@ -17,9 +17,9 @@ module Stripe
     end
     class BillingMode < Stripe::StripeObject
       class Flexible < Stripe::StripeObject
-        # When true, proration line items will show accurate discount amounts and use gross amounts, making them consistent with non-proration line items.
-        sig { returns(T.nilable(T::Boolean)) }
-        def consistent_proration_discount_amounts; end
+        # Controls how invoices and invoice items display proration amounts and discount amounts.
+        sig { returns(T.nilable(String)) }
+        def proration_discounts; end
       end
       # Configure behavior for flexible billing mode
       sig { returns(T.nilable(Flexible)) }

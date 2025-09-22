@@ -9,9 +9,9 @@ module Stripe
   class SubscriptionSchedule < APIResource
     class BillingMode < Stripe::StripeObject
       class Flexible < Stripe::StripeObject
-        # When true, proration line items will show accurate discount amounts and use gross amounts, making them consistent with non-proration line items.
-        sig { returns(T.nilable(T::Boolean)) }
-        def consistent_proration_discount_amounts; end
+        # Controls how invoices and invoice items display proration amounts and discount amounts.
+        sig { returns(T.nilable(String)) }
+        def proration_discounts; end
       end
       # Configure behavior for flexible billing mode
       sig { returns(T.nilable(Flexible)) }
@@ -704,15 +704,13 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
         class Flexible < Stripe::RequestParams
-          # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
-          sig { returns(T.nilable(T::Boolean)) }
-          def consistent_proration_discount_amounts; end
-          sig {
-            params(_consistent_proration_discount_amounts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
-           }
-          def consistent_proration_discount_amounts=(_consistent_proration_discount_amounts); end
-          sig { params(consistent_proration_discount_amounts: T.nilable(T::Boolean)).void }
-          def initialize(consistent_proration_discount_amounts: nil); end
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          sig { returns(T.nilable(String)) }
+          def proration_discounts; end
+          sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+          def proration_discounts=(_proration_discounts); end
+          sig { params(proration_discounts: T.nilable(String)).void }
+          def initialize(proration_discounts: nil); end
         end
         # Configure behavior for flexible billing mode.
         sig {

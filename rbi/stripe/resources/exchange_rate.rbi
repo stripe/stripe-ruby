@@ -3,6 +3,8 @@
 
 # typed: true
 module Stripe
+  # [Deprecated] The `ExchangeRate` APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+  #
   # `ExchangeRate` objects allow you to determine the rates that Stripe is currently
   # using to convert from one currency to another. Since this number is variable
   # throughout the day, there are various reasons why you might want to know the current
@@ -65,6 +67,8 @@ module Stripe
        }
       def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil); end
     end
+    # [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+    #
     # Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
     sig {
       params(params: T.any(::Stripe::ExchangeRate::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)

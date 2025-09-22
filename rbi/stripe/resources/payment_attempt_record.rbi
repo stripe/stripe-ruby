@@ -1408,7 +1408,7 @@ module Stripe
     class ProcessorDetails < Stripe::StripeObject
       class Custom < Stripe::StripeObject
         # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def payment_reference; end
       end
       # Custom processors represent payment processors not modeled directly in

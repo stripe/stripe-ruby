@@ -950,6 +950,8 @@ module Stripe
           end
 
           class Affirm < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -959,12 +961,15 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
 
           class AfterpayClearpay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -974,7 +979,8 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
@@ -994,7 +1000,18 @@ module Stripe
             end
           end
 
+          class Alma < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
+
+            def initialize(capture_method: nil)
+              @capture_method = capture_method
+            end
+          end
+
           class AmazonPay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1004,7 +1021,8 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
@@ -1071,6 +1089,15 @@ module Stripe
             end
           end
 
+          class Billie < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
+
+            def initialize(capture_method: nil)
+              @capture_method = capture_method
+            end
+          end
+
           class Boleto < Stripe::RequestParams
             # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
             attr_accessor :expires_after_days
@@ -1108,6 +1135,8 @@ module Stripe
                 @brands_blocked = brands_blocked
               end
             end
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Installment options for card payments
             attr_accessor :installments
             # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
@@ -1138,6 +1167,7 @@ module Stripe
             attr_accessor :statement_descriptor_suffix_kanji
 
             def initialize(
+              capture_method: nil,
               installments: nil,
               request_decremental_authorization: nil,
               request_extended_authorization: nil,
@@ -1150,6 +1180,7 @@ module Stripe
               statement_descriptor_suffix_kana: nil,
               statement_descriptor_suffix_kanji: nil
             )
+              @capture_method = capture_method
               @installments = installments
               @request_decremental_authorization = request_decremental_authorization
               @request_extended_authorization = request_extended_authorization
@@ -1165,6 +1196,8 @@ module Stripe
           end
 
           class Cashapp < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1174,7 +1207,8 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
@@ -1220,6 +1254,21 @@ module Stripe
             def initialize(bank_transfer: nil, funding_type: nil, setup_future_usage: nil)
               @bank_transfer = bank_transfer
               @funding_type = funding_type
+              @setup_future_usage = setup_future_usage
+            end
+          end
+
+          class DemoPay < Stripe::RequestParams
+            # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+            #
+            # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+            #
+            # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+            #
+            # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+            attr_accessor :setup_future_usage
+
+            def initialize(setup_future_usage: nil)
               @setup_future_usage = setup_future_usage
             end
           end
@@ -1355,6 +1404,8 @@ module Stripe
                 @reference = reference
               end
             end
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1366,7 +1417,8 @@ module Stripe
             # Subscription details if the Checkout Session sets up a future subscription.
             attr_accessor :subscriptions
 
-            def initialize(setup_future_usage: nil, subscriptions: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil, subscriptions: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
               @subscriptions = subscriptions
             end
@@ -1409,6 +1461,8 @@ module Stripe
           end
 
           class Link < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1418,12 +1472,15 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
 
           class Mobilepay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1433,7 +1490,8 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
@@ -1696,6 +1754,8 @@ module Stripe
           end
 
           class RevolutPay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1705,12 +1765,22 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
 
           class SamsungPay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
+
+            def initialize(capture_method: nil)
+              @capture_method = capture_method
+            end
+          end
+
+          class Satispay < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.
             attr_accessor :capture_method
 
@@ -1840,6 +1910,8 @@ module Stripe
           attr_accessor :afterpay_clearpay
           # contains details about the Alipay payment method options.
           attr_accessor :alipay
+          # contains details about the Alma payment method options.
+          attr_accessor :alma
           # contains details about the AmazonPay payment method options.
           attr_accessor :amazon_pay
           # contains details about the AU Becs Debit payment method options.
@@ -1848,6 +1920,8 @@ module Stripe
           attr_accessor :bacs_debit
           # contains details about the Bancontact payment method options.
           attr_accessor :bancontact
+          # contains details about the Billie payment method options.
+          attr_accessor :billie
           # contains details about the Boleto payment method options.
           attr_accessor :boleto
           # contains details about the Card payment method options.
@@ -1856,6 +1930,8 @@ module Stripe
           attr_accessor :cashapp
           # contains details about the Customer Balance payment method options.
           attr_accessor :customer_balance
+          # contains details about the DemoPay payment method options.
+          attr_accessor :demo_pay
           # contains details about the EPS payment method options.
           attr_accessor :eps
           # contains details about the FPX payment method options.
@@ -1902,6 +1978,8 @@ module Stripe
           attr_accessor :revolut_pay
           # contains details about the Samsung Pay payment method options.
           attr_accessor :samsung_pay
+          # contains details about the Satispay payment method options.
+          attr_accessor :satispay
           # contains details about the Sepa Debit payment method options.
           attr_accessor :sepa_debit
           # contains details about the Sofort payment method options.
@@ -1918,14 +1996,17 @@ module Stripe
             affirm: nil,
             afterpay_clearpay: nil,
             alipay: nil,
+            alma: nil,
             amazon_pay: nil,
             au_becs_debit: nil,
             bacs_debit: nil,
             bancontact: nil,
+            billie: nil,
             boleto: nil,
             card: nil,
             cashapp: nil,
             customer_balance: nil,
+            demo_pay: nil,
             eps: nil,
             fpx: nil,
             giropay: nil,
@@ -1949,6 +2030,7 @@ module Stripe
             pix: nil,
             revolut_pay: nil,
             samsung_pay: nil,
+            satispay: nil,
             sepa_debit: nil,
             sofort: nil,
             swish: nil,
@@ -1959,14 +2041,17 @@ module Stripe
             @affirm = affirm
             @afterpay_clearpay = afterpay_clearpay
             @alipay = alipay
+            @alma = alma
             @amazon_pay = amazon_pay
             @au_becs_debit = au_becs_debit
             @bacs_debit = bacs_debit
             @bancontact = bancontact
+            @billie = billie
             @boleto = boleto
             @card = card
             @cashapp = cashapp
             @customer_balance = customer_balance
+            @demo_pay = demo_pay
             @eps = eps
             @fpx = fpx
             @giropay = giropay
@@ -1990,6 +2075,7 @@ module Stripe
             @pix = pix
             @revolut_pay = revolut_pay
             @samsung_pay = samsung_pay
+            @satispay = satispay
             @sepa_debit = sepa_debit
             @sofort = sofort
             @swish = swish
@@ -2214,11 +2300,11 @@ module Stripe
         class SubscriptionData < Stripe::RequestParams
           class BillingMode < Stripe::RequestParams
             class Flexible < Stripe::RequestParams
-              # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
-              attr_accessor :consistent_proration_discount_amounts
+              # Controls how invoices and invoice items display proration amounts and discount amounts.
+              attr_accessor :proration_discounts
 
-              def initialize(consistent_proration_discount_amounts: nil)
-                @consistent_proration_discount_amounts = consistent_proration_discount_amounts
+              def initialize(proration_discounts: nil)
+                @proration_discounts = proration_discounts
               end
             end
             # Configure behavior for flexible billing mode.

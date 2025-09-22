@@ -3851,14 +3851,14 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes/promo_xxxxxxxxxxxxx"
     end
     should "Test promotion codes post" do
-      promotion_code = Stripe::PromotionCode.create({ coupon: "Z4OV52SU" })
+      promotion_code = Stripe::PromotionCode.create({ promotion: { coupon: "Z4OV52SU" } })
       assert_requested :post, "#{Stripe.api_base}/v1/promotion_codes"
     end
     should "Test promotion codes post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes").to_return(body: "{}")
       client = Stripe::StripeClient.new("sk_test_123")
 
-      promotion_code = client.v1.promotion_codes.create({ coupon: "Z4OV52SU" })
+      promotion_code = client.v1.promotion_codes.create({ promotion: { coupon: "Z4OV52SU" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes"
     end
     should "Test promotion codes post 2" do

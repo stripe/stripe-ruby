@@ -68,6 +68,18 @@ module Stripe
     end
 
     class CreateParams < Stripe::RequestParams
+      class Promotion < Stripe::RequestParams
+        # If the promotion type is 'coupon', the coupon for this promotion code.
+        attr_accessor :coupon
+        # Specifies the type of promotion code.
+        attr_accessor :type
+
+        def initialize(coupon: nil, type: nil)
+          @coupon = coupon
+          @type = type
+        end
+      end
+
       class Restrictions < Stripe::RequestParams
         class CurrencyOptions < Stripe::RequestParams
           # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
@@ -104,8 +116,6 @@ module Stripe
       #
       # If left blank, we will generate one automatically.
       attr_accessor :code
-      # The coupon for this promotion code.
-      attr_accessor :coupon
       # The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
       attr_accessor :customer
       # The account that this promotion code can be used by. If not set, the promotion code can be used by all accounts.
@@ -118,30 +128,32 @@ module Stripe
       attr_accessor :max_redemptions
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+      # The promotion referenced by this promotion code.
+      attr_accessor :promotion
       # Settings that restrict the redemption of the promotion code.
       attr_accessor :restrictions
 
       def initialize(
         active: nil,
         code: nil,
-        coupon: nil,
         customer: nil,
         customer_account: nil,
         expand: nil,
         expires_at: nil,
         max_redemptions: nil,
         metadata: nil,
+        promotion: nil,
         restrictions: nil
       )
         @active = active
         @code = code
-        @coupon = coupon
         @customer = customer
         @customer_account = customer_account
         @expand = expand
         @expires_at = expires_at
         @max_redemptions = max_redemptions
         @metadata = metadata
+        @promotion = promotion
         @restrictions = restrictions
       end
     end
@@ -189,7 +201,7 @@ module Stripe
       end
     end
 
-    # A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+    # A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
     def create(params = {}, opts = {})
       request(
         method: :post,

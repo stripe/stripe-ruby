@@ -517,6 +517,9 @@ module Stripe
           def verification_method; end
         end
         class Affirm < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -528,6 +531,9 @@ module Stripe
           def setup_future_usage; end
         end
         class AfterpayClearpay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -549,7 +555,15 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
+        class Alma < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
+        end
         class AmazonPay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -607,6 +621,11 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def setup_future_usage; end
         end
+        class Billie < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
+        end
         class Boleto < Stripe::StripeObject
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
           sig { returns(Integer) }
@@ -632,6 +651,9 @@ module Stripe
             sig { returns(T.nilable(T::Array[String])) }
             def brands_blocked; end
           end
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
           # Attribute for field installments
           sig { returns(T.nilable(Installments)) }
           def installments; end
@@ -673,6 +695,9 @@ module Stripe
           def statement_descriptor_suffix_kanji; end
         end
         class Cashapp < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -788,6 +813,9 @@ module Stripe
           def setup_future_usage; end
         end
         class Klarna < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -827,6 +855,9 @@ module Stripe
           def setup_future_usage; end
         end
         class Link < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -838,6 +869,9 @@ module Stripe
           def setup_future_usage; end
         end
         class Mobilepay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1021,6 +1055,9 @@ module Stripe
           def setup_future_usage; end
         end
         class RevolutPay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1032,6 +1069,11 @@ module Stripe
           def setup_future_usage; end
         end
         class SamsungPay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
+        end
+        class Satispay < Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1136,6 +1178,9 @@ module Stripe
         # Attribute for field alipay
         sig { returns(T.nilable(Alipay)) }
         def alipay; end
+        # Attribute for field alma
+        sig { returns(T.nilable(Alma)) }
+        def alma; end
         # Attribute for field amazon_pay
         sig { returns(T.nilable(AmazonPay)) }
         def amazon_pay; end
@@ -1148,6 +1193,9 @@ module Stripe
         # Attribute for field bancontact
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
+        # Attribute for field billie
+        sig { returns(T.nilable(Billie)) }
+        def billie; end
         # Attribute for field boleto
         sig { returns(T.nilable(Boleto)) }
         def boleto; end
@@ -1226,6 +1274,9 @@ module Stripe
         # Attribute for field samsung_pay
         sig { returns(T.nilable(SamsungPay)) }
         def samsung_pay; end
+        # Attribute for field satispay
+        sig { returns(T.nilable(Satispay)) }
+        def satispay; end
         # Attribute for field sepa_debit
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
@@ -3036,6 +3087,11 @@ module Stripe
             ); end
           end
           class Affirm < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3047,10 +3103,17 @@ module Stripe
             def setup_future_usage; end
             sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
-            sig { params(setup_future_usage: T.nilable(String)).void }
-            def initialize(setup_future_usage: nil); end
+            sig {
+              params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+             }
+            def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class AfterpayClearpay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3062,8 +3125,10 @@ module Stripe
             def setup_future_usage; end
             sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
-            sig { params(setup_future_usage: T.nilable(String)).void }
-            def initialize(setup_future_usage: nil); end
+            sig {
+              params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+             }
+            def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class Alipay < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3080,7 +3145,21 @@ module Stripe
             sig { params(setup_future_usage: T.nilable(String)).void }
             def initialize(setup_future_usage: nil); end
           end
+          class Alma < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
+            sig { params(capture_method: T.nilable(String)).void }
+            def initialize(capture_method: nil); end
+          end
           class AmazonPay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3092,8 +3171,10 @@ module Stripe
             def setup_future_usage; end
             sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
-            sig { params(setup_future_usage: T.nilable(String)).void }
-            def initialize(setup_future_usage: nil); end
+            sig {
+              params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+             }
+            def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class AuBecsDebit < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3172,6 +3253,15 @@ module Stripe
             sig { params(setup_future_usage: T.nilable(String)).void }
             def initialize(setup_future_usage: nil); end
           end
+          class Billie < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
+            sig { params(capture_method: T.nilable(String)).void }
+            def initialize(capture_method: nil); end
+          end
           class Boleto < Stripe::RequestParams
             # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
             sig { returns(T.nilable(Integer)) }
@@ -3216,6 +3306,11 @@ module Stripe
               sig { params(brands_blocked: T.nilable(T::Array[String])).void }
               def initialize(brands_blocked: nil); end
             end
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
             # Installment options for card payments
             sig {
               returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Card::Installments))
@@ -3296,9 +3391,10 @@ module Stripe
              }
             def statement_descriptor_suffix_kanji=(_statement_descriptor_suffix_kanji); end
             sig {
-              params(installments: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Card::Installments), request_decremental_authorization: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), restrictions: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Card::Restrictions), setup_future_usage: T.nilable(String), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String)).void
+              params(capture_method: T.nilable(String), installments: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Card::Installments), request_decremental_authorization: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), restrictions: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Card::Restrictions), setup_future_usage: T.nilable(String), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String)).void
              }
             def initialize(
+              capture_method: nil,
               installments: nil,
               request_decremental_authorization: nil,
               request_extended_authorization: nil,
@@ -3313,6 +3409,11 @@ module Stripe
             ); end
           end
           class Cashapp < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3324,8 +3425,10 @@ module Stripe
             def setup_future_usage; end
             sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
-            sig { params(setup_future_usage: T.nilable(String)).void }
-            def initialize(setup_future_usage: nil); end
+            sig {
+              params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+             }
+            def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class CustomerBalance < Stripe::RequestParams
             class BankTransfer < Stripe::RequestParams
@@ -3395,6 +3498,21 @@ module Stripe
               params(bank_transfer: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::CustomerBalance::BankTransfer), funding_type: T.nilable(String), setup_future_usage: T.nilable(String)).void
              }
             def initialize(bank_transfer: nil, funding_type: nil, setup_future_usage: nil); end
+          end
+          class DemoPay < Stripe::RequestParams
+            # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+            #
+            # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+            #
+            # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+            #
+            # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+            sig { returns(T.nilable(String)) }
+            def setup_future_usage; end
+            sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+            def setup_future_usage=(_setup_future_usage); end
+            sig { params(setup_future_usage: T.nilable(String)).void }
+            def initialize(setup_future_usage: nil); end
           end
           class Eps < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3549,6 +3667,11 @@ module Stripe
                 reference: nil
               ); end
             end
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3570,9 +3693,9 @@ module Stripe
              }
             def subscriptions=(_subscriptions); end
             sig {
-              params(setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.any(String, T::Array[::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Klarna::Subscription]))).void
+              params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String), subscriptions: T.nilable(T.any(String, T::Array[::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Klarna::Subscription]))).void
              }
-            def initialize(setup_future_usage: nil, subscriptions: nil); end
+            def initialize(capture_method: nil, setup_future_usage: nil, subscriptions: nil); end
           end
           class Konbini < Stripe::RequestParams
             # The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
@@ -3619,6 +3742,11 @@ module Stripe
             def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class Link < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3630,10 +3758,17 @@ module Stripe
             def setup_future_usage; end
             sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
-            sig { params(setup_future_usage: T.nilable(String)).void }
-            def initialize(setup_future_usage: nil); end
+            sig {
+              params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+             }
+            def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class Mobilepay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3645,8 +3780,10 @@ module Stripe
             def setup_future_usage; end
             sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
-            sig { params(setup_future_usage: T.nilable(String)).void }
-            def initialize(setup_future_usage: nil); end
+            sig {
+              params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+             }
+            def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class Multibanco < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3989,6 +4126,11 @@ module Stripe
             ); end
           end
           class RevolutPay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -4000,10 +4142,21 @@ module Stripe
             def setup_future_usage; end
             sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
-            sig { params(setup_future_usage: T.nilable(String)).void }
-            def initialize(setup_future_usage: nil); end
+            sig {
+              params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+             }
+            def initialize(capture_method: nil, setup_future_usage: nil); end
           end
           class SamsungPay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            sig { returns(T.nilable(String)) }
+            def capture_method; end
+            sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+            def capture_method=(_capture_method); end
+            sig { params(capture_method: T.nilable(String)).void }
+            def initialize(capture_method: nil); end
+          end
+          class Satispay < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.
             sig { returns(T.nilable(String)) }
             def capture_method; end
@@ -4200,6 +4353,15 @@ module Stripe
             params(_alipay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alipay)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alipay))
            }
           def alipay=(_alipay); end
+          # contains details about the Alma payment method options.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alma))
+           }
+          def alma; end
+          sig {
+            params(_alma: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alma)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alma))
+           }
+          def alma=(_alma); end
           # contains details about the AmazonPay payment method options.
           sig {
             returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AmazonPay))
@@ -4236,6 +4398,15 @@ module Stripe
             params(_bancontact: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Bancontact)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Bancontact))
            }
           def bancontact=(_bancontact); end
+          # contains details about the Billie payment method options.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Billie))
+           }
+          def billie; end
+          sig {
+            params(_billie: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Billie)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Billie))
+           }
+          def billie=(_billie); end
           # contains details about the Boleto payment method options.
           sig {
             returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Boleto))
@@ -4272,6 +4443,15 @@ module Stripe
             params(_customer_balance: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::CustomerBalance)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::CustomerBalance))
            }
           def customer_balance=(_customer_balance); end
+          # contains details about the DemoPay payment method options.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::DemoPay))
+           }
+          def demo_pay; end
+          sig {
+            params(_demo_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::DemoPay)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::DemoPay))
+           }
+          def demo_pay=(_demo_pay); end
           # contains details about the EPS payment method options.
           sig {
             returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Eps))
@@ -4479,6 +4659,15 @@ module Stripe
             params(_samsung_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SamsungPay)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SamsungPay))
            }
           def samsung_pay=(_samsung_pay); end
+          # contains details about the Satispay payment method options.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Satispay))
+           }
+          def satispay; end
+          sig {
+            params(_satispay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Satispay)).returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Satispay))
+           }
+          def satispay=(_satispay); end
           # contains details about the Sepa Debit payment method options.
           sig {
             returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SepaDebit))
@@ -4525,21 +4714,24 @@ module Stripe
            }
           def wechat_pay=(_wechat_pay); end
           sig {
-            params(acss_debit: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AcssDebit), affirm: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Affirm), afterpay_clearpay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AfterpayClearpay), alipay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alipay), amazon_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AmazonPay), au_becs_debit: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AuBecsDebit), bacs_debit: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::BacsDebit), bancontact: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Bancontact), boleto: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Boleto), card: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Card), cashapp: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Cashapp), customer_balance: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::CustomerBalance), eps: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Eps), fpx: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Fpx), giropay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Giropay), grabpay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Grabpay), ideal: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Ideal), kakao_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::KakaoPay), klarna: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Klarna), konbini: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Konbini), kr_card: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::KrCard), link: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Link), mobilepay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Mobilepay), multibanco: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Multibanco), naver_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::NaverPay), oxxo: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Oxxo), p24: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::P24), pay_by_bank: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::PayByBank), payco: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Payco), paynow: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Paynow), paypal: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Payto), pix: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Pix), revolut_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::RevolutPay), samsung_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SamsungPay), sepa_debit: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SepaDebit), sofort: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Sofort), swish: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Swish), us_bank_account: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::UsBankAccount), wechat_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::WechatPay)).void
+            params(acss_debit: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AcssDebit), affirm: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Affirm), afterpay_clearpay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AfterpayClearpay), alipay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alipay), alma: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alma), amazon_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AmazonPay), au_becs_debit: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AuBecsDebit), bacs_debit: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::BacsDebit), bancontact: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Bancontact), billie: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Billie), boleto: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Boleto), card: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Card), cashapp: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Cashapp), customer_balance: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::CustomerBalance), demo_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::DemoPay), eps: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Eps), fpx: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Fpx), giropay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Giropay), grabpay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Grabpay), ideal: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Ideal), kakao_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::KakaoPay), klarna: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Klarna), konbini: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Konbini), kr_card: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::KrCard), link: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Link), mobilepay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Mobilepay), multibanco: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Multibanco), naver_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::NaverPay), oxxo: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Oxxo), p24: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::P24), pay_by_bank: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::PayByBank), payco: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Payco), paynow: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Paynow), paypal: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Payto), pix: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Pix), revolut_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::RevolutPay), samsung_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SamsungPay), satispay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Satispay), sepa_debit: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SepaDebit), sofort: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Sofort), swish: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Swish), us_bank_account: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::UsBankAccount), wechat_pay: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::WechatPay)).void
            }
           def initialize(
             acss_debit: nil,
             affirm: nil,
             afterpay_clearpay: nil,
             alipay: nil,
+            alma: nil,
             amazon_pay: nil,
             au_becs_debit: nil,
             bacs_debit: nil,
             bancontact: nil,
+            billie: nil,
             boleto: nil,
             card: nil,
             cashapp: nil,
             customer_balance: nil,
+            demo_pay: nil,
             eps: nil,
             fpx: nil,
             giropay: nil,
@@ -4563,6 +4755,7 @@ module Stripe
             pix: nil,
             revolut_pay: nil,
             samsung_pay: nil,
+            satispay: nil,
             sepa_debit: nil,
             sofort: nil,
             swish: nil,
@@ -4879,17 +5072,13 @@ module Stripe
         class SubscriptionData < Stripe::RequestParams
           class BillingMode < Stripe::RequestParams
             class Flexible < Stripe::RequestParams
-              # Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
-              sig { returns(T.nilable(T::Boolean)) }
-              def consistent_proration_discount_amounts; end
-              sig {
-                params(_consistent_proration_discount_amounts: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
-               }
-              def consistent_proration_discount_amounts=(
-                _consistent_proration_discount_amounts
-              ); end
-              sig { params(consistent_proration_discount_amounts: T.nilable(T::Boolean)).void }
-              def initialize(consistent_proration_discount_amounts: nil); end
+              # Controls how invoices and invoice items display proration amounts and discount amounts.
+              sig { returns(T.nilable(String)) }
+              def proration_discounts; end
+              sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+              def proration_discounts=(_proration_discounts); end
+              sig { params(proration_discounts: T.nilable(String)).void }
+              def initialize(proration_discounts: nil); end
             end
             # Configure behavior for flexible billing mode.
             sig {

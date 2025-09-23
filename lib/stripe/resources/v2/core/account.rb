@@ -19,6 +19,14 @@ module Stripe
                 attr_reader :country
                 # The identified tax state, county, province, or region of the customer.
                 attr_reader :state
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
               attr_reader :exempt
@@ -28,6 +36,14 @@ module Stripe
               attr_reader :location
               # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               attr_reader :location_source
+
+              def self.inner_class_types
+                @inner_class_types = { location: Location }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Billing < Stripe::StripeObject
@@ -37,6 +53,14 @@ module Stripe
                   attr_reader :name
                   # The value of the custom field. This may be up to 140 characters. When updating, pass an empty string to remove previously-defined values.
                   attr_reader :value
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
 
                 class Rendering < Stripe::StripeObject
@@ -44,6 +68,14 @@ module Stripe
                   attr_reader :amount_tax_display
                   # ID of the invoice rendering template to use for future invoices.
                   attr_reader :template
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
                 attr_reader :custom_fields
@@ -55,11 +87,27 @@ module Stripe
                 attr_reader :prefix
                 # Default options for invoice PDF rendering for this customer.
                 attr_reader :rendering
+
+                def self.inner_class_types
+                  @inner_class_types = { custom_fields: CustomField, rendering: Rendering }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # ID of a payment method that’s attached to the customer, to be used as the customer’s default payment method for invoices and subscriptions.
               attr_reader :default_payment_method
               # Default settings used on invoices for this customer.
               attr_reader :invoice
+
+              def self.inner_class_types
+                @inner_class_types = { invoice: Invoice }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Capabilities < Stripe::StripeObject
@@ -69,6 +117,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -76,9 +132,25 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions. Uses the `location_source` field.
               attr_reader :automatic_indirect_tax
+
+              def self.inner_class_types
+                @inner_class_types = { automatic_indirect_tax: AutomaticIndirectTax }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Shipping < Stripe::StripeObject
@@ -95,6 +167,14 @@ module Stripe
                 attr_reader :postal_code
                 # State, county, province, or region.
                 attr_reader :state
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Customer shipping address.
               attr_reader :address
@@ -102,6 +182,14 @@ module Stripe
               attr_reader :name
               # Customer phone (including extension).
               attr_reader :phone
+
+              def self.inner_class_types
+                @inner_class_types = { address: Address }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             attr_reader :applied
@@ -115,6 +203,19 @@ module Stripe
             attr_reader :shipping
             # ID of the test clock to attach to the customer. Can only be set on testmode Accounts, and when the Customer Configuration is first set on an Account.
             attr_reader :test_clock
+
+            def self.inner_class_types
+              @inner_class_types = {
+                automatic_indirect_tax: AutomaticIndirectTax,
+                billing: Billing,
+                capabilities: Capabilities,
+                shipping: Shipping,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Merchant < Stripe::StripeObject
@@ -123,6 +224,14 @@ module Stripe
               attr_reader :display_name
               # Service user number for Bacs debit payments.
               attr_reader :service_user_number
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Branding < Stripe::StripeObject
@@ -134,6 +243,14 @@ module Stripe
               attr_reader :primary_color
               # A CSS hex color value representing the secondary branding color for the merchant.
               attr_reader :secondary_color
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Capabilities < Stripe::StripeObject
@@ -143,6 +260,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -150,6 +275,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class AcssDebitPayments < Stripe::StripeObject
@@ -158,6 +291,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -165,6 +306,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class AffirmPayments < Stripe::StripeObject
@@ -173,6 +322,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -180,6 +337,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class AfterpayClearpayPayments < Stripe::StripeObject
@@ -188,6 +353,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -195,6 +368,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class AlmaPayments < Stripe::StripeObject
@@ -203,6 +384,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -210,6 +399,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class AmazonPayPayments < Stripe::StripeObject
@@ -218,6 +415,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -225,6 +430,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class AuBecsDebitPayments < Stripe::StripeObject
@@ -233,6 +446,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -240,6 +461,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class BacsDebitPayments < Stripe::StripeObject
@@ -248,6 +477,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -255,6 +492,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class BancontactPayments < Stripe::StripeObject
@@ -263,6 +508,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -270,6 +523,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class BlikPayments < Stripe::StripeObject
@@ -278,6 +539,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -285,6 +554,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class BoletoPayments < Stripe::StripeObject
@@ -293,6 +570,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -300,6 +585,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class CardPayments < Stripe::StripeObject
@@ -308,6 +601,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -315,6 +616,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class CartesBancairesPayments < Stripe::StripeObject
@@ -323,6 +632,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -330,6 +647,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class CashappPayments < Stripe::StripeObject
@@ -338,6 +663,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -345,6 +678,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class EpsPayments < Stripe::StripeObject
@@ -353,6 +694,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -360,6 +709,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class FpxPayments < Stripe::StripeObject
@@ -368,6 +725,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -375,6 +740,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class GbBankTransferPayments < Stripe::StripeObject
@@ -383,6 +756,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -390,6 +771,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class GrabpayPayments < Stripe::StripeObject
@@ -398,6 +787,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -405,6 +802,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class IdealPayments < Stripe::StripeObject
@@ -413,6 +818,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -420,6 +833,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class JcbPayments < Stripe::StripeObject
@@ -428,6 +849,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -435,6 +864,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class JpBankTransferPayments < Stripe::StripeObject
@@ -443,6 +880,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -450,6 +895,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class KakaoPayPayments < Stripe::StripeObject
@@ -458,6 +911,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -465,6 +926,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class KlarnaPayments < Stripe::StripeObject
@@ -473,6 +942,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -480,6 +957,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class KonbiniPayments < Stripe::StripeObject
@@ -488,6 +973,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -495,6 +988,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class KrCardPayments < Stripe::StripeObject
@@ -503,6 +1004,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -510,6 +1019,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class LinkPayments < Stripe::StripeObject
@@ -518,6 +1035,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -525,6 +1050,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class MobilepayPayments < Stripe::StripeObject
@@ -533,6 +1066,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -540,6 +1081,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class MultibancoPayments < Stripe::StripeObject
@@ -548,6 +1097,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -555,6 +1112,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class MxBankTransferPayments < Stripe::StripeObject
@@ -563,6 +1128,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -570,6 +1143,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class NaverPayPayments < Stripe::StripeObject
@@ -578,6 +1159,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -585,6 +1174,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class OxxoPayments < Stripe::StripeObject
@@ -593,6 +1190,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -600,6 +1205,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class P24Payments < Stripe::StripeObject
@@ -608,6 +1221,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -615,6 +1236,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class PayByBankPayments < Stripe::StripeObject
@@ -623,6 +1252,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -630,6 +1267,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class PaycoPayments < Stripe::StripeObject
@@ -638,6 +1283,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -645,6 +1298,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class PaynowPayments < Stripe::StripeObject
@@ -653,6 +1314,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -660,6 +1329,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class PromptpayPayments < Stripe::StripeObject
@@ -668,6 +1345,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -675,6 +1360,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class RevolutPayPayments < Stripe::StripeObject
@@ -683,6 +1376,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -690,6 +1391,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class SamsungPayPayments < Stripe::StripeObject
@@ -698,6 +1407,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -705,6 +1422,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class SepaBankTransferPayments < Stripe::StripeObject
@@ -713,6 +1438,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -720,6 +1453,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class SepaDebitPayments < Stripe::StripeObject
@@ -728,6 +1469,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -735,6 +1484,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class StripeBalance < Stripe::StripeObject
@@ -744,6 +1501,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -751,9 +1516,25 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Allows the account to do payouts using their Stripe Balance (/v1/balance).
                 attr_reader :payouts
+
+                def self.inner_class_types
+                  @inner_class_types = { payouts: Payouts }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class SwishPayments < Stripe::StripeObject
@@ -762,6 +1543,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -769,6 +1558,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class TwintPayments < Stripe::StripeObject
@@ -777,6 +1574,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -784,6 +1589,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class UsBankTransferPayments < Stripe::StripeObject
@@ -792,6 +1605,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -799,6 +1620,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class ZipPayments < Stripe::StripeObject
@@ -807,6 +1636,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -814,6 +1651,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Allow the merchant to process ACH debit payments.
               attr_reader :ach_debit_payments
@@ -905,6 +1750,60 @@ module Stripe
               attr_reader :us_bank_transfer_payments
               # Allow the merchant to process Zip payments.
               attr_reader :zip_payments
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  ach_debit_payments: AchDebitPayments,
+                  acss_debit_payments: AcssDebitPayments,
+                  affirm_payments: AffirmPayments,
+                  afterpay_clearpay_payments: AfterpayClearpayPayments,
+                  alma_payments: AlmaPayments,
+                  amazon_pay_payments: AmazonPayPayments,
+                  au_becs_debit_payments: AuBecsDebitPayments,
+                  bacs_debit_payments: BacsDebitPayments,
+                  bancontact_payments: BancontactPayments,
+                  blik_payments: BlikPayments,
+                  boleto_payments: BoletoPayments,
+                  card_payments: CardPayments,
+                  cartes_bancaires_payments: CartesBancairesPayments,
+                  cashapp_payments: CashappPayments,
+                  eps_payments: EpsPayments,
+                  fpx_payments: FpxPayments,
+                  gb_bank_transfer_payments: GbBankTransferPayments,
+                  grabpay_payments: GrabpayPayments,
+                  ideal_payments: IdealPayments,
+                  jcb_payments: JcbPayments,
+                  jp_bank_transfer_payments: JpBankTransferPayments,
+                  kakao_pay_payments: KakaoPayPayments,
+                  klarna_payments: KlarnaPayments,
+                  konbini_payments: KonbiniPayments,
+                  kr_card_payments: KrCardPayments,
+                  link_payments: LinkPayments,
+                  mobilepay_payments: MobilepayPayments,
+                  multibanco_payments: MultibancoPayments,
+                  mx_bank_transfer_payments: MxBankTransferPayments,
+                  naver_pay_payments: NaverPayPayments,
+                  oxxo_payments: OxxoPayments,
+                  p24_payments: P24Payments,
+                  pay_by_bank_payments: PayByBankPayments,
+                  payco_payments: PaycoPayments,
+                  paynow_payments: PaynowPayments,
+                  promptpay_payments: PromptpayPayments,
+                  revolut_pay_payments: RevolutPayPayments,
+                  samsung_pay_payments: SamsungPayPayments,
+                  sepa_bank_transfer_payments: SepaBankTransferPayments,
+                  sepa_debit_payments: SepaDebitPayments,
+                  stripe_balance: StripeBalance,
+                  swish_payments: SwishPayments,
+                  twint_payments: TwintPayments,
+                  us_bank_transfer_payments: UsBankTransferPayments,
+                  zip_payments: ZipPayments,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class CardPayments < Stripe::StripeObject
@@ -913,14 +1812,38 @@ module Stripe
                 attr_reader :avs_failure
                 # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
                 attr_reader :cvc_failure
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Automatically declines certain charge types regardless of whether the card issuer accepted or declined the charge.
               attr_reader :decline_on
+
+              def self.inner_class_types
+                @inner_class_types = { decline_on: DeclineOn }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class SepaDebitPayments < Stripe::StripeObject
               # Creditor ID for SEPA debit payments.
               attr_reader :creditor_id
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class StatementDescriptor < Stripe::StripeObject
@@ -928,6 +1851,14 @@ module Stripe
               attr_reader :descriptor
               # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               attr_reader :prefix
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Support < Stripe::StripeObject
@@ -946,6 +1877,14 @@ module Stripe
                 attr_reader :state
                 # Town or cho-me.
                 attr_reader :town
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # A publicly available mailing address for sending support issues to.
               attr_reader :address
@@ -955,6 +1894,14 @@ module Stripe
               attr_reader :phone
               # A publicly available website for handling support issues.
               attr_reader :url
+
+              def self.inner_class_types
+                @inner_class_types = { address: Address }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             attr_reader :applied
@@ -974,6 +1921,22 @@ module Stripe
             attr_reader :statement_descriptor
             # Publicly available contact information for sending support issues to.
             attr_reader :support
+
+            def self.inner_class_types
+              @inner_class_types = {
+                bacs_debit_payments: BacsDebitPayments,
+                branding: Branding,
+                capabilities: Capabilities,
+                card_payments: CardPayments,
+                sepa_debit_payments: SepaDebitPayments,
+                statement_descriptor: StatementDescriptor,
+                support: Support,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Recipient < Stripe::StripeObject
@@ -985,6 +1948,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -992,6 +1963,14 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
 
                 class Wire < Stripe::StripeObject
@@ -1000,6 +1979,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1007,11 +1994,27 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 attr_reader :local
                 # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                 attr_reader :wire
+
+                def self.inner_class_types
+                  @inner_class_types = { local: Local, wire: Wire }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class Cards < Stripe::StripeObject
@@ -1020,6 +2023,14 @@ module Stripe
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
                   attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 attr_reader :requested
@@ -1027,6 +2038,14 @@ module Stripe
                 attr_reader :status
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class StripeBalance < Stripe::StripeObject
@@ -1036,6 +2055,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1043,6 +2070,14 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
 
                 class StripeTransfers < Stripe::StripeObject
@@ -1051,6 +2086,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1058,11 +2101,27 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Allows the account to do payouts using their Stripe Balance (/v1/balance).
                 attr_reader :payouts
                 # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 attr_reader :stripe_transfers
+
+                def self.inner_class_types
+                  @inner_class_types = { payouts: Payouts, stripe_transfers: StripeTransfers }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Capabilities that enable OutboundPayments to a bank account linked to this Account.
               attr_reader :bank_accounts
@@ -1070,6 +2129,18 @@ module Stripe
               attr_reader :cards
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               attr_reader :stripe_balance
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  bank_accounts: BankAccounts,
+                  cards: Cards,
+                  stripe_balance: StripeBalance,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class DefaultOutboundDestination < Stripe::StripeObject
@@ -1077,6 +2148,14 @@ module Stripe
               attr_reader :id
               # Closed Enum. The payout method type of the default outbound destination.
               attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             attr_reader :applied
@@ -1084,6 +2163,17 @@ module Stripe
             attr_reader :capabilities
             # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard.
             attr_reader :default_outbound_destination
+
+            def self.inner_class_types
+              @inner_class_types = {
+                capabilities: Capabilities,
+                default_outbound_destination: DefaultOutboundDestination,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Storer < Stripe::StripeObject
@@ -1095,6 +2185,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1102,9 +2200,25 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
                 attr_reader :bank_accounts
+
+                def self.inner_class_types
+                  @inner_class_types = { bank_accounts: BankAccounts }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class HoldsCurrencies < Stripe::StripeObject
@@ -1114,6 +2228,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1121,9 +2243,25 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can hold storage-type funds on Stripe in GBP.
                 attr_reader :gbp
+
+                def self.inner_class_types
+                  @inner_class_types = { gbp: Gbp }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class InboundTransfers < Stripe::StripeObject
@@ -1133,6 +2271,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1140,9 +2286,25 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can pull funds from an external bank account, owned by yourself, to a FinancialAccount.
                 attr_reader :bank_accounts
+
+                def self.inner_class_types
+                  @inner_class_types = { bank_accounts: BankAccounts }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class OutboundPayments < Stripe::StripeObject
@@ -1152,6 +2314,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1159,6 +2329,14 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
 
                 class Cards < Stripe::StripeObject
@@ -1167,6 +2345,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1174,6 +2360,14 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
 
                 class FinancialAccounts < Stripe::StripeObject
@@ -1182,6 +2376,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1189,6 +2391,14 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can send funds from a FinancialAccount to a bank account, owned by someone else.
                 attr_reader :bank_accounts
@@ -1196,6 +2406,18 @@ module Stripe
                 attr_reader :cards
                 # Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
                 attr_reader :financial_accounts
+
+                def self.inner_class_types
+                  @inner_class_types = {
+                    bank_accounts: BankAccounts,
+                    cards: Cards,
+                    financial_accounts: FinancialAccounts,
+                  }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class OutboundTransfers < Stripe::StripeObject
@@ -1205,6 +2427,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1212,6 +2442,14 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
 
                 class FinancialAccounts < Stripe::StripeObject
@@ -1220,6 +2458,14 @@ module Stripe
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
                     attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   attr_reader :requested
@@ -1227,11 +2473,30 @@ module Stripe
                   attr_reader :status
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can send funds from a FinancialAccount, to a bank account, owned by yourself.
                 attr_reader :bank_accounts
                 # Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
                 attr_reader :financial_accounts
+
+                def self.inner_class_types
+                  @inner_class_types = {
+                    bank_accounts: BankAccounts,
+                    financial_accounts: FinancialAccounts,
+                  }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Can provision a financial address to credit/debit a FinancialAccount.
               attr_reader :financial_addresses
@@ -1243,11 +2508,33 @@ module Stripe
               attr_reader :outbound_payments
               # Can send funds from a FinancialAccount to a destination owned by yourself.
               attr_reader :outbound_transfers
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  financial_addresses: FinancialAddresses,
+                  holds_currencies: HoldsCurrencies,
+                  inbound_transfers: InboundTransfers,
+                  outbound_payments: OutboundPayments,
+                  outbound_transfers: OutboundTransfers,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             attr_reader :applied
             # Capabilities that have been requested on the Storer Configuration.
             attr_reader :capabilities
+
+            def self.inner_class_types
+              @inner_class_types = { capabilities: Capabilities }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           attr_reader :customer
@@ -1257,6 +2544,19 @@ module Stripe
           attr_reader :recipient
           # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
           attr_reader :storer
+
+          def self.inner_class_types
+            @inner_class_types = {
+              customer: Customer,
+              merchant: Merchant,
+              recipient: Recipient,
+              storer: Storer,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Defaults < Stripe::StripeObject
@@ -1265,6 +2565,14 @@ module Stripe
             attr_reader :fees_collector
             # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
             attr_reader :losses_collector
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_reader :currency
@@ -1272,6 +2580,14 @@ module Stripe
           attr_reader :locales
           # Default responsibilities held by either Stripe or the platform.
           attr_reader :responsibilities
+
+          def self.inner_class_types
+            @inner_class_types = { responsibilities: Responsibilities }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Identity < Stripe::StripeObject
@@ -1283,6 +2599,14 @@ module Stripe
               attr_reader :ip
               # The user agent of the browser from which the director attestation was made.
               attr_reader :user_agent
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class OwnershipDeclaration < Stripe::StripeObject
@@ -1292,6 +2616,14 @@ module Stripe
               attr_reader :ip
               # The user agent of the browser from which the beneficial owner attestation was made.
               attr_reader :user_agent
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class PersonsProvided < Stripe::StripeObject
@@ -1303,6 +2635,14 @@ module Stripe
               attr_reader :owners
               # Reason for why the company is exempt from providing ownership information.
               attr_reader :ownership_exemption_reason
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class TermsOfService < Stripe::StripeObject
@@ -1313,6 +2653,14 @@ module Stripe
                 attr_reader :ip
                 # The user agent of the browser from which the Account's representative accepted the terms of service.
                 attr_reader :user_agent
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class Storer < Stripe::StripeObject
@@ -1322,11 +2670,27 @@ module Stripe
                 attr_reader :ip
                 # The user agent of the browser from which the Account's representative accepted the terms of service.
                 attr_reader :user_agent
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               attr_reader :account
               # Details on the Account's acceptance of Treasury-specific terms of service.
               attr_reader :storer
+
+              def self.inner_class_types
+                @inner_class_types = { account: Account, storer: Storer }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct.
             attr_reader :directorship_declaration
@@ -1336,6 +2700,19 @@ module Stripe
             attr_reader :persons_provided
             # Attestations of accepted terms of service agreements.
             attr_reader :terms_of_service
+
+            def self.inner_class_types
+              @inner_class_types = {
+                directorship_declaration: DirectorshipDeclaration,
+                ownership_declaration: OwnershipDeclaration,
+                persons_provided: PersonsProvided,
+                terms_of_service: TermsOfService,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class BusinessDetails < Stripe::StripeObject
@@ -1354,6 +2731,14 @@ module Stripe
               attr_reader :state
               # Town or cho-me.
               attr_reader :town
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class AnnualRevenue < Stripe::StripeObject
@@ -1361,6 +2746,14 @@ module Stripe
               attr_reader :amount
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
               attr_reader :fiscal_year_end
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Documents < Stripe::StripeObject
@@ -1369,6 +2762,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class CompanyLicense < Stripe::StripeObject
@@ -1376,6 +2777,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class CompanyMemorandumOfAssociation < Stripe::StripeObject
@@ -1383,6 +2792,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class CompanyMinisterialDecree < Stripe::StripeObject
@@ -1390,6 +2807,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class CompanyRegistrationVerification < Stripe::StripeObject
@@ -1397,6 +2822,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class CompanyTaxIdVerification < Stripe::StripeObject
@@ -1404,6 +2837,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class PrimaryVerification < Stripe::StripeObject
@@ -1412,11 +2853,27 @@ module Stripe
                   attr_reader :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_reader :front
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                 attr_reader :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = { front_back: FrontBack }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class ProofOfAddress < Stripe::StripeObject
@@ -1424,6 +2881,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class ProofOfRegistration < Stripe::StripeObject
@@ -1431,6 +2896,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class ProofOfUltimateBeneficialOwnership < Stripe::StripeObject
@@ -1438,6 +2911,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # One or more documents that support the Bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
               attr_reader :bank_account_ownership_verification
@@ -1459,6 +2940,25 @@ module Stripe
               attr_reader :proof_of_registration
               # One or more documents that demonstrate proof of ultimate beneficial ownership.
               attr_reader :proof_of_ultimate_beneficial_ownership
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  bank_account_ownership_verification: BankAccountOwnershipVerification,
+                  company_license: CompanyLicense,
+                  company_memorandum_of_association: CompanyMemorandumOfAssociation,
+                  company_ministerial_decree: CompanyMinisterialDecree,
+                  company_registration_verification: CompanyRegistrationVerification,
+                  company_tax_id_verification: CompanyTaxIdVerification,
+                  primary_verification: PrimaryVerification,
+                  proof_of_address: ProofOfAddress,
+                  proof_of_registration: ProofOfRegistration,
+                  proof_of_ultimate_beneficial_ownership: ProofOfUltimateBeneficialOwnership,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class IdNumber < Stripe::StripeObject
@@ -1466,11 +2966,27 @@ module Stripe
               attr_reader :registrar
               # Open Enum. The ID number type of a business entity.
               attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class MonthlyEstimatedRevenue < Stripe::StripeObject
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_reader :amount
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class ScriptAddresses < Stripe::StripeObject
@@ -1489,6 +3005,14 @@ module Stripe
                 attr_reader :state
                 # Town or cho-me.
                 attr_reader :town
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class Kanji < Stripe::StripeObject
@@ -1506,27 +3030,67 @@ module Stripe
                 attr_reader :state
                 # Town or cho-me.
                 attr_reader :town
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Kana Address.
               attr_reader :kana
               # Kanji Address.
               attr_reader :kanji
+
+              def self.inner_class_types
+                @inner_class_types = { kana: Kana, kanji: Kanji }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class ScriptNames < Stripe::StripeObject
               class Kana < Stripe::StripeObject
                 # Registered name of the business.
                 attr_reader :registered_name
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class Kanji < Stripe::StripeObject
                 # Registered name of the business.
                 attr_reader :registered_name
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Kana name.
               attr_reader :kana
               # Kanji name.
               attr_reader :kanji
+
+              def self.inner_class_types
+                @inner_class_types = { kana: Kana, kanji: Kanji }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The company’s primary address.
             attr_reader :address
@@ -1556,6 +3120,22 @@ module Stripe
             attr_reader :structure
             # The business's publicly available website.
             attr_reader :url
+
+            def self.inner_class_types
+              @inner_class_types = {
+                address: Address,
+                annual_revenue: AnnualRevenue,
+                documents: Documents,
+                id_numbers: IdNumber,
+                monthly_estimated_revenue: MonthlyEstimatedRevenue,
+                script_addresses: ScriptAddresses,
+                script_names: ScriptNames,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Individual < Stripe::StripeObject
@@ -1576,6 +3156,14 @@ module Stripe
               attr_reader :state
               # Town or cho-me.
               attr_reader :town
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class AdditionalName < Stripe::StripeObject
@@ -1587,6 +3175,14 @@ module Stripe
               attr_reader :purpose
               # The individual's last or family name.
               attr_reader :surname
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class AdditionalTermsOfService < Stripe::StripeObject
@@ -1597,9 +3193,25 @@ module Stripe
                 attr_reader :ip
                 # The user agent of the browser from which the Account's representative accepted the terms of service.
                 attr_reader :user_agent
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Stripe terms of service agreement.
               attr_reader :account
+
+              def self.inner_class_types
+                @inner_class_types = { account: Account }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Address < Stripe::StripeObject
@@ -1617,6 +3229,14 @@ module Stripe
               attr_reader :state
               # Town or cho-me.
               attr_reader :town
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class DateOfBirth < Stripe::StripeObject
@@ -1626,6 +3246,14 @@ module Stripe
               attr_reader :month
               # The four-digit year of birth.
               attr_reader :year
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Documents < Stripe::StripeObject
@@ -1634,6 +3262,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class Passport < Stripe::StripeObject
@@ -1641,6 +3277,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class PrimaryVerification < Stripe::StripeObject
@@ -1649,11 +3293,27 @@ module Stripe
                   attr_reader :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_reader :front
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                 attr_reader :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = { front_back: FrontBack }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class SecondaryVerification < Stripe::StripeObject
@@ -1662,11 +3322,27 @@ module Stripe
                   attr_reader :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_reader :front
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                 attr_reader :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = { front_back: FrontBack }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class Visa < Stripe::StripeObject
@@ -1674,6 +3350,14 @@ module Stripe
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # One or more documents that demonstrate proof that this person is authorized to represent the company.
               attr_reader :company_authorization
@@ -1685,11 +3369,33 @@ module Stripe
               attr_reader :secondary_verification
               # One or more documents showing the person’s visa required for living in the country where they are residing.
               attr_reader :visa
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  company_authorization: CompanyAuthorization,
+                  passport: Passport,
+                  primary_verification: PrimaryVerification,
+                  secondary_verification: SecondaryVerification,
+                  visa: Visa,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class IdNumber < Stripe::StripeObject
               # The ID number type of an individual.
               attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Relationship < Stripe::StripeObject
@@ -1709,6 +3415,14 @@ module Stripe
               attr_reader :representative
               # The individual's title (e.g., CEO, Support Engineer).
               attr_reader :title
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class ScriptAddresses < Stripe::StripeObject
@@ -1727,6 +3441,14 @@ module Stripe
                 attr_reader :state
                 # Town or cho-me.
                 attr_reader :town
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class Kanji < Stripe::StripeObject
@@ -1744,11 +3466,27 @@ module Stripe
                 attr_reader :state
                 # Town or cho-me.
                 attr_reader :town
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Kana Address.
               attr_reader :kana
               # Kanji Address.
               attr_reader :kanji
+
+              def self.inner_class_types
+                @inner_class_types = { kana: Kana, kanji: Kanji }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class ScriptNames < Stripe::StripeObject
@@ -1757,6 +3495,14 @@ module Stripe
                 attr_reader :given_name
                 # The person's last or family name.
                 attr_reader :surname
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class Kanji < Stripe::StripeObject
@@ -1764,11 +3510,27 @@ module Stripe
                 attr_reader :given_name
                 # The person's last or family name.
                 attr_reader :surname
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Persons name in kana script.
               attr_reader :kana
               # Persons name in kanji script.
               attr_reader :kanji
+
+              def self.inner_class_types
+                @inner_class_types = { kana: Kana, kanji: Kanji }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The account ID which the individual belongs to.
             attr_reader :account
@@ -1816,6 +3578,25 @@ module Stripe
             attr_reader :surname
             # Time at which the object was last updated.
             attr_reader :updated
+
+            def self.inner_class_types
+              @inner_class_types = {
+                additional_addresses: AdditionalAddress,
+                additional_names: AdditionalName,
+                additional_terms_of_service: AdditionalTermsOfService,
+                address: Address,
+                date_of_birth: DateOfBirth,
+                documents: Documents,
+                id_numbers: IdNumber,
+                relationship: Relationship,
+                script_addresses: ScriptAddresses,
+                script_names: ScriptNames,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors.
           attr_reader :attestations
@@ -1827,6 +3608,18 @@ module Stripe
           attr_reader :entity_type
           # Information about the individual represented by the Account. This property is `null` unless `entity_type` is set to `individual`.
           attr_reader :individual
+
+          def self.inner_class_types
+            @inner_class_types = {
+              attestations: Attestations,
+              business_details: BusinessDetails,
+              individual: Individual,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Requirements < Stripe::StripeObject
@@ -1836,6 +3629,14 @@ module Stripe
               attr_reader :code
               # Human-readable description of the error.
               attr_reader :description
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Impact < Stripe::StripeObject
@@ -1843,6 +3644,14 @@ module Stripe
                 class Deadline < Stripe::StripeObject
                   # The current status of the requirement's impact.
                   attr_reader :status
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The name of the Capability which will be restricted.
                 attr_reader :capability
@@ -1850,14 +3659,38 @@ module Stripe
                 attr_reader :configuration
                 # Details about when in the account lifecycle the requirement must be collected by the avoid the Capability restriction.
                 attr_reader :deadline
+
+                def self.inner_class_types
+                  @inner_class_types = { deadline: Deadline }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # The Capabilities that will be restricted if the requirement is not collected and satisfactory to Stripe.
               attr_reader :restricts_capabilities
+
+              def self.inner_class_types
+                @inner_class_types = { restricts_capabilities: RestrictsCapability }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class MinimumDeadline < Stripe::StripeObject
               # The current status of the requirement's impact.
               attr_reader :status
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Reference < Stripe::StripeObject
@@ -1867,11 +3700,27 @@ module Stripe
               attr_reader :resource
               # The type of the reference. An additional hash is included with a name matching the type. It contains additional information specific to the type.
               attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class RequestedReason < Stripe::StripeObject
               # Machine-readable description of Stripe's reason for collecting the requirement.
               attr_reader :code
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
             attr_reader :awaiting_action_from
@@ -1887,6 +3736,20 @@ module Stripe
             attr_reader :reference
             # A list of reasons why Stripe is collecting the requirement.
             attr_reader :requested_reasons
+
+            def self.inner_class_types
+              @inner_class_types = {
+                errors: Error,
+                impact: Impact,
+                minimum_deadline: MinimumDeadline,
+                reference: Reference,
+                requested_reasons: RequestedReason,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Summary < Stripe::StripeObject
@@ -1895,9 +3758,25 @@ module Stripe
               attr_reader :status
               # The soonest RFC3339 date & time UTC value a requirement can impact the Account.
               attr_reader :time
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
             attr_reader :minimum_deadline
+
+            def self.inner_class_types
+              @inner_class_types = { minimum_deadline: MinimumDeadline }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # A value indicating responsibility for collecting requirements on this account.
           attr_reader :collector
@@ -1905,6 +3784,14 @@ module Stripe
           attr_reader :entries
           # An object containing an overview of requirements for the Account.
           attr_reader :summary
+
+          def self.inner_class_types
+            @inner_class_types = { entries: Entry, summary: Summary }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
         attr_reader :applied_configurations
@@ -1932,6 +3819,19 @@ module Stripe
         attr_reader :requirements
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            configuration: Configuration,
+            defaults: Defaults,
+            identity: Identity,
+            requirements: Requirements,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

@@ -16,6 +16,14 @@ module Stripe
       attr_reader :maximum
       # Attribute for field minimum
       attr_reader :minimum
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Discount < Stripe::StripeObject
@@ -26,6 +34,14 @@ module Stripe
       #
       # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
       attr_reader :discount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Display < Stripe::StripeObject
@@ -35,6 +51,14 @@ module Stripe
       attr_reader :images
       # Attribute for field name
       attr_reader :name
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TaxCalculationReference < Stripe::StripeObject
@@ -42,6 +66,14 @@ module Stripe
       attr_reader :calculation_id
       # The calculation identifier for tax calculation response line item.
       attr_reader :calculation_item_id
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Tax < Stripe::StripeObject
@@ -55,6 +87,14 @@ module Stripe
       attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       attr_reader :taxable_amount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field adjustable_quantity
     attr_reader :adjustable_quantity
@@ -92,5 +132,19 @@ module Stripe
     attr_reader :tax_calculation_reference
     # The taxes applied to the line item.
     attr_reader :taxes
+
+    def self.inner_class_types
+      @inner_class_types = {
+        adjustable_quantity: AdjustableQuantity,
+        discounts: Discount,
+        display: Display,
+        tax_calculation_reference: TaxCalculationReference,
+        taxes: Tax,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

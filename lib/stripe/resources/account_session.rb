@@ -24,11 +24,27 @@ module Stripe
           attr_reader :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           attr_reader :external_account_collection
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AccountOnboarding < Stripe::StripeObject
@@ -37,19 +53,51 @@ module Stripe
           attr_reader :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           attr_reader :external_account_collection
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class BalanceReport < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Balances < Stripe::StripeObject
@@ -64,35 +112,99 @@ module Stripe
           attr_reader :instant_payouts
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           attr_reader :standard_payouts
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CapitalFinancing < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CapitalFinancingApplication < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CapitalFinancingPromotion < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class DisputesList < Stripe::StripeObject
@@ -105,19 +217,51 @@ module Stripe
           attr_reader :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_reader :refund_management
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Documents < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class FinancialAccount < Stripe::StripeObject
@@ -130,22 +274,54 @@ module Stripe
           attr_reader :send_money
           # Whether to allow transferring balance.
           attr_reader :transfer_balance
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class FinancialAccountTransactions < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether to allow card spend dispute management features.
           attr_reader :card_spend_dispute_management
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class InstantPayoutsPromotion < Stripe::StripeObject
@@ -156,11 +332,27 @@ module Stripe
           attr_reader :external_account_collection
           # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           attr_reader :instant_payouts
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class IssuingCard < Stripe::StripeObject
@@ -173,11 +365,27 @@ module Stripe
           attr_reader :cardholder_management
           # Whether to allow spend control management features.
           attr_reader :spend_control_management
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class IssuingCardsList < Stripe::StripeObject
@@ -192,11 +400,27 @@ module Stripe
           attr_reader :disable_stripe_user_authentication
           # Whether to allow spend control management features.
           attr_reader :spend_control_management
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class NotificationBanner < Stripe::StripeObject
@@ -205,11 +429,27 @@ module Stripe
           attr_reader :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           attr_reader :external_account_collection
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PaymentDetails < Stripe::StripeObject
@@ -222,11 +462,27 @@ module Stripe
           attr_reader :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_reader :refund_management
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PaymentDisputes < Stripe::StripeObject
@@ -237,11 +493,27 @@ module Stripe
           attr_reader :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_reader :refund_management
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Payments < Stripe::StripeObject
@@ -254,27 +526,75 @@ module Stripe
           attr_reader :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_reader :refund_management
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PayoutDetails < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PayoutReconciliationReport < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Payouts < Stripe::StripeObject
@@ -289,35 +609,99 @@ module Stripe
           attr_reader :instant_payouts
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           attr_reader :standard_payouts
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PayoutsList < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class TaxRegistrations < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class TaxSettings < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         attr_reader :enabled
         # Attribute for field features
         attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field account_management
       attr_reader :account_management
@@ -367,6 +751,39 @@ module Stripe
       attr_reader :tax_registrations
       # Attribute for field tax_settings
       attr_reader :tax_settings
+
+      def self.inner_class_types
+        @inner_class_types = {
+          account_management: AccountManagement,
+          account_onboarding: AccountOnboarding,
+          balance_report: BalanceReport,
+          balances: Balances,
+          capital_financing: CapitalFinancing,
+          capital_financing_application: CapitalFinancingApplication,
+          capital_financing_promotion: CapitalFinancingPromotion,
+          disputes_list: DisputesList,
+          documents: Documents,
+          financial_account: FinancialAccount,
+          financial_account_transactions: FinancialAccountTransactions,
+          instant_payouts_promotion: InstantPayoutsPromotion,
+          issuing_card: IssuingCard,
+          issuing_cards_list: IssuingCardsList,
+          notification_banner: NotificationBanner,
+          payment_details: PaymentDetails,
+          payment_disputes: PaymentDisputes,
+          payments: Payments,
+          payout_details: PayoutDetails,
+          payout_reconciliation_report: PayoutReconciliationReport,
+          payouts: Payouts,
+          payouts_list: PayoutsList,
+          tax_registrations: TaxRegistrations,
+          tax_settings: TaxSettings,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CreateParams < Stripe::RequestParams
@@ -1250,6 +1667,14 @@ module Stripe
     # Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/account_sessions", params: params, opts: opts)
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { components: Components }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

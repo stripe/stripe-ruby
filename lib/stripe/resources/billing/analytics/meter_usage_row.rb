@@ -24,6 +24,14 @@ module Stripe
         attr_reader :starts_at
         # The aggregated meter usage value for the specified bucket.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

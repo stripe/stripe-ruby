@@ -30,11 +30,27 @@ module Stripe
           class HostedConfirmation < Stripe::StripeObject
             # A custom message to display to the customer after the flow is completed.
             attr_reader :custom_message
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Redirect < Stripe::StripeObject
             # The URL the customer will be redirected to after the flow is completed.
             attr_reader :return_url
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Configuration when `after_completion.type=hosted_confirmation`.
           attr_reader :hosted_confirmation
@@ -42,6 +58,14 @@ module Stripe
           attr_reader :redirect
           # The specified type of behavior after the flow is completed.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { hosted_confirmation: HostedConfirmation, redirect: Redirect }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class SubscriptionCancel < Stripe::StripeObject
@@ -49,21 +73,53 @@ module Stripe
             class CouponOffer < Stripe::StripeObject
               # The ID of the coupon to be offered.
               attr_reader :coupon
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Configuration when `retention.type=coupon_offer`.
             attr_reader :coupon_offer
             # Type of retention strategy that will be used.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { coupon_offer: CouponOffer }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Specify a retention strategy to be used in the cancellation flow.
           attr_reader :retention
           # The ID of the subscription to be canceled.
           attr_reader :subscription
+
+          def self.inner_class_types
+            @inner_class_types = { retention: Retention }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class SubscriptionUpdate < Stripe::StripeObject
           # The ID of the subscription to be updated.
           attr_reader :subscription
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class SubscriptionUpdateConfirm < Stripe::StripeObject
@@ -72,6 +128,14 @@ module Stripe
             attr_reader :coupon
             # The ID of a promotion code to apply to this subscription update.
             attr_reader :promotion_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Item < Stripe::StripeObject
@@ -81,6 +145,14 @@ module Stripe
             attr_reader :price
             # [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
             attr_reader :quantity
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The coupon or promotion code to apply to this subscription update.
           attr_reader :discounts
@@ -88,6 +160,14 @@ module Stripe
           attr_reader :items
           # The ID of the subscription to be updated.
           attr_reader :subscription
+
+          def self.inner_class_types
+            @inner_class_types = { discounts: Discount, items: Item }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field after_completion
         attr_reader :after_completion
@@ -99,6 +179,19 @@ module Stripe
         attr_reader :subscription_update_confirm
         # Type of flow that the customer will go through.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            after_completion: AfterCompletion,
+            subscription_cancel: SubscriptionCancel,
+            subscription_update: SubscriptionUpdate,
+            subscription_update_confirm: SubscriptionUpdateConfirm,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CreateParams < Stripe::RequestParams
@@ -310,6 +403,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { flow: Flow }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

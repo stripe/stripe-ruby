@@ -16,6 +16,12 @@ module Stripe
             # The destination US bank account identifier. eg "usba_***".
             sig { returns(T.nilable(String)) }
             def us_bank_account; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The amount in specified currency that was debited from the Payment Method.
           sig { returns(Stripe::V2::Amount) }
@@ -23,6 +29,12 @@ module Stripe
           # The Payment Method object used to create the InboundTransfer.
           sig { returns(PaymentMethod) }
           def payment_method; end
+          def self.inner_class_types
+            @inner_class_types = {payment_method: PaymentMethod}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class To < Stripe::StripeObject
           # The amount by which the FinancialAccount balance is credited.
@@ -31,17 +43,35 @@ module Stripe
           # The FinancialAccount that funds will land in.
           sig { returns(String) }
           def financial_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TransferHistory < Stripe::StripeObject
           class BankDebitFailed < Stripe::StripeObject
             # Open Enum. The return reason for the failed InboundTransfer.
             sig { returns(String) }
             def failure_reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class BankDebitReturned < Stripe::StripeObject
             # Open Enum. The return reason for the returned InboundTransfer.
             sig { returns(String) }
             def return_reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Creation time of the HistoryEntry in RFC 3339 format and UTC.
           sig { returns(String) }
@@ -73,6 +103,15 @@ module Stripe
           # The history entry for a succeeded InboundTransfer.
           sig { returns(T.nilable(T::Hash[String, T.untyped])) }
           def bank_debit_succeeded; end
+          def self.inner_class_types
+            @inner_class_types = {
+              bank_debit_failed: BankDebitFailed,
+              bank_debit_returned: BankDebitReturned,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount in specified currency that will land in the FinancialAccount balance.
         sig { returns(Stripe::V2::Amount) }

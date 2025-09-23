@@ -14,6 +14,12 @@ module Stripe
           # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
           sig { returns(String) }
           def transfers; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BankAccount < Stripe::StripeObject
           # Whether this PayoutMethodBankAccount object was archived. PayoutMethodBankAccount objects can be archived through
@@ -42,6 +48,12 @@ module Stripe
           # The list of currencies supported by this bank account.
           sig { returns(T::Array[String]) }
           def supported_currencies; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Card < Stripe::StripeObject
           # Whether the PayoutMethodCard object was archived. PayoutMethodCard objects can be archived through
@@ -58,6 +70,12 @@ module Stripe
           # The last 4 digits of the card number.
           sig { returns(String) }
           def last4; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # A set of available payout speeds for this payout method.
         sig { returns(T::Array[String]) }

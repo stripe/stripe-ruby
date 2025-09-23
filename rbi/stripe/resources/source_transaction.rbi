@@ -21,6 +21,12 @@ module Stripe
       # Routing number associated with the transfer.
       sig { returns(T.nilable(String)) }
       def routing_number; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class ChfCreditTransfer < Stripe::StripeObject
       # Reference associated with the transfer.
@@ -38,6 +44,12 @@ module Stripe
       # Sender's name.
       sig { returns(T.nilable(String)) }
       def sender_name; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class GbpCreditTransfer < Stripe::StripeObject
       # Bank account fingerprint associated with the Stripe owned bank account receiving the transfer.
@@ -61,6 +73,12 @@ module Stripe
       # Sender sort code associated with the transfer.
       sig { returns(T.nilable(String)) }
       def sender_sort_code; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class PaperCheck < Stripe::StripeObject
       # Time at which the deposited funds will be available for use. Measured in seconds since the Unix epoch.
@@ -69,6 +87,12 @@ module Stripe
       # Comma-separated list of invoice IDs associated with the paper check.
       sig { returns(T.nilable(String)) }
       def invoices; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class SepaCreditTransfer < Stripe::StripeObject
       # Reference associated with the transfer.
@@ -80,6 +104,12 @@ module Stripe
       # Sender's name.
       sig { returns(T.nilable(String)) }
       def sender_name; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field ach_credit_transfer
     sig { returns(T.nilable(AchCreditTransfer)) }

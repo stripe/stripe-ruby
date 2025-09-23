@@ -21,11 +21,27 @@ module Stripe
       class HostedConfirmation < Stripe::StripeObject
         # The custom message that is displayed to the customer after the purchase is complete.
         attr_reader :custom_message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Redirect < Stripe::StripeObject
         # The URL the customer will be redirected to after the purchase is complete.
         attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field hosted_confirmation
       attr_reader :hosted_confirmation
@@ -33,6 +49,14 @@ module Stripe
       attr_reader :redirect
       # The specified behavior after the purchase is complete.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { hosted_confirmation: HostedConfirmation, redirect: Redirect }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AutomaticTax < Stripe::StripeObject
@@ -41,11 +65,27 @@ module Stripe
         attr_reader :account
         # Type of the account referenced.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # If `true`, tax will be calculated automatically using the customer's location.
       attr_reader :enabled
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       attr_reader :liability
+
+      def self.inner_class_types
+        @inner_class_types = { liability: Liability }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ConsentCollection < Stripe::StripeObject
@@ -54,6 +94,14 @@ module Stripe
         #
         # When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
         attr_reader :position
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Settings related to the payment method reuse text shown in the Checkout UI.
       attr_reader :payment_method_reuse_agreement
@@ -61,6 +109,14 @@ module Stripe
       attr_reader :promotions
       # If set to `required`, it requires cutomers to accept the terms of service before being able to pay. If set to `none`, customers won't be shown a checkbox to accept the terms of service.
       attr_reader :terms_of_service
+
+      def self.inner_class_types
+        @inner_class_types = { payment_method_reuse_agreement: PaymentMethodReuseAgreement }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CustomField < Stripe::StripeObject
@@ -70,11 +126,27 @@ module Stripe
           attr_reader :label
           # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The value that will pre-fill on the payment page.
         attr_reader :default_value
         # The options available for the customer to select. Up to 200 options allowed.
         attr_reader :options
+
+        def self.inner_class_types
+          @inner_class_types = { options: Option }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Label < Stripe::StripeObject
@@ -82,6 +154,14 @@ module Stripe
         attr_reader :custom
         # The type of the label.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Numeric < Stripe::StripeObject
@@ -91,6 +171,14 @@ module Stripe
         attr_reader :maximum_length
         # The minimum character length requirement for the customer's input.
         attr_reader :minimum_length
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Text < Stripe::StripeObject
@@ -100,6 +188,14 @@ module Stripe
         attr_reader :maximum_length
         # The minimum character length requirement for the customer's input.
         attr_reader :minimum_length
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field dropdown
       attr_reader :dropdown
@@ -115,27 +211,67 @@ module Stripe
       attr_reader :text
       # The type of the field.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { dropdown: Dropdown, label: Label, numeric: Numeric, text: Text }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CustomText < Stripe::StripeObject
       class AfterSubmit < Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         attr_reader :message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ShippingAddress < Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         attr_reader :message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Submit < Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         attr_reader :message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class TermsOfServiceAcceptance < Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         attr_reader :message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Custom text that should be displayed after the payment confirmation button.
       attr_reader :after_submit
@@ -145,6 +281,19 @@ module Stripe
       attr_reader :submit
       # Custom text that should be displayed in place of the default terms of service agreement text.
       attr_reader :terms_of_service_acceptance
+
+      def self.inner_class_types
+        @inner_class_types = {
+          after_submit: AfterSubmit,
+          shipping_address: ShippingAddress,
+          submit: Submit,
+          terms_of_service_acceptance: TermsOfServiceAcceptance,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class InvoiceCreation < Stripe::StripeObject
@@ -154,6 +303,14 @@ module Stripe
           attr_reader :name
           # The value of the custom field.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Issuer < Stripe::StripeObject
@@ -161,6 +318,14 @@ module Stripe
           attr_reader :account
           # Type of the account referenced.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class RenderingOptions < Stripe::StripeObject
@@ -168,6 +333,14 @@ module Stripe
           attr_reader :amount_tax_display
           # ID of the invoice rendering template to be used for the generated invoice.
           attr_reader :template
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The account tax IDs associated with the invoice.
         attr_reader :account_tax_ids
@@ -183,11 +356,31 @@ module Stripe
         attr_reader :metadata
         # Options for invoice PDF rendering.
         attr_reader :rendering_options
+
+        def self.inner_class_types
+          @inner_class_types = {
+            custom_fields: CustomField,
+            issuer: Issuer,
+            rendering_options: RenderingOptions,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Enable creating an invoice on successful payment.
       attr_reader :enabled
       # Configuration for the invoice. Default invoice values will be used if unspecified.
       attr_reader :invoice_data
+
+      def self.inner_class_types
+        @inner_class_types = { invoice_data: InvoiceData }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class OptionalItem < Stripe::StripeObject
@@ -198,6 +391,14 @@ module Stripe
         attr_reader :maximum
         # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
         attr_reader :minimum
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field adjustable_quantity
       attr_reader :adjustable_quantity
@@ -205,6 +406,14 @@ module Stripe
       attr_reader :price
       # Attribute for field quantity
       attr_reader :quantity
+
+      def self.inner_class_types
+        @inner_class_types = { adjustable_quantity: AdjustableQuantity }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PaymentIntentData < Stripe::StripeObject
@@ -222,11 +431,27 @@ module Stripe
       attr_reader :statement_descriptor_suffix
       # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
       attr_reader :transfer_group
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PhoneNumberCollection < Stripe::StripeObject
       # If `true`, a phone number will be collected during checkout.
       attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Restrictions < Stripe::StripeObject
@@ -235,14 +460,38 @@ module Stripe
         attr_reader :count
         # The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
         attr_reader :limit
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field completed_sessions
       attr_reader :completed_sessions
+
+      def self.inner_class_types
+        @inner_class_types = { completed_sessions: CompletedSessions }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ShippingAddressCollection < Stripe::StripeObject
       # An array of two-letter ISO country codes representing which countries Checkout should provide as options for shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
       attr_reader :allowed_countries
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ShippingOption < Stripe::StripeObject
@@ -250,6 +499,14 @@ module Stripe
       attr_reader :shipping_amount
       # The ID of the Shipping Rate to use for this shipping option.
       attr_reader :shipping_rate
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SubscriptionData < Stripe::StripeObject
@@ -259,18 +516,50 @@ module Stripe
           attr_reader :account
           # Type of the account referenced.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field issuer
         attr_reader :issuer
+
+        def self.inner_class_types
+          @inner_class_types = { issuer: Issuer }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class TrialSettings < Stripe::StripeObject
         class EndBehavior < Stripe::StripeObject
           # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
           attr_reader :missing_payment_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Defines how a subscription behaves when a free trial ends.
         attr_reader :end_behavior
+
+        def self.inner_class_types
+          @inner_class_types = { end_behavior: EndBehavior }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_reader :description
@@ -282,6 +571,14 @@ module Stripe
       attr_reader :trial_period_days
       # Settings related to subscription trials.
       attr_reader :trial_settings
+
+      def self.inner_class_types
+        @inner_class_types = { invoice_settings: InvoiceSettings, trial_settings: TrialSettings }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TaxIdCollection < Stripe::StripeObject
@@ -289,6 +586,14 @@ module Stripe
       attr_reader :enabled
       # Attribute for field required
       attr_reader :required
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TransferData < Stripe::StripeObject
@@ -296,6 +601,14 @@ module Stripe
       attr_reader :amount
       # The connected account receiving the transfer.
       attr_reader :destination
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -1775,6 +2088,30 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        after_completion: AfterCompletion,
+        automatic_tax: AutomaticTax,
+        consent_collection: ConsentCollection,
+        custom_fields: CustomField,
+        custom_text: CustomText,
+        invoice_creation: InvoiceCreation,
+        optional_items: OptionalItem,
+        payment_intent_data: PaymentIntentData,
+        phone_number_collection: PhoneNumberCollection,
+        restrictions: Restrictions,
+        shipping_address_collection: ShippingAddressCollection,
+        shipping_options: ShippingOption,
+        subscription_data: SubscriptionData,
+        tax_id_collection: TaxIdCollection,
+        transfer_data: TransferData,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

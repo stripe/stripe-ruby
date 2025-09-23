@@ -11,11 +11,23 @@ module Stripe
           # The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
           sig { returns(String) }
           def transaction; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Errored < Stripe::StripeObject
           # Details on why we couldn't commit the tax transaction.
           sig { returns(String) }
           def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field committed
         sig { returns(T.nilable(Committed)) }
@@ -29,6 +41,12 @@ module Stripe
         # The status of the transaction attempt. This can be `errored` or `committed`.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {committed: Committed, errored: Errored}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The [Tax Calculation](https://stripe.com/docs/api/tax/calculations/object) that was included in PaymentIntent.
       sig { returns(String) }

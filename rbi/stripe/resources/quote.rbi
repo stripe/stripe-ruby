@@ -14,6 +14,12 @@ module Stripe
         # Type of the account referenced.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Automatically calculate taxes
       sig { returns(T::Boolean) }
@@ -27,6 +33,12 @@ module Stripe
       # The status of the most recent automated tax calculation for this quote.
       sig { returns(T.nilable(String)) }
       def status; end
+      def self.inner_class_types
+        @inner_class_types = {liability: Liability}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Computed < Stripe::StripeObject
       class LastReestimationDetails < Stripe::StripeObject
@@ -40,6 +52,12 @@ module Stripe
           # The reason the reestimation failed.
           sig { returns(String) }
           def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # When `status` is `failed`, provides details about the quote reestimation failure.
         sig { returns(T.nilable(Failed)) }
@@ -47,6 +65,12 @@ module Stripe
         # Latest status of the reestimation.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {failed: Failed}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Recurring < Stripe::StripeObject
         class TotalDetails < Stripe::StripeObject
@@ -61,6 +85,12 @@ module Stripe
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
               sig { returns(Stripe::Discount) }
               def discount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Tax < Stripe::StripeObject
               # Amount of tax applied for this rate.
@@ -77,6 +107,12 @@ module Stripe
               # The amount on which tax is calculated, in cents (or local equivalent).
               sig { returns(T.nilable(Integer)) }
               def taxable_amount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The aggregated discounts.
             sig { returns(T::Array[Discount]) }
@@ -84,6 +120,12 @@ module Stripe
             # The aggregated tax amounts by rate.
             sig { returns(T::Array[Tax]) }
             def taxes; end
+            def self.inner_class_types
+              @inner_class_types = {discounts: Discount, taxes: Tax}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # This is the sum of all the discounts.
           sig { returns(Integer) }
@@ -97,6 +139,12 @@ module Stripe
           # Attribute for field breakdown
           sig { returns(T.nilable(Breakdown)) }
           def breakdown; end
+          def self.inner_class_types
+            @inner_class_types = {breakdown: Breakdown}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Total before any discounts or taxes are applied.
         sig { returns(Integer) }
@@ -113,6 +161,12 @@ module Stripe
         # Attribute for field total_details
         sig { returns(TotalDetails) }
         def total_details; end
+        def self.inner_class_types
+          @inner_class_types = {total_details: TotalDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Upfront < Stripe::StripeObject
         class TotalDetails < Stripe::StripeObject
@@ -127,6 +181,12 @@ module Stripe
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
               sig { returns(Stripe::Discount) }
               def discount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Tax < Stripe::StripeObject
               # Amount of tax applied for this rate.
@@ -143,6 +203,12 @@ module Stripe
               # The amount on which tax is calculated, in cents (or local equivalent).
               sig { returns(T.nilable(Integer)) }
               def taxable_amount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The aggregated discounts.
             sig { returns(T::Array[Discount]) }
@@ -150,6 +216,12 @@ module Stripe
             # The aggregated tax amounts by rate.
             sig { returns(T::Array[Tax]) }
             def taxes; end
+            def self.inner_class_types
+              @inner_class_types = {discounts: Discount, taxes: Tax}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # This is the sum of all the discounts.
           sig { returns(Integer) }
@@ -163,6 +235,12 @@ module Stripe
           # Attribute for field breakdown
           sig { returns(T.nilable(Breakdown)) }
           def breakdown; end
+          def self.inner_class_types
+            @inner_class_types = {breakdown: Breakdown}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Total before any discounts or taxes are applied.
         sig { returns(Integer) }
@@ -176,6 +254,12 @@ module Stripe
         # Attribute for field total_details
         sig { returns(TotalDetails) }
         def total_details; end
+        def self.inner_class_types
+          @inner_class_types = {total_details: TotalDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Details of the most recent reestimate of the quote's preview schedules and upcoming invoices, including the status of Stripe's calculation.
       sig { returns(T.nilable(LastReestimationDetails)) }
@@ -189,6 +273,16 @@ module Stripe
       # Attribute for field upfront
       sig { returns(Upfront) }
       def upfront; end
+      def self.inner_class_types
+        @inner_class_types = {
+          last_reestimation_details: LastReestimationDetails,
+          recurring: Recurring,
+          upfront: Upfront,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class FromQuote < Stripe::StripeObject
       # Whether this quote is a revision of a different quote.
@@ -197,6 +291,12 @@ module Stripe
       # The quote that was cloned.
       sig { returns(T.any(String, Stripe::Quote)) }
       def quote; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class InvoiceSettings < Stripe::StripeObject
       class Issuer < Stripe::StripeObject
@@ -206,6 +306,12 @@ module Stripe
         # Type of the account referenced.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
       sig { returns(T.nilable(Integer)) }
@@ -213,6 +319,12 @@ module Stripe
       # Attribute for field issuer
       sig { returns(Issuer) }
       def issuer; end
+      def self.inner_class_types
+        @inner_class_types = {issuer: Issuer}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class StatusDetails < Stripe::StripeObject
       class Canceled < Stripe::StripeObject
@@ -222,6 +334,12 @@ module Stripe
         # Time at which the quote was marked as canceled. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
         def transitioned_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Stale < Stripe::StripeObject
         class LastReason < Stripe::StripeObject
@@ -232,16 +350,34 @@ module Stripe
             # The list of lines that became invalid at the given timestamp.
             sig { returns(T::Array[String]) }
             def lines; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class SubscriptionChanged < Stripe::StripeObject
             # The subscription's state before the quote was marked as stale.
             sig { returns(T.nilable(Stripe::Subscription)) }
             def previous_subscription; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class SubscriptionScheduleChanged < Stripe::StripeObject
             # The subscription schedule's state before the quote was marked as stale.
             sig { returns(T.nilable(Stripe::SubscriptionSchedule)) }
             def previous_subscription_schedule; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The ID of the line that is invalid if the stale reason type is `line_invalid`.
           sig { returns(T.nilable(String)) }
@@ -273,6 +409,16 @@ module Stripe
           # The reason the quote was marked as stale.
           sig { returns(T.nilable(String)) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {
+              lines_invalid: LinesInvalid,
+              subscription_changed: SubscriptionChanged,
+              subscription_schedule_changed: SubscriptionScheduleChanged,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time at which the quote expires. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
@@ -286,6 +432,12 @@ module Stripe
         # Time at which the quote was marked as stale. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
         def transitioned_at; end
+        def self.inner_class_types
+          @inner_class_types = {last_reason: LastReason}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field canceled
       sig { returns(T.nilable(Canceled)) }
@@ -293,6 +445,12 @@ module Stripe
       # Attribute for field stale
       sig { returns(T.nilable(Stale)) }
       def stale; end
+      def self.inner_class_types
+        @inner_class_types = {canceled: Canceled, stale: Stale}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class StatusTransitions < Stripe::StripeObject
       # The time that the quote was accepted. Measured in seconds since Unix epoch.
@@ -304,6 +462,12 @@ module Stripe
       # The time that the quote was finalized. Measured in seconds since Unix epoch.
       sig { returns(T.nilable(Integer)) }
       def finalized_at; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class SubscriptionData < Stripe::StripeObject
       class BillOnAcceptance < Stripe::StripeObject
@@ -312,6 +476,12 @@ module Stripe
             # Unique identifier for the object.
             sig { returns(String) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           sig { returns(T.nilable(Integer)) }
@@ -325,6 +495,12 @@ module Stripe
           # The type of method to specify the `bill_from` time.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {line_starts_at: LineStartsAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BillUntil < Stripe::StripeObject
           class Duration < Stripe::StripeObject
@@ -334,11 +510,23 @@ module Stripe
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             sig { returns(Integer) }
             def interval_count; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class LineEndsAt < Stripe::StripeObject
             # Unique identifier for the object.
             sig { returns(String) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           sig { returns(T.nilable(Integer)) }
@@ -355,6 +543,12 @@ module Stripe
           # The type of method to specify the `bill_until` time.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {duration: Duration, line_ends_at: LineEndsAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The start of the period to bill from when the Quote is accepted.
         sig { returns(T.nilable(BillFrom)) }
@@ -362,12 +556,24 @@ module Stripe
         # The end of the period to bill until when the Quote is accepted.
         sig { returns(T.nilable(BillUntil)) }
         def bill_until; end
+        def self.inner_class_types
+          @inner_class_types = {bill_from: BillFrom, bill_until: BillUntil}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class BillingMode < Stripe::StripeObject
         class Flexible < Stripe::StripeObject
           # Controls how invoices and invoice items display proration amounts and discount amounts.
           sig { returns(T.nilable(String)) }
           def proration_discounts; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field flexible
         sig { returns(T.nilable(Flexible)) }
@@ -375,11 +581,23 @@ module Stripe
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {flexible: Flexible}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Prebilling < Stripe::StripeObject
         # Attribute for field iterations
         sig { returns(Integer) }
         def iterations; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Describes the period to bill for upon accepting the quote.
       sig { returns(T.nilable(BillOnAcceptance)) }
@@ -417,6 +635,16 @@ module Stripe
       # Integer representing the number of trial period days before the customer is charged for the first time.
       sig { returns(T.nilable(Integer)) }
       def trial_period_days; end
+      def self.inner_class_types
+        @inner_class_types = {
+          bill_on_acceptance: BillOnAcceptance,
+          billing_mode: BillingMode,
+          prebilling: Prebilling,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class SubscriptionDataOverride < Stripe::StripeObject
       class AppliesTo < Stripe::StripeObject
@@ -429,6 +657,12 @@ module Stripe
         # Describes whether the quote line is affecting a new schedule or an existing schedule.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class BillOnAcceptance < Stripe::StripeObject
         class BillFrom < Stripe::StripeObject
@@ -436,6 +670,12 @@ module Stripe
             # Unique identifier for the object.
             sig { returns(String) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           sig { returns(T.nilable(Integer)) }
@@ -449,6 +689,12 @@ module Stripe
           # The type of method to specify the `bill_from` time.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {line_starts_at: LineStartsAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BillUntil < Stripe::StripeObject
           class Duration < Stripe::StripeObject
@@ -458,11 +704,23 @@ module Stripe
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             sig { returns(Integer) }
             def interval_count; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class LineEndsAt < Stripe::StripeObject
             # Unique identifier for the object.
             sig { returns(String) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           sig { returns(T.nilable(Integer)) }
@@ -479,6 +737,12 @@ module Stripe
           # The type of method to specify the `bill_until` time.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {duration: Duration, line_ends_at: LineEndsAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The start of the period to bill from when the Quote is accepted.
         sig { returns(T.nilable(BillFrom)) }
@@ -486,6 +750,12 @@ module Stripe
         # The end of the period to bill until when the Quote is accepted.
         sig { returns(T.nilable(BillUntil)) }
         def bill_until; end
+        def self.inner_class_types
+          @inner_class_types = {bill_from: BillFrom, bill_until: BillUntil}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field applies_to
       sig { returns(AppliesTo) }
@@ -508,6 +778,12 @@ module Stripe
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
       sig { returns(T.nilable(String)) }
       def proration_behavior; end
+      def self.inner_class_types
+        @inner_class_types = {applies_to: AppliesTo, bill_on_acceptance: BillOnAcceptance}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class SubscriptionSchedule < Stripe::StripeObject
       class AppliesTo < Stripe::StripeObject
@@ -520,6 +796,12 @@ module Stripe
         # Describes whether the quote line is affecting a new schedule or an existing schedule.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field applies_to
       sig { returns(AppliesTo) }
@@ -527,6 +809,12 @@ module Stripe
       # The subscription schedule that was created or updated from this quote.
       sig { returns(String) }
       def subscription_schedule; end
+      def self.inner_class_types
+        @inner_class_types = {applies_to: AppliesTo}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TotalDetails < Stripe::StripeObject
       class Breakdown < Stripe::StripeObject
@@ -540,6 +828,12 @@ module Stripe
           # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
           sig { returns(Stripe::Discount) }
           def discount; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Tax < Stripe::StripeObject
           # Amount of tax applied for this rate.
@@ -556,6 +850,12 @@ module Stripe
           # The amount on which tax is calculated, in cents (or local equivalent).
           sig { returns(T.nilable(Integer)) }
           def taxable_amount; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The aggregated discounts.
         sig { returns(T::Array[Discount]) }
@@ -563,6 +863,12 @@ module Stripe
         # The aggregated tax amounts by rate.
         sig { returns(T::Array[Tax]) }
         def taxes; end
+        def self.inner_class_types
+          @inner_class_types = {discounts: Discount, taxes: Tax}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # This is the sum of all the discounts.
       sig { returns(Integer) }
@@ -576,6 +882,12 @@ module Stripe
       # Attribute for field breakdown
       sig { returns(T.nilable(Breakdown)) }
       def breakdown; end
+      def self.inner_class_types
+        @inner_class_types = {breakdown: Breakdown}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TransferData < Stripe::StripeObject
       # The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
@@ -587,6 +899,12 @@ module Stripe
       # The account where funds from the payment will be transferred to upon payment success.
       sig { returns(T.any(String, Stripe::Account)) }
       def destination; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
     sig { returns(T.nilable(T::Boolean)) }

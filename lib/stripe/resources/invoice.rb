@@ -66,6 +66,14 @@ module Stripe
       attr_reader :paid_at
       # The status of the payment, one of `open`, `paid`, or `past_due`
       attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AutomaticTax < Stripe::StripeObject
@@ -74,6 +82,14 @@ module Stripe
         attr_reader :account
         # Type of the account referenced.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # If Stripe disabled automatic tax, this enum describes why.
       attr_reader :disabled_reason
@@ -85,6 +101,14 @@ module Stripe
       attr_reader :provider
       # The status of the most recent automated tax calculation for this invoice.
       attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = { liability: Liability }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ConfirmationSecret < Stripe::StripeObject
@@ -92,6 +116,14 @@ module Stripe
       attr_reader :client_secret
       # The type of client_secret. Currently this is always payment_intent, referencing the default payment_intent that Stripe creates during invoice finalization
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CustomField < Stripe::StripeObject
@@ -99,6 +131,14 @@ module Stripe
       attr_reader :name
       # The value of the custom field.
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CustomerAddress < Stripe::StripeObject
@@ -114,6 +154,14 @@ module Stripe
       attr_reader :postal_code
       # State, county, province, or region.
       attr_reader :state
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CustomerShipping < Stripe::StripeObject
@@ -130,6 +178,14 @@ module Stripe
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field address
       attr_reader :address
@@ -141,6 +197,14 @@ module Stripe
       attr_reader :phone
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       attr_reader :tracking_number
+
+      def self.inner_class_types
+        @inner_class_types = { address: Address }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CustomerTaxId < Stripe::StripeObject
@@ -148,6 +212,14 @@ module Stripe
       attr_reader :type
       # The value of the tax ID.
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class FromInvoice < Stripe::StripeObject
@@ -155,6 +227,14 @@ module Stripe
       attr_reader :action
       # The invoice that was cloned.
       attr_reader :invoice
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Issuer < Stripe::StripeObject
@@ -162,6 +242,14 @@ module Stripe
       attr_reader :account
       # Type of the account referenced.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class LastFinalizationError < Stripe::StripeObject
@@ -231,12 +319,28 @@ module Stripe
       attr_reader :source
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Parent < Stripe::StripeObject
       class QuoteDetails < Stripe::StripeObject
         # The quote that generated this invoice
         attr_reader :quote
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SubscriptionDetails < Stripe::StripeObject
@@ -245,6 +349,14 @@ module Stripe
           attr_reader :behavior
           # The time after which the subscription will resume collecting payments.
           attr_reader :resumes_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
         #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
@@ -255,6 +367,14 @@ module Stripe
         attr_reader :subscription
         # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
         attr_reader :subscription_proration_date
+
+        def self.inner_class_types
+          @inner_class_types = { pause_collection: PauseCollection }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Details about the quote that generated this invoice
       attr_reader :quote_details
@@ -262,6 +382,17 @@ module Stripe
       attr_reader :subscription_details
       # The type of parent that generated this invoice
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {
+          quote_details: QuoteDetails,
+          subscription_details: SubscriptionDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PaymentSettings < Stripe::StripeObject
@@ -270,27 +401,67 @@ module Stripe
           class MandateOptions < Stripe::StripeObject
             # Transaction type of the mandate.
             attr_reader :transaction_type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field mandate_options
           attr_reader :mandate_options
           # Bank account verification method.
           attr_reader :verification_method
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Bancontact < Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_reader :preferred_language
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Card < Stripe::StripeObject
           class Installments < Stripe::StripeObject
             # Whether Installments are enabled for this Invoice.
             attr_reader :enabled
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field installments
           attr_reader :installments
           # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           attr_reader :request_three_d_secure
+
+          def self.inner_class_types
+            @inner_class_types = { installments: Installments }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CustomerBalance < Stripe::StripeObject
@@ -298,27 +469,84 @@ module Stripe
             class EuBankTransfer < Stripe::StripeObject
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               attr_reader :country
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field eu_bank_transfer
             attr_reader :eu_bank_transfer
             # The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { eu_bank_transfer: EuBankTransfer }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field bank_transfer
           attr_reader :bank_transfer
           # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
           attr_reader :funding_type
+
+          def self.inner_class_types
+            @inner_class_types = { bank_transfer: BankTransfer }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class IdBankTransfer < Stripe::StripeObject; end
-        class Konbini < Stripe::StripeObject; end
+        class IdBankTransfer < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Konbini < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
 
         class Pix < Stripe::StripeObject
           # Determines if the amount includes the IOF tax.
           attr_reader :amount_includes_iof
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class SepaDebit < Stripe::StripeObject; end
+        class SepaDebit < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
 
         class Upi < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
@@ -330,9 +558,25 @@ module Stripe
             attr_reader :description
             # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
             attr_reader :end_date
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field mandate_options
           attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class UsBankAccount < Stripe::StripeObject
@@ -342,6 +586,14 @@ module Stripe
               attr_reader :account_subcategories
               # The institution to use to filter for possible accounts to link.
               attr_reader :institution
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field filters
             attr_reader :filters
@@ -349,11 +601,27 @@ module Stripe
             attr_reader :permissions
             # Data features requested to be retrieved upon account creation.
             attr_reader :prefetch
+
+            def self.inner_class_types
+              @inner_class_types = { filters: Filters }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field financial_connections
           attr_reader :financial_connections
           # Bank account verification method.
           attr_reader :verification_method
+
+          def self.inner_class_types
+            @inner_class_types = { financial_connections: FinancialConnections }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :acss_debit
@@ -375,6 +643,25 @@ module Stripe
         attr_reader :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :us_bank_account
+
+        def self.inner_class_types
+          @inner_class_types = {
+            acss_debit: AcssDebit,
+            bancontact: Bancontact,
+            card: Card,
+            customer_balance: CustomerBalance,
+            id_bank_transfer: IdBankTransfer,
+            konbini: Konbini,
+            pix: Pix,
+            sepa_debit: SepaDebit,
+            upi: Upi,
+            us_bank_account: UsBankAccount,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.
       attr_reader :default_mandate
@@ -382,12 +669,28 @@ module Stripe
       attr_reader :payment_method_options
       # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
       attr_reader :payment_method_types
+
+      def self.inner_class_types
+        @inner_class_types = { payment_method_options: PaymentMethodOptions }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Rendering < Stripe::StripeObject
       class Pdf < Stripe::StripeObject
         # Page size of invoice pdf. Options include a4, letter, and auto. If set to auto, page size will be switched to a4 or letter based on customer locale.
         attr_reader :page_size
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
       attr_reader :amount_tax_display
@@ -397,6 +700,14 @@ module Stripe
       attr_reader :template
       # Version of the rendering template that the invoice is using.
       attr_reader :template_version
+
+      def self.inner_class_types
+        @inner_class_types = { pdf: Pdf }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ShippingCost < Stripe::StripeObject
@@ -411,6 +722,14 @@ module Stripe
         attr_reader :taxability_reason
         # The amount on which tax is calculated, in cents (or local equivalent).
         attr_reader :taxable_amount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Total shipping cost before any taxes are applied.
       attr_reader :amount_subtotal
@@ -422,6 +741,14 @@ module Stripe
       attr_reader :shipping_rate
       # The taxes applied to the shipping rate.
       attr_reader :taxes
+
+      def self.inner_class_types
+        @inner_class_types = { taxes: Tax }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ShippingDetails < Stripe::StripeObject
@@ -438,6 +765,14 @@ module Stripe
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field address
       attr_reader :address
@@ -449,6 +784,14 @@ module Stripe
       attr_reader :phone
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       attr_reader :tracking_number
+
+      def self.inner_class_types
+        @inner_class_types = { address: Address }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class StatusTransitions < Stripe::StripeObject
@@ -460,6 +803,14 @@ module Stripe
       attr_reader :paid_at
       # The time that the invoice was voided.
       attr_reader :voided_at
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ThresholdReason < Stripe::StripeObject
@@ -468,11 +819,27 @@ module Stripe
         attr_reader :line_item_ids
         # The quantity threshold boundary that applied to the given line item.
         attr_reader :usage_gte
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The total invoice amount threshold boundary if it triggered the threshold invoice.
       attr_reader :amount_gte
       # Indicates which line items triggered a threshold invoice.
       attr_reader :item_reasons
+
+      def self.inner_class_types
+        @inner_class_types = { item_reasons: ItemReason }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TotalDiscountAmount < Stripe::StripeObject
@@ -480,6 +847,14 @@ module Stripe
       attr_reader :amount
       # The discount that was applied to get this discount amount.
       attr_reader :discount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TotalMarginAmount < Stripe::StripeObject
@@ -487,6 +862,14 @@ module Stripe
       attr_reader :amount
       # The margin that was applied to get this margin amount.
       attr_reader :margin
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TotalPretaxCreditAmount < Stripe::StripeObject
@@ -500,12 +883,28 @@ module Stripe
       attr_reader :margin
       # Type of the pretax credit amount referenced.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TotalTax < Stripe::StripeObject
       class TaxRateDetails < Stripe::StripeObject
         # Attribute for field tax_rate
         attr_reader :tax_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The amount of the tax, in cents (or local equivalent).
       attr_reader :amount
@@ -519,6 +918,14 @@ module Stripe
       attr_reader :taxable_amount
       # The type of tax information.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { tax_rate_details: TaxRateDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class DeleteParams < Stripe::RequestParams; end
@@ -4915,6 +5322,36 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        amounts_due: AmountsDue,
+        automatic_tax: AutomaticTax,
+        confirmation_secret: ConfirmationSecret,
+        custom_fields: CustomField,
+        customer_address: CustomerAddress,
+        customer_shipping: CustomerShipping,
+        customer_tax_ids: CustomerTaxId,
+        from_invoice: FromInvoice,
+        issuer: Issuer,
+        last_finalization_error: LastFinalizationError,
+        parent: Parent,
+        payment_settings: PaymentSettings,
+        rendering: Rendering,
+        shipping_cost: ShippingCost,
+        shipping_details: ShippingDetails,
+        status_transitions: StatusTransitions,
+        threshold_reason: ThresholdReason,
+        total_discount_amounts: TotalDiscountAmount,
+        total_margin_amounts: TotalMarginAmount,
+        total_pretax_credit_amounts: TotalPretaxCreditAmount,
+        total_taxes: TotalTax,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

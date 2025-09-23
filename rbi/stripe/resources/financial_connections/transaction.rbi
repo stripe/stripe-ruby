@@ -13,6 +13,12 @@ module Stripe
         # Time at which this transaction was voided. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
         def void_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The ID of the Financial Connections Account this transaction belongs to.
       sig { returns(String) }

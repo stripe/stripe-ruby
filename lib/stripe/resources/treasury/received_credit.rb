@@ -27,6 +27,14 @@ module Stripe
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field address
           attr_reader :address
@@ -34,6 +42,14 @@ module Stripe
           attr_reader :email
           # Full name.
           attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class FinancialAccount < Stripe::StripeObject
@@ -41,6 +57,14 @@ module Stripe
           attr_reader :id
           # The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
           attr_reader :network
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class UsBankAccount < Stripe::StripeObject
@@ -50,6 +74,14 @@ module Stripe
           attr_reader :last4
           # The routing number for the bank account.
           attr_reader :routing_number
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Set when `type` is `balance`.
         attr_reader :balance
@@ -63,6 +95,18 @@ module Stripe
         attr_reader :type
         # Attribute for field us_bank_account
         attr_reader :us_bank_account
+
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_details: BillingDetails,
+            financial_account: FinancialAccount,
+            us_bank_account: UsBankAccount,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class LinkedFlows < Stripe::StripeObject
@@ -92,6 +136,14 @@ module Stripe
           attr_reader :payout
           # The type of the source flow that originated the ReceivedCredit.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The CreditReversal created as a result of this ReceivedCredit being reversed.
         attr_reader :credit_reversal
@@ -105,17 +157,41 @@ module Stripe
         attr_reader :source_flow_details
         # The type of flow that originated the ReceivedCredit (for example, `outbound_payment`).
         attr_reader :source_flow_type
+
+        def self.inner_class_types
+          @inner_class_types = { source_flow_details: SourceFlowDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class NetworkDetails < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           # ACH Addenda record
           attr_reader :addenda
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Details about an ACH transaction.
         attr_reader :ach
         # The type of flow that originated the ReceivedCredit.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { ach: Ach }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ReversalDetails < Stripe::StripeObject
@@ -123,6 +199,14 @@ module Stripe
         attr_reader :deadline
         # Set if a ReceivedCredit cannot be reversed.
         attr_reader :restricted_reason
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -315,6 +399,19 @@ module Stripe
             opts: opts
           )
         end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          initiating_payment_method_details: InitiatingPaymentMethodDetails,
+          linked_flows: LinkedFlows,
+          network_details: NetworkDetails,
+          reversal_details: ReversalDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

@@ -12,11 +12,23 @@ module Stripe
             # Open Enum. The reason for the failure of the ReceivedDebit.
             sig { returns(String) }
             def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Information that elaborates on the `failed` status of a ReceivedDebit.
           # It is only present when the ReceivedDebit status is `failed`.
           sig { returns(Failed) }
           def failed; end
+          def self.inner_class_types
+            @inner_class_types = {failed: Failed}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusTransitions < Stripe::StripeObject
           # The time when the ReceivedDebit was marked as `canceled`.
@@ -31,6 +43,12 @@ module Stripe
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           sig { returns(T.nilable(String)) }
           def succeeded_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BankTransfer < Stripe::StripeObject
           class UsBankAccount < Stripe::StripeObject
@@ -43,6 +61,12 @@ module Stripe
             # The routing number of the bank that originated the debit.
             sig { returns(T.nilable(String)) }
             def routing_number; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The Financial Address that was debited.
           sig { returns(String) }
@@ -56,6 +80,12 @@ module Stripe
           # The payment method used to originate the debit.
           sig { returns(UsBankAccount) }
           def us_bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {us_bank_account: UsBankAccount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Amount and currency of the ReceivedDebit.
         sig { returns(Stripe::V2::Amount) }

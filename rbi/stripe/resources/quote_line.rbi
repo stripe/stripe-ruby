@@ -11,6 +11,12 @@ module Stripe
           # The discount end type.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
@@ -27,6 +33,12 @@ module Stripe
         # ID of the promotion code to create a new discount for.
         sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
         def promotion_code; end
+        def self.inner_class_types
+          @inner_class_types = {discount_end: DiscountEnd}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class AddItem < Stripe::StripeObject
         class Discount < Stripe::StripeObject
@@ -37,6 +49,12 @@ module Stripe
             # The discount end type.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
@@ -50,6 +68,12 @@ module Stripe
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
           def promotion_code; end
+          def self.inner_class_types
+            @inner_class_types = {discount_end: DiscountEnd}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Trial < Stripe::StripeObject
           # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
@@ -58,6 +82,12 @@ module Stripe
           # Determines the type of trial for this item.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         sig { returns(T::Array[Discount]) }
@@ -77,6 +107,12 @@ module Stripe
         # Options that configure the trial on the subscription item.
         sig { returns(T.nilable(Trial)) }
         def trial; end
+        def self.inner_class_types
+          @inner_class_types = {discounts: Discount, trial: Trial}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class RemoveDiscount < Stripe::StripeObject
         class DiscountEnd < Stripe::StripeObject
@@ -86,6 +122,12 @@ module Stripe
           # The discount end type.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
@@ -99,11 +141,23 @@ module Stripe
         # ID of the promotion code to create a new discount for.
         sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
         def promotion_code; end
+        def self.inner_class_types
+          @inner_class_types = {discount_end: DiscountEnd}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class RemoveItem < Stripe::StripeObject
         # ID of a price to remove.
         sig { returns(T.any(String, Stripe::Price)) }
         def price; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class SetDiscount < Stripe::StripeObject
         class DiscountEnd < Stripe::StripeObject
@@ -113,6 +167,12 @@ module Stripe
           # The discount end type.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
@@ -126,6 +186,12 @@ module Stripe
         # ID of the promotion code to create a new discount for.
         sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
         def promotion_code; end
+        def self.inner_class_types
+          @inner_class_types = {discount_end: DiscountEnd}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class SetItem < Stripe::StripeObject
         class Discount < Stripe::StripeObject
@@ -136,6 +202,12 @@ module Stripe
             # The discount end type.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
@@ -149,6 +221,12 @@ module Stripe
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
           def promotion_code; end
+          def self.inner_class_types
+            @inner_class_types = {discount_end: DiscountEnd}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Trial < Stripe::StripeObject
           # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
@@ -157,6 +235,12 @@ module Stripe
           # Determines the type of trial for this item.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         sig { returns(T::Array[Discount]) }
@@ -176,6 +260,12 @@ module Stripe
         # Options that configure the trial on the subscription item.
         sig { returns(T.nilable(Trial)) }
         def trial; end
+        def self.inner_class_types
+          @inner_class_types = {discounts: Discount, trial: Trial}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Details for the `add_discount` type.
       sig { returns(T.nilable(AddDiscount)) }
@@ -207,6 +297,19 @@ module Stripe
       # The type of action the quote line performs.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {
+          add_discount: AddDiscount,
+          add_item: AddItem,
+          remove_discount: RemoveDiscount,
+          remove_item: RemoveItem,
+          set_discounts: SetDiscount,
+          set_items: SetItem,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class AppliesTo < Stripe::StripeObject
       # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
@@ -218,6 +321,12 @@ module Stripe
       # Describes whether the quote line is affecting a new schedule or an existing schedule.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class CancelSubscriptionSchedule < Stripe::StripeObject
       # Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
@@ -229,12 +338,24 @@ module Stripe
       # If the subscription schedule is `active`, indicates if the cancellation should be prorated. Boolean that defaults to `true`.
       sig { returns(T.nilable(T::Boolean)) }
       def prorate; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class EndsAt < Stripe::StripeObject
       class DiscountEnd < Stripe::StripeObject
         # The ID of a specific discount.
         sig { returns(String) }
         def discount; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Duration < Stripe::StripeObject
         # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
@@ -243,6 +364,12 @@ module Stripe
         # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         sig { returns(Integer) }
         def interval_count; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The timestamp value that will be used to determine when to make changes to the subscription schedule, as computed from the `ends_at` field. For example, if `ends_at[type]=upcoming_invoice`, the upcoming invoice date will be computed at the time the `ends_at` field was specified and saved. This field will not be recomputed upon future requests to update or finalize the quote unless `ends_at` is respecified. This field is guaranteed to be populated after quote acceptance.
       sig { returns(T.nilable(Integer)) }
@@ -259,12 +386,24 @@ module Stripe
       # Select a way to pass in `ends_at`.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {discount_end: DiscountEnd, duration: Duration}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class SetPauseCollection < Stripe::StripeObject
       class Set < Stripe::StripeObject
         # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
         sig { returns(String) }
         def behavior; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
       sig { returns(T.nilable(Set)) }
@@ -272,17 +411,35 @@ module Stripe
       # Defines the type of the pause_collection behavior for the quote line.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {set: Set}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class StartsAt < Stripe::StripeObject
       class DiscountEnd < Stripe::StripeObject
         # The ID of a specific discount.
         sig { returns(String) }
         def discount; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class LineEndsAt < Stripe::StripeObject
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The timestamp value that will be used to determine when to make changes to the subscription schedule, as computed from the `starts_at` field. For example, if `starts_at[type]=upcoming_invoice`, the upcoming invoice date will be computed at the time the `starts_at` field was specified and saved. This field will not be recomputed upon future requests to update or finalize the quote unless `starts_at` is respecified. This field is guaranteed to be populated after quote acceptance.
       sig { returns(T.nilable(Integer)) }
@@ -299,16 +456,34 @@ module Stripe
       # Select a way to pass in `starts_at`.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {discount_end: DiscountEnd, line_ends_at: LineEndsAt}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TrialSettings < Stripe::StripeObject
       class EndBehavior < Stripe::StripeObject
         # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
         sig { returns(T.nilable(String)) }
         def prorate_up_front; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Defines how the subscription should behave when a trial ends.
       sig { returns(T.nilable(EndBehavior)) }
       def end_behavior; end
+      def self.inner_class_types
+        @inner_class_types = {end_behavior: EndBehavior}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # A list of items the customer is being quoted for.
     sig { returns(T.nilable(T::Array[Action])) }

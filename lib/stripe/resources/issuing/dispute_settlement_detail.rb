@@ -15,6 +15,14 @@ module Stripe
       class NetworkData < Stripe::StripeObject
         # The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
         attr_reader :processing_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -76,6 +84,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { network_data: NetworkData }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

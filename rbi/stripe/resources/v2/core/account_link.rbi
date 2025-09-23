@@ -16,6 +16,12 @@ module Stripe
               # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
               sig { returns(T.nilable(String)) }
               def future_requirements; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             sig { returns(T.nilable(CollectionOptions)) }
@@ -29,6 +35,12 @@ module Stripe
             # The URL that the user will be redirected to upon completing the linked flow.
             sig { returns(T.nilable(String)) }
             def return_url; end
+            def self.inner_class_types
+              @inner_class_types = {collection_options: CollectionOptions}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class AccountUpdate < Stripe::StripeObject
             class CollectionOptions < Stripe::StripeObject
@@ -38,6 +50,12 @@ module Stripe
               # Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
               sig { returns(T.nilable(String)) }
               def future_requirements; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             sig { returns(T.nilable(CollectionOptions)) }
@@ -51,6 +69,12 @@ module Stripe
             # The URL that the user will be redirected to upon completing the linked flow.
             sig { returns(T.nilable(String)) }
             def return_url; end
+            def self.inner_class_types
+              @inner_class_types = {collection_options: CollectionOptions}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Open Enum. The type of AccountLink the user is requesting.
           sig { returns(String) }
@@ -61,6 +85,15 @@ module Stripe
           # Indicates that the AccountLink provided should update a previously onboarded account.
           sig { returns(T.nilable(AccountUpdate)) }
           def account_update; end
+          def self.inner_class_types
+            @inner_class_types = {
+              account_onboarding: AccountOnboarding,
+              account_update: AccountUpdate,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The ID of the Account the link was created for.
         sig { returns(String) }

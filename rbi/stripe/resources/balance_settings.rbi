@@ -17,6 +17,12 @@ module Stripe
           # The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
           sig { returns(T.nilable(T::Array[String])) }
           def weekly_payout_days; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](/payouts/minimum-balances-for-automatic-payouts).
         sig { returns(T.nilable(T::Hash[String, Integer])) }
@@ -30,6 +36,12 @@ module Stripe
         # Whether the funds in this account can be paid out.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {schedule: Schedule}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class SettlementTiming < Stripe::StripeObject
         # The number of days charge funds are held before becoming available.
@@ -38,6 +50,12 @@ module Stripe
         # The number of days charge funds are held before becoming available. If present, overrides the default, or minimum available, for the account.
         sig { returns(T.nilable(Integer)) }
         def delay_days_override; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
       sig { returns(T.nilable(T::Boolean)) }
@@ -48,6 +66,12 @@ module Stripe
       # Attribute for field settlement_timing
       sig { returns(SettlementTiming) }
       def settlement_timing; end
+      def self.inner_class_types
+        @inner_class_types = {payouts: Payouts, settlement_timing: SettlementTiming}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }

@@ -21,6 +21,14 @@ module Stripe
       attr_reader :recipient
       # Subject of the email.
       attr_reader :subject
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class LinkedObjects < Stripe::StripeObject
@@ -30,6 +38,14 @@ module Stripe
       attr_reader :issuing_credit_underwriting_record
       # Associated [Issuing Dispute](https://stripe.com/docs/api/issuing/disputes)
       attr_reader :issuing_dispute
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -118,6 +134,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { email: Email, linked_objects: LinkedObjects }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

@@ -27,6 +27,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field address
           sig { returns(Address) }
@@ -37,6 +43,12 @@ module Stripe
           # Full name.
           sig { returns(T.nilable(String)) }
           def name; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class FinancialAccount < Stripe::StripeObject
           # The FinancialAccount ID.
@@ -45,6 +57,12 @@ module Stripe
           # The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
           sig { returns(String) }
           def network; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class UsBankAccount < Stripe::StripeObject
           # Bank name.
@@ -56,6 +74,12 @@ module Stripe
           # The routing number for the bank account.
           sig { returns(T.nilable(String)) }
           def routing_number; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Set when `type` is `balance`.
         sig { returns(T.nilable(String)) }
@@ -75,6 +99,16 @@ module Stripe
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_details: BillingDetails,
+            financial_account: FinancialAccount,
+            us_bank_account: UsBankAccount,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class LinkedFlows < Stripe::StripeObject
         # The DebitReversal created as a result of this ReceivedDebit being reversed.
@@ -95,12 +129,24 @@ module Stripe
         # The ReceivedCredit that Capital withheld from
         sig { returns(T.nilable(String)) }
         def received_credit_capital_withholding; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class NetworkDetails < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           # ACH Addenda record
           sig { returns(T.nilable(String)) }
           def addenda; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Details about an ACH transaction.
         sig { returns(T.nilable(Ach)) }
@@ -108,6 +154,12 @@ module Stripe
         # The type of flow that originated the ReceivedDebit.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {ach: Ach}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class ReversalDetails < Stripe::StripeObject
         # Time before which a ReceivedDebit can be reversed.
@@ -116,6 +168,12 @@ module Stripe
         # Set if a ReceivedDebit can't be reversed.
         sig { returns(T.nilable(String)) }
         def restricted_reason; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Amount (in cents) transferred.
       sig { returns(Integer) }

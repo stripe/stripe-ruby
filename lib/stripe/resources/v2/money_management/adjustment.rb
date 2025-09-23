@@ -26,6 +26,14 @@ module Stripe
           attr_reader :received_credit
           # If applicable, the ID of the ReceivedDebit linked to this Adjustment.
           attr_reader :received_debit
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # If applicable, contains information about the original flow linked to this Adjustment.
         attr_reader :adjusted_flow
@@ -45,6 +53,14 @@ module Stripe
         attr_reader :receipt_url
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = { adjusted_flow: AdjustedFlow }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

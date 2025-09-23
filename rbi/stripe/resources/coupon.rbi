@@ -11,11 +11,23 @@ module Stripe
       # A list of product IDs this coupon applies to
       sig { returns(T::Array[String]) }
       def products; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class CurrencyOptions < Stripe::StripeObject
       # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
       sig { returns(Integer) }
       def amount_off; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Script < Stripe::StripeObject
       # The configuration values of the script. The keys and values are specific to the script implementation.
@@ -27,6 +39,12 @@ module Stripe
       # The script implementation ID for this coupon.
       sig { returns(String) }
       def id; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     sig { returns(T.nilable(Integer)) }

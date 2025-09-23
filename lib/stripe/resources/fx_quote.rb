@@ -29,11 +29,27 @@ module Stripe
         attr_reader :reference_rate
         # The reference rate provider.
         attr_reader :reference_rate_provider
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The rate that includes the FX fee rate.
       attr_reader :exchange_rate
       # Attribute for field rate_details
       attr_reader :rate_details
+
+      def self.inner_class_types
+        @inner_class_types = { rate_details: RateDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Usage < Stripe::StripeObject
@@ -46,6 +62,14 @@ module Stripe
         #
         # This field must match the account ID that would be used in the PaymentIntent’s on_behalf_of field.
         attr_reader :on_behalf_of
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Transfer < Stripe::StripeObject
@@ -53,6 +77,14 @@ module Stripe
         #
         # This field should match the account ID that would be used in the Transfer’s destination field.
         attr_reader :destination
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The details required to use an FX Quote for a payment
       attr_reader :payment
@@ -62,6 +94,14 @@ module Stripe
       #
       # Can be 'payment' or 'transfer'.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { payment: Payment, transfer: Transfer }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -181,6 +221,14 @@ module Stripe
     # Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/fx_quotes", params: params, opts: opts)
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { rates: Rates, usage: Usage }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

@@ -17,6 +17,14 @@ module Stripe
       attr_reader :coupon
       # The source type of the discount.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
     attr_reader :checkout_session
@@ -46,5 +54,13 @@ module Stripe
     attr_reader :subscription_item
     # Always true for a deleted object
     attr_reader :deleted
+
+    def self.inner_class_types
+      @inner_class_types = { source: Source }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

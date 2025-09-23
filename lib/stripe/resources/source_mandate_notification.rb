@@ -14,11 +14,27 @@ module Stripe
     class AcssDebit < Stripe::StripeObject
       # The statement descriptor associate with the debit.
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class BacsDebit < Stripe::StripeObject
       # Last 4 digits of the account number associated with the debit.
       attr_reader :last4
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SepaDebit < Stripe::StripeObject
@@ -28,6 +44,14 @@ module Stripe
       attr_reader :last4
       # Mandate reference associated with the debit.
       attr_reader :mandate_reference
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field acss_debit
     attr_reader :acss_debit
@@ -62,5 +86,13 @@ module Stripe
     attr_reader :status
     # The type of source this mandate notification is attached to. Should be the source type identifier code for the payment method, such as `three_d_secure`.
     attr_reader :type
+
+    def self.inner_class_types
+      @inner_class_types = { acss_debit: AcssDebit, bacs_debit: BacsDebit, sepa_debit: SepaDebit }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

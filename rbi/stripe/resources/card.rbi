@@ -13,6 +13,12 @@ module Stripe
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       sig { returns(T.nilable(String)) }
       def preferred; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field account
     sig { returns(T.nilable(T.any(String, Stripe::Account))) }

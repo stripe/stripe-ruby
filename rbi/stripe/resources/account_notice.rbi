@@ -17,6 +17,12 @@ module Stripe
       # Subject of the email.
       sig { returns(String) }
       def subject; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class LinkedObjects < Stripe::StripeObject
       # Associated [Capability](https://stripe.com/docs/api/capabilities)
@@ -28,6 +34,12 @@ module Stripe
       # Associated [Issuing Dispute](https://stripe.com/docs/api/issuing/disputes)
       sig { returns(T.nilable(String)) }
       def issuing_dispute; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }

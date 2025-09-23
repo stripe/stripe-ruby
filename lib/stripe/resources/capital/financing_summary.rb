@@ -20,6 +20,14 @@ module Stripe
           attr_reader :paid_amount
           # The amount that is yet to be paid in the current repayment interval, in minor units. For example, $100 USD will be represented as 10000.
           attr_reader :remaining_amount
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         attr_reader :advance_amount
@@ -39,6 +47,14 @@ module Stripe
         attr_reader :repayments_begin_at
         # Per-transaction rate at which Stripe will withhold funds to repay the financing.
         attr_reader :withhold_rate
+
+        def self.inner_class_types
+          @inner_class_types = { current_repayment_interval: CurrentRepaymentInterval }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Additional information about the financing summary. Describes currency, advance amount,
       # fee amount, withhold rate, remaining amount, paid amount, current repayment interval,
@@ -50,6 +66,14 @@ module Stripe
       attr_reader :object
       # Status of the Connected Account's financing. [/v1/capital/financing_summary](https://stripe.com/docs/api/capital/financing_summary) will only return `details` for `paid_out` financing.
       attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = { details: Details }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

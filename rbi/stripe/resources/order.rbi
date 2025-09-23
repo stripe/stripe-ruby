@@ -16,6 +16,12 @@ module Stripe
       # The status of the most recent automated tax calculation for this Order.
       sig { returns(T.nilable(String)) }
       def status; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class BillingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
@@ -37,6 +43,12 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Billing address for the order.
       sig { returns(T.nilable(Address)) }
@@ -50,6 +62,12 @@ module Stripe
       # Billing phone number for the order (including extension).
       sig { returns(T.nilable(String)) }
       def phone; end
+      def self.inner_class_types
+        @inner_class_types = {address: Address}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Payment < Stripe::StripeObject
       class Settings < Stripe::StripeObject
@@ -57,6 +75,12 @@ module Stripe
           # Whether this Order has been opted into managing payment method types via the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
           sig { returns(T::Boolean) }
           def enabled; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class PaymentMethodOptions < Stripe::StripeObject
           class AcssDebit < Stripe::StripeObject
@@ -73,6 +97,12 @@ module Stripe
               # Transaction type of the mandate.
               sig { returns(T.nilable(String)) }
               def transaction_type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field mandate_options
             sig { returns(T.nilable(MandateOptions)) }
@@ -92,6 +122,12 @@ module Stripe
             # Bank account verification method.
             sig { returns(T.nilable(String)) }
             def verification_method; end
+            def self.inner_class_types
+              @inner_class_types = {mandate_options: MandateOptions}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class AfterpayClearpay < Stripe::StripeObject
             # Controls when the funds will be captured from the customer's account.
@@ -109,6 +145,12 @@ module Stripe
             # If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Alipay < Stripe::StripeObject
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -120,6 +162,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Bancontact < Stripe::StripeObject
             # Preferred language of the Bancontact authorization page that the customer is redirected to.
@@ -134,6 +182,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Card < Stripe::StripeObject
             # Controls when the funds will be captured from the customer's account.
@@ -148,6 +202,12 @@ module Stripe
             # If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class CustomerBalance < Stripe::StripeObject
             class BankTransfer < Stripe::StripeObject
@@ -155,6 +215,12 @@ module Stripe
                 # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
                 sig { returns(String) }
                 def country; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Attribute for field eu_bank_transfer
               sig { returns(T.nilable(EuBankTransfer)) }
@@ -167,6 +233,12 @@ module Stripe
               # The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
               sig { returns(T.nilable(String)) }
               def type; end
+              def self.inner_class_types
+                @inner_class_types = {eu_bank_transfer: EuBankTransfer}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field bank_transfer
             sig { returns(T.nilable(BankTransfer)) }
@@ -183,6 +255,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {bank_transfer: BankTransfer}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Ideal < Stripe::StripeObject
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -194,6 +272,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Klarna < Stripe::StripeObject
             # Controls when the funds will be captured from the customer's account.
@@ -211,6 +295,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Link < Stripe::StripeObject
             # Controls when the funds will be captured from the customer's account.
@@ -228,6 +318,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Oxxo < Stripe::StripeObject
             # The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
@@ -242,6 +338,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class P24 < Stripe::StripeObject
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -253,6 +355,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Paypal < Stripe::StripeObject
             class LineItem < Stripe::StripeObject
@@ -263,6 +371,12 @@ module Stripe
                 # The tax behavior for the line item.
                 sig { returns(String) }
                 def behavior; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Type of the line item.
               sig { returns(T.nilable(String)) }
@@ -288,6 +402,12 @@ module Stripe
               # Price for a single unit of the line item in minor units. Cannot be a negative number.
               sig { returns(Integer) }
               def unit_amount; end
+              def self.inner_class_types
+                @inner_class_types = {tax: Tax}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Controls when the funds will be captured from the customer's account.
             sig { returns(T.nilable(String)) }
@@ -316,12 +436,24 @@ module Stripe
             # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             sig { returns(T.nilable(T::Array[String])) }
             def subsellers; end
+            def self.inner_class_types
+              @inner_class_types = {line_items: LineItem}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class SepaDebit < Stripe::StripeObject
             class MandateOptions < Stripe::StripeObject
               # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
               sig { returns(T.nilable(String)) }
               def reference_prefix; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field mandate_options
             sig { returns(T.nilable(MandateOptions)) }
@@ -338,6 +470,12 @@ module Stripe
             # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             sig { returns(T.nilable(String)) }
             def target_date; end
+            def self.inner_class_types
+              @inner_class_types = {mandate_options: MandateOptions}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Sofort < Stripe::StripeObject
             # Preferred language of the SOFORT authorization page that the customer is redirected to.
@@ -352,6 +490,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class WechatPay < Stripe::StripeObject
             # The app ID registered with WeChat Pay. Only required when client is ios or android.
@@ -369,6 +513,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(T.nilable(String)) }
             def setup_future_usage; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field acss_debit
           sig { returns(T.nilable(AcssDebit)) }
@@ -415,6 +565,28 @@ module Stripe
           # Attribute for field wechat_pay
           sig { returns(T.nilable(WechatPay)) }
           def wechat_pay; end
+          def self.inner_class_types
+            @inner_class_types = {
+              acss_debit: AcssDebit,
+              afterpay_clearpay: AfterpayClearpay,
+              alipay: Alipay,
+              bancontact: Bancontact,
+              card: Card,
+              customer_balance: CustomerBalance,
+              ideal: Ideal,
+              klarna: Klarna,
+              link: Link,
+              oxxo: Oxxo,
+              p24: P24,
+              paypal: Paypal,
+              sepa_debit: SepaDebit,
+              sofort: Sofort,
+              wechat_pay: WechatPay,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TransferData < Stripe::StripeObject
           # The amount that will be transferred automatically when the order is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
@@ -423,6 +595,12 @@ module Stripe
           # ID of the Connected account receiving the transfer.
           sig { returns(T.any(String, Stripe::Account)) }
           def destination; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account.
         sig { returns(T.nilable(Integer)) }
@@ -448,6 +626,16 @@ module Stripe
         # Provides configuration for completing a transfer for the order after it is paid.
         sig { returns(T.nilable(TransferData)) }
         def transfer_data; end
+        def self.inner_class_types
+          @inner_class_types = {
+            automatic_payment_methods: AutomaticPaymentMethods,
+            payment_method_options: PaymentMethodOptions,
+            transfer_data: TransferData,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # ID of the payment intent associated with this order. Null when the order is `open`.
       sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
@@ -458,6 +646,12 @@ module Stripe
       # The status of the underlying payment associated with this order, if any. Null when the order is `open`.
       sig { returns(T.nilable(String)) }
       def status; end
+      def self.inner_class_types
+        @inner_class_types = {settings: Settings}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class ShippingCost < Stripe::StripeObject
       class Tax < Stripe::StripeObject
@@ -475,6 +669,12 @@ module Stripe
         # The amount on which tax is calculated, in cents (or local equivalent).
         sig { returns(T.nilable(Integer)) }
         def taxable_amount; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Total shipping cost before any discounts or taxes are applied.
       sig { returns(Integer) }
@@ -491,6 +691,12 @@ module Stripe
       # The taxes applied to the shipping rate.
       sig { returns(T.nilable(T::Array[Tax])) }
       def taxes; end
+      def self.inner_class_types
+        @inner_class_types = {taxes: Tax}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class ShippingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
@@ -512,6 +718,12 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Recipient shipping address. Required if the order includes products that are shippable.
       sig { returns(T.nilable(Address)) }
@@ -522,6 +734,12 @@ module Stripe
       # Recipient phone (including extension).
       sig { returns(T.nilable(String)) }
       def phone; end
+      def self.inner_class_types
+        @inner_class_types = {address: Address}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TaxDetails < Stripe::StripeObject
       class TaxId < Stripe::StripeObject
@@ -531,6 +749,12 @@ module Stripe
         # The value of the tax ID.
         sig { returns(T.nilable(String)) }
         def value; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Describes the purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
       sig { returns(String) }
@@ -538,6 +762,12 @@ module Stripe
       # The purchaser's tax IDs to be used in calculation of tax for this Order.
       sig { returns(T::Array[TaxId]) }
       def tax_ids; end
+      def self.inner_class_types
+        @inner_class_types = {tax_ids: TaxId}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TotalDetails < Stripe::StripeObject
       class Breakdown < Stripe::StripeObject
@@ -551,6 +781,12 @@ module Stripe
           # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
           sig { returns(Stripe::Discount) }
           def discount; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Tax < Stripe::StripeObject
           # Amount of tax applied for this rate.
@@ -567,6 +803,12 @@ module Stripe
           # The amount on which tax is calculated, in cents (or local equivalent).
           sig { returns(T.nilable(Integer)) }
           def taxable_amount; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The aggregated discounts.
         sig { returns(T::Array[Discount]) }
@@ -574,6 +816,12 @@ module Stripe
         # The aggregated tax amounts by rate.
         sig { returns(T::Array[Tax]) }
         def taxes; end
+        def self.inner_class_types
+          @inner_class_types = {discounts: Discount, taxes: Tax}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # This is the sum of all the discounts.
       sig { returns(Integer) }
@@ -587,6 +835,12 @@ module Stripe
       # Attribute for field breakdown
       sig { returns(T.nilable(Breakdown)) }
       def breakdown; end
+      def self.inner_class_types
+        @inner_class_types = {breakdown: Breakdown}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Order cost before any discounts or taxes are applied. A positive integer representing the subtotal of the order in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency).
     sig { returns(Integer) }

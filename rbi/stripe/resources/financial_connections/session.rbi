@@ -19,6 +19,12 @@ module Stripe
         # Type of account holder that this account belongs to.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Filters < Stripe::StripeObject
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
@@ -30,22 +36,53 @@ module Stripe
         # Stripe ID of the institution with which the customer should be directed to log in.
         sig { returns(T.nilable(String)) }
         def institution; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Limits < Stripe::StripeObject
         # The number of accounts that can be linked in this Session.
         sig { returns(Integer) }
         def accounts; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class ManualEntry < Stripe::StripeObject; end
+      class ManualEntry < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class StatusDetails < Stripe::StripeObject
         class Cancelled < Stripe::StripeObject
           # The reason for the Session being cancelled.
           sig { returns(String) }
           def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field cancelled
         sig { returns(T.nilable(Cancelled)) }
         def cancelled; end
+        def self.inner_class_types
+          @inner_class_types = {cancelled: Cancelled}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The account holder for whom accounts are collected in this session.
       sig { returns(T.nilable(AccountHolder)) }

@@ -26,6 +26,14 @@ module Stripe
           attr_reader :postal_code
           # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class TaxId < Stripe::StripeObject
@@ -33,6 +41,14 @@ module Stripe
           attr_reader :type
           # The value of the tax ID.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The customer's postal address (for example, home or business location).
         attr_reader :address
@@ -44,11 +60,27 @@ module Stripe
         attr_reader :tax_ids
         # The taxability override used for taxation.
         attr_reader :taxability_override
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address, tax_ids: TaxId }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Reversal < Stripe::StripeObject
         # The `id` of the reversed `Transaction` object.
         attr_reader :original_transaction
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ShipFromDetails < Stripe::StripeObject
@@ -65,9 +97,25 @@ module Stripe
           attr_reader :postal_code
           # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field address
         attr_reader :address
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ShippingCost < Stripe::StripeObject
@@ -81,6 +129,14 @@ module Stripe
             attr_reader :level
             # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class TaxRateDetails < Stripe::StripeObject
@@ -90,6 +146,14 @@ module Stripe
             attr_reader :percentage_decimal
             # The tax type, such as `vat` or `sales_tax`.
             attr_reader :tax_type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_reader :amount
@@ -103,6 +167,14 @@ module Stripe
           attr_reader :taxability_reason
           # The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_reader :taxable_amount
+
+          def self.inner_class_types
+            @inner_class_types = { jurisdiction: Jurisdiction, tax_rate_details: TaxRateDetails }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The shipping amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         attr_reader :amount
@@ -116,6 +188,14 @@ module Stripe
         attr_reader :tax_breakdown
         # The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for shipping.
         attr_reader :tax_code
+
+        def self.inner_class_types
+          @inner_class_types = { tax_breakdown: TaxBreakdown }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListLineItemsParams < Stripe::RequestParams
@@ -308,6 +388,19 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          customer_details: CustomerDetails,
+          reversal: Reversal,
+          ship_from_details: ShipFromDetails,
+          shipping_cost: ShippingCost,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

@@ -17,6 +17,12 @@ module Stripe
                 # The identified tax state, county, province, or region of the customer.
                 sig { returns(T.nilable(String)) }
                 def state; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
               sig { returns(T.nilable(String)) }
@@ -30,6 +36,12 @@ module Stripe
               # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               sig { returns(T.nilable(String)) }
               def location_source; end
+              def self.inner_class_types
+                @inner_class_types = {location: Location}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Billing < Stripe::StripeObject
               class Invoice < Stripe::StripeObject
@@ -40,6 +52,12 @@ module Stripe
                   # The value of the custom field. This may be up to 140 characters. When updating, pass an empty string to remove previously-defined values.
                   sig { returns(String) }
                   def value; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 class Rendering < Stripe::StripeObject
                   # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -48,6 +66,12 @@ module Stripe
                   # ID of the invoice rendering template to use for future invoices.
                   sig { returns(T.nilable(String)) }
                   def template; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
                 sig { returns(T::Array[CustomField]) }
@@ -64,6 +88,12 @@ module Stripe
                 # Default options for invoice PDF rendering for this customer.
                 sig { returns(T.nilable(Rendering)) }
                 def rendering; end
+                def self.inner_class_types
+                  @inner_class_types = {custom_fields: CustomField, rendering: Rendering}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # ID of a payment method that’s attached to the customer, to be used as the customer’s default payment method for invoices and subscriptions.
               sig { returns(T.nilable(String)) }
@@ -71,6 +101,12 @@ module Stripe
               # Default settings used on invoices for this customer.
               sig { returns(T.nilable(Invoice)) }
               def invoice; end
+              def self.inner_class_types
+                @inner_class_types = {invoice: Invoice}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Capabilities < Stripe::StripeObject
               class AutomaticIndirectTax < Stripe::StripeObject
@@ -81,6 +117,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -91,10 +133,22 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions. Uses the `location_source` field.
               sig { returns(T.nilable(AutomaticIndirectTax)) }
               def automatic_indirect_tax; end
+              def self.inner_class_types
+                @inner_class_types = {automatic_indirect_tax: AutomaticIndirectTax}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Shipping < Stripe::StripeObject
               class Address < Stripe::StripeObject
@@ -116,6 +170,12 @@ module Stripe
                 # State, county, province, or region.
                 sig { returns(T.nilable(String)) }
                 def state; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Customer shipping address.
               sig { returns(T.nilable(Address)) }
@@ -126,6 +186,12 @@ module Stripe
               # Customer phone (including extension).
               sig { returns(T.nilable(String)) }
               def phone; end
+              def self.inner_class_types
+                @inner_class_types = {address: Address}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             sig { returns(T::Boolean) }
@@ -145,6 +211,17 @@ module Stripe
             # ID of the test clock to attach to the customer. Can only be set on testmode Accounts, and when the Customer Configuration is first set on an Account.
             sig { returns(T.nilable(String)) }
             def test_clock; end
+            def self.inner_class_types
+              @inner_class_types = {
+                automatic_indirect_tax: AutomaticIndirectTax,
+                billing: Billing,
+                capabilities: Capabilities,
+                shipping: Shipping,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Merchant < Stripe::StripeObject
             class BacsDebitPayments < Stripe::StripeObject
@@ -154,6 +231,12 @@ module Stripe
               # Service user number for Bacs debit payments.
               sig { returns(T.nilable(String)) }
               def service_user_number; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Branding < Stripe::StripeObject
               # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
@@ -168,6 +251,12 @@ module Stripe
               # A CSS hex color value representing the secondary branding color for the merchant.
               sig { returns(T.nilable(String)) }
               def secondary_color; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Capabilities < Stripe::StripeObject
               class AchDebitPayments < Stripe::StripeObject
@@ -178,6 +267,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -188,6 +283,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class AcssDebitPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -197,6 +298,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -207,6 +314,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class AffirmPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -216,6 +329,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -226,6 +345,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class AfterpayClearpayPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -235,6 +360,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -245,6 +376,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class AlmaPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -254,6 +391,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -264,6 +407,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class AmazonPayPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -273,6 +422,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -283,6 +438,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class AuBecsDebitPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -292,6 +453,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -302,6 +469,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class BacsDebitPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -311,6 +484,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -321,6 +500,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class BancontactPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -330,6 +515,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -340,6 +531,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class BlikPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -349,6 +546,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -359,6 +562,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class BoletoPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -368,6 +577,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -378,6 +593,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class CardPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -387,6 +608,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -397,6 +624,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class CartesBancairesPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -406,6 +639,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -416,6 +655,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class CashappPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -425,6 +670,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -435,6 +686,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class EpsPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -444,6 +701,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -454,6 +717,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class FpxPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -463,6 +732,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -473,6 +748,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class GbBankTransferPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -482,6 +763,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -492,6 +779,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class GrabpayPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -501,6 +794,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -511,6 +810,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class IdealPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -520,6 +825,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -530,6 +841,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class JcbPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -539,6 +856,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -549,6 +872,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class JpBankTransferPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -558,6 +887,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -568,6 +903,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class KakaoPayPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -577,6 +918,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -587,6 +934,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class KlarnaPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -596,6 +949,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -606,6 +965,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class KonbiniPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -615,6 +980,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -625,6 +996,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class KrCardPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -634,6 +1011,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -644,6 +1027,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class LinkPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -653,6 +1042,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -663,6 +1058,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class MobilepayPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -672,6 +1073,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -682,6 +1089,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class MultibancoPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -691,6 +1104,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -701,6 +1120,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class MxBankTransferPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -710,6 +1135,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -720,6 +1151,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class NaverPayPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -729,6 +1166,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -739,6 +1182,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class OxxoPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -748,6 +1197,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -758,6 +1213,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class P24Payments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -767,6 +1228,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -777,6 +1244,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class PayByBankPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -786,6 +1259,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -796,6 +1275,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class PaycoPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -805,6 +1290,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -815,6 +1306,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class PaynowPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -824,6 +1321,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -834,6 +1337,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class PromptpayPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -843,6 +1352,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -853,6 +1368,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class RevolutPayPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -862,6 +1383,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -872,6 +1399,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class SamsungPayPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -881,6 +1414,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -891,6 +1430,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class SepaBankTransferPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -900,6 +1445,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -910,6 +1461,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class SepaDebitPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -919,6 +1476,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -929,6 +1492,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class StripeBalance < Stripe::StripeObject
                 class Payouts < Stripe::StripeObject
@@ -939,6 +1508,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -949,10 +1524,22 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Allows the account to do payouts using their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(Payouts)) }
                 def payouts; end
+                def self.inner_class_types
+                  @inner_class_types = {payouts: Payouts}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class SwishPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -962,6 +1549,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -972,6 +1565,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class TwintPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -981,6 +1580,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -991,6 +1596,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class UsBankTransferPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -1000,6 +1611,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -1010,6 +1627,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class ZipPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -1019,6 +1642,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -1029,6 +1658,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Allow the merchant to process ACH debit payments.
               sig { returns(T.nilable(AchDebitPayments)) }
@@ -1165,6 +1800,58 @@ module Stripe
               # Allow the merchant to process Zip payments.
               sig { returns(T.nilable(ZipPayments)) }
               def zip_payments; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  ach_debit_payments: AchDebitPayments,
+                  acss_debit_payments: AcssDebitPayments,
+                  affirm_payments: AffirmPayments,
+                  afterpay_clearpay_payments: AfterpayClearpayPayments,
+                  alma_payments: AlmaPayments,
+                  amazon_pay_payments: AmazonPayPayments,
+                  au_becs_debit_payments: AuBecsDebitPayments,
+                  bacs_debit_payments: BacsDebitPayments,
+                  bancontact_payments: BancontactPayments,
+                  blik_payments: BlikPayments,
+                  boleto_payments: BoletoPayments,
+                  card_payments: CardPayments,
+                  cartes_bancaires_payments: CartesBancairesPayments,
+                  cashapp_payments: CashappPayments,
+                  eps_payments: EpsPayments,
+                  fpx_payments: FpxPayments,
+                  gb_bank_transfer_payments: GbBankTransferPayments,
+                  grabpay_payments: GrabpayPayments,
+                  ideal_payments: IdealPayments,
+                  jcb_payments: JcbPayments,
+                  jp_bank_transfer_payments: JpBankTransferPayments,
+                  kakao_pay_payments: KakaoPayPayments,
+                  klarna_payments: KlarnaPayments,
+                  konbini_payments: KonbiniPayments,
+                  kr_card_payments: KrCardPayments,
+                  link_payments: LinkPayments,
+                  mobilepay_payments: MobilepayPayments,
+                  multibanco_payments: MultibancoPayments,
+                  mx_bank_transfer_payments: MxBankTransferPayments,
+                  naver_pay_payments: NaverPayPayments,
+                  oxxo_payments: OxxoPayments,
+                  p24_payments: P24Payments,
+                  pay_by_bank_payments: PayByBankPayments,
+                  payco_payments: PaycoPayments,
+                  paynow_payments: PaynowPayments,
+                  promptpay_payments: PromptpayPayments,
+                  revolut_pay_payments: RevolutPayPayments,
+                  samsung_pay_payments: SamsungPayPayments,
+                  sepa_bank_transfer_payments: SepaBankTransferPayments,
+                  sepa_debit_payments: SepaDebitPayments,
+                  stripe_balance: StripeBalance,
+                  swish_payments: SwishPayments,
+                  twint_payments: TwintPayments,
+                  us_bank_transfer_payments: UsBankTransferPayments,
+                  zip_payments: ZipPayments,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class CardPayments < Stripe::StripeObject
               class DeclineOn < Stripe::StripeObject
@@ -1174,15 +1861,33 @@ module Stripe
                 # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
                 sig { returns(T.nilable(T::Boolean)) }
                 def cvc_failure; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Automatically declines certain charge types regardless of whether the card issuer accepted or declined the charge.
               sig { returns(T.nilable(DeclineOn)) }
               def decline_on; end
+              def self.inner_class_types
+                @inner_class_types = {decline_on: DeclineOn}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class SepaDebitPayments < Stripe::StripeObject
               # Creditor ID for SEPA debit payments.
               sig { returns(T.nilable(String)) }
               def creditor_id; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class StatementDescriptor < Stripe::StripeObject
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
@@ -1191,6 +1896,12 @@ module Stripe
               # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               sig { returns(T.nilable(String)) }
               def prefix; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Support < Stripe::StripeObject
               class Address < Stripe::StripeObject
@@ -1215,6 +1926,12 @@ module Stripe
                 # Town or cho-me.
                 sig { returns(T.nilable(String)) }
                 def town; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # A publicly available mailing address for sending support issues to.
               sig { returns(T.nilable(Address)) }
@@ -1228,6 +1945,12 @@ module Stripe
               # A publicly available website for handling support issues.
               sig { returns(T.nilable(String)) }
               def url; end
+              def self.inner_class_types
+                @inner_class_types = {address: Address}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             sig { returns(T::Boolean) }
@@ -1256,6 +1979,20 @@ module Stripe
             # Publicly available contact information for sending support issues to.
             sig { returns(T.nilable(Support)) }
             def support; end
+            def self.inner_class_types
+              @inner_class_types = {
+                bacs_debit_payments: BacsDebitPayments,
+                branding: Branding,
+                capabilities: Capabilities,
+                card_payments: CardPayments,
+                sepa_debit_payments: SepaDebitPayments,
+                statement_descriptor: StatementDescriptor,
+                support: Support,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Recipient < Stripe::StripeObject
             class Capabilities < Stripe::StripeObject
@@ -1268,6 +2005,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1278,6 +2021,12 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 class Wire < Stripe::StripeObject
                   class StatusDetail < Stripe::StripeObject
@@ -1287,6 +2036,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1297,6 +2052,12 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 sig { returns(T.nilable(Local)) }
@@ -1304,6 +2065,12 @@ module Stripe
                 # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                 sig { returns(T.nilable(Wire)) }
                 def wire; end
+                def self.inner_class_types
+                  @inner_class_types = {local: Local, wire: Wire}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class Cards < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
@@ -1313,6 +2080,12 @@ module Stripe
                   # Machine-readable code explaining how to make the Capability active.
                   sig { returns(String) }
                   def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Whether the Capability has been requested.
                 sig { returns(T::Boolean) }
@@ -1323,6 +2096,12 @@ module Stripe
                 # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                 sig { returns(T::Array[StatusDetail]) }
                 def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class StripeBalance < Stripe::StripeObject
                 class Payouts < Stripe::StripeObject
@@ -1333,6 +2112,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1343,6 +2128,12 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 class StripeTransfers < Stripe::StripeObject
                   class StatusDetail < Stripe::StripeObject
@@ -1352,6 +2143,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1362,6 +2159,12 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Allows the account to do payouts using their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(Payouts)) }
@@ -1369,6 +2172,12 @@ module Stripe
                 # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(StripeTransfers)) }
                 def stripe_transfers; end
+                def self.inner_class_types
+                  @inner_class_types = {payouts: Payouts, stripe_transfers: StripeTransfers}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Capabilities that enable OutboundPayments to a bank account linked to this Account.
               sig { returns(T.nilable(BankAccounts)) }
@@ -1379,6 +2188,16 @@ module Stripe
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               sig { returns(T.nilable(StripeBalance)) }
               def stripe_balance; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  bank_accounts: BankAccounts,
+                  cards: Cards,
+                  stripe_balance: StripeBalance,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class DefaultOutboundDestination < Stripe::StripeObject
               # The payout method ID of the default outbound destination.
@@ -1387,6 +2206,12 @@ module Stripe
               # Closed Enum. The payout method type of the default outbound destination.
               sig { returns(String) }
               def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             sig { returns(T::Boolean) }
@@ -1397,6 +2222,15 @@ module Stripe
             # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard.
             sig { returns(T.nilable(DefaultOutboundDestination)) }
             def default_outbound_destination; end
+            def self.inner_class_types
+              @inner_class_types = {
+                capabilities: Capabilities,
+                default_outbound_destination: DefaultOutboundDestination,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Storer < Stripe::StripeObject
             class Capabilities < Stripe::StripeObject
@@ -1409,6 +2243,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1419,10 +2259,22 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
                 sig { returns(T.nilable(BankAccounts)) }
                 def bank_accounts; end
+                def self.inner_class_types
+                  @inner_class_types = {bank_accounts: BankAccounts}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class HoldsCurrencies < Stripe::StripeObject
                 class Gbp < Stripe::StripeObject
@@ -1433,6 +2285,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1443,10 +2301,22 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can hold storage-type funds on Stripe in GBP.
                 sig { returns(T.nilable(Gbp)) }
                 def gbp; end
+                def self.inner_class_types
+                  @inner_class_types = {gbp: Gbp}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class InboundTransfers < Stripe::StripeObject
                 class BankAccounts < Stripe::StripeObject
@@ -1457,6 +2327,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1467,10 +2343,22 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can pull funds from an external bank account, owned by yourself, to a FinancialAccount.
                 sig { returns(T.nilable(BankAccounts)) }
                 def bank_accounts; end
+                def self.inner_class_types
+                  @inner_class_types = {bank_accounts: BankAccounts}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class OutboundPayments < Stripe::StripeObject
                 class BankAccounts < Stripe::StripeObject
@@ -1481,6 +2369,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1491,6 +2385,12 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 class Cards < Stripe::StripeObject
                   class StatusDetail < Stripe::StripeObject
@@ -1500,6 +2400,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1510,6 +2416,12 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 class FinancialAccounts < Stripe::StripeObject
                   class StatusDetail < Stripe::StripeObject
@@ -1519,6 +2431,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1529,6 +2447,12 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can send funds from a FinancialAccount to a bank account, owned by someone else.
                 sig { returns(T.nilable(BankAccounts)) }
@@ -1539,6 +2463,16 @@ module Stripe
                 # Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
                 sig { returns(T.nilable(FinancialAccounts)) }
                 def financial_accounts; end
+                def self.inner_class_types
+                  @inner_class_types = {
+                    bank_accounts: BankAccounts,
+                    cards: Cards,
+                    financial_accounts: FinancialAccounts,
+                  }
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class OutboundTransfers < Stripe::StripeObject
                 class BankAccounts < Stripe::StripeObject
@@ -1549,6 +2483,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1559,6 +2499,12 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 class FinancialAccounts < Stripe::StripeObject
                   class StatusDetail < Stripe::StripeObject
@@ -1568,6 +2514,12 @@ module Stripe
                     # Machine-readable code explaining how to make the Capability active.
                     sig { returns(String) }
                     def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
                   end
                   # Whether the Capability has been requested.
                   sig { returns(T::Boolean) }
@@ -1578,6 +2530,12 @@ module Stripe
                   # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
                   sig { returns(T::Array[StatusDetail]) }
                   def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # Can send funds from a FinancialAccount, to a bank account, owned by yourself.
                 sig { returns(T.nilable(BankAccounts)) }
@@ -1585,6 +2543,15 @@ module Stripe
                 # Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
                 sig { returns(T.nilable(FinancialAccounts)) }
                 def financial_accounts; end
+                def self.inner_class_types
+                  @inner_class_types = {
+                    bank_accounts: BankAccounts,
+                    financial_accounts: FinancialAccounts,
+                  }
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Can provision a financial address to credit/debit a FinancialAccount.
               sig { returns(T.nilable(FinancialAddresses)) }
@@ -1601,6 +2568,18 @@ module Stripe
               # Can send funds from a FinancialAccount to a destination owned by yourself.
               sig { returns(T.nilable(OutboundTransfers)) }
               def outbound_transfers; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  financial_addresses: FinancialAddresses,
+                  holds_currencies: HoldsCurrencies,
+                  inbound_transfers: InboundTransfers,
+                  outbound_payments: OutboundPayments,
+                  outbound_transfers: OutboundTransfers,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             sig { returns(T::Boolean) }
@@ -1608,6 +2587,12 @@ module Stripe
             # Capabilities that have been requested on the Storer Configuration.
             sig { returns(T.nilable(Capabilities)) }
             def capabilities; end
+            def self.inner_class_types
+              @inner_class_types = {capabilities: Capabilities}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           sig { returns(T.nilable(Customer)) }
@@ -1621,6 +2606,17 @@ module Stripe
           # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
           sig { returns(T.nilable(Storer)) }
           def storer; end
+          def self.inner_class_types
+            @inner_class_types = {
+              customer: Customer,
+              merchant: Merchant,
+              recipient: Recipient,
+              storer: Storer,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Defaults < Stripe::StripeObject
           class Responsibilities < Stripe::StripeObject
@@ -1630,6 +2626,12 @@ module Stripe
             # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
             sig { returns(String) }
             def losses_collector; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(T.nilable(String)) }
@@ -1640,6 +2642,12 @@ module Stripe
           # Default responsibilities held by either Stripe or the platform.
           sig { returns(T.nilable(Responsibilities)) }
           def responsibilities; end
+          def self.inner_class_types
+            @inner_class_types = {responsibilities: Responsibilities}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Identity < Stripe::StripeObject
           class Attestations < Stripe::StripeObject
@@ -1653,6 +2661,12 @@ module Stripe
               # The user agent of the browser from which the director attestation was made.
               sig { returns(T.nilable(String)) }
               def user_agent; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class OwnershipDeclaration < Stripe::StripeObject
               # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -1664,6 +2678,12 @@ module Stripe
               # The user agent of the browser from which the beneficial owner attestation was made.
               sig { returns(T.nilable(String)) }
               def user_agent; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class PersonsProvided < Stripe::StripeObject
               # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
@@ -1678,6 +2698,12 @@ module Stripe
               # Reason for why the company is exempt from providing ownership information.
               sig { returns(T.nilable(String)) }
               def ownership_exemption_reason; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class TermsOfService < Stripe::StripeObject
               class Account < Stripe::StripeObject
@@ -1690,6 +2716,12 @@ module Stripe
                 # The user agent of the browser from which the Account's representative accepted the terms of service.
                 sig { returns(T.nilable(String)) }
                 def user_agent; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class Storer < Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -1701,6 +2733,12 @@ module Stripe
                 # The user agent of the browser from which the Account's representative accepted the terms of service.
                 sig { returns(T.nilable(String)) }
                 def user_agent; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               sig { returns(T.nilable(Account)) }
@@ -1708,6 +2746,12 @@ module Stripe
               # Details on the Account's acceptance of Treasury-specific terms of service.
               sig { returns(T.nilable(Storer)) }
               def storer; end
+              def self.inner_class_types
+                @inner_class_types = {account: Account, storer: Storer}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct.
             sig { returns(T.nilable(DirectorshipDeclaration)) }
@@ -1721,6 +2765,17 @@ module Stripe
             # Attestations of accepted terms of service agreements.
             sig { returns(T.nilable(TermsOfService)) }
             def terms_of_service; end
+            def self.inner_class_types
+              @inner_class_types = {
+                directorship_declaration: DirectorshipDeclaration,
+                ownership_declaration: OwnershipDeclaration,
+                persons_provided: PersonsProvided,
+                terms_of_service: TermsOfService,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class BusinessDetails < Stripe::StripeObject
             class Address < Stripe::StripeObject
@@ -1745,6 +2800,12 @@ module Stripe
               # Town or cho-me.
               sig { returns(T.nilable(String)) }
               def town; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class AnnualRevenue < Stripe::StripeObject
               # A non-negative integer representing the amount in the smallest currency unit.
@@ -1753,6 +2814,12 @@ module Stripe
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
               sig { returns(T.nilable(String)) }
               def fiscal_year_end; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Documents < Stripe::StripeObject
               class BankAccountOwnershipVerification < Stripe::StripeObject
@@ -1762,6 +2829,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class CompanyLicense < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -1770,6 +2843,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class CompanyMemorandumOfAssociation < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -1778,6 +2857,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class CompanyMinisterialDecree < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -1786,6 +2871,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class CompanyRegistrationVerification < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -1794,6 +2885,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class CompanyTaxIdVerification < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -1802,6 +2899,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class PrimaryVerification < Stripe::StripeObject
                 class FrontBack < Stripe::StripeObject
@@ -1811,6 +2914,12 @@ module Stripe
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                 sig { returns(FrontBack) }
@@ -1818,6 +2927,12 @@ module Stripe
                 # The format of the verification document. Currently supports `front_back` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {front_back: FrontBack}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class ProofOfAddress < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -1826,6 +2941,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class ProofOfRegistration < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -1834,6 +2955,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class ProofOfUltimateBeneficialOwnership < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -1842,6 +2969,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # One or more documents that support the Bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
               sig { returns(T.nilable(BankAccountOwnershipVerification)) }
@@ -1873,6 +3006,23 @@ module Stripe
               # One or more documents that demonstrate proof of ultimate beneficial ownership.
               sig { returns(T.nilable(ProofOfUltimateBeneficialOwnership)) }
               def proof_of_ultimate_beneficial_ownership; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  bank_account_ownership_verification: BankAccountOwnershipVerification,
+                  company_license: CompanyLicense,
+                  company_memorandum_of_association: CompanyMemorandumOfAssociation,
+                  company_ministerial_decree: CompanyMinisterialDecree,
+                  company_registration_verification: CompanyRegistrationVerification,
+                  company_tax_id_verification: CompanyTaxIdVerification,
+                  primary_verification: PrimaryVerification,
+                  proof_of_address: ProofOfAddress,
+                  proof_of_registration: ProofOfRegistration,
+                  proof_of_ultimate_beneficial_ownership: ProofOfUltimateBeneficialOwnership,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class IdNumber < Stripe::StripeObject
               # The registrar of the ID number (Only valid for DE ID number types).
@@ -1881,11 +3031,23 @@ module Stripe
               # Open Enum. The ID number type of a business entity.
               sig { returns(String) }
               def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class MonthlyEstimatedRevenue < Stripe::StripeObject
               # A non-negative integer representing the amount in the smallest currency unit.
               sig { returns(T.nilable(Stripe::V2::Amount)) }
               def amount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class ScriptAddresses < Stripe::StripeObject
               class Kana < Stripe::StripeObject
@@ -1910,6 +3072,12 @@ module Stripe
                 # Town or cho-me.
                 sig { returns(T.nilable(String)) }
                 def town; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class Kanji < Stripe::StripeObject
                 # City, district, suburb, town, or village.
@@ -1933,6 +3101,12 @@ module Stripe
                 # Town or cho-me.
                 sig { returns(T.nilable(String)) }
                 def town; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Kana Address.
               sig { returns(T.nilable(Kana)) }
@@ -1940,17 +3114,35 @@ module Stripe
               # Kanji Address.
               sig { returns(T.nilable(Kanji)) }
               def kanji; end
+              def self.inner_class_types
+                @inner_class_types = {kana: Kana, kanji: Kanji}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class ScriptNames < Stripe::StripeObject
               class Kana < Stripe::StripeObject
                 # Registered name of the business.
                 sig { returns(T.nilable(String)) }
                 def registered_name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class Kanji < Stripe::StripeObject
                 # Registered name of the business.
                 sig { returns(T.nilable(String)) }
                 def registered_name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Kana name.
               sig { returns(T.nilable(Kana)) }
@@ -1958,6 +3150,12 @@ module Stripe
               # Kanji name.
               sig { returns(T.nilable(Kanji)) }
               def kanji; end
+              def self.inner_class_types
+                @inner_class_types = {kana: Kana, kanji: Kanji}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The company’s primary address.
             sig { returns(T.nilable(Address)) }
@@ -2001,6 +3199,20 @@ module Stripe
             # The business's publicly available website.
             sig { returns(T.nilable(String)) }
             def url; end
+            def self.inner_class_types
+              @inner_class_types = {
+                address: Address,
+                annual_revenue: AnnualRevenue,
+                documents: Documents,
+                id_numbers: IdNumber,
+                monthly_estimated_revenue: MonthlyEstimatedRevenue,
+                script_addresses: ScriptAddresses,
+                script_names: ScriptNames,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Individual < Stripe::StripeObject
             class AdditionalAddress < Stripe::StripeObject
@@ -2028,6 +3240,12 @@ module Stripe
               # Town or cho-me.
               sig { returns(T.nilable(String)) }
               def town; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class AdditionalName < Stripe::StripeObject
               # The individual's full name.
@@ -2042,6 +3260,12 @@ module Stripe
               # The individual's last or family name.
               sig { returns(T.nilable(String)) }
               def surname; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class AdditionalTermsOfService < Stripe::StripeObject
               class Account < Stripe::StripeObject
@@ -2054,10 +3278,22 @@ module Stripe
                 # The user agent of the browser from which the Account's representative accepted the terms of service.
                 sig { returns(T.nilable(String)) }
                 def user_agent; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Stripe terms of service agreement.
               sig { returns(T.nilable(Account)) }
               def account; end
+              def self.inner_class_types
+                @inner_class_types = {account: Account}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Address < Stripe::StripeObject
               # City, district, suburb, town, or village.
@@ -2081,6 +3317,12 @@ module Stripe
               # Town or cho-me.
               sig { returns(T.nilable(String)) }
               def town; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class DateOfBirth < Stripe::StripeObject
               # The day of birth, between 1 and 31.
@@ -2092,6 +3334,12 @@ module Stripe
               # The four-digit year of birth.
               sig { returns(Integer) }
               def year; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Documents < Stripe::StripeObject
               class CompanyAuthorization < Stripe::StripeObject
@@ -2101,6 +3349,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class Passport < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -2109,6 +3363,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class PrimaryVerification < Stripe::StripeObject
                 class FrontBack < Stripe::StripeObject
@@ -2118,6 +3378,12 @@ module Stripe
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                 sig { returns(FrontBack) }
@@ -2125,6 +3391,12 @@ module Stripe
                 # The format of the verification document. Currently supports `front_back` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {front_back: FrontBack}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class SecondaryVerification < Stripe::StripeObject
                 class FrontBack < Stripe::StripeObject
@@ -2134,6 +3406,12 @@ module Stripe
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                 sig { returns(FrontBack) }
@@ -2141,6 +3419,12 @@ module Stripe
                 # The format of the verification document. Currently supports `front_back` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {front_back: FrontBack}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class Visa < Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -2149,6 +3433,12 @@ module Stripe
                 # The format of the document. Currently supports `files` only.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # One or more documents that demonstrate proof that this person is authorized to represent the company.
               sig { returns(T.nilable(CompanyAuthorization)) }
@@ -2165,11 +3455,29 @@ module Stripe
               # One or more documents showing the person’s visa required for living in the country where they are residing.
               sig { returns(T.nilable(Visa)) }
               def visa; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  company_authorization: CompanyAuthorization,
+                  passport: Passport,
+                  primary_verification: PrimaryVerification,
+                  secondary_verification: SecondaryVerification,
+                  visa: Visa,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class IdNumber < Stripe::StripeObject
               # The ID number type of an individual.
               sig { returns(String) }
               def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Relationship < Stripe::StripeObject
               # Whether the individual is an authorizer of the Account’s legal entity.
@@ -2196,6 +3504,12 @@ module Stripe
               # The individual's title (e.g., CEO, Support Engineer).
               sig { returns(T.nilable(String)) }
               def title; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class ScriptAddresses < Stripe::StripeObject
               class Kana < Stripe::StripeObject
@@ -2220,6 +3534,12 @@ module Stripe
                 # Town or cho-me.
                 sig { returns(T.nilable(String)) }
                 def town; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class Kanji < Stripe::StripeObject
                 # City, district, suburb, town, or village.
@@ -2243,6 +3563,12 @@ module Stripe
                 # Town or cho-me.
                 sig { returns(T.nilable(String)) }
                 def town; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Kana Address.
               sig { returns(T.nilable(Kana)) }
@@ -2250,6 +3576,12 @@ module Stripe
               # Kanji Address.
               sig { returns(T.nilable(Kanji)) }
               def kanji; end
+              def self.inner_class_types
+                @inner_class_types = {kana: Kana, kanji: Kanji}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class ScriptNames < Stripe::StripeObject
               class Kana < Stripe::StripeObject
@@ -2259,6 +3591,12 @@ module Stripe
                 # The person's last or family name.
                 sig { returns(T.nilable(String)) }
                 def surname; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class Kanji < Stripe::StripeObject
                 # The person's first or given name.
@@ -2267,6 +3605,12 @@ module Stripe
                 # The person's last or family name.
                 sig { returns(T.nilable(String)) }
                 def surname; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Persons name in kana script.
               sig { returns(T.nilable(Kana)) }
@@ -2274,6 +3618,12 @@ module Stripe
               # Persons name in kanji script.
               sig { returns(T.nilable(Kanji)) }
               def kanji; end
+              def self.inner_class_types
+                @inner_class_types = {kana: Kana, kanji: Kanji}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The account ID which the individual belongs to.
             sig { returns(String) }
@@ -2344,6 +3694,23 @@ module Stripe
             # Time at which the object was last updated.
             sig { returns(String) }
             def updated; end
+            def self.inner_class_types
+              @inner_class_types = {
+                additional_addresses: AdditionalAddress,
+                additional_names: AdditionalName,
+                additional_terms_of_service: AdditionalTermsOfService,
+                address: Address,
+                date_of_birth: DateOfBirth,
+                documents: Documents,
+                id_numbers: IdNumber,
+                relationship: Relationship,
+                script_addresses: ScriptAddresses,
+                script_names: ScriptNames,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors.
           sig { returns(T.nilable(Attestations)) }
@@ -2360,6 +3727,16 @@ module Stripe
           # Information about the individual represented by the Account. This property is `null` unless `entity_type` is set to `individual`.
           sig { returns(T.nilable(Individual)) }
           def individual; end
+          def self.inner_class_types
+            @inner_class_types = {
+              attestations: Attestations,
+              business_details: BusinessDetails,
+              individual: Individual,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Requirements < Stripe::StripeObject
           class Entry < Stripe::StripeObject
@@ -2370,6 +3747,12 @@ module Stripe
               # Human-readable description of the error.
               sig { returns(String) }
               def description; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Impact < Stripe::StripeObject
               class RestrictsCapability < Stripe::StripeObject
@@ -2377,6 +3760,12 @@ module Stripe
                   # The current status of the requirement's impact.
                   sig { returns(String) }
                   def status; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
                 end
                 # The name of the Capability which will be restricted.
                 sig { returns(String) }
@@ -2387,15 +3776,33 @@ module Stripe
                 # Details about when in the account lifecycle the requirement must be collected by the avoid the Capability restriction.
                 sig { returns(Deadline) }
                 def deadline; end
+                def self.inner_class_types
+                  @inner_class_types = {deadline: Deadline}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # The Capabilities that will be restricted if the requirement is not collected and satisfactory to Stripe.
               sig { returns(T.nilable(T::Array[RestrictsCapability])) }
               def restricts_capabilities; end
+              def self.inner_class_types
+                @inner_class_types = {restricts_capabilities: RestrictsCapability}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class MinimumDeadline < Stripe::StripeObject
               # The current status of the requirement's impact.
               sig { returns(String) }
               def status; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Reference < Stripe::StripeObject
               # If `inquiry` is the type, the inquiry token.
@@ -2407,11 +3814,23 @@ module Stripe
               # The type of the reference. An additional hash is included with a name matching the type. It contains additional information specific to the type.
               sig { returns(String) }
               def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class RequestedReason < Stripe::StripeObject
               # Machine-readable description of Stripe's reason for collecting the requirement.
               sig { returns(String) }
               def code; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
             sig { returns(String) }
@@ -2434,6 +3853,18 @@ module Stripe
             # A list of reasons why Stripe is collecting the requirement.
             sig { returns(T::Array[RequestedReason]) }
             def requested_reasons; end
+            def self.inner_class_types
+              @inner_class_types = {
+                errors: Error,
+                impact: Impact,
+                minimum_deadline: MinimumDeadline,
+                reference: Reference,
+                requested_reasons: RequestedReason,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Summary < Stripe::StripeObject
             class MinimumDeadline < Stripe::StripeObject
@@ -2443,10 +3874,22 @@ module Stripe
               # The soonest RFC3339 date & time UTC value a requirement can impact the Account.
               sig { returns(T.nilable(String)) }
               def time; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
             sig { returns(T.nilable(MinimumDeadline)) }
             def minimum_deadline; end
+            def self.inner_class_types
+              @inner_class_types = {minimum_deadline: MinimumDeadline}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # A value indicating responsibility for collecting requirements on this account.
           sig { returns(String) }
@@ -2457,6 +3900,12 @@ module Stripe
           # An object containing an overview of requirements for the Account.
           sig { returns(T.nilable(Summary)) }
           def summary; end
+          def self.inner_class_types
+            @inner_class_types = {entries: Entry, summary: Summary}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
         sig { returns(T::Array[String]) }

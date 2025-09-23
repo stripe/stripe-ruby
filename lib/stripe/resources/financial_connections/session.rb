@@ -21,6 +21,14 @@ module Stripe
         attr_reader :customer_account
         # Type of account holder that this account belongs to.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Filters < Stripe::StripeObject
@@ -30,22 +38,62 @@ module Stripe
         attr_reader :countries
         # Stripe ID of the institution with which the customer should be directed to log in.
         attr_reader :institution
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Limits < Stripe::StripeObject
         # The number of accounts that can be linked in this Session.
         attr_reader :accounts
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class ManualEntry < Stripe::StripeObject; end
+      class ManualEntry < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class StatusDetails < Stripe::StripeObject
         class Cancelled < Stripe::StripeObject
           # The reason for the Session being cancelled.
           attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field cancelled
         attr_reader :cancelled
+
+        def self.inner_class_types
+          @inner_class_types = { cancelled: Cancelled }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CreateParams < Stripe::RequestParams
@@ -175,6 +223,20 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          account_holder: AccountHolder,
+          filters: Filters,
+          limits: Limits,
+          manual_entry: ManualEntry,
+          status_details: StatusDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

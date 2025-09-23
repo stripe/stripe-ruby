@@ -22,6 +22,12 @@ module Stripe
             # The sort code of the UK Bank Account.
             sig { returns(String) }
             def sort_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class UsBankAccount < Stripe::StripeObject
             # The account number of the US Bank Account.
@@ -40,6 +46,12 @@ module Stripe
             # The swift code of the bank or financial institution.
             sig { returns(T.nilable(String)) }
             def swift_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
           sig { returns(String) }
@@ -50,6 +62,12 @@ module Stripe
           # The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The creation timestamp of the FinancialAddress.
         sig { returns(String) }

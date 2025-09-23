@@ -18,6 +18,14 @@ module Stripe
           attr_reader :charge
           # The linked Treasury Financing Transaction ID.
           attr_reader :treasury_transaction
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The advance amount being repaid, paid out, or reversed in minor units.
         attr_reader :advance_amount
@@ -36,6 +44,14 @@ module Stripe
         attr_reader :total_amount
         # This is an object representing a linked transaction on a Capital Financing Transaction.
         attr_reader :transaction
+
+        def self.inner_class_types
+          @inner_class_types = { transaction: Transaction }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -108,6 +124,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { details: Details }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

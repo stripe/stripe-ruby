@@ -20,6 +20,14 @@ module Stripe
           attr_reader :monthly_payout_days
           # The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
           attr_reader :weekly_payout_days
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](/payouts/minimum-balances-for-automatic-payouts).
         attr_reader :minimum_balance_by_currency
@@ -29,6 +37,14 @@ module Stripe
         attr_reader :statement_descriptor
         # Whether the funds in this account can be paid out.
         attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = { schedule: Schedule }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SettlementTiming < Stripe::StripeObject
@@ -36,6 +52,14 @@ module Stripe
         attr_reader :delay_days
         # The number of days charge funds are held before becoming available. If present, overrides the default, or minimum available, for the account.
         attr_reader :delay_days_override
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
       attr_reader :debit_negative_balances
@@ -43,6 +67,14 @@ module Stripe
       attr_reader :payouts
       # Attribute for field settlement_timing
       attr_reader :settlement_timing
+
+      def self.inner_class_types
+        @inner_class_types = { payouts: Payouts, settlement_timing: SettlementTiming }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class UpdateParams < Stripe::RequestParams
@@ -111,5 +143,13 @@ module Stripe
     attr_reader :object
     # Attribute for field payments
     attr_reader :payments
+
+    def self.inner_class_types
+      @inner_class_types = { payments: Payments }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

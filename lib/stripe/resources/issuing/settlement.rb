@@ -48,6 +48,14 @@ module Stripe
       attr_reader :transaction_amount
       # The total number of transactions reflected in this settlement.
       attr_reader :transaction_count
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

@@ -19,6 +19,12 @@ module Stripe
         # Type of account holder that this account belongs to.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Balance < Stripe::StripeObject
         class Cash < Stripe::StripeObject
@@ -29,6 +35,12 @@ module Stripe
           # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
           sig { returns(T.nilable(T::Hash[String, Integer])) }
           def available; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Credit < Stripe::StripeObject
           # The credit that has been used by the account holder.
@@ -38,6 +50,12 @@ module Stripe
           # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
           sig { returns(T.nilable(T::Hash[String, Integer])) }
           def used; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The time that the external institution calculated this balance. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
@@ -58,6 +76,12 @@ module Stripe
         # The `type` of the balance. An additional hash is included on the balance with a name matching this value.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {cash: Cash, credit: Credit}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class BalanceRefresh < Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
@@ -69,6 +93,12 @@ module Stripe
         # The status of the last refresh attempt.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class InferredBalancesRefresh < Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
@@ -80,6 +110,12 @@ module Stripe
         # The status of the last refresh attempt.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class OwnershipRefresh < Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
@@ -91,6 +127,12 @@ module Stripe
         # The status of the last refresh attempt.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class TransactionRefresh < Stripe::StripeObject
         # Unique identifier for the object.
@@ -105,6 +147,12 @@ module Stripe
         # The status of the last refresh attempt.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The account holder that this account belongs to.
       sig { returns(T.nilable(AccountHolder)) }

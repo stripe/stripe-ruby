@@ -6,7 +6,14 @@ module Stripe
   # A Mandate is a record of the permission that your customer gives you to debit their payment method.
   class Mandate < APIResource
     class CustomerAcceptance < Stripe::StripeObject
-      class Offline < Stripe::StripeObject; end
+      class Offline < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Online < Stripe::StripeObject
         # The customer accepts the mandate from this IP address.
         sig { returns(T.nilable(String)) }
@@ -14,6 +21,12 @@ module Stripe
         # The customer accepts the mandate using the user agent of the browser.
         sig { returns(T.nilable(String)) }
         def user_agent; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The time that the customer accepts the mandate.
       sig { returns(T.nilable(Integer)) }
@@ -27,6 +40,12 @@ module Stripe
       # The mandate includes the type of customer acceptance information, such as: `online` or `offline`.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {offline: Offline, online: Online}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class MultiUse < Stripe::StripeObject
       # The amount of the payment on a multi use mandate.
@@ -35,6 +54,12 @@ module Stripe
       # The currency of the payment on a multi use mandate.
       sig { returns(T.nilable(String)) }
       def currency; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class PaymentMethodDetails < Stripe::StripeObject
       class AcssDebit < Stripe::StripeObject
@@ -50,12 +75,31 @@ module Stripe
         # Transaction type of the mandate.
         sig { returns(String) }
         def transaction_type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class AmazonPay < Stripe::StripeObject; end
+      class AmazonPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class AuBecsDebit < Stripe::StripeObject
         # The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
         sig { returns(String) }
         def url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class BacsDebit < Stripe::StripeObject
         # The status of the mandate on the Bacs network. Can be one of `pending`, `revoked`, `refused`, or `accepted`.
@@ -70,15 +114,77 @@ module Stripe
         # The URL that will contain the mandate that the customer has signed.
         sig { returns(String) }
         def url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class Card < Stripe::StripeObject; end
-      class Cashapp < Stripe::StripeObject; end
-      class KakaoPay < Stripe::StripeObject; end
-      class Klarna < Stripe::StripeObject; end
-      class KrCard < Stripe::StripeObject; end
-      class Link < Stripe::StripeObject; end
-      class NaverPay < Stripe::StripeObject; end
-      class NzBankAccount < Stripe::StripeObject; end
+      class Card < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Cashapp < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class KakaoPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Klarna < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class KrCard < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Link < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class NaverPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class NzBankAccount < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Paypal < Stripe::StripeObject
         # The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
         sig { returns(T.nilable(String)) }
@@ -93,6 +199,12 @@ module Stripe
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
         def verified_email; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Payto < Stripe::StripeObject
         # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -116,6 +228,12 @@ module Stripe
         # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
         sig { returns(T.nilable(String)) }
         def start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Pix < Stripe::StripeObject
         # Determines if the amount includes the IOF tax.
@@ -136,8 +254,21 @@ module Stripe
         # Start date of the mandate, in `YYYY-MM-DD`.
         sig { returns(T.nilable(String)) }
         def start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class RevolutPay < Stripe::StripeObject; end
+      class RevolutPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SepaDebit < Stripe::StripeObject
         # The unique reference of the mandate.
         sig { returns(String) }
@@ -145,11 +276,23 @@ module Stripe
         # The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
         sig { returns(String) }
         def url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class UsBankAccount < Stripe::StripeObject
         # Mandate collection method
         sig { returns(T.nilable(String)) }
         def collection_method; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field acss_debit
       sig { returns(T.nilable(AcssDebit)) }
@@ -208,6 +351,31 @@ module Stripe
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
+      def self.inner_class_types
+        @inner_class_types = {
+          acss_debit: AcssDebit,
+          amazon_pay: AmazonPay,
+          au_becs_debit: AuBecsDebit,
+          bacs_debit: BacsDebit,
+          card: Card,
+          cashapp: Cashapp,
+          kakao_pay: KakaoPay,
+          klarna: Klarna,
+          kr_card: KrCard,
+          link: Link,
+          naver_pay: NaverPay,
+          nz_bank_account: NzBankAccount,
+          paypal: Paypal,
+          payto: Payto,
+          pix: Pix,
+          revolut_pay: RevolutPay,
+          sepa_debit: SepaDebit,
+          us_bank_account: UsBankAccount,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class SingleUse < Stripe::StripeObject
       # The amount of the payment on a single use mandate.
@@ -216,6 +384,12 @@ module Stripe
       # The currency of the payment on a single use mandate.
       sig { returns(String) }
       def currency; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field customer_acceptance
     sig { returns(CustomerAcceptance) }

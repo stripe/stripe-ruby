@@ -10,6 +10,12 @@ module Stripe
       # Usage threshold that triggers the subscription to create an invoice
       sig { returns(T.nilable(Integer)) }
       def usage_gte; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Trial < Stripe::StripeObject
       # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
@@ -18,6 +24,12 @@ module Stripe
       # Determines the type of trial for this item.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The time period the subscription item has been billed for.
     sig { returns(T.nilable(Integer)) }

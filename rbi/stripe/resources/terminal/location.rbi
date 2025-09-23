@@ -27,6 +27,12 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class AddressKana < Stripe::StripeObject
         # City/Ward.
@@ -50,6 +56,12 @@ module Stripe
         # Town/cho-me.
         sig { returns(T.nilable(String)) }
         def town; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class AddressKanji < Stripe::StripeObject
         # City/Ward.
@@ -73,6 +85,12 @@ module Stripe
         # Town/cho-me.
         sig { returns(T.nilable(String)) }
         def town; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field address
       sig { returns(Address) }

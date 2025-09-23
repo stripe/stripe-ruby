@@ -15,6 +15,12 @@ module Stripe
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
         sig { returns(T::Array[String]) }
         def original_fields_due; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Error < Stripe::StripeObject
         # The code for the type of error.
@@ -26,6 +32,12 @@ module Stripe
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         sig { returns(String) }
         def requirement; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
       sig { returns(T.nilable(T::Array[Alternative])) }
@@ -51,6 +63,12 @@ module Stripe
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
       sig { returns(T::Array[String]) }
       def pending_verification; end
+      def self.inner_class_types
+        @inner_class_types = {alternatives: Alternative, errors: Error}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Requirements < Stripe::StripeObject
       class Alternative < Stripe::StripeObject
@@ -60,6 +78,12 @@ module Stripe
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
         sig { returns(T::Array[String]) }
         def original_fields_due; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Error < Stripe::StripeObject
         # The code for the type of error.
@@ -71,6 +95,12 @@ module Stripe
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         sig { returns(String) }
         def requirement; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
       sig { returns(T.nilable(T::Array[Alternative])) }
@@ -96,6 +126,12 @@ module Stripe
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
       sig { returns(T::Array[String]) }
       def pending_verification; end
+      def self.inner_class_types
+        @inner_class_types = {alternatives: Alternative, errors: Error}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The account for which the capability enables functionality.
     sig { returns(T.any(String, Stripe::Account)) }

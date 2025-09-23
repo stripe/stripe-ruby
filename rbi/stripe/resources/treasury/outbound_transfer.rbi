@@ -31,6 +31,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field address
           sig { returns(Address) }
@@ -41,6 +47,12 @@ module Stripe
           # Full name.
           sig { returns(T.nilable(String)) }
           def name; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class FinancialAccount < Stripe::StripeObject
           # Token of the FinancialAccount.
@@ -49,6 +61,12 @@ module Stripe
           # The rails used to send funds.
           sig { returns(String) }
           def network; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class UsBankAccount < Stripe::StripeObject
           # Account holder type: individual or company.
@@ -75,6 +93,12 @@ module Stripe
           # Routing number of the bank account.
           sig { returns(T.nilable(String)) }
           def routing_number; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field billing_details
         sig { returns(BillingDetails) }
@@ -88,6 +112,16 @@ module Stripe
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_details: BillingDetails,
+            financial_account: FinancialAccount,
+            us_bank_account: UsBankAccount,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class NetworkDetails < Stripe::StripeObject
         class Ach < Stripe::StripeObject
@@ -109,6 +143,12 @@ module Stripe
         # The Transaction associated with this object.
         sig { returns(T.any(String, Stripe::Treasury::Transaction)) }
         def transaction; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class StatusTransitions < Stripe::StripeObject
         # Timestamp describing when an OutboundTransfer changed status to `canceled`
@@ -123,12 +163,24 @@ module Stripe
         # Timestamp describing when an OutboundTransfer changed status to `returned`
         sig { returns(T.nilable(Integer)) }
         def returned_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class TrackingDetails < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           # ACH trace ID of the OutboundTransfer for transfers sent over the `ach` network.
           sig { returns(String) }
           def trace_id; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class UsDomesticWire < Stripe::StripeObject
           # CHIPS System Sequence Number (SSN) of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
@@ -140,6 +192,12 @@ module Stripe
           # OMAD of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
           sig { returns(T.nilable(String)) }
           def omad; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field ach
         sig { returns(T.nilable(Ach)) }
@@ -150,6 +208,12 @@ module Stripe
         # Attribute for field us_domestic_wire
         sig { returns(T.nilable(UsDomesticWire)) }
         def us_domestic_wire; end
+        def self.inner_class_types
+          @inner_class_types = {ach: Ach, us_domestic_wire: UsDomesticWire}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Amount (in cents) transferred.
       sig { returns(Integer) }

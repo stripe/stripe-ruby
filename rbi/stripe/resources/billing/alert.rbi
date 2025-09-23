@@ -80,6 +80,12 @@ module Stripe
           # Attribute for field type
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
         sig { returns(T.nilable(T::Array[Filter])) }
@@ -93,6 +99,12 @@ module Stripe
         # Defines how the alert will behave.
         sig { returns(String) }
         def recurrence; end
+        def self.inner_class_types
+          @inner_class_types = {filters: Filter}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Defines the type of the alert.
       sig { returns(String) }

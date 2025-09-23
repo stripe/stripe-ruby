@@ -17,6 +17,12 @@ module Stripe
         # Funds in the account, but not spendable because they are being held for pending outbound flows.
         sig { returns(T::Hash[String, Integer]) }
         def outbound_pending; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class FinancialAddress < Stripe::StripeObject
         class Aba < Stripe::StripeObject
@@ -35,6 +41,12 @@ module Stripe
           # Routing number for the account.
           sig { returns(String) }
           def routing_number; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ABA Records contain U.S. bank account details per the ABA format.
         sig { returns(T.nilable(Aba)) }
@@ -45,6 +57,12 @@ module Stripe
         # The type of financial address
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {aba: Aba}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PlatformRestrictions < Stripe::StripeObject
         # Restricts all inbound money movement.
@@ -53,16 +71,34 @@ module Stripe
         # Restricts all outbound money movement.
         sig { returns(T.nilable(String)) }
         def outbound_flows; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class StatusDetails < Stripe::StripeObject
         class Closed < Stripe::StripeObject
           # The array that contains reasons for a FinancialAccount closure.
           sig { returns(T::Array[String]) }
           def reasons; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Details related to the closure of this FinancialAccount
         sig { returns(T.nilable(Closed)) }
         def closed; end
+        def self.inner_class_types
+          @inner_class_types = {closed: Closed}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The array of paths to active Features in the Features hash.
       sig { returns(T.nilable(T::Array[String])) }

@@ -34,6 +34,12 @@ module Stripe
       # Automatically calculates compatible payment methods
       sig { returns(T.nilable(T::Boolean)) }
       def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class LastSetupError < Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
@@ -120,6 +126,12 @@ module Stripe
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class NextAction < Stripe::StripeObject
       class CashappHandleRedirectOrDisplayQrCode < Stripe::StripeObject
@@ -133,6 +145,12 @@ module Stripe
           # The image_url_svg string used to render QR code
           sig { returns(String) }
           def image_url_svg; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The URL to the hosted Cash App Pay instructions page, which allows customers to view the QR code, and supports QR code refreshing on expiration.
         sig { returns(String) }
@@ -143,6 +161,12 @@ module Stripe
         # Attribute for field qr_code
         sig { returns(QrCode) }
         def qr_code; end
+        def self.inner_class_types
+          @inner_class_types = {qr_code: QrCode}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PixDisplayQrCode < Stripe::StripeObject
         # The raw data string used to generate QR code, it should be used together with QR code library.
@@ -168,6 +192,12 @@ module Stripe
         # The URL you must redirect your customer to in order to authenticate.
         sig { returns(T.nilable(String)) }
         def url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class VerifyWithMicrodeposits < Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land.
@@ -179,6 +209,12 @@ module Stripe
         # The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
         sig { returns(T.nilable(String)) }
         def microdeposit_type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field cashapp_handle_redirect_or_display_qr_code
       sig { returns(T.nilable(CashappHandleRedirectOrDisplayQrCode)) }
@@ -198,6 +234,16 @@ module Stripe
       # Attribute for field verify_with_microdeposits
       sig { returns(T.nilable(VerifyWithMicrodeposits)) }
       def verify_with_microdeposits; end
+      def self.inner_class_types
+        @inner_class_types = {
+          cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
+          redirect_to_url: RedirectToUrl,
+          verify_with_microdeposits: VerifyWithMicrodeposits,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class PaymentMethodConfigurationDetails < Stripe::StripeObject
       # ID of the payment method configuration used.
@@ -206,6 +252,12 @@ module Stripe
       # ID of the parent payment method configuration used.
       sig { returns(T.nilable(String)) }
       def parent; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class PaymentMethodOptions < Stripe::StripeObject
       class AcssDebit < Stripe::StripeObject
@@ -225,6 +277,12 @@ module Stripe
           # Transaction type of the mandate.
           sig { returns(T.nilable(String)) }
           def transaction_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Currency supported by the bank account
         sig { returns(T.nilable(String)) }
@@ -235,17 +293,42 @@ module Stripe
         # Bank account verification method.
         sig { returns(T.nilable(String)) }
         def verification_method; end
+        def self.inner_class_types
+          @inner_class_types = {mandate_options: MandateOptions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class AmazonPay < Stripe::StripeObject; end
+      class AmazonPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class BacsDebit < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           sig { returns(T.nilable(String)) }
           def reference_prefix; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field mandate_options
         sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
+        def self.inner_class_types
+          @inner_class_types = {mandate_options: MandateOptions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Card < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
@@ -279,6 +362,12 @@ module Stripe
           # Specifies the type of mandates supported. Possible values are `india`.
           sig { returns(T.nilable(T::Array[String])) }
           def supported_types; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Configuration options for setting up an eMandate for cards issued in India.
         sig { returns(T.nilable(MandateOptions)) }
@@ -289,8 +378,21 @@ module Stripe
         # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         sig { returns(T.nilable(String)) }
         def request_three_d_secure; end
+        def self.inner_class_types
+          @inner_class_types = {mandate_options: MandateOptions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class CardPresent < Stripe::StripeObject; end
+      class CardPresent < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Klarna < Stripe::StripeObject
         # The currency of the setup intent. Three letter ISO currency code.
         sig { returns(T.nilable(String)) }
@@ -298,11 +400,23 @@ module Stripe
         # Preferred locale of the Klarna checkout page that the customer is redirected to.
         sig { returns(T.nilable(String)) }
         def preferred_locale; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Link < Stripe::StripeObject
         # [Deprecated] This is a legacy parameter that no longer has any function.
         sig { returns(T.nilable(String)) }
         def persistent_token; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Paypal < Stripe::StripeObject
         # The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
@@ -379,10 +493,22 @@ module Stripe
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
           sig { returns(T.nilable(String)) }
           def reference_prefix; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field mandate_options
         sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
+        def self.inner_class_types
+          @inner_class_types = {mandate_options: MandateOptions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class UsBankAccount < Stripe::StripeObject
         class FinancialConnections < Stripe::StripeObject
@@ -414,11 +540,23 @@ module Stripe
           # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
           sig { returns(T.nilable(String)) }
           def return_url; end
+          def self.inner_class_types
+            @inner_class_types = {filters: Filters}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class MandateOptions < Stripe::StripeObject
           # Mandate collection method
           sig { returns(T.nilable(String)) }
           def collection_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field financial_connections
         sig { returns(T.nilable(FinancialConnections)) }
@@ -429,6 +567,15 @@ module Stripe
         # Bank account verification method.
         sig { returns(T.nilable(String)) }
         def verification_method; end
+        def self.inner_class_types
+          @inner_class_types = {
+            financial_connections: FinancialConnections,
+            mandate_options: MandateOptions,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field acss_debit
       sig { returns(T.nilable(AcssDebit)) }
@@ -466,6 +613,23 @@ module Stripe
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
+      def self.inner_class_types
+        @inner_class_types = {
+          acss_debit: AcssDebit,
+          amazon_pay: AmazonPay,
+          bacs_debit: BacsDebit,
+          card: Card,
+          card_present: CardPresent,
+          klarna: Klarna,
+          link: Link,
+          paypal: Paypal,
+          sepa_debit: SepaDebit,
+          us_bank_account: UsBankAccount,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # ID of the Connect application that created the SetupIntent.
     sig { returns(T.nilable(T.any(String, Stripe::Application))) }

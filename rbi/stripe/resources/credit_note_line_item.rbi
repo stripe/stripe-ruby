@@ -12,6 +12,12 @@ module Stripe
       # The discount that was applied to get this discount amount.
       sig { returns(T.any(String, Stripe::Discount)) }
       def discount; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class PretaxCreditAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
@@ -26,6 +32,12 @@ module Stripe
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TaxCalculationReference < Stripe::StripeObject
       # The calculation identifier for tax calculation response.
@@ -40,6 +52,12 @@ module Stripe
         # Attribute for field tax_rate
         sig { returns(String) }
         def tax_rate; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The amount of the tax, in cents (or local equivalent).
       sig { returns(Integer) }
@@ -59,6 +77,12 @@ module Stripe
       # The type of tax information.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {tax_rate_details: TaxRateDetails}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
     sig { returns(Integer) }

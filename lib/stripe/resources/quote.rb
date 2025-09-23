@@ -24,6 +24,14 @@ module Stripe
         attr_reader :account
         # Type of the account referenced.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Automatically calculate taxes
       attr_reader :enabled
@@ -33,6 +41,14 @@ module Stripe
       attr_reader :provider
       # The status of the most recent automated tax calculation for this quote.
       attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = { liability: Liability }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Computed < Stripe::StripeObject
@@ -44,11 +60,27 @@ module Stripe
           attr_reader :message
           # The reason the reestimation failed.
           attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # When `status` is `failed`, provides details about the quote reestimation failure.
         attr_reader :failed
         # Latest status of the reestimation.
         attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = { failed: Failed }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Recurring < Stripe::StripeObject
@@ -62,6 +94,14 @@ module Stripe
               #
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
               attr_reader :discount
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Tax < Stripe::StripeObject
@@ -75,11 +115,27 @@ module Stripe
               attr_reader :taxability_reason
               # The amount on which tax is calculated, in cents (or local equivalent).
               attr_reader :taxable_amount
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The aggregated discounts.
             attr_reader :discounts
             # The aggregated tax amounts by rate.
             attr_reader :taxes
+
+            def self.inner_class_types
+              @inner_class_types = { discounts: Discount, taxes: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # This is the sum of all the discounts.
           attr_reader :amount_discount
@@ -89,6 +145,14 @@ module Stripe
           attr_reader :amount_tax
           # Attribute for field breakdown
           attr_reader :breakdown
+
+          def self.inner_class_types
+            @inner_class_types = { breakdown: Breakdown }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Total before any discounts or taxes are applied.
         attr_reader :amount_subtotal
@@ -100,6 +164,14 @@ module Stripe
         attr_reader :interval_count
         # Attribute for field total_details
         attr_reader :total_details
+
+        def self.inner_class_types
+          @inner_class_types = { total_details: TotalDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Upfront < Stripe::StripeObject
@@ -113,6 +185,14 @@ module Stripe
               #
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
               attr_reader :discount
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
 
             class Tax < Stripe::StripeObject
@@ -126,11 +206,27 @@ module Stripe
               attr_reader :taxability_reason
               # The amount on which tax is calculated, in cents (or local equivalent).
               attr_reader :taxable_amount
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The aggregated discounts.
             attr_reader :discounts
             # The aggregated tax amounts by rate.
             attr_reader :taxes
+
+            def self.inner_class_types
+              @inner_class_types = { discounts: Discount, taxes: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # This is the sum of all the discounts.
           attr_reader :amount_discount
@@ -140,6 +236,14 @@ module Stripe
           attr_reader :amount_tax
           # Attribute for field breakdown
           attr_reader :breakdown
+
+          def self.inner_class_types
+            @inner_class_types = { breakdown: Breakdown }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Total before any discounts or taxes are applied.
         attr_reader :amount_subtotal
@@ -149,6 +253,14 @@ module Stripe
         attr_reader :line_items
         # Attribute for field total_details
         attr_reader :total_details
+
+        def self.inner_class_types
+          @inner_class_types = { total_details: TotalDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Details of the most recent reestimate of the quote's preview schedules and upcoming invoices, including the status of Stripe's calculation.
       attr_reader :last_reestimation_details
@@ -158,6 +270,18 @@ module Stripe
       attr_reader :updated_at
       # Attribute for field upfront
       attr_reader :upfront
+
+      def self.inner_class_types
+        @inner_class_types = {
+          last_reestimation_details: LastReestimationDetails,
+          recurring: Recurring,
+          upfront: Upfront,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class FromQuote < Stripe::StripeObject
@@ -165,6 +289,14 @@ module Stripe
       attr_reader :is_revision
       # The quote that was cloned.
       attr_reader :quote
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class InvoiceSettings < Stripe::StripeObject
@@ -173,11 +305,27 @@ module Stripe
         attr_reader :account
         # Type of the account referenced.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
       attr_reader :days_until_due
       # Attribute for field issuer
       attr_reader :issuer
+
+      def self.inner_class_types
+        @inner_class_types = { issuer: Issuer }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class StatusDetails < Stripe::StripeObject
@@ -186,6 +334,14 @@ module Stripe
         attr_reader :reason
         # Time at which the quote was marked as canceled. Measured in seconds since the Unix epoch.
         attr_reader :transitioned_at
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Stale < Stripe::StripeObject
@@ -195,16 +351,40 @@ module Stripe
             attr_reader :invalid_at
             # The list of lines that became invalid at the given timestamp.
             attr_reader :lines
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class SubscriptionChanged < Stripe::StripeObject
             # The subscription's state before the quote was marked as stale.
             attr_reader :previous_subscription
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class SubscriptionScheduleChanged < Stripe::StripeObject
             # The subscription schedule's state before the quote was marked as stale.
             attr_reader :previous_subscription_schedule
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The ID of the line that is invalid if the stale reason type is `line_invalid`.
           attr_reader :line_invalid
@@ -226,6 +406,18 @@ module Stripe
           attr_reader :subscription_schedule_released
           # The reason the quote was marked as stale.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              lines_invalid: LinesInvalid,
+              subscription_changed: SubscriptionChanged,
+              subscription_schedule_changed: SubscriptionScheduleChanged,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time at which the quote expires. Measured in seconds since the Unix epoch.
         attr_reader :expires_at
@@ -235,11 +427,27 @@ module Stripe
         attr_reader :last_updated_at
         # Time at which the quote was marked as stale. Measured in seconds since the Unix epoch.
         attr_reader :transitioned_at
+
+        def self.inner_class_types
+          @inner_class_types = { last_reason: LastReason }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field canceled
       attr_reader :canceled
       # Attribute for field stale
       attr_reader :stale
+
+      def self.inner_class_types
+        @inner_class_types = { canceled: Canceled, stale: Stale }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class StatusTransitions < Stripe::StripeObject
@@ -249,6 +457,14 @@ module Stripe
       attr_reader :canceled_at
       # The time that the quote was finalized. Measured in seconds since Unix epoch.
       attr_reader :finalized_at
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SubscriptionData < Stripe::StripeObject
@@ -257,6 +473,14 @@ module Stripe
           class LineStartsAt < Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           attr_reader :computed
@@ -266,6 +490,14 @@ module Stripe
           attr_reader :timestamp
           # The type of method to specify the `bill_from` time.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { line_starts_at: LineStartsAt }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class BillUntil < Stripe::StripeObject
@@ -274,11 +506,27 @@ module Stripe
             attr_reader :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_reader :interval_count
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class LineEndsAt < Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           attr_reader :computed
@@ -290,21 +538,67 @@ module Stripe
           attr_reader :timestamp
           # The type of method to specify the `bill_until` time.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { duration: Duration, line_ends_at: LineEndsAt }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The start of the period to bill from when the Quote is accepted.
         attr_reader :bill_from
         # The end of the period to bill until when the Quote is accepted.
         attr_reader :bill_until
+
+        def self.inner_class_types
+          @inner_class_types = { bill_from: BillFrom, bill_until: BillUntil }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class BillingMode < Stripe::StripeObject
+        class Flexible < Stripe::StripeObject
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_reader :proration_discounts
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field flexible
+        attr_reader :flexible
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { flexible: Flexible }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Prebilling < Stripe::StripeObject
         # Attribute for field iterations
         attr_reader :iterations
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Describes the period to bill for upon accepting the quote.
       attr_reader :bill_on_acceptance
@@ -330,6 +624,18 @@ module Stripe
       attr_reader :proration_behavior
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_reader :trial_period_days
+
+      def self.inner_class_types
+        @inner_class_types = {
+          bill_on_acceptance: BillOnAcceptance,
+          billing_mode: BillingMode,
+          prebilling: Prebilling,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SubscriptionDataOverride < Stripe::StripeObject
@@ -340,6 +646,14 @@ module Stripe
         attr_reader :subscription_schedule
         # Describes whether the quote line is affecting a new schedule or an existing schedule.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class BillOnAcceptance < Stripe::StripeObject
@@ -347,6 +661,14 @@ module Stripe
           class LineStartsAt < Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           attr_reader :computed
@@ -356,6 +678,14 @@ module Stripe
           attr_reader :timestamp
           # The type of method to specify the `bill_from` time.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { line_starts_at: LineStartsAt }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class BillUntil < Stripe::StripeObject
@@ -364,11 +694,27 @@ module Stripe
             attr_reader :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_reader :interval_count
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class LineEndsAt < Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           attr_reader :computed
@@ -380,11 +726,27 @@ module Stripe
           attr_reader :timestamp
           # The type of method to specify the `bill_until` time.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { duration: Duration, line_ends_at: LineEndsAt }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The start of the period to bill from when the Quote is accepted.
         attr_reader :bill_from
         # The end of the period to bill until when the Quote is accepted.
         attr_reader :bill_until
+
+        def self.inner_class_types
+          @inner_class_types = { bill_from: BillFrom, bill_until: BillUntil }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field applies_to
       attr_reader :applies_to
@@ -400,6 +762,14 @@ module Stripe
       attr_reader :end_behavior
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
       attr_reader :proration_behavior
+
+      def self.inner_class_types
+        @inner_class_types = { applies_to: AppliesTo, bill_on_acceptance: BillOnAcceptance }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SubscriptionSchedule < Stripe::StripeObject
@@ -410,11 +780,27 @@ module Stripe
         attr_reader :subscription_schedule
         # Describes whether the quote line is affecting a new schedule or an existing schedule.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field applies_to
       attr_reader :applies_to
       # The subscription schedule that was created or updated from this quote.
       attr_reader :subscription_schedule
+
+      def self.inner_class_types
+        @inner_class_types = { applies_to: AppliesTo }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TotalDetails < Stripe::StripeObject
@@ -427,6 +813,14 @@ module Stripe
           #
           # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
           attr_reader :discount
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Tax < Stripe::StripeObject
@@ -440,11 +834,27 @@ module Stripe
           attr_reader :taxability_reason
           # The amount on which tax is calculated, in cents (or local equivalent).
           attr_reader :taxable_amount
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The aggregated discounts.
         attr_reader :discounts
         # The aggregated tax amounts by rate.
         attr_reader :taxes
+
+        def self.inner_class_types
+          @inner_class_types = { discounts: Discount, taxes: Tax }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # This is the sum of all the discounts.
       attr_reader :amount_discount
@@ -454,6 +864,14 @@ module Stripe
       attr_reader :amount_tax
       # Attribute for field breakdown
       attr_reader :breakdown
+
+      def self.inner_class_types
+        @inner_class_types = { breakdown: Breakdown }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TransferData < Stripe::StripeObject
@@ -463,6 +881,14 @@ module Stripe
       attr_reader :amount_percent
       # The account where funds from the payment will be transferred to upon payment success.
       attr_reader :destination
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -1271,10 +1697,21 @@ module Stripe
         end
 
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            attr_accessor :proration_discounts
+
+            def initialize(proration_discounts: nil)
+              @proration_discounts = proration_discounts
+            end
+          end
+          # Configure behavior for flexible billing mode.
+          attr_accessor :flexible
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           attr_accessor :type
 
-          def initialize(type: nil)
+          def initialize(flexible: nil, type: nil)
+            @flexible = flexible
             @type = type
           end
         end
@@ -3131,6 +3568,26 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        automatic_tax: AutomaticTax,
+        computed: Computed,
+        from_quote: FromQuote,
+        invoice_settings: InvoiceSettings,
+        status_details: StatusDetails,
+        status_transitions: StatusTransitions,
+        subscription_data: SubscriptionData,
+        subscription_data_overrides: SubscriptionDataOverride,
+        subscription_schedules: SubscriptionSchedule,
+        total_details: TotalDetails,
+        transfer_data: TransferData,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

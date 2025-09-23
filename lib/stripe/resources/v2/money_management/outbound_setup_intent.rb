@@ -17,11 +17,27 @@ module Stripe
             attr_reader :object
             # The Confirmation of Payee status.
             attr_reader :status
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The type of next action.
           attr_reader :type
           # Confirmation of Payee details.
           attr_reader :confirmation_of_payee
+
+          def self.inner_class_types
+            @inner_class_types = { confirmation_of_payee: ConfirmationOfPayee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Created timestamp.
         attr_reader :created
@@ -31,7 +47,7 @@ module Stripe
         attr_reader :next_action
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Information about the payout method that’s created and linked to this outbound setup intent.
+        # Use the PayoutMethods API to list and interact with PayoutMethod objects.
         attr_reader :payout_method
         # Closed Enum. Status of the outbound setup intent.
         attr_reader :status
@@ -39,6 +55,14 @@ module Stripe
         attr_reader :usage_intent
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = { next_action: NextAction }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

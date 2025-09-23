@@ -10,88 +10,124 @@ module Stripe
         class DeliveryOptions < Stripe::StripeObject
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
-          attr_reader :bank_account
+          def bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class EstimatedFee < Stripe::StripeObject
           # The fee amount for corresponding fee type.
           sig { returns(Stripe::V2::Amount) }
-          attr_reader :amount
+          def amount; end
           # The fee type.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class From < Stripe::StripeObject
           # The monetary amount debited from the sender, only set on responses.
           sig { returns(Stripe::V2::Amount) }
-          attr_reader :debited
+          def debited; end
           # The FinancialAccount that funds were pulled from.
           sig { returns(String) }
-          attr_reader :financial_account
+          def financial_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class FxQuote < Stripe::StripeObject
           class Rates < Stripe::StripeObject
             # The exchange rate going from_currency -> to_currency.
             sig { returns(String) }
-            attr_reader :exchange_rate
+            def exchange_rate; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes.
           sig { returns(String) }
-          attr_reader :lock_duration
+          def lock_duration; end
           # Time at which the rate lock will expire, measured in seconds since the Unix epoch.
           sig { returns(String) }
-          attr_reader :lock_expires_at
+          def lock_expires_at; end
           # Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active or expired.
           sig { returns(String) }
-          attr_reader :lock_status
+          def lock_status; end
           # Key pair: from currency Value: exchange rate going from_currency -> to_currency.
           sig { returns(T::Hash[String, Rates]) }
-          attr_reader :rates
+          def rates; end
           # The currency that the transaction is exchanging to.
           sig { returns(String) }
-          attr_reader :to_currency
+          def to_currency; end
+          def self.inner_class_types
+            @inner_class_types = {rates: Rates}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class To < Stripe::StripeObject
           # The monetary amount being credited to the destination.
           sig { returns(Stripe::V2::Amount) }
-          attr_reader :credited
+          def credited; end
           # The payout method which the OutboundPayment uses to send payout.
           sig { returns(String) }
-          attr_reader :payout_method
+          def payout_method; end
           # To which account the OutboundPayment is sent.
           sig { returns(String) }
-          attr_reader :recipient
+          def recipient; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The "presentment amount" for the OutboundPaymentQuote.
         sig { returns(Stripe::V2::Amount) }
-        attr_reader :amount
+        def amount; end
         # Time at which the OutboundPaymentQuote was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # Delivery options to be used to send the OutboundPayment.
         sig { returns(T.nilable(DeliveryOptions)) }
-        attr_reader :delivery_options
+        def delivery_options; end
         # The estimated fees for the OutboundPaymentQuote.
         sig { returns(T::Array[EstimatedFee]) }
-        attr_reader :estimated_fees
+        def estimated_fees; end
         # Details about the sender of an OutboundPaymentQuote.
         sig { returns(From) }
-        attr_reader :from
+        def from; end
         # The underlying FXQuote details for the OutboundPaymentQuote.
         sig { returns(FxQuote) }
-        attr_reader :fx_quote
+        def fx_quote; end
         # Unique identifier for the OutboundPaymentQuote.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # Details about the recipient of an OutboundPaymentQuote.
         sig { returns(To) }
-        attr_reader :to
+        def to; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
       end
     end
   end

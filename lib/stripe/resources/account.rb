@@ -42,6 +42,14 @@ module Stripe
         attr_reader :currency
         # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
         attr_reader :fiscal_year_end
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class MonthlyEstimatedRevenue < Stripe::StripeObject
@@ -49,6 +57,14 @@ module Stripe
         attr_reader :amount
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_reader :currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SupportAddress < Stripe::StripeObject
@@ -56,14 +72,22 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The applicant's gross annual revenue for its preceding fiscal year.
       attr_reader :annual_revenue
@@ -89,6 +113,18 @@ module Stripe
       attr_reader :support_url
       # The business's publicly available website.
       attr_reader :url
+
+      def self.inner_class_types
+        @inner_class_types = {
+          annual_revenue: AnnualRevenue,
+          monthly_estimated_revenue: MonthlyEstimatedRevenue,
+          support_address: SupportAddress,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Capabilities < Stripe::StripeObject
@@ -188,6 +224,8 @@ module Stripe
       attr_reader :paynow_payments
       # The status of the PayPal payments capability of the account, or whether the account can directly process PayPal charges.
       attr_reader :paypal_payments
+      # The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
+      attr_reader :paypay_payments
       # The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
       attr_reader :payto_payments
       # The status of the pix payments capability of the account, or whether the account can directly process pix charges.
@@ -238,6 +276,14 @@ module Stripe
       attr_reader :us_bank_transfer_payments
       # The status of the Zip capability of the account, or whether the account can directly process Zip charges.
       attr_reader :zip_payments
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Company < Stripe::StripeObject
@@ -246,14 +292,22 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AddressKana < Stripe::StripeObject
@@ -271,6 +325,14 @@ module Stripe
         attr_reader :state
         # Town/cho-me.
         attr_reader :town
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AddressKanji < Stripe::StripeObject
@@ -288,6 +350,14 @@ module Stripe
         attr_reader :state
         # Town/cho-me.
         attr_reader :town
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class DirectorshipDeclaration < Stripe::StripeObject
@@ -297,6 +367,14 @@ module Stripe
         attr_reader :ip
         # The user-agent string from the browser where the directorship declaration attestation was made.
         attr_reader :user_agent
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class OwnershipDeclaration < Stripe::StripeObject
@@ -306,6 +384,14 @@ module Stripe
         attr_reader :ip
         # The user-agent string from the browser where the beneficial owner attestation was made.
         attr_reader :user_agent
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RegistrationDate < Stripe::StripeObject
@@ -315,6 +401,14 @@ module Stripe
         attr_reader :month
         # The four-digit year of registration.
         attr_reader :year
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Verification < Stripe::StripeObject
@@ -327,9 +421,25 @@ module Stripe
           attr_reader :details_code
           # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :front
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field document
         attr_reader :document
+
+        def self.inner_class_types
+          @inner_class_types = { document: Document }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field address
       attr_reader :address
@@ -373,6 +483,22 @@ module Stripe
       attr_reader :vat_id_provided
       # Information on the verification state of the company.
       attr_reader :verification
+
+      def self.inner_class_types
+        @inner_class_types = {
+          address: Address,
+          address_kana: AddressKana,
+          address_kanji: AddressKanji,
+          directorship_declaration: DirectorshipDeclaration,
+          ownership_declaration: OwnershipDeclaration,
+          registration_date: RegistrationDate,
+          verification: Verification,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Controller < Stripe::StripeObject
@@ -383,26 +509,66 @@ module Stripe
         attr_reader :onboarding_owner
         # `true` if the Connect application is responsible for paying Stripe fees on pricing-control eligible products.
         attr_reader :pricing_controls
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Dashboard < Stripe::StripeObject
         # Whether this account has access to the full Stripe dashboard (`full`), to the Express dashboard (`express`), or to no dashboard (`none`).
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Fees < Stripe::StripeObject
         # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
         attr_reader :payer
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Losses < Stripe::StripeObject
         # A value indicating who is liable when this account can't pay back negative balances from payments.
         attr_reader :payments
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class StripeDashboard < Stripe::StripeObject
         # A value indicating the Stripe dashboard this account has access to independent of the Connect application.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field application
       attr_reader :application
@@ -420,6 +586,20 @@ module Stripe
       attr_reader :stripe_dashboard
       # The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {
+          application: Application,
+          dashboard: Dashboard,
+          fees: Fees,
+          losses: Losses,
+          stripe_dashboard: StripeDashboard,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class FutureRequirements < Stripe::StripeObject
@@ -428,6 +608,14 @@ module Stripe
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
         attr_reader :original_fields_due
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Error < Stripe::StripeObject
@@ -437,6 +625,14 @@ module Stripe
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
       attr_reader :alternatives
@@ -454,11 +650,27 @@ module Stripe
       attr_reader :past_due
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
       attr_reader :pending_verification
+
+      def self.inner_class_types
+        @inner_class_types = { alternatives: Alternative, errors: Error }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Groups < Stripe::StripeObject
       # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
       attr_reader :payments_pricing
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Requirements < Stripe::StripeObject
@@ -467,6 +679,14 @@ module Stripe
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
         attr_reader :original_fields_due
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Error < Stripe::StripeObject
@@ -476,6 +696,14 @@ module Stripe
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
       attr_reader :alternatives
@@ -493,17 +721,41 @@ module Stripe
       attr_reader :past_due
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
       attr_reader :pending_verification
+
+      def self.inner_class_types
+        @inner_class_types = { alternatives: Alternative, errors: Error }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class RiskControls < Stripe::StripeObject
       class Charges < Stripe::StripeObject
         # Whether a pause of the risk control has been requested.
         attr_reader :pause_requested
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Payouts < Stripe::StripeObject
         # Whether a pause of the risk control has been requested.
         attr_reader :pause_requested
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field charges
       attr_reader :charges
@@ -511,6 +763,14 @@ module Stripe
       attr_reader :payouts
       # Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://stripe.com/docs/connect/)
       attr_reader :rejected_reason
+
+      def self.inner_class_types
+        @inner_class_types = { charges: Charges, payouts: Payouts }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Settings < Stripe::StripeObject
@@ -519,6 +779,14 @@ module Stripe
         attr_reader :display_name
         # The Bacs Direct Debit Service user number for this account. For payments made with Bacs Direct Debit, this number is a unique identifier of the account with our banking partners.
         attr_reader :service_user_number
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class BankBcaOnboarding < Stripe::StripeObject
@@ -526,6 +794,14 @@ module Stripe
         attr_reader :account_holder_name
         # Bank BCA business account number.
         attr_reader :business_account_number
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Branding < Stripe::StripeObject
@@ -537,6 +813,14 @@ module Stripe
         attr_reader :primary_color
         # A CSS hex color value representing the secondary branding color for this account
         attr_reader :secondary_color
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Capital < Stripe::StripeObject
@@ -544,6 +828,14 @@ module Stripe
         attr_reader :payout_destination
         # Per-currency mapping of all destination accounts eligible to receive loan payouts.
         attr_reader :payout_destination_selector
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CardIssuing < Stripe::StripeObject
@@ -554,9 +846,25 @@ module Stripe
           attr_reader :ip
           # The user agent of the browser from which the account representative accepted the service agreement.
           attr_reader :user_agent
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field tos_acceptance
         attr_reader :tos_acceptance
+
+        def self.inner_class_types
+          @inner_class_types = { tos_acceptance: TosAcceptance }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CardPayments < Stripe::StripeObject
@@ -565,6 +873,14 @@ module Stripe
           attr_reader :avs_failure
           # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
           attr_reader :cvc_failure
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field decline_on
         attr_reader :decline_on
@@ -574,6 +890,14 @@ module Stripe
         attr_reader :statement_descriptor_prefix_kana
         # The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kanji` specified on the charge. `statement_descriptor_prefix_kanji` is useful for maximizing descriptor space for the dynamic portion.
         attr_reader :statement_descriptor_prefix_kanji
+
+        def self.inner_class_types
+          @inner_class_types = { decline_on: DeclineOn }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Dashboard < Stripe::StripeObject
@@ -581,6 +905,14 @@ module Stripe
         attr_reader :display_name
         # The timezone used in the Stripe Dashboard for this account. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones).
         attr_reader :timezone
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Invoices < Stripe::StripeObject
@@ -588,6 +920,14 @@ module Stripe
         attr_reader :default_account_tax_ids
         # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         attr_reader :hosted_payment_method_save
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Payments < Stripe::StripeObject
@@ -601,6 +941,14 @@ module Stripe
         attr_reader :statement_descriptor_prefix_kana
         # The Kanji variation of `statement_descriptor_prefix` used for card charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
         attr_reader :statement_descriptor_prefix_kanji
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Payouts < Stripe::StripeObject
@@ -617,6 +965,14 @@ module Stripe
           attr_reader :weekly_anchor
           # The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
           attr_reader :weekly_payout_days
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
         attr_reader :debit_negative_balances
@@ -624,16 +980,40 @@ module Stripe
         attr_reader :schedule
         # The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
         attr_reader :statement_descriptor
+
+        def self.inner_class_types
+          @inner_class_types = { schedule: Schedule }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SepaDebitPayments < Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
         attr_reader :creditor_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class TaxForms < Stripe::StripeObject
         # Whether the account opted out of receiving their tax forms by postal delivery.
         attr_reader :consented_to_paperless_delivery
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Treasury < Stripe::StripeObject
@@ -644,9 +1024,25 @@ module Stripe
           attr_reader :ip
           # The user agent of the browser from which the account representative accepted the service agreement.
           attr_reader :user_agent
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field tos_acceptance
         attr_reader :tos_acceptance
+
+        def self.inner_class_types
+          @inner_class_types = { tos_acceptance: TosAcceptance }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field bacs_debit_payments
       attr_reader :bacs_debit_payments
@@ -674,6 +1070,28 @@ module Stripe
       attr_reader :tax_forms
       # Attribute for field treasury
       attr_reader :treasury
+
+      def self.inner_class_types
+        @inner_class_types = {
+          bacs_debit_payments: BacsDebitPayments,
+          bank_bca_onboarding: BankBcaOnboarding,
+          branding: Branding,
+          capital: Capital,
+          card_issuing: CardIssuing,
+          card_payments: CardPayments,
+          dashboard: Dashboard,
+          invoices: Invoices,
+          payments: Payments,
+          payouts: Payouts,
+          sepa_debit_payments: SepaDebitPayments,
+          tax_forms: TaxForms,
+          treasury: Treasury,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TosAcceptance < Stripe::StripeObject
@@ -685,6 +1103,14 @@ module Stripe
       attr_reader :service_agreement
       # The user agent of the browser from which the account representative accepted their service agreement
       attr_reader :user_agent
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class DeleteParams < Stripe::RequestParams; end
@@ -758,9 +1184,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -1270,6 +1696,15 @@ module Stripe
           end
         end
 
+        class PaypayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaytoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -1590,6 +2025,8 @@ module Stripe
         attr_accessor :paynow_payments
         # The paypal_payments capability.
         attr_accessor :paypal_payments
+        # The paypay_payments capability.
+        attr_accessor :paypay_payments
         # The payto_payments capability.
         attr_accessor :payto_payments
         # The pix_payments capability.
@@ -1690,6 +2127,7 @@ module Stripe
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
+          paypay_payments: nil,
           payto_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
@@ -1764,6 +2202,7 @@ module Stripe
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments
+          @paypay_payments = paypay_payments
           @payto_payments = payto_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
@@ -1880,9 +2319,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -2272,9 +2711,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -2388,9 +2827,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -2754,9 +3193,9 @@ module Stripe
             attr_accessor :monthly_anchor
             # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
             attr_accessor :monthly_payout_days
-            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_anchor
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_payout_days
 
             def initialize(
@@ -3071,9 +3510,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -3583,6 +4022,15 @@ module Stripe
           end
         end
 
+        class PaypayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaytoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3903,6 +4351,8 @@ module Stripe
         attr_accessor :paynow_payments
         # The paypal_payments capability.
         attr_accessor :paypal_payments
+        # The paypay_payments capability.
+        attr_accessor :paypay_payments
         # The payto_payments capability.
         attr_accessor :payto_payments
         # The pix_payments capability.
@@ -4003,6 +4453,7 @@ module Stripe
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
+          paypay_payments: nil,
           payto_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
@@ -4077,6 +4528,7 @@ module Stripe
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments
+          @paypay_payments = paypay_payments
           @payto_payments = payto_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
@@ -4193,9 +4645,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -4666,9 +5118,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -4782,9 +5234,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -5145,9 +5597,9 @@ module Stripe
             attr_accessor :monthly_anchor
             # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
             attr_accessor :monthly_payout_days
-            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_anchor
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_payout_days
 
             def initialize(
@@ -5725,6 +6177,25 @@ module Stripe
         update_hash[i.to_s] = update
       end
       update_hash
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        business_profile: BusinessProfile,
+        capabilities: Capabilities,
+        company: Company,
+        controller: Controller,
+        future_requirements: FutureRequirements,
+        groups: Groups,
+        requirements: Requirements,
+        risk_controls: RiskControls,
+        settings: Settings,
+        tos_acceptance: TosAcceptance,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

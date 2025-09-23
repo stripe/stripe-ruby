@@ -19,6 +19,14 @@ module Stripe
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_start_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CaMrdp < Stripe::StripeObject
@@ -26,6 +34,14 @@ module Stripe
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_start_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class EuDac7 < Stripe::StripeObject
@@ -33,6 +49,14 @@ module Stripe
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_start_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class FilingStatus < Stripe::StripeObject
@@ -43,6 +67,14 @@ module Stripe
           attr_reader :level
           # [ISO 3166-2 U.S. state code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix, if any. For example, "NY" for New York, United States. Null for non-U.S. forms.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time when the filing status was updated.
         attr_reader :effective_at
@@ -50,6 +82,14 @@ module Stripe
         attr_reader :jurisdiction
         # The current status of the filed form.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = { jurisdiction: Jurisdiction }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class GbMrdp < Stripe::StripeObject
@@ -57,6 +97,14 @@ module Stripe
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_start_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class NzMrdp < Stripe::StripeObject
@@ -64,6 +112,14 @@ module Stripe
         attr_reader :reporting_period_end_date
         # Start date of the period represented by the information reported on the tax form.
         attr_reader :reporting_period_start_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Payee < Stripe::StripeObject
@@ -73,21 +129,53 @@ module Stripe
         attr_reader :external_reference
         # Either `account` or `external_reference`.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Us1099K < Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         attr_reader :reporting_year
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Us1099Misc < Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         attr_reader :reporting_year
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Us1099Nec < Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         attr_reader :reporting_year
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -205,6 +293,25 @@ module Stripe
           opts,
           &read_body_chunk_block
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          au_serr: AuSerr,
+          ca_mrdp: CaMrdp,
+          eu_dac7: EuDac7,
+          filing_statuses: FilingStatus,
+          gb_mrdp: GbMrdp,
+          nz_mrdp: NzMrdp,
+          payee: Payee,
+          us_1099_k: Us1099K,
+          us_1099_misc: Us1099Misc,
+          us_1099_nec: Us1099Nec,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

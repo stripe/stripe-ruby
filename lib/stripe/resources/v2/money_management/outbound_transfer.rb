@@ -14,6 +14,14 @@ module Stripe
         class DeliveryOptions < Stripe::StripeObject
           # Open Enum. Method for bank account.
           attr_reader :bank_account
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class From < Stripe::StripeObject
@@ -21,22 +29,54 @@ module Stripe
           attr_reader :debited
           # The FinancialAccount that funds were pulled from.
           attr_reader :financial_account
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class StatusDetails < Stripe::StripeObject
           class Failed < Stripe::StripeObject
             # Open Enum. The `failed` status reason.
             attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Returned < Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The `failed` status reason.
           attr_reader :failed
           # The `returned` status reason.
           attr_reader :returned
+
+          def self.inner_class_types
+            @inner_class_types = { failed: Failed, returned: Returned }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class StatusTransitions < Stripe::StripeObject
@@ -52,6 +92,14 @@ module Stripe
           # Timestamp describing when an OutboundTransfer changed status to `returned`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           attr_reader :returned_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class To < Stripe::StripeObject
@@ -59,6 +107,14 @@ module Stripe
           attr_reader :credited
           # The payout method which the OutboundTransfer uses to send payout.
           attr_reader :payout_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class TraceId < Stripe::StripeObject
@@ -69,6 +125,14 @@ module Stripe
           attr_reader :status
           # The trace ID value if `trace_id.status` is `supported`, otherwise empty.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The "presentment amount" for the OutboundTransfer.
         attr_reader :amount
@@ -111,6 +175,21 @@ module Stripe
         attr_reader :trace_id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            delivery_options: DeliveryOptions,
+            from: From,
+            status_details: StatusDetails,
+            status_transitions: StatusTransitions,
+            to: To,
+            trace_id: TraceId,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

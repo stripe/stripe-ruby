@@ -22,6 +22,14 @@ module Stripe
         attr_reader :account
         # Type of the account referenced.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # If Stripe disabled automatic tax, this enum describes why.
       attr_reader :disabled_reason
@@ -29,6 +37,14 @@ module Stripe
       attr_reader :enabled
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       attr_reader :liability
+
+      def self.inner_class_types
+        @inner_class_types = { liability: Liability }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class BillingCycleAnchorConfig < Stripe::StripeObject
@@ -42,13 +58,107 @@ module Stripe
       attr_reader :month
       # The second of the minute of the billing_cycle_anchor.
       attr_reader :second
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class BillingMode < Stripe::StripeObject
+      class Flexible < Stripe::StripeObject
+        # Controls how invoices and invoice items display proration amounts and discount amounts.
+        attr_reader :proration_discounts
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configure behavior for flexible billing mode
+      attr_reader :flexible
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_reader :type
       # Details on when the current billing_mode was adopted.
       attr_reader :updated_at
+
+      def self.inner_class_types
+        @inner_class_types = { flexible: Flexible }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class BillingSchedule < Stripe::StripeObject
+      class AppliesTo < Stripe::StripeObject
+        # The billing schedule will apply to the subscription item with the given price ID.
+        attr_reader :price
+        # Controls which subscription items the billing schedule applies to.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BillUntil < Stripe::StripeObject
+        class Duration < Stripe::StripeObject
+          # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+          attr_reader :interval
+          # The multiplier applied to the interval.
+          attr_reader :interval_count
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The timestamp the billing schedule will apply until.
+        attr_reader :computed_timestamp
+        # Specifies the billing period.
+        attr_reader :duration
+        # If specified, the billing schedule will apply until the specified timestamp.
+        attr_reader :timestamp
+        # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { duration: Duration }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Specifies which subscription items the billing schedule applies to.
+      attr_reader :applies_to
+      # Specifies the billing period.
+      attr_reader :bill_until
+      # Unique identifier for the billing schedule.
+      attr_reader :key
+
+      def self.inner_class_types
+        @inner_class_types = { applies_to: AppliesTo, bill_until: BillUntil }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class BillingThresholds < Stripe::StripeObject
@@ -56,6 +166,14 @@ module Stripe
       attr_reader :amount_gte
       # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
       attr_reader :reset_billing_cycle_anchor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CancellationDetails < Stripe::StripeObject
@@ -65,6 +183,14 @@ module Stripe
       attr_reader :feedback
       # Why this subscription was canceled.
       attr_reader :reason
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class InvoiceSettings < Stripe::StripeObject
@@ -73,11 +199,27 @@ module Stripe
         attr_reader :account
         # Type of the account referenced.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The account tax IDs associated with the subscription. Will be set on invoices generated by the subscription.
       attr_reader :account_tax_ids
       # Attribute for field issuer
       attr_reader :issuer
+
+      def self.inner_class_types
+        @inner_class_types = { issuer: Issuer }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class LastPriceMigrationError < Stripe::StripeObject
@@ -86,6 +228,14 @@ module Stripe
         attr_reader :source_price
         # The intended resulting price of the migration.
         attr_reader :target_price
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The time at which the price migration encountered an error.
       attr_reader :errored_at
@@ -93,6 +243,14 @@ module Stripe
       attr_reader :failed_transitions
       # The type of error encountered by the price migration.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { failed_transitions: FailedTransition }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PauseCollection < Stripe::StripeObject
@@ -100,6 +258,14 @@ module Stripe
       attr_reader :behavior
       # The time after which the subscription will resume collecting payments.
       attr_reader :resumes_at
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PaymentSettings < Stripe::StripeObject
@@ -108,16 +274,40 @@ module Stripe
           class MandateOptions < Stripe::StripeObject
             # Transaction type of the mandate.
             attr_reader :transaction_type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field mandate_options
           attr_reader :mandate_options
           # Bank account verification method.
           attr_reader :verification_method
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Bancontact < Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_reader :preferred_language
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Card < Stripe::StripeObject
@@ -128,6 +318,14 @@ module Stripe
             attr_reader :amount_type
             # A description of the mandate or subscription that is meant to be displayed to the customer.
             attr_reader :description
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field mandate_options
           attr_reader :mandate_options
@@ -135,6 +333,14 @@ module Stripe
           attr_reader :network
           # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           attr_reader :request_three_d_secure
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CustomerBalance < Stripe::StripeObject
@@ -142,21 +348,102 @@ module Stripe
             class EuBankTransfer < Stripe::StripeObject
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               attr_reader :country
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field eu_bank_transfer
             attr_reader :eu_bank_transfer
             # The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { eu_bank_transfer: EuBankTransfer }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field bank_transfer
           attr_reader :bank_transfer
           # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
           attr_reader :funding_type
+
+          def self.inner_class_types
+            @inner_class_types = { bank_transfer: BankTransfer }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class IdBankTransfer < Stripe::StripeObject; end
-        class Konbini < Stripe::StripeObject; end
-        class SepaDebit < Stripe::StripeObject; end
+        class IdBankTransfer < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Konbini < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Pix < Stripe::StripeObject
+          class MandateOptions < Stripe::StripeObject
+            # Amount to be charged for future payments.
+            attr_reader :amount
+            # Determines if the amount includes the IOF tax.
+            attr_reader :amount_includes_iof
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            attr_reader :end_date
+            # Schedule at which the future payments will be charged.
+            attr_reader :payment_schedule
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class SepaDebit < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
 
         class Upi < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
@@ -168,9 +455,25 @@ module Stripe
             attr_reader :description
             # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
             attr_reader :end_date
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field mandate_options
           attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class UsBankAccount < Stripe::StripeObject
@@ -180,6 +483,14 @@ module Stripe
               attr_reader :account_subcategories
               # The institution to use to filter for possible accounts to link.
               attr_reader :institution
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field filters
             attr_reader :filters
@@ -187,11 +498,27 @@ module Stripe
             attr_reader :permissions
             # Data features requested to be retrieved upon account creation.
             attr_reader :prefetch
+
+            def self.inner_class_types
+              @inner_class_types = { filters: Filters }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field financial_connections
           attr_reader :financial_connections
           # Bank account verification method.
           attr_reader :verification_method
+
+          def self.inner_class_types
+            @inner_class_types = { financial_connections: FinancialConnections }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
         attr_reader :acss_debit
@@ -205,12 +532,33 @@ module Stripe
         attr_reader :id_bank_transfer
         # This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
         attr_reader :konbini
+        # This sub-hash contains details about the Pix payment method options to pass to invoices created by the subscription.
+        attr_reader :pix
         # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
         attr_reader :sepa_debit
         # This sub-hash contains details about the UPI payment method options to pass to invoices created by the subscription.
         attr_reader :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         attr_reader :us_bank_account
+
+        def self.inner_class_types
+          @inner_class_types = {
+            acss_debit: AcssDebit,
+            bancontact: Bancontact,
+            card: Card,
+            customer_balance: CustomerBalance,
+            id_bank_transfer: IdBankTransfer,
+            konbini: Konbini,
+            pix: Pix,
+            sepa_debit: SepaDebit,
+            upi: Upi,
+            us_bank_account: UsBankAccount,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Payment-method-specific configuration to provide to invoices created by the subscription.
       attr_reader :payment_method_options
@@ -218,6 +566,14 @@ module Stripe
       attr_reader :payment_method_types
       # Configure whether Stripe updates `subscription.default_payment_method` when payment succeeds. Defaults to `off`.
       attr_reader :save_default_payment_method
+
+      def self.inner_class_types
+        @inner_class_types = { payment_method_options: PaymentMethodOptions }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PendingInvoiceItemInterval < Stripe::StripeObject
@@ -225,6 +581,14 @@ module Stripe
       attr_reader :interval
       # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
       attr_reader :interval_count
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PendingUpdate < Stripe::StripeObject
@@ -240,6 +604,14 @@ module Stripe
       attr_reader :trial_end
       # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
       attr_reader :trial_from_plan
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Prebilling < Stripe::StripeObject
@@ -251,6 +623,14 @@ module Stripe
       attr_reader :period_start
       # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
       attr_reader :update_behavior
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TransferData < Stripe::StripeObject
@@ -258,15 +638,39 @@ module Stripe
       attr_reader :amount_percent
       # The account where funds from the payment will be transferred to upon payment success.
       attr_reader :destination
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class TrialSettings < Stripe::StripeObject
       class EndBehavior < Stripe::StripeObject
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_reader :missing_payment_method
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Defines how a subscription behaves when a free trial ends.
       attr_reader :end_behavior
+
+      def self.inner_class_types
+        @inner_class_types = { end_behavior: EndBehavior }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CancelParams < Stripe::RequestParams
@@ -408,7 +812,7 @@ module Stripe
         attr_accessor :discounts
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
@@ -458,6 +862,58 @@ module Stripe
         def initialize(enabled: nil, liability: nil)
           @enabled = enabled
           @liability = liability
+        end
+      end
+
+      class BillingSchedule < Stripe::RequestParams
+        class AppliesTo < Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillUntil < Stripe::RequestParams
+          class Duration < Stripe::RequestParams
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The multiplier applied to the interval.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Specifies the billing period.
+          attr_accessor :duration
+          # The end date of the billing schedule.
+          attr_accessor :timestamp
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The end date for the billing schedule.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_until = bill_until
+          @key = key
         end
       end
 
@@ -800,6 +1256,38 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments. If not provided, defaults to 40000.
+              attr_accessor :amount
+              # Determines if the amount includes the IOF tax. Defaults to `never`.
+              attr_accessor :amount_includes_iof
+              # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+              attr_accessor :end_date
+              # Schedule at which the future payments will be charged. Defaults to `weekly`.
+              attr_accessor :payment_schedule
+
+              def initialize(
+                amount: nil,
+                amount_includes_iof: nil,
+                end_date: nil,
+                payment_schedule: nil
+              )
+                @amount = amount
+                @amount_includes_iof = amount_includes_iof
+                @end_date = end_date
+                @payment_schedule = payment_schedule
+              end
+            end
+            # Configuration options for setting up a mandate
+            attr_accessor :mandate_options
+
+            def initialize(mandate_options: nil)
+              @mandate_options = mandate_options
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -876,6 +1364,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # This sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # This sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # This sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -890,6 +1380,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -900,6 +1391,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -983,6 +1475,8 @@ module Stripe
       attr_accessor :automatic_tax
       # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_accessor :billing_cycle_anchor
+      # Sets the billing schedules for the subscription.
+      attr_accessor :billing_schedules
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
       attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -1051,6 +1545,7 @@ module Stripe
         application_fee_percent: nil,
         automatic_tax: nil,
         billing_cycle_anchor: nil,
+        billing_schedules: nil,
         billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
@@ -1084,6 +1579,7 @@ module Stripe
         @application_fee_percent = application_fee_percent
         @automatic_tax = automatic_tax
         @billing_cycle_anchor = billing_cycle_anchor
+        @billing_schedules = billing_schedules
         @billing_thresholds = billing_thresholds
         @cancel_at = cancel_at
         @cancel_at_period_end = cancel_at_period_end
@@ -1356,7 +1852,7 @@ module Stripe
         attr_accessor :discounts
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
@@ -1431,11 +1927,74 @@ module Stripe
       end
 
       class BillingMode < Stripe::RequestParams
-        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_accessor :proration_discounts
+
+          def initialize(proration_discounts: nil)
+            @proration_discounts = proration_discounts
+          end
+        end
+        # Configure behavior for flexible billing mode.
+        attr_accessor :flexible
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         attr_accessor :type
 
-        def initialize(type: nil)
+        def initialize(flexible: nil, type: nil)
+          @flexible = flexible
           @type = type
+        end
+      end
+
+      class BillingSchedule < Stripe::RequestParams
+        class AppliesTo < Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillUntil < Stripe::RequestParams
+          class Duration < Stripe::RequestParams
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The multiplier applied to the interval.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Specifies the billing period.
+          attr_accessor :duration
+          # The end date of the billing schedule.
+          attr_accessor :timestamp
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The end date for the billing schedule.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_until = bill_until
+          @key = key
         end
       end
 
@@ -1758,6 +2317,38 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments. If not provided, defaults to 40000.
+              attr_accessor :amount
+              # Determines if the amount includes the IOF tax. Defaults to `never`.
+              attr_accessor :amount_includes_iof
+              # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+              attr_accessor :end_date
+              # Schedule at which the future payments will be charged. Defaults to `weekly`.
+              attr_accessor :payment_schedule
+
+              def initialize(
+                amount: nil,
+                amount_includes_iof: nil,
+                end_date: nil,
+                payment_schedule: nil
+              )
+                @amount = amount
+                @amount_includes_iof = amount_includes_iof
+                @end_date = end_date
+                @payment_schedule = payment_schedule
+              end
+            end
+            # Configuration options for setting up a mandate
+            attr_accessor :mandate_options
+
+            def initialize(mandate_options: nil)
+              @mandate_options = mandate_options
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -1834,6 +2425,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # This sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # This sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # This sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -1848,6 +2441,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -1858,6 +2452,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -1943,10 +2538,12 @@ module Stripe
       attr_accessor :backdate_start_date
       # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
       attr_accessor :billing_cycle_anchor
-      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
       attr_accessor :billing_cycle_anchor_config
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_accessor :billing_mode
+      # Sets the billing schedules for the subscription.
+      attr_accessor :billing_schedules
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
       attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -2024,6 +2621,7 @@ module Stripe
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
         billing_mode: nil,
+        billing_schedules: nil,
         billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
@@ -2061,6 +2659,7 @@ module Stripe
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_cycle_anchor_config = billing_cycle_anchor_config
         @billing_mode = billing_mode
+        @billing_schedules = billing_schedules
         @billing_thresholds = billing_thresholds
         @cancel_at = cancel_at
         @cancel_at_period_end = cancel_at_period_end
@@ -2113,10 +2712,21 @@ module Stripe
 
     class MigrateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Attribute for param field type
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_accessor :proration_discounts
+
+          def initialize(proration_discounts: nil)
+            @proration_discounts = proration_discounts
+          end
+        end
+        # Configure behavior for flexible billing mode.
+        attr_accessor :flexible
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
         attr_accessor :type
 
-        def initialize(type: nil)
+        def initialize(flexible: nil, type: nil)
+          @flexible = flexible
           @type = type
         end
       end
@@ -2165,6 +2775,8 @@ module Stripe
     attr_reader :billing_cycle_anchor_config
     # The billing mode of the subscription.
     attr_reader :billing_mode
+    # Billing schedules for this subscription.
+    attr_reader :billing_schedules
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
     attr_reader :billing_thresholds
     # A date in the future at which the subscription will automatically get canceled
@@ -2406,5 +3018,29 @@ module Stripe
     end
 
     save_nested_resource :source
+
+    def self.inner_class_types
+      @inner_class_types = {
+        automatic_tax: AutomaticTax,
+        billing_cycle_anchor_config: BillingCycleAnchorConfig,
+        billing_mode: BillingMode,
+        billing_schedules: BillingSchedule,
+        billing_thresholds: BillingThresholds,
+        cancellation_details: CancellationDetails,
+        invoice_settings: InvoiceSettings,
+        last_price_migration_error: LastPriceMigrationError,
+        pause_collection: PauseCollection,
+        payment_settings: PaymentSettings,
+        pending_invoice_item_interval: PendingInvoiceItemInterval,
+        pending_update: PendingUpdate,
+        prebilling: Prebilling,
+        transfer_data: TransferData,
+        trial_settings: TrialSettings,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

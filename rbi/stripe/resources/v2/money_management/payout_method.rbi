@@ -10,85 +10,103 @@ module Stripe
         class UsageStatus < Stripe::StripeObject
           # Payments status - used when sending OutboundPayments (sending funds to recipients).
           sig { returns(String) }
-          attr_reader :payments
+          def payments; end
           # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
           sig { returns(String) }
-          attr_reader :transfers
+          def transfers; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BankAccount < Stripe::StripeObject
           # Whether this PayoutMethodBankAccount object was archived. PayoutMethodBankAccount objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodBankAccount objects
           # cannot be used as payout methods and will not appear in the payout method list.
           sig { returns(T::Boolean) }
-          attr_reader :archived
+          def archived; end
           # The type of bank account (checking or savings).
           sig { returns(String) }
-          attr_reader :bank_account_type
+          def bank_account_type; end
           # The name of the bank this bank account is in. This field is populated automatically by Stripe.
           sig { returns(String) }
-          attr_reader :bank_name
+          def bank_name; end
           # The country code of the bank account.
           sig { returns(String) }
-          attr_reader :country
+          def country; end
           # List of enabled flows for this bank account (wire or local).
           sig { returns(T::Array[String]) }
-          attr_reader :enabled_delivery_options
+          def enabled_delivery_options; end
           # The last 4 digits of the account number.
           sig { returns(String) }
-          attr_reader :last4
+          def last4; end
           # The routing number of the bank account, if present.
           sig { returns(T.nilable(String)) }
-          attr_reader :routing_number
+          def routing_number; end
           # The list of currencies supported by this bank account.
           sig { returns(T::Array[String]) }
-          attr_reader :supported_currencies
+          def supported_currencies; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Card < Stripe::StripeObject
           # Whether the PayoutMethodCard object was archived. PayoutMethodCard objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodCard objects
           # cannot be used as payout methods and will not appear in the payout method list.
           sig { returns(T::Boolean) }
-          attr_reader :archived
+          def archived; end
           # The month the card expires.
           sig { returns(String) }
-          attr_reader :exp_month
+          def exp_month; end
           # The year the card expires.
           sig { returns(String) }
-          attr_reader :exp_year
+          def exp_year; end
           # The last 4 digits of the card number.
           sig { returns(String) }
-          attr_reader :last4
+          def last4; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # A set of available payout speeds for this payout method.
         sig { returns(T::Array[String]) }
-        attr_reader :available_payout_speeds
+        def available_payout_speeds; end
         # Created timestamp.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # ID of the PayoutMethod object.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # ID of the underlying active OutboundSetupIntent object, if any.
         sig { returns(T.nilable(String)) }
-        attr_reader :latest_outbound_setup_intent
+        def latest_outbound_setup_intent; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # Closed Enum. The type of payout method.
         sig { returns(String) }
-        attr_reader :type
+        def type; end
         # Indicates whether the payout method has met the necessary requirements for outbound money movement.
         sig { returns(UsageStatus) }
-        attr_reader :usage_status
+        def usage_status; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
         # The PayoutMethodBankAccount object details.
         sig { returns(T.nilable(BankAccount)) }
-        attr_reader :bank_account
+        def bank_account; end
         # The PayoutMethodCard object details.
         sig { returns(T.nilable(Card)) }
-        attr_reader :card
+        def card; end
       end
     end
   end

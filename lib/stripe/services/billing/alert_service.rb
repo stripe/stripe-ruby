@@ -54,7 +54,7 @@ module Stripe
           attr_accessor :gte
           # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
           attr_accessor :meter
-          # Whether the alert should only fire only once, or once per billing cycle.
+          # Defines how the alert will behave.
           attr_accessor :recurrence
 
           def initialize(filters: nil, gte: nil, meter: nil, recurrence: nil)

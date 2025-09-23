@@ -6,21 +6,21 @@ module Stripe
   class ConnectCollectionTransfer < APIResource
     # Amount transferred, in cents (or local equivalent).
     sig { returns(Integer) }
-    attr_reader :amount
+    def amount; end
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
-    attr_reader :currency
+    def currency; end
     # ID of the account that funds are being collected for.
     sig { returns(T.any(String, Stripe::Account)) }
-    attr_reader :destination
+    def destination; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
   end
 end

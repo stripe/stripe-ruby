@@ -12,13 +12,29 @@ module Stripe
     end
 
     class CustomerAcceptance < Stripe::StripeObject
-      class Offline < Stripe::StripeObject; end
+      class Offline < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class Online < Stripe::StripeObject
         # The customer accepts the mandate from this IP address.
         attr_reader :ip_address
         # The customer accepts the mandate using the user agent of the browser.
         attr_reader :user_agent
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The time that the customer accepts the mandate.
       attr_reader :accepted_at
@@ -28,6 +44,14 @@ module Stripe
       attr_reader :online
       # The mandate includes the type of customer acceptance information, such as: `online` or `offline`.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { offline: Offline, online: Online }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class MultiUse < Stripe::StripeObject
@@ -35,6 +59,14 @@ module Stripe
       attr_reader :amount
       # The currency of the payment on a multi use mandate.
       attr_reader :currency
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PaymentMethodDetails < Stripe::StripeObject
@@ -47,13 +79,37 @@ module Stripe
         attr_reader :payment_schedule
         # Transaction type of the mandate.
         attr_reader :transaction_type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class AmazonPay < Stripe::StripeObject; end
+      class AmazonPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class AuBecsDebit < Stripe::StripeObject
         # The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
         attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class BacsDebit < Stripe::StripeObject
@@ -65,16 +121,95 @@ module Stripe
         attr_reader :revocation_reason
         # The URL that will contain the mandate that the customer has signed.
         attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Card < Stripe::StripeObject; end
-      class Cashapp < Stripe::StripeObject; end
-      class KakaoPay < Stripe::StripeObject; end
-      class Klarna < Stripe::StripeObject; end
-      class KrCard < Stripe::StripeObject; end
-      class Link < Stripe::StripeObject; end
-      class NaverPay < Stripe::StripeObject; end
-      class NzBankAccount < Stripe::StripeObject; end
+      class Card < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Cashapp < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class KakaoPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Klarna < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class KrCard < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Link < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class NaverPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class NzBankAccount < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class Paypal < Stripe::StripeObject
         # The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
@@ -86,6 +221,14 @@ module Stripe
         # Owner's verified email. Values are verified or provided by PayPal directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_email
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Payto < Stripe::StripeObject
@@ -103,6 +246,14 @@ module Stripe
         attr_reader :purpose
         # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
         attr_reader :start_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Pix < Stripe::StripeObject
@@ -118,20 +269,52 @@ module Stripe
         attr_reader :reference
         # Start date of the mandate, in `YYYY-MM-DD`.
         attr_reader :start_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class RevolutPay < Stripe::StripeObject; end
+      class RevolutPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class SepaDebit < Stripe::StripeObject
         # The unique reference of the mandate.
         attr_reader :reference
         # The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
         attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class UsBankAccount < Stripe::StripeObject
         # Mandate collection method
         attr_reader :collection_method
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field acss_debit
       attr_reader :acss_debit
@@ -171,6 +354,33 @@ module Stripe
       attr_reader :type
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
+
+      def self.inner_class_types
+        @inner_class_types = {
+          acss_debit: AcssDebit,
+          amazon_pay: AmazonPay,
+          au_becs_debit: AuBecsDebit,
+          bacs_debit: BacsDebit,
+          card: Card,
+          cashapp: Cashapp,
+          kakao_pay: KakaoPay,
+          klarna: Klarna,
+          kr_card: KrCard,
+          link: Link,
+          naver_pay: NaverPay,
+          nz_bank_account: NzBankAccount,
+          paypal: Paypal,
+          payto: Payto,
+          pix: Pix,
+          revolut_pay: RevolutPay,
+          sepa_debit: SepaDebit,
+          us_bank_account: UsBankAccount,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SingleUse < Stripe::StripeObject
@@ -178,6 +388,14 @@ module Stripe
       attr_reader :amount
       # The currency of the payment on a single use mandate.
       attr_reader :currency
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -240,6 +458,19 @@ module Stripe
     # Retrieves a list of Mandates for a given PaymentMethod.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/mandates", params: params, opts: opts)
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        customer_acceptance: CustomerAcceptance,
+        multi_use: MultiUse,
+        payment_method_details: PaymentMethodDetails,
+        single_use: SingleUse,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

@@ -28,14 +28,22 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Dob < Stripe::StripeObject
@@ -45,6 +53,14 @@ module Stripe
           attr_reader :month
           # The four-digit year.
           attr_reader :year
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Error < Stripe::StripeObject
@@ -52,6 +68,14 @@ module Stripe
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ExpirationDate < Stripe::StripeObject
@@ -61,6 +85,14 @@ module Stripe
           attr_reader :month
           # The four-digit year.
           attr_reader :year
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class IssuedDate < Stripe::StripeObject
@@ -70,6 +102,14 @@ module Stripe
           attr_reader :month
           # The four-digit year.
           attr_reader :year
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Address as it appears in the document.
         attr_reader :address
@@ -101,6 +141,20 @@ module Stripe
         attr_reader :unparsed_place_of_birth
         # Sex as it appears in the document.
         attr_reader :unparsed_sex
+
+        def self.inner_class_types
+          @inner_class_types = {
+            address: Address,
+            dob: Dob,
+            error: Error,
+            expiration_date: ExpirationDate,
+            issued_date: IssuedDate,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Email < Stripe::StripeObject
@@ -109,6 +163,14 @@ module Stripe
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Email to be verified.
         attr_reader :email
@@ -116,6 +178,14 @@ module Stripe
         attr_reader :error
         # Status of this `email` check.
         attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = { error: Error }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class IdNumber < Stripe::StripeObject
@@ -126,6 +196,14 @@ module Stripe
           attr_reader :month
           # The four-digit year.
           attr_reader :year
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Error < Stripe::StripeObject
@@ -133,6 +211,14 @@ module Stripe
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Date of birth.
         attr_reader :dob
@@ -148,6 +234,14 @@ module Stripe
         attr_reader :last_name
         # Status of this `id_number` check.
         attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = { dob: Dob, error: Error }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Options < Stripe::StripeObject
@@ -160,13 +254,37 @@ module Stripe
           attr_reader :require_live_capture
           # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
           attr_reader :require_matching_selfie
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class IdNumber < Stripe::StripeObject; end
+        class IdNumber < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Attribute for field document
         attr_reader :document
         # Attribute for field id_number
         attr_reader :id_number
+
+        def self.inner_class_types
+          @inner_class_types = { document: Document, id_number: IdNumber }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Phone < Stripe::StripeObject
@@ -175,6 +293,14 @@ module Stripe
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Details on the verification error. Present when status is `unverified`.
         attr_reader :error
@@ -182,6 +308,14 @@ module Stripe
         attr_reader :phone
         # Status of this `phone` check.
         attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = { error: Error }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Selfie < Stripe::StripeObject
@@ -190,6 +324,14 @@ module Stripe
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
         attr_reader :document
@@ -199,6 +341,14 @@ module Stripe
         attr_reader :selfie
         # Status of this `selfie` check.
         attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = { error: Error }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -293,6 +443,21 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          document: Document,
+          email: Email,
+          id_number: IdNumber,
+          options: Options,
+          phone: Phone,
+          selfie: Selfie,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

@@ -8,16 +8,24 @@ module Stripe
       class CanceledAt < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gt
+        def gt; end
+        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gt=(_gt); end
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gte
+        def gte; end
+        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gte=(_gte); end
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lt
+        def lt; end
+        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lt=(_lt); end
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lte
+        def lte; end
+        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lte=(_lte); end
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -26,16 +34,24 @@ module Stripe
       class CompletedAt < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gt
+        def gt; end
+        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gt=(_gt); end
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gte
+        def gte; end
+        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gte=(_gte); end
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lt
+        def lt; end
+        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lt=(_lt); end
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lte
+        def lte; end
+        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lte=(_lte); end
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -44,16 +60,24 @@ module Stripe
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gt
+        def gt; end
+        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gt=(_gt); end
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gte
+        def gte; end
+        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gte=(_gte); end
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lt
+        def lt; end
+        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lt=(_lt); end
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lte
+        def lte; end
+        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lte=(_lte); end
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -62,16 +86,24 @@ module Stripe
       class ReleasedAt < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gt
+        def gt; end
+        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gt=(_gt); end
         # Minimum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :gte
+        def gte; end
+        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gte=(_gte); end
         # Maximum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lt
+        def lt; end
+        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lt=(_lt); end
         # Maximum value to filter by (inclusive)
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :lte
+        def lte; end
+        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lte=(_lte); end
         sig {
           params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
          }
@@ -81,43 +113,73 @@ module Stripe
       sig {
         returns(T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::CanceledAt, Integer)))
        }
-      attr_accessor :canceled_at
+      def canceled_at; end
+      sig {
+        params(_canceled_at: T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::CanceledAt, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::CanceledAt, Integer)))
+       }
+      def canceled_at=(_canceled_at); end
       # Only return subscription schedules that completed during the given date interval.
       sig {
         returns(T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::CompletedAt, Integer)))
        }
-      attr_accessor :completed_at
+      def completed_at; end
+      sig {
+        params(_completed_at: T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::CompletedAt, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::CompletedAt, Integer)))
+       }
+      def completed_at=(_completed_at); end
       # Only return subscription schedules that were created during the given date interval.
       sig {
         returns(T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::Created, Integer)))
        }
-      attr_accessor :created
+      def created; end
+      sig {
+        params(_created: T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::Created, Integer)))
+       }
+      def created=(_created); end
       # Only return subscription schedules for the given customer.
       sig { returns(T.nilable(String)) }
-      attr_accessor :customer
+      def customer; end
+      sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
+      def customer=(_customer); end
       # Only return subscription schedules for the given account.
       sig { returns(T.nilable(String)) }
-      attr_accessor :customer_account
+      def customer_account; end
+      sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_account=(_customer_account); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :ending_before
+      def ending_before; end
+      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+      def ending_before=(_ending_before); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
-      attr_accessor :limit
+      def limit; end
+      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def limit=(_limit); end
       # Only return subscription schedules that were released during the given date interval.
       sig {
         returns(T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::ReleasedAt, Integer)))
        }
-      attr_accessor :released_at
+      def released_at; end
+      sig {
+        params(_released_at: T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::ReleasedAt, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::ReleasedAt, Integer)))
+       }
+      def released_at=(_released_at); end
       # Only return subscription schedules that have not started yet.
       sig { returns(T.nilable(T::Boolean)) }
-      attr_accessor :scheduled
+      def scheduled; end
+      sig { params(_scheduled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def scheduled=(_scheduled); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
-      attr_accessor :starting_after
+      def starting_after; end
+      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+      def starting_after=(_starting_after); end
       sig {
         params(canceled_at: T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::CanceledAt, Integer)), completed_at: T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::CompletedAt, Integer)), created: T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), released_at: T.nilable(T.any(::Stripe::SubscriptionScheduleService::ListParams::ReleasedAt, Integer)), scheduled: T.nilable(T::Boolean), starting_after: T.nilable(String)).void
        }
@@ -137,32 +199,64 @@ module Stripe
     end
     class CreateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          sig { returns(T.nilable(String)) }
+          def proration_discounts; end
+          sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+          def proration_discounts=(_proration_discounts); end
+          sig { params(proration_discounts: T.nilable(String)).void }
+          def initialize(proration_discounts: nil); end
+        end
+        # Configure behavior for flexible billing mode.
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::BillingMode::Flexible))
+         }
+        def flexible; end
+        sig {
+          params(_flexible: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::BillingMode::Flexible)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::BillingMode::Flexible))
+         }
+        def flexible=(_flexible); end
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         sig { returns(String) }
-        attr_accessor :type
-        sig { params(type: String).void }
-        def initialize(type: nil); end
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(flexible: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::BillingMode::Flexible), type: String).void
+         }
+        def initialize(flexible: nil, type: nil); end
       end
       class DefaultSettings < Stripe::RequestParams
         class AutomaticTax < Stripe::RequestParams
           class Liability < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :account
+            def account; end
+            sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+            def account=(_account); end
             # Type of the account referenced in the request.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(account: T.nilable(String), type: String).void }
             def initialize(account: nil, type: nil); end
           end
           # Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
           sig { returns(T::Boolean) }
-          attr_accessor :enabled
+          def enabled; end
+          sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+          def enabled=(_enabled); end
           # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::AutomaticTax::Liability))
            }
-          attr_accessor :liability
+          def liability; end
+          sig {
+            params(_liability: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::AutomaticTax::Liability)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::AutomaticTax::Liability))
+           }
+          def liability=(_liability); end
           sig {
             params(enabled: T::Boolean, liability: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::AutomaticTax::Liability)).void
            }
@@ -171,10 +265,16 @@ module Stripe
         class BillingThresholds < Stripe::RequestParams
           # Monetary threshold that triggers the subscription to advance to a new billing period
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :amount_gte
+          def amount_gte; end
+          sig { params(_amount_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def amount_gte=(_amount_gte); end
           # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
           sig { returns(T.nilable(T::Boolean)) }
-          attr_accessor :reset_billing_cycle_anchor
+          def reset_billing_cycle_anchor; end
+          sig {
+            params(_reset_billing_cycle_anchor: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def reset_billing_cycle_anchor=(_reset_billing_cycle_anchor); end
           sig {
             params(amount_gte: T.nilable(Integer), reset_billing_cycle_anchor: T.nilable(T::Boolean)).void
            }
@@ -184,24 +284,38 @@ module Stripe
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :account
+            def account; end
+            sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+            def account=(_account); end
             # Type of the account referenced in the request.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(account: T.nilable(String), type: String).void }
             def initialize(account: nil, type: nil); end
           end
           # The account tax IDs associated with the subscription schedule. Will be set on invoices generated by the subscription schedule.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-          attr_accessor :account_tax_ids
+          def account_tax_ids; end
+          sig {
+            params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def account_tax_ids=(_account_tax_ids); end
           # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `collection_method=charge_automatically`.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :days_until_due
+          def days_until_due; end
+          sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def days_until_due=(_days_until_due); end
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::InvoiceSettings::Issuer))
            }
-          attr_accessor :issuer
+          def issuer; end
+          sig {
+            params(_issuer: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::InvoiceSettings::Issuer)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::InvoiceSettings::Issuer))
+           }
+          def issuer=(_issuer); end
           sig {
             params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::InvoiceSettings::Issuer)).void
            }
@@ -210,51 +324,83 @@ module Stripe
         class TransferData < Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           sig { returns(T.nilable(Float)) }
-          attr_accessor :amount_percent
+          def amount_percent; end
+          sig { params(_amount_percent: T.nilable(Float)).returns(T.nilable(Float)) }
+          def amount_percent=(_amount_percent); end
           # ID of an existing, connected Stripe account.
           sig { returns(String) }
-          attr_accessor :destination
+          def destination; end
+          sig { params(_destination: String).returns(String) }
+          def destination=(_destination); end
           sig { params(amount_percent: T.nilable(Float), destination: String).void }
           def initialize(amount_percent: nil, destination: nil); end
         end
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         sig { returns(T.nilable(Float)) }
-        attr_accessor :application_fee_percent
+        def application_fee_percent; end
+        sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
+        def application_fee_percent=(_application_fee_percent); end
         # Default settings for automatic tax computation.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::AutomaticTax))
          }
-        attr_accessor :automatic_tax
+        def automatic_tax; end
+        sig {
+          params(_automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::AutomaticTax)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::AutomaticTax))
+         }
+        def automatic_tax=(_automatic_tax); end
         # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         sig { returns(T.nilable(String)) }
-        attr_accessor :billing_cycle_anchor
+        def billing_cycle_anchor; end
+        sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_cycle_anchor=(_billing_cycle_anchor); end
         # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::BillingThresholds)))
          }
-        attr_accessor :billing_thresholds
+        def billing_thresholds; end
+        sig {
+          params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::BillingThresholds)))
+         }
+        def billing_thresholds=(_billing_thresholds); end
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         sig { returns(T.nilable(String)) }
-        attr_accessor :collection_method
+        def collection_method; end
+        sig { params(_collection_method: T.nilable(String)).returns(T.nilable(String)) }
+        def collection_method=(_collection_method); end
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
         sig { returns(T.nilable(String)) }
-        attr_accessor :default_payment_method
+        def default_payment_method; end
+        sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+        def default_payment_method=(_default_payment_method); end
         # Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         sig { returns(T.nilable(String)) }
-        attr_accessor :description
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
         # All invoices will be billed using the specified settings.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::InvoiceSettings))
          }
-        attr_accessor :invoice_settings
+        def invoice_settings; end
+        sig {
+          params(_invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::InvoiceSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::InvoiceSettings))
+         }
+        def invoice_settings=(_invoice_settings); end
         # The account on behalf of which to charge, for each of the associated subscription's invoices.
         sig { returns(T.nilable(String)) }
-        attr_accessor :on_behalf_of
+        def on_behalf_of; end
+        sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
+        def on_behalf_of=(_on_behalf_of); end
         # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::TransferData)))
          }
-        attr_accessor :transfer_data
+        def transfer_data; end
+        sig {
+          params(_transfer_data: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::TransferData))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::TransferData)))
+         }
+        def transfer_data=(_transfer_data); end
         sig {
           params(application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::BillingThresholds)), collection_method: T.nilable(String), default_payment_method: T.nilable(String), description: T.nilable(String), invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::InvoiceSettings), on_behalf_of: T.nilable(String), transfer_data: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings::TransferData))).void
          }
@@ -278,10 +424,14 @@ module Stripe
               class Duration < Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 sig { returns(String) }
-                attr_accessor :interval
+                def interval; end
+                sig { params(_interval: String).returns(String) }
+                def interval=(_interval); end
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                 sig { returns(Integer) }
-                attr_accessor :interval_count
+                def interval_count; end
+                sig { params(_interval_count: Integer).returns(Integer) }
+                def interval_count=(_interval_count); end
                 sig { params(interval: String, interval_count: Integer).void }
                 def initialize(interval: nil, interval_count: nil); end
               end
@@ -289,13 +439,21 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
                }
-              attr_accessor :duration
+              def duration; end
+              sig {
+                params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
+               }
+              def duration=(_duration); end
               # A precise Unix timestamp for the discount to end. Must be in the future.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :timestamp
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
               # The type of calculation made to determine when the discount ends.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig {
                 params(duration: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
                }
@@ -303,18 +461,28 @@ module Stripe
             end
             # ID of the coupon to create a new discount for.
             sig { returns(T.nilable(String)) }
-            attr_accessor :coupon
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
             # ID of an existing discount on the object (or one of its ancestors) to reuse.
             sig { returns(T.nilable(String)) }
-            attr_accessor :discount
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
             # Details to determine how long the discount should be applied for.
             sig {
               returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd))
              }
-            attr_accessor :discount_end
+            def discount_end; end
+            sig {
+              params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd))
+             }
+            def discount_end=(_discount_end); end
             # ID of the promotion code to create a new discount for.
             sig { returns(T.nilable(String)) }
-            attr_accessor :promotion_code
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
             sig {
               params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
              }
@@ -324,20 +492,28 @@ module Stripe
             class End < Stripe::RequestParams
               # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :timestamp
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
               # Select how to calculate the end of the invoice item period.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig { params(timestamp: T.nilable(Integer), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
             class Start < Stripe::RequestParams
               # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :timestamp
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
               # Select how to calculate the start of the invoice item period.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig { params(timestamp: T.nilable(Integer), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
@@ -345,12 +521,20 @@ module Stripe
             sig {
               returns(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period::End)
              }
-            attr_accessor :end
+            def end; end
+            sig {
+              params(_end: ::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period::End).returns(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period::End)
+             }
+            def end=(_end); end
             # Start of the invoice item period.
             sig {
               returns(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period::Start)
              }
-            attr_accessor :start
+            def start; end
+            sig {
+              params(_start: ::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period::Start).returns(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period::Start)
+             }
+            def start=(_start); end
             sig {
               params(end_: ::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period::End, start: ::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period::Start).void
              }
@@ -359,19 +543,29 @@ module Stripe
           class PriceData < Stripe::RequestParams
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            attr_accessor :currency
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
             # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
             sig { returns(String) }
-            attr_accessor :product
+            def product; end
+            sig { params(_product: String).returns(String) }
+            def product=(_product); end
             # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
             sig { returns(T.nilable(String)) }
-            attr_accessor :tax_behavior
+            def tax_behavior; end
+            sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def tax_behavior=(_tax_behavior); end
             # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge or a negative integer representing the amount to credit to the customer.
             sig { returns(T.nilable(Integer)) }
-            attr_accessor :unit_amount
+            def unit_amount; end
+            sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def unit_amount=(_unit_amount); end
             # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
             sig { returns(T.nilable(String)) }
-            attr_accessor :unit_amount_decimal
+            def unit_amount_decimal; end
+            sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+            def unit_amount_decimal=(_unit_amount_decimal); end
             sig {
               params(currency: String, product: String, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
              }
@@ -387,29 +581,53 @@ module Stripe
           sig {
             returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount]))
            }
-          attr_accessor :discounts
+          def discounts; end
+          sig {
+            params(_discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount]))
+           }
+          def discounts=(_discounts); end
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          attr_accessor :metadata
-          # The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
+          # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period))
            }
-          attr_accessor :period
+          def period; end
+          sig {
+            params(_period: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period))
+           }
+          def period=(_period); end
           # The ID of the price object. One of `price` or `price_data` is required.
           sig { returns(T.nilable(String)) }
-          attr_accessor :price
+          def price; end
+          sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+          def price=(_price); end
           # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::PriceData))
            }
-          attr_accessor :price_data
+          def price_data; end
+          sig {
+            params(_price_data: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::PriceData)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::PriceData))
+           }
+          def price_data=(_price_data); end
           # Quantity for this item. Defaults to 1.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :quantity
+          def quantity; end
+          sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def quantity=(_quantity); end
           # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-          attr_accessor :tax_rates
+          def tax_rates; end
+          sig {
+            params(_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def tax_rates=(_tax_rates); end
           sig {
             params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
            }
@@ -427,21 +645,31 @@ module Stripe
           class Liability < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :account
+            def account; end
+            sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+            def account=(_account); end
             # Type of the account referenced in the request.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(account: T.nilable(String), type: String).void }
             def initialize(account: nil, type: nil); end
           end
           # Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
           sig { returns(T::Boolean) }
-          attr_accessor :enabled
+          def enabled; end
+          sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+          def enabled=(_enabled); end
           # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AutomaticTax::Liability))
            }
-          attr_accessor :liability
+          def liability; end
+          sig {
+            params(_liability: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AutomaticTax::Liability)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AutomaticTax::Liability))
+           }
+          def liability=(_liability); end
           sig {
             params(enabled: T::Boolean, liability: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AutomaticTax::Liability)).void
            }
@@ -450,10 +678,16 @@ module Stripe
         class BillingThresholds < Stripe::RequestParams
           # Monetary threshold that triggers the subscription to advance to a new billing period
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :amount_gte
+          def amount_gte; end
+          sig { params(_amount_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def amount_gte=(_amount_gte); end
           # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
           sig { returns(T.nilable(T::Boolean)) }
-          attr_accessor :reset_billing_cycle_anchor
+          def reset_billing_cycle_anchor; end
+          sig {
+            params(_reset_billing_cycle_anchor: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def reset_billing_cycle_anchor=(_reset_billing_cycle_anchor); end
           sig {
             params(amount_gte: T.nilable(Integer), reset_billing_cycle_anchor: T.nilable(T::Boolean)).void
            }
@@ -464,10 +698,14 @@ module Stripe
             class Duration < Stripe::RequestParams
               # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
               sig { returns(String) }
-              attr_accessor :interval
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               sig { returns(Integer) }
-              attr_accessor :interval_count
+              def interval_count; end
+              sig { params(_interval_count: Integer).returns(Integer) }
+              def interval_count=(_interval_count); end
               sig { params(interval: String, interval_count: Integer).void }
               def initialize(interval: nil, interval_count: nil); end
             end
@@ -475,13 +713,21 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount::DiscountEnd::Duration))
              }
-            attr_accessor :duration
+            def duration; end
+            sig {
+              params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount::DiscountEnd::Duration))
+             }
+            def duration=(_duration); end
             # A precise Unix timestamp for the discount to end. Must be in the future.
             sig { returns(T.nilable(Integer)) }
-            attr_accessor :timestamp
+            def timestamp; end
+            sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def timestamp=(_timestamp); end
             # The type of calculation made to determine when the discount ends.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig {
               params(duration: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
              }
@@ -489,18 +735,28 @@ module Stripe
           end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(String)) }
-          attr_accessor :coupon
+          def coupon; end
+          sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+          def coupon=(_coupon); end
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           sig { returns(T.nilable(String)) }
-          attr_accessor :discount
+          def discount; end
+          sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+          def discount=(_discount); end
           # Details to determine how long the discount should be applied for.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount::DiscountEnd))
            }
-          attr_accessor :discount_end
+          def discount_end; end
+          sig {
+            params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount::DiscountEnd))
+           }
+          def discount_end=(_discount_end); end
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(String)) }
-          attr_accessor :promotion_code
+          def promotion_code; end
+          sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+          def promotion_code=(_promotion_code); end
           sig {
             params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
            }
@@ -509,10 +765,14 @@ module Stripe
         class Duration < Stripe::RequestParams
           # Specifies phase duration. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
-          attr_accessor :interval
+          def interval; end
+          sig { params(_interval: String).returns(String) }
+          def interval=(_interval); end
           # The multiplier applied to the interval.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :interval_count
+          def interval_count; end
+          sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def interval_count=(_interval_count); end
           sig { params(interval: String, interval_count: T.nilable(Integer)).void }
           def initialize(interval: nil, interval_count: nil); end
         end
@@ -520,24 +780,38 @@ module Stripe
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :account
+            def account; end
+            sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+            def account=(_account); end
             # Type of the account referenced in the request.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(account: T.nilable(String), type: String).void }
             def initialize(account: nil, type: nil); end
           end
           # The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-          attr_accessor :account_tax_ids
+          def account_tax_ids; end
+          sig {
+            params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def account_tax_ids=(_account_tax_ids); end
           # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :days_until_due
+          def days_until_due; end
+          sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def days_until_due=(_days_until_due); end
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::InvoiceSettings::Issuer))
            }
-          attr_accessor :issuer
+          def issuer; end
+          sig {
+            params(_issuer: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::InvoiceSettings::Issuer)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::InvoiceSettings::Issuer))
+           }
+          def issuer=(_issuer); end
           sig {
             params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::InvoiceSettings::Issuer)).void
            }
@@ -547,7 +821,9 @@ module Stripe
           class BillingThresholds < Stripe::RequestParams
             # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
             sig { returns(Integer) }
-            attr_accessor :usage_gte
+            def usage_gte; end
+            sig { params(_usage_gte: Integer).returns(Integer) }
+            def usage_gte=(_usage_gte); end
             sig { params(usage_gte: Integer).void }
             def initialize(usage_gte: nil); end
           end
@@ -556,10 +832,14 @@ module Stripe
               class Duration < Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 sig { returns(String) }
-                attr_accessor :interval
+                def interval; end
+                sig { params(_interval: String).returns(String) }
+                def interval=(_interval); end
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                 sig { returns(Integer) }
-                attr_accessor :interval_count
+                def interval_count; end
+                sig { params(_interval_count: Integer).returns(Integer) }
+                def interval_count=(_interval_count); end
                 sig { params(interval: String, interval_count: Integer).void }
                 def initialize(interval: nil, interval_count: nil); end
               end
@@ -567,13 +847,21 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount::DiscountEnd::Duration))
                }
-              attr_accessor :duration
+              def duration; end
+              sig {
+                params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount::DiscountEnd::Duration))
+               }
+              def duration=(_duration); end
               # A precise Unix timestamp for the discount to end. Must be in the future.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :timestamp
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
               # The type of calculation made to determine when the discount ends.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig {
                 params(duration: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
                }
@@ -581,18 +869,28 @@ module Stripe
             end
             # ID of the coupon to create a new discount for.
             sig { returns(T.nilable(String)) }
-            attr_accessor :coupon
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
             # ID of an existing discount on the object (or one of its ancestors) to reuse.
             sig { returns(T.nilable(String)) }
-            attr_accessor :discount
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
             # Details to determine how long the discount should be applied for.
             sig {
               returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount::DiscountEnd))
              }
-            attr_accessor :discount_end
+            def discount_end; end
+            sig {
+              params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount::DiscountEnd))
+             }
+            def discount_end=(_discount_end); end
             # ID of the promotion code to create a new discount for.
             sig { returns(T.nilable(String)) }
-            attr_accessor :promotion_code
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
             sig {
               params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
              }
@@ -602,33 +900,51 @@ module Stripe
             class Recurring < Stripe::RequestParams
               # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
               sig { returns(String) }
-              attr_accessor :interval
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
               # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :interval_count
+              def interval_count; end
+              sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def interval_count=(_interval_count); end
               sig { params(interval: String, interval_count: T.nilable(Integer)).void }
               def initialize(interval: nil, interval_count: nil); end
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            attr_accessor :currency
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
             # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
             sig { returns(String) }
-            attr_accessor :product
+            def product; end
+            sig { params(_product: String).returns(String) }
+            def product=(_product); end
             # The recurring components of a price such as `interval` and `interval_count`.
             sig {
               returns(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::PriceData::Recurring)
              }
-            attr_accessor :recurring
+            def recurring; end
+            sig {
+              params(_recurring: ::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::PriceData::Recurring).returns(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::PriceData::Recurring)
+             }
+            def recurring=(_recurring); end
             # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
             sig { returns(T.nilable(String)) }
-            attr_accessor :tax_behavior
+            def tax_behavior; end
+            sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def tax_behavior=(_tax_behavior); end
             # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
             sig { returns(T.nilable(Integer)) }
-            attr_accessor :unit_amount
+            def unit_amount; end
+            sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def unit_amount=(_unit_amount); end
             # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
             sig { returns(T.nilable(String)) }
-            attr_accessor :unit_amount_decimal
+            def unit_amount_decimal; end
+            sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+            def unit_amount_decimal=(_unit_amount_decimal); end
             sig {
               params(currency: String, product: String, recurring: ::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
              }
@@ -644,10 +960,16 @@ module Stripe
           class Trial < Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :converts_to
+            def converts_to; end
+            sig {
+              params(_converts_to: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def converts_to=(_converts_to); end
             # Determines the type of trial for this item.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(converts_to: T.nilable(T::Array[String]), type: String).void }
             def initialize(converts_to: nil, type: nil); end
           end
@@ -655,37 +977,67 @@ module Stripe
           sig {
             returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::BillingThresholds)))
            }
-          attr_accessor :billing_thresholds
+          def billing_thresholds; end
+          sig {
+            params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::BillingThresholds)))
+           }
+          def billing_thresholds=(_billing_thresholds); end
           # The coupons to redeem into discounts for the subscription item.
           sig {
             returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount])))
            }
-          attr_accessor :discounts
+          def discounts; end
+          sig {
+            params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount])))
+           }
+          def discounts=(_discounts); end
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          attr_accessor :metadata
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
           # The plan ID to subscribe to. You may specify the same ID in `plan` and `price`.
           sig { returns(T.nilable(String)) }
-          attr_accessor :plan
+          def plan; end
+          sig { params(_plan: T.nilable(String)).returns(T.nilable(String)) }
+          def plan=(_plan); end
           # The ID of the price object.
           sig { returns(T.nilable(String)) }
-          attr_accessor :price
+          def price; end
+          sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+          def price=(_price); end
           # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::PriceData))
            }
-          attr_accessor :price_data
+          def price_data; end
+          sig {
+            params(_price_data: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::PriceData)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::PriceData))
+           }
+          def price_data=(_price_data); end
           # Quantity for the given price. Can be set only if the price's `usage_type` is `licensed` and not `metered`.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :quantity
+          def quantity; end
+          sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def quantity=(_quantity); end
           # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-          attr_accessor :tax_rates
+          def tax_rates; end
+          sig {
+            params(_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def tax_rates=(_tax_rates); end
           # Options that configure the trial on the subscription item.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Trial))
            }
-          attr_accessor :trial
+          def trial; end
+          sig {
+            params(_trial: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Trial))
+           }
+          def trial=(_trial); end
           sig {
             params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item::Trial)).void
            }
@@ -704,17 +1056,23 @@ module Stripe
         class PauseCollection < Stripe::RequestParams
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           sig { returns(String) }
-          attr_accessor :behavior
+          def behavior; end
+          sig { params(_behavior: String).returns(String) }
+          def behavior=(_behavior); end
           sig { params(behavior: String).void }
           def initialize(behavior: nil); end
         end
         class TransferData < Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           sig { returns(T.nilable(Float)) }
-          attr_accessor :amount_percent
+          def amount_percent; end
+          sig { params(_amount_percent: T.nilable(Float)).returns(T.nilable(Float)) }
+          def amount_percent=(_amount_percent); end
           # ID of an existing, connected Stripe account.
           sig { returns(String) }
-          attr_accessor :destination
+          def destination; end
+          sig { params(_destination: String).returns(String) }
+          def destination=(_destination); end
           sig { params(amount_percent: T.nilable(Float), destination: String).void }
           def initialize(amount_percent: nil, destination: nil); end
         end
@@ -722,7 +1080,9 @@ module Stripe
           class EndBehavior < Stripe::RequestParams
             # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :prorate_up_front
+            def prorate_up_front; end
+            sig { params(_prorate_up_front: T.nilable(String)).returns(T.nilable(String)) }
+            def prorate_up_front=(_prorate_up_front); end
             sig { params(prorate_up_front: T.nilable(String)).void }
             def initialize(prorate_up_front: nil); end
           end
@@ -730,7 +1090,11 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TrialSettings::EndBehavior))
            }
-          attr_accessor :end_behavior
+          def end_behavior; end
+          sig {
+            params(_end_behavior: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TrialSettings::EndBehavior)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TrialSettings::EndBehavior))
+           }
+          def end_behavior=(_end_behavior); end
           sig {
             params(end_behavior: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TrialSettings::EndBehavior)).void
            }
@@ -740,97 +1104,166 @@ module Stripe
         sig {
           returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem]))
          }
-        attr_accessor :add_invoice_items
+        def add_invoice_items; end
+        sig {
+          params(_add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem]))
+         }
+        def add_invoice_items=(_add_invoice_items); end
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         sig { returns(T.nilable(Float)) }
-        attr_accessor :application_fee_percent
+        def application_fee_percent; end
+        sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
+        def application_fee_percent=(_application_fee_percent); end
         # Automatic tax settings for this phase.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AutomaticTax))
          }
-        attr_accessor :automatic_tax
+        def automatic_tax; end
+        sig {
+          params(_automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AutomaticTax)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AutomaticTax))
+         }
+        def automatic_tax=(_automatic_tax); end
         # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         sig { returns(T.nilable(String)) }
-        attr_accessor :billing_cycle_anchor
+        def billing_cycle_anchor; end
+        sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_cycle_anchor=(_billing_cycle_anchor); end
         # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::Phase::BillingThresholds)))
          }
-        attr_accessor :billing_thresholds
+        def billing_thresholds; end
+        sig {
+          params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::Phase::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::Phase::BillingThresholds)))
+         }
+        def billing_thresholds=(_billing_thresholds); end
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         sig { returns(T.nilable(String)) }
-        attr_accessor :collection_method
+        def collection_method; end
+        sig { params(_collection_method: T.nilable(String)).returns(T.nilable(String)) }
+        def collection_method=(_collection_method); end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(T.nilable(String)) }
-        attr_accessor :currency
+        def currency; end
+        sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+        def currency=(_currency); end
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
         sig { returns(T.nilable(String)) }
-        attr_accessor :default_payment_method
+        def default_payment_method; end
+        sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+        def default_payment_method=(_default_payment_method); end
         # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will set the Subscription's [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates), which means they will be the Invoice's [`default_tax_rates`](https://stripe.com/docs/api/invoices/create#create_invoice-default_tax_rates) for any Invoices issued by the Subscription during this Phase.
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-        attr_accessor :default_tax_rates
+        def default_tax_rates; end
+        sig {
+          params(_default_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+         }
+        def default_tax_rates=(_default_tax_rates); end
         # Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         sig { returns(T.nilable(String)) }
-        attr_accessor :description
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
         # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         sig {
           returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount])))
          }
-        attr_accessor :discounts
+        def discounts; end
+        sig {
+          params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount])))
+         }
+        def discounts=(_discounts); end
         # The number of intervals the phase should last. If set, `end_date` must not be set.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Duration))
          }
-        attr_accessor :duration
+        def duration; end
+        sig {
+          params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Duration))
+         }
+        def duration=(_duration); end
         # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :end_date
+        def end_date; end
+        sig { params(_end_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def end_date=(_end_date); end
         # All invoices will be billed using the specified settings.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::InvoiceSettings))
          }
-        attr_accessor :invoice_settings
+        def invoice_settings; end
+        sig {
+          params(_invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::InvoiceSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::InvoiceSettings))
+         }
+        def invoice_settings=(_invoice_settings); end
         # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         sig { returns(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item]) }
-        attr_accessor :items
-        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        sig { returns(T.nilable(Integer)) }
-        attr_accessor :iterations
+        def items; end
+        sig {
+          params(_items: T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item]).returns(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item])
+         }
+        def items=(_items); end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_accessor :metadata
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def metadata=(_metadata); end
         # The account on behalf of which to charge, for each of the associated subscription's invoices.
         sig { returns(T.nilable(String)) }
-        attr_accessor :on_behalf_of
+        def on_behalf_of; end
+        sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
+        def on_behalf_of=(_on_behalf_of); end
         # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::PauseCollection))
          }
-        attr_accessor :pause_collection
+        def pause_collection; end
+        sig {
+          params(_pause_collection: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::PauseCollection)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::PauseCollection))
+         }
+        def pause_collection=(_pause_collection); end
         # Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         sig { returns(T.nilable(String)) }
-        attr_accessor :proration_behavior
+        def proration_behavior; end
+        sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def proration_behavior=(_proration_behavior); end
         # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TransferData))
          }
-        attr_accessor :transfer_data
+        def transfer_data; end
+        sig {
+          params(_transfer_data: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TransferData)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TransferData))
+         }
+        def transfer_data=(_transfer_data); end
         # If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         sig { returns(T.nilable(T::Boolean)) }
-        attr_accessor :trial
+        def trial; end
+        sig { params(_trial: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def trial=(_trial); end
         # Specify trial behavior when crossing phase boundaries
         sig { returns(T.nilable(String)) }
-        attr_accessor :trial_continuation
+        def trial_continuation; end
+        sig { params(_trial_continuation: T.nilable(String)).returns(T.nilable(String)) }
+        def trial_continuation=(_trial_continuation); end
         # Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
         sig { returns(T.nilable(Integer)) }
-        attr_accessor :trial_end
+        def trial_end; end
+        sig { params(_trial_end: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def trial_end=(_trial_end); end
         # Settings related to subscription trials.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TrialSettings))
          }
-        attr_accessor :trial_settings
+        def trial_settings; end
         sig {
-          params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount])), duration: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Duration), end_date: T.nilable(Integer), invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::InvoiceSettings), items: T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TrialSettings)).void
+          params(_trial_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TrialSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TrialSettings))
+         }
+        def trial_settings=(_trial_settings); end
+        sig {
+          params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::CreateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Discount])), duration: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::Duration), end_date: T.nilable(Integer), invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::InvoiceSettings), items: T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::TrialSettings)).void
          }
         def initialize(
           add_invoice_items: nil,
@@ -848,7 +1281,6 @@ module Stripe
           end_date: nil,
           invoice_settings: nil,
           items: nil,
-          iterations: nil,
           metadata: nil,
           on_behalf_of: nil,
           pause_collection: nil,
@@ -863,53 +1295,93 @@ module Stripe
       class Prebilling < Stripe::RequestParams
         # This is used to determine the number of billing cycles to prebill.
         sig { returns(Integer) }
-        attr_accessor :iterations
+        def iterations; end
+        sig { params(_iterations: Integer).returns(Integer) }
+        def iterations=(_iterations); end
         # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         sig { returns(T.nilable(String)) }
-        attr_accessor :update_behavior
+        def update_behavior; end
+        sig { params(_update_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def update_behavior=(_update_behavior); end
         sig { params(iterations: Integer, update_behavior: T.nilable(String)).void }
         def initialize(iterations: nil, update_behavior: nil); end
       end
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
       sig { returns(T.nilable(String)) }
-      attr_accessor :billing_behavior
+      def billing_behavior; end
+      sig { params(_billing_behavior: T.nilable(String)).returns(T.nilable(String)) }
+      def billing_behavior=(_billing_behavior); end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       sig { returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::BillingMode)) }
-      attr_accessor :billing_mode
+      def billing_mode; end
+      sig {
+        params(_billing_mode: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::BillingMode)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::BillingMode))
+       }
+      def billing_mode=(_billing_mode); end
       # The identifier of the customer to create the subscription schedule for.
       sig { returns(T.nilable(String)) }
-      attr_accessor :customer
+      def customer; end
+      sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
+      def customer=(_customer); end
       # The identifier of the account to create the subscription schedule for.
       sig { returns(T.nilable(String)) }
-      attr_accessor :customer_account
+      def customer_account; end
+      sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_account=(_customer_account); end
       # Object representing the subscription schedule's default settings.
       sig {
         returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings))
        }
-      attr_accessor :default_settings
+      def default_settings; end
+      sig {
+        params(_default_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings))
+       }
+      def default_settings=(_default_settings); end
       # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
       sig { returns(T.nilable(String)) }
-      attr_accessor :end_behavior
+      def end_behavior; end
+      sig { params(_end_behavior: T.nilable(String)).returns(T.nilable(String)) }
+      def end_behavior=(_end_behavior); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's item(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls.
       sig { returns(T.nilable(String)) }
-      attr_accessor :from_subscription
+      def from_subscription; end
+      sig { params(_from_subscription: T.nilable(String)).returns(T.nilable(String)) }
+      def from_subscription=(_from_subscription); end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      attr_accessor :metadata
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
       # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
       sig {
         returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase]))
        }
-      attr_accessor :phases
+      def phases; end
+      sig {
+        params(_phases: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase]))
+       }
+      def phases=(_phases); end
       # If specified, the invoicing for the given billing cycle iterations will be processed now.
       sig { returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Prebilling)) }
-      attr_accessor :prebilling
+      def prebilling; end
+      sig {
+        params(_prebilling: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Prebilling)).returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Prebilling))
+       }
+      def prebilling=(_prebilling); end
       # When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
       sig { returns(T.nilable(T.any(Integer, String))) }
-      attr_accessor :start_date
+      def start_date; end
+      sig {
+        params(_start_date: T.nilable(T.any(Integer, String))).returns(T.nilable(T.any(Integer, String)))
+       }
+      def start_date=(_start_date); end
       sig {
         params(billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::BillingMode), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phases: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Prebilling), start_date: T.nilable(T.any(Integer, String))).void
        }
@@ -931,7 +1403,9 @@ module Stripe
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
@@ -941,21 +1415,31 @@ module Stripe
           class Liability < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :account
+            def account; end
+            sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+            def account=(_account); end
             # Type of the account referenced in the request.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(account: T.nilable(String), type: String).void }
             def initialize(account: nil, type: nil); end
           end
           # Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
           sig { returns(T::Boolean) }
-          attr_accessor :enabled
+          def enabled; end
+          sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+          def enabled=(_enabled); end
           # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::AutomaticTax::Liability))
            }
-          attr_accessor :liability
+          def liability; end
+          sig {
+            params(_liability: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::AutomaticTax::Liability)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::AutomaticTax::Liability))
+           }
+          def liability=(_liability); end
           sig {
             params(enabled: T::Boolean, liability: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::AutomaticTax::Liability)).void
            }
@@ -964,10 +1448,16 @@ module Stripe
         class BillingThresholds < Stripe::RequestParams
           # Monetary threshold that triggers the subscription to advance to a new billing period
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :amount_gte
+          def amount_gte; end
+          sig { params(_amount_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def amount_gte=(_amount_gte); end
           # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
           sig { returns(T.nilable(T::Boolean)) }
-          attr_accessor :reset_billing_cycle_anchor
+          def reset_billing_cycle_anchor; end
+          sig {
+            params(_reset_billing_cycle_anchor: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def reset_billing_cycle_anchor=(_reset_billing_cycle_anchor); end
           sig {
             params(amount_gte: T.nilable(Integer), reset_billing_cycle_anchor: T.nilable(T::Boolean)).void
            }
@@ -977,24 +1467,38 @@ module Stripe
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :account
+            def account; end
+            sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+            def account=(_account); end
             # Type of the account referenced in the request.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(account: T.nilable(String), type: String).void }
             def initialize(account: nil, type: nil); end
           end
           # The account tax IDs associated with the subscription schedule. Will be set on invoices generated by the subscription schedule.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-          attr_accessor :account_tax_ids
+          def account_tax_ids; end
+          sig {
+            params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def account_tax_ids=(_account_tax_ids); end
           # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `collection_method=charge_automatically`.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :days_until_due
+          def days_until_due; end
+          sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def days_until_due=(_days_until_due); end
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::InvoiceSettings::Issuer))
            }
-          attr_accessor :issuer
+          def issuer; end
+          sig {
+            params(_issuer: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::InvoiceSettings::Issuer)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::InvoiceSettings::Issuer))
+           }
+          def issuer=(_issuer); end
           sig {
             params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::InvoiceSettings::Issuer)).void
            }
@@ -1003,51 +1507,83 @@ module Stripe
         class TransferData < Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           sig { returns(T.nilable(Float)) }
-          attr_accessor :amount_percent
+          def amount_percent; end
+          sig { params(_amount_percent: T.nilable(Float)).returns(T.nilable(Float)) }
+          def amount_percent=(_amount_percent); end
           # ID of an existing, connected Stripe account.
           sig { returns(String) }
-          attr_accessor :destination
+          def destination; end
+          sig { params(_destination: String).returns(String) }
+          def destination=(_destination); end
           sig { params(amount_percent: T.nilable(Float), destination: String).void }
           def initialize(amount_percent: nil, destination: nil); end
         end
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         sig { returns(T.nilable(Float)) }
-        attr_accessor :application_fee_percent
+        def application_fee_percent; end
+        sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
+        def application_fee_percent=(_application_fee_percent); end
         # Default settings for automatic tax computation.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::AutomaticTax))
          }
-        attr_accessor :automatic_tax
+        def automatic_tax; end
+        sig {
+          params(_automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::AutomaticTax)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::AutomaticTax))
+         }
+        def automatic_tax=(_automatic_tax); end
         # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         sig { returns(T.nilable(String)) }
-        attr_accessor :billing_cycle_anchor
+        def billing_cycle_anchor; end
+        sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_cycle_anchor=(_billing_cycle_anchor); end
         # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::BillingThresholds)))
          }
-        attr_accessor :billing_thresholds
+        def billing_thresholds; end
+        sig {
+          params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::BillingThresholds)))
+         }
+        def billing_thresholds=(_billing_thresholds); end
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         sig { returns(T.nilable(String)) }
-        attr_accessor :collection_method
+        def collection_method; end
+        sig { params(_collection_method: T.nilable(String)).returns(T.nilable(String)) }
+        def collection_method=(_collection_method); end
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
         sig { returns(T.nilable(String)) }
-        attr_accessor :default_payment_method
+        def default_payment_method; end
+        sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+        def default_payment_method=(_default_payment_method); end
         # Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         sig { returns(T.nilable(String)) }
-        attr_accessor :description
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
         # All invoices will be billed using the specified settings.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::InvoiceSettings))
          }
-        attr_accessor :invoice_settings
+        def invoice_settings; end
+        sig {
+          params(_invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::InvoiceSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::InvoiceSettings))
+         }
+        def invoice_settings=(_invoice_settings); end
         # The account on behalf of which to charge, for each of the associated subscription's invoices.
         sig { returns(T.nilable(String)) }
-        attr_accessor :on_behalf_of
+        def on_behalf_of; end
+        sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
+        def on_behalf_of=(_on_behalf_of); end
         # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::TransferData)))
          }
-        attr_accessor :transfer_data
+        def transfer_data; end
+        sig {
+          params(_transfer_data: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::TransferData))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::TransferData)))
+         }
+        def transfer_data=(_transfer_data); end
         sig {
           params(application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::BillingThresholds)), collection_method: T.nilable(String), default_payment_method: T.nilable(String), description: T.nilable(String), invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::InvoiceSettings), on_behalf_of: T.nilable(String), transfer_data: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings::TransferData))).void
          }
@@ -1071,10 +1607,14 @@ module Stripe
               class Duration < Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 sig { returns(String) }
-                attr_accessor :interval
+                def interval; end
+                sig { params(_interval: String).returns(String) }
+                def interval=(_interval); end
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                 sig { returns(Integer) }
-                attr_accessor :interval_count
+                def interval_count; end
+                sig { params(_interval_count: Integer).returns(Integer) }
+                def interval_count=(_interval_count); end
                 sig { params(interval: String, interval_count: Integer).void }
                 def initialize(interval: nil, interval_count: nil); end
               end
@@ -1082,13 +1622,21 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
                }
-              attr_accessor :duration
+              def duration; end
+              sig {
+                params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
+               }
+              def duration=(_duration); end
               # A precise Unix timestamp for the discount to end. Must be in the future.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :timestamp
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
               # The type of calculation made to determine when the discount ends.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig {
                 params(duration: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
                }
@@ -1096,18 +1644,28 @@ module Stripe
             end
             # ID of the coupon to create a new discount for.
             sig { returns(T.nilable(String)) }
-            attr_accessor :coupon
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
             # ID of an existing discount on the object (or one of its ancestors) to reuse.
             sig { returns(T.nilable(String)) }
-            attr_accessor :discount
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
             # Details to determine how long the discount should be applied for.
             sig {
               returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount::DiscountEnd))
              }
-            attr_accessor :discount_end
+            def discount_end; end
+            sig {
+              params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount::DiscountEnd))
+             }
+            def discount_end=(_discount_end); end
             # ID of the promotion code to create a new discount for.
             sig { returns(T.nilable(String)) }
-            attr_accessor :promotion_code
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
             sig {
               params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
              }
@@ -1117,20 +1675,28 @@ module Stripe
             class End < Stripe::RequestParams
               # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :timestamp
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
               # Select how to calculate the end of the invoice item period.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig { params(timestamp: T.nilable(Integer), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
             class Start < Stripe::RequestParams
               # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :timestamp
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
               # Select how to calculate the start of the invoice item period.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig { params(timestamp: T.nilable(Integer), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
@@ -1138,12 +1704,20 @@ module Stripe
             sig {
               returns(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period::End)
              }
-            attr_accessor :end
+            def end; end
+            sig {
+              params(_end: ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period::End).returns(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period::End)
+             }
+            def end=(_end); end
             # Start of the invoice item period.
             sig {
               returns(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period::Start)
              }
-            attr_accessor :start
+            def start; end
+            sig {
+              params(_start: ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period::Start).returns(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period::Start)
+             }
+            def start=(_start); end
             sig {
               params(end_: ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period::End, start: ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period::Start).void
              }
@@ -1152,19 +1726,29 @@ module Stripe
           class PriceData < Stripe::RequestParams
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            attr_accessor :currency
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
             # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
             sig { returns(String) }
-            attr_accessor :product
+            def product; end
+            sig { params(_product: String).returns(String) }
+            def product=(_product); end
             # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
             sig { returns(T.nilable(String)) }
-            attr_accessor :tax_behavior
+            def tax_behavior; end
+            sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def tax_behavior=(_tax_behavior); end
             # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge or a negative integer representing the amount to credit to the customer.
             sig { returns(T.nilable(Integer)) }
-            attr_accessor :unit_amount
+            def unit_amount; end
+            sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def unit_amount=(_unit_amount); end
             # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
             sig { returns(T.nilable(String)) }
-            attr_accessor :unit_amount_decimal
+            def unit_amount_decimal; end
+            sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+            def unit_amount_decimal=(_unit_amount_decimal); end
             sig {
               params(currency: String, product: String, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
              }
@@ -1180,29 +1764,53 @@ module Stripe
           sig {
             returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount]))
            }
-          attr_accessor :discounts
+          def discounts; end
+          sig {
+            params(_discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount]))
+           }
+          def discounts=(_discounts); end
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          attr_accessor :metadata
-          # The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
+          # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period))
            }
-          attr_accessor :period
+          def period; end
+          sig {
+            params(_period: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period))
+           }
+          def period=(_period); end
           # The ID of the price object. One of `price` or `price_data` is required.
           sig { returns(T.nilable(String)) }
-          attr_accessor :price
+          def price; end
+          sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+          def price=(_price); end
           # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::PriceData))
            }
-          attr_accessor :price_data
+          def price_data; end
+          sig {
+            params(_price_data: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::PriceData)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::PriceData))
+           }
+          def price_data=(_price_data); end
           # Quantity for this item. Defaults to 1.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :quantity
+          def quantity; end
+          sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def quantity=(_quantity); end
           # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-          attr_accessor :tax_rates
+          def tax_rates; end
+          sig {
+            params(_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def tax_rates=(_tax_rates); end
           sig {
             params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Discount]), metadata: T.nilable(T::Hash[String, String]), period: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
            }
@@ -1220,21 +1828,31 @@ module Stripe
           class Liability < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :account
+            def account; end
+            sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+            def account=(_account); end
             # Type of the account referenced in the request.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(account: T.nilable(String), type: String).void }
             def initialize(account: nil, type: nil); end
           end
           # Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
           sig { returns(T::Boolean) }
-          attr_accessor :enabled
+          def enabled; end
+          sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+          def enabled=(_enabled); end
           # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AutomaticTax::Liability))
            }
-          attr_accessor :liability
+          def liability; end
+          sig {
+            params(_liability: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AutomaticTax::Liability)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AutomaticTax::Liability))
+           }
+          def liability=(_liability); end
           sig {
             params(enabled: T::Boolean, liability: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AutomaticTax::Liability)).void
            }
@@ -1243,10 +1861,16 @@ module Stripe
         class BillingThresholds < Stripe::RequestParams
           # Monetary threshold that triggers the subscription to advance to a new billing period
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :amount_gte
+          def amount_gte; end
+          sig { params(_amount_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def amount_gte=(_amount_gte); end
           # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
           sig { returns(T.nilable(T::Boolean)) }
-          attr_accessor :reset_billing_cycle_anchor
+          def reset_billing_cycle_anchor; end
+          sig {
+            params(_reset_billing_cycle_anchor: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def reset_billing_cycle_anchor=(_reset_billing_cycle_anchor); end
           sig {
             params(amount_gte: T.nilable(Integer), reset_billing_cycle_anchor: T.nilable(T::Boolean)).void
            }
@@ -1257,10 +1881,14 @@ module Stripe
             class Duration < Stripe::RequestParams
               # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
               sig { returns(String) }
-              attr_accessor :interval
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               sig { returns(Integer) }
-              attr_accessor :interval_count
+              def interval_count; end
+              sig { params(_interval_count: Integer).returns(Integer) }
+              def interval_count=(_interval_count); end
               sig { params(interval: String, interval_count: Integer).void }
               def initialize(interval: nil, interval_count: nil); end
             end
@@ -1268,13 +1896,21 @@ module Stripe
             sig {
               returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount::DiscountEnd::Duration))
              }
-            attr_accessor :duration
+            def duration; end
+            sig {
+              params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount::DiscountEnd::Duration))
+             }
+            def duration=(_duration); end
             # A precise Unix timestamp for the discount to end. Must be in the future.
             sig { returns(T.nilable(Integer)) }
-            attr_accessor :timestamp
+            def timestamp; end
+            sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def timestamp=(_timestamp); end
             # The type of calculation made to determine when the discount ends.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig {
               params(duration: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
              }
@@ -1282,18 +1918,28 @@ module Stripe
           end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(String)) }
-          attr_accessor :coupon
+          def coupon; end
+          sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+          def coupon=(_coupon); end
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           sig { returns(T.nilable(String)) }
-          attr_accessor :discount
+          def discount; end
+          sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+          def discount=(_discount); end
           # Details to determine how long the discount should be applied for.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount::DiscountEnd))
            }
-          attr_accessor :discount_end
+          def discount_end; end
+          sig {
+            params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount::DiscountEnd))
+           }
+          def discount_end=(_discount_end); end
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(String)) }
-          attr_accessor :promotion_code
+          def promotion_code; end
+          sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+          def promotion_code=(_promotion_code); end
           sig {
             params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
            }
@@ -1302,10 +1948,14 @@ module Stripe
         class Duration < Stripe::RequestParams
           # Specifies phase duration. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
-          attr_accessor :interval
+          def interval; end
+          sig { params(_interval: String).returns(String) }
+          def interval=(_interval); end
           # The multiplier applied to the interval.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :interval_count
+          def interval_count; end
+          sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def interval_count=(_interval_count); end
           sig { params(interval: String, interval_count: T.nilable(Integer)).void }
           def initialize(interval: nil, interval_count: nil); end
         end
@@ -1313,24 +1963,38 @@ module Stripe
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :account
+            def account; end
+            sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+            def account=(_account); end
             # Type of the account referenced in the request.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(account: T.nilable(String), type: String).void }
             def initialize(account: nil, type: nil); end
           end
           # The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-          attr_accessor :account_tax_ids
+          def account_tax_ids; end
+          sig {
+            params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def account_tax_ids=(_account_tax_ids); end
           # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :days_until_due
+          def days_until_due; end
+          sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def days_until_due=(_days_until_due); end
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::InvoiceSettings::Issuer))
            }
-          attr_accessor :issuer
+          def issuer; end
+          sig {
+            params(_issuer: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::InvoiceSettings::Issuer)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::InvoiceSettings::Issuer))
+           }
+          def issuer=(_issuer); end
           sig {
             params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::InvoiceSettings::Issuer)).void
            }
@@ -1340,7 +2004,9 @@ module Stripe
           class BillingThresholds < Stripe::RequestParams
             # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
             sig { returns(Integer) }
-            attr_accessor :usage_gte
+            def usage_gte; end
+            sig { params(_usage_gte: Integer).returns(Integer) }
+            def usage_gte=(_usage_gte); end
             sig { params(usage_gte: Integer).void }
             def initialize(usage_gte: nil); end
           end
@@ -1349,10 +2015,14 @@ module Stripe
               class Duration < Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 sig { returns(String) }
-                attr_accessor :interval
+                def interval; end
+                sig { params(_interval: String).returns(String) }
+                def interval=(_interval); end
                 # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                 sig { returns(Integer) }
-                attr_accessor :interval_count
+                def interval_count; end
+                sig { params(_interval_count: Integer).returns(Integer) }
+                def interval_count=(_interval_count); end
                 sig { params(interval: String, interval_count: Integer).void }
                 def initialize(interval: nil, interval_count: nil); end
               end
@@ -1360,13 +2030,21 @@ module Stripe
               sig {
                 returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount::DiscountEnd::Duration))
                }
-              attr_accessor :duration
+              def duration; end
+              sig {
+                params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount::DiscountEnd::Duration))
+               }
+              def duration=(_duration); end
               # A precise Unix timestamp for the discount to end. Must be in the future.
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :timestamp
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
               # The type of calculation made to determine when the discount ends.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig {
                 params(duration: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
                }
@@ -1374,18 +2052,28 @@ module Stripe
             end
             # ID of the coupon to create a new discount for.
             sig { returns(T.nilable(String)) }
-            attr_accessor :coupon
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
             # ID of an existing discount on the object (or one of its ancestors) to reuse.
             sig { returns(T.nilable(String)) }
-            attr_accessor :discount
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
             # Details to determine how long the discount should be applied for.
             sig {
               returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount::DiscountEnd))
              }
-            attr_accessor :discount_end
+            def discount_end; end
+            sig {
+              params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount::DiscountEnd))
+             }
+            def discount_end=(_discount_end); end
             # ID of the promotion code to create a new discount for.
             sig { returns(T.nilable(String)) }
-            attr_accessor :promotion_code
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
             sig {
               params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
              }
@@ -1395,33 +2083,51 @@ module Stripe
             class Recurring < Stripe::RequestParams
               # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
               sig { returns(String) }
-              attr_accessor :interval
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
               # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
               sig { returns(T.nilable(Integer)) }
-              attr_accessor :interval_count
+              def interval_count; end
+              sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def interval_count=(_interval_count); end
               sig { params(interval: String, interval_count: T.nilable(Integer)).void }
               def initialize(interval: nil, interval_count: nil); end
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
-            attr_accessor :currency
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
             # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
             sig { returns(String) }
-            attr_accessor :product
+            def product; end
+            sig { params(_product: String).returns(String) }
+            def product=(_product); end
             # The recurring components of a price such as `interval` and `interval_count`.
             sig {
               returns(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::PriceData::Recurring)
              }
-            attr_accessor :recurring
+            def recurring; end
+            sig {
+              params(_recurring: ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::PriceData::Recurring).returns(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::PriceData::Recurring)
+             }
+            def recurring=(_recurring); end
             # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
             sig { returns(T.nilable(String)) }
-            attr_accessor :tax_behavior
+            def tax_behavior; end
+            sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def tax_behavior=(_tax_behavior); end
             # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
             sig { returns(T.nilable(Integer)) }
-            attr_accessor :unit_amount
+            def unit_amount; end
+            sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def unit_amount=(_unit_amount); end
             # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
             sig { returns(T.nilable(String)) }
-            attr_accessor :unit_amount_decimal
+            def unit_amount_decimal; end
+            sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+            def unit_amount_decimal=(_unit_amount_decimal); end
             sig {
               params(currency: String, product: String, recurring: ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
              }
@@ -1437,10 +2143,16 @@ module Stripe
           class Trial < Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :converts_to
+            def converts_to; end
+            sig {
+              params(_converts_to: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def converts_to=(_converts_to); end
             # Determines the type of trial for this item.
             sig { returns(String) }
-            attr_accessor :type
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
             sig { params(converts_to: T.nilable(T::Array[String]), type: String).void }
             def initialize(converts_to: nil, type: nil); end
           end
@@ -1448,37 +2160,67 @@ module Stripe
           sig {
             returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::BillingThresholds)))
            }
-          attr_accessor :billing_thresholds
+          def billing_thresholds; end
+          sig {
+            params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::BillingThresholds)))
+           }
+          def billing_thresholds=(_billing_thresholds); end
           # The coupons to redeem into discounts for the subscription item.
           sig {
             returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount])))
            }
-          attr_accessor :discounts
+          def discounts; end
+          sig {
+            params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount])))
+           }
+          def discounts=(_discounts); end
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          attr_accessor :metadata
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
           # The plan ID to subscribe to. You may specify the same ID in `plan` and `price`.
           sig { returns(T.nilable(String)) }
-          attr_accessor :plan
+          def plan; end
+          sig { params(_plan: T.nilable(String)).returns(T.nilable(String)) }
+          def plan=(_plan); end
           # The ID of the price object.
           sig { returns(T.nilable(String)) }
-          attr_accessor :price
+          def price; end
+          sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+          def price=(_price); end
           # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::PriceData))
            }
-          attr_accessor :price_data
+          def price_data; end
+          sig {
+            params(_price_data: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::PriceData)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::PriceData))
+           }
+          def price_data=(_price_data); end
           # Quantity for the given price. Can be set only if the price's `usage_type` is `licensed` and not `metered`.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :quantity
+          def quantity; end
+          sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def quantity=(_quantity); end
           # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-          attr_accessor :tax_rates
+          def tax_rates; end
+          sig {
+            params(_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def tax_rates=(_tax_rates); end
           # Options that configure the trial on the subscription item.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Trial))
            }
-          attr_accessor :trial
+          def trial; end
+          sig {
+            params(_trial: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Trial))
+           }
+          def trial=(_trial); end
           sig {
             params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item::Trial)).void
            }
@@ -1497,17 +2239,23 @@ module Stripe
         class PauseCollection < Stripe::RequestParams
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           sig { returns(String) }
-          attr_accessor :behavior
+          def behavior; end
+          sig { params(_behavior: String).returns(String) }
+          def behavior=(_behavior); end
           sig { params(behavior: String).void }
           def initialize(behavior: nil); end
         end
         class TransferData < Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           sig { returns(T.nilable(Float)) }
-          attr_accessor :amount_percent
+          def amount_percent; end
+          sig { params(_amount_percent: T.nilable(Float)).returns(T.nilable(Float)) }
+          def amount_percent=(_amount_percent); end
           # ID of an existing, connected Stripe account.
           sig { returns(String) }
-          attr_accessor :destination
+          def destination; end
+          sig { params(_destination: String).returns(String) }
+          def destination=(_destination); end
           sig { params(amount_percent: T.nilable(Float), destination: String).void }
           def initialize(amount_percent: nil, destination: nil); end
         end
@@ -1515,7 +2263,9 @@ module Stripe
           class EndBehavior < Stripe::RequestParams
             # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :prorate_up_front
+            def prorate_up_front; end
+            sig { params(_prorate_up_front: T.nilable(String)).returns(T.nilable(String)) }
+            def prorate_up_front=(_prorate_up_front); end
             sig { params(prorate_up_front: T.nilable(String)).void }
             def initialize(prorate_up_front: nil); end
           end
@@ -1523,7 +2273,11 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TrialSettings::EndBehavior))
            }
-          attr_accessor :end_behavior
+          def end_behavior; end
+          sig {
+            params(_end_behavior: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TrialSettings::EndBehavior)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TrialSettings::EndBehavior))
+           }
+          def end_behavior=(_end_behavior); end
           sig {
             params(end_behavior: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TrialSettings::EndBehavior)).void
            }
@@ -1533,100 +2287,177 @@ module Stripe
         sig {
           returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem]))
          }
-        attr_accessor :add_invoice_items
+        def add_invoice_items; end
+        sig {
+          params(_add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem]))
+         }
+        def add_invoice_items=(_add_invoice_items); end
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         sig { returns(T.nilable(Float)) }
-        attr_accessor :application_fee_percent
+        def application_fee_percent; end
+        sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
+        def application_fee_percent=(_application_fee_percent); end
         # Automatic tax settings for this phase.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AutomaticTax))
          }
-        attr_accessor :automatic_tax
+        def automatic_tax; end
+        sig {
+          params(_automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AutomaticTax)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AutomaticTax))
+         }
+        def automatic_tax=(_automatic_tax); end
         # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         sig { returns(T.nilable(String)) }
-        attr_accessor :billing_cycle_anchor
+        def billing_cycle_anchor; end
+        sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_cycle_anchor=(_billing_cycle_anchor); end
         # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::BillingThresholds)))
          }
-        attr_accessor :billing_thresholds
+        def billing_thresholds; end
+        sig {
+          params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::BillingThresholds)))
+         }
+        def billing_thresholds=(_billing_thresholds); end
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         sig { returns(T.nilable(String)) }
-        attr_accessor :collection_method
+        def collection_method; end
+        sig { params(_collection_method: T.nilable(String)).returns(T.nilable(String)) }
+        def collection_method=(_collection_method); end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(T.nilable(String)) }
-        attr_accessor :currency
+        def currency; end
+        sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+        def currency=(_currency); end
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
         sig { returns(T.nilable(String)) }
-        attr_accessor :default_payment_method
+        def default_payment_method; end
+        sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+        def default_payment_method=(_default_payment_method); end
         # A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will set the Subscription's [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates), which means they will be the Invoice's [`default_tax_rates`](https://stripe.com/docs/api/invoices/create#create_invoice-default_tax_rates) for any Invoices issued by the Subscription during this Phase.
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-        attr_accessor :default_tax_rates
+        def default_tax_rates; end
+        sig {
+          params(_default_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+         }
+        def default_tax_rates=(_default_tax_rates); end
         # Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         sig { returns(T.nilable(String)) }
-        attr_accessor :description
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
         # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         sig {
           returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount])))
          }
-        attr_accessor :discounts
+        def discounts; end
+        sig {
+          params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount])))
+         }
+        def discounts=(_discounts); end
         # The number of intervals the phase should last. If set, `end_date` must not be set.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Duration))
          }
-        attr_accessor :duration
+        def duration; end
+        sig {
+          params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Duration))
+         }
+        def duration=(_duration); end
         # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
         sig { returns(T.nilable(T.any(Integer, String))) }
-        attr_accessor :end_date
+        def end_date; end
+        sig {
+          params(_end_date: T.nilable(T.any(Integer, String))).returns(T.nilable(T.any(Integer, String)))
+         }
+        def end_date=(_end_date); end
         # All invoices will be billed using the specified settings.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::InvoiceSettings))
          }
-        attr_accessor :invoice_settings
+        def invoice_settings; end
+        sig {
+          params(_invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::InvoiceSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::InvoiceSettings))
+         }
+        def invoice_settings=(_invoice_settings); end
         # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         sig { returns(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item]) }
-        attr_accessor :items
-        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        sig { returns(T.nilable(Integer)) }
-        attr_accessor :iterations
+        def items; end
+        sig {
+          params(_items: T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item]).returns(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item])
+         }
+        def items=(_items); end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_accessor :metadata
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def metadata=(_metadata); end
         # The account on behalf of which to charge, for each of the associated subscription's invoices.
         sig { returns(T.nilable(String)) }
-        attr_accessor :on_behalf_of
+        def on_behalf_of; end
+        sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
+        def on_behalf_of=(_on_behalf_of); end
         # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::PauseCollection))
          }
-        attr_accessor :pause_collection
+        def pause_collection; end
+        sig {
+          params(_pause_collection: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::PauseCollection)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::PauseCollection))
+         }
+        def pause_collection=(_pause_collection); end
         # Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         sig { returns(T.nilable(String)) }
-        attr_accessor :proration_behavior
+        def proration_behavior; end
+        sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def proration_behavior=(_proration_behavior); end
         # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
         sig { returns(T.nilable(T.any(Integer, String))) }
-        attr_accessor :start_date
+        def start_date; end
+        sig {
+          params(_start_date: T.nilable(T.any(Integer, String))).returns(T.nilable(T.any(Integer, String)))
+         }
+        def start_date=(_start_date); end
         # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TransferData))
          }
-        attr_accessor :transfer_data
+        def transfer_data; end
+        sig {
+          params(_transfer_data: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TransferData)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TransferData))
+         }
+        def transfer_data=(_transfer_data); end
         # If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         sig { returns(T.nilable(T::Boolean)) }
-        attr_accessor :trial
+        def trial; end
+        sig { params(_trial: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def trial=(_trial); end
         # Specify trial behavior when crossing phase boundaries
         sig { returns(T.nilable(String)) }
-        attr_accessor :trial_continuation
+        def trial_continuation; end
+        sig { params(_trial_continuation: T.nilable(String)).returns(T.nilable(String)) }
+        def trial_continuation=(_trial_continuation); end
         # Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
         sig { returns(T.nilable(T.any(Integer, String))) }
-        attr_accessor :trial_end
+        def trial_end; end
+        sig {
+          params(_trial_end: T.nilable(T.any(Integer, String))).returns(T.nilable(T.any(Integer, String)))
+         }
+        def trial_end=(_trial_end); end
         # Settings related to subscription trials.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TrialSettings))
          }
-        attr_accessor :trial_settings
+        def trial_settings; end
         sig {
-          params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount])), duration: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::InvoiceSettings), items: T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(T.any(Integer, String)), trial_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TrialSettings)).void
+          params(_trial_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TrialSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TrialSettings))
+         }
+        def trial_settings=(_trial_settings); end
+        sig {
+          params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleService::UpdateParams::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Discount])), duration: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::InvoiceSettings), items: T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::PauseCollection), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(T.any(Integer, String)), trial_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::TrialSettings)).void
          }
         def initialize(
           add_invoice_items: nil,
@@ -1644,7 +2475,6 @@ module Stripe
           end_date: nil,
           invoice_settings: nil,
           items: nil,
-          iterations: nil,
           metadata: nil,
           on_behalf_of: nil,
           pause_collection: nil,
@@ -1660,41 +2490,69 @@ module Stripe
       class Prebilling < Stripe::RequestParams
         # This is used to determine the number of billing cycles to prebill.
         sig { returns(Integer) }
-        attr_accessor :iterations
+        def iterations; end
+        sig { params(_iterations: Integer).returns(Integer) }
+        def iterations=(_iterations); end
         # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         sig { returns(T.nilable(String)) }
-        attr_accessor :update_behavior
+        def update_behavior; end
+        sig { params(_update_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def update_behavior=(_update_behavior); end
         sig { params(iterations: Integer, update_behavior: T.nilable(String)).void }
         def initialize(iterations: nil, update_behavior: nil); end
       end
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
       sig { returns(T.nilable(String)) }
-      attr_accessor :billing_behavior
+      def billing_behavior; end
+      sig { params(_billing_behavior: T.nilable(String)).returns(T.nilable(String)) }
+      def billing_behavior=(_billing_behavior); end
       # Object representing the subscription schedule's default settings.
       sig {
         returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings))
        }
-      attr_accessor :default_settings
+      def default_settings; end
+      sig {
+        params(_default_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings))
+       }
+      def default_settings=(_default_settings); end
       # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
       sig { returns(T.nilable(String)) }
-      attr_accessor :end_behavior
+      def end_behavior; end
+      sig { params(_end_behavior: T.nilable(String)).returns(T.nilable(String)) }
+      def end_behavior=(_end_behavior); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-      attr_accessor :metadata
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
       # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted.
       sig {
         returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase]))
        }
-      attr_accessor :phases
+      def phases; end
+      sig {
+        params(_phases: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase]))
+       }
+      def phases=(_phases); end
       # If specified, the invoicing for the given billing cycle iterations will be processed now.
       sig { returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Prebilling)) }
-      attr_accessor :prebilling
+      def prebilling; end
+      sig {
+        params(_prebilling: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Prebilling)).returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Prebilling))
+       }
+      def prebilling=(_prebilling); end
       # If the update changes the billing configuration (item price, quantity, etc.) of the current phase, indicates how prorations from this change should be handled. The default value is `create_prorations`.
       sig { returns(T.nilable(String)) }
-      attr_accessor :proration_behavior
+      def proration_behavior; end
+      sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
+      def proration_behavior=(_proration_behavior); end
       sig {
         params(billing_behavior: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), phases: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::UpdateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Prebilling), proration_behavior: T.nilable(String)).void
        }
@@ -1715,17 +2573,23 @@ module Stripe
           class DiscountEnd < Stripe::RequestParams
             # The ID of a specific discount.
             sig { returns(String) }
-            attr_accessor :discount
+            def discount; end
+            sig { params(_discount: String).returns(String) }
+            def discount=(_discount); end
             sig { params(discount: String).void }
             def initialize(discount: nil); end
           end
           class Duration < Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             sig { returns(String) }
-            attr_accessor :interval
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             sig { returns(Integer) }
-            attr_accessor :interval_count
+            def interval_count; end
+            sig { params(_interval_count: Integer).returns(Integer) }
+            def interval_count=(_interval_count); end
             sig { params(interval: String, interval_count: Integer).void }
             def initialize(interval: nil, interval_count: nil); end
           end
@@ -1733,18 +2597,30 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd::DiscountEnd))
            }
-          attr_accessor :discount_end
+          def discount_end; end
+          sig {
+            params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd::DiscountEnd))
+           }
+          def discount_end=(_discount_end); end
           # Time span for the amendment starting from the `amendment_start`.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd::Duration))
            }
-          attr_accessor :duration
+          def duration; end
+          sig {
+            params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd::Duration))
+           }
+          def duration=(_duration); end
           # A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :timestamp
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
           # Select one of three ways to pass the `amendment_end`.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd::DiscountEnd), duration: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd::Duration), timestamp: T.nilable(Integer), type: String).void
            }
@@ -1754,14 +2630,18 @@ module Stripe
           class AmendmentEnd < Stripe::RequestParams
             # The position of the previous amendment in the `amendments` array after which this amendment should begin. Indexes start from 0 and must be less than the index of the current amendment in the array.
             sig { returns(Integer) }
-            attr_accessor :index
+            def index; end
+            sig { params(_index: Integer).returns(Integer) }
+            def index=(_index); end
             sig { params(index: Integer).void }
             def initialize(index: nil); end
           end
           class DiscountEnd < Stripe::RequestParams
             # The ID of a specific discount.
             sig { returns(String) }
-            attr_accessor :discount
+            def discount; end
+            sig { params(_discount: String).returns(String) }
+            def discount=(_discount); end
             sig { params(discount: String).void }
             def initialize(discount: nil); end
           end
@@ -1769,18 +2649,30 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart::AmendmentEnd))
            }
-          attr_accessor :amendment_end
+          def amendment_end; end
+          sig {
+            params(_amendment_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart::AmendmentEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart::AmendmentEnd))
+           }
+          def amendment_end=(_amendment_end); end
           # Use the `end` time of a given discount.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart::DiscountEnd))
            }
-          attr_accessor :discount_end
+          def discount_end; end
+          sig {
+            params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart::DiscountEnd))
+           }
+          def discount_end=(_discount_end); end
           # A precise Unix timestamp for the amendment to start.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :timestamp
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
           # Select one of three ways to pass the `amendment_start`.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(amendment_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart::AmendmentEnd), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart::DiscountEnd), timestamp: T.nilable(Integer), type: String).void
            }
@@ -1791,27 +2683,41 @@ module Stripe
             class DiscountEnd < Stripe::RequestParams
               # The type of calculation made to determine when the discount ends.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig { params(type: String).void }
               def initialize(type: nil); end
             end
             # The coupon code to redeem.
             sig { returns(T.nilable(String)) }
-            attr_accessor :coupon
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
             # An ID of an existing discount for a coupon that was already redeemed.
             sig { returns(T.nilable(String)) }
-            attr_accessor :discount
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
             # Details to determine how long the discount should be applied for.
             sig {
               returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Add::DiscountEnd))
              }
-            attr_accessor :discount_end
+            def discount_end; end
+            sig {
+              params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Add::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Add::DiscountEnd))
+             }
+            def discount_end=(_discount_end); end
             # The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
             sig { returns(T.nilable(Integer)) }
-            attr_accessor :index
+            def index; end
+            sig { params(_index: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def index=(_index); end
             # The promotion code to redeem.
             sig { returns(T.nilable(String)) }
-            attr_accessor :promotion_code
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
             sig {
               params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Add::DiscountEnd), index: T.nilable(Integer), promotion_code: T.nilable(String)).void
              }
@@ -1826,13 +2732,19 @@ module Stripe
           class Remove < Stripe::RequestParams
             # The coupon code to remove from the `discounts` array.
             sig { returns(T.nilable(String)) }
-            attr_accessor :coupon
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
             # The ID of a discount to remove from the `discounts` array.
             sig { returns(T.nilable(String)) }
-            attr_accessor :discount
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
             # The ID of a promotion code to remove from the `discounts` array.
             sig { returns(T.nilable(String)) }
-            attr_accessor :promotion_code
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
             sig {
               params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
              }
@@ -1841,13 +2753,19 @@ module Stripe
           class Set < Stripe::RequestParams
             # The coupon code to replace the `discounts` array with.
             sig { returns(T.nilable(String)) }
-            attr_accessor :coupon
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
             # An ID of an existing discount to replace the `discounts` array with.
             sig { returns(T.nilable(String)) }
-            attr_accessor :discount
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
             # An ID of an existing promotion code to replace the `discounts` array with.
             sig { returns(T.nilable(String)) }
-            attr_accessor :promotion_code
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
             sig {
               params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
              }
@@ -1857,20 +2775,34 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Add))
            }
-          attr_accessor :add
+          def add; end
+          sig {
+            params(_add: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Add)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Add))
+           }
+          def add=(_add); end
           # Details of the discount to remove.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Remove))
            }
-          attr_accessor :remove
+          def remove; end
+          sig {
+            params(_remove: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Remove)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Remove))
+           }
+          def remove=(_remove); end
           # Details of the discount to replace the existing discounts with.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Set))
            }
-          attr_accessor :set
+          def set; end
+          sig {
+            params(_set: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Set)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Set))
+           }
+          def set=(_set); end
           # Determines the type of discount action.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(add: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Add), remove: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Remove), set: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction::Set), type: String).void
            }
@@ -1883,10 +2815,14 @@ module Stripe
                 class Duration < Stripe::RequestParams
                   # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                   sig { returns(String) }
-                  attr_accessor :interval
+                  def interval; end
+                  sig { params(_interval: String).returns(String) }
+                  def interval=(_interval); end
                   # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                   sig { returns(Integer) }
-                  attr_accessor :interval_count
+                  def interval_count; end
+                  sig { params(_interval_count: Integer).returns(Integer) }
+                  def interval_count=(_interval_count); end
                   sig { params(interval: String, interval_count: Integer).void }
                   def initialize(interval: nil, interval_count: nil); end
                 end
@@ -1894,13 +2830,21 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration))
                  }
-                attr_accessor :duration
+                def duration; end
+                sig {
+                  params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration))
+                 }
+                def duration=(_duration); end
                 # A precise Unix timestamp for the discount to end. Must be in the future.
                 sig { returns(T.nilable(Integer)) }
-                attr_accessor :timestamp
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def timestamp=(_timestamp); end
                 # The type of calculation made to determine when the discount ends.
                 sig { returns(String) }
-                attr_accessor :type
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
                 sig {
                   params(duration: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
                  }
@@ -1908,18 +2852,28 @@ module Stripe
               end
               # ID of the coupon to create a new discount for.
               sig { returns(T.nilable(String)) }
-              attr_accessor :coupon
+              def coupon; end
+              sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+              def coupon=(_coupon); end
               # ID of an existing discount on the object (or one of its ancestors) to reuse.
               sig { returns(T.nilable(String)) }
-              attr_accessor :discount
+              def discount; end
+              sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+              def discount=(_discount); end
               # Details to determine how long the discount should be applied for.
               sig {
                 returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd))
                }
-              attr_accessor :discount_end
+              def discount_end; end
+              sig {
+                params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd))
+               }
+              def discount_end=(_discount_end); end
               # ID of the promotion code to create a new discount for.
               sig { returns(T.nilable(String)) }
-              attr_accessor :promotion_code
+              def promotion_code; end
+              sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+              def promotion_code=(_promotion_code); end
               sig {
                 params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
                }
@@ -1933,10 +2887,16 @@ module Stripe
             class Trial < Stripe::RequestParams
               # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
               sig { returns(T.nilable(T::Array[String])) }
-              attr_accessor :converts_to
+              def converts_to; end
+              sig {
+                params(_converts_to: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
+              def converts_to=(_converts_to); end
               # Determines the type of trial for this item.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig { params(converts_to: T.nilable(T::Array[String]), type: String).void }
               def initialize(converts_to: nil, type: nil); end
             end
@@ -1944,24 +2904,44 @@ module Stripe
             sig {
               returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount]))
              }
-            attr_accessor :discounts
+            def discounts; end
+            sig {
+              params(_discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount]))
+             }
+            def discounts=(_discounts); end
             # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             sig { returns(T.nilable(T::Hash[String, String])) }
-            attr_accessor :metadata
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+             }
+            def metadata=(_metadata); end
             # The ID of the price object.
             sig { returns(String) }
-            attr_accessor :price
+            def price; end
+            sig { params(_price: String).returns(String) }
+            def price=(_price); end
             # Quantity for this item.
             sig { returns(T.nilable(Integer)) }
-            attr_accessor :quantity
+            def quantity; end
+            sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def quantity=(_quantity); end
             # The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
             sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :tax_rates
+            def tax_rates; end
+            sig {
+              params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def tax_rates=(_tax_rates); end
             # Options that configure the trial on the subscription item.
             sig {
               returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Trial))
              }
-            attr_accessor :trial
+            def trial; end
+            sig {
+              params(_trial: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Trial))
+             }
+            def trial=(_trial); end
             sig {
               params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add::Trial)).void
              }
@@ -1977,7 +2957,9 @@ module Stripe
           class Remove < Stripe::RequestParams
             # ID of a price to remove.
             sig { returns(String) }
-            attr_accessor :price
+            def price; end
+            sig { params(_price: String).returns(String) }
+            def price=(_price); end
             sig { params(price: String).void }
             def initialize(price: nil); end
           end
@@ -1987,10 +2969,14 @@ module Stripe
                 class Duration < Stripe::RequestParams
                   # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                   sig { returns(String) }
-                  attr_accessor :interval
+                  def interval; end
+                  sig { params(_interval: String).returns(String) }
+                  def interval=(_interval); end
                   # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                   sig { returns(Integer) }
-                  attr_accessor :interval_count
+                  def interval_count; end
+                  sig { params(_interval_count: Integer).returns(Integer) }
+                  def interval_count=(_interval_count); end
                   sig { params(interval: String, interval_count: Integer).void }
                   def initialize(interval: nil, interval_count: nil); end
                 end
@@ -1998,13 +2984,21 @@ module Stripe
                 sig {
                   returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration))
                  }
-                attr_accessor :duration
+                def duration; end
+                sig {
+                  params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration))
+                 }
+                def duration=(_duration); end
                 # A precise Unix timestamp for the discount to end. Must be in the future.
                 sig { returns(T.nilable(Integer)) }
-                attr_accessor :timestamp
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def timestamp=(_timestamp); end
                 # The type of calculation made to determine when the discount ends.
                 sig { returns(String) }
-                attr_accessor :type
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
                 sig {
                   params(duration: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
                  }
@@ -2012,18 +3006,28 @@ module Stripe
               end
               # ID of the coupon to create a new discount for.
               sig { returns(T.nilable(String)) }
-              attr_accessor :coupon
+              def coupon; end
+              sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+              def coupon=(_coupon); end
               # ID of an existing discount on the object (or one of its ancestors) to reuse.
               sig { returns(T.nilable(String)) }
-              attr_accessor :discount
+              def discount; end
+              sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+              def discount=(_discount); end
               # Details to determine how long the discount should be applied for.
               sig {
                 returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd))
                }
-              attr_accessor :discount_end
+              def discount_end; end
+              sig {
+                params(_discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd))
+               }
+              def discount_end=(_discount_end); end
               # ID of the promotion code to create a new discount for.
               sig { returns(T.nilable(String)) }
-              attr_accessor :promotion_code
+              def promotion_code; end
+              sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+              def promotion_code=(_promotion_code); end
               sig {
                 params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
                }
@@ -2037,10 +3041,16 @@ module Stripe
             class Trial < Stripe::RequestParams
               # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
               sig { returns(T.nilable(T::Array[String])) }
-              attr_accessor :converts_to
+              def converts_to; end
+              sig {
+                params(_converts_to: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
+              def converts_to=(_converts_to); end
               # Determines the type of trial for this item.
               sig { returns(String) }
-              attr_accessor :type
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
               sig { params(converts_to: T.nilable(T::Array[String]), type: String).void }
               def initialize(converts_to: nil, type: nil); end
             end
@@ -2048,24 +3058,44 @@ module Stripe
             sig {
               returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount]))
              }
-            attr_accessor :discounts
+            def discounts; end
+            sig {
+              params(_discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount]))
+             }
+            def discounts=(_discounts); end
             # If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
             sig { returns(T.nilable(T::Hash[String, String])) }
-            attr_accessor :metadata
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+             }
+            def metadata=(_metadata); end
             # The ID of the price object.
             sig { returns(String) }
-            attr_accessor :price
+            def price; end
+            sig { params(_price: String).returns(String) }
+            def price=(_price); end
             # If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
             sig { returns(T.nilable(Integer)) }
-            attr_accessor :quantity
+            def quantity; end
+            sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def quantity=(_quantity); end
             # If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
             sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :tax_rates
+            def tax_rates; end
+            sig {
+              params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def tax_rates=(_tax_rates); end
             # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
             sig {
               returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Trial))
              }
-            attr_accessor :trial
+            def trial; end
+            sig {
+              params(_trial: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Trial)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Trial))
+             }
+            def trial=(_trial); end
             sig {
               params(discounts: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set::Trial)).void
              }
@@ -2082,20 +3112,34 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add))
            }
-          attr_accessor :add
+          def add; end
+          sig {
+            params(_add: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add))
+           }
+          def add=(_add); end
           # Details of the subscription item to remove.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Remove))
            }
-          attr_accessor :remove
+          def remove; end
+          sig {
+            params(_remove: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Remove)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Remove))
+           }
+          def remove=(_remove); end
           # Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set))
            }
-          attr_accessor :set
+          def set; end
+          sig {
+            params(_set: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set))
+           }
+          def set=(_set); end
           # Determines the type of item action.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(add: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Add), remove: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Remove), set: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction::Set), type: String).void
            }
@@ -2104,16 +3148,28 @@ module Stripe
         class MetadataAction < Stripe::RequestParams
           # Key-value pairs to add to schedule phase metadata. These values will merge with existing schedule phase metadata.
           sig { returns(T.nilable(T::Hash[String, String])) }
-          attr_accessor :add
+          def add; end
+          sig {
+            params(_add: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def add=(_add); end
           # Keys to remove from schedule phase metadata.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_accessor :remove
+          def remove; end
+          sig { params(_remove: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def remove=(_remove); end
           # Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
           sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
-          attr_accessor :set
+          def set; end
+          sig {
+            params(_set: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+           }
+          def set=(_set); end
           # Select one of three ways to update phase-level `metadata` on subscription schedules.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(add: T.nilable(T::Hash[String, String]), remove: T.nilable(T::Array[String]), set: T.nilable(T.any(String, T::Hash[String, String])), type: String).void
            }
@@ -2123,7 +3179,9 @@ module Stripe
           class Set < Stripe::RequestParams
             # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
             sig { returns(String) }
-            attr_accessor :behavior
+            def behavior; end
+            sig { params(_behavior: String).returns(String) }
+            def behavior=(_behavior); end
             sig { params(behavior: String).void }
             def initialize(behavior: nil); end
           end
@@ -2131,10 +3189,16 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::SetPauseCollection::Set))
            }
-          attr_accessor :set
+          def set; end
+          sig {
+            params(_set: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::SetPauseCollection::Set)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::SetPauseCollection::Set))
+           }
+          def set=(_set); end
           # Determines the type of the pause_collection amendment.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(set: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::SetPauseCollection::Set), type: String).void
            }
@@ -2144,7 +3208,9 @@ module Stripe
           class EndBehavior < Stripe::RequestParams
             # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
             sig { returns(T.nilable(String)) }
-            attr_accessor :prorate_up_front
+            def prorate_up_front; end
+            sig { params(_prorate_up_front: T.nilable(String)).returns(T.nilable(String)) }
+            def prorate_up_front=(_prorate_up_front); end
             sig { params(prorate_up_front: T.nilable(String)).void }
             def initialize(prorate_up_front: nil); end
           end
@@ -2152,7 +3218,11 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::TrialSettings::EndBehavior))
            }
-          attr_accessor :end_behavior
+          def end_behavior; end
+          sig {
+            params(_end_behavior: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::TrialSettings::EndBehavior)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::TrialSettings::EndBehavior))
+           }
+          def end_behavior=(_end_behavior); end
           sig {
             params(end_behavior: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::TrialSettings::EndBehavior)).void
            }
@@ -2162,46 +3232,80 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd))
          }
-        attr_accessor :amendment_end
+        def amendment_end; end
+        sig {
+          params(_amendment_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd))
+         }
+        def amendment_end=(_amendment_end); end
         # Details to identify the earliest timestamp where the proposed change should take effect.
         sig {
           returns(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart)
          }
-        attr_accessor :amendment_start
+        def amendment_start; end
+        sig {
+          params(_amendment_start: ::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart).returns(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart)
+         }
+        def amendment_start=(_amendment_start); end
         # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
         sig { returns(T.nilable(String)) }
-        attr_accessor :billing_cycle_anchor
+        def billing_cycle_anchor; end
+        sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_cycle_anchor=(_billing_cycle_anchor); end
         # Changes to the coupons being redeemed or discounts being applied during the amendment time span.
         sig {
           returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction]))
          }
-        attr_accessor :discount_actions
+        def discount_actions; end
+        sig {
+          params(_discount_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction]))
+         }
+        def discount_actions=(_discount_actions); end
         # Changes to the subscription items during the amendment time span.
         sig {
           returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction]))
          }
-        attr_accessor :item_actions
+        def item_actions; end
+        sig {
+          params(_item_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction]))
+         }
+        def item_actions=(_item_actions); end
         # Instructions for how to modify phase metadata
         sig {
           returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::MetadataAction]))
          }
-        attr_accessor :metadata_actions
+        def metadata_actions; end
+        sig {
+          params(_metadata_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::MetadataAction])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::MetadataAction]))
+         }
+        def metadata_actions=(_metadata_actions); end
         # Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
         sig { returns(T.nilable(String)) }
-        attr_accessor :proration_behavior
+        def proration_behavior; end
+        sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def proration_behavior=(_proration_behavior); end
         # Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::SetPauseCollection))
          }
-        attr_accessor :set_pause_collection
+        def set_pause_collection; end
+        sig {
+          params(_set_pause_collection: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::SetPauseCollection)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::SetPauseCollection))
+         }
+        def set_pause_collection=(_set_pause_collection); end
         # Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
         sig { returns(T.nilable(String)) }
-        attr_accessor :set_schedule_end
+        def set_schedule_end; end
+        sig { params(_set_schedule_end: T.nilable(String)).returns(T.nilable(String)) }
+        def set_schedule_end=(_set_schedule_end); end
         # Settings related to subscription trials.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::TrialSettings))
          }
-        attr_accessor :trial_settings
+        def trial_settings; end
+        sig {
+          params(_trial_settings: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::TrialSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::TrialSettings))
+         }
+        def trial_settings=(_trial_settings); end
         sig {
           params(amendment_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentEnd), amendment_start: ::Stripe::SubscriptionScheduleService::AmendParams::Amendment::AmendmentStart, billing_cycle_anchor: T.nilable(String), discount_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::DiscountAction]), item_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::ItemAction]), metadata_actions: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment::MetadataAction]), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::SetPauseCollection), set_schedule_end: T.nilable(String), trial_settings: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Amendment::TrialSettings)).void
          }
@@ -2223,7 +3327,9 @@ module Stripe
           class AmendmentStart < Stripe::RequestParams
             # The position of the amendment in the `amendments` array with which prebilling should begin. Indexes start from 0 and must be less than the total number of supplied amendments.
             sig { returns(Integer) }
-            attr_accessor :index
+            def index; end
+            sig { params(_index: Integer).returns(Integer) }
+            def index=(_index); end
             sig { params(index: Integer).void }
             def initialize(index: nil); end
           end
@@ -2231,13 +3337,21 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillFrom::AmendmentStart))
            }
-          attr_accessor :amendment_start
+          def amendment_start; end
+          sig {
+            params(_amendment_start: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillFrom::AmendmentStart)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillFrom::AmendmentStart))
+           }
+          def amendment_start=(_amendment_start); end
           # Start the prebilled period at a precise integer timestamp, starting from the Unix epoch.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :timestamp
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
           # Select one of several ways to pass the `bill_from` value.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(amendment_start: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillFrom::AmendmentStart), timestamp: T.nilable(Integer), type: String).void
            }
@@ -2247,17 +3361,23 @@ module Stripe
           class AmendmentEnd < Stripe::RequestParams
             # The position of the amendment in the `amendments` array at which prebilling should end. Indexes start from 0 and must be less than the total number of supplied amendments.
             sig { returns(Integer) }
-            attr_accessor :index
+            def index; end
+            sig { params(_index: Integer).returns(Integer) }
+            def index=(_index); end
             sig { params(index: Integer).void }
             def initialize(index: nil); end
           end
           class Duration < Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             sig { returns(String) }
-            attr_accessor :interval
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             sig { returns(Integer) }
-            attr_accessor :interval_count
+            def interval_count; end
+            sig { params(_interval_count: Integer).returns(Integer) }
+            def interval_count=(_interval_count); end
             sig { params(interval: String, interval_count: Integer).void }
             def initialize(interval: nil, interval_count: nil); end
           end
@@ -2265,18 +3385,30 @@ module Stripe
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil::AmendmentEnd))
            }
-          attr_accessor :amendment_end
+          def amendment_end; end
+          sig {
+            params(_amendment_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil::AmendmentEnd)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil::AmendmentEnd))
+           }
+          def amendment_end=(_amendment_end); end
           # Time span for prebilling, starting from `bill_from`.
           sig {
             returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil::Duration))
            }
-          attr_accessor :duration
+          def duration; end
+          sig {
+            params(_duration: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil::Duration))
+           }
+          def duration=(_duration); end
           # End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
           sig { returns(T.nilable(Integer)) }
-          attr_accessor :timestamp
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
           # Select one of several ways to pass the `bill_until` value.
           sig { returns(String) }
-          attr_accessor :type
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
           sig {
             params(amendment_end: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil::AmendmentEnd), duration: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil::Duration), timestamp: T.nilable(Integer), type: String).void
            }
@@ -2286,18 +3418,30 @@ module Stripe
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillFrom))
          }
-        attr_accessor :bill_from
+        def bill_from; end
+        sig {
+          params(_bill_from: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillFrom)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillFrom))
+         }
+        def bill_from=(_bill_from); end
         # The end of the prebilled time period.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil))
          }
-        attr_accessor :bill_until
+        def bill_until; end
+        sig {
+          params(_bill_until: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil))
+         }
+        def bill_until=(_bill_until); end
         # When the prebilling invoice should be created. The default value is `now`.
         sig { returns(T.nilable(String)) }
-        attr_accessor :invoice_at
+        def invoice_at; end
+        sig { params(_invoice_at: T.nilable(String)).returns(T.nilable(String)) }
+        def invoice_at=(_invoice_at); end
         # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         sig { returns(T.nilable(String)) }
-        attr_accessor :update_behavior
+        def update_behavior; end
+        sig { params(_update_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def update_behavior=(_update_behavior); end
         sig {
           params(bill_from: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillFrom), bill_until: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::Prebilling::BillUntil), invoice_at: T.nilable(String), update_behavior: T.nilable(String)).void
          }
@@ -2306,7 +3450,9 @@ module Stripe
       class ScheduleSettings < Stripe::RequestParams
         # Behavior of the subscription schedule and underlying subscription when it ends.
         sig { returns(T.nilable(String)) }
-        attr_accessor :end_behavior
+        def end_behavior; end
+        sig { params(_end_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def end_behavior=(_end_behavior); end
         sig { params(end_behavior: T.nilable(String)).void }
         def initialize(end_behavior: nil); end
       end
@@ -2314,24 +3460,40 @@ module Stripe
       sig {
         returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment]))
        }
-      attr_accessor :amendments
+      def amendments; end
+      sig {
+        params(_amendments: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment]))
+       }
+      def amendments=(_amendments); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # Provide any time periods to bill in advance.
       sig {
         returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Prebilling])))
        }
-      attr_accessor :prebilling
+      def prebilling; end
+      sig {
+        params(_prebilling: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Prebilling]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Prebilling])))
+       }
+      def prebilling=(_prebilling); end
       # In cases where the amendment changes the currently active phase,
       #  specifies if and how to prorate at the time of the request.
       sig { returns(T.nilable(String)) }
-      attr_accessor :proration_behavior
+      def proration_behavior; end
+      sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
+      def proration_behavior=(_proration_behavior); end
       # Changes to apply to the subscription schedule.
       sig {
         returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::ScheduleSettings))
        }
-      attr_accessor :schedule_settings
+      def schedule_settings; end
+      sig {
+        params(_schedule_settings: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::ScheduleSettings)).returns(T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::ScheduleSettings))
+       }
+      def schedule_settings=(_schedule_settings); end
       sig {
         params(amendments: T.nilable(T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Amendment]), expand: T.nilable(T::Array[String]), prebilling: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleService::AmendParams::Prebilling])), proration_behavior: T.nilable(String), schedule_settings: T.nilable(::Stripe::SubscriptionScheduleService::AmendParams::ScheduleSettings)).void
        }
@@ -2346,13 +3508,19 @@ module Stripe
     class CancelParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Defaults to `true`.
       sig { returns(T.nilable(T::Boolean)) }
-      attr_accessor :invoice_now
+      def invoice_now; end
+      sig { params(_invoice_now: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def invoice_now=(_invoice_now); end
       # If the subscription schedule is `active`, indicates if the cancellation should be prorated. Defaults to `true`.
       sig { returns(T.nilable(T::Boolean)) }
-      attr_accessor :prorate
+      def prorate; end
+      sig { params(_prorate: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def prorate=(_prorate); end
       sig {
         params(expand: T.nilable(T::Array[String]), invoice_now: T.nilable(T::Boolean), prorate: T.nilable(T::Boolean)).void
        }
@@ -2361,10 +3529,14 @@ module Stripe
     class ReleaseParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
       # Keep any cancellation on the subscription that the schedule has set
       sig { returns(T.nilable(T::Boolean)) }
-      attr_accessor :preserve_cancel_date
+      def preserve_cancel_date; end
+      sig { params(_preserve_cancel_date: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def preserve_cancel_date=(_preserve_cancel_date); end
       sig {
         params(expand: T.nilable(T::Array[String]), preserve_cancel_date: T.nilable(T::Boolean)).void
        }

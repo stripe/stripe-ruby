@@ -99,8 +99,8 @@ module Stripe
     #   will be reused on subsequent API calls.
     # * +opts+ - Options for +StripeObject+ like an API key that will be reused
     #   on subsequent API calls.
-    def self.convert_to_stripe_object(data, opts = {}, api_mode: :v1, requestor: nil)
-      convert_to_stripe_object_with_params(data, {}, opts, api_mode: api_mode, requestor: requestor)
+    def self.convert_to_stripe_object(data, opts = {}, api_mode: :v1, requestor: nil, klass: nil)
+      convert_to_stripe_object_with_params(data, {}, opts, api_mode: api_mode, requestor: requestor, klass: klass)
     end
 
     # Converts a hash of fields or an array of hashes into a +StripeObject+ or
@@ -118,19 +118,23 @@ module Stripe
     # * +last_response+ - The raw response associated with the object.
     # * +api_mode+ - The API mode to use when converting the object, either :v1 or :v2.
     # * +requestor+ - The requestor to use when constructing the object.
+    # * +v2_deleted_object+ - If true, ignore the object tag for casting purposes
+    # * +klass+ - The class to use for inner types
     def self.convert_to_stripe_object_with_params(
       data,
       params,
       opts = {},
       last_response = nil,
       api_mode: :v1,
-      requestor: nil
+      requestor: nil,
+      v2_deleted_object: false,
+      klass: nil
     )
       opts = normalize_opts(opts)
 
       case data
       when Array
-        data.map { |i| convert_to_stripe_object(i, opts, api_mode: api_mode, requestor: requestor) }
+        data.map { |i| convert_to_stripe_object(i, opts, api_mode: api_mode, requestor: requestor, klass: klass) }
       when Hash
         # TODO: This is a terrible hack.
         # Waiting on https://jira.corp.stripe.com/browse/API_SERVICES-3167 to add
@@ -143,8 +147,12 @@ module Stripe
         # to generic StripeObject
         object_type = data[:type] || data["type"]
         object_name = data[:object] || data["object"]
-        object_class = if api_mode == :v2
-                         if object_name == "v2.core.event" && thin_event_classes.key?(object_type)
+        object_class = if klass
+                         klass
+                       elsif api_mode == :v2
+                         if v2_deleted_object
+                           V2::DeletedObject
+                         elsif object_name == "v2.core.event" && thin_event_classes.key?(object_type)
                            thin_event_classes.fetch(object_type)
                          else
                            v2_object_classes.fetch(

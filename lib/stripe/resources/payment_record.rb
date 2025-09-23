@@ -17,6 +17,14 @@ module Stripe
       attr_reader :currency
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AmountAuthorized < Stripe::StripeObject
@@ -24,6 +32,14 @@ module Stripe
       attr_reader :currency
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AmountCanceled < Stripe::StripeObject
@@ -31,6 +47,14 @@ module Stripe
       attr_reader :currency
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AmountFailed < Stripe::StripeObject
@@ -38,6 +62,14 @@ module Stripe
       attr_reader :currency
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AmountGuaranteed < Stripe::StripeObject
@@ -45,6 +77,14 @@ module Stripe
       attr_reader :currency
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AmountRefunded < Stripe::StripeObject
@@ -52,6 +92,14 @@ module Stripe
       attr_reader :currency
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AmountRequested < Stripe::StripeObject
@@ -59,6 +107,14 @@ module Stripe
       attr_reader :currency
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
       attr_reader :value
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CustomerDetails < Stripe::StripeObject
@@ -70,6 +126,14 @@ module Stripe
       attr_reader :name
       # The customer's phone number.
       attr_reader :phone
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PaymentMethodDetails < Stripe::StripeObject
@@ -82,6 +146,14 @@ module Stripe
         attr_reader :routing_number
         # SWIFT code of the bank associated with the routing number.
         attr_reader :swift_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AchDebit < Stripe::StripeObject
@@ -97,6 +169,14 @@ module Stripe
         attr_reader :last4
         # Routing transit number of the bank account.
         attr_reader :routing_number
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AcssDebit < Stripe::StripeObject
@@ -112,6 +192,14 @@ module Stripe
         attr_reader :mandate
         # Transit number of the bank account.
         attr_reader :transit_number
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Affirm < Stripe::StripeObject
@@ -121,6 +209,14 @@ module Stripe
         attr_reader :reader
         # The Affirm transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AfterpayClearpay < Stripe::StripeObject
@@ -128,6 +224,14 @@ module Stripe
         attr_reader :order_id
         # Order identifier shown to the merchant in Afterpay’s online portal.
         attr_reader :reference
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Alipay < Stripe::StripeObject
@@ -137,17 +241,41 @@ module Stripe
         attr_reader :fingerprint
         # Transaction ID of this particular Alipay transaction.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Alma < Stripe::StripeObject
         class Installments < Stripe::StripeObject
           # The number of installments.
           attr_reader :count
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field installments
         attr_reader :installments
         # The Alma transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = { installments: Installments }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AmazonPay < Stripe::StripeObject
@@ -167,16 +295,40 @@ module Stripe
             attr_reader :funding
             # The last four digits of the card.
             attr_reader :last4
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field card
           attr_reader :card
           # funding type of the underlying payment method.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { card: Card }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field funding
         attr_reader :funding
         # The Amazon Pay transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = { funding: Funding }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AuBecsDebit < Stripe::StripeObject
@@ -188,6 +340,14 @@ module Stripe
         attr_reader :last4
         # ID of the mandate used to make this payment.
         attr_reader :mandate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class BacsDebit < Stripe::StripeObject
@@ -199,6 +359,14 @@ module Stripe
         attr_reader :mandate
         # Sort code of the bank account. (e.g., `10-20-30`)
         attr_reader :sort_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Bancontact < Stripe::StripeObject
@@ -220,11 +388,27 @@ module Stripe
         # Owner's verified full name. Values are verified or provided by Bancontact directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Billie < Stripe::StripeObject
         # The Billie transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class BillingDetails < Stripe::StripeObject
@@ -233,14 +417,22 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # A representation of a physical address.
         attr_reader :address
@@ -250,16 +442,40 @@ module Stripe
         attr_reader :name
         # The billing phone number associated with the method of payment.
         attr_reader :phone
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Blik < Stripe::StripeObject
         # A unique and immutable identifier assigned by BLIK to every buyer.
         attr_reader :buyer_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Boleto < Stripe::StripeObject
         # The tax ID of the customer (CPF for individuals consumers or CNPJ for businesses consumers)
         attr_reader :tax_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Card < Stripe::StripeObject
@@ -270,11 +486,27 @@ module Stripe
           attr_reader :address_postal_code_check
           # Attribute for field cvc_check
           attr_reader :cvc_check
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class NetworkToken < Stripe::StripeObject
-          # Attribute for field used
+          # Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
           attr_reader :used
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ThreeDSecure < Stripe::StripeObject
@@ -286,6 +518,55 @@ module Stripe
           attr_reader :result_reason
           # Attribute for field version
           attr_reader :version
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Wallet < Stripe::StripeObject
+          class ApplePay < Stripe::StripeObject
+            # Type of the apple_pay transaction, one of `apple_pay` or `apple_pay_later`.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class GooglePay < Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field apple_pay
+          attr_reader :apple_pay
+          # (For tokenized numbers only.) The last four digits of the device account number.
+          attr_reader :dynamic_last4
+          # Attribute for field google_pay
+          attr_reader :google_pay
+          # The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { apple_pay: ApplePay, google_pay: GooglePay }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
@@ -317,6 +598,21 @@ module Stripe
         attr_reader :network_transaction_id
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
+        # If this Card is part of a card wallet, this contains the details of the card wallet.
+        attr_reader :wallet
+
+        def self.inner_class_types
+          @inner_class_types = {
+            checks: Checks,
+            network_token: NetworkToken,
+            three_d_secure: ThreeDSecure,
+            wallet: Wallet,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CardPresent < Stripe::StripeObject
@@ -325,6 +621,14 @@ module Stripe
           attr_reader :stored_at
           # The method used to process this payment method offline. Only deferred is allowed.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Receipt < Stripe::StripeObject
@@ -346,11 +650,27 @@ module Stripe
           attr_reader :terminal_verification_results
           # An indication of which steps were completed during the card read process. Referenced from EMV Tag 9B.
           attr_reader :transaction_status_information
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Wallet < Stripe::StripeObject
           # The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The authorized amount
         attr_reader :amount_authorized
@@ -404,6 +724,14 @@ module Stripe
         attr_reader :receipt
         # Attribute for field wallet
         attr_reader :wallet
+
+        def self.inner_class_types
+          @inner_class_types = { offline: Offline, receipt: Receipt, wallet: Wallet }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Cashapp < Stripe::StripeObject
@@ -413,6 +741,14 @@ module Stripe
         attr_reader :cashtag
         # A unique and immutable identifier of payments assigned by Cash App
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Crypto < Stripe::StripeObject
@@ -424,6 +760,14 @@ module Stripe
         attr_reader :token_currency
         # The blockchain transaction hash of the crypto payment.
         attr_reader :transaction_hash
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Custom < Stripe::StripeObject
@@ -431,9 +775,25 @@ module Stripe
         attr_reader :display_name
         # The custom payment method type associated with this payment.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class CustomerBalance < Stripe::StripeObject; end
+      class CustomerBalance < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class Eps < Stripe::StripeObject
         # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
@@ -442,6 +802,14 @@ module Stripe
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         # EPS rarely provides this information so the attribute is usually empty.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Fpx < Stripe::StripeObject
@@ -451,6 +819,14 @@ module Stripe
         attr_reader :bank
         # Unique transaction id generated by FPX for every request from the merchant
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Giropay < Stripe::StripeObject
@@ -464,13 +840,37 @@ module Stripe
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         # Giropay rarely provides this information so the attribute is usually empty.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Gopay < Stripe::StripeObject; end
+      class Gopay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class Grabpay < Stripe::StripeObject
         # Unique transaction id generated by GrabPay
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class IdBankTransfer < Stripe::StripeObject
@@ -484,6 +884,14 @@ module Stripe
         attr_reader :bank_name
         # Merchant name and billing details name, for the customer to check for the correct merchant when performing the bank transfer.
         attr_reader :display_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Ideal < Stripe::StripeObject
@@ -500,6 +908,14 @@ module Stripe
         # Owner's verified full name. Values are verified or provided by iDEAL directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class InteracPresent < Stripe::StripeObject
@@ -522,6 +938,14 @@ module Stripe
           attr_reader :terminal_verification_results
           # An indication of which steps were completed during the card read process. Referenced from EMV Tag 9B.
           attr_reader :transaction_status_information
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Card brand. Can be `interac`, `mastercard` or `visa`.
         attr_reader :brand
@@ -561,6 +985,14 @@ module Stripe
         attr_reader :read_method
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         attr_reader :receipt
+
+        def self.inner_class_types
+          @inner_class_types = { receipt: Receipt }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class KakaoPay < Stripe::StripeObject
@@ -568,6 +1000,14 @@ module Stripe
         attr_reader :buyer_id
         # The Kakao Pay transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Klarna < Stripe::StripeObject
@@ -575,9 +1015,25 @@ module Stripe
           class Address < Stripe::StripeObject
             # The payer address country
             attr_reader :country
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The payer's address
           attr_reader :address
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The payer details for this transaction.
         attr_reader :payer_details
@@ -587,15 +1043,39 @@ module Stripe
         # Preferred language of the Klarna authorization page that the customer is redirected to.
         # Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
         attr_reader :preferred_locale
+
+        def self.inner_class_types
+          @inner_class_types = { payer_details: PayerDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Konbini < Stripe::StripeObject
         class Store < Stripe::StripeObject
           # The name of the convenience store chain where the payment was completed.
           attr_reader :chain
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # If the payment succeeded, this contains the details of the convenience store where the payment was completed.
         attr_reader :store
+
+        def self.inner_class_types
+          @inner_class_types = { store: Store }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class KrCard < Stripe::StripeObject
@@ -607,15 +1087,39 @@ module Stripe
         attr_reader :last4
         # The Korean Card transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Link < Stripe::StripeObject
         # Two-letter ISO code representing the funding source country beneath the Link payment.
         # You could use this attribute to get a sense of international fees.
         attr_reader :country
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class MbWay < Stripe::StripeObject; end
+      class MbWay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class Mobilepay < Stripe::StripeObject
         class Card < Stripe::StripeObject
@@ -629,9 +1133,25 @@ module Stripe
           attr_reader :exp_year
           # The last 4 digits of the card
           attr_reader :last4
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Internal card details
         attr_reader :card
+
+        def self.inner_class_types
+          @inner_class_types = { card: Card }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Multibanco < Stripe::StripeObject
@@ -639,6 +1159,14 @@ module Stripe
         attr_reader :entity
         # Reference number associated with this Multibanco payment.
         attr_reader :reference
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class NaverPay < Stripe::StripeObject
@@ -646,6 +1174,14 @@ module Stripe
         attr_reader :buyer_id
         # The Naver Pay transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class NzBankAccount < Stripe::StripeObject
@@ -661,11 +1197,27 @@ module Stripe
         attr_reader :last4
         # The suffix of the bank account number.
         attr_reader :suffix
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Oxxo < Stripe::StripeObject
         # OXXO reference number
         attr_reader :number
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class P24 < Stripe::StripeObject
@@ -677,15 +1229,39 @@ module Stripe
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         # Przelewy24 rarely provides this information so the attribute is usually empty.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class PayByBank < Stripe::StripeObject; end
+      class PayByBank < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class Payco < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         attr_reader :buyer_id
         # The Payco transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Paynow < Stripe::StripeObject
@@ -695,6 +1271,14 @@ module Stripe
         attr_reader :reader
         # Reference number associated with this PayNow payment
         attr_reader :reference
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Paypal < Stripe::StripeObject
@@ -703,6 +1287,14 @@ module Stripe
           attr_reader :dispute_categories
           # Indicates whether the transaction is eligible for PayPal's seller protection.
           attr_reader :status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Shipping < Stripe::StripeObject
@@ -710,14 +1302,22 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class VerifiedAddress < Stripe::StripeObject
@@ -725,14 +1325,22 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :country
@@ -762,6 +1370,28 @@ module Stripe
         # Owner's verified full name. Values are verified or provided by PayPal directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {
+            seller_protection: SellerProtection,
+            shipping: Shipping,
+            verified_address: VerifiedAddress,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Paypay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Payto < Stripe::StripeObject
@@ -773,6 +1403,14 @@ module Stripe
         attr_reader :mandate
         # The PayID alias for the bank account.
         attr_reader :pay_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Pix < Stripe::StripeObject
@@ -780,15 +1418,48 @@ module Stripe
         attr_reader :bank_transaction_id
         # ID of the multi use Mandate generated by the PaymentIntent
         attr_reader :mandate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Promptpay < Stripe::StripeObject
         # Bill reference generated by PromptPay
         attr_reader :reference
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Qris < Stripe::StripeObject; end
-      class Rechnung < Stripe::StripeObject; end
+      class Qris < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Rechnung < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class RevolutPay < Stripe::StripeObject
         class Funding < Stripe::StripeObject
@@ -807,16 +1478,40 @@ module Stripe
             attr_reader :funding
             # The last four digits of the card.
             attr_reader :last4
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field card
           attr_reader :card
           # funding type of the underlying payment method.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { card: Card }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field funding
         attr_reader :funding
         # The Revolut Pay transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = { funding: Funding }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SamsungPay < Stripe::StripeObject
@@ -824,11 +1519,27 @@ module Stripe
         attr_reader :buyer_id
         # The Samsung Pay transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Satispay < Stripe::StripeObject
         # The Satispay transaction ID associated with this payment.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SepaCreditTransfer < Stripe::StripeObject
@@ -838,6 +1549,14 @@ module Stripe
         attr_reader :bic
         # IBAN of the bank account to transfer funds to.
         attr_reader :iban
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SepaDebit < Stripe::StripeObject
@@ -853,9 +1572,25 @@ module Stripe
         attr_reader :last4
         # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
         attr_reader :mandate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Shopeepay < Stripe::StripeObject; end
+      class Shopeepay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class Sofort < Stripe::StripeObject
         # Bank code of bank associated with the bank account.
@@ -878,15 +1613,39 @@ module Stripe
         # Owner's verified full name. Values are verified or provided by SOFORT directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class StripeAccount < Stripe::StripeObject; end
+      class StripeAccount < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class StripeBalance < Stripe::StripeObject
         # The connected account ID whose Stripe balance to use as the source of payment
         attr_reader :account
         # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         attr_reader :source_type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Swish < Stripe::StripeObject
@@ -896,9 +1655,25 @@ module Stripe
         attr_reader :payment_reference
         # The last four digits of the Swish account phone number
         attr_reader :verified_phone_last4
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Twint < Stripe::StripeObject; end
+      class Twint < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class UsBankAccount < Stripe::StripeObject
         # Attribute for field account_holder_type
@@ -917,9 +1692,25 @@ module Stripe
         attr_reader :payment_reference
         # Routing number of the bank account.
         attr_reader :routing_number
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Wechat < Stripe::StripeObject; end
+      class Wechat < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class WechatPay < Stripe::StripeObject
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
@@ -930,9 +1721,25 @@ module Stripe
         attr_reader :reader
         # Transaction ID of this particular WeChat Pay transaction.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Zip < Stripe::StripeObject; end
+      class Zip < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field ach_credit_transfer
       attr_reader :ach_credit_transfer
       # Attribute for field ach_debit
@@ -1027,6 +1834,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix
@@ -1071,12 +1880,95 @@ module Stripe
       attr_reader :wechat_pay
       # Attribute for field zip
       attr_reader :zip
+
+      def self.inner_class_types
+        @inner_class_types = {
+          ach_credit_transfer: AchCreditTransfer,
+          ach_debit: AchDebit,
+          acss_debit: AcssDebit,
+          affirm: Affirm,
+          afterpay_clearpay: AfterpayClearpay,
+          alipay: Alipay,
+          alma: Alma,
+          amazon_pay: AmazonPay,
+          au_becs_debit: AuBecsDebit,
+          bacs_debit: BacsDebit,
+          bancontact: Bancontact,
+          billie: Billie,
+          billing_details: BillingDetails,
+          blik: Blik,
+          boleto: Boleto,
+          card: Card,
+          card_present: CardPresent,
+          cashapp: Cashapp,
+          crypto: Crypto,
+          custom: Custom,
+          customer_balance: CustomerBalance,
+          eps: Eps,
+          fpx: Fpx,
+          giropay: Giropay,
+          gopay: Gopay,
+          grabpay: Grabpay,
+          id_bank_transfer: IdBankTransfer,
+          ideal: Ideal,
+          interac_present: InteracPresent,
+          kakao_pay: KakaoPay,
+          klarna: Klarna,
+          konbini: Konbini,
+          kr_card: KrCard,
+          link: Link,
+          mb_way: MbWay,
+          mobilepay: Mobilepay,
+          multibanco: Multibanco,
+          naver_pay: NaverPay,
+          nz_bank_account: NzBankAccount,
+          oxxo: Oxxo,
+          p24: P24,
+          pay_by_bank: PayByBank,
+          payco: Payco,
+          paynow: Paynow,
+          paypal: Paypal,
+          paypay: Paypay,
+          payto: Payto,
+          pix: Pix,
+          promptpay: Promptpay,
+          qris: Qris,
+          rechnung: Rechnung,
+          revolut_pay: RevolutPay,
+          samsung_pay: SamsungPay,
+          satispay: Satispay,
+          sepa_credit_transfer: SepaCreditTransfer,
+          sepa_debit: SepaDebit,
+          shopeepay: Shopeepay,
+          sofort: Sofort,
+          stripe_account: StripeAccount,
+          stripe_balance: StripeBalance,
+          swish: Swish,
+          twint: Twint,
+          us_bank_account: UsBankAccount,
+          wechat: Wechat,
+          wechat_pay: WechatPay,
+          zip: Zip,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ProcessorDetails < Stripe::StripeObject
       class Custom < Stripe::StripeObject
         # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
         attr_reader :payment_reference
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Custom processors represent payment processors not modeled directly in
       # the Stripe API. This resource consists of details about the custom processor
@@ -1084,6 +1976,14 @@ module Stripe
       attr_reader :custom
       # The processor used for this payment attempt.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { custom: Custom }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ShippingDetails < Stripe::StripeObject
@@ -1092,14 +1992,22 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A representation of a physical address.
       attr_reader :address
@@ -1107,6 +2015,14 @@ module Stripe
       attr_reader :name
       # The shipping recipient's phone number.
       attr_reader :phone
+
+      def self.inner_class_types
+        @inner_class_types = { address: Address }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ReportPaymentAttemptParams < Stripe::RequestParams
@@ -1135,9 +2051,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -1211,9 +2127,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -1336,6 +2252,95 @@ module Stripe
       end
     end
 
+    class ReportPaymentAttemptInformationalParams < Stripe::RequestParams
+      class CustomerDetails < Stripe::RequestParams
+        # The customer who made the payment.
+        attr_accessor :customer
+        # The customer's phone number.
+        attr_accessor :email
+        # The customer's name.
+        attr_accessor :name
+        # The customer's phone number.
+        attr_accessor :phone
+
+        def initialize(customer: nil, email: nil, name: nil, phone: nil)
+          @customer = customer
+          @email = email
+          @name = name
+          @phone = phone
+        end
+      end
+
+      class ShippingDetails < Stripe::RequestParams
+        class Address < Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          attr_accessor :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_accessor :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_accessor :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_accessor :line2
+          # ZIP or postal code.
+          attr_accessor :postal_code
+          # State, county, province, or region.
+          attr_accessor :state
+
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          )
+            @city = city
+            @country = country
+            @line1 = line1
+            @line2 = line2
+            @postal_code = postal_code
+            @state = state
+          end
+        end
+        # The physical shipping address.
+        attr_accessor :address
+        # The shipping recipient's name.
+        attr_accessor :name
+        # The shipping recipient's phone number.
+        attr_accessor :phone
+
+        def initialize(address: nil, name: nil, phone: nil)
+          @address = address
+          @name = name
+          @phone = phone
+        end
+      end
+      # Customer information for this payment.
+      attr_accessor :customer_details
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      attr_accessor :description
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      attr_accessor :metadata
+      # Shipping information for this payment.
+      attr_accessor :shipping_details
+
+      def initialize(
+        customer_details: nil,
+        description: nil,
+        expand: nil,
+        metadata: nil,
+        shipping_details: nil
+      )
+        @customer_details = customer_details
+        @description = description
+        @expand = expand
+        @metadata = metadata
+        @shipping_details = shipping_details
+      end
+    end
+
     class ReportPaymentParams < Stripe::RequestParams
       class AmountRequested < Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -1392,9 +2397,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -1488,9 +2493,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -1722,6 +2727,46 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    # Report informational updates on the specified Payment Record.
+    def report_payment_attempt_informational(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_records/%<id>s/report_payment_attempt_informational", { id: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Report informational updates on the specified Payment Record.
+    def self.report_payment_attempt_informational(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_records/%<id>s/report_payment_attempt_informational", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        amount: Amount,
+        amount_authorized: AmountAuthorized,
+        amount_canceled: AmountCanceled,
+        amount_failed: AmountFailed,
+        amount_guaranteed: AmountGuaranteed,
+        amount_refunded: AmountRefunded,
+        amount_requested: AmountRequested,
+        customer_details: CustomerDetails,
+        payment_method_details: PaymentMethodDetails,
+        processor_details: ProcessorDetails,
+        shipping_details: ShippingDetails,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

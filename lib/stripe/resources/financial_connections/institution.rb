@@ -16,21 +16,53 @@ module Stripe
         class Balances < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           attr_reader :supported
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Ownership < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           attr_reader :supported
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class PaymentMethod < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           attr_reader :supported
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Transactions < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           attr_reader :supported
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field balances
         attr_reader :balances
@@ -40,6 +72,19 @@ module Stripe
         attr_reader :payment_method
         # Attribute for field transactions
         attr_reader :transactions
+
+        def self.inner_class_types
+          @inner_class_types = {
+            balances: Balances,
+            ownership: Ownership,
+            payment_method: PaymentMethod,
+            transactions: Transactions,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -86,6 +131,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { features: Features }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

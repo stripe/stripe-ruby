@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A Promotion Code represents a customer-redeemable code for a [coupon](https://stripe.com/docs/api#coupons).
-  # You can create multiple codes for a single coupon.
+  # A Promotion Code represents a customer-redeemable code for an underlying promotion.
+  # You can create multiple codes for a single promotion.
   #
   # If you enable promotion codes in your [customer portal configuration](https://stripe.com/docs/customer-management/configure-portal), then customers can redeem a code themselves when updating a subscription in the portal.
   # Customers can also view the currently active promotion codes and coupons on each of their subscriptions in the portal.
@@ -17,10 +17,33 @@ module Stripe
       "promotion_code"
     end
 
+    class Promotion < Stripe::StripeObject
+      # If promotion `type` is `coupon`, the coupon for this promotion.
+      attr_reader :coupon
+      # The type of promotion.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Restrictions < Stripe::StripeObject
       class CurrencyOptions < Stripe::StripeObject
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
         attr_reader :minimum_amount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Promotion code restrictions defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency_options
@@ -30,6 +53,14 @@ module Stripe
       attr_reader :minimum_amount
       # Three-letter [ISO code](https://stripe.com/docs/currencies) for minimum_amount
       attr_reader :minimum_amount_currency
+
+      def self.inner_class_types
+        @inner_class_types = { currency_options: CurrencyOptions }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -97,6 +128,18 @@ module Stripe
     end
 
     class CreateParams < Stripe::RequestParams
+      class Promotion < Stripe::RequestParams
+        # If promotion `type` is `coupon`, the coupon for this promotion code.
+        attr_accessor :coupon
+        # Specifies the type of promotion.
+        attr_accessor :type
+
+        def initialize(coupon: nil, type: nil)
+          @coupon = coupon
+          @type = type
+        end
+      end
+
       class Restrictions < Stripe::RequestParams
         class CurrencyOptions < Stripe::RequestParams
           # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
@@ -133,8 +176,6 @@ module Stripe
       #
       # If left blank, we will generate one automatically.
       attr_accessor :code
-      # The coupon for this promotion code.
-      attr_accessor :coupon
       # The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
       attr_accessor :customer
       # The account that this promotion code can be used by. If not set, the promotion code can be used by all accounts.
@@ -147,30 +188,32 @@ module Stripe
       attr_accessor :max_redemptions
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+      # The promotion referenced by this promotion code.
+      attr_accessor :promotion
       # Settings that restrict the redemption of the promotion code.
       attr_accessor :restrictions
 
       def initialize(
         active: nil,
         code: nil,
-        coupon: nil,
         customer: nil,
         customer_account: nil,
         expand: nil,
         expires_at: nil,
         max_redemptions: nil,
         metadata: nil,
+        promotion: nil,
         restrictions: nil
       )
         @active = active
         @code = code
-        @coupon = coupon
         @customer = customer
         @customer_account = customer_account
         @expand = expand
         @expires_at = expires_at
         @max_redemptions = max_redemptions
         @metadata = metadata
+        @promotion = promotion
         @restrictions = restrictions
       end
     end
@@ -212,10 +255,6 @@ module Stripe
     attr_reader :active
     # The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
     attr_reader :code
-    # A coupon contains information about a percent-off or amount-off discount you
-    # might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
-    # [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
-    attr_reader :coupon
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
     # The customer that this promotion code can be used by.
@@ -234,12 +273,14 @@ module Stripe
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # Attribute for field promotion
+    attr_reader :promotion
     # Attribute for field restrictions
     attr_reader :restrictions
     # Number of times this promotion code has been used.
     attr_reader :times_redeemed
 
-    # A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+    # A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/promotion_codes", params: params, opts: opts)
     end
@@ -257,6 +298,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { promotion: Promotion, restrictions: Restrictions }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

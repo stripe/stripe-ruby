@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      # The Financial Account is the container that allows for the configuration of money movement.
+      # A FinancialAccount represents a balance and can be used as the source or destination for the money management (`/v2/money_management`) APIs.
       class FinancialAccount < APIResource
         OBJECT_NAME = "v2.money_management.financial_account"
         def self.object_name
@@ -18,11 +18,27 @@ module Stripe
           attr_reader :inbound_pending
           # Balance of funds that are being used for a pending outbound money movement.
           attr_reader :outbound_pending
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Other < Stripe::StripeObject
           # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class StatusDetails < Stripe::StripeObject
@@ -32,19 +48,51 @@ module Stripe
               attr_reader :payment_method
               # The address to send forwarded payouts to.
               attr_reader :payout_method
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field forwarding_settings
             attr_reader :forwarding_settings
             # Attribute for field reason
             attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = { forwarding_settings: ForwardingSettings }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field closed
           attr_reader :closed
+
+          def self.inner_class_types
+            @inner_class_types = { closed: Closed }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Storage < Stripe::StripeObject
           # The currencies that this FinancialAccount can hold.
           attr_reader :holds_currencies
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Multi-currency balance of this FinancialAccount, split by availability state. Each balance is represented as a hash where the key is the three-letter ISO currency code, in lowercase, and the value is the amount for that currency.
         attr_reader :balance
@@ -56,7 +104,7 @@ module Stripe
         attr_reader :display_name
         # Unique identifier for the object.
         attr_reader :id
-        # Metadata associated with the FinancialAccount
+        # Metadata associated with the FinancialAccount.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
@@ -73,6 +121,19 @@ module Stripe
         attr_reader :type
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            balance: Balance,
+            other: Other,
+            status_details: StatusDetails,
+            storage: Storage,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

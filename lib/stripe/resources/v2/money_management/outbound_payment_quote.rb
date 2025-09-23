@@ -14,6 +14,14 @@ module Stripe
         class DeliveryOptions < Stripe::StripeObject
           # Open Enum. Method for bank account.
           attr_reader :bank_account
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class EstimatedFee < Stripe::StripeObject
@@ -21,6 +29,14 @@ module Stripe
           attr_reader :amount
           # The fee type.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class From < Stripe::StripeObject
@@ -28,12 +44,28 @@ module Stripe
           attr_reader :debited
           # The FinancialAccount that funds were pulled from.
           attr_reader :financial_account
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class FxQuote < Stripe::StripeObject
           class Rates < Stripe::StripeObject
             # The exchange rate going from_currency -> to_currency.
             attr_reader :exchange_rate
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes.
           attr_reader :lock_duration
@@ -45,6 +77,14 @@ module Stripe
           attr_reader :rates
           # The currency that the transaction is exchanging to.
           attr_reader :to_currency
+
+          def self.inner_class_types
+            @inner_class_types = { rates: Rates }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class To < Stripe::StripeObject
@@ -54,6 +94,14 @@ module Stripe
           attr_reader :payout_method
           # To which account the OutboundPayment is sent.
           attr_reader :recipient
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The "presentment amount" for the OutboundPaymentQuote.
         attr_reader :amount
@@ -76,6 +124,20 @@ module Stripe
         attr_reader :to
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            delivery_options: DeliveryOptions,
+            estimated_fees: EstimatedFee,
+            from: From,
+            fx_quote: FxQuote,
+            to: To,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

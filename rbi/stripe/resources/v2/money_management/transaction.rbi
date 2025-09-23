@@ -10,89 +10,107 @@ module Stripe
         class BalanceImpact < Stripe::StripeObject
           # Impact to the available balance.
           sig { returns(Stripe::V2::Amount) }
-          attr_reader :available
+          def available; end
           # Impact to the inbound_pending balance.
           sig { returns(Stripe::V2::Amount) }
-          attr_reader :inbound_pending
+          def inbound_pending; end
           # Impact to the outbound_pending balance.
           sig { returns(Stripe::V2::Amount) }
-          attr_reader :outbound_pending
+          def outbound_pending; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Flow < Stripe::StripeObject
           # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
           # If applicable, the ID of the Adjustment that created this Transaction.
           sig { returns(T.nilable(String)) }
-          attr_reader :adjustment
+          def adjustment; end
           # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
           sig { returns(T.nilable(String)) }
-          attr_reader :currency_conversion
+          def currency_conversion; end
           # If applicable, the ID of the FeeTransaction that created this Transaction.
           sig { returns(T.nilable(String)) }
-          attr_reader :fee_transaction
+          def fee_transaction; end
           # If applicable, the ID of the InboundTransfer that created this Transaction.
           sig { returns(T.nilable(String)) }
-          attr_reader :inbound_transfer
+          def inbound_transfer; end
           # If applicable, the ID of the OutboundPayment that created this Transaction.
           sig { returns(T.nilable(String)) }
-          attr_reader :outbound_payment
+          def outbound_payment; end
           # If applicable, the ID of the OutboundTransfer that created this Transaction.
           sig { returns(T.nilable(String)) }
-          attr_reader :outbound_transfer
+          def outbound_transfer; end
           # If applicable, the ID of the ReceivedCredit that created this Transaction.
           sig { returns(T.nilable(String)) }
-          attr_reader :received_credit
+          def received_credit; end
           # If applicable, the ID of the ReceivedDebit that created this Transaction.
           sig { returns(T.nilable(String)) }
-          attr_reader :received_debit
+          def received_debit; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusTransitions < Stripe::StripeObject
           # The time at which the Transaction became posted. Only present if status == posted.
           sig { returns(T.nilable(String)) }
-          attr_reader :posted_at
+          def posted_at; end
           # The time at which the Transaction became void. Only present if status == void.
           sig { returns(T.nilable(String)) }
-          attr_reader :void_at
+          def void_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount of the Transaction.
         sig { returns(Stripe::V2::Amount) }
-        attr_reader :amount
+        def amount; end
         # The delta to the FinancialAccount's balance. The balance_impact for the Transaction is equal to sum of its
         # TransactionEntries that have `effective_at`s in the past.
         sig { returns(BalanceImpact) }
-        attr_reader :balance_impact
+        def balance_impact; end
         # Open Enum. A descriptive category used to classify the Transaction.
         sig { returns(String) }
-        attr_reader :category
+        def category; end
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # Indicates the FinancialAccount affected by this Transaction.
         sig { returns(String) }
-        attr_reader :financial_account
+        def financial_account; end
         # Details about the Flow object that created the Transaction.
         sig { returns(Flow) }
-        attr_reader :flow
+        def flow; end
         # Unique identifier for the object.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # Closed Enum. Current status of the Transaction.
         # A Transaction is `pending` if either `balance_impact.inbound_pending` or `balance_impact.outbound_pending` is non-zero.
         # A Transaction is `posted` if only `balance_impact.available` is non-zero.
         # A Transaction is `void` if there is no balance impact.
         # `posted` and `void` are terminal states, and no additional entries will be added to the Transaction.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
         # Timestamps for when the Transaction transitioned to a particular status.
         sig { returns(StatusTransitions) }
-        attr_reader :status_transitions
+        def status_transitions; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
       end
     end
   end

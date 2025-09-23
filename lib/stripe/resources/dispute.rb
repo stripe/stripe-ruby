@@ -25,14 +25,22 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
               # State, county, province, or region.
               attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # User Account ID used to log into business platform. Must be recognizable by the user.
             attr_reader :customer_account_id
@@ -50,6 +58,14 @@ module Stripe
             attr_reader :product_description
             # The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
             attr_reader :shipping_address
+
+            def self.inner_class_types
+              @inner_class_types = { shipping_address: ShippingAddress }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class PriorUndisputedTransaction < Stripe::StripeObject
@@ -58,14 +74,22 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
               # State, county, province, or region.
               attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Stripe charge ID for the Visa Compelling Evidence 3.0 eligible prior charge.
             attr_reader :charge
@@ -83,21 +107,59 @@ module Stripe
             attr_reader :product_description
             # The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
             attr_reader :shipping_address
+
+            def self.inner_class_types
+              @inner_class_types = { shipping_address: ShippingAddress }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Disputed transaction details for Visa Compelling Evidence 3.0 evidence submission.
           attr_reader :disputed_transaction
           # List of exactly two prior undisputed transaction objects for Visa Compelling Evidence 3.0 evidence submission.
           attr_reader :prior_undisputed_transactions
+
+          def self.inner_class_types
+            @inner_class_types = {
+              disputed_transaction: DisputedTransaction,
+              prior_undisputed_transactions: PriorUndisputedTransaction,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class VisaCompliance < Stripe::StripeObject
           # A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
           attr_reader :fee_acknowledged
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field visa_compelling_evidence_3
         attr_reader :visa_compelling_evidence_3
         # Attribute for field visa_compliance
         attr_reader :visa_compliance
+
+        def self.inner_class_types
+          @inner_class_types = {
+            visa_compelling_evidence_3: VisaCompellingEvidence3,
+            visa_compliance: VisaCompliance,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
       attr_reader :access_activity_log
@@ -155,6 +217,14 @@ module Stripe
       attr_reader :uncategorized_file
       # Any additional evidence or statements.
       attr_reader :uncategorized_text
+
+      def self.inner_class_types
+        @inner_class_types = { enhanced_evidence: EnhancedEvidence }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class EvidenceDetails < Stripe::StripeObject
@@ -164,16 +234,43 @@ module Stripe
           attr_reader :required_actions
           # Visa Compelling Evidence 3.0 eligibility status.
           attr_reader :status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class VisaCompliance < Stripe::StripeObject
           # Visa compliance eligibility status.
           attr_reader :status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field visa_compelling_evidence_3
         attr_reader :visa_compelling_evidence_3
         # Attribute for field visa_compliance
         attr_reader :visa_compliance
+
+        def self.inner_class_types
+          @inner_class_types = {
+            visa_compelling_evidence_3: VisaCompellingEvidence3,
+            visa_compliance: VisaCompliance,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
       attr_reader :due_by
@@ -187,12 +284,28 @@ module Stripe
       attr_reader :submission_count
       # Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
       attr_reader :submission_method
+
+      def self.inner_class_types
+        @inner_class_types = { enhanced_eligibility: EnhancedEligibility }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PaymentMethodDetails < Stripe::StripeObject
       class AmazonPay < Stripe::StripeObject
         # The AmazonPay dispute type, chargeback or claim
         attr_reader :dispute_type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Card < Stripe::StripeObject
@@ -202,11 +315,29 @@ module Stripe
         attr_reader :case_type
         # The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
         attr_reader :network_reason_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Klarna < Stripe::StripeObject
+        # Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+        attr_reader :chargeback_loss_reason_code
         # The reason for the dispute as defined by Klarna
         attr_reader :reason_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Paypal < Stripe::StripeObject
@@ -214,6 +345,14 @@ module Stripe
         attr_reader :case_id
         # The reason for the dispute as defined by PayPal
         attr_reader :reason_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field amazon_pay
       attr_reader :amazon_pay
@@ -225,6 +364,14 @@ module Stripe
       attr_reader :paypal
       # Payment method type.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { amazon_pay: AmazonPay, card: Card, klarna: Klarna, paypal: Paypal }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SmartDisputes < Stripe::StripeObject
@@ -232,6 +379,14 @@ module Stripe
       attr_reader :recommended_evidence
       # Smart Disputes auto representment packet availability status.
       attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -296,9 +451,9 @@ module Stripe
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 attr_accessor :country
-                # Address line 1 (e.g., street, PO Box, or company name).
+                # Address line 1, such as the street, PO Box, or company name.
                 attr_accessor :line1
-                # Address line 2 (e.g., apartment, suite, unit, or building).
+                # Address line 2, such as the apartment, suite, unit, or building.
                 attr_accessor :line2
                 # ZIP or postal code.
                 attr_accessor :postal_code
@@ -365,9 +520,9 @@ module Stripe
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 attr_accessor :country
-                # Address line 1 (e.g., street, PO Box, or company name).
+                # Address line 1, such as the street, PO Box, or company name.
                 attr_accessor :line1
-                # Address line 2 (e.g., apartment, suite, unit, or building).
+                # Address line 2, such as the apartment, suite, unit, or building.
                 attr_accessor :line2
                 # ZIP or postal code.
                 attr_accessor :postal_code
@@ -577,14 +732,23 @@ module Stripe
       attr_accessor :evidence
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # Intended submission method for the dispute.
+      attr_accessor :intended_submission_method
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
       attr_accessor :submit
 
-      def initialize(evidence: nil, expand: nil, metadata: nil, submit: nil)
+      def initialize(
+        evidence: nil,
+        expand: nil,
+        intended_submission_method: nil,
+        metadata: nil,
+        submit: nil
+      )
         @evidence = evidence
         @expand = expand
+        @intended_submission_method = intended_submission_method
         @metadata = metadata
         @submit = submit
       end
@@ -616,6 +780,8 @@ module Stripe
     attr_reader :evidence_details
     # Unique identifier for the object.
     attr_reader :id
+    # Intended submission method for the dispute.
+    attr_reader :intended_submission_method
     # If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.
     attr_reader :is_charge_refundable
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -676,6 +842,19 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        evidence: Evidence,
+        evidence_details: EvidenceDetails,
+        payment_method_details: PaymentMethodDetails,
+        smart_disputes: SmartDisputes,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

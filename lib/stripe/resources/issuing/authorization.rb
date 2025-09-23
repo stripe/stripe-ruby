@@ -23,6 +23,14 @@ module Stripe
         attr_reader :atm_fee
         # The amount of cash requested by the cardholder.
         attr_reader :cashback_amount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Fleet < Stripe::StripeObject
@@ -39,17 +47,41 @@ module Stripe
           attr_reader :user_id
           # Vehicle number.
           attr_reader :vehicle_number
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ReportedBreakdown < Stripe::StripeObject
           class Fuel < Stripe::StripeObject
             # Gross fuel amount that should equal Fuel Quantity multiplied by Fuel Unit Cost, inclusive of taxes.
             attr_reader :gross_amount_decimal
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class NonFuel < Stripe::StripeObject
             # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
             attr_reader :gross_amount_decimal
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Tax < Stripe::StripeObject
@@ -57,6 +89,14 @@ module Stripe
             attr_reader :local_amount_decimal
             # Amount of national Sales Tax or VAT included in the transaction amount. `null` if not reported by merchant or not subject to tax.
             attr_reader :national_amount_decimal
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Breakdown of fuel portion of the purchase.
           attr_reader :fuel
@@ -64,6 +104,14 @@ module Stripe
           attr_reader :non_fuel
           # Information about tax included in this transaction.
           attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { fuel: Fuel, non_fuel: NonFuel, tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
         attr_reader :cardholder_prompt_data
@@ -73,6 +121,17 @@ module Stripe
         attr_reader :reported_breakdown
         # The type of fuel service.
         attr_reader :service_type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            cardholder_prompt_data: CardholderPromptData,
+            reported_breakdown: ReportedBreakdown,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class FraudChallenge < Stripe::StripeObject
@@ -82,6 +141,14 @@ module Stripe
         attr_reader :status
         # If the challenge is not deliverable, the reason why.
         attr_reader :undeliverable_reason
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Fuel < Stripe::StripeObject
@@ -95,6 +162,14 @@ module Stripe
         attr_reader :unit
         # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
         attr_reader :unit_cost_decimal
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class MerchantData < Stripe::StripeObject
@@ -120,6 +195,14 @@ module Stripe
         attr_reader :terminal_id
         # URL provided by the merchant on a 3DS request
         attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class NetworkData < Stripe::StripeObject
@@ -129,6 +212,14 @@ module Stripe
         attr_reader :system_trace_audit_number
         # Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
         attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PendingRequest < Stripe::StripeObject
@@ -137,6 +228,14 @@ module Stripe
           attr_reader :atm_fee
           # The amount of cash requested by the cardholder.
           attr_reader :cashback_amount
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         attr_reader :amount
@@ -152,6 +251,14 @@ module Stripe
         attr_reader :merchant_currency
         # The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
         attr_reader :network_risk_score
+
+        def self.inner_class_types
+          @inner_class_types = { amount_details: AmountDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RequestHistory < Stripe::StripeObject
@@ -160,6 +267,14 @@ module Stripe
           attr_reader :atm_fee
           # The amount of cash requested by the cardholder.
           attr_reader :cashback_amount
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
         attr_reader :amount
@@ -185,6 +300,14 @@ module Stripe
         attr_reader :reason_message
         # Time when the card network received an authorization request from the acquirer in UTC. Referred to by networks as transmission time.
         attr_reader :requested_at
+
+        def self.inner_class_types
+          @inner_class_types = { amount_details: AmountDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Treasury < Stripe::StripeObject
@@ -194,6 +317,14 @@ module Stripe
         attr_reader :received_debits
         # The Treasury [Transaction](https://stripe.com/docs/api/treasury/transactions) associated with this authorization
         attr_reader :transaction
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class VerificationData < Stripe::StripeObject
@@ -202,11 +333,27 @@ module Stripe
           attr_reader :claimed_by
           # The specific exemption claimed for this authorization.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ThreeDSecure < Stripe::StripeObject
           # The outcome of the 3D Secure authentication request.
           attr_reader :result
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
         attr_reader :address_line1_check
@@ -222,6 +369,17 @@ module Stripe
         attr_reader :postal_code
         # 3D Secure details.
         attr_reader :three_d_secure
+
+        def self.inner_class_types
+          @inner_class_types = {
+            authentication_exemption: AuthenticationExemption,
+            three_d_secure: ThreeDSecure,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -504,6 +662,48 @@ module Stripe
           end
         end
 
+        class RiskAssessment < Stripe::RequestParams
+          class CardTestingRisk < Stripe::RequestParams
+            # The % of declines due to a card number not existing in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of card testing activity, meaning bad actors may be attempting different card number combinations to guess a correct one. Takes on values between 0 and 100.
+            attr_accessor :invalid_account_number_decline_rate_past_hour
+            # The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
+            attr_accessor :invalid_credentials_decline_rate_past_hour
+            # The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
+            attr_accessor :risk_level
+
+            def initialize(
+              invalid_account_number_decline_rate_past_hour: nil,
+              invalid_credentials_decline_rate_past_hour: nil,
+              risk_level: nil
+            )
+              @invalid_account_number_decline_rate_past_hour = invalid_account_number_decline_rate_past_hour
+              @invalid_credentials_decline_rate_past_hour = invalid_credentials_decline_rate_past_hour
+              @risk_level = risk_level
+            end
+          end
+
+          class MerchantDisputeRisk < Stripe::RequestParams
+            # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
+            attr_accessor :dispute_rate
+            # The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
+            attr_accessor :risk_level
+
+            def initialize(dispute_rate: nil, risk_level: nil)
+              @dispute_rate = dispute_rate
+              @risk_level = risk_level
+            end
+          end
+          # Stripe's assessment of this authorization's likelihood of being card testing activity.
+          attr_accessor :card_testing_risk
+          # The dispute risk of the merchant (the seller on a purchase) on an authorization based on all Stripe Issuing activity.
+          attr_accessor :merchant_dispute_risk
+
+          def initialize(card_testing_risk: nil, merchant_dispute_risk: nil)
+            @card_testing_risk = card_testing_risk
+            @merchant_dispute_risk = merchant_dispute_risk
+          end
+        end
+
         class VerificationData < Stripe::RequestParams
           class AuthenticationExemption < Stripe::RequestParams
             # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
@@ -568,6 +768,8 @@ module Stripe
         attr_accessor :expand
         # Fleet-specific information for authorizations using Fleet cards.
         attr_accessor :fleet
+        # Probability that this transaction can be disputed in the event of fraud. Assessed by comparing the characteristics of the authorization to card network rules.
+        attr_accessor :fraud_disputability_likelihood
         # Information about fuel that was purchased with this transaction.
         attr_accessor :fuel
         # If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
@@ -580,6 +782,8 @@ module Stripe
         attr_accessor :merchant_data
         # Details about the authorization, such as identifiers, set by the card network.
         attr_accessor :network_data
+        # Stripe’s assessment of the fraud risk for this authorization.
+        attr_accessor :risk_assessment
         # Verifications that Stripe performed on information that the cardholder provided to the merchant.
         attr_accessor :verification_data
         # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
@@ -593,12 +797,14 @@ module Stripe
           currency: nil,
           expand: nil,
           fleet: nil,
+          fraud_disputability_likelihood: nil,
           fuel: nil,
           is_amount_controllable: nil,
           merchant_amount: nil,
           merchant_currency: nil,
           merchant_data: nil,
           network_data: nil,
+          risk_assessment: nil,
           verification_data: nil,
           wallet: nil
         )
@@ -609,12 +815,14 @@ module Stripe
           @currency = currency
           @expand = expand
           @fleet = fleet
+          @fraud_disputability_likelihood = fraud_disputability_likelihood
           @fuel = fuel
           @is_amount_controllable = is_amount_controllable
           @merchant_amount = merchant_amount
           @merchant_currency = merchant_currency
           @merchant_data = merchant_data
           @network_data = network_data
+          @risk_assessment = risk_assessment
           @verification_data = verification_data
           @wallet = wallet
         end
@@ -1337,6 +1545,25 @@ module Stripe
             opts: opts
           )
         end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          amount_details: AmountDetails,
+          fleet: Fleet,
+          fraud_challenges: FraudChallenge,
+          fuel: Fuel,
+          merchant_data: MerchantData,
+          network_data: NetworkData,
+          pending_request: PendingRequest,
+          request_history: RequestHistory,
+          treasury: Treasury,
+          verification_data: VerificationData,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

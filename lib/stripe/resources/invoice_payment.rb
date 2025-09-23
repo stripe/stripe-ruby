@@ -27,6 +27,14 @@ module Stripe
       attr_reader :payment_record
       # Type of payment object associated with this invoice payment.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class StatusTransitions < Stripe::StripeObject
@@ -34,6 +42,14 @@ module Stripe
       attr_reader :canceled_at
       # The time that the payment succeeded.
       attr_reader :paid_at
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -112,6 +128,14 @@ module Stripe
     # When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/invoice_payments", params: params, opts: opts)
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { payment: Payment, status_transitions: StatusTransitions }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

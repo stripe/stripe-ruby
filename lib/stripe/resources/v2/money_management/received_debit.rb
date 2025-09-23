@@ -15,10 +15,26 @@ module Stripe
           class Failed < Stripe::StripeObject
             # Open Enum. The reason for the failure of the ReceivedDebit.
             attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Information that elaborates on the `failed` status of a ReceivedDebit.
           # It is only present when the ReceivedDebit status is `failed`.
           attr_reader :failed
+
+          def self.inner_class_types
+            @inner_class_types = { failed: Failed }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class StatusTransitions < Stripe::StripeObject
@@ -31,6 +47,14 @@ module Stripe
           # The time when the ReceivedDebit was marked as `succeeded`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           attr_reader :succeeded_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class BankTransfer < Stripe::StripeObject
@@ -41,6 +65,14 @@ module Stripe
             attr_reader :network
             # The routing number of the bank that originated the debit.
             attr_reader :routing_number
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The Financial Address that was debited.
           attr_reader :financial_address
@@ -50,6 +82,14 @@ module Stripe
           attr_reader :statement_descriptor
           # The payment method used to originate the debit.
           attr_reader :us_bank_account
+
+          def self.inner_class_types
+            @inner_class_types = { us_bank_account: UsBankAccount }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Amount and currency of the ReceivedDebit.
         attr_reader :amount
@@ -78,6 +118,18 @@ module Stripe
         attr_reader :livemode
         # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
         attr_reader :bank_transfer
+
+        def self.inner_class_types
+          @inner_class_types = {
+            status_details: StatusDetails,
+            status_transitions: StatusTransitions,
+            bank_transfer: BankTransfer,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

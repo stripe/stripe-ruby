@@ -33,6 +33,14 @@ module Stripe
       attr_reader :object
       # Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
       attr_reader :previous_attributes
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Reason < Stripe::StripeObject
@@ -40,6 +48,14 @@ module Stripe
         class StripeSendWebhookCustomEvent < Stripe::StripeObject
           # Set of key-value pairs attached to the action when creating an Automation.
           attr_reader :custom_data
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field stripe_send_webhook_custom_event
         attr_reader :stripe_send_webhook_custom_event
@@ -48,6 +64,14 @@ module Stripe
         attr_reader :trigger
         # The type of the `automation_action`.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { stripe_send_webhook_custom_event: StripeSendWebhookCustomEvent }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Request < Stripe::StripeObject
@@ -55,6 +79,14 @@ module Stripe
         attr_reader :id
         # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
         attr_reader :idempotency_key
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field automation_action
       attr_reader :automation_action
@@ -62,6 +94,14 @@ module Stripe
       attr_reader :request
       # The type of the reason for the event.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { automation_action: AutomationAction, request: Request }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Request < Stripe::StripeObject
@@ -69,6 +109,14 @@ module Stripe
       attr_reader :id
       # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
       attr_reader :idempotency_key
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -154,6 +202,14 @@ module Stripe
     # List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/events", params: params, opts: opts)
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { data: Data, reason: Reason, request: Request }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

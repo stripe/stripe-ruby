@@ -20,14 +20,22 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class AddressValidation < Stripe::StripeObject
@@ -36,14 +44,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The address validation capabilities to use.
           attr_reader :mode
@@ -51,11 +67,27 @@ module Stripe
           attr_reader :normalized_address
           # The validation result for the shipping address.
           attr_reader :result
+
+          def self.inner_class_types
+            @inner_class_types = { normalized_address: NormalizedAddress }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Customs < Stripe::StripeObject
           # A registration number used for customs in Europe. See [https://www.gov.uk/eori](https://www.gov.uk/eori) for the UK and [https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en](https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en) for the EU.
           attr_reader :eori_number
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field address
         attr_reader :address
@@ -83,6 +115,18 @@ module Stripe
         attr_reader :tracking_url
         # Packaging options.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            address: Address,
+            address_validation: AddressValidation,
+            customs: Customs,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SpendingControls < Stripe::StripeObject
@@ -93,6 +137,14 @@ module Stripe
           attr_reader :categories
           # Interval (or event) to which the amount applies.
           attr_reader :interval
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         attr_reader :allowed_categories
@@ -106,6 +158,14 @@ module Stripe
         attr_reader :spending_limits
         # Currency of the amounts within `spending_limits`. Always the same as the currency of the card.
         attr_reader :spending_limits_currency
+
+        def self.inner_class_types
+          @inner_class_types = { spending_limits: SpendingLimit }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Wallets < Stripe::StripeObject
@@ -114,6 +174,14 @@ module Stripe
           attr_reader :eligible
           # Reason the card is ineligible for Apple Pay
           attr_reader :ineligible_reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class GooglePay < Stripe::StripeObject
@@ -121,6 +189,14 @@ module Stripe
           attr_reader :eligible
           # Reason the card is ineligible for Google Pay
           attr_reader :ineligible_reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field apple_pay
         attr_reader :apple_pay
@@ -128,6 +204,14 @@ module Stripe
         attr_reader :google_pay
         # Unique identifier for a card used with digital wallets
         attr_reader :primary_account_identifier
+
+        def self.inner_class_types
+          @inner_class_types = { apple_pay: ApplePay, google_pay: GooglePay }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -218,9 +302,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -425,9 +509,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -668,6 +752,8 @@ module Stripe
       attr_reader :replacement_for
       # The reason why the previous card needed to be replaced.
       attr_reader :replacement_reason
+      # Text separate from cardholder name, printed on the card.
+      attr_reader :second_line
       # Where and how the card will be shipped.
       attr_reader :shipping
       # Attribute for field spending_controls
@@ -808,6 +894,18 @@ module Stripe
             opts: opts
           )
         end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          shipping: Shipping,
+          spending_controls: SpendingControls,
+          wallets: Wallets,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

@@ -21,6 +21,14 @@ module Stripe
         attr_reader :privacy_policy_url
         # A link to the business’s publicly available terms of service.
         attr_reader :terms_of_service_url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Features < Stripe::StripeObject
@@ -29,16 +37,40 @@ module Stripe
           attr_reader :allowed_updates
           # Whether the feature is enabled.
           attr_reader :enabled
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class InvoiceHistory < Stripe::StripeObject
           # Whether the feature is enabled.
           attr_reader :enabled
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class PaymentMethodUpdate < Stripe::StripeObject
           # Whether the feature is enabled.
           attr_reader :enabled
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class SubscriptionCancel < Stripe::StripeObject
@@ -47,6 +79,14 @@ module Stripe
             attr_reader :enabled
             # Which cancellation reasons will be given as options to the customer.
             attr_reader :options
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field cancellation_reason
           attr_reader :cancellation_reason
@@ -56,6 +96,14 @@ module Stripe
           attr_reader :mode
           # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`.
           attr_reader :proration_behavior
+
+          def self.inner_class_types
+            @inner_class_types = { cancellation_reason: CancellationReason }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class SubscriptionUpdate < Stripe::StripeObject
@@ -67,6 +115,14 @@ module Stripe
               attr_reader :maximum
               # The minimum quantity that can be set for the product.
               attr_reader :minimum
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field adjustable_quantity
             attr_reader :adjustable_quantity
@@ -74,15 +130,39 @@ module Stripe
             attr_reader :prices
             # The product ID.
             attr_reader :product
+
+            def self.inner_class_types
+              @inner_class_types = { adjustable_quantity: AdjustableQuantity }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class ScheduleAtPeriodEnd < Stripe::StripeObject
             class Condition < Stripe::StripeObject
               # The type of condition.
               attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # List of conditions. When any condition is true, an update will be scheduled at the end of the current period.
             attr_reader :conditions
+
+            def self.inner_class_types
+              @inner_class_types = { conditions: Condition }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The types of subscription updates that are supported for items listed in the `products` attribute. When empty, subscriptions are not updateable.
           attr_reader :default_allowed_updates
@@ -94,6 +174,16 @@ module Stripe
           attr_reader :proration_behavior
           # Attribute for field schedule_at_period_end
           attr_reader :schedule_at_period_end
+          # Determines how handle updates to trialing subscriptions. Valid values are `end_trial` and `continue_trial`. Defaults to a value of `end_trial` if you don't set it during creation.
+          attr_reader :trial_update_behavior
+
+          def self.inner_class_types
+            @inner_class_types = { products: Product, schedule_at_period_end: ScheduleAtPeriodEnd }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field customer_update
         attr_reader :customer_update
@@ -105,6 +195,20 @@ module Stripe
         attr_reader :subscription_cancel
         # Attribute for field subscription_update
         attr_reader :subscription_update
+
+        def self.inner_class_types
+          @inner_class_types = {
+            customer_update: CustomerUpdate,
+            invoice_history: InvoiceHistory,
+            payment_method_update: PaymentMethodUpdate,
+            subscription_cancel: SubscriptionCancel,
+            subscription_update: SubscriptionUpdate,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class LoginPage < Stripe::StripeObject
@@ -114,6 +218,14 @@ module Stripe
         attr_reader :enabled
         # A shareable URL to the hosted portal login page. Your customers will be able to log in with their [email](https://stripe.com/docs/api/customers/object#customer_object-email) and receive a link to their customer portal.
         attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -284,19 +396,23 @@ module Stripe
             attr_accessor :proration_behavior
             # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
             attr_accessor :schedule_at_period_end
+            # The behavior when updating a subscription that is trialing.
+            attr_accessor :trial_update_behavior
 
             def initialize(
               default_allowed_updates: nil,
               enabled: nil,
               products: nil,
               proration_behavior: nil,
-              schedule_at_period_end: nil
+              schedule_at_period_end: nil,
+              trial_update_behavior: nil
             )
               @default_allowed_updates = default_allowed_updates
               @enabled = enabled
               @products = products
               @proration_behavior = proration_behavior
               @schedule_at_period_end = schedule_at_period_end
+              @trial_update_behavior = trial_update_behavior
             end
           end
           # Information about updating the customer details in the portal.
@@ -504,19 +620,23 @@ module Stripe
             attr_accessor :proration_behavior
             # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
             attr_accessor :schedule_at_period_end
+            # The behavior when updating a subscription that is trialing.
+            attr_accessor :trial_update_behavior
 
             def initialize(
               default_allowed_updates: nil,
               enabled: nil,
               products: nil,
               proration_behavior: nil,
-              schedule_at_period_end: nil
+              schedule_at_period_end: nil,
+              trial_update_behavior: nil
             )
               @default_allowed_updates = default_allowed_updates
               @enabled = enabled
               @products = products
               @proration_behavior = proration_behavior
               @schedule_at_period_end = schedule_at_period_end
+              @trial_update_behavior = trial_update_behavior
             end
           end
           # Information about updating the customer details in the portal.
@@ -649,6 +769,18 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          business_profile: BusinessProfile,
+          features: Features,
+          login_page: LoginPage,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

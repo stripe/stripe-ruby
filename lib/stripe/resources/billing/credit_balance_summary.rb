@@ -17,11 +17,27 @@ module Stripe
             attr_reader :currency
             # A positive integer representing the amount.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { monetary: Monetary }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class LedgerBalance < Stripe::StripeObject
@@ -30,16 +46,40 @@ module Stripe
             attr_reader :currency
             # A positive integer representing the amount.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { monetary: Monetary }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field available_balance
         attr_reader :available_balance
         # Attribute for field ledger_balance
         attr_reader :ledger_balance
+
+        def self.inner_class_types
+          @inner_class_types = { available_balance: AvailableBalance, ledger_balance: LedgerBalance }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.
       attr_reader :balances
@@ -51,6 +91,14 @@ module Stripe
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
+      def self.inner_class_types
+        @inner_class_types = { balances: Balance }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

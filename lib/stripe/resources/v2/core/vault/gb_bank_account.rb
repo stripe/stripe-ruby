@@ -20,6 +20,14 @@ module Stripe
                 attr_reader :business_type
                 # The name given by the bank for this account, in case of a MATCH or PARTIAL_MATCH.
                 attr_reader :name
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
 
               class Provided < Stripe::StripeObject
@@ -27,6 +35,14 @@ module Stripe
                 attr_reader :business_type
                 # The provided or Legal Entity name to match against the CoP service.
                 attr_reader :name
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # When the CoP result was created.
               attr_reader :created
@@ -38,11 +54,27 @@ module Stripe
               attr_reader :message
               # The fields that are matched against what the network has on file.
               attr_reader :provided
+
+              def self.inner_class_types
+                @inner_class_types = { matched: Matched, provided: Provided }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The result of the Confirmation of Payee check, once the check has been initiated. Closed enum.
             attr_reader :result
             # The current state of Confirmation of Payee on this bank account. Closed enum.
             attr_reader :status
+
+            def self.inner_class_types
+              @inner_class_types = { result: Result }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Whether this bank account object was archived. Bank account objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived bank account objects
@@ -67,6 +99,14 @@ module Stripe
           attr_reader :sort_code
           # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
           attr_reader :livemode
+
+          def self.inner_class_types
+            @inner_class_types = { confirmation_of_payee: ConfirmationOfPayee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
       end
     end

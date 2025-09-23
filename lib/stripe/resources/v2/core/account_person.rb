@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Core
       # Person retrieval response schema.
-      class Person < APIResource
+      class AccountPerson < APIResource
         OBJECT_NAME = "v2.core.account_person"
         def self.object_name
           "v2.core.account_person"
@@ -28,6 +28,14 @@ module Stripe
           attr_reader :state
           # Town or cho-me.
           attr_reader :town
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class AdditionalName < Stripe::StripeObject
@@ -39,6 +47,14 @@ module Stripe
           attr_reader :purpose
           # The individual's last or family name.
           attr_reader :surname
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class AdditionalTermsOfService < Stripe::StripeObject
@@ -49,9 +65,25 @@ module Stripe
             attr_reader :ip
             # The user agent of the browser from which the Account's representative accepted the terms of service.
             attr_reader :user_agent
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Stripe terms of service agreement.
           attr_reader :account
+
+          def self.inner_class_types
+            @inner_class_types = { account: Account }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Address < Stripe::StripeObject
@@ -69,6 +101,14 @@ module Stripe
           attr_reader :state
           # Town or cho-me.
           attr_reader :town
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class DateOfBirth < Stripe::StripeObject
@@ -78,6 +118,14 @@ module Stripe
           attr_reader :month
           # The four-digit year of birth.
           attr_reader :year
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Documents < Stripe::StripeObject
@@ -86,6 +134,14 @@ module Stripe
             attr_reader :files
             # The format of the document. Currently supports `files` only.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Passport < Stripe::StripeObject
@@ -93,6 +149,14 @@ module Stripe
             attr_reader :files
             # The format of the document. Currently supports `files` only.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class PrimaryVerification < Stripe::StripeObject
@@ -101,11 +165,27 @@ module Stripe
               attr_reader :back
               # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_reader :front
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
             attr_reader :front_back
             # The format of the verification document. Currently supports `front_back` only.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { front_back: FrontBack }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class SecondaryVerification < Stripe::StripeObject
@@ -114,11 +194,27 @@ module Stripe
               attr_reader :back
               # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_reader :front
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
             attr_reader :front_back
             # The format of the verification document. Currently supports `front_back` only.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { front_back: FrontBack }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Visa < Stripe::StripeObject
@@ -126,6 +222,14 @@ module Stripe
             attr_reader :files
             # The format of the document. Currently supports `files` only.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # One or more documents that demonstrate proof that this person is authorized to represent the company.
           attr_reader :company_authorization
@@ -137,11 +241,33 @@ module Stripe
           attr_reader :secondary_verification
           # One or more documents showing the person’s visa required for living in the country where they are residing.
           attr_reader :visa
+
+          def self.inner_class_types
+            @inner_class_types = {
+              company_authorization: CompanyAuthorization,
+              passport: Passport,
+              primary_verification: PrimaryVerification,
+              secondary_verification: SecondaryVerification,
+              visa: Visa,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class IdNumber < Stripe::StripeObject
           # The ID number type of an individual.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Relationship < Stripe::StripeObject
@@ -161,6 +287,14 @@ module Stripe
           attr_reader :representative
           # The individual's title (e.g., CEO, Support Engineer).
           attr_reader :title
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ScriptAddresses < Stripe::StripeObject
@@ -179,6 +313,14 @@ module Stripe
             attr_reader :state
             # Town or cho-me.
             attr_reader :town
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Kanji < Stripe::StripeObject
@@ -196,11 +338,27 @@ module Stripe
             attr_reader :state
             # Town or cho-me.
             attr_reader :town
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Kana Address.
           attr_reader :kana
           # Kanji Address.
           attr_reader :kanji
+
+          def self.inner_class_types
+            @inner_class_types = { kana: Kana, kanji: Kanji }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ScriptNames < Stripe::StripeObject
@@ -209,6 +367,14 @@ module Stripe
             attr_reader :given_name
             # The person's last or family name.
             attr_reader :surname
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Kanji < Stripe::StripeObject
@@ -216,11 +382,27 @@ module Stripe
             attr_reader :given_name
             # The person's last or family name.
             attr_reader :surname
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Persons name in kana script.
           attr_reader :kana
           # Persons name in kanji script.
           attr_reader :kanji
+
+          def self.inner_class_types
+            @inner_class_types = { kana: Kana, kanji: Kanji }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The account ID which the individual belongs to.
         attr_reader :account
@@ -270,6 +452,25 @@ module Stripe
         attr_reader :updated
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = {
+            additional_addresses: AdditionalAddress,
+            additional_names: AdditionalName,
+            additional_terms_of_service: AdditionalTermsOfService,
+            address: Address,
+            date_of_birth: DateOfBirth,
+            documents: Documents,
+            id_numbers: IdNumber,
+            relationship: Relationship,
+            script_addresses: ScriptAddresses,
+            script_names: ScriptNames,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

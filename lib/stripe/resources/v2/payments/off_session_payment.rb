@@ -16,6 +16,14 @@ module Stripe
           attr_reader :attempts
           # Indicates the strategy for how you want Stripe to retry the payment.
           attr_reader :retry_strategy
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class TransferData < Stripe::StripeObject
@@ -30,6 +38,14 @@ module Stripe
           # The account (if any) that the payment is attributed to for tax reporting, and
           # where funds from the payment are transferred to after payment success.
           attr_reader :destination
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The “presentment amount” to be collected from the customer.
         attr_reader :amount_requested
@@ -83,6 +99,14 @@ module Stripe
         attr_reader :test_clock
         # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
         attr_reader :transfer_data
+
+        def self.inner_class_types
+          @inner_class_types = { retry_details: RetryDetails, transfer_data: TransferData }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

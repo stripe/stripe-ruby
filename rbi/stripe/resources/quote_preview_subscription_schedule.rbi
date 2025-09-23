@@ -7,134 +7,225 @@ module Stripe
     class AppliesTo < Stripe::StripeObject
       # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
       sig { returns(T.nilable(String)) }
-      attr_reader :new_reference
+      def new_reference; end
       # The ID of the schedule the line applies to.
       sig { returns(T.nilable(String)) }
-      attr_reader :subscription_schedule
+      def subscription_schedule; end
       # Describes whether the quote line is affecting a new schedule or an existing schedule.
       sig { returns(String) }
-      attr_reader :type
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class BillingMode < Stripe::StripeObject
+      class Flexible < Stripe::StripeObject
+        # Controls how invoices and invoice items display proration amounts and discount amounts.
+        sig { returns(T.nilable(String)) }
+        def proration_discounts; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configure behavior for flexible billing mode
+      sig { returns(T.nilable(Flexible)) }
+      def flexible; end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       sig { returns(String) }
-      attr_reader :type
+      def type; end
       # Details on when the current billing_mode was adopted.
-      sig { returns(Integer) }
-      attr_reader :updated_at
+      sig { returns(T.nilable(Integer)) }
+      def updated_at; end
+      def self.inner_class_types
+        @inner_class_types = {flexible: Flexible}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class CurrentPhase < Stripe::StripeObject
       # The end of this phase of the subscription schedule.
       sig { returns(Integer) }
-      attr_reader :end_date
+      def end_date; end
       # The start of this phase of the subscription schedule.
       sig { returns(Integer) }
-      attr_reader :start_date
+      def start_date; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class DefaultSettings < Stripe::StripeObject
       class AutomaticTax < Stripe::StripeObject
         class Liability < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
-          attr_reader :account
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+          def account; end
           # Type of the account referenced.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # If Stripe disabled automatic tax, this enum describes why.
         sig { returns(T.nilable(String)) }
-        attr_reader :disabled_reason
+        def disabled_reason; end
         # Whether Stripe automatically computes tax on invoices created during this phase.
         sig { returns(T::Boolean) }
-        attr_reader :enabled
+        def enabled; end
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         sig { returns(T.nilable(Liability)) }
-        attr_reader :liability
+        def liability; end
+        def self.inner_class_types
+          @inner_class_types = {liability: Liability}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class BillingThresholds < Stripe::StripeObject
         # Monetary threshold that triggers the subscription to create an invoice
         sig { returns(T.nilable(Integer)) }
-        attr_reader :amount_gte
+        def amount_gte; end
         # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
         sig { returns(T.nilable(T::Boolean)) }
-        attr_reader :reset_billing_cycle_anchor
+        def reset_billing_cycle_anchor; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class InvoiceSettings < Stripe::StripeObject
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
-          attr_reader :account
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+          def account; end
           # Type of the account referenced.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The account tax IDs associated with the subscription schedule. Will be set on invoices generated by the subscription schedule.
         sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxId)])) }
-        attr_reader :account_tax_ids
+        def account_tax_ids; end
         # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
-        attr_reader :days_until_due
+        def days_until_due; end
         # Attribute for field issuer
         sig { returns(Issuer) }
-        attr_reader :issuer
+        def issuer; end
+        def self.inner_class_types
+          @inner_class_types = {issuer: Issuer}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class TransferData < Stripe::StripeObject
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         sig { returns(T.nilable(Float)) }
-        attr_reader :amount_percent
+        def amount_percent; end
         # The account where funds from the payment will be transferred to upon payment success.
         sig { returns(T.any(String, Stripe::Account)) }
-        attr_reader :destination
+        def destination; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account during this phase of the schedule.
       sig { returns(T.nilable(Float)) }
-      attr_reader :application_fee_percent
+      def application_fee_percent; end
       # Attribute for field automatic_tax
-      sig { returns(AutomaticTax) }
-      attr_reader :automatic_tax
+      sig { returns(T.nilable(AutomaticTax)) }
+      def automatic_tax; end
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       sig { returns(String) }
-      attr_reader :billing_cycle_anchor
+      def billing_cycle_anchor; end
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
       sig { returns(T.nilable(BillingThresholds)) }
-      attr_reader :billing_thresholds
+      def billing_thresholds; end
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       sig { returns(T.nilable(String)) }
-      attr_reader :collection_method
+      def collection_method; end
       # ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
       sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
-      attr_reader :default_payment_method
+      def default_payment_method; end
       # Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       sig { returns(T.nilable(String)) }
-      attr_reader :description
+      def description; end
       # Attribute for field invoice_settings
       sig { returns(InvoiceSettings) }
-      attr_reader :invoice_settings
+      def invoice_settings; end
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       sig { returns(T.nilable(T.any(String, Stripe::Account))) }
-      attr_reader :on_behalf_of
+      def on_behalf_of; end
       # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
       sig { returns(T.nilable(TransferData)) }
-      attr_reader :transfer_data
+      def transfer_data; end
+      def self.inner_class_types
+        @inner_class_types = {
+          automatic_tax: AutomaticTax,
+          billing_thresholds: BillingThresholds,
+          invoice_settings: InvoiceSettings,
+          transfer_data: TransferData,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class LastPriceMigrationError < Stripe::StripeObject
       class FailedTransition < Stripe::StripeObject
         # The original price to be migrated.
         sig { returns(String) }
-        attr_reader :source_price
+        def source_price; end
         # The intended resulting price of the migration.
         sig { returns(String) }
-        attr_reader :target_price
+        def target_price; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The time at which the price migration encountered an error.
       sig { returns(Integer) }
-      attr_reader :errored_at
+      def errored_at; end
       # The involved price pairs in each failed transition.
       sig { returns(T::Array[FailedTransition]) }
-      attr_reader :failed_transitions
+      def failed_transitions; end
       # The type of error encountered by the price migration.
       sig { returns(String) }
-      attr_reader :type
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {failed_transitions: FailedTransition}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Phase < Stripe::StripeObject
       class AddInvoiceItem < Stripe::StripeObject
@@ -142,374 +233,532 @@ module Stripe
           class DiscountEnd < Stripe::StripeObject
             # The discount end timestamp.
             sig { returns(T.nilable(Integer)) }
-            attr_reader :timestamp
+            def timestamp; end
             # The discount end type.
             sig { returns(String) }
-            attr_reader :type
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
-          attr_reader :coupon
+          def coupon; end
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           sig { returns(T.nilable(T.any(String, Stripe::Discount))) }
-          attr_reader :discount
+          def discount; end
           # Details to determine how long the discount should be applied for.
           sig { returns(T.nilable(DiscountEnd)) }
-          attr_reader :discount_end
+          def discount_end; end
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
-          attr_reader :promotion_code
+          def promotion_code; end
+          def self.inner_class_types
+            @inner_class_types = {discount_end: DiscountEnd}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Period < Stripe::StripeObject
           class End < Stripe::StripeObject
             # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
-            sig { returns(Integer) }
-            attr_reader :timestamp
+            sig { returns(T.nilable(Integer)) }
+            def timestamp; end
             # Select how to calculate the end of the invoice item period.
             sig { returns(String) }
-            attr_reader :type
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Start < Stripe::StripeObject
             # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
-            sig { returns(Integer) }
-            attr_reader :timestamp
+            sig { returns(T.nilable(Integer)) }
+            def timestamp; end
             # Select how to calculate the start of the invoice item period.
             sig { returns(String) }
-            attr_reader :type
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field end
           sig { returns(End) }
-          attr_reader :end
+          def end; end
           # Attribute for field start
           sig { returns(Start) }
-          attr_reader :start
+          def start; end
+          def self.inner_class_types
+            @inner_class_types = {end: End, start: Start}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The stackable discounts that will be applied to the item.
         sig { returns(T::Array[Discount]) }
-        attr_reader :discounts
+        def discounts; end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_reader :metadata
+        def metadata; end
         # Attribute for field period
         sig { returns(Period) }
-        attr_reader :period
+        def period; end
         # ID of the price used to generate the invoice item.
         sig { returns(T.any(String, Stripe::Price)) }
-        attr_reader :price
+        def price; end
         # The quantity of the invoice item.
         sig { returns(T.nilable(Integer)) }
-        attr_reader :quantity
+        def quantity; end
         # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
         sig { returns(T.nilable(T::Array[Stripe::TaxRate])) }
-        attr_reader :tax_rates
+        def tax_rates; end
+        def self.inner_class_types
+          @inner_class_types = {discounts: Discount, period: Period}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class AutomaticTax < Stripe::StripeObject
         class Liability < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
-          attr_reader :account
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+          def account; end
           # Type of the account referenced.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # If Stripe disabled automatic tax, this enum describes why.
         sig { returns(T.nilable(String)) }
-        attr_reader :disabled_reason
+        def disabled_reason; end
         # Whether Stripe automatically computes tax on invoices created during this phase.
         sig { returns(T::Boolean) }
-        attr_reader :enabled
+        def enabled; end
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         sig { returns(T.nilable(Liability)) }
-        attr_reader :liability
+        def liability; end
+        def self.inner_class_types
+          @inner_class_types = {liability: Liability}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class BillingThresholds < Stripe::StripeObject
         # Monetary threshold that triggers the subscription to create an invoice
         sig { returns(T.nilable(Integer)) }
-        attr_reader :amount_gte
+        def amount_gte; end
         # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
         sig { returns(T.nilable(T::Boolean)) }
-        attr_reader :reset_billing_cycle_anchor
+        def reset_billing_cycle_anchor; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Discount < Stripe::StripeObject
         class DiscountEnd < Stripe::StripeObject
           # The discount end timestamp.
           sig { returns(T.nilable(Integer)) }
-          attr_reader :timestamp
+          def timestamp; end
           # The discount end type.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
-        attr_reader :coupon
+        def coupon; end
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
         sig { returns(T.nilable(T.any(String, Stripe::Discount))) }
-        attr_reader :discount
+        def discount; end
         # Details to determine how long the discount should be applied for.
         sig { returns(T.nilable(DiscountEnd)) }
-        attr_reader :discount_end
+        def discount_end; end
         # ID of the promotion code to create a new discount for.
         sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
-        attr_reader :promotion_code
+        def promotion_code; end
+        def self.inner_class_types
+          @inner_class_types = {discount_end: DiscountEnd}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class InvoiceSettings < Stripe::StripeObject
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.any(String, Stripe::Account)) }
-          attr_reader :account
+          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+          def account; end
           # Type of the account referenced.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
         sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxId)])) }
-        attr_reader :account_tax_ids
+        def account_tax_ids; end
         # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
-        attr_reader :days_until_due
+        def days_until_due; end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         sig { returns(T.nilable(Issuer)) }
-        attr_reader :issuer
+        def issuer; end
+        def self.inner_class_types
+          @inner_class_types = {issuer: Issuer}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Item < Stripe::StripeObject
         class BillingThresholds < Stripe::StripeObject
           # Usage threshold that triggers the subscription to create an invoice
           sig { returns(T.nilable(Integer)) }
-          attr_reader :usage_gte
+          def usage_gte; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Discount < Stripe::StripeObject
           class DiscountEnd < Stripe::StripeObject
             # The discount end timestamp.
             sig { returns(T.nilable(Integer)) }
-            attr_reader :timestamp
+            def timestamp; end
             # The discount end type.
             sig { returns(String) }
-            attr_reader :type
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
-          attr_reader :coupon
+          def coupon; end
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           sig { returns(T.nilable(T.any(String, Stripe::Discount))) }
-          attr_reader :discount
+          def discount; end
           # Details to determine how long the discount should be applied for.
           sig { returns(T.nilable(DiscountEnd)) }
-          attr_reader :discount_end
+          def discount_end; end
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
-          attr_reader :promotion_code
+          def promotion_code; end
+          def self.inner_class_types
+            @inner_class_types = {discount_end: DiscountEnd}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Trial < Stripe::StripeObject
           # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
           sig { returns(T.nilable(T::Array[String])) }
-          attr_reader :converts_to
+          def converts_to; end
           # Determines the type of trial for this item.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
         sig { returns(T.nilable(BillingThresholds)) }
-        attr_reader :billing_thresholds
+        def billing_thresholds; end
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         sig { returns(T::Array[Discount]) }
-        attr_reader :discounts
+        def discounts; end
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
         sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_reader :metadata
+        def metadata; end
         # ID of the plan to which the customer should be subscribed.
         sig { returns(T.any(String, Stripe::Plan)) }
-        attr_reader :plan
+        def plan; end
         # ID of the price to which the customer should be subscribed.
         sig { returns(T.any(String, Stripe::Price)) }
-        attr_reader :price
+        def price; end
         # Quantity of the plan to which the customer should be subscribed.
-        sig { returns(Integer) }
-        attr_reader :quantity
+        sig { returns(T.nilable(Integer)) }
+        def quantity; end
         # The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
         sig { returns(T.nilable(T::Array[Stripe::TaxRate])) }
-        attr_reader :tax_rates
+        def tax_rates; end
         # Options that configure the trial on the subscription item.
         sig { returns(T.nilable(Trial)) }
-        attr_reader :trial
+        def trial; end
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_thresholds: BillingThresholds,
+            discounts: Discount,
+            trial: Trial,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PauseCollection < Stripe::StripeObject
         # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
         sig { returns(String) }
-        attr_reader :behavior
+        def behavior; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class TransferData < Stripe::StripeObject
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         sig { returns(T.nilable(Float)) }
-        attr_reader :amount_percent
+        def amount_percent; end
         # The account where funds from the payment will be transferred to upon payment success.
         sig { returns(T.any(String, Stripe::Account)) }
-        attr_reader :destination
+        def destination; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class TrialSettings < Stripe::StripeObject
         class EndBehavior < Stripe::StripeObject
           # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
           sig { returns(T.nilable(String)) }
-          attr_reader :prorate_up_front
+          def prorate_up_front; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Defines how the subscription should behave when a trial ends.
         sig { returns(T.nilable(EndBehavior)) }
-        attr_reader :end_behavior
+        def end_behavior; end
+        def self.inner_class_types
+          @inner_class_types = {end_behavior: EndBehavior}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A list of prices and quantities that will generate invoice items appended to the next invoice for this phase.
       sig { returns(T::Array[AddInvoiceItem]) }
-      attr_reader :add_invoice_items
+      def add_invoice_items; end
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account during this phase of the schedule.
       sig { returns(T.nilable(Float)) }
-      attr_reader :application_fee_percent
+      def application_fee_percent; end
       # Attribute for field automatic_tax
-      sig { returns(AutomaticTax) }
-      attr_reader :automatic_tax
+      sig { returns(T.nilable(AutomaticTax)) }
+      def automatic_tax; end
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       sig { returns(T.nilable(String)) }
-      attr_reader :billing_cycle_anchor
+      def billing_cycle_anchor; end
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
       sig { returns(T.nilable(BillingThresholds)) }
-      attr_reader :billing_thresholds
+      def billing_thresholds; end
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       sig { returns(T.nilable(String)) }
-      attr_reader :collection_method
+      def collection_method; end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
-      attr_reader :currency
+      def currency; end
       # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
       sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
-      attr_reader :default_payment_method
+      def default_payment_method; end
       # The default tax rates to apply to the subscription during this phase of the subscription schedule.
       sig { returns(T.nilable(T::Array[Stripe::TaxRate])) }
-      attr_reader :default_tax_rates
+      def default_tax_rates; end
       # Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       sig { returns(T.nilable(String)) }
-      attr_reader :description
+      def description; end
       # The stackable discounts that will be applied to the subscription on this phase. Subscription item discounts are applied before subscription discounts.
       sig { returns(T::Array[Discount]) }
-      attr_reader :discounts
+      def discounts; end
       # The end of this phase of the subscription schedule.
       sig { returns(Integer) }
-      attr_reader :end_date
+      def end_date; end
       # The invoice settings applicable during this phase.
       sig { returns(T.nilable(InvoiceSettings)) }
-      attr_reader :invoice_settings
+      def invoice_settings; end
       # Subscription items to configure the subscription to during this phase of the subscription schedule.
       sig { returns(T::Array[Item]) }
-      attr_reader :items
+      def items; end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
-      attr_reader :metadata
+      def metadata; end
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       sig { returns(T.nilable(T.any(String, Stripe::Account))) }
-      attr_reader :on_behalf_of
+      def on_behalf_of; end
       # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
       sig { returns(T.nilable(PauseCollection)) }
-      attr_reader :pause_collection
+      def pause_collection; end
       # When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
       sig { returns(String) }
-      attr_reader :proration_behavior
+      def proration_behavior; end
       # The start of this phase of the subscription schedule.
       sig { returns(Integer) }
-      attr_reader :start_date
+      def start_date; end
       # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
       sig { returns(T.nilable(TransferData)) }
-      attr_reader :transfer_data
+      def transfer_data; end
       # Specify behavior of the trial when crossing schedule phase boundaries
       sig { returns(T.nilable(String)) }
-      attr_reader :trial_continuation
+      def trial_continuation; end
       # When the trial ends within the phase.
       sig { returns(T.nilable(Integer)) }
-      attr_reader :trial_end
+      def trial_end; end
       # Settings related to any trials on the subscription during this phase.
       sig { returns(T.nilable(TrialSettings)) }
-      attr_reader :trial_settings
+      def trial_settings; end
+      def self.inner_class_types
+        @inner_class_types = {
+          add_invoice_items: AddInvoiceItem,
+          automatic_tax: AutomaticTax,
+          billing_thresholds: BillingThresholds,
+          discounts: Discount,
+          invoice_settings: InvoiceSettings,
+          items: Item,
+          pause_collection: PauseCollection,
+          transfer_data: TransferData,
+          trial_settings: TrialSettings,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Prebilling < Stripe::StripeObject
       # ID of the prebilling invoice.
       sig { returns(T.any(String, Stripe::Invoice)) }
-      attr_reader :invoice
+      def invoice; end
       # The end of the last period for which the invoice pre-bills.
       sig { returns(Integer) }
-      attr_reader :period_end
+      def period_end; end
       # The start of the first period for which the invoice pre-bills.
       sig { returns(Integer) }
-      attr_reader :period_start
+      def period_start; end
       # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
-      sig { returns(String) }
-      attr_reader :update_behavior
+      sig { returns(T.nilable(String)) }
+      def update_behavior; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # ID of the Connect Application that created the schedule.
     sig { returns(T.nilable(T.any(String, Stripe::Application))) }
-    attr_reader :application
+    def application; end
     # Attribute for field applies_to
     sig { returns(AppliesTo) }
-    attr_reader :applies_to
+    def applies_to; end
     # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
-    sig { returns(String) }
-    attr_reader :billing_behavior
+    sig { returns(T.nilable(String)) }
+    def billing_behavior; end
     # The billing mode of the subscription.
     sig { returns(BillingMode) }
-    attr_reader :billing_mode
+    def billing_mode; end
     # Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
-    attr_reader :canceled_at
+    def canceled_at; end
     # Time at which the subscription schedule was completed. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
-    attr_reader :completed_at
+    def completed_at; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    attr_reader :created
+    def created; end
     # Object representing the start and end dates for the current phase of the subscription schedule, if it is `active`.
     sig { returns(T.nilable(CurrentPhase)) }
-    attr_reader :current_phase
+    def current_phase; end
     # ID of the customer who owns the subscription schedule.
     sig { returns(T.any(String, Stripe::Customer)) }
-    attr_reader :customer
+    def customer; end
     # ID of the account who owns the subscription schedule.
     sig { returns(T.nilable(String)) }
-    attr_reader :customer_account
+    def customer_account; end
     # Attribute for field default_settings
     sig { returns(DefaultSettings) }
-    attr_reader :default_settings
+    def default_settings; end
     # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
     sig { returns(String) }
-    attr_reader :end_behavior
+    def end_behavior; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # Details of the most recent price migration that failed for the subscription schedule.
     sig { returns(T.nilable(LastPriceMigrationError)) }
-    attr_reader :last_price_migration_error
+    def last_price_migration_error; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
-    attr_reader :metadata
+    def metadata; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # Configuration for the subscription schedule's phases.
     sig { returns(T::Array[Phase]) }
-    attr_reader :phases
+    def phases; end
     # Time period and invoice for a Subscription billed in advance.
     sig { returns(T.nilable(Prebilling)) }
-    attr_reader :prebilling
+    def prebilling; end
     # Time at which the subscription schedule was released. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
-    attr_reader :released_at
+    def released_at; end
     # ID of the subscription once managed by the subscription schedule (if it is released).
     sig { returns(T.nilable(String)) }
-    attr_reader :released_subscription
+    def released_subscription; end
     # The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
     sig { returns(String) }
-    attr_reader :status
+    def status; end
     # ID of the subscription managed by the subscription schedule.
     sig { returns(T.nilable(T.any(String, Stripe::Subscription))) }
-    attr_reader :subscription
+    def subscription; end
     # ID of the test clock this subscription schedule belongs to.
     sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
-    attr_reader :test_clock
+    def test_clock; end
   end
 end

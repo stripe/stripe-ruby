@@ -11,142 +11,190 @@ module Stripe
           class Failed < Stripe::StripeObject
             # Open Enum. The `failed` status reason.
             sig { returns(String) }
-            attr_reader :reason
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Returned < Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             sig { returns(String) }
-            attr_reader :reason
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Hash that provides additional information regarding the reason behind a `failed` ReceivedCredit status. It is only present when the ReceivedCredit status is `failed`.
           sig { returns(T.nilable(Failed)) }
-          attr_reader :failed
+          def failed; end
           # Hash that provides additional information regarding the reason behind a `returned` ReceivedCredit status. It is only present when the ReceivedCredit status is `returned`.
           sig { returns(T.nilable(Returned)) }
-          attr_reader :returned
+          def returned; end
+          def self.inner_class_types
+            @inner_class_types = {failed: Failed, returned: Returned}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusTransitions < Stripe::StripeObject
           # Timestamp describing when the ReceivedCredit was marked as `failed`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           sig { returns(T.nilable(String)) }
-          attr_reader :failed_at
+          def failed_at; end
           # Timestamp describing when the ReceivedCredit changed status to `returned`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           sig { returns(T.nilable(String)) }
-          attr_reader :returned_at
+          def returned_at; end
           # Timestamp describing when the ReceivedCredit was marked as `succeeded`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           sig { returns(T.nilable(String)) }
-          attr_reader :succeeded_at
+          def succeeded_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BalanceTransfer < Stripe::StripeObject
           # The ID of the account that owns the source object originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
-          attr_reader :from_account
+          def from_account; end
           # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
           sig { returns(String) }
-          attr_reader :type
+          def type; end
           # The ID of the outbound payment object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
-          attr_reader :outbound_payment
+          def outbound_payment; end
           # The ID of the outbound transfer object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
-          attr_reader :outbound_transfer
+          def outbound_transfer; end
           # The ID of the payout object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
-          attr_reader :payout_v1
+          def payout_v1; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BankTransfer < Stripe::StripeObject
           class GbBankAccount < Stripe::StripeObject
             # The bank name the transfer was received from.
             sig { returns(T.nilable(String)) }
-            attr_reader :account_holder_name
+            def account_holder_name; end
             # The bank name the transfer was received from.
             sig { returns(T.nilable(String)) }
-            attr_reader :bank_name
+            def bank_name; end
             # The last 4 digits of the account number that originated the transfer.
             sig { returns(T.nilable(String)) }
-            attr_reader :last4
+            def last4; end
             # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             sig { returns(String) }
-            attr_reader :network
+            def network; end
             # The sort code of the account that originated the transfer.
             sig { returns(T.nilable(String)) }
-            attr_reader :sort_code
+            def sort_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class UsBankAccount < Stripe::StripeObject
             # The bank name the transfer was received from.
             sig { returns(T.nilable(String)) }
-            attr_reader :bank_name
+            def bank_name; end
             # The last 4 digits of the account number that originated the transfer.
             sig { returns(T.nilable(String)) }
-            attr_reader :last4
+            def last4; end
             # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             sig { returns(String) }
-            attr_reader :network
+            def network; end
             # The routing number of the account that originated the transfer.
             sig { returns(T.nilable(String)) }
-            attr_reader :routing_number
+            def routing_number; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Financial Address on which funds for ReceivedCredit were received.
           sig { returns(String) }
-          attr_reader :financial_address
+          def financial_address; end
           # Open Enum. Indicates the type of source via from which external funds originated.
           sig { returns(String) }
-          attr_reader :payment_method_type
+          def payment_method_type; end
           # Freeform string set by originator of the external ReceivedCredit.
           sig { returns(T.nilable(String)) }
-          attr_reader :statement_descriptor
+          def statement_descriptor; end
           # Hash containing the transaction bank details. Present if `payment_method_type` field value is `gb_bank_account`.
           sig { returns(T.nilable(GbBankAccount)) }
-          attr_reader :gb_bank_account
+          def gb_bank_account; end
           # Hash containing the transaction bank details. Present if `payment_method_type` field value is `us_bank_account`.
           sig { returns(T.nilable(UsBankAccount)) }
-          attr_reader :us_bank_account
+          def us_bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount and currency of the ReceivedCredit.
         sig { returns(Stripe::V2::Amount) }
-        attr_reader :amount
+        def amount; end
         # Time at which the ReceivedCredit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # Freeform string set by originator of the ReceivedCredit.
         sig { returns(T.nilable(String)) }
-        attr_reader :description
+        def description; end
         # Financial Account ID on which funds for ReceivedCredit were received.
         sig { returns(String) }
-        attr_reader :financial_account
+        def financial_account; end
         # Unique identifier for the ReceivedCredit.
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe’s money transmission licenses.
         sig { returns(T.nilable(String)) }
-        attr_reader :receipt_url
+        def receipt_url; end
         # Open Enum. The status of the ReceivedCredit.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
         # This hash contains detailed information that elaborates on the specific status of the ReceivedCredit. e.g the reason behind a failure if the status is marked as `failed`.
         sig { returns(T.nilable(StatusDetails)) }
-        attr_reader :status_details
+        def status_details; end
         # Hash containing timestamps of when the object transitioned to a particular status.
         sig { returns(T.nilable(StatusTransitions)) }
-        attr_reader :status_transitions
+        def status_transitions; end
         # Open Enum. The type of flow that caused the ReceivedCredit.
         sig { returns(String) }
-        attr_reader :type
+        def type; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
         # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
         sig { returns(T.nilable(BalanceTransfer)) }
-        attr_reader :balance_transfer
+        def balance_transfer; end
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
         sig { returns(T.nilable(BankTransfer)) }
-        attr_reader :bank_transfer
+        def bank_transfer; end
       end
     end
   end

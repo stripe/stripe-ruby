@@ -10,10 +10,16 @@ module Stripe
         class RetryDetails < Stripe::StripeObject
           # Number of authorization attempts so far.
           sig { returns(Integer) }
-          attr_reader :attempts
+          def attempts; end
           # Indicates the strategy for how you want Stripe to retry the payment.
           sig { returns(String) }
-          attr_reader :retry_strategy
+          def retry_strategy; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TransferData < Stripe::StripeObject
           # The amount transferred to the destination account. This transfer will occur
@@ -24,85 +30,91 @@ module Stripe
           # and must be a positive integer representing how much to transfer in the smallest
           # currency unit (e.g., 100 cents to charge $1.00).
           sig { returns(T.nilable(Integer)) }
-          attr_reader :amount
+          def amount; end
           # The account (if any) that the payment is attributed to for tax reporting, and
           # where funds from the payment are transferred to after payment success.
           sig { returns(String) }
-          attr_reader :destination
+          def destination; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The “presentment amount” to be collected from the customer.
         sig { returns(Stripe::V2::Amount) }
-        attr_reader :amount_requested
+        def amount_requested; end
         # The frequency of the underlying payment.
         sig { returns(String) }
-        attr_reader :cadence
+        def cadence; end
         # ID of the owning compartment.
         sig { returns(String) }
-        attr_reader :compartment_id
+        def compartment_id; end
         # Creation time of the OffSessionPayment. Represented as a RFC 3339 date & time UTC
         # value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
-        attr_reader :created
+        def created; end
         # ID of the Customer to which this OffSessionPayment belongs.
         sig { returns(String) }
-        attr_reader :customer
+        def customer; end
         # The reason why the OffSessionPayment failed.
         sig { returns(T.nilable(String)) }
-        attr_reader :failure_reason
+        def failure_reason; end
         # Unique identifier for the object..
         sig { returns(String) }
-        attr_reader :id
+        def id; end
         # The payment error encountered in the previous attempt to authorize the payment.
         sig { returns(T.nilable(String)) }
-        attr_reader :last_authorization_attempt_error
+        def last_authorization_attempt_error; end
         # Payment attempt record for the latest attempt, if one exists.
         sig { returns(T.nilable(String)) }
-        attr_reader :latest_payment_attempt_record
+        def latest_payment_attempt_record; end
         # Has the value true if the object exists in live mode or the value false if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
         # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
         # attach to an object. This can be useful for storing additional information about
         # the object in a structured format. Learn more about
         # [storing information in metadata](https://docs.corp.stripe.com/payments/payment-intents#storing-information-in-metadata).
         sig { returns(T::Hash[String, String]) }
-        attr_reader :metadata
+        def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
-        attr_reader :object
+        def object; end
         # The account (if any) for which the funds of the OffSessionPayment are intended.
         sig { returns(T.nilable(String)) }
-        attr_reader :on_behalf_of
+        def on_behalf_of; end
         # ID of the payment method used in this OffSessionPayment.
         sig { returns(String) }
-        attr_reader :payment_method
+        def payment_method; end
         # Payment record associated with the OffSessionPayment.
         sig { returns(T.nilable(String)) }
-        attr_reader :payment_record
+        def payment_record; end
         # Details about the OffSessionPayment retries.
         sig { returns(RetryDetails) }
-        attr_reader :retry_details
+        def retry_details; end
         # Text that appears on the customer’s statement as the statement descriptor for a
         # non-card charge. This value overrides the account’s default statement descriptor.
         # For information about requirements, including the 22-character limit, see the
         # [Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         sig { returns(T.nilable(String)) }
-        attr_reader :statement_descriptor
+        def statement_descriptor; end
         # Provides information about a card charge. Concatenated to the account’s
         # [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
         # to form the complete statement descriptor that appears on the customer’s statement.
         sig { returns(T.nilable(String)) }
-        attr_reader :statement_descriptor_suffix
+        def statement_descriptor_suffix; end
         # Status of this OffSessionPayment, one of `pending`, `pending_retry`, `processing`,
         # `failed`, `canceled`, `requires_capture`, or `succeeded`.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
         # Test clock that can be used to advance the retry attempts in a sandbox.
         sig { returns(T.nilable(String)) }
-        attr_reader :test_clock
+        def test_clock; end
         # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
         sig { returns(T.nilable(TransferData)) }
-        attr_reader :transfer_data
+        def transfer_data; end
       end
     end
   end

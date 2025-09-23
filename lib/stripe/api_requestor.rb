@@ -211,7 +211,8 @@ module Stripe
 
       api_mode = Util.get_api_mode(path)
       Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
-                                                api_mode: api_mode, requestor: self)
+                                                api_mode: api_mode, requestor: self,
+                                                v2_deleted_object: method == :delete && api_mode == :v2)
     end
 
     # Execute request without instantiating a new object if the relevant object's name matches the class

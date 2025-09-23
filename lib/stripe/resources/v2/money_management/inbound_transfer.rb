@@ -18,11 +18,27 @@ module Stripe
             attr_reader :type
             # The destination US bank account identifier. eg "usba_***".
             attr_reader :us_bank_account
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The amount in specified currency that was debited from the Payment Method.
           attr_reader :debited
           # The Payment Method object used to create the InboundTransfer.
           attr_reader :payment_method
+
+          def self.inner_class_types
+            @inner_class_types = { payment_method: PaymentMethod }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class To < Stripe::StripeObject
@@ -30,23 +46,42 @@ module Stripe
           attr_reader :credited
           # The FinancialAccount that funds will land in.
           attr_reader :financial_account
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class TransferHistory < Stripe::StripeObject
           class BankDebitFailed < Stripe::StripeObject
             # Open Enum. The return reason for the failed InboundTransfer.
             attr_reader :failure_reason
-          end
 
-          class BankDebitProcessing < Stripe::StripeObject; end
-          class BankDebitQueued < Stripe::StripeObject; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
 
           class BankDebitReturned < Stripe::StripeObject
             # Open Enum. The return reason for the returned InboundTransfer.
             attr_reader :return_reason
-          end
 
-          class BankDebitSucceeded < Stripe::StripeObject; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Creation time of the HistoryEntry in RFC 3339 format and UTC.
           attr_reader :created
           # Effective at time of the HistoryEntry in RFC 3339 format and UTC.
@@ -67,6 +102,17 @@ module Stripe
           attr_reader :bank_debit_returned
           # The history entry for a succeeded InboundTransfer.
           attr_reader :bank_debit_succeeded
+
+          def self.inner_class_types
+            @inner_class_types = {
+              bank_debit_failed: BankDebitFailed,
+              bank_debit_returned: BankDebitReturned,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount in specified currency that will land in the FinancialAccount balance.
         attr_reader :amount
@@ -88,6 +134,14 @@ module Stripe
         attr_reader :transfer_history
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+
+        def self.inner_class_types
+          @inner_class_types = { from: From, to: To, transfer_history: TransferHistory }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
     end
   end

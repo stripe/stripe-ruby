@@ -103,12 +103,12 @@ module Stripe
     end
     class CreateParams < Stripe::RequestParams
       class Promotion < Stripe::RequestParams
-        # If the promotion type is 'coupon', the coupon for this promotion code.
+        # If promotion `type` is `coupon`, the coupon for this promotion code.
         sig { returns(T.nilable(String)) }
         def coupon; end
         sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
         def coupon=(_coupon); end
-        # Specifies the type of promotion code.
+        # Specifies the type of promotion.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }

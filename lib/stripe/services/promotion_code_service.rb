@@ -69,9 +69,9 @@ module Stripe
 
     class CreateParams < Stripe::RequestParams
       class Promotion < Stripe::RequestParams
-        # If the promotion type is 'coupon', the coupon for this promotion code.
+        # If promotion `type` is `coupon`, the coupon for this promotion code.
         attr_accessor :coupon
-        # Specifies the type of promotion code.
+        # Specifies the type of promotion.
         attr_accessor :type
 
         def initialize(coupon: nil, type: nil)

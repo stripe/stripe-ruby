@@ -21,12 +21,6 @@ module Stripe
         # The starting unit amount which can be updated by the customer.
         sig { returns(T.nilable(Integer)) }
         def preset; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Tier < Stripe::StripeObject
         # Price for the entire tier.
@@ -44,12 +38,6 @@ module Stripe
         # Up to and including to this quantity will be contained in the tier.
         sig { returns(T.nilable(Integer)) }
         def up_to; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
       sig { returns(T.nilable(CustomUnitAmount)) }
@@ -66,12 +54,6 @@ module Stripe
       # The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
       sig { returns(T.nilable(String)) }
       def unit_amount_decimal; end
-      def self.inner_class_types
-        @inner_class_types = {custom_unit_amount: CustomUnitAmount, tiers: Tier}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CustomUnitAmount < Stripe::StripeObject
       # The maximum unit amount the customer can specify for this item.
@@ -83,12 +65,6 @@ module Stripe
       # The starting unit amount which can be updated by the customer.
       sig { returns(T.nilable(Integer)) }
       def preset; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Recurring < Stripe::StripeObject
       # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
@@ -106,12 +82,6 @@ module Stripe
       # Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
       sig { returns(String) }
       def usage_type; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Tier < Stripe::StripeObject
       # Price for the entire tier.
@@ -129,12 +99,6 @@ module Stripe
       # Up to and including to this quantity will be contained in the tier.
       sig { returns(T.nilable(Integer)) }
       def up_to; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class TransformQuantity < Stripe::StripeObject
       # Divide usage by this number.
@@ -143,12 +107,6 @@ module Stripe
       # After division, either round the result `up` or `down`.
       sig { returns(String) }
       def round; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Whether the price can be used for new purchases.
     sig { returns(T::Boolean) }

@@ -13,14 +13,6 @@ module Stripe
         class Cancel < Stripe::StripeObject
           # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
           attr_reader :identifier
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Specifies which event to cancel.
         attr_reader :cancel
@@ -38,14 +30,6 @@ module Stripe
         attr_reader :type
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
-
-        def self.inner_class_types
-          @inner_class_types = { cancel: Cancel }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
     end
   end

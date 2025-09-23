@@ -28,14 +28,6 @@ module Stripe
     class MarketingFeature < Stripe::StripeObject
       # The marketing feature name. Up to 80 characters long.
       attr_reader :name
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class PackageDimensions < Stripe::StripeObject
@@ -47,14 +39,6 @@ module Stripe
       attr_reader :weight
       # Width, in inches.
       attr_reader :width
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class DeleteParams < Stripe::RequestParams; end
@@ -558,17 +542,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    def self.inner_class_types
-      @inner_class_types = {
-        marketing_features: MarketingFeature,
-        package_dimensions: PackageDimensions,
-      }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

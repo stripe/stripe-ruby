@@ -15,12 +15,6 @@ module Stripe
       # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
       sig { returns(Stripe::Discount) }
       def discount; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Tax < Stripe::StripeObject
       # Amount of tax applied for this rate.
@@ -37,12 +31,6 @@ module Stripe
       # The amount on which tax is calculated, in cents (or local equivalent).
       sig { returns(T.nilable(Integer)) }
       def taxable_amount; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Total discount amount applied. If no discounts were applied, defaults to 0.
     sig { returns(Integer) }

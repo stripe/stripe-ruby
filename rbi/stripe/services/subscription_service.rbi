@@ -183,7 +183,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         sig {
           returns(T.nilable(::Stripe::SubscriptionService::UpdateParams::AddInvoiceItem::Period))
          }
@@ -1460,7 +1460,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         sig {
           returns(T.nilable(::Stripe::SubscriptionService::CreateParams::AddInvoiceItem::Period))
          }
@@ -1574,13 +1574,33 @@ module Stripe
         def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil); end
       end
       class BillingMode < Stripe::RequestParams
-        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          sig { returns(T.nilable(String)) }
+          def proration_discounts; end
+          sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+          def proration_discounts=(_proration_discounts); end
+          sig { params(proration_discounts: T.nilable(String)).void }
+          def initialize(proration_discounts: nil); end
+        end
+        # Configure behavior for flexible billing mode.
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionService::CreateParams::BillingMode::Flexible))
+         }
+        def flexible; end
+        sig {
+          params(_flexible: T.nilable(::Stripe::SubscriptionService::CreateParams::BillingMode::Flexible)).returns(T.nilable(::Stripe::SubscriptionService::CreateParams::BillingMode::Flexible))
+         }
+        def flexible=(_flexible); end
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
-        sig { params(type: String).void }
-        def initialize(type: nil); end
+        sig {
+          params(flexible: T.nilable(::Stripe::SubscriptionService::CreateParams::BillingMode::Flexible), type: String).void
+         }
+        def initialize(flexible: nil, type: nil); end
       end
       class BillingThresholds < Stripe::RequestParams
         # Monetary threshold that triggers the subscription to advance to a new billing period
@@ -2201,7 +2221,7 @@ module Stripe
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def billing_cycle_anchor=(_billing_cycle_anchor); end
-      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
       sig {
         returns(T.nilable(::Stripe::SubscriptionService::CreateParams::BillingCycleAnchorConfig))
        }
@@ -2460,13 +2480,33 @@ module Stripe
     end
     class MigrateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Attribute for param field type
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          sig { returns(T.nilable(String)) }
+          def proration_discounts; end
+          sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+          def proration_discounts=(_proration_discounts); end
+          sig { params(proration_discounts: T.nilable(String)).void }
+          def initialize(proration_discounts: nil); end
+        end
+        # Configure behavior for flexible billing mode.
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionService::MigrateParams::BillingMode::Flexible))
+         }
+        def flexible; end
+        sig {
+          params(_flexible: T.nilable(::Stripe::SubscriptionService::MigrateParams::BillingMode::Flexible)).returns(T.nilable(::Stripe::SubscriptionService::MigrateParams::BillingMode::Flexible))
+         }
+        def flexible=(_flexible); end
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
-        sig { params(type: String).void }
-        def initialize(type: nil); end
+        sig {
+          params(flexible: T.nilable(::Stripe::SubscriptionService::MigrateParams::BillingMode::Flexible), type: String).void
+         }
+        def initialize(flexible: nil, type: nil); end
       end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       sig { returns(::Stripe::SubscriptionService::MigrateParams::BillingMode) }

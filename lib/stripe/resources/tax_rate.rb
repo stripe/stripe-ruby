@@ -20,14 +20,6 @@ module Stripe
       attr_reader :amount
       # Three-letter ISO currency code, in lowercase.
       attr_reader :currency
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -232,14 +224,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    def self.inner_class_types
-      @inner_class_types = { flat_amount: FlatAmount }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

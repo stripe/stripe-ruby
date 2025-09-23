@@ -25,14 +25,6 @@ module Stripe
       attr_reader :longitude
       # The state/county/province/region where the payment originated.
       attr_reader :region
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class Session < Stripe::StripeObject
@@ -44,14 +36,6 @@ module Stripe
       attr_reader :platform
       # The version for the browser session (e.g., `61.0.3163.100`).
       attr_reader :version
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -152,14 +136,6 @@ module Stripe
     # Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/reviews", params: params, opts: opts)
-    end
-
-    def self.inner_class_types
-      @inner_class_types = { ip_address_location: IpAddressLocation, session: Session }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

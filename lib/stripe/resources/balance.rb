@@ -22,14 +22,6 @@ module Stripe
         attr_reader :card
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         attr_reader :fpx
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Balance amount.
       attr_reader :amount
@@ -37,14 +29,6 @@ module Stripe
       attr_reader :currency
       # Attribute for field source_types
       attr_reader :source_types
-
-      def self.inner_class_types
-        @inner_class_types = { source_types: SourceTypes }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class ConnectReserved < Stripe::StripeObject
@@ -55,14 +39,6 @@ module Stripe
         attr_reader :card
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         attr_reader :fpx
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Balance amount.
       attr_reader :amount
@@ -70,14 +46,6 @@ module Stripe
       attr_reader :currency
       # Attribute for field source_types
       attr_reader :source_types
-
-      def self.inner_class_types
-        @inner_class_types = { source_types: SourceTypes }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class InstantAvailable < Stripe::StripeObject
@@ -89,14 +57,6 @@ module Stripe
           attr_reader :card
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           attr_reader :fpx
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Net balance amount, subtracting fees from platform-set pricing.
         attr_reader :amount
@@ -104,14 +64,6 @@ module Stripe
         attr_reader :destination
         # Attribute for field source_types
         attr_reader :source_types
-
-        def self.inner_class_types
-          @inner_class_types = { source_types: SourceTypes }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class SourceTypes < Stripe::StripeObject
@@ -121,14 +73,6 @@ module Stripe
         attr_reader :card
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         attr_reader :fpx
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Balance amount.
       attr_reader :amount
@@ -138,14 +82,6 @@ module Stripe
       attr_reader :net_available
       # Attribute for field source_types
       attr_reader :source_types
-
-      def self.inner_class_types
-        @inner_class_types = { net_available: NetAvailable, source_types: SourceTypes }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class Issuing < Stripe::StripeObject
@@ -157,14 +93,6 @@ module Stripe
           attr_reader :card
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           attr_reader :fpx
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Balance amount.
         attr_reader :amount
@@ -172,25 +100,9 @@ module Stripe
         attr_reader :currency
         # Attribute for field source_types
         attr_reader :source_types
-
-        def self.inner_class_types
-          @inner_class_types = { source_types: SourceTypes }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Funds that are available for use.
       attr_reader :available
-
-      def self.inner_class_types
-        @inner_class_types = { available: Available }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class Pending < Stripe::StripeObject
@@ -201,14 +113,6 @@ module Stripe
         attr_reader :card
         # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         attr_reader :fpx
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Balance amount.
       attr_reader :amount
@@ -216,14 +120,6 @@ module Stripe
       attr_reader :currency
       # Attribute for field source_types
       attr_reader :source_types
-
-      def self.inner_class_types
-        @inner_class_types = { source_types: SourceTypes }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class RefundAndDisputePrefunding < Stripe::StripeObject
@@ -235,14 +131,6 @@ module Stripe
           attr_reader :card
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           attr_reader :fpx
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Balance amount.
         attr_reader :amount
@@ -250,14 +138,6 @@ module Stripe
         attr_reader :currency
         # Attribute for field source_types
         attr_reader :source_types
-
-        def self.inner_class_types
-          @inner_class_types = { source_types: SourceTypes }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class Pending < Stripe::StripeObject
@@ -268,14 +148,6 @@ module Stripe
           attr_reader :card
           # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           attr_reader :fpx
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Balance amount.
         attr_reader :amount
@@ -283,27 +155,11 @@ module Stripe
         attr_reader :currency
         # Attribute for field source_types
         attr_reader :source_types
-
-        def self.inner_class_types
-          @inner_class_types = { source_types: SourceTypes }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Funds that are available for use.
       attr_reader :available
       # Funds that are pending
       attr_reader :pending
-
-      def self.inner_class_types
-        @inner_class_types = { available: Available, pending: Pending }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
     attr_reader :available
@@ -321,20 +177,5 @@ module Stripe
     attr_reader :pending
     # Attribute for field refund_and_dispute_prefunding
     attr_reader :refund_and_dispute_prefunding
-
-    def self.inner_class_types
-      @inner_class_types = {
-        available: Available,
-        connect_reserved: ConnectReserved,
-        instant_available: InstantAvailable,
-        issuing: Issuing,
-        pending: Pending,
-        refund_and_dispute_prefunding: RefundAndDisputePrefunding,
-      }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
-    end
   end
 end

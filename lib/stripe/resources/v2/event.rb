@@ -16,27 +16,11 @@ module Stripe
           attr_reader :id
           # The idempotency key transmitted during the request.
           attr_reader :idempotency_key
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Event reason type.
         attr_reader :type
         # Information on the API request that instigated the event.
         attr_reader :request
-
-        def self.inner_class_types
-          @inner_class_types = { request: Request }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Authentication context needed to fetch the event or related object.
       attr_reader :context
@@ -52,14 +36,6 @@ module Stripe
       attr_reader :type
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-
-      def self.inner_class_types
-        @inner_class_types = { reason: Reason }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
   end
 end

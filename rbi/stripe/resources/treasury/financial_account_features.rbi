@@ -18,12 +18,6 @@ module Stripe
           # The `platform_restrictions` that are restricting this Feature.
           sig { returns(T.nilable(String)) }
           def restriction; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Whether the FinancialAccount should have the Feature.
         sig { returns(T::Boolean) }
@@ -34,12 +28,6 @@ module Stripe
         # Additional details; includes at least one entry when the status is not `active`.
         sig { returns(T::Array[StatusDetail]) }
         def status_details; end
-        def self.inner_class_types
-          @inner_class_types = {status_details: StatusDetail}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class DepositInsurance < Stripe::StripeObject
         class StatusDetail < Stripe::StripeObject
@@ -52,12 +40,6 @@ module Stripe
           # The `platform_restrictions` that are restricting this Feature.
           sig { returns(T.nilable(String)) }
           def restriction; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Whether the FinancialAccount should have the Feature.
         sig { returns(T::Boolean) }
@@ -68,12 +50,6 @@ module Stripe
         # Additional details; includes at least one entry when the status is not `active`.
         sig { returns(T::Array[StatusDetail]) }
         def status_details; end
-        def self.inner_class_types
-          @inner_class_types = {status_details: StatusDetail}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class FinancialAddresses < Stripe::StripeObject
         class Aba < Stripe::StripeObject
@@ -87,12 +63,6 @@ module Stripe
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(T.nilable(String)) }
             def restriction; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
@@ -103,22 +73,10 @@ module Stripe
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           def status_details; end
-          def self.inner_class_types
-            @inner_class_types = {status_details: StatusDetail}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Toggle settings for enabling/disabling the ABA address feature
         sig { returns(T.nilable(Aba)) }
         def aba; end
-        def self.inner_class_types
-          @inner_class_types = {aba: Aba}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class InboundTransfers < Stripe::StripeObject
         class Ach < Stripe::StripeObject
@@ -132,12 +90,6 @@ module Stripe
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(T.nilable(String)) }
             def restriction; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
@@ -148,22 +100,10 @@ module Stripe
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           def status_details; end
-          def self.inner_class_types
-            @inner_class_types = {status_details: StatusDetail}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Toggle settings for enabling/disabling an inbound ACH specific feature
         sig { returns(T.nilable(Ach)) }
         def ach; end
-        def self.inner_class_types
-          @inner_class_types = {ach: Ach}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class IntraStripeFlows < Stripe::StripeObject
         class StatusDetail < Stripe::StripeObject
@@ -176,12 +116,6 @@ module Stripe
           # The `platform_restrictions` that are restricting this Feature.
           sig { returns(T.nilable(String)) }
           def restriction; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Whether the FinancialAccount should have the Feature.
         sig { returns(T::Boolean) }
@@ -192,12 +126,6 @@ module Stripe
         # Additional details; includes at least one entry when the status is not `active`.
         sig { returns(T::Array[StatusDetail]) }
         def status_details; end
-        def self.inner_class_types
-          @inner_class_types = {status_details: StatusDetail}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class OutboundPayments < Stripe::StripeObject
         class Ach < Stripe::StripeObject
@@ -211,12 +139,6 @@ module Stripe
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(T.nilable(String)) }
             def restriction; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
@@ -227,12 +149,6 @@ module Stripe
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           def status_details; end
-          def self.inner_class_types
-            @inner_class_types = {status_details: StatusDetail}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class UsDomesticWire < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
@@ -245,12 +161,6 @@ module Stripe
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(T.nilable(String)) }
             def restriction; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
@@ -261,12 +171,6 @@ module Stripe
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           def status_details; end
-          def self.inner_class_types
-            @inner_class_types = {status_details: StatusDetail}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Toggle settings for enabling/disabling an outbound ACH specific feature
         sig { returns(T.nilable(Ach)) }
@@ -274,12 +178,6 @@ module Stripe
         # Toggle settings for enabling/disabling a feature
         sig { returns(T.nilable(UsDomesticWire)) }
         def us_domestic_wire; end
-        def self.inner_class_types
-          @inner_class_types = {ach: Ach, us_domestic_wire: UsDomesticWire}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class OutboundTransfers < Stripe::StripeObject
         class Ach < Stripe::StripeObject
@@ -293,12 +191,6 @@ module Stripe
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(T.nilable(String)) }
             def restriction; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
@@ -309,12 +201,6 @@ module Stripe
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           def status_details; end
-          def self.inner_class_types
-            @inner_class_types = {status_details: StatusDetail}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class UsDomesticWire < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
@@ -327,12 +213,6 @@ module Stripe
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(T.nilable(String)) }
             def restriction; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
@@ -343,12 +223,6 @@ module Stripe
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           def status_details; end
-          def self.inner_class_types
-            @inner_class_types = {status_details: StatusDetail}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Toggle settings for enabling/disabling an outbound ACH specific feature
         sig { returns(T.nilable(Ach)) }
@@ -356,12 +230,6 @@ module Stripe
         # Toggle settings for enabling/disabling a feature
         sig { returns(T.nilable(UsDomesticWire)) }
         def us_domestic_wire; end
-        def self.inner_class_types
-          @inner_class_types = {ach: Ach, us_domestic_wire: UsDomesticWire}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Toggle settings for enabling/disabling a feature
       sig { returns(T.nilable(CardIssuing)) }

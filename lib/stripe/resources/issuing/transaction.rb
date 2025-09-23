@@ -22,14 +22,6 @@ module Stripe
         attr_reader :atm_fee
         # The amount of cash requested by the cardholder.
         attr_reader :cashback_amount
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class MerchantData < Stripe::StripeObject
@@ -55,14 +47,6 @@ module Stripe
         attr_reader :terminal_id
         # URL provided by the merchant on a 3DS request
         attr_reader :url
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class NetworkData < Stripe::StripeObject
@@ -72,14 +56,6 @@ module Stripe
         attr_reader :processing_date
         # Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
         attr_reader :transaction_id
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class PurchaseDetails < Stripe::StripeObject
@@ -95,41 +71,17 @@ module Stripe
             attr_reader :user_id
             # Vehicle number.
             attr_reader :vehicle_number
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
 
           class ReportedBreakdown < Stripe::StripeObject
             class Fuel < Stripe::StripeObject
               # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
               attr_reader :gross_amount_decimal
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
 
             class NonFuel < Stripe::StripeObject
               # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
               attr_reader :gross_amount_decimal
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
 
             class Tax < Stripe::StripeObject
@@ -137,14 +89,6 @@ module Stripe
               attr_reader :local_amount_decimal
               # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
               attr_reader :national_amount_decimal
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             # Breakdown of fuel portion of the purchase.
             attr_reader :fuel
@@ -152,14 +96,6 @@ module Stripe
             attr_reader :non_fuel
             # Information about tax included in this transaction.
             attr_reader :tax
-
-            def self.inner_class_types
-              @inner_class_types = { fuel: Fuel, non_fuel: NonFuel, tax: Tax }
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Answers to prompts presented to cardholder at point of sale.
           attr_reader :cardholder_prompt_data
@@ -169,17 +105,6 @@ module Stripe
           attr_reader :reported_breakdown
           # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
           attr_reader :service_type
-
-          def self.inner_class_types
-            @inner_class_types = {
-              cardholder_prompt_data: CardholderPromptData,
-              reported_breakdown: ReportedBreakdown,
-            }
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class Flight < Stripe::StripeObject
@@ -196,14 +121,6 @@ module Stripe
             attr_reader :service_class
             # Whether a stopover is allowed on this flight.
             attr_reader :stopover_allowed
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # The time that the flight departed.
           attr_reader :departure_at
@@ -215,14 +132,6 @@ module Stripe
           attr_reader :segments
           # The travel agency that issued the ticket.
           attr_reader :travel_agency
-
-          def self.inner_class_types
-            @inner_class_types = { segments: Segment }
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class Fuel < Stripe::StripeObject
@@ -236,14 +145,6 @@ module Stripe
           attr_reader :unit
           # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
           attr_reader :unit_cost_decimal
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class Lodging < Stripe::StripeObject
@@ -251,14 +152,6 @@ module Stripe
           attr_reader :check_in_at
           # The number of nights stayed at the lodging.
           attr_reader :nights
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class Receipt < Stripe::StripeObject
@@ -270,14 +163,6 @@ module Stripe
           attr_reader :total
           # The unit cost of the item in cents.
           attr_reader :unit_cost
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Fleet-specific information for transactions using Fleet cards.
         attr_reader :fleet
@@ -291,20 +176,6 @@ module Stripe
         attr_reader :receipt
         # A merchant-specific order number.
         attr_reader :reference
-
-        def self.inner_class_types
-          @inner_class_types = {
-            fleet: Fleet,
-            flight: Flight,
-            fuel: Fuel,
-            lodging: Lodging,
-            receipt: Receipt,
-          }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class Treasury < Stripe::StripeObject
@@ -312,14 +183,6 @@ module Stripe
         attr_reader :received_credit
         # The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) representing this Issuing transaction if it is a capture
         attr_reader :received_debit
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -1135,20 +998,6 @@ module Stripe
             opts: opts
           )
         end
-      end
-
-      def self.inner_class_types
-        @inner_class_types = {
-          amount_details: AmountDetails,
-          merchant_data: MerchantData,
-          network_data: NetworkData,
-          purchase_details: PurchaseDetails,
-          treasury: Treasury,
-        }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

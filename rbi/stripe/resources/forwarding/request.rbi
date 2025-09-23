@@ -28,12 +28,6 @@ module Stripe
         # The IP address of the destination.
         sig { returns(String) }
         def destination_ip_address; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class RequestDetails < Stripe::StripeObject
         class Header < Stripe::StripeObject
@@ -43,12 +37,6 @@ module Stripe
           # The header value.
           sig { returns(String) }
           def value; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The body payload to send to the destination endpoint.
         sig { returns(String) }
@@ -59,12 +47,6 @@ module Stripe
         # The HTTP method used to call the destination endpoint.
         sig { returns(String) }
         def http_method; end
-        def self.inner_class_types
-          @inner_class_types = {headers: Header}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class ResponseDetails < Stripe::StripeObject
         class Header < Stripe::StripeObject
@@ -74,12 +56,6 @@ module Stripe
           # The header value.
           sig { returns(String) }
           def value; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The response body from the destination endpoint to Stripe.
         sig { returns(String) }
@@ -90,12 +66,6 @@ module Stripe
         # The HTTP status code that the destination endpoint returned.
         sig { returns(Integer) }
         def status; end
-        def self.inner_class_types
-          @inner_class_types = {headers: Header}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

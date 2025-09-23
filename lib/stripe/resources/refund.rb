@@ -18,65 +18,12 @@ module Stripe
     end
 
     class DestinationDetails < Stripe::StripeObject
-      class Affirm < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class AfterpayClearpay < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class Alipay < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class Alma < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class AmazonPay < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class AuBankTransfer < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
+      class Affirm < Stripe::StripeObject; end
+      class AfterpayClearpay < Stripe::StripeObject; end
+      class Alipay < Stripe::StripeObject; end
+      class Alma < Stripe::StripeObject; end
+      class AmazonPay < Stripe::StripeObject; end
+      class AuBankTransfer < Stripe::StripeObject; end
 
       class Blik < Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
@@ -85,14 +32,6 @@ module Stripe
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class BrBankTransfer < Stripe::StripeObject
@@ -100,14 +39,6 @@ module Stripe
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class Card < Stripe::StripeObject
@@ -119,59 +50,17 @@ module Stripe
         attr_reader :reference_type
         # The type of refund. This can be `refund`, `reversal`, or `pending`.
         attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
-      class Cashapp < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class CustomerCashBalance < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class Eps < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
+      class Cashapp < Stripe::StripeObject; end
+      class CustomerCashBalance < Stripe::StripeObject; end
+      class Eps < Stripe::StripeObject; end
 
       class EuBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class GbBankTransfer < Stripe::StripeObject
@@ -179,74 +68,25 @@ module Stripe
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
-      class Giropay < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class Grabpay < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
+      class Giropay < Stripe::StripeObject; end
+      class Grabpay < Stripe::StripeObject; end
 
       class JpBankTransfer < Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
-      class Klarna < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
+      class Klarna < Stripe::StripeObject; end
 
       class Multibanco < Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class MxBankTransfer < Stripe::StripeObject
@@ -254,93 +94,27 @@ module Stripe
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
-      class NzBankTransfer < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
+      class NzBankTransfer < Stripe::StripeObject; end
 
       class P24 < Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
-      class Paynow < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
+      class Paynow < Stripe::StripeObject; end
 
       class Paypal < Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         attr_reader :network_decline_code
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
-      class Pix < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class Revolut < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class Sofort < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
+      class Pix < Stripe::StripeObject; end
+      class Revolut < Stripe::StripeObject; end
+      class Sofort < Stripe::StripeObject; end
 
       class Swish < Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
@@ -349,14 +123,6 @@ module Stripe
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ThBankTransfer < Stripe::StripeObject
@@ -364,14 +130,6 @@ module Stripe
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class UsBankTransfer < Stripe::StripeObject
@@ -379,35 +137,10 @@ module Stripe
         attr_reader :reference
         # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
         attr_reader :reference_status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
-      class WechatPay < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
-      class Zip < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
+      class WechatPay < Stripe::StripeObject; end
+      class Zip < Stripe::StripeObject; end
       # Attribute for field affirm
       attr_reader :affirm
       # Attribute for field afterpay_clearpay
@@ -474,47 +207,6 @@ module Stripe
       attr_reader :wechat_pay
       # Attribute for field zip
       attr_reader :zip
-
-      def self.inner_class_types
-        @inner_class_types = {
-          affirm: Affirm,
-          afterpay_clearpay: AfterpayClearpay,
-          alipay: Alipay,
-          alma: Alma,
-          amazon_pay: AmazonPay,
-          au_bank_transfer: AuBankTransfer,
-          blik: Blik,
-          br_bank_transfer: BrBankTransfer,
-          card: Card,
-          cashapp: Cashapp,
-          customer_cash_balance: CustomerCashBalance,
-          eps: Eps,
-          eu_bank_transfer: EuBankTransfer,
-          gb_bank_transfer: GbBankTransfer,
-          giropay: Giropay,
-          grabpay: Grabpay,
-          jp_bank_transfer: JpBankTransfer,
-          klarna: Klarna,
-          multibanco: Multibanco,
-          mx_bank_transfer: MxBankTransfer,
-          nz_bank_transfer: NzBankTransfer,
-          p24: P24,
-          paynow: Paynow,
-          paypal: Paypal,
-          pix: Pix,
-          revolut: Revolut,
-          sofort: Sofort,
-          swish: Swish,
-          th_bank_transfer: ThBankTransfer,
-          us_bank_transfer: UsBankTransfer,
-          wechat_pay: WechatPay,
-          zip: Zip,
-        }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class NextAction < Stripe::StripeObject
@@ -524,40 +216,16 @@ module Stripe
           attr_reader :email_sent_at
           # The recipient's email address.
           attr_reader :email_sent_to
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field email_sent
         attr_reader :email_sent
         # The expiry timestamp.
         attr_reader :expires_at
-
-        def self.inner_class_types
-          @inner_class_types = { email_sent: EmailSent }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Attribute for field display_details
       attr_reader :display_details
       # Type of the next action to perform.
       attr_reader :type
-
-      def self.inner_class_types
-        @inner_class_types = { display_details: DisplayDetails }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class PresentmentDetails < Stripe::StripeObject
@@ -565,14 +233,6 @@ module Stripe
       attr_reader :presentment_amount
       # Currency presented to the customer during payment.
       attr_reader :presentment_currency
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -841,18 +501,6 @@ module Stripe
           opts: opts
         )
       end
-    end
-
-    def self.inner_class_types
-      @inner_class_types = {
-        destination_details: DestinationDetails,
-        next_action: NextAction,
-        presentment_details: PresentmentDetails,
-      }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

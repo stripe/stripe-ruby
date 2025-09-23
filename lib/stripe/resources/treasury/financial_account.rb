@@ -22,14 +22,6 @@ module Stripe
         attr_reader :inbound_pending
         # Funds in the account, but not spendable because they are being held for pending outbound flows.
         attr_reader :outbound_pending
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class FinancialAddress < Stripe::StripeObject
@@ -44,14 +36,6 @@ module Stripe
           attr_reader :bank_name
           # Routing number for the account.
           attr_reader :routing_number
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # ABA Records contain U.S. bank account details per the ABA format.
         attr_reader :aba
@@ -59,14 +43,6 @@ module Stripe
         attr_reader :supported_networks
         # The type of financial address
         attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = { aba: Aba }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class PlatformRestrictions < Stripe::StripeObject
@@ -74,39 +50,15 @@ module Stripe
         attr_reader :inbound_flows
         # Restricts all outbound money movement.
         attr_reader :outbound_flows
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class StatusDetails < Stripe::StripeObject
         class Closed < Stripe::StripeObject
           # The array that contains reasons for a FinancialAccount closure.
           attr_reader :reasons
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Details related to the closure of this FinancialAccount
         attr_reader :closed
-
-        def self.inner_class_types
-          @inner_class_types = { closed: Closed }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -879,19 +831,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = {
-          balance: Balance,
-          financial_addresses: FinancialAddress,
-          platform_restrictions: PlatformRestrictions,
-          status_details: StatusDetails,
-        }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

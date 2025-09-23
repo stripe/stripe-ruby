@@ -18,14 +18,6 @@ module Stripe
       class Beneficiary < Stripe::StripeObject
         # Publicly displayable name for the end beneficiary of carbon removal.
         attr_reader :public_name
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class DeliveryDetail < Stripe::StripeObject
@@ -40,14 +32,6 @@ module Stripe
           attr_reader :longitude
           # The state/county/province/region where the supplier is located.
           attr_reader :region
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Time at which the delivery occurred. Measured in seconds since the Unix epoch.
         attr_reader :delivered_at
@@ -59,14 +43,6 @@ module Stripe
         attr_reader :registry_url
         # A supplier of carbon removal.
         attr_reader :supplier
-
-        def self.inner_class_types
-          @inner_class_types = { location: Location }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -252,14 +228,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = { beneficiary: Beneficiary, delivery_details: DeliveryDetail }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

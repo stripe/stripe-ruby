@@ -30,6 +30,8 @@ module Stripe
       end
     end
 
+    # [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+    #
     # Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
     def list(params = {}, opts = {})
       request(
@@ -41,6 +43,8 @@ module Stripe
       )
     end
 
+    # [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+    #
     # Retrieves the exchange rates from the given currency to every supported currency.
     def retrieve(rate_id, params = {}, opts = {})
       request(

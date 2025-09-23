@@ -21,13 +21,5 @@ module Stripe
     attr_reader :object
     # Always true for a deleted object
     attr_reader :deleted
-
-    def self.inner_class_types
-      @inner_class_types = {}
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
-    end
   end
 end

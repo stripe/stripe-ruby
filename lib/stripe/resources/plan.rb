@@ -32,14 +32,6 @@ module Stripe
       attr_reader :unit_amount_decimal
       # Up to and including to this quantity will be contained in the tier.
       attr_reader :up_to
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class TransformUsage < Stripe::StripeObject
@@ -47,14 +39,6 @@ module Stripe
       attr_reader :divide_by
       # After division, either round the result `up` or `down`.
       attr_reader :round
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class DeleteParams < Stripe::RequestParams; end
@@ -376,14 +360,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    def self.inner_class_types
-      @inner_class_types = { tiers: Tier, transform_usage: TransformUsage }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

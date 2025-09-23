@@ -16,14 +16,6 @@ module Stripe
       class StatusTransitions < Stripe::StripeObject
         # Timestamp describing when the CreditReversal changed status to `posted`
         attr_reader :posted_at
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -122,14 +114,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = { status_transitions: StatusTransitions }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

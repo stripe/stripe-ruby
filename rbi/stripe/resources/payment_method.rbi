@@ -25,53 +25,12 @@ module Stripe
       # Transit number of the bank account.
       sig { returns(T.nilable(String)) }
       def transit_number; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Affirm < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class AfterpayClearpay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Alipay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Alma < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class AmazonPay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class Affirm < Stripe::StripeObject; end
+    class AfterpayClearpay < Stripe::StripeObject; end
+    class Alipay < Stripe::StripeObject; end
+    class Alma < Stripe::StripeObject; end
+    class AmazonPay < Stripe::StripeObject; end
     class AuBecsDebit < Stripe::StripeObject
       # Six-digit number identifying bank and branch associated with this bank account.
       sig { returns(T.nilable(String)) }
@@ -82,12 +41,6 @@ module Stripe
       # Last four digits of the bank account number.
       sig { returns(T.nilable(String)) }
       def last4; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class BacsDebit < Stripe::StripeObject
       # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -99,29 +52,9 @@ module Stripe
       # Sort code of the bank account. (e.g., `10-20-30`)
       sig { returns(T.nilable(String)) }
       def sort_code; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Bancontact < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Billie < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class Bancontact < Stripe::StripeObject; end
+    class Billie < Stripe::StripeObject; end
     class BillingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -130,10 +63,10 @@ module Stripe
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(T.nilable(String)) }
         def country; end
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         sig { returns(T.nilable(String)) }
         def line1; end
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         sig { returns(T.nilable(String)) }
         def line2; end
         # ZIP or postal code.
@@ -142,12 +75,6 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Billing address.
       sig { returns(T.nilable(Address)) }
@@ -164,31 +91,12 @@ module Stripe
       # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
       sig { returns(T.nilable(String)) }
       def tax_id; end
-      def self.inner_class_types
-        @inner_class_types = {address: Address}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Blik < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class Blik < Stripe::StripeObject; end
     class Boleto < Stripe::StripeObject
       # Uniquely identifies the customer tax id (CNPJ or CPF)
       sig { returns(String) }
       def tax_id; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Card < Stripe::StripeObject
       class Checks < Stripe::StripeObject
@@ -201,12 +109,6 @@ module Stripe
         # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
         sig { returns(T.nilable(String)) }
         def cvc_check; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class GeneratedFrom < Stripe::StripeObject
         class PaymentMethodDetails < Stripe::StripeObject
@@ -218,12 +120,6 @@ module Stripe
               # The method used to process this payment method offline. Only deferred is allowed.
               sig { returns(T.nilable(String)) }
               def type; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             class Receipt < Stripe::StripeObject
               # The type of account being debited or credited
@@ -253,23 +149,11 @@ module Stripe
               # An indication of which steps were completed during the card read process. Referenced from EMV Tag 9B.
               sig { returns(T.nilable(String)) }
               def transaction_status_information; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             class Wallet < Stripe::StripeObject
               # The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
               sig { returns(String) }
               def type; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             # The authorized amount
             sig { returns(T.nilable(Integer)) }
@@ -348,12 +232,6 @@ module Stripe
             # Attribute for field wallet
             sig { returns(T.nilable(Wallet)) }
             def wallet; end
-            def self.inner_class_types
-              @inner_class_types = {offline: Offline, receipt: Receipt, wallet: Wallet}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Attribute for field card_present
           sig { returns(T.nilable(CardPresent)) }
@@ -361,12 +239,6 @@ module Stripe
           # The type of payment method transaction-specific details from the transaction that generated this `card` payment method. Always `card_present`.
           sig { returns(String) }
           def type; end
-          def self.inner_class_types
-            @inner_class_types = {card_present: CardPresent}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The charge that created this object.
         sig { returns(T.nilable(String)) }
@@ -377,12 +249,6 @@ module Stripe
         # The ID of the SetupAttempt that generated this PaymentMethod, if any.
         sig { returns(T.nilable(T.any(String, Stripe::SetupAttempt))) }
         def setup_attempt; end
-        def self.inner_class_types
-          @inner_class_types = {payment_method_details: PaymentMethodDetails}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Networks < Stripe::StripeObject
         # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
@@ -391,57 +257,17 @@ module Stripe
         # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
         sig { returns(T.nilable(String)) }
         def preferred; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class ThreeDSecureUsage < Stripe::StripeObject
         # Whether 3D Secure is supported on this card.
         sig { returns(T::Boolean) }
         def supported; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Wallet < Stripe::StripeObject
-        class AmexExpressCheckout < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class ApplePay < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class GooglePay < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Link < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
+        class AmexExpressCheckout < Stripe::StripeObject; end
+        class ApplePay < Stripe::StripeObject; end
+        class GooglePay < Stripe::StripeObject; end
+        class Link < Stripe::StripeObject; end
         class Masterpass < Stripe::StripeObject
           class BillingAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -450,10 +276,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -462,12 +288,6 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           class ShippingAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -476,10 +296,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -488,12 +308,6 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
           sig { returns(T.nilable(BillingAddress)) }
@@ -507,24 +321,8 @@ module Stripe
           # Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
           sig { returns(T.nilable(ShippingAddress)) }
           def shipping_address; end
-          def self.inner_class_types
-            @inner_class_types = {
-              billing_address: BillingAddress,
-              shipping_address: ShippingAddress,
-            }
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
-        class SamsungPay < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
+        class SamsungPay < Stripe::StripeObject; end
         class VisaCheckout < Stripe::StripeObject
           class BillingAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -533,10 +331,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -545,12 +343,6 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           class ShippingAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -559,10 +351,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -571,12 +363,6 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
           sig { returns(T.nilable(BillingAddress)) }
@@ -590,15 +376,6 @@ module Stripe
           # Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
           sig { returns(T.nilable(ShippingAddress)) }
           def shipping_address; end
-          def self.inner_class_types
-            @inner_class_types = {
-              billing_address: BillingAddress,
-              shipping_address: ShippingAddress,
-            }
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field amex_express_checkout
         sig { returns(T.nilable(AmexExpressCheckout)) }
@@ -627,20 +404,6 @@ module Stripe
         # Attribute for field visa_checkout
         sig { returns(T.nilable(VisaCheckout)) }
         def visa_checkout; end
-        def self.inner_class_types
-          @inner_class_types = {
-            amex_express_checkout: AmexExpressCheckout,
-            apple_pay: ApplePay,
-            google_pay: GooglePay,
-            link: Link,
-            masterpass: Masterpass,
-            samsung_pay: SamsungPay,
-            visa_checkout: VisaCheckout,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
       sig { returns(String) }
@@ -695,18 +458,6 @@ module Stripe
       # If this Card is part of a card wallet, this contains the details of the card wallet.
       sig { returns(T.nilable(Wallet)) }
       def wallet; end
-      def self.inner_class_types
-        @inner_class_types = {
-          checks: Checks,
-          generated_from: GeneratedFrom,
-          networks: Networks,
-          three_d_secure_usage: ThreeDSecureUsage,
-          wallet: Wallet,
-        }
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CardPresent < Stripe::StripeObject
       class Networks < Stripe::StripeObject
@@ -716,12 +467,6 @@ module Stripe
         # The preferred network for the card.
         sig { returns(T.nilable(String)) }
         def preferred; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Offline < Stripe::StripeObject
         # Time at which the payment was collected while offline
@@ -730,23 +475,11 @@ module Stripe
         # The method used to process this payment method offline. Only deferred is allowed.
         sig { returns(T.nilable(String)) }
         def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Wallet < Stripe::StripeObject
         # The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
         sig { returns(String) }
         def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
       sig { returns(T.nilable(String)) }
@@ -801,12 +534,6 @@ module Stripe
       # Attribute for field wallet
       sig { returns(T.nilable(Wallet)) }
       def wallet; end
-      def self.inner_class_types
-        @inner_class_types = {networks: Networks, offline: Offline, wallet: Wallet}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Cashapp < Stripe::StripeObject
       # A unique and immutable identifier assigned by Cash App to every buyer.
@@ -815,39 +542,13 @@ module Stripe
       # A public identifier for buyers using Cash App.
       sig { returns(T.nilable(String)) }
       def cashtag; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Crypto < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class CustomerBalance < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class Crypto < Stripe::StripeObject; end
+    class CustomerBalance < Stripe::StripeObject; end
     class Eps < Stripe::StripeObject
       # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
       sig { returns(T.nilable(String)) }
       def bank; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Fpx < Stripe::StripeObject
       # Account holder type, if provided. Can be one of `individual` or `company`.
@@ -856,29 +557,9 @@ module Stripe
       # The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
       sig { returns(String) }
       def bank; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Giropay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Grabpay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class Giropay < Stripe::StripeObject; end
+    class Grabpay < Stripe::StripeObject; end
     class Ideal < Stripe::StripeObject
       # The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
       sig { returns(T.nilable(String)) }
@@ -886,12 +567,6 @@ module Stripe
       # The Bank Identifier Code of the customer's bank, if the bank was provided.
       sig { returns(T.nilable(String)) }
       def bic; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class InteracPresent < Stripe::StripeObject
       class Networks < Stripe::StripeObject
@@ -901,12 +576,6 @@ module Stripe
         # The preferred network for the card.
         sig { returns(T.nilable(String)) }
         def preferred; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Card brand. Can be `interac`, `mastercard` or `visa`.
       sig { returns(T.nilable(String)) }
@@ -952,21 +621,8 @@ module Stripe
       # How card details were read in this transaction.
       sig { returns(T.nilable(String)) }
       def read_method; end
-      def self.inner_class_types
-        @inner_class_types = {networks: Networks}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class KakaoPay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class KakaoPay < Stripe::StripeObject; end
     class Klarna < Stripe::StripeObject
       class Dob < Stripe::StripeObject
         # The day of birth, between 1 and 31.
@@ -978,31 +634,12 @@ module Stripe
         # The four-digit year of birth.
         sig { returns(T.nilable(Integer)) }
         def year; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The customer's date of birth, if provided.
       sig { returns(T.nilable(Dob)) }
       def dob; end
-      def self.inner_class_types
-        @inner_class_types = {dob: Dob}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Konbini < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class Konbini < Stripe::StripeObject; end
     class KrCard < Stripe::StripeObject
       # The local credit or debit card brand.
       sig { returns(T.nilable(String)) }
@@ -1010,12 +647,6 @@ module Stripe
       # The last four digits of the card. This may not be present for American Express cards.
       sig { returns(T.nilable(String)) }
       def last4; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Link < Stripe::StripeObject
       # Account owner's email address.
@@ -1024,29 +655,10 @@ module Stripe
       # [Deprecated] This is a legacy parameter that no longer has any function.
       sig { returns(T.nilable(String)) }
       def persistent_token; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Mobilepay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Multibanco < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class MbWay < Stripe::StripeObject; end
+    class Mobilepay < Stripe::StripeObject; end
+    class Multibanco < Stripe::StripeObject; end
     class NaverPay < Stripe::StripeObject
       # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
       sig { returns(T.nilable(String)) }
@@ -1054,12 +666,6 @@ module Stripe
       # Whether to fund this transaction with Naver Pay points or a card.
       sig { returns(String) }
       def funding; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class NzBankAccount < Stripe::StripeObject
       # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
@@ -1080,56 +686,16 @@ module Stripe
       # The suffix of the bank account number.
       sig { returns(T.nilable(String)) }
       def suffix; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Oxxo < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class Oxxo < Stripe::StripeObject; end
     class P24 < Stripe::StripeObject
       # The customer's bank, if provided.
       sig { returns(T.nilable(String)) }
       def bank; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class PayByBank < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Payco < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Paynow < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class PayByBank < Stripe::StripeObject; end
+    class Payco < Stripe::StripeObject; end
+    class Paynow < Stripe::StripeObject; end
     class Paypal < Stripe::StripeObject
       # Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
       sig { returns(T.nilable(String)) }
@@ -1141,64 +707,18 @@ module Stripe
       # PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
       sig { returns(T.nilable(String)) }
       def payer_id; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Pix < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Promptpay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class Paypay < Stripe::StripeObject; end
+    class Pix < Stripe::StripeObject; end
+    class Promptpay < Stripe::StripeObject; end
     class RadarOptions < Stripe::StripeObject
       # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       sig { returns(T.nilable(String)) }
       def session; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class RevolutPay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class SamsungPay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Satispay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class RevolutPay < Stripe::StripeObject; end
+    class SamsungPay < Stripe::StripeObject; end
+    class Satispay < Stripe::StripeObject; end
     class SepaDebit < Stripe::StripeObject
       class GeneratedFrom < Stripe::StripeObject
         # The ID of the Charge that generated this PaymentMethod, if any.
@@ -1207,12 +727,6 @@ module Stripe
         # The ID of the SetupAttempt that generated this PaymentMethod, if any.
         sig { returns(T.nilable(T.any(String, Stripe::SetupAttempt))) }
         def setup_attempt; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Bank code of bank associated with the bank account.
       sig { returns(T.nilable(String)) }
@@ -1232,40 +746,14 @@ module Stripe
       # Last four characters of the IBAN.
       sig { returns(T.nilable(String)) }
       def last4; end
-      def self.inner_class_types
-        @inner_class_types = {generated_from: GeneratedFrom}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Sofort < Stripe::StripeObject
       # Two-letter ISO code representing the country the bank account is located in.
       sig { returns(T.nilable(String)) }
       def country; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class Swish < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Twint < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class Swish < Stripe::StripeObject; end
+    class Twint < Stripe::StripeObject; end
     class UsBankAccount < Stripe::StripeObject
       class Networks < Stripe::StripeObject
         # The preferred network.
@@ -1274,12 +762,6 @@ module Stripe
         # All supported networks.
         sig { returns(T::Array[String]) }
         def supported; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class StatusDetails < Stripe::StripeObject
         class Blocked < Stripe::StripeObject
@@ -1289,22 +771,10 @@ module Stripe
           # The reason why this PaymentMethod's fingerprint has been blocked
           sig { returns(T.nilable(String)) }
           def reason; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field blocked
         sig { returns(T.nilable(Blocked)) }
         def blocked; end
-        def self.inner_class_types
-          @inner_class_types = {blocked: Blocked}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Account holder type: individual or company.
       sig { returns(T.nilable(String)) }
@@ -1333,29 +803,9 @@ module Stripe
       # Contains information about the future reusability of this PaymentMethod.
       sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
-      def self.inner_class_types
-        @inner_class_types = {networks: Networks, status_details: StatusDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
-    class WechatPay < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class Zip < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
+    class WechatPay < Stripe::StripeObject; end
+    class Zip < Stripe::StripeObject; end
     # Attribute for field acss_debit
     sig { returns(T.nilable(AcssDebit)) }
     def acss_debit; end
@@ -1458,6 +908,9 @@ module Stripe
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
+    # Attribute for field mb_way
+    sig { returns(T.nilable(MbWay)) }
+    def mb_way; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
@@ -1494,6 +947,9 @@ module Stripe
     # Attribute for field paypal
     sig { returns(T.nilable(Paypal)) }
     def paypal; end
+    # Attribute for field paypay
+    sig { returns(T.nilable(Paypay)) }
+    def paypay; end
     # Attribute for field pix
     sig { returns(T.nilable(Pix)) }
     def pix; end
@@ -1648,12 +1104,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -1850,6 +1306,7 @@ module Stripe
       class Konbini < Stripe::RequestParams; end
       class KrCard < Stripe::RequestParams; end
       class Link < Stripe::RequestParams; end
+      class MbWay < Stripe::RequestParams; end
       class Mobilepay < Stripe::RequestParams; end
       class Multibanco < Stripe::RequestParams; end
       class NaverPay < Stripe::RequestParams
@@ -1918,6 +1375,7 @@ module Stripe
       class Payco < Stripe::RequestParams; end
       class Paynow < Stripe::RequestParams; end
       class Paypal < Stripe::RequestParams; end
+      class Paypay < Stripe::RequestParams; end
       class Pix < Stripe::RequestParams; end
       class Promptpay < Stripe::RequestParams; end
       class RadarOptions < Stripe::RequestParams
@@ -2202,6 +1660,13 @@ module Stripe
         params(_link: T.nilable(::Stripe::PaymentMethod::CreateParams::Link)).returns(T.nilable(::Stripe::PaymentMethod::CreateParams::Link))
        }
       def link=(_link); end
+      # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+      sig { returns(T.nilable(::Stripe::PaymentMethod::CreateParams::MbWay)) }
+      def mb_way; end
+      sig {
+        params(_mb_way: T.nilable(::Stripe::PaymentMethod::CreateParams::MbWay)).returns(T.nilable(::Stripe::PaymentMethod::CreateParams::MbWay))
+       }
+      def mb_way=(_mb_way); end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -2284,6 +1749,13 @@ module Stripe
         params(_paypal: T.nilable(::Stripe::PaymentMethod::CreateParams::Paypal)).returns(T.nilable(::Stripe::PaymentMethod::CreateParams::Paypal))
        }
       def paypal=(_paypal); end
+      # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+      sig { returns(T.nilable(::Stripe::PaymentMethod::CreateParams::Paypay)) }
+      def paypay; end
+      sig {
+        params(_paypay: T.nilable(::Stripe::PaymentMethod::CreateParams::Paypay)).returns(T.nilable(::Stripe::PaymentMethod::CreateParams::Paypay))
+       }
+      def paypay=(_paypay); end
       # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
       sig { returns(T.nilable(::Stripe::PaymentMethod::CreateParams::Pix)) }
       def pix; end
@@ -2381,7 +1853,7 @@ module Stripe
        }
       def zip=(_zip); end
       sig {
-        params(acss_debit: T.nilable(::Stripe::PaymentMethod::CreateParams::AcssDebit), affirm: T.nilable(::Stripe::PaymentMethod::CreateParams::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentMethod::CreateParams::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentMethod::CreateParams::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::PaymentMethod::CreateParams::Alma), amazon_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::AmazonPay), au_becs_debit: T.nilable(::Stripe::PaymentMethod::CreateParams::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentMethod::CreateParams::BacsDebit), bancontact: T.nilable(::Stripe::PaymentMethod::CreateParams::Bancontact), billie: T.nilable(::Stripe::PaymentMethod::CreateParams::Billie), billing_details: T.nilable(::Stripe::PaymentMethod::CreateParams::BillingDetails), blik: T.nilable(::Stripe::PaymentMethod::CreateParams::Blik), boleto: T.nilable(::Stripe::PaymentMethod::CreateParams::Boleto), card: T.nilable(::Stripe::PaymentMethod::CreateParams::Card), cashapp: T.nilable(::Stripe::PaymentMethod::CreateParams::Cashapp), crypto: T.nilable(::Stripe::PaymentMethod::CreateParams::Crypto), customer: T.nilable(String), customer_balance: T.nilable(::Stripe::PaymentMethod::CreateParams::CustomerBalance), eps: T.nilable(::Stripe::PaymentMethod::CreateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(::Stripe::PaymentMethod::CreateParams::Fpx), giropay: T.nilable(::Stripe::PaymentMethod::CreateParams::Giropay), grabpay: T.nilable(::Stripe::PaymentMethod::CreateParams::Grabpay), ideal: T.nilable(::Stripe::PaymentMethod::CreateParams::Ideal), interac_present: T.nilable(::Stripe::PaymentMethod::CreateParams::InteracPresent), kakao_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::KakaoPay), klarna: T.nilable(::Stripe::PaymentMethod::CreateParams::Klarna), konbini: T.nilable(::Stripe::PaymentMethod::CreateParams::Konbini), kr_card: T.nilable(::Stripe::PaymentMethod::CreateParams::KrCard), link: T.nilable(::Stripe::PaymentMethod::CreateParams::Link), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::PaymentMethod::CreateParams::Mobilepay), multibanco: T.nilable(::Stripe::PaymentMethod::CreateParams::Multibanco), naver_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::NaverPay), nz_bank_account: T.nilable(::Stripe::PaymentMethod::CreateParams::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentMethod::CreateParams::Oxxo), p24: T.nilable(::Stripe::PaymentMethod::CreateParams::P24), pay_by_bank: T.nilable(::Stripe::PaymentMethod::CreateParams::PayByBank), payco: T.nilable(::Stripe::PaymentMethod::CreateParams::Payco), payment_method: T.nilable(String), paynow: T.nilable(::Stripe::PaymentMethod::CreateParams::Paynow), paypal: T.nilable(::Stripe::PaymentMethod::CreateParams::Paypal), pix: T.nilable(::Stripe::PaymentMethod::CreateParams::Pix), promptpay: T.nilable(::Stripe::PaymentMethod::CreateParams::Promptpay), radar_options: T.nilable(::Stripe::PaymentMethod::CreateParams::RadarOptions), revolut_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::RevolutPay), samsung_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::SamsungPay), satispay: T.nilable(::Stripe::PaymentMethod::CreateParams::Satispay), sepa_debit: T.nilable(::Stripe::PaymentMethod::CreateParams::SepaDebit), sofort: T.nilable(::Stripe::PaymentMethod::CreateParams::Sofort), swish: T.nilable(::Stripe::PaymentMethod::CreateParams::Swish), twint: T.nilable(::Stripe::PaymentMethod::CreateParams::Twint), type: T.nilable(String), us_bank_account: T.nilable(::Stripe::PaymentMethod::CreateParams::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::WechatPay), zip: T.nilable(::Stripe::PaymentMethod::CreateParams::Zip)).void
+        params(acss_debit: T.nilable(::Stripe::PaymentMethod::CreateParams::AcssDebit), affirm: T.nilable(::Stripe::PaymentMethod::CreateParams::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentMethod::CreateParams::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentMethod::CreateParams::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::PaymentMethod::CreateParams::Alma), amazon_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::AmazonPay), au_becs_debit: T.nilable(::Stripe::PaymentMethod::CreateParams::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentMethod::CreateParams::BacsDebit), bancontact: T.nilable(::Stripe::PaymentMethod::CreateParams::Bancontact), billie: T.nilable(::Stripe::PaymentMethod::CreateParams::Billie), billing_details: T.nilable(::Stripe::PaymentMethod::CreateParams::BillingDetails), blik: T.nilable(::Stripe::PaymentMethod::CreateParams::Blik), boleto: T.nilable(::Stripe::PaymentMethod::CreateParams::Boleto), card: T.nilable(::Stripe::PaymentMethod::CreateParams::Card), cashapp: T.nilable(::Stripe::PaymentMethod::CreateParams::Cashapp), crypto: T.nilable(::Stripe::PaymentMethod::CreateParams::Crypto), customer: T.nilable(String), customer_balance: T.nilable(::Stripe::PaymentMethod::CreateParams::CustomerBalance), eps: T.nilable(::Stripe::PaymentMethod::CreateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(::Stripe::PaymentMethod::CreateParams::Fpx), giropay: T.nilable(::Stripe::PaymentMethod::CreateParams::Giropay), grabpay: T.nilable(::Stripe::PaymentMethod::CreateParams::Grabpay), ideal: T.nilable(::Stripe::PaymentMethod::CreateParams::Ideal), interac_present: T.nilable(::Stripe::PaymentMethod::CreateParams::InteracPresent), kakao_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::KakaoPay), klarna: T.nilable(::Stripe::PaymentMethod::CreateParams::Klarna), konbini: T.nilable(::Stripe::PaymentMethod::CreateParams::Konbini), kr_card: T.nilable(::Stripe::PaymentMethod::CreateParams::KrCard), link: T.nilable(::Stripe::PaymentMethod::CreateParams::Link), mb_way: T.nilable(::Stripe::PaymentMethod::CreateParams::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::PaymentMethod::CreateParams::Mobilepay), multibanco: T.nilable(::Stripe::PaymentMethod::CreateParams::Multibanco), naver_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::NaverPay), nz_bank_account: T.nilable(::Stripe::PaymentMethod::CreateParams::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentMethod::CreateParams::Oxxo), p24: T.nilable(::Stripe::PaymentMethod::CreateParams::P24), pay_by_bank: T.nilable(::Stripe::PaymentMethod::CreateParams::PayByBank), payco: T.nilable(::Stripe::PaymentMethod::CreateParams::Payco), payment_method: T.nilable(String), paynow: T.nilable(::Stripe::PaymentMethod::CreateParams::Paynow), paypal: T.nilable(::Stripe::PaymentMethod::CreateParams::Paypal), paypay: T.nilable(::Stripe::PaymentMethod::CreateParams::Paypay), pix: T.nilable(::Stripe::PaymentMethod::CreateParams::Pix), promptpay: T.nilable(::Stripe::PaymentMethod::CreateParams::Promptpay), radar_options: T.nilable(::Stripe::PaymentMethod::CreateParams::RadarOptions), revolut_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::RevolutPay), samsung_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::SamsungPay), satispay: T.nilable(::Stripe::PaymentMethod::CreateParams::Satispay), sepa_debit: T.nilable(::Stripe::PaymentMethod::CreateParams::SepaDebit), sofort: T.nilable(::Stripe::PaymentMethod::CreateParams::Sofort), swish: T.nilable(::Stripe::PaymentMethod::CreateParams::Swish), twint: T.nilable(::Stripe::PaymentMethod::CreateParams::Twint), type: T.nilable(String), us_bank_account: T.nilable(::Stripe::PaymentMethod::CreateParams::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentMethod::CreateParams::WechatPay), zip: T.nilable(::Stripe::PaymentMethod::CreateParams::Zip)).void
        }
       def initialize(
         acss_debit: nil,
@@ -2415,6 +1887,7 @@ module Stripe
         konbini: nil,
         kr_card: nil,
         link: nil,
+        mb_way: nil,
         metadata: nil,
         mobilepay: nil,
         multibanco: nil,
@@ -2427,6 +1900,7 @@ module Stripe
         payment_method: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         pix: nil,
         promptpay: nil,
         radar_options: nil,
@@ -2456,12 +1930,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -2556,8 +2030,6 @@ module Stripe
          }
         def initialize(exp_month: nil, exp_year: nil, networks: nil); end
       end
-      class Link < Stripe::RequestParams; end
-      class PayByBank < Stripe::RequestParams; end
       class UsBankAccount < Stripe::RequestParams
         # Bank account holder type.
         sig { returns(T.nilable(String)) }
@@ -2596,13 +2068,6 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
-      sig { returns(T.nilable(::Stripe::PaymentMethod::UpdateParams::Link)) }
-      def link; end
-      sig {
-        params(_link: T.nilable(::Stripe::PaymentMethod::UpdateParams::Link)).returns(T.nilable(::Stripe::PaymentMethod::UpdateParams::Link))
-       }
-      def link=(_link); end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
@@ -2610,13 +2075,6 @@ module Stripe
         params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
        }
       def metadata=(_metadata); end
-      # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
-      sig { returns(T.nilable(::Stripe::PaymentMethod::UpdateParams::PayByBank)) }
-      def pay_by_bank; end
-      sig {
-        params(_pay_by_bank: T.nilable(::Stripe::PaymentMethod::UpdateParams::PayByBank)).returns(T.nilable(::Stripe::PaymentMethod::UpdateParams::PayByBank))
-       }
-      def pay_by_bank=(_pay_by_bank); end
       # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
       sig { returns(T.nilable(::Stripe::PaymentMethod::UpdateParams::UsBankAccount)) }
       def us_bank_account; end
@@ -2625,16 +2083,14 @@ module Stripe
        }
       def us_bank_account=(_us_bank_account); end
       sig {
-        params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethod::UpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethod::UpdateParams::Card), expand: T.nilable(T::Array[String]), link: T.nilable(::Stripe::PaymentMethod::UpdateParams::Link), metadata: T.nilable(T.any(String, T::Hash[String, String])), pay_by_bank: T.nilable(::Stripe::PaymentMethod::UpdateParams::PayByBank), us_bank_account: T.nilable(::Stripe::PaymentMethod::UpdateParams::UsBankAccount)).void
+        params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethod::UpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethod::UpdateParams::Card), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), us_bank_account: T.nilable(::Stripe::PaymentMethod::UpdateParams::UsBankAccount)).void
        }
       def initialize(
         allow_redisplay: nil,
         billing_details: nil,
         card: nil,
         expand: nil,
-        link: nil,
         metadata: nil,
-        pay_by_bank: nil,
         us_bank_account: nil
       ); end
     end

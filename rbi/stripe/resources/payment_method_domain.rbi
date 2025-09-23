@@ -13,12 +13,6 @@ module Stripe
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
@@ -26,24 +20,12 @@ module Stripe
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
-      def self.inner_class_types
-        @inner_class_types = {status_details: StatusDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class ApplePay < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
@@ -51,24 +33,12 @@ module Stripe
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
-      def self.inner_class_types
-        @inner_class_types = {status_details: StatusDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class GooglePay < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
@@ -76,24 +46,12 @@ module Stripe
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
-      def self.inner_class_types
-        @inner_class_types = {status_details: StatusDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Klarna < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
@@ -101,24 +59,12 @@ module Stripe
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
-      def self.inner_class_types
-        @inner_class_types = {status_details: StatusDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Link < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
@@ -126,24 +72,12 @@ module Stripe
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
-      def self.inner_class_types
-        @inner_class_types = {status_details: StatusDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Paypal < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The status of the payment method on the domain.
       sig { returns(String) }
@@ -151,12 +85,6 @@ module Stripe
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(T.nilable(StatusDetails)) }
       def status_details; end
-      def self.inner_class_types
-        @inner_class_types = {status_details: StatusDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(AmazonPay) }

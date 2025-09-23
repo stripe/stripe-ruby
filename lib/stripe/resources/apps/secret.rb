@@ -26,14 +26,6 @@ module Stripe
         attr_reader :type
         # The user ID, if type is set to "user"
         attr_reader :user
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -198,14 +190,6 @@ module Stripe
       # List all secrets stored on the given scope.
       def self.list(params = {}, opts = {})
         request_stripe_object(method: :get, path: "/v1/apps/secrets", params: params, opts: opts)
-      end
-
-      def self.inner_class_types
-        @inner_class_types = { scope: Scope }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

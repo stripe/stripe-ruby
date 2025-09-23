@@ -51,13 +51,5 @@ module Stripe
             "application fee ID. Retrieve an application fee refund using " \
             "`ApplicationFee.retrieve_refund('fee_id', 'refund_id')`"
     end
-
-    def self.inner_class_types
-      @inner_class_types = {}
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
-    end
   end
 end

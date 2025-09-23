@@ -20,22 +20,10 @@ module Stripe
         # The user agent of the browser from which the legal guardian accepted the service agreement.
         sig { returns(T.nilable(String)) }
         def user_agent; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Details on the legal guardian's acceptance of the main Stripe service agreement.
       sig { returns(T.nilable(Account)) }
       def account; end
-      def self.inner_class_types
-        @inner_class_types = {account: Account}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Address < Stripe::StripeObject
       # City, district, suburb, town, or village.
@@ -44,10 +32,10 @@ module Stripe
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       sig { returns(T.nilable(String)) }
       def country; end
-      # Address line 1 (e.g., street, PO Box, or company name).
+      # Address line 1, such as the street, PO Box, or company name.
       sig { returns(T.nilable(String)) }
       def line1; end
-      # Address line 2 (e.g., apartment, suite, unit, or building).
+      # Address line 2, such as the apartment, suite, unit, or building.
       sig { returns(T.nilable(String)) }
       def line2; end
       # ZIP or postal code.
@@ -56,12 +44,6 @@ module Stripe
       # State, county, province, or region.
       sig { returns(T.nilable(String)) }
       def state; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class AddressKana < Stripe::StripeObject
       # City/Ward.
@@ -85,12 +67,6 @@ module Stripe
       # Town/cho-me.
       sig { returns(T.nilable(String)) }
       def town; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class AddressKanji < Stripe::StripeObject
       # City/Ward.
@@ -114,12 +90,6 @@ module Stripe
       # Town/cho-me.
       sig { returns(T.nilable(String)) }
       def town; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Dob < Stripe::StripeObject
       # The day of birth, between 1 and 31.
@@ -131,12 +101,6 @@ module Stripe
       # The four-digit year of birth.
       sig { returns(T.nilable(Integer)) }
       def year; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class FutureRequirements < Stripe::StripeObject
       class Alternative < Stripe::StripeObject
@@ -146,12 +110,6 @@ module Stripe
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
         sig { returns(T::Array[String]) }
         def original_fields_due; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Error < Stripe::StripeObject
         # The code for the type of error.
@@ -163,12 +121,6 @@ module Stripe
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         sig { returns(String) }
         def requirement; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
       sig { returns(T.nilable(T::Array[Alternative])) }
@@ -188,12 +140,6 @@ module Stripe
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
       sig { returns(T::Array[String]) }
       def pending_verification; end
-      def self.inner_class_types
-        @inner_class_types = {alternatives: Alternative, errors: Error}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class RegisteredAddress < Stripe::StripeObject
       # City, district, suburb, town, or village.
@@ -202,10 +148,10 @@ module Stripe
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       sig { returns(T.nilable(String)) }
       def country; end
-      # Address line 1 (e.g., street, PO Box, or company name).
+      # Address line 1, such as the street, PO Box, or company name.
       sig { returns(T.nilable(String)) }
       def line1; end
-      # Address line 2 (e.g., apartment, suite, unit, or building).
+      # Address line 2, such as the apartment, suite, unit, or building.
       sig { returns(T.nilable(String)) }
       def line2; end
       # ZIP or postal code.
@@ -214,12 +160,6 @@ module Stripe
       # State, county, province, or region.
       sig { returns(T.nilable(String)) }
       def state; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Relationship < Stripe::StripeObject
       # Whether the person is the authorizer of the account's representative.
@@ -246,12 +186,6 @@ module Stripe
       # The person's title (e.g., CEO, Support Engineer).
       sig { returns(T.nilable(String)) }
       def title; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Requirements < Stripe::StripeObject
       class Alternative < Stripe::StripeObject
@@ -261,12 +195,6 @@ module Stripe
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
         sig { returns(T::Array[String]) }
         def original_fields_due; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Error < Stripe::StripeObject
         # The code for the type of error.
@@ -278,12 +206,6 @@ module Stripe
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         sig { returns(String) }
         def requirement; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
       sig { returns(T.nilable(T::Array[Alternative])) }
@@ -303,12 +225,6 @@ module Stripe
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
       sig { returns(T::Array[String]) }
       def pending_verification; end
-      def self.inner_class_types
-        @inner_class_types = {alternatives: Alternative, errors: Error}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class UsCfpbData < Stripe::StripeObject
       class EthnicityDetails < Stripe::StripeObject
@@ -318,12 +234,6 @@ module Stripe
         # Please specify your origin, when other is selected.
         sig { returns(T.nilable(String)) }
         def ethnicity_other; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class RaceDetails < Stripe::StripeObject
         # The persons race.
@@ -332,12 +242,6 @@ module Stripe
         # Please specify your race, when other is selected.
         sig { returns(T.nilable(String)) }
         def race_other; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The persons ethnicity details
       sig { returns(T.nilable(EthnicityDetails)) }
@@ -348,12 +252,6 @@ module Stripe
       # The persons self-identified gender
       sig { returns(T.nilable(String)) }
       def self_identified_gender; end
-      def self.inner_class_types
-        @inner_class_types = {ethnicity_details: EthnicityDetails, race_details: RaceDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Verification < Stripe::StripeObject
       class AdditionalDocument < Stripe::StripeObject
@@ -369,12 +267,6 @@ module Stripe
         # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
         sig { returns(T.nilable(T.any(String, Stripe::File))) }
         def front; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Document < Stripe::StripeObject
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
@@ -389,12 +281,6 @@ module Stripe
         # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
         sig { returns(T.nilable(T.any(String, Stripe::File))) }
         def front; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
       sig { returns(T.nilable(AdditionalDocument)) }
@@ -411,12 +297,6 @@ module Stripe
       # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://stripe.com/docs/connect/handling-api-verification) to handle verification updates.
       sig { returns(String) }
       def status; end
-      def self.inner_class_types
-        @inner_class_types = {additional_document: AdditionalDocument, document: Document}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # The account the person is associated with.
     sig { returns(T.nilable(String)) }

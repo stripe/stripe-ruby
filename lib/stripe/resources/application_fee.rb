@@ -20,14 +20,6 @@ module Stripe
       attr_reader :payout
       # Type of object that created the application fee.
       attr_reader :type
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -111,14 +103,6 @@ module Stripe
     # Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/application_fees", params: params, opts: opts)
-    end
-
-    def self.inner_class_types
-      @inner_class_types = { fee_source: FeeSource }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

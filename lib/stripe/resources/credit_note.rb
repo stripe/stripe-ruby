@@ -20,14 +20,6 @@ module Stripe
       attr_reader :amount
       # The discount that was applied to get this discount amount.
       attr_reader :discount
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class PretaxCreditAmount < Stripe::StripeObject
@@ -39,14 +31,6 @@ module Stripe
       attr_reader :discount
       # Type of the pretax credit amount referenced.
       attr_reader :type
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class Refund < Stripe::StripeObject
@@ -54,14 +38,6 @@ module Stripe
       attr_reader :amount_refunded
       # ID of the refund.
       attr_reader :refund
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class ShippingCost < Stripe::StripeObject
@@ -76,14 +52,6 @@ module Stripe
         attr_reader :taxability_reason
         # The amount on which tax is calculated, in cents (or local equivalent).
         attr_reader :taxable_amount
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Total shipping cost before any taxes are applied.
       attr_reader :amount_subtotal
@@ -95,28 +63,12 @@ module Stripe
       attr_reader :shipping_rate
       # The taxes applied to the shipping rate.
       attr_reader :taxes
-
-      def self.inner_class_types
-        @inner_class_types = { taxes: Tax }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class TotalTax < Stripe::StripeObject
       class TaxRateDetails < Stripe::StripeObject
         # Attribute for field tax_rate
         attr_reader :tax_rate
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The amount of the tax, in cents (or local equivalent).
       attr_reader :amount
@@ -130,14 +82,6 @@ module Stripe
       attr_reader :taxable_amount
       # The type of tax information.
       attr_reader :type
-
-      def self.inner_class_types
-        @inner_class_types = { tax_rate_details: TaxRateDetails }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -784,20 +728,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    def self.inner_class_types
-      @inner_class_types = {
-        discount_amounts: DiscountAmount,
-        pretax_credit_amounts: PretaxCreditAmount,
-        refunds: Refund,
-        shipping_cost: ShippingCost,
-        total_taxes: TotalTax,
-      }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

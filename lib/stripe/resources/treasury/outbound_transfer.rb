@@ -24,22 +24,14 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Attribute for field address
           attr_reader :address
@@ -47,14 +39,6 @@ module Stripe
           attr_reader :email
           # Full name.
           attr_reader :name
-
-          def self.inner_class_types
-            @inner_class_types = { address: Address }
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class FinancialAccount < Stripe::StripeObject
@@ -62,14 +46,6 @@ module Stripe
           attr_reader :id
           # The rails used to send funds.
           attr_reader :network
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class UsBankAccount < Stripe::StripeObject
@@ -89,14 +65,6 @@ module Stripe
           attr_reader :network
           # Routing number of the bank account.
           attr_reader :routing_number
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field billing_details
         attr_reader :billing_details
@@ -106,18 +74,6 @@ module Stripe
         attr_reader :type
         # Attribute for field us_bank_account
         attr_reader :us_bank_account
-
-        def self.inner_class_types
-          @inner_class_types = {
-            billing_details: BillingDetails,
-            financial_account: FinancialAccount,
-            us_bank_account: UsBankAccount,
-          }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ReturnedDetails < Stripe::StripeObject
@@ -125,14 +81,6 @@ module Stripe
         attr_reader :code
         # The Transaction associated with this object.
         attr_reader :transaction
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class StatusTransitions < Stripe::StripeObject
@@ -144,28 +92,12 @@ module Stripe
         attr_reader :posted_at
         # Timestamp describing when an OutboundTransfer changed status to `returned`
         attr_reader :returned_at
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class TrackingDetails < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           # ACH trace ID of the OutboundTransfer for transfers sent over the `ach` network.
           attr_reader :trace_id
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class UsDomesticWire < Stripe::StripeObject
@@ -175,14 +107,6 @@ module Stripe
           attr_reader :imad
           # OMAD of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
           attr_reader :omad
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field ach
         attr_reader :ach
@@ -190,14 +114,6 @@ module Stripe
         attr_reader :type
         # Attribute for field us_domestic_wire
         attr_reader :us_domestic_wire
-
-        def self.inner_class_types
-          @inner_class_types = { ach: Ach, us_domestic_wire: UsDomesticWire }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -571,19 +487,6 @@ module Stripe
             opts: opts
           )
         end
-      end
-
-      def self.inner_class_types
-        @inner_class_types = {
-          destination_payment_method_details: DestinationPaymentMethodDetails,
-          returned_details: ReturnedDetails,
-          status_transitions: StatusTransitions,
-          tracking_details: TrackingDetails,
-        }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

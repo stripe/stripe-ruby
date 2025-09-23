@@ -19,22 +19,14 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Attribute for field address
           attr_reader :address
@@ -42,14 +34,6 @@ module Stripe
           attr_reader :email
           # Full name.
           attr_reader :name
-
-          def self.inner_class_types
-            @inner_class_types = { address: Address }
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class FinancialAccount < Stripe::StripeObject
@@ -57,14 +41,6 @@ module Stripe
           attr_reader :id
           # The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
           attr_reader :network
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class UsBankAccount < Stripe::StripeObject
@@ -74,14 +50,6 @@ module Stripe
           attr_reader :last4
           # The routing number for the bank account.
           attr_reader :routing_number
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Set when `type` is `balance`.
         attr_reader :balance
@@ -95,18 +63,6 @@ module Stripe
         attr_reader :type
         # Attribute for field us_bank_account
         attr_reader :us_bank_account
-
-        def self.inner_class_types
-          @inner_class_types = {
-            billing_details: BillingDetails,
-            financial_account: FinancialAccount,
-            us_bank_account: UsBankAccount,
-          }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class LinkedFlows < Stripe::StripeObject
@@ -120,14 +76,6 @@ module Stripe
         attr_reader :issuing_transaction
         # Set if the ReceivedDebit was created due to a [Payout](https://stripe.com/docs/api#payouts) object.
         attr_reader :payout
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ReversalDetails < Stripe::StripeObject
@@ -135,14 +83,6 @@ module Stripe
         attr_reader :deadline
         # Set if a ReceivedDebit can't be reversed.
         attr_reader :restricted_reason
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -297,18 +237,6 @@ module Stripe
             opts: opts
           )
         end
-      end
-
-      def self.inner_class_types
-        @inner_class_types = {
-          initiating_payment_method_details: InitiatingPaymentMethodDetails,
-          linked_flows: LinkedFlows,
-          reversal_details: ReversalDetails,
-        }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

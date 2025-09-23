@@ -64,13 +64,5 @@ module Stripe
             "Customer Balance Transactions cannot be retrieved without a customer ID. " \
             "Update a Customer Balance Transaction using `Customer.update_balance_transaction('cus_123', 'cbtxn_123', params)`"
     end
-
-    def self.inner_class_types
-      @inner_class_types = {}
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
-    end
   end
 end

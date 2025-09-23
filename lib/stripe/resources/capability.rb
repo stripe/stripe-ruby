@@ -19,14 +19,6 @@ module Stripe
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
         attr_reader :original_fields_due
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class Error < Stripe::StripeObject
@@ -36,14 +28,6 @@ module Stripe
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
       attr_reader :alternatives
@@ -61,14 +45,6 @@ module Stripe
       attr_reader :past_due
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
       attr_reader :pending_verification
-
-      def self.inner_class_types
-        @inner_class_types = { alternatives: Alternative, errors: Error }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class Requirements < Stripe::StripeObject
@@ -77,14 +53,6 @@ module Stripe
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
         attr_reader :original_fields_due
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class Error < Stripe::StripeObject
@@ -94,14 +62,6 @@ module Stripe
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
       attr_reader :alternatives
@@ -119,14 +79,6 @@ module Stripe
       attr_reader :past_due
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
       attr_reader :pending_verification
-
-      def self.inner_class_types
-        @inner_class_types = { alternatives: Alternative, errors: Error }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # The account for which the capability enables functionality.
     attr_reader :account
@@ -166,14 +118,6 @@ module Stripe
             "Capabilities cannot be updated without an account ID. Update a " \
             "capability using `Account.update_capability('account_id', " \
             "'capability_id', update_params)`"
-    end
-
-    def self.inner_class_types
-      @inner_class_types = { future_requirements: FutureRequirements, requirements: Requirements }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

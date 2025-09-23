@@ -18,14 +18,6 @@ module Stripe
       class Error < Stripe::StripeObject
         # Information about the run failure.
         attr_reader :message
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -80,14 +72,6 @@ module Stripe
 
       def self.resource_url
         "/v1/sigma/scheduled_query_runs"
-      end
-
-      def self.inner_class_types
-        @inner_class_types = { error: Error }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

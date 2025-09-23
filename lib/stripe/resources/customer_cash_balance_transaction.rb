@@ -17,27 +17,11 @@ module Stripe
       attr_reader :balance_transaction
       # The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
       attr_reader :linked_transaction
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class AppliedToPayment < Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to.
       attr_reader :payment_intent
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class Funded < Stripe::StripeObject
@@ -49,14 +33,6 @@ module Stripe
           attr_reader :iban_last4
           # The full name of the sender, as supplied by the sending bank.
           attr_reader :sender_name
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class GbBankTransfer < Stripe::StripeObject
@@ -66,14 +42,6 @@ module Stripe
           attr_reader :sender_name
           # The sort code of the bank of the sender of the funding
           attr_reader :sort_code
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class JpBankTransfer < Stripe::StripeObject
@@ -83,14 +51,6 @@ module Stripe
           attr_reader :sender_branch
           # The full name of the sender, as supplied by the sending bank.
           attr_reader :sender_name
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class UsBankTransfer < Stripe::StripeObject
@@ -98,14 +58,6 @@ module Stripe
           attr_reader :network
           # The full name of the sender, as supplied by the sending bank.
           attr_reader :sender_name
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field eu_bank_transfer
         attr_reader :eu_bank_transfer
@@ -119,69 +71,24 @@ module Stripe
         attr_reader :type
         # Attribute for field us_bank_transfer
         attr_reader :us_bank_transfer
-
-        def self.inner_class_types
-          @inner_class_types = {
-            eu_bank_transfer: EuBankTransfer,
-            gb_bank_transfer: GbBankTransfer,
-            jp_bank_transfer: JpBankTransfer,
-            us_bank_transfer: UsBankTransfer,
-          }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Attribute for field bank_transfer
       attr_reader :bank_transfer
-
-      def self.inner_class_types
-        @inner_class_types = { bank_transfer: BankTransfer }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class RefundedFromPayment < Stripe::StripeObject
       # The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
       attr_reader :refund
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class TransferredToBalance < Stripe::StripeObject
       # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
       attr_reader :balance_transaction
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class UnappliedFromPayment < Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
       attr_reader :payment_intent
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Attribute for field adjusted_for_overdraft
     attr_reader :adjusted_for_overdraft
@@ -213,20 +120,5 @@ module Stripe
     attr_reader :type
     # Attribute for field unapplied_from_payment
     attr_reader :unapplied_from_payment
-
-    def self.inner_class_types
-      @inner_class_types = {
-        adjusted_for_overdraft: AdjustedForOverdraft,
-        applied_to_payment: AppliedToPayment,
-        funded: Funded,
-        refunded_from_payment: RefundedFromPayment,
-        transferred_to_balance: TransferredToBalance,
-        unapplied_from_payment: UnappliedFromPayment,
-      }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
-    end
   end
 end

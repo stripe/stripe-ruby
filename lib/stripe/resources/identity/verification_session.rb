@@ -29,14 +29,6 @@ module Stripe
         attr_reader :code
         # A message that explains the reason for verification or user-session failure.
         attr_reader :reason
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class Options < Stripe::StripeObject
@@ -49,65 +41,25 @@ module Stripe
           attr_reader :require_live_capture
           # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
           attr_reader :require_matching_selfie
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class Email < Stripe::StripeObject
           # Request one time password verification of `provided_details.email`.
           attr_reader :require_verification
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
-        class IdNumber < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
+        class IdNumber < Stripe::StripeObject; end
 
         class Matching < Stripe::StripeObject
           # Strictness of the DOB matching policy to apply.
           attr_reader :dob
           # Strictness of the name matching policy to apply.
           attr_reader :name
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class Phone < Stripe::StripeObject
           # Request one time password verification of `provided_details.phone`.
           attr_reader :require_verification
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field document
         attr_reader :document
@@ -119,20 +71,6 @@ module Stripe
         attr_reader :matching
         # Attribute for field phone
         attr_reader :phone
-
-        def self.inner_class_types
-          @inner_class_types = {
-            document: Document,
-            email: Email,
-            id_number: IdNumber,
-            matching: Matching,
-            phone: Phone,
-          }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ProvidedDetails < Stripe::StripeObject
@@ -140,27 +78,11 @@ module Stripe
         attr_reader :email
         # Phone number of user being verified
         attr_reader :phone
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class Redaction < Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         attr_reader :status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class RelatedPerson < Stripe::StripeObject
@@ -168,14 +90,6 @@ module Stripe
         attr_reader :account
         # Token referencing the related Person resource.
         attr_reader :person
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class VerifiedOutputs < Stripe::StripeObject
@@ -184,22 +98,14 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class Dob < Stripe::StripeObject
@@ -209,14 +115,6 @@ module Stripe
           attr_reader :month
           # The four-digit year.
           attr_reader :year
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The user's verified address.
         attr_reader :address
@@ -240,14 +138,6 @@ module Stripe
         attr_reader :unparsed_place_of_birth
         # The user's verified sex as it appears in the document.
         attr_reader :unparsed_sex
-
-        def self.inner_class_types
-          @inner_class_types = { address: Address, dob: Dob }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -643,21 +533,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = {
-          last_error: LastError,
-          options: Options,
-          provided_details: ProvidedDetails,
-          redaction: Redaction,
-          related_person: RelatedPerson,
-          verified_outputs: VerifiedOutputs,
-        }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

@@ -20,14 +20,6 @@ module Stripe
         attr_reader :amount_subtotal
         # Total for one metric ton of carbon removal (including fees) in the currency's smallest unit.
         attr_reader :amount_total
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -76,14 +68,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = { current_prices_per_metric_ton: CurrentPricesPerMetricTon }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

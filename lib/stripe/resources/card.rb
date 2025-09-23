@@ -20,14 +20,6 @@ module Stripe
     class Networks < Stripe::StripeObject
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       attr_reader :preferred
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Attribute for field account
     attr_reader :account
@@ -51,7 +43,7 @@ module Stripe
     attr_reader :allow_redisplay
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     attr_reader :available_payout_methods
-    # Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
+    # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     attr_reader :brand
     # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
     attr_reader :country
@@ -149,14 +141,6 @@ module Stripe
             "ID. List cards using `Customer.list_sources(" \
             "'customer_id')` or " \
             "`Account.list_external_accounts('account_id')`"
-    end
-
-    def self.inner_class_types
-      @inner_class_types = { networks: Networks }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

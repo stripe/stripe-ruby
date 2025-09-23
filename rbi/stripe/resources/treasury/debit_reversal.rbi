@@ -10,23 +10,11 @@ module Stripe
         # Set if there is an Issuing dispute associated with the DebitReversal.
         sig { returns(T.nilable(String)) }
         def issuing_dispute; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class StatusTransitions < Stripe::StripeObject
         # Timestamp describing when the DebitReversal changed status to `completed`.
         sig { returns(T.nilable(Integer)) }
         def completed_at; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Amount (in cents) transferred.
       sig { returns(Integer) }

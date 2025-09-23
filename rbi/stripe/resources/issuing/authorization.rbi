@@ -17,12 +17,6 @@ module Stripe
         # The amount of cash requested by the cardholder.
         sig { returns(T.nilable(Integer)) }
         def cashback_amount; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Fleet < Stripe::StripeObject
         class CardholderPromptData < Stripe::StripeObject
@@ -44,35 +38,17 @@ module Stripe
           # Vehicle number.
           sig { returns(T.nilable(String)) }
           def vehicle_number; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class ReportedBreakdown < Stripe::StripeObject
           class Fuel < Stripe::StripeObject
             # Gross fuel amount that should equal Fuel Quantity multiplied by Fuel Unit Cost, inclusive of taxes.
             sig { returns(T.nilable(String)) }
             def gross_amount_decimal; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           class NonFuel < Stripe::StripeObject
             # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
             sig { returns(T.nilable(String)) }
             def gross_amount_decimal; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           class Tax < Stripe::StripeObject
             # Amount of state or provincial Sales Tax included in the transaction amount. `null` if not reported by merchant or not subject to tax.
@@ -81,12 +57,6 @@ module Stripe
             # Amount of national Sales Tax or VAT included in the transaction amount. `null` if not reported by merchant or not subject to tax.
             sig { returns(T.nilable(String)) }
             def national_amount_decimal; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Breakdown of fuel portion of the purchase.
           sig { returns(T.nilable(Fuel)) }
@@ -97,12 +67,6 @@ module Stripe
           # Information about tax included in this transaction.
           sig { returns(T.nilable(Tax)) }
           def tax; end
-          def self.inner_class_types
-            @inner_class_types = {fuel: Fuel, non_fuel: NonFuel, tax: Tax}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
         sig { returns(T.nilable(CardholderPromptData)) }
@@ -116,15 +80,6 @@ module Stripe
         # The type of fuel service.
         sig { returns(T.nilable(String)) }
         def service_type; end
-        def self.inner_class_types
-          @inner_class_types = {
-            cardholder_prompt_data: CardholderPromptData,
-            reported_breakdown: ReportedBreakdown,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class FraudChallenge < Stripe::StripeObject
         # The method by which the fraud challenge was delivered to the cardholder.
@@ -136,12 +91,6 @@ module Stripe
         # If the challenge is not deliverable, the reason why.
         sig { returns(T.nilable(String)) }
         def undeliverable_reason; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Fuel < Stripe::StripeObject
         # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
@@ -159,12 +108,6 @@ module Stripe
         # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
         sig { returns(T.nilable(String)) }
         def unit_cost_decimal; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class MerchantData < Stripe::StripeObject
         # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
@@ -200,12 +143,6 @@ module Stripe
         # URL provided by the merchant on a 3DS request
         sig { returns(T.nilable(String)) }
         def url; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class NetworkData < Stripe::StripeObject
         # Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be `null`.
@@ -217,12 +154,6 @@ module Stripe
         # Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class PendingRequest < Stripe::StripeObject
         class AmountDetails < Stripe::StripeObject
@@ -232,12 +163,6 @@ module Stripe
           # The amount of cash requested by the cardholder.
           sig { returns(T.nilable(Integer)) }
           def cashback_amount; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         sig { returns(Integer) }
@@ -260,12 +185,6 @@ module Stripe
         # The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
         sig { returns(T.nilable(Integer)) }
         def network_risk_score; end
-        def self.inner_class_types
-          @inner_class_types = {amount_details: AmountDetails}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class RequestHistory < Stripe::StripeObject
         class AmountDetails < Stripe::StripeObject
@@ -275,12 +194,6 @@ module Stripe
           # The amount of cash requested by the cardholder.
           sig { returns(T.nilable(Integer)) }
           def cashback_amount; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
         sig { returns(Integer) }
@@ -318,12 +231,6 @@ module Stripe
         # Time when the card network received an authorization request from the acquirer in UTC. Referred to by networks as transmission time.
         sig { returns(T.nilable(Integer)) }
         def requested_at; end
-        def self.inner_class_types
-          @inner_class_types = {amount_details: AmountDetails}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Treasury < Stripe::StripeObject
         # The array of [ReceivedCredits](https://stripe.com/docs/api/treasury/received_credits) associated with this authorization
@@ -335,12 +242,6 @@ module Stripe
         # The Treasury [Transaction](https://stripe.com/docs/api/treasury/transactions) associated with this authorization
         sig { returns(T.nilable(String)) }
         def transaction; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class VerificationData < Stripe::StripeObject
         class AuthenticationExemption < Stripe::StripeObject
@@ -350,23 +251,11 @@ module Stripe
           # The specific exemption claimed for this authorization.
           sig { returns(String) }
           def type; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class ThreeDSecure < Stripe::StripeObject
           # The outcome of the 3D Secure authentication request.
           sig { returns(String) }
           def result; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
         sig { returns(String) }
@@ -389,15 +278,6 @@ module Stripe
         # 3D Secure details.
         sig { returns(T.nilable(ThreeDSecure)) }
         def three_d_secure; end
-        def self.inner_class_types
-          @inner_class_types = {
-            authentication_exemption: AuthenticationExemption,
-            three_d_secure: ThreeDSecure,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The total amount that was authorized or rejected. This amount is in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `amount` should be the same as `merchant_amount`, unless `currency` and `merchant_currency` are different.
       sig { returns(Integer) }
@@ -895,6 +775,77 @@ module Stripe
           sig { params(acquiring_institution_id: T.nilable(String)).void }
           def initialize(acquiring_institution_id: nil); end
         end
+        class RiskAssessment < Stripe::RequestParams
+          class CardTestingRisk < Stripe::RequestParams
+            # The % of declines due to a card number not existing in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of card testing activity, meaning bad actors may be attempting different card number combinations to guess a correct one. Takes on values between 0 and 100.
+            sig { returns(T.nilable(Integer)) }
+            def invalid_account_number_decline_rate_past_hour; end
+            sig {
+              params(_invalid_account_number_decline_rate_past_hour: T.nilable(Integer)).returns(T.nilable(Integer))
+             }
+            def invalid_account_number_decline_rate_past_hour=(
+              _invalid_account_number_decline_rate_past_hour
+            ); end
+            # The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
+            sig { returns(T.nilable(Integer)) }
+            def invalid_credentials_decline_rate_past_hour; end
+            sig {
+              params(_invalid_credentials_decline_rate_past_hour: T.nilable(Integer)).returns(T.nilable(Integer))
+             }
+            def invalid_credentials_decline_rate_past_hour=(
+              _invalid_credentials_decline_rate_past_hour
+            ); end
+            # The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
+            sig { returns(String) }
+            def risk_level; end
+            sig { params(_risk_level: String).returns(String) }
+            def risk_level=(_risk_level); end
+            sig {
+              params(invalid_account_number_decline_rate_past_hour: T.nilable(Integer), invalid_credentials_decline_rate_past_hour: T.nilable(Integer), risk_level: String).void
+             }
+            def initialize(
+              invalid_account_number_decline_rate_past_hour: nil,
+              invalid_credentials_decline_rate_past_hour: nil,
+              risk_level: nil
+            ); end
+          end
+          class MerchantDisputeRisk < Stripe::RequestParams
+            # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
+            sig { returns(T.nilable(Integer)) }
+            def dispute_rate; end
+            sig { params(_dispute_rate: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def dispute_rate=(_dispute_rate); end
+            # The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
+            sig { returns(String) }
+            def risk_level; end
+            sig { params(_risk_level: String).returns(String) }
+            def risk_level=(_risk_level); end
+            sig { params(dispute_rate: T.nilable(Integer), risk_level: String).void }
+            def initialize(dispute_rate: nil, risk_level: nil); end
+          end
+          # Stripe's assessment of this authorization's likelihood of being card testing activity.
+          sig {
+            returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment::CardTestingRisk))
+           }
+          def card_testing_risk; end
+          sig {
+            params(_card_testing_risk: T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment::CardTestingRisk)).returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment::CardTestingRisk))
+           }
+          def card_testing_risk=(_card_testing_risk); end
+          # The dispute risk of the merchant (the seller on a purchase) on an authorization based on all Stripe Issuing activity.
+          sig {
+            returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment::MerchantDisputeRisk))
+           }
+          def merchant_dispute_risk; end
+          sig {
+            params(_merchant_dispute_risk: T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment::MerchantDisputeRisk)).returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment::MerchantDisputeRisk))
+           }
+          def merchant_dispute_risk=(_merchant_dispute_risk); end
+          sig {
+            params(card_testing_risk: T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment::CardTestingRisk), merchant_dispute_risk: T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment::MerchantDisputeRisk)).void
+           }
+          def initialize(card_testing_risk: nil, merchant_dispute_risk: nil); end
+        end
         class VerificationData < Stripe::RequestParams
           class AuthenticationExemption < Stripe::RequestParams
             # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
@@ -1008,6 +959,13 @@ module Stripe
           params(_fleet: T.nilable(::Stripe::Issuing::Authorization::CreateParams::Fleet)).returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::Fleet))
          }
         def fleet=(_fleet); end
+        # Probability that this transaction can be disputed in the event of fraud. Assessed by comparing the characteristics of the authorization to card network rules.
+        sig { returns(T.nilable(String)) }
+        def fraud_disputability_likelihood; end
+        sig {
+          params(_fraud_disputability_likelihood: T.nilable(String)).returns(T.nilable(String))
+         }
+        def fraud_disputability_likelihood=(_fraud_disputability_likelihood); end
         # Information about fuel that was purchased with this transaction.
         sig { returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::Fuel)) }
         def fuel; end
@@ -1046,6 +1004,13 @@ module Stripe
           params(_network_data: T.nilable(::Stripe::Issuing::Authorization::CreateParams::NetworkData)).returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::NetworkData))
          }
         def network_data=(_network_data); end
+        # Stripe’s assessment of the fraud risk for this authorization.
+        sig { returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment)) }
+        def risk_assessment; end
+        sig {
+          params(_risk_assessment: T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment)).returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment))
+         }
+        def risk_assessment=(_risk_assessment); end
         # Verifications that Stripe performed on information that the cardholder provided to the merchant.
         sig { returns(T.nilable(::Stripe::Issuing::Authorization::CreateParams::VerificationData)) }
         def verification_data; end
@@ -1059,7 +1024,7 @@ module Stripe
         sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
         def wallet=(_wallet); end
         sig {
-          params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::Issuing::Authorization::CreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::Issuing::Authorization::CreateParams::Fleet), fuel: T.nilable(::Stripe::Issuing::Authorization::CreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::Issuing::Authorization::CreateParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::Authorization::CreateParams::NetworkData), verification_data: T.nilable(::Stripe::Issuing::Authorization::CreateParams::VerificationData), wallet: T.nilable(String)).void
+          params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::Issuing::Authorization::CreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::Issuing::Authorization::CreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::Issuing::Authorization::CreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::Issuing::Authorization::CreateParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::Authorization::CreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::Issuing::Authorization::CreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::Issuing::Authorization::CreateParams::VerificationData), wallet: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -1069,12 +1034,14 @@ module Stripe
           currency: nil,
           expand: nil,
           fleet: nil,
+          fraud_disputability_likelihood: nil,
           fuel: nil,
           is_amount_controllable: nil,
           merchant_amount: nil,
           merchant_currency: nil,
           merchant_data: nil,
           network_data: nil,
+          risk_assessment: nil,
           verification_data: nil,
           wallet: nil
         ); end

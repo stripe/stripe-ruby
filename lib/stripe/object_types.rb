@@ -21,6 +21,7 @@ module Stripe
         ApplicationFeeRefund.object_name => ApplicationFeeRefund,
         Apps::Secret.object_name => Apps::Secret,
         Balance.object_name => Balance,
+        BalanceSettings.object_name => BalanceSettings,
         BalanceTransaction.object_name => BalanceTransaction,
         BankAccount.object_name => BankAccount,
         Billing::Alert.object_name => Billing::Alert,

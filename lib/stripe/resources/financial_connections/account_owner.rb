@@ -26,14 +26,6 @@ module Stripe
       attr_reader :raw_address
       # The timestamp of the refresh that updated this owner.
       attr_reader :refreshed_at
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
   end
 end

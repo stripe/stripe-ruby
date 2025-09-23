@@ -12,14 +12,6 @@ module Stripe
       class Reversal < Stripe::StripeObject
         # The `id` of the line item to reverse in the original transaction.
         attr_reader :original_line_item
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The line item amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
       attr_reader :amount
@@ -47,14 +39,6 @@ module Stripe
       attr_reader :tax_code
       # If `reversal`, this line item reverses an earlier transaction.
       attr_reader :type
-
-      def self.inner_class_types
-        @inner_class_types = { reversal: Reversal }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
   end
 end

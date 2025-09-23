@@ -16,27 +16,11 @@ module Stripe
       class LinkedFlows < Stripe::StripeObject
         # Set if there is an Issuing dispute associated with the DebitReversal.
         attr_reader :issuing_dispute
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class StatusTransitions < Stripe::StripeObject
         # Timestamp describing when the DebitReversal changed status to `completed`.
         attr_reader :completed_at
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -141,14 +125,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = { linked_flows: LinkedFlows, status_transitions: StatusTransitions }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

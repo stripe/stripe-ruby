@@ -17,14 +17,6 @@ module Stripe
         attr_reader :posted_at
         # Time at which this transaction was voided. Measured in seconds since the Unix epoch.
         attr_reader :void_at
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -120,14 +112,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = { status_transitions: StatusTransitions }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

@@ -62,13 +62,5 @@ module Stripe
             "a reversal using `Transfer.retrieve_reversal('transfer_id', " \
             "'reversal_id'`"
     end
-
-    def self.inner_class_types
-      @inner_class_types = {}
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
-    end
   end
 end

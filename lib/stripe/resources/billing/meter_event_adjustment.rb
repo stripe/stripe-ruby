@@ -15,14 +15,6 @@ module Stripe
       class Cancel < Stripe::StripeObject
         # Unique identifier for the event.
         attr_reader :identifier
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class CreateParams < Stripe::RequestParams
@@ -71,14 +63,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = { cancel: Cancel }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

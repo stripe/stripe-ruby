@@ -20,25 +20,9 @@ module Stripe
         class Advancing < Stripe::StripeObject
           # The `frozen_time` that the Test Clock is advancing towards.
           attr_reader :target_frozen_time
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field advancing
         attr_reader :advancing
-
-        def self.inner_class_types
-          @inner_class_types = { advancing: Advancing }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class DeleteParams < Stripe::RequestParams; end
@@ -166,14 +150,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = { status_details: StatusDetails }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

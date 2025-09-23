@@ -25,14 +25,6 @@ module Stripe
       attr_reader :status
       # The trace ID value if `trace_id.status` is `supported`, otherwise `nil`.
       attr_reader :value
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -309,14 +301,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    def self.inner_class_types
-      @inner_class_types = { trace_id: TraceId }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

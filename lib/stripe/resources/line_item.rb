@@ -17,14 +17,6 @@ module Stripe
       #
       # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
       attr_reader :discount
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class Tax < Stripe::StripeObject
@@ -38,14 +30,6 @@ module Stripe
       attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       attr_reader :taxable_amount
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Total discount amount applied. If no discounts were applied, defaults to 0.
     attr_reader :amount_discount
@@ -71,13 +55,5 @@ module Stripe
     attr_reader :quantity
     # The taxes applied to the line item.
     attr_reader :taxes
-
-    def self.inner_class_types
-      @inner_class_types = { discounts: Discount, taxes: Tax }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
-    end
   end
 end

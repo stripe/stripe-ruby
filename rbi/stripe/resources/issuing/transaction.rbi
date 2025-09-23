@@ -17,12 +17,6 @@ module Stripe
         # The amount of cash requested by the cardholder.
         sig { returns(T.nilable(Integer)) }
         def cashback_amount; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class MerchantData < Stripe::StripeObject
         # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
@@ -58,12 +52,6 @@ module Stripe
         # URL provided by the merchant on a 3DS request
         sig { returns(T.nilable(String)) }
         def url; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class NetworkData < Stripe::StripeObject
         # A code created by Stripe which is shared with the merchant to validate the authorization. This field will be populated if the authorization message was approved. The code typically starts with the letter "S", followed by a six-digit number. For example, "S498162". Please note that the code is not guaranteed to be unique across authorizations.
@@ -75,12 +63,6 @@ module Stripe
         # Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class PurchaseDetails < Stripe::StripeObject
         class Fleet < Stripe::StripeObject
@@ -100,35 +82,17 @@ module Stripe
             # Vehicle number.
             sig { returns(T.nilable(String)) }
             def vehicle_number; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           class ReportedBreakdown < Stripe::StripeObject
             class Fuel < Stripe::StripeObject
               # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(String)) }
               def gross_amount_decimal; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             class NonFuel < Stripe::StripeObject
               # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
               sig { returns(T.nilable(String)) }
               def gross_amount_decimal; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             class Tax < Stripe::StripeObject
               # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
@@ -137,12 +101,6 @@ module Stripe
               # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
               sig { returns(T.nilable(String)) }
               def national_amount_decimal; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             # Breakdown of fuel portion of the purchase.
             sig { returns(T.nilable(Fuel)) }
@@ -153,12 +111,6 @@ module Stripe
             # Information about tax included in this transaction.
             sig { returns(T.nilable(Tax)) }
             def tax; end
-            def self.inner_class_types
-              @inner_class_types = {fuel: Fuel, non_fuel: NonFuel, tax: Tax}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Answers to prompts presented to cardholder at point of sale.
           sig { returns(T.nilable(CardholderPromptData)) }
@@ -172,15 +124,6 @@ module Stripe
           # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
           sig { returns(T.nilable(String)) }
           def service_type; end
-          def self.inner_class_types
-            @inner_class_types = {
-              cardholder_prompt_data: CardholderPromptData,
-              reported_breakdown: ReportedBreakdown,
-            }
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class Flight < Stripe::StripeObject
           class Segment < Stripe::StripeObject
@@ -202,12 +145,6 @@ module Stripe
             # Whether a stopover is allowed on this flight.
             sig { returns(T.nilable(T::Boolean)) }
             def stopover_allowed; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # The time that the flight departed.
           sig { returns(T.nilable(Integer)) }
@@ -224,12 +161,6 @@ module Stripe
           # The travel agency that issued the ticket.
           sig { returns(T.nilable(String)) }
           def travel_agency; end
-          def self.inner_class_types
-            @inner_class_types = {segments: Segment}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class Fuel < Stripe::StripeObject
           # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
@@ -247,12 +178,6 @@ module Stripe
           # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
           sig { returns(String) }
           def unit_cost_decimal; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class Lodging < Stripe::StripeObject
           # The time of checking into the lodging.
@@ -261,12 +186,6 @@ module Stripe
           # The number of nights stayed at the lodging.
           sig { returns(T.nilable(Integer)) }
           def nights; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class Receipt < Stripe::StripeObject
           # The description of the item. The maximum length of this field is 26 characters.
@@ -281,12 +200,6 @@ module Stripe
           # The unit cost of the item in cents.
           sig { returns(T.nilable(Integer)) }
           def unit_cost; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Fleet-specific information for transactions using Fleet cards.
         sig { returns(T.nilable(Fleet)) }
@@ -306,18 +219,6 @@ module Stripe
         # A merchant-specific order number.
         sig { returns(T.nilable(String)) }
         def reference; end
-        def self.inner_class_types
-          @inner_class_types = {
-            fleet: Fleet,
-            flight: Flight,
-            fuel: Fuel,
-            lodging: Lodging,
-            receipt: Receipt,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Treasury < Stripe::StripeObject
         # The Treasury [ReceivedCredit](https://stripe.com/docs/api/treasury/received_credits) representing this Issuing transaction if it is a refund
@@ -326,12 +227,6 @@ module Stripe
         # The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) representing this Issuing transaction if it is a capture
         sig { returns(T.nilable(String)) }
         def received_debit; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
       sig { returns(Integer) }

@@ -19,14 +19,6 @@ module Stripe
         attr_reader :customer
         # Type of account holder that this account belongs to.
         attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class Balance < Stripe::StripeObject
@@ -37,14 +29,6 @@ module Stripe
           #
           # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
           attr_reader :available
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class Credit < Stripe::StripeObject
@@ -54,14 +38,6 @@ module Stripe
           #
           # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
           attr_reader :used
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The time that the external institution calculated this balance. Measured in seconds since the Unix epoch.
         attr_reader :as_of
@@ -77,14 +53,6 @@ module Stripe
         attr_reader :current
         # The `type` of the balance. An additional hash is included on the balance with a name matching this value.
         attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = { cash: Cash, credit: Credit }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class BalanceRefresh < Stripe::StripeObject
@@ -94,14 +62,6 @@ module Stripe
         attr_reader :next_refresh_available_at
         # The status of the last refresh attempt.
         attr_reader :status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class OwnershipRefresh < Stripe::StripeObject
@@ -111,14 +71,6 @@ module Stripe
         attr_reader :next_refresh_available_at
         # The status of the last refresh attempt.
         attr_reader :status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class TransactionRefresh < Stripe::StripeObject
@@ -130,14 +82,6 @@ module Stripe
         attr_reader :next_refresh_available_at
         # The status of the last refresh attempt.
         attr_reader :status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -413,20 +357,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      def self.inner_class_types
-        @inner_class_types = {
-          account_holder: AccountHolder,
-          balance: Balance,
-          balance_refresh: BalanceRefresh,
-          ownership_refresh: OwnershipRefresh,
-          transaction_refresh: TransactionRefresh,
-        }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
       end
     end
   end

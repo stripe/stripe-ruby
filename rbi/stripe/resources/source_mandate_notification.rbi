@@ -11,23 +11,11 @@ module Stripe
       # The statement descriptor associate with the debit.
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class BacsDebit < Stripe::StripeObject
       # Last 4 digits of the account number associated with the debit.
       sig { returns(T.nilable(String)) }
       def last4; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class SepaDebit < Stripe::StripeObject
       # SEPA creditor ID.
@@ -39,12 +27,6 @@ module Stripe
       # Mandate reference associated with the debit.
       sig { returns(T.nilable(String)) }
       def mandate_reference; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Attribute for field acss_debit
     sig { returns(T.nilable(AcssDebit)) }

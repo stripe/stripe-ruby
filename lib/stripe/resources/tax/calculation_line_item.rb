@@ -19,14 +19,6 @@ module Stripe
           attr_reader :level
           # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
           attr_reader :state
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class TaxRateDetails < Stripe::StripeObject
@@ -36,14 +28,6 @@ module Stripe
           attr_reader :percentage_decimal
           # The tax type, such as `vat` or `sales_tax`.
           attr_reader :tax_type
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         attr_reader :amount
@@ -57,14 +41,6 @@ module Stripe
         attr_reader :taxability_reason
         # The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         attr_reader :taxable_amount
-
-        def self.inner_class_types
-          @inner_class_types = { jurisdiction: Jurisdiction, tax_rate_details: TaxRateDetails }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The line item amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
       attr_reader :amount
@@ -90,14 +66,6 @@ module Stripe
       attr_reader :tax_breakdown
       # The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for this resource.
       attr_reader :tax_code
-
-      def self.inner_class_types
-        @inner_class_types = { tax_breakdown: TaxBreakdown }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
   end
 end

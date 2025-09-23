@@ -20,14 +20,6 @@ module Stripe
         attr_reader :account
         # Type of the account referenced.
         attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Automatically calculate taxes
       attr_reader :enabled
@@ -37,14 +29,6 @@ module Stripe
       attr_reader :provider
       # The status of the most recent automated tax calculation for this quote.
       attr_reader :status
-
-      def self.inner_class_types
-        @inner_class_types = { liability: Liability }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class Computed < Stripe::StripeObject
@@ -59,14 +43,6 @@ module Stripe
               #
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
               attr_reader :discount
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
 
             class Tax < Stripe::StripeObject
@@ -80,27 +56,11 @@ module Stripe
               attr_reader :taxability_reason
               # The amount on which tax is calculated, in cents (or local equivalent).
               attr_reader :taxable_amount
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             # The aggregated discounts.
             attr_reader :discounts
             # The aggregated tax amounts by rate.
             attr_reader :taxes
-
-            def self.inner_class_types
-              @inner_class_types = { discounts: Discount, taxes: Tax }
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # This is the sum of all the discounts.
           attr_reader :amount_discount
@@ -110,14 +70,6 @@ module Stripe
           attr_reader :amount_tax
           # Attribute for field breakdown
           attr_reader :breakdown
-
-          def self.inner_class_types
-            @inner_class_types = { breakdown: Breakdown }
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Total before any discounts or taxes are applied.
         attr_reader :amount_subtotal
@@ -129,14 +81,6 @@ module Stripe
         attr_reader :interval_count
         # Attribute for field total_details
         attr_reader :total_details
-
-        def self.inner_class_types
-          @inner_class_types = { total_details: TotalDetails }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class Upfront < Stripe::StripeObject
@@ -150,14 +94,6 @@ module Stripe
               #
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
               attr_reader :discount
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
 
             class Tax < Stripe::StripeObject
@@ -171,27 +107,11 @@ module Stripe
               attr_reader :taxability_reason
               # The amount on which tax is calculated, in cents (or local equivalent).
               attr_reader :taxable_amount
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             # The aggregated discounts.
             attr_reader :discounts
             # The aggregated tax amounts by rate.
             attr_reader :taxes
-
-            def self.inner_class_types
-              @inner_class_types = { discounts: Discount, taxes: Tax }
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # This is the sum of all the discounts.
           attr_reader :amount_discount
@@ -201,14 +121,6 @@ module Stripe
           attr_reader :amount_tax
           # Attribute for field breakdown
           attr_reader :breakdown
-
-          def self.inner_class_types
-            @inner_class_types = { breakdown: Breakdown }
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Total before any discounts or taxes are applied.
         attr_reader :amount_subtotal
@@ -218,27 +130,11 @@ module Stripe
         attr_reader :line_items
         # Attribute for field total_details
         attr_reader :total_details
-
-        def self.inner_class_types
-          @inner_class_types = { total_details: TotalDetails }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices.
       attr_reader :recurring
       # Attribute for field upfront
       attr_reader :upfront
-
-      def self.inner_class_types
-        @inner_class_types = { recurring: Recurring, upfront: Upfront }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class FromQuote < Stripe::StripeObject
@@ -246,14 +142,6 @@ module Stripe
       attr_reader :is_revision
       # The quote that was cloned.
       attr_reader :quote
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class InvoiceSettings < Stripe::StripeObject
@@ -262,27 +150,11 @@ module Stripe
         attr_reader :account
         # Type of the account referenced.
         attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
       attr_reader :days_until_due
       # Attribute for field issuer
       attr_reader :issuer
-
-      def self.inner_class_types
-        @inner_class_types = { issuer: Issuer }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class StatusTransitions < Stripe::StripeObject
@@ -292,28 +164,18 @@ module Stripe
       attr_reader :canceled_at
       # The time that the quote was finalized. Measured in seconds since Unix epoch.
       attr_reader :finalized_at
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class SubscriptionData < Stripe::StripeObject
       class BillingMode < Stripe::StripeObject
+        class Flexible < Stripe::StripeObject
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_reader :proration_discounts
+        end
+        # Attribute for field flexible
+        attr_reader :flexible
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         attr_reader :type
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The billing mode of the quote.
       attr_reader :billing_mode
@@ -325,14 +187,6 @@ module Stripe
       attr_reader :metadata
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_reader :trial_period_days
-
-      def self.inner_class_types
-        @inner_class_types = { billing_mode: BillingMode }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class TotalDetails < Stripe::StripeObject
@@ -345,14 +199,6 @@ module Stripe
           #
           # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
           attr_reader :discount
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
 
         class Tax < Stripe::StripeObject
@@ -366,27 +212,11 @@ module Stripe
           attr_reader :taxability_reason
           # The amount on which tax is calculated, in cents (or local equivalent).
           attr_reader :taxable_amount
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The aggregated discounts.
         attr_reader :discounts
         # The aggregated tax amounts by rate.
         attr_reader :taxes
-
-        def self.inner_class_types
-          @inner_class_types = { discounts: Discount, taxes: Tax }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # This is the sum of all the discounts.
       attr_reader :amount_discount
@@ -396,14 +226,6 @@ module Stripe
       attr_reader :amount_tax
       # Attribute for field breakdown
       attr_reader :breakdown
-
-      def self.inner_class_types
-        @inner_class_types = { breakdown: Breakdown }
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class TransferData < Stripe::StripeObject
@@ -413,14 +235,6 @@ module Stripe
       attr_reader :amount_percent
       # The account where funds from the payment will be transferred to upon payment success.
       attr_reader :destination
-
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -611,10 +425,21 @@ module Stripe
 
       class SubscriptionData < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            attr_accessor :proration_discounts
+
+            def initialize(proration_discounts: nil)
+              @proration_discounts = proration_discounts
+            end
+          end
+          # Configure behavior for flexible billing mode.
+          attr_accessor :flexible
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           attr_accessor :type
 
-          def initialize(type: nil)
+          def initialize(flexible: nil, type: nil)
+            @flexible = flexible
             @type = type
           end
         end
@@ -1292,23 +1117,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    def self.inner_class_types
-      @inner_class_types = {
-        automatic_tax: AutomaticTax,
-        computed: Computed,
-        from_quote: FromQuote,
-        invoice_settings: InvoiceSettings,
-        status_transitions: StatusTransitions,
-        subscription_data: SubscriptionData,
-        total_details: TotalDetails,
-        transfer_data: TransferData,
-      }
-    end
-
-    def self.field_remappings
-      @field_remappings = {}
     end
   end
 end

@@ -1255,5 +1255,13 @@ module Stripe
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/tokens", params: params, opts: opts)
     end
+
+    def self.inner_class_types
+      @inner_class_types = {}
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

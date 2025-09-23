@@ -19,6 +19,14 @@ module Stripe
         attr_reader :carrier_text
         # The policy for how to use a second line on a card with this physical bundle.
         attr_reader :second_line
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -74,6 +82,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { features: Features }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

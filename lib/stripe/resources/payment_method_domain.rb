@@ -20,66 +20,162 @@ module Stripe
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The status of the payment method on the domain.
       attr_reader :status
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
+
+      def self.inner_class_types
+        @inner_class_types = { status_details: StatusDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ApplePay < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The status of the payment method on the domain.
       attr_reader :status
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
+
+      def self.inner_class_types
+        @inner_class_types = { status_details: StatusDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class GooglePay < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The status of the payment method on the domain.
       attr_reader :status
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
+
+      def self.inner_class_types
+        @inner_class_types = { status_details: StatusDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Klarna < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The status of the payment method on the domain.
       attr_reader :status
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
+
+      def self.inner_class_types
+        @inner_class_types = { status_details: StatusDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Link < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The status of the payment method on the domain.
       attr_reader :status
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
+
+      def self.inner_class_types
+        @inner_class_types = { status_details: StatusDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Paypal < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The status of the payment method on the domain.
       attr_reader :status
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
+
+      def self.inner_class_types
+        @inner_class_types = { status_details: StatusDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -231,6 +327,21 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        amazon_pay: AmazonPay,
+        apple_pay: ApplePay,
+        google_pay: GooglePay,
+        klarna: Klarna,
+        link: Link,
+        paypal: Paypal,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

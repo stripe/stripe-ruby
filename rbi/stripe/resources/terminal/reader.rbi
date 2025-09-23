@@ -24,21 +24,45 @@ module Stripe
               # Customize the default title for this input
               sig { returns(T.nilable(String)) }
               def title; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Email < Stripe::StripeObject
               # The collected email address
               sig { returns(T.nilable(String)) }
               def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Numeric < Stripe::StripeObject
               # The collected number
               sig { returns(T.nilable(String)) }
               def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Phone < Stripe::StripeObject
               # The collected phone number
               sig { returns(T.nilable(String)) }
               def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Selection < Stripe::StripeObject
               class Choice < Stripe::StripeObject
@@ -51,6 +75,12 @@ module Stripe
                 # The text to be selected
                 sig { returns(String) }
                 def text; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # List of possible choices to be selected
               sig { returns(T::Array[Choice]) }
@@ -61,16 +91,34 @@ module Stripe
               # The text of the selected choice
               sig { returns(T.nilable(String)) }
               def text; end
+              def self.inner_class_types
+                @inner_class_types = {choices: Choice}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Signature < Stripe::StripeObject
               # The File ID of a collected signature image
               sig { returns(T.nilable(String)) }
               def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Text < Stripe::StripeObject
               # The collected text value
               sig { returns(T.nilable(String)) }
               def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Toggle < Stripe::StripeObject
               # The toggle's default value
@@ -85,6 +133,12 @@ module Stripe
               # The toggle's collected value
               sig { returns(T.nilable(String)) }
               def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Default text of input being collected.
             sig { returns(T.nilable(CustomText)) }
@@ -119,6 +173,21 @@ module Stripe
             # Type of input being collected.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {
+                custom_text: CustomText,
+                email: Email,
+                numeric: Numeric,
+                phone: Phone,
+                selection: Selection,
+                signature: Signature,
+                text: Text,
+                toggles: Toggle,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # List of inputs to be collected.
           sig { returns(T::Array[Input]) }
@@ -126,6 +195,12 @@ module Stripe
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
+          def self.inner_class_types
+            @inner_class_types = {inputs: Input}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class CollectPaymentMethod < Stripe::StripeObject
           class CollectConfig < Stripe::StripeObject
@@ -133,6 +208,12 @@ module Stripe
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               sig { returns(T.nilable(Integer)) }
               def amount_eligible; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Enable customer-initiated cancellation when processing this payment.
             sig { returns(T.nilable(T::Boolean)) }
@@ -143,6 +224,12 @@ module Stripe
             # Represents a per-transaction tipping configuration
             sig { returns(T.nilable(Tipping)) }
             def tipping; end
+            def self.inner_class_types
+              @inner_class_types = {tipping: Tipping}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Represents a per-transaction override of a reader configuration
           sig { returns(T.nilable(CollectConfig)) }
@@ -157,12 +244,24 @@ module Stripe
           # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
           sig { returns(T.nilable(Stripe::PaymentMethod)) }
           def payment_method; end
+          def self.inner_class_types
+            @inner_class_types = {collect_config: CollectConfig}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class ConfirmPaymentIntent < Stripe::StripeObject
           class ConfirmConfig < Stripe::StripeObject
             # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
             sig { returns(T.nilable(String)) }
             def return_url; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Represents a per-transaction override of a reader configuration
           sig { returns(T.nilable(ConfirmConfig)) }
@@ -170,6 +269,12 @@ module Stripe
           # Most recent PaymentIntent processed by the reader.
           sig { returns(T.any(String, Stripe::PaymentIntent)) }
           def payment_intent; end
+          def self.inner_class_types
+            @inner_class_types = {confirm_config: ConfirmConfig}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class ProcessPaymentIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
@@ -177,6 +282,12 @@ module Stripe
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               sig { returns(T.nilable(Integer)) }
               def amount_eligible; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Enable customer-initiated cancellation when processing this payment.
             sig { returns(T.nilable(T::Boolean)) }
@@ -190,6 +301,12 @@ module Stripe
             # Represents a per-transaction tipping configuration
             sig { returns(T.nilable(Tipping)) }
             def tipping; end
+            def self.inner_class_types
+              @inner_class_types = {tipping: Tipping}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Most recent PaymentIntent processed by the reader.
           sig { returns(T.any(String, Stripe::PaymentIntent)) }
@@ -197,12 +314,24 @@ module Stripe
           # Represents a per-transaction override of a reader configuration
           sig { returns(T.nilable(ProcessConfig)) }
           def process_config; end
+          def self.inner_class_types
+            @inner_class_types = {process_config: ProcessConfig}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class ProcessSetupIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
             # Enable customer-initiated cancellation when processing this SetupIntent.
             sig { returns(T.nilable(T::Boolean)) }
             def enable_customer_cancellation; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
           sig { returns(T.nilable(String)) }
@@ -213,12 +342,24 @@ module Stripe
           # Most recent SetupIntent processed by the reader.
           sig { returns(T.any(String, Stripe::SetupIntent)) }
           def setup_intent; end
+          def self.inner_class_types
+            @inner_class_types = {process_config: ProcessConfig}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class RefundPayment < Stripe::StripeObject
           class RefundPaymentConfig < Stripe::StripeObject
             # Enable customer-initiated cancellation when refunding this payment.
             sig { returns(T.nilable(T::Boolean)) }
             def enable_customer_cancellation; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The amount being refunded.
           sig { returns(T.nilable(Integer)) }
@@ -247,6 +388,12 @@ module Stripe
           # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
           sig { returns(T.nilable(T::Boolean)) }
           def reverse_transfer; end
+          def self.inner_class_types
+            @inner_class_types = {refund_payment_config: RefundPaymentConfig}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class SetReaderDisplay < Stripe::StripeObject
           class Cart < Stripe::StripeObject
@@ -260,6 +407,12 @@ module Stripe
               # The quantity of the line item.
               sig { returns(Integer) }
               def quantity; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
@@ -273,6 +426,12 @@ module Stripe
             # Total amount for the entire cart, including tax. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             sig { returns(Integer) }
             def total; end
+            def self.inner_class_types
+              @inner_class_types = {line_items: LineItem}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Cart object to be displayed by the reader.
           sig { returns(T.nilable(Cart)) }
@@ -280,6 +439,12 @@ module Stripe
           # Type of information to be displayed by the reader.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {cart: Cart}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Represents a reader action to collect customer inputs
         sig { returns(T.nilable(CollectInputs)) }
@@ -314,6 +479,20 @@ module Stripe
         # Type of action performed by the reader.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            collect_inputs: CollectInputs,
+            collect_payment_method: CollectPaymentMethod,
+            confirm_payment_intent: ConfirmPaymentIntent,
+            process_payment_intent: ProcessPaymentIntent,
+            process_setup_intent: ProcessSetupIntent,
+            refund_payment: RefundPayment,
+            set_reader_display: SetReaderDisplay,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The most recent action performed by the reader.
       sig { returns(T.nilable(Action)) }

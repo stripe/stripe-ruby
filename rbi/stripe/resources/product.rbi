@@ -16,6 +16,12 @@ module Stripe
       # The marketing feature name. Up to 80 characters long.
       sig { returns(T.nilable(String)) }
       def name; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class PackageDimensions < Stripe::StripeObject
       # Height, in inches.
@@ -30,6 +36,12 @@ module Stripe
       # Width, in inches.
       sig { returns(Float) }
       def width; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Whether the product is currently available for purchase.
     sig { returns(T::Boolean) }

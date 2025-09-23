@@ -26,6 +26,12 @@ module Stripe
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           def state; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class AddressValidation < Stripe::StripeObject
           class NormalizedAddress < Stripe::StripeObject
@@ -47,6 +53,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The address validation capabilities to use.
           sig { returns(String) }
@@ -57,11 +69,23 @@ module Stripe
           # The validation result for the shipping address.
           sig { returns(T.nilable(String)) }
           def result; end
+          def self.inner_class_types
+            @inner_class_types = {normalized_address: NormalizedAddress}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Customs < Stripe::StripeObject
           # A registration number used for customs in Europe. See [https://www.gov.uk/eori](https://www.gov.uk/eori) for the UK and [https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en](https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en) for the EU.
           sig { returns(T.nilable(String)) }
           def eori_number; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field address
         sig { returns(Address) }
@@ -102,6 +126,16 @@ module Stripe
         # Packaging options.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            address: Address,
+            address_validation: AddressValidation,
+            customs: Customs,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class SpendingControls < Stripe::StripeObject
         class SpendingLimit < Stripe::StripeObject
@@ -114,6 +148,12 @@ module Stripe
           # Interval (or event) to which the amount applies.
           sig { returns(String) }
           def interval; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         sig { returns(T.nilable(T::Array[String])) }
@@ -133,6 +173,12 @@ module Stripe
         # Currency of the amounts within `spending_limits`. Always the same as the currency of the card.
         sig { returns(T.nilable(String)) }
         def spending_limits_currency; end
+        def self.inner_class_types
+          @inner_class_types = {spending_limits: SpendingLimit}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Wallets < Stripe::StripeObject
         class ApplePay < Stripe::StripeObject
@@ -142,6 +188,12 @@ module Stripe
           # Reason the card is ineligible for Apple Pay
           sig { returns(T.nilable(String)) }
           def ineligible_reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class GooglePay < Stripe::StripeObject
           # Google Pay Eligibility
@@ -150,6 +202,12 @@ module Stripe
           # Reason the card is ineligible for Google Pay
           sig { returns(T.nilable(String)) }
           def ineligible_reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field apple_pay
         sig { returns(ApplePay) }
@@ -160,6 +218,12 @@ module Stripe
         # Unique identifier for a card used with digital wallets
         sig { returns(T.nilable(String)) }
         def primary_account_identifier; end
+        def self.inner_class_types
+          @inner_class_types = {apple_pay: ApplePay, google_pay: GooglePay}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The brand of the card.
       sig { returns(String) }

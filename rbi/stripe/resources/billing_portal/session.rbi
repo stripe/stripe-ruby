@@ -25,11 +25,23 @@ module Stripe
             # A custom message to display to the customer after the flow is completed.
             sig { returns(T.nilable(String)) }
             def custom_message; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Redirect < Stripe::StripeObject
             # The URL the customer will be redirected to after the flow is completed.
             sig { returns(String) }
             def return_url; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Configuration when `after_completion.type=hosted_confirmation`.
           sig { returns(T.nilable(HostedConfirmation)) }
@@ -40,6 +52,12 @@ module Stripe
           # The specified type of behavior after the flow is completed.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {hosted_confirmation: HostedConfirmation, redirect: Redirect}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class SubscriptionCancel < Stripe::StripeObject
           class Retention < Stripe::StripeObject
@@ -47,6 +65,12 @@ module Stripe
               # The ID of the coupon to be offered.
               sig { returns(String) }
               def coupon; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Configuration when `retention.type=coupon_offer`.
             sig { returns(T.nilable(CouponOffer)) }
@@ -54,6 +78,12 @@ module Stripe
             # Type of retention strategy that will be used.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {coupon_offer: CouponOffer}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Specify a retention strategy to be used in the cancellation flow.
           sig { returns(T.nilable(Retention)) }
@@ -61,11 +91,23 @@ module Stripe
           # The ID of the subscription to be canceled.
           sig { returns(String) }
           def subscription; end
+          def self.inner_class_types
+            @inner_class_types = {retention: Retention}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class SubscriptionUpdate < Stripe::StripeObject
           # The ID of the subscription to be updated.
           sig { returns(String) }
           def subscription; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class SubscriptionUpdateConfirm < Stripe::StripeObject
           class Discount < Stripe::StripeObject
@@ -75,6 +117,12 @@ module Stripe
             # The ID of a promotion code to apply to this subscription update.
             sig { returns(T.nilable(String)) }
             def promotion_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Item < Stripe::StripeObject
             # The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
@@ -86,6 +134,12 @@ module Stripe
             # [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
             sig { returns(T.nilable(Integer)) }
             def quantity; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The coupon or promotion code to apply to this subscription update.
           sig { returns(T.nilable(T::Array[Discount])) }
@@ -96,6 +150,12 @@ module Stripe
           # The ID of the subscription to be updated.
           sig { returns(String) }
           def subscription; end
+          def self.inner_class_types
+            @inner_class_types = {discounts: Discount, items: Item}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field after_completion
         sig { returns(AfterCompletion) }
@@ -112,6 +172,17 @@ module Stripe
         # Type of flow that the customer will go through.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            after_completion: AfterCompletion,
+            subscription_cancel: SubscriptionCancel,
+            subscription_update: SubscriptionUpdate,
+            subscription_update_confirm: SubscriptionUpdateConfirm,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The configuration used by this session, describing the features available.
       sig { returns(T.any(String, Stripe::BillingPortal::Configuration)) }

@@ -22,6 +22,12 @@ module Stripe
       # Type of payment object associated with this invoice payment.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class StatusTransitions < Stripe::StripeObject
       # The time that the payment was canceled.
@@ -30,6 +36,12 @@ module Stripe
       # The time that the payment succeeded.
       sig { returns(T.nilable(Integer)) }
       def paid_at; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Amount that was actually paid for this invoice, in cents (or local equivalent). This field is null until the payment is `paid`. This amount can be less than the `amount_requested` if the PaymentIntent’s `amount_received` is not sufficient to pay all of the invoices that it is attached to.
     sig { returns(T.nilable(Integer)) }

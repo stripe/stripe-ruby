@@ -65,29 +65,16 @@ module Stripe
             attr_accessor :amount
             # Defines the scope where the credit grant is applicable.
             attr_accessor :applicability_config
-            # The category of the credit grant.
-            attr_accessor :category
             # The expiry configuration for the credit grant.
             attr_accessor :expiry_config
             # A descriptive name shown in dashboard.
             attr_accessor :name
-            # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-            attr_accessor :priority
 
-            def initialize(
-              amount: nil,
-              applicability_config: nil,
-              category: nil,
-              expiry_config: nil,
-              name: nil,
-              priority: nil
-            )
+            def initialize(amount: nil, applicability_config: nil, expiry_config: nil, name: nil)
               @amount = amount
               @applicability_config = applicability_config
-              @category = category
               @expiry_config = expiry_config
               @name = name
-              @priority = priority
             end
           end
 
@@ -192,33 +179,25 @@ module Stripe
             attr_accessor :amount
             # Defines the scope where the credit grant is applicable.
             attr_accessor :applicability_config
-            # The category of the credit grant.
-            attr_accessor :category
             # The expiry configuration for the credit grant.
             attr_accessor :expiry_config
             # The grant condition for the credit grant.
             attr_accessor :grant_condition
             # Customer-facing name for the credit grant.
             attr_accessor :name
-            # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-            attr_accessor :priority
 
             def initialize(
               amount: nil,
               applicability_config: nil,
-              category: nil,
               expiry_config: nil,
               grant_condition: nil,
-              name: nil,
-              priority: nil
+              name: nil
             )
               @amount = amount
               @applicability_config = applicability_config
-              @category = category
               @expiry_config = expiry_config
               @grant_condition = grant_condition
               @name = name
-              @priority = priority
             end
           end
           # An internal key you can use to search for this service action. Maximum length of 200 characters.

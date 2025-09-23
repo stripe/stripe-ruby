@@ -68,7 +68,8 @@ module Stripe
         attr_reader :id
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
-        # The Metered Item that this rate binds to.
+        # A Metered Item represents a billable item whose pricing is based on usage, measured by a meter. You can use rate cards
+        # to specify the pricing and create subscriptions to these items.
         attr_reader :metered_item
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object

@@ -154,7 +154,7 @@ module Stripe
 
           # Remove a Pricing Plan Component from the latest version of a Pricing Plan.
           sig {
-            params(pricing_plan_id: String, id: String, params: T.any(::Stripe::V2::Billing::PricingPlans::ComponentService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::PricingPlanComponent)
+            params(pricing_plan_id: String, id: String, params: T.any(::Stripe::V2::Billing::PricingPlans::ComponentService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::DeletedObject)
            }
           def delete(pricing_plan_id, id, params = {}, opts = {}); end
 

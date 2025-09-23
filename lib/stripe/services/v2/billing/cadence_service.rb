@@ -91,19 +91,13 @@ module Stripe
               # billed, this will anchor to the last day of the month. If not provided,
               # this will default to the day the cadence was created.
               attr_accessor :day_of_month
-              # The month to anchor the billing on for a type="month" billing cycle from
-              # 1-12. If not provided, this will default to the month the cadence was created.
-              # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-              # All occurrences will be calculated from month provided.
-              attr_accessor :month_of_year
               # The time at which the billing cycle ends.
               # This field is optional, and if not provided, it will default to
               # the time at which the cadence was created in UTC timezone.
               attr_accessor :time
 
-              def initialize(day_of_month: nil, month_of_year: nil, time: nil)
+              def initialize(day_of_month: nil, time: nil)
                 @day_of_month = day_of_month
-                @month_of_year = month_of_year
                 @time = time
               end
             end

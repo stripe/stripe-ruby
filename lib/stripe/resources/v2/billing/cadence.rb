@@ -69,9 +69,6 @@ module Stripe
             # If this number is greater than the number of days in the month being billed,
             # this will anchor to the last day of the month.
             attr_reader :day_of_month
-            # The month to anchor the billing on for a type="month" billing cycle from
-            # 1-12. Occurrences are calculated from the month anchor.
-            attr_reader :month_of_year
             # The time at which the billing cycle ends.
             attr_reader :time
 

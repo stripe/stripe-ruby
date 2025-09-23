@@ -173,7 +173,7 @@ module Stripe
 
           # Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
           sig {
-            params(rate_card_id: String, id: String, params: T.any(::Stripe::V2::Billing::RateCards::RateService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::RateCardRate)
+            params(rate_card_id: String, id: String, params: T.any(::Stripe::V2::Billing::RateCards::RateService::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::DeletedObject)
            }
           def delete(rate_card_id, id, params = {}, opts = {}); end
 

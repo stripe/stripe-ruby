@@ -47,7 +47,7 @@ module Stripe
         attr_reader :next_action
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Information about the payout method that’s created and linked to this outbound setup intent.
+        # Use the PayoutMethods API to list and interact with PayoutMethod objects.
         attr_reader :payout_method
         # Closed Enum. Status of the outbound setup intent.
         attr_reader :status

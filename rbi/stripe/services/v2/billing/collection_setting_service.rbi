@@ -191,8 +191,6 @@ module Stripe
                }
               def initialize(bank_transfer: nil, funding_type: nil); end
             end
-            class Konbini < Stripe::RequestParams; end
-            class SepaDebit < Stripe::RequestParams; end
             class UsBankAccount < Stripe::RequestParams
               class FinancialConnections < Stripe::RequestParams
                 class Filters < Stripe::RequestParams
@@ -290,21 +288,17 @@ module Stripe
              }
             def customer_balance=(_customer_balance); end
             # This sub-hash contains details about the Konbini payment method options.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::Konbini))
-             }
+            sig { returns(T.nilable(T::Hash[String, T.untyped])) }
             def konbini; end
             sig {
-              params(_konbini: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::Konbini)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::Konbini))
+              params(_konbini: T.nilable(T::Hash[String, T.untyped])).returns(T.nilable(T::Hash[String, T.untyped]))
              }
             def konbini=(_konbini); end
             # This sub-hash contains details about the SEPA Direct Debit payment method options.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::SepaDebit))
-             }
+            sig { returns(T.nilable(T::Hash[String, T.untyped])) }
             def sepa_debit; end
             sig {
-              params(_sepa_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::SepaDebit)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::SepaDebit))
+              params(_sepa_debit: T.nilable(T::Hash[String, T.untyped])).returns(T.nilable(T::Hash[String, T.untyped]))
              }
             def sepa_debit=(_sepa_debit); end
             # This sub-hash contains details about the ACH direct debit payment method options.
@@ -317,7 +311,7 @@ module Stripe
              }
             def us_bank_account=(_us_bank_account); end
             sig {
-              params(acss_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::AcssDebit), bancontact: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::Bancontact), card: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::Card), customer_balance: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::CustomerBalance), konbini: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::Konbini), sepa_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::UsBankAccount)).void
+              params(acss_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::AcssDebit), bancontact: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::Bancontact), card: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::Card), customer_balance: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::CustomerBalance), konbini: T.nilable(T::Hash[String, T.untyped]), sepa_debit: T.nilable(T::Hash[String, T.untyped]), us_bank_account: T.nilable(::Stripe::V2::Billing::CollectionSettingService::CreateParams::PaymentMethodOptions::UsBankAccount)).void
              }
             def initialize(
               acss_debit: nil,
@@ -554,8 +548,6 @@ module Stripe
                }
               def initialize(bank_transfer: nil, funding_type: nil); end
             end
-            class Konbini < Stripe::RequestParams; end
-            class SepaDebit < Stripe::RequestParams; end
             class UsBankAccount < Stripe::RequestParams
               class FinancialConnections < Stripe::RequestParams
                 class Filters < Stripe::RequestParams
@@ -653,21 +645,17 @@ module Stripe
              }
             def customer_balance=(_customer_balance); end
             # This sub-hash contains details about the Konbini payment method options.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::Konbini))
-             }
+            sig { returns(T.nilable(T::Hash[String, T.untyped])) }
             def konbini; end
             sig {
-              params(_konbini: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::Konbini)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::Konbini))
+              params(_konbini: T.nilable(T::Hash[String, T.untyped])).returns(T.nilable(T::Hash[String, T.untyped]))
              }
             def konbini=(_konbini); end
             # This sub-hash contains details about the SEPA Direct Debit payment method options.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::SepaDebit))
-             }
+            sig { returns(T.nilable(T::Hash[String, T.untyped])) }
             def sepa_debit; end
             sig {
-              params(_sepa_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::SepaDebit)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::SepaDebit))
+              params(_sepa_debit: T.nilable(T::Hash[String, T.untyped])).returns(T.nilable(T::Hash[String, T.untyped]))
              }
             def sepa_debit=(_sepa_debit); end
             # This sub-hash contains details about the ACH direct debit payment method options.
@@ -680,7 +668,7 @@ module Stripe
              }
             def us_bank_account=(_us_bank_account); end
             sig {
-              params(acss_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::AcssDebit), bancontact: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::Bancontact), card: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::Card), customer_balance: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::CustomerBalance), konbini: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::Konbini), sepa_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::SepaDebit), us_bank_account: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::UsBankAccount)).void
+              params(acss_debit: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::AcssDebit), bancontact: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::Bancontact), card: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::Card), customer_balance: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::CustomerBalance), konbini: T.nilable(T::Hash[String, T.untyped]), sepa_debit: T.nilable(T::Hash[String, T.untyped]), us_bank_account: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions::UsBankAccount)).void
              }
             def initialize(
               acss_debit: nil,
@@ -708,11 +696,11 @@ module Stripe
           def display_name=(_display_name); end
           # Email delivery settings.
           sig {
-            returns(T.nilable(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery)))
+            returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery))
            }
           def email_delivery; end
           sig {
-            params(_email_delivery: T.nilable(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery))).returns(T.nilable(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery)))
+            params(_email_delivery: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery)).returns(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery))
            }
           def email_delivery=(_email_delivery); end
           # Optionally change the live version of the CollectionSetting. Billing Cadences and other objects that refer to this
@@ -745,7 +733,7 @@ module Stripe
            }
           def payment_method_options=(_payment_method_options); end
           sig {
-            params(collection_method: T.nilable(String), display_name: T.nilable(String), email_delivery: T.nilable(T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery)), live_version: T.nilable(String), lookup_key: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_options: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions)).void
+            params(collection_method: T.nilable(String), display_name: T.nilable(String), email_delivery: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::EmailDelivery), live_version: T.nilable(String), lookup_key: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_options: T.nilable(::Stripe::V2::Billing::CollectionSettingService::UpdateParams::PaymentMethodOptions)).void
            }
           def initialize(
             collection_method: nil,

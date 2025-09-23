@@ -30,7 +30,7 @@ module Stripe
               @timestamp = timestamp
             end
           end
-          # List of meter events to include in the request. Supports up to 100 events per request.
+          # List of meter events to include in the request.
           attr_accessor :events
 
           def initialize(events: nil)

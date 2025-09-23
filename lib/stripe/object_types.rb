@@ -215,8 +215,8 @@ module Stripe
         V2::Billing::ServiceAction.object_name => V2::Billing::ServiceAction,
         V2::Core::Account.object_name => V2::Core::Account,
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
+        V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,
         V2::Core::ClaimableSandbox.object_name => V2::Core::ClaimableSandbox,
-        V2::Core::Person.object_name => V2::Core::Person,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
         V2::Event.object_name => V2::Event,
@@ -240,8 +240,6 @@ module Stripe
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         V2::Payments::OffSessionPayment.object_name => V2::Payments::OffSessionPayment,
-        V2::Reporting::Report.object_name => V2::Reporting::Report,
-        V2::Reporting::ReportRun.object_name => V2::Reporting::ReportRun,
         V2::Tax::AutomaticRule.object_name => V2::Tax::AutomaticRule,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }

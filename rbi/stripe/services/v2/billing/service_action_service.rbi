@@ -109,11 +109,6 @@ module Stripe
               params(_applicability_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrant::ApplicabilityConfig).returns(::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrant::ApplicabilityConfig)
              }
             def applicability_config=(_applicability_config); end
-            # The category of the credit grant.
-            sig { returns(T.nilable(String)) }
-            def category; end
-            sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
-            def category=(_category); end
             # The expiry configuration for the credit grant.
             sig {
               returns(::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrant::ExpiryConfig)
@@ -128,21 +123,14 @@ module Stripe
             def name; end
             sig { params(_name: String).returns(String) }
             def name=(_name); end
-            # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-            sig { returns(T.nilable(Integer)) }
-            def priority; end
-            sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def priority=(_priority); end
             sig {
-              params(amount: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrant::Amount, applicability_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrant::ApplicabilityConfig, category: T.nilable(String), expiry_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrant::ExpiryConfig, name: String, priority: T.nilable(Integer)).void
+              params(amount: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrant::Amount, applicability_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrant::ApplicabilityConfig, expiry_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrant::ExpiryConfig, name: String).void
              }
             def initialize(
               amount: nil,
               applicability_config: nil,
-              category: nil,
               expiry_config: nil,
-              name: nil,
-              priority: nil
+              name: nil
             ); end
           end
           class CreditGrantPerTenant < Stripe::RequestParams
@@ -316,11 +304,6 @@ module Stripe
               params(_applicability_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::ApplicabilityConfig).returns(::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::ApplicabilityConfig)
              }
             def applicability_config=(_applicability_config); end
-            # The category of the credit grant.
-            sig { returns(T.nilable(String)) }
-            def category; end
-            sig { params(_category: T.nilable(String)).returns(T.nilable(String)) }
-            def category=(_category); end
             # The expiry configuration for the credit grant.
             sig {
               returns(::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::ExpiryConfig)
@@ -344,22 +327,15 @@ module Stripe
             def name; end
             sig { params(_name: String).returns(String) }
             def name=(_name); end
-            # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-            sig { returns(T.nilable(Integer)) }
-            def priority; end
-            sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def priority=(_priority); end
             sig {
-              params(amount: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::Amount, applicability_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::ApplicabilityConfig, category: T.nilable(String), expiry_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::ExpiryConfig, grant_condition: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::GrantCondition, name: String, priority: T.nilable(Integer)).void
+              params(amount: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::Amount, applicability_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::ApplicabilityConfig, expiry_config: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::ExpiryConfig, grant_condition: ::Stripe::V2::Billing::ServiceActionService::CreateParams::CreditGrantPerTenant::GrantCondition, name: String).void
              }
             def initialize(
               amount: nil,
               applicability_config: nil,
-              category: nil,
               expiry_config: nil,
               grant_condition: nil,
-              name: nil,
-              priority: nil
+              name: nil
             ); end
           end
           # An internal key you can use to search for this service action. Maximum length of 200 characters.

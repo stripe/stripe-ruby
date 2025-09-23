@@ -10,12 +10,6 @@ module Stripe
         # Unique identifier for the event.
         sig { returns(T.nilable(String)) }
         def identifier; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Specifies which event to cancel.
       sig { returns(T.nilable(Cancel)) }

@@ -70,12 +70,6 @@ module Stripe
         # Type of the account referenced.
         sig { returns(String) }
         def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # If Stripe disabled automatic tax, this enum describes why.
       sig { returns(T.nilable(String)) }
@@ -92,12 +86,6 @@ module Stripe
       # The status of the most recent automated tax calculation for this invoice.
       sig { returns(T.nilable(String)) }
       def status; end
-      def self.inner_class_types
-        @inner_class_types = {liability: Liability}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class ConfirmationSecret < Stripe::StripeObject
       # The client_secret of the payment that Stripe creates for the invoice after finalization.
@@ -106,12 +94,6 @@ module Stripe
       # The type of client_secret. Currently this is always payment_intent, referencing the default payment_intent that Stripe creates during invoice finalization
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CustomField < Stripe::StripeObject
       # The name of the custom field.
@@ -120,12 +102,6 @@ module Stripe
       # The value of the custom field.
       sig { returns(String) }
       def value; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CustomerAddress < Stripe::StripeObject
       # City, district, suburb, town, or village.
@@ -146,12 +122,6 @@ module Stripe
       # State, county, province, or region.
       sig { returns(T.nilable(String)) }
       def state; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CustomerShipping < Stripe::StripeObject
       class Address < Stripe::StripeObject
@@ -173,12 +143,6 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Attribute for field address
       sig { returns(T.nilable(Address)) }
@@ -195,12 +159,6 @@ module Stripe
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       sig { returns(T.nilable(String)) }
       def tracking_number; end
-      def self.inner_class_types
-        @inner_class_types = {address: Address}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CustomerTaxId < Stripe::StripeObject
       # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
@@ -209,12 +167,6 @@ module Stripe
       # The value of the tax ID.
       sig { returns(T.nilable(String)) }
       def value; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class FromInvoice < Stripe::StripeObject
       # The relation between this invoice and the cloned invoice
@@ -223,12 +175,6 @@ module Stripe
       # The invoice that was cloned.
       sig { returns(T.any(String, Stripe::Invoice)) }
       def invoice; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Issuer < Stripe::StripeObject
       # The connected account being referenced when `type` is `account`.
@@ -237,12 +183,6 @@ module Stripe
       # Type of the account referenced.
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class LastFinalizationError < Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
@@ -329,12 +269,6 @@ module Stripe
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Parent < Stripe::StripeObject
       class BillingCadenceDetails < Stripe::StripeObject
@@ -346,12 +280,6 @@ module Stripe
         # The quote that generated this invoice
         sig { returns(String) }
         def quote; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class SubscriptionDetails < Stripe::StripeObject
         class PauseCollection < Stripe::StripeObject
@@ -375,12 +303,6 @@ module Stripe
         # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
         sig { returns(T.nilable(Integer)) }
         def subscription_proration_date; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Details about the billing cadence that generated this invoice
       sig { returns(T.nilable(BillingCadenceDetails)) }
@@ -394,15 +316,6 @@ module Stripe
       # The type of parent that generated this invoice
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {
-          quote_details: QuoteDetails,
-          subscription_details: SubscriptionDetails,
-        }
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class PaymentSettings < Stripe::StripeObject
       class PaymentMethodOptions < Stripe::StripeObject
@@ -411,12 +324,6 @@ module Stripe
             # Transaction type of the mandate.
             sig { returns(T.nilable(String)) }
             def transaction_type; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Attribute for field mandate_options
           sig { returns(T.nilable(MandateOptions)) }
@@ -424,35 +331,17 @@ module Stripe
           # Bank account verification method.
           sig { returns(T.nilable(String)) }
           def verification_method; end
-          def self.inner_class_types
-            @inner_class_types = {mandate_options: MandateOptions}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class Bancontact < Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(String) }
           def preferred_language; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class Card < Stripe::StripeObject
           class Installments < Stripe::StripeObject
             # Whether Installments are enabled for this Invoice.
             sig { returns(T.nilable(T::Boolean)) }
             def enabled; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Attribute for field installments
           sig { returns(T.nilable(Installments)) }
@@ -460,12 +349,6 @@ module Stripe
           # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           sig { returns(T.nilable(String)) }
           def request_three_d_secure; end
-          def self.inner_class_types
-            @inner_class_types = {installments: Installments}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class CustomerBalance < Stripe::StripeObject
           class BankTransfer < Stripe::StripeObject
@@ -473,12 +356,6 @@ module Stripe
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
               def country; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             # Attribute for field eu_bank_transfer
             sig { returns(T.nilable(EuBankTransfer)) }
@@ -486,12 +363,6 @@ module Stripe
             # The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
             sig { returns(T.nilable(String)) }
             def type; end
-            def self.inner_class_types
-              @inner_class_types = {eu_bank_transfer: EuBankTransfer}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Attribute for field bank_transfer
           sig { returns(T.nilable(BankTransfer)) }
@@ -499,28 +370,6 @@ module Stripe
           # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
           sig { returns(T.nilable(String)) }
           def funding_type; end
-          def self.inner_class_types
-            @inner_class_types = {bank_transfer: BankTransfer}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Konbini < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class SepaDebit < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class IdBankTransfer < Stripe::StripeObject; end
         class Konbini < Stripe::StripeObject; end
@@ -563,12 +412,6 @@ module Stripe
             # Data features requested to be retrieved upon account creation.
             sig { returns(T.nilable(T::Array[String])) }
             def prefetch; end
-            def self.inner_class_types
-              @inner_class_types = {filters: Filters}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Attribute for field financial_connections
           sig { returns(T.nilable(FinancialConnections)) }
@@ -576,12 +419,6 @@ module Stripe
           # Bank account verification method.
           sig { returns(T.nilable(String)) }
           def verification_method; end
-          def self.inner_class_types
-            @inner_class_types = {financial_connections: FinancialConnections}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(AcssDebit)) }
@@ -610,20 +447,6 @@ module Stripe
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
-        def self.inner_class_types
-          @inner_class_types = {
-            acss_debit: AcssDebit,
-            bancontact: Bancontact,
-            card: Card,
-            customer_balance: CustomerBalance,
-            konbini: Konbini,
-            sepa_debit: SepaDebit,
-            us_bank_account: UsBankAccount,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.
       sig { returns(T.nilable(String)) }
@@ -634,24 +457,12 @@ module Stripe
       # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
       sig { returns(T.nilable(T::Array[String])) }
       def payment_method_types; end
-      def self.inner_class_types
-        @inner_class_types = {payment_method_options: PaymentMethodOptions}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Rendering < Stripe::StripeObject
       class Pdf < Stripe::StripeObject
         # Page size of invoice pdf. Options include a4, letter, and auto. If set to auto, page size will be switched to a4 or letter based on customer locale.
         sig { returns(T.nilable(String)) }
         def page_size; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
       sig { returns(T.nilable(String)) }
@@ -665,12 +476,6 @@ module Stripe
       # Version of the rendering template that the invoice is using.
       sig { returns(T.nilable(Integer)) }
       def template_version; end
-      def self.inner_class_types
-        @inner_class_types = {pdf: Pdf}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class ShippingCost < Stripe::StripeObject
       class Tax < Stripe::StripeObject
@@ -688,12 +493,6 @@ module Stripe
         # The amount on which tax is calculated, in cents (or local equivalent).
         sig { returns(T.nilable(Integer)) }
         def taxable_amount; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Total shipping cost before any taxes are applied.
       sig { returns(Integer) }
@@ -710,12 +509,6 @@ module Stripe
       # The taxes applied to the shipping rate.
       sig { returns(T.nilable(T::Array[Tax])) }
       def taxes; end
-      def self.inner_class_types
-        @inner_class_types = {taxes: Tax}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class ShippingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
@@ -737,12 +530,6 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Attribute for field address
       sig { returns(T.nilable(Address)) }
@@ -759,12 +546,6 @@ module Stripe
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       sig { returns(T.nilable(String)) }
       def tracking_number; end
-      def self.inner_class_types
-        @inner_class_types = {address: Address}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class StatusTransitions < Stripe::StripeObject
       # The time that the invoice draft was finalized.
@@ -779,12 +560,6 @@ module Stripe
       # The time that the invoice was voided.
       sig { returns(T.nilable(Integer)) }
       def voided_at; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class ThresholdReason < Stripe::StripeObject
       class ItemReason < Stripe::StripeObject
@@ -794,12 +569,6 @@ module Stripe
         # The quantity threshold boundary that applied to the given line item.
         sig { returns(Integer) }
         def usage_gte; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The total invoice amount threshold boundary if it triggered the threshold invoice.
       sig { returns(T.nilable(Integer)) }
@@ -807,12 +576,6 @@ module Stripe
       # Indicates which line items triggered a threshold invoice.
       sig { returns(T::Array[ItemReason]) }
       def item_reasons; end
-      def self.inner_class_types
-        @inner_class_types = {item_reasons: ItemReason}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class TotalDiscountAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
@@ -821,12 +584,6 @@ module Stripe
       # The discount that was applied to get this discount amount.
       sig { returns(T.any(String, Stripe::Discount)) }
       def discount; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class TotalMarginAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the reduction in line item amount.
@@ -852,24 +609,12 @@ module Stripe
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class TotalTax < Stripe::StripeObject
       class TaxRateDetails < Stripe::StripeObject
         # Attribute for field tax_rate
         sig { returns(String) }
         def tax_rate; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The amount of the tax, in cents (or local equivalent).
       sig { returns(Integer) }
@@ -889,12 +634,6 @@ module Stripe
       # The type of tax information.
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {tax_rate_details: TaxRateDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # The country of the business associated with this invoice, most often the business creating the invoice.
     sig { returns(T.nilable(String)) }

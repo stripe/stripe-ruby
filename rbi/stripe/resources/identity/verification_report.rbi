@@ -36,12 +36,6 @@ module Stripe
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           def state; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class Dob < Stripe::StripeObject
           # Numerical day between 1 and 31.
@@ -53,12 +47,6 @@ module Stripe
           # The four-digit year.
           sig { returns(T.nilable(Integer)) }
           def year; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class Error < Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
@@ -67,12 +55,6 @@ module Stripe
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           sig { returns(T.nilable(String)) }
           def reason; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class ExpirationDate < Stripe::StripeObject
           # Numerical day between 1 and 31.
@@ -84,12 +66,6 @@ module Stripe
           # The four-digit year.
           sig { returns(T.nilable(Integer)) }
           def year; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class IssuedDate < Stripe::StripeObject
           # Numerical day between 1 and 31.
@@ -101,12 +77,6 @@ module Stripe
           # The four-digit year.
           sig { returns(T.nilable(Integer)) }
           def year; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Address as it appears in the document.
         sig { returns(T.nilable(Address)) }
@@ -153,18 +123,6 @@ module Stripe
         # Sex as it appears in the document.
         sig { returns(T.nilable(String)) }
         def unparsed_sex; end
-        def self.inner_class_types
-          @inner_class_types = {
-            address: Address,
-            dob: Dob,
-            error: Error,
-            expiration_date: ExpirationDate,
-            issued_date: IssuedDate,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Email < Stripe::StripeObject
         class Error < Stripe::StripeObject
@@ -174,12 +132,6 @@ module Stripe
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           sig { returns(T.nilable(String)) }
           def reason; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Email to be verified.
         sig { returns(T.nilable(String)) }
@@ -190,12 +142,6 @@ module Stripe
         # Status of this `email` check.
         sig { returns(String) }
         def status; end
-        def self.inner_class_types
-          @inner_class_types = {error: Error}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class IdNumber < Stripe::StripeObject
         class Dob < Stripe::StripeObject
@@ -208,12 +154,6 @@ module Stripe
           # The four-digit year.
           sig { returns(T.nilable(Integer)) }
           def year; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class Error < Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
@@ -222,12 +162,6 @@ module Stripe
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           sig { returns(T.nilable(String)) }
           def reason; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Date of birth.
         sig { returns(T.nilable(Dob)) }
@@ -250,12 +184,6 @@ module Stripe
         # Status of this `id_number` check.
         sig { returns(String) }
         def status; end
-        def self.inner_class_types
-          @inner_class_types = {dob: Dob, error: Error}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Options < Stripe::StripeObject
         class Document < Stripe::StripeObject
@@ -271,33 +199,14 @@ module Stripe
           # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
           sig { returns(T.nilable(T::Boolean)) }
           def require_matching_selfie; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
-        class IdNumber < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
+        class IdNumber < Stripe::StripeObject; end
         # Attribute for field document
         sig { returns(T.nilable(Document)) }
         def document; end
         # Attribute for field id_number
         sig { returns(T.nilable(IdNumber)) }
         def id_number; end
-        def self.inner_class_types
-          @inner_class_types = {document: Document, id_number: IdNumber}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Phone < Stripe::StripeObject
         class Error < Stripe::StripeObject
@@ -307,12 +216,6 @@ module Stripe
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           sig { returns(T.nilable(String)) }
           def reason; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Details on the verification error. Present when status is `unverified`.
         sig { returns(T.nilable(Error)) }
@@ -323,12 +226,6 @@ module Stripe
         # Status of this `phone` check.
         sig { returns(String) }
         def status; end
-        def self.inner_class_types
-          @inner_class_types = {error: Error}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Selfie < Stripe::StripeObject
         class Error < Stripe::StripeObject
@@ -338,12 +235,6 @@ module Stripe
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
           sig { returns(T.nilable(String)) }
           def reason; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
         sig { returns(T.nilable(String)) }
@@ -357,12 +248,6 @@ module Stripe
         # Status of this `selfie` check.
         sig { returns(String) }
         def status; end
-        def self.inner_class_types
-          @inner_class_types = {error: Error}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       sig { returns(T.nilable(String)) }

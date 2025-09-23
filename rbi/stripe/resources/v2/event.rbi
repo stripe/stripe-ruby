@@ -14,12 +14,6 @@ module Stripe
           # The idempotency key transmitted during the request.
           sig { returns(String) }
           def idempotency_key; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Event reason type.
         sig { returns(String) }
@@ -27,12 +21,6 @@ module Stripe
         # Information on the API request that instigated the event.
         sig { returns(T.nilable(Request)) }
         def request; end
-        def self.inner_class_types
-          @inner_class_types = {request: Request}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Before and after changes for the primary related object.
       sig { returns(T.nilable(T::Hash[String, T.untyped])) }

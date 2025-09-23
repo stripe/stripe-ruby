@@ -25,12 +25,6 @@ module Stripe
       # State, county, province, or region.
       sig { returns(T.nilable(String)) }
       def state; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class InvoiceSettings < Stripe::StripeObject
       class CustomField < Stripe::StripeObject
@@ -40,12 +34,6 @@ module Stripe
         # The value of the custom field.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class RenderingOptions < Stripe::StripeObject
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
@@ -54,12 +42,6 @@ module Stripe
         # ID of the invoice rendering template to be used for this customer's invoices. If set, the template will be used on all invoices for this customer unless a template is set directly on the invoice.
         sig { returns(T.nilable(String)) }
         def template; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Default custom fields to be displayed on invoices for this customer.
       sig { returns(T.nilable(T::Array[CustomField])) }
@@ -73,12 +55,6 @@ module Stripe
       # Default options for invoice PDF rendering for this customer.
       sig { returns(T.nilable(RenderingOptions)) }
       def rendering_options; end
-      def self.inner_class_types
-        @inner_class_types = {custom_fields: CustomField, rendering_options: RenderingOptions}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Shipping < Stripe::StripeObject
       class Address < Stripe::StripeObject
@@ -100,12 +76,6 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Attribute for field address
       sig { returns(T.nilable(Address)) }
@@ -122,12 +92,6 @@ module Stripe
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       sig { returns(T.nilable(String)) }
       def tracking_number; end
-      def self.inner_class_types
-        @inner_class_types = {address: Address}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Tax < Stripe::StripeObject
       class Location < Stripe::StripeObject
@@ -140,12 +104,6 @@ module Stripe
         # The identified tax state, county, province, or region of the customer.
         sig { returns(T.nilable(String)) }
         def state; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Surfaces if automatic tax computation is possible given the current customer location information.
       sig { returns(String) }
@@ -156,12 +114,6 @@ module Stripe
       # The identified tax location of the customer.
       sig { returns(T.nilable(Location)) }
       def location; end
-      def self.inner_class_types
-        @inner_class_types = {location: Location}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # The customer's address.
     sig { returns(T.nilable(Address)) }

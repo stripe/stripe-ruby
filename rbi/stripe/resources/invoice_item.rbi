@@ -48,12 +48,6 @@ module Stripe
         # The subscription item that generated this invoice item
         sig { returns(T.nilable(String)) }
         def subscription_item; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Details about the license fee subscription that generated this invoice item
       sig { returns(T.nilable(LicenseFeeSubscriptionDetails)) }
@@ -67,12 +61,6 @@ module Stripe
       # The type of parent that generated this invoice item
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {subscription_details: SubscriptionDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Period < Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
@@ -81,12 +69,6 @@ module Stripe
       # The start of the period. This value is inclusive.
       sig { returns(Integer) }
       def start; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Pricing < Stripe::StripeObject
       class LicenseFeeDetails < Stripe::StripeObject
@@ -107,12 +89,6 @@ module Stripe
         # The ID of the product this item is associated with.
         sig { returns(String) }
         def product; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class RateCardRateDetails < Stripe::StripeObject
         # The ID of billable item this item is associated with
@@ -140,12 +116,6 @@ module Stripe
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       def unit_amount_decimal; end
-      def self.inner_class_types
-        @inner_class_types = {price_details: PriceDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Amount (in the `currency` specified) of the invoice item. This should always be equal to `unit_amount * quantity`.
     sig { returns(Integer) }

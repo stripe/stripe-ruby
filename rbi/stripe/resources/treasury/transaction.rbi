@@ -16,12 +16,6 @@ module Stripe
         # The change made to funds in the account, but not spendable because they are being held for pending outbound flows.
         sig { returns(Integer) }
         def outbound_pending; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class FlowDetails < Stripe::StripeObject
         # You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
@@ -65,12 +59,6 @@ module Stripe
         # Type of the flow that created the Transaction. Set to the same value as `flow_type`.
         sig { returns(String) }
         def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class StatusTransitions < Stripe::StripeObject
         # Timestamp describing when the Transaction changed status to `posted`.
@@ -79,12 +67,6 @@ module Stripe
         # Timestamp describing when the Transaction changed status to `void`.
         sig { returns(T.nilable(Integer)) }
         def void_at; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Amount (in cents) transferred.
       sig { returns(Integer) }

@@ -27,12 +27,6 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Attribute for field address
           sig { returns(Address) }
@@ -43,12 +37,6 @@ module Stripe
           # Full name.
           sig { returns(T.nilable(String)) }
           def name; end
-          def self.inner_class_types
-            @inner_class_types = {address: Address}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class FinancialAccount < Stripe::StripeObject
           # The FinancialAccount ID.
@@ -57,12 +45,6 @@ module Stripe
           # The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
           sig { returns(String) }
           def network; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class UsBankAccount < Stripe::StripeObject
           # Bank name.
@@ -74,12 +56,6 @@ module Stripe
           # The routing number for the bank account.
           sig { returns(T.nilable(String)) }
           def routing_number; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Set when `type` is `balance`.
         sig { returns(T.nilable(String)) }
@@ -99,16 +75,6 @@ module Stripe
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
-        def self.inner_class_types
-          @inner_class_types = {
-            billing_details: BillingDetails,
-            financial_account: FinancialAccount,
-            us_bank_account: UsBankAccount,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class LinkedFlows < Stripe::StripeObject
         class SourceFlowDetails < Stripe::StripeObject
@@ -142,12 +108,6 @@ module Stripe
           # The type of the source flow that originated the ReceivedCredit.
           sig { returns(String) }
           def type; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The CreditReversal created as a result of this ReceivedCredit being reversed.
         sig { returns(T.nilable(String)) }
@@ -167,12 +127,6 @@ module Stripe
         # The type of flow that originated the ReceivedCredit (for example, `outbound_payment`).
         sig { returns(T.nilable(String)) }
         def source_flow_type; end
-        def self.inner_class_types
-          @inner_class_types = {source_flow_details: SourceFlowDetails}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class NetworkDetails < Stripe::StripeObject
         class Ach < Stripe::StripeObject
@@ -194,12 +148,6 @@ module Stripe
         # Set if a ReceivedCredit cannot be reversed.
         sig { returns(T.nilable(String)) }
         def restricted_reason; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Amount (in cents) transferred.
       sig { returns(Integer) }

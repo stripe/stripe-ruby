@@ -29,12 +29,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -42,12 +36,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Affirm < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -60,12 +48,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -73,12 +55,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class AfterpayClearpay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -91,12 +67,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -104,12 +74,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Alipay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -122,12 +86,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -135,12 +93,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Alma < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -153,12 +105,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -166,12 +112,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class AmazonPay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -184,12 +124,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -197,12 +131,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class ApplePay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -215,12 +143,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -228,12 +150,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class AuBecsDebit < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -246,12 +162,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -259,12 +169,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class BacsDebit < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -277,12 +181,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -290,12 +188,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Bancontact < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -308,12 +200,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -321,12 +207,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Billie < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -339,12 +219,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -352,12 +226,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Blik < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -370,12 +238,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -383,12 +245,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Boleto < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -401,12 +257,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -414,12 +264,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Card < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -432,12 +276,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -445,12 +283,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CartesBancaires < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -463,12 +295,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -476,12 +302,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Cashapp < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -494,12 +314,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -507,12 +321,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CustomerBalance < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -525,12 +333,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -538,12 +340,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Eps < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -556,12 +352,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -569,12 +359,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Fpx < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -587,12 +371,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -600,12 +378,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Giropay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -618,12 +390,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -631,12 +397,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class GooglePay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -649,12 +409,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -662,12 +416,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Gopay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -699,12 +447,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -712,12 +454,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class IdBankTransfer < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -749,12 +485,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -762,12 +492,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Jcb < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -780,12 +504,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -793,12 +511,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class KakaoPay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -811,12 +523,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -824,12 +530,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Klarna < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -842,12 +542,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -855,12 +549,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Konbini < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -873,12 +561,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -886,12 +568,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class KrCard < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -904,12 +580,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -917,12 +587,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Link < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -935,12 +599,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -948,12 +606,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Mobilepay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -966,12 +618,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -979,12 +625,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Multibanco < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -997,12 +637,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1010,12 +644,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class NaverPay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1028,12 +656,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1041,12 +663,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class NzBankAccount < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1059,12 +675,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1072,12 +682,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Oxxo < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1090,12 +694,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1103,12 +701,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class P24 < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1121,12 +713,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1134,12 +720,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class PayByBank < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1152,12 +732,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1165,12 +739,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Payco < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1183,12 +751,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1196,12 +758,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Paynow < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1214,12 +770,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1227,12 +777,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Paypal < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1245,12 +789,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1258,12 +796,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Payto < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1295,12 +827,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1308,12 +834,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Promptpay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1326,12 +846,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1339,12 +853,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Qris < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1376,12 +884,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1389,12 +891,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class SamsungPay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1407,12 +903,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1420,12 +910,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Satispay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1438,12 +922,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1451,12 +929,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class SepaDebit < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1469,12 +941,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1482,12 +948,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Shopeepay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1519,12 +979,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1532,12 +986,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Swish < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1550,12 +998,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1563,12 +1005,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Twint < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1581,12 +1017,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1594,12 +1024,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class UsBankAccount < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1612,12 +1036,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1625,12 +1043,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class WechatPay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1643,12 +1055,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1656,12 +1062,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Zip < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
@@ -1674,12 +1074,6 @@ module Stripe
         # The effective display preference value.
         sig { returns(String) }
         def value; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
@@ -1687,12 +1081,6 @@ module Stripe
       # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       def display_preference; end
-      def self.inner_class_types
-        @inner_class_types = {display_preference: DisplayPreference}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Attribute for field acss_debit
     sig { returns(T.nilable(AcssDebit)) }

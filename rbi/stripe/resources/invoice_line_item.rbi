@@ -14,12 +14,6 @@ module Stripe
       # The discount that was applied to get this discount amount.
       sig { returns(T.any(String, Stripe::Discount)) }
       def discount; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class MarginAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the reduction in line item amount.
@@ -39,22 +33,10 @@ module Stripe
             # Credited invoice line items
             sig { returns(T::Array[String]) }
             def invoice_line_items; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
           sig { returns(T.nilable(CreditedItems)) }
           def credited_items; end
-          def self.inner_class_types
-            @inner_class_types = {credited_items: CreditedItems}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The invoice item that generated this line item
         sig { returns(String) }
@@ -68,12 +50,6 @@ module Stripe
         # The subscription that the invoice item belongs to
         sig { returns(T.nilable(String)) }
         def subscription; end
-        def self.inner_class_types
-          @inner_class_types = {proration_details: ProrationDetails}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class LicenseFeeSubscriptionDetails < Stripe::StripeObject
         # The invoice item that generated this line item
@@ -118,22 +94,10 @@ module Stripe
             # Credited invoice line items
             sig { returns(T::Array[String]) }
             def invoice_line_items; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
           sig { returns(T.nilable(CreditedItems)) }
           def credited_items; end
-          def self.inner_class_types
-            @inner_class_types = {credited_items: CreditedItems}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # The invoice item that generated this line item
         sig { returns(T.nilable(String)) }
@@ -150,12 +114,6 @@ module Stripe
         # The subscription item that generated this line item
         sig { returns(String) }
         def subscription_item; end
-        def self.inner_class_types
-          @inner_class_types = {proration_details: ProrationDetails}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Details about the invoice item that generated this line item
       sig { returns(T.nilable(InvoiceItemDetails)) }
@@ -172,15 +130,6 @@ module Stripe
       # The type of parent that generated this line item
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {
-          invoice_item_details: InvoiceItemDetails,
-          subscription_item_details: SubscriptionItemDetails,
-        }
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Period < Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
@@ -189,12 +138,6 @@ module Stripe
       # The start of the period. This value is inclusive.
       sig { returns(Integer) }
       def start; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class PretaxCreditAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
@@ -212,12 +155,6 @@ module Stripe
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Pricing < Stripe::StripeObject
       class LicenseFeeDetails < Stripe::StripeObject
@@ -238,12 +175,6 @@ module Stripe
         # The ID of the product this item is associated with.
         sig { returns(String) }
         def product; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class RateCardRateDetails < Stripe::StripeObject
         # The ID of billable item this item is associated with
@@ -271,12 +202,6 @@ module Stripe
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       def unit_amount_decimal; end
-      def self.inner_class_types
-        @inner_class_types = {price_details: PriceDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class TaxCalculationReference < Stripe::StripeObject
       # The calculation identifier for tax calculation response.
@@ -291,12 +216,6 @@ module Stripe
         # Attribute for field tax_rate
         sig { returns(String) }
         def tax_rate; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # The amount of the tax, in cents (or local equivalent).
       sig { returns(Integer) }
@@ -316,12 +235,6 @@ module Stripe
       # The type of tax information.
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {tax_rate_details: TaxRateDetails}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # The amount, in cents (or local equivalent).
     sig { returns(Integer) }

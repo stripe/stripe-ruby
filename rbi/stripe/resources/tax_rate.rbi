@@ -14,12 +14,6 @@ module Stripe
       # Three-letter ISO currency code, in lowercase.
       sig { returns(String) }
       def currency; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Defaults to `true`. When set to `false`, this tax rate cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
     sig { returns(T::Boolean) }

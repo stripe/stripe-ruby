@@ -15,12 +15,6 @@ module Stripe
         # Default [tax code](https://stripe.com/docs/tax/tax-categories) used to classify your products and prices.
         sig { returns(T.nilable(String)) }
         def tax_code; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class HeadOffice < Stripe::StripeObject
         class Address < Stripe::StripeObject
@@ -42,42 +36,17 @@ module Stripe
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           def state; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field address
         sig { returns(Address) }
         def address; end
-        def self.inner_class_types
-          @inner_class_types = {address: Address}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class StatusDetails < Stripe::StripeObject
-        class Active < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
+        class Active < Stripe::StripeObject; end
         class Pending < Stripe::StripeObject
           # The list of missing fields that are required to perform calculations. It includes the entry `head_office` when the status is `pending`. It is recommended to set the optional values even if they aren't listed as required for calculating taxes. Calculations can fail if missing fields aren't explicitly provided on every call.
           sig { returns(T.nilable(T::Array[String])) }
           def missing_fields; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field active
         sig { returns(T.nilable(Active)) }
@@ -85,12 +54,6 @@ module Stripe
         # Attribute for field pending
         sig { returns(T.nilable(Pending)) }
         def pending; end
-        def self.inner_class_types
-          @inner_class_types = {active: Active, pending: Pending}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Attribute for field defaults
       sig { returns(Defaults) }

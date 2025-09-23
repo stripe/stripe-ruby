@@ -19,12 +19,6 @@ module Stripe
         # Type of account holder that this account belongs to.
         sig { returns(String) }
         def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Filters < Stripe::StripeObject
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.

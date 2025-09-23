@@ -39,12 +39,6 @@ module Stripe
       # Attribute for field swift_code
       sig { returns(T.nilable(String)) }
       def swift_code; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class AchDebit < Stripe::StripeObject
       # Attribute for field bank_name
@@ -65,12 +59,6 @@ module Stripe
       # Attribute for field type
       sig { returns(T.nilable(String)) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class AcssDebit < Stripe::StripeObject
       # Attribute for field bank_address_city
@@ -103,12 +91,6 @@ module Stripe
       # Attribute for field routing_number
       sig { returns(T.nilable(String)) }
       def routing_number; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Alipay < Stripe::StripeObject
       # Attribute for field data_string
@@ -120,12 +102,6 @@ module Stripe
       # Attribute for field statement_descriptor
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class AuBecsDebit < Stripe::StripeObject
       # Attribute for field bsb_number
@@ -137,12 +113,6 @@ module Stripe
       # Attribute for field last4
       sig { returns(T.nilable(String)) }
       def last4; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Bancontact < Stripe::StripeObject
       # Attribute for field bank_code
@@ -163,12 +133,6 @@ module Stripe
       # Attribute for field statement_descriptor
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Card < Stripe::StripeObject
       # Attribute for field address_line1_check
@@ -225,12 +189,6 @@ module Stripe
       # Attribute for field tokenization_method
       sig { returns(T.nilable(String)) }
       def tokenization_method; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CardPresent < Stripe::StripeObject
       # Attribute for field application_cryptogram
@@ -314,12 +272,6 @@ module Stripe
       # Attribute for field transaction_status_information
       sig { returns(T.nilable(String)) }
       def transaction_status_information; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class CodeVerification < Stripe::StripeObject
       # The number of attempts remaining to authenticate the source object with a verification code.
@@ -328,12 +280,6 @@ module Stripe
       # The status of the code verification, either `pending` (awaiting verification, `attempts_remaining` should be greater than 0), `succeeded` (successful verification) or `failed` (failed verification, cannot be verified anymore as `attempts_remaining` should be 0).
       sig { returns(String) }
       def status; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Eps < Stripe::StripeObject
       # Attribute for field reference
@@ -342,12 +288,6 @@ module Stripe
       # Attribute for field statement_descriptor
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Giropay < Stripe::StripeObject
       # Attribute for field bank_code
@@ -362,12 +302,6 @@ module Stripe
       # Attribute for field statement_descriptor
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Ideal < Stripe::StripeObject
       # Attribute for field bank
@@ -382,12 +316,6 @@ module Stripe
       # Attribute for field statement_descriptor
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Klarna < Stripe::StripeObject
       # Attribute for field background_image_url
@@ -468,12 +396,6 @@ module Stripe
       # Attribute for field shipping_last_name
       sig { returns(T.nilable(String)) }
       def shipping_last_name; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Multibanco < Stripe::StripeObject
       # Attribute for field entity
@@ -506,12 +428,6 @@ module Stripe
       # Attribute for field refund_iban
       sig { returns(T.nilable(String)) }
       def refund_iban; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Owner < Stripe::StripeObject
       class Address < Stripe::StripeObject
@@ -533,12 +449,6 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class VerifiedAddress < Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -559,12 +469,6 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Owner's address.
       sig { returns(T.nilable(Address)) }
@@ -590,23 +494,11 @@ module Stripe
       # Verified owner's phone number (including extension). Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated.
       sig { returns(T.nilable(String)) }
       def verified_phone; end
-      def self.inner_class_types
-        @inner_class_types = {address: Address, verified_address: VerifiedAddress}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class P24 < Stripe::StripeObject
       # Attribute for field reference
       sig { returns(T.nilable(String)) }
       def reference; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Paypal < Stripe::StripeObject
       # Attribute for field billing_agreement
@@ -656,12 +548,6 @@ module Stripe
       # Type of refund attribute status, one of `missing`, `requested`, or `available`.
       sig { returns(String) }
       def refund_attributes_status; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Redirect < Stripe::StripeObject
       # The failure reason for the redirect, either `user_abort` (the customer aborted or dropped out of the redirect flow), `declined` (the authentication failed or the transaction was declined), or `processing_error` (the redirect failed due to a technical error). Present only if the redirect status is `failed`.
@@ -676,12 +562,6 @@ module Stripe
       # The URL provided to you to redirect a customer to as part of a `redirect` authentication flow.
       sig { returns(String) }
       def url; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class SepaCreditTransfer < Stripe::StripeObject
       # Attribute for field bank_name
@@ -717,12 +597,6 @@ module Stripe
       # Attribute for field refund_iban
       sig { returns(T.nilable(String)) }
       def refund_iban; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class SepaDebit < Stripe::StripeObject
       # Attribute for field bank_code
@@ -746,12 +620,6 @@ module Stripe
       # Attribute for field mandate_url
       sig { returns(T.nilable(String)) }
       def mandate_url; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Sofort < Stripe::StripeObject
       # Attribute for field bank_code
@@ -775,12 +643,6 @@ module Stripe
       # Attribute for field statement_descriptor
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class SourceOrder < Stripe::StripeObject
       class Item < Stripe::StripeObject
@@ -802,12 +664,6 @@ module Stripe
         # The type of this order item. Must be `sku`, `tax`, or `shipping`.
         sig { returns(T.nilable(String)) }
         def type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Shipping < Stripe::StripeObject
         class Address < Stripe::StripeObject
@@ -829,12 +685,6 @@ module Stripe
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           def state; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field address
         sig { returns(T.nilable(Address)) }
@@ -851,12 +701,6 @@ module Stripe
         # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
         sig { returns(T.nilable(String)) }
         def tracking_number; end
-        def self.inner_class_types
-          @inner_class_types = {address: Address}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order.
       sig { returns(Integer) }
@@ -873,12 +717,6 @@ module Stripe
       # Attribute for field shipping
       sig { returns(T.nilable(Shipping)) }
       def shipping; end
-      def self.inner_class_types
-        @inner_class_types = {items: Item, shipping: Shipping}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class ThreeDSecure < Stripe::StripeObject
       # Attribute for field address_line1_check
@@ -944,12 +782,6 @@ module Stripe
       # Attribute for field tokenization_method
       sig { returns(T.nilable(String)) }
       def tokenization_method; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class Wechat < Stripe::StripeObject
       # Attribute for field prepay_id
@@ -961,12 +793,6 @@ module Stripe
       # Attribute for field statement_descriptor
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Attribute for field ach_credit_transfer
     sig { returns(T.nilable(AchCreditTransfer)) }

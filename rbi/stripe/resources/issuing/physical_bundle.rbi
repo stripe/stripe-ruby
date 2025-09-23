@@ -16,12 +16,6 @@ module Stripe
         # The policy for how to use a second line on a card with this physical bundle.
         sig { returns(String) }
         def second_line; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Attribute for field features
       sig { returns(Features) }

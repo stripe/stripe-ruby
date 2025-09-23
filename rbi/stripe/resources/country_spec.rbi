@@ -18,12 +18,6 @@ module Stripe
         # Fields which every account must eventually provide.
         sig { returns(T::Array[String]) }
         def minimum; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Individual < Stripe::StripeObject
         # Additional fields which are only required for some users.
@@ -32,12 +26,6 @@ module Stripe
         # Fields which every account must eventually provide.
         sig { returns(T::Array[String]) }
         def minimum; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Attribute for field company
       sig { returns(Company) }
@@ -45,12 +33,6 @@ module Stripe
       # Attribute for field individual
       sig { returns(Individual) }
       def individual; end
-      def self.inner_class_types
-        @inner_class_types = {company: Company, individual: Individual}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # The default currency for this country. This applies to both payment methods and bank accounts.
     sig { returns(String) }

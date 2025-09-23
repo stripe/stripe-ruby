@@ -32,12 +32,6 @@ module Stripe
               # State, county, province, or region.
               sig { returns(T.nilable(String)) }
               def state; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             # User Account ID used to log into business platform. Must be recognizable by the user.
             sig { returns(T.nilable(String)) }
@@ -63,12 +57,6 @@ module Stripe
             # The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
             sig { returns(T.nilable(ShippingAddress)) }
             def shipping_address; end
-            def self.inner_class_types
-              @inner_class_types = {shipping_address: ShippingAddress}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           class PriorUndisputedTransaction < Stripe::StripeObject
             class ShippingAddress < Stripe::StripeObject
@@ -90,12 +78,6 @@ module Stripe
               # State, county, province, or region.
               sig { returns(T.nilable(String)) }
               def state; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
             end
             # Stripe charge ID for the Visa Compelling Evidence 3.0 eligible prior charge.
             sig { returns(String) }
@@ -121,12 +103,6 @@ module Stripe
             # The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
             sig { returns(T.nilable(ShippingAddress)) }
             def shipping_address; end
-            def self.inner_class_types
-              @inner_class_types = {shipping_address: ShippingAddress}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
           end
           # Disputed transaction details for Visa Compelling Evidence 3.0 evidence submission.
           sig { returns(T.nilable(DisputedTransaction)) }
@@ -134,26 +110,11 @@ module Stripe
           # List of exactly two prior undisputed transaction objects for Visa Compelling Evidence 3.0 evidence submission.
           sig { returns(T::Array[PriorUndisputedTransaction]) }
           def prior_undisputed_transactions; end
-          def self.inner_class_types
-            @inner_class_types = {
-              disputed_transaction: DisputedTransaction,
-              prior_undisputed_transactions: PriorUndisputedTransaction,
-            }
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class VisaCompliance < Stripe::StripeObject
           # A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
           sig { returns(T::Boolean) }
           def fee_acknowledged; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field visa_compelling_evidence_3
         sig { returns(T.nilable(VisaCompellingEvidence3)) }
@@ -161,15 +122,6 @@ module Stripe
         # Attribute for field visa_compliance
         sig { returns(T.nilable(VisaCompliance)) }
         def visa_compliance; end
-        def self.inner_class_types
-          @inner_class_types = {
-            visa_compelling_evidence_3: VisaCompellingEvidence3,
-            visa_compliance: VisaCompliance,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
       sig { returns(T.nilable(String)) }
@@ -255,12 +207,6 @@ module Stripe
       # Any additional evidence or statements.
       sig { returns(T.nilable(String)) }
       def uncategorized_text; end
-      def self.inner_class_types
-        @inner_class_types = {enhanced_evidence: EnhancedEvidence}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class EvidenceDetails < Stripe::StripeObject
       class EnhancedEligibility < Stripe::StripeObject
@@ -271,23 +217,11 @@ module Stripe
           # Visa Compelling Evidence 3.0 eligibility status.
           sig { returns(String) }
           def status; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         class VisaCompliance < Stripe::StripeObject
           # Visa compliance eligibility status.
           sig { returns(String) }
           def status; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
         end
         # Attribute for field visa_compelling_evidence_3
         sig { returns(T.nilable(VisaCompellingEvidence3)) }
@@ -295,15 +229,6 @@ module Stripe
         # Attribute for field visa_compliance
         sig { returns(T.nilable(VisaCompliance)) }
         def visa_compliance; end
-        def self.inner_class_types
-          @inner_class_types = {
-            visa_compelling_evidence_3: VisaCompellingEvidence3,
-            visa_compliance: VisaCompliance,
-          }
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
       sig { returns(T.nilable(Integer)) }
@@ -329,12 +254,6 @@ module Stripe
         # The AmazonPay dispute type, chargeback or claim
         sig { returns(T.nilable(String)) }
         def dispute_type; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Card < Stripe::StripeObject
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
@@ -346,23 +265,11 @@ module Stripe
         # The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
         sig { returns(T.nilable(String)) }
         def network_reason_code; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Klarna < Stripe::StripeObject
         # The reason for the dispute as defined by Klarna
         sig { returns(T.nilable(String)) }
         def reason_code; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       class Paypal < Stripe::StripeObject
         # The ID of the dispute in PayPal.
@@ -371,12 +278,6 @@ module Stripe
         # The reason for the dispute as defined by PayPal
         sig { returns(T.nilable(String)) }
         def reason_code; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Attribute for field amazon_pay
       sig { returns(T.nilable(AmazonPay)) }
@@ -393,12 +294,6 @@ module Stripe
       # Payment method type.
       sig { returns(String) }
       def type; end
-      def self.inner_class_types
-        @inner_class_types = {amazon_pay: AmazonPay, card: Card, klarna: Klarna, paypal: Paypal}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     class SmartDisputes < Stripe::StripeObject
       # Evidence that could be provided to improve the SmartDisputes packet

@@ -14,12 +14,6 @@ module Stripe
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
         sig { returns(Integer) }
         def minimum_amount; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Promotion code restrictions defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(T.nilable(T::Hash[String, CurrencyOptions])) }
@@ -33,12 +27,6 @@ module Stripe
       # Three-letter [ISO code](https://stripe.com/docs/currencies) for minimum_amount
       sig { returns(T.nilable(String)) }
       def minimum_amount_currency; end
-      def self.inner_class_types
-        @inner_class_types = {currency_options: CurrencyOptions}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
     end
     # Whether the promotion code is currently active. A promotion code is only active if the coupon is also valid.
     sig { returns(T::Boolean) }

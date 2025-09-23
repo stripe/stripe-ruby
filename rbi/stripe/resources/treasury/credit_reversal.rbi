@@ -10,12 +10,6 @@ module Stripe
         # Timestamp describing when the CreditReversal changed status to `posted`
         sig { returns(T.nilable(Integer)) }
         def posted_at; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
       # Amount (in cents) transferred.
       sig { returns(Integer) }

@@ -26,6 +26,12 @@ module Stripe
           # The type of device used for tokenization.
           sig { returns(T.nilable(String)) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Mastercard < Stripe::StripeObject
           # A unique reference ID from MasterCard to represent the card account number.
@@ -40,6 +46,12 @@ module Stripe
           # The name of the entity requesting tokenization, if known. This is directly provided from MasterCard.
           sig { returns(T.nilable(String)) }
           def token_requestor_name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Visa < Stripe::StripeObject
           # A unique reference ID from Visa to represent the card account number.
@@ -54,6 +66,12 @@ module Stripe
           # Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
           sig { returns(T.nilable(String)) }
           def token_risk_score; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class WalletProvider < Stripe::StripeObject
           class CardholderAddress < Stripe::StripeObject
@@ -63,6 +81,12 @@ module Stripe
             # The postal code of the cardholder tokenizing the card.
             sig { returns(String) }
             def postal_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The wallet provider-given account ID of the digital wallet the token belongs to.
           sig { returns(T.nilable(String)) }
@@ -94,6 +118,12 @@ module Stripe
           # The version of the standard for mapping reason codes followed by the wallet provider.
           sig { returns(T.nilable(String)) }
           def suggested_decision_version; end
+          def self.inner_class_types
+            @inner_class_types = {cardholder_address: CardholderAddress}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field device
         sig { returns(T.nilable(Device)) }
@@ -110,6 +140,17 @@ module Stripe
         # Attribute for field wallet_provider
         sig { returns(T.nilable(WalletProvider)) }
         def wallet_provider; end
+        def self.inner_class_types
+          @inner_class_types = {
+            device: Device,
+            mastercard: Mastercard,
+            visa: Visa,
+            wallet_provider: WalletProvider,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Card associated with this token.
       sig { returns(T.any(String, Stripe::Issuing::Card)) }

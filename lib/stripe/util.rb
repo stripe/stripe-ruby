@@ -119,6 +119,7 @@ module Stripe
     # * +api_mode+ - The API mode to use when converting the object, either :v1 or :v2.
     # * +requestor+ - The requestor to use when constructing the object.
     # * +v2_deleted_object+ - If true, ignore the object tag for casting purposes
+    # * +klass+ - The class to use for inner types
     def self.convert_to_stripe_object_with_params(
       data,
       params,
@@ -126,8 +127,8 @@ module Stripe
       last_response = nil,
       api_mode: :v1,
       requestor: nil,
-      klass: nil,
-      v2_deleted_object: false
+      v2_deleted_object: false,
+      klass: nil
     )
       opts = normalize_opts(opts)
 
@@ -147,7 +148,6 @@ module Stripe
         object_type = data[:type] || data["type"]
         object_name = data[:object] || data["object"]
         object_class = if klass
-                         # Use the provided class for inner types
                          klass
                        elsif api_mode == :v2
                          if v2_deleted_object

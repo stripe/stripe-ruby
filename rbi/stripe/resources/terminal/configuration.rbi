@@ -11,11 +11,23 @@ module Stripe
         # A File ID representing an image to display on the reader
         sig { returns(T.nilable(T.any(String, Stripe::File))) }
         def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Offline < Stripe::StripeObject
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         sig { returns(T.nilable(T::Boolean)) }
         def enabled; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class ReaderSecurity < Stripe::StripeObject
         # Passcode used to access a reader's admin menu.
@@ -29,11 +41,23 @@ module Stripe
         # Integer between 0 to 23 that represents the start hour of the reboot time window.
         sig { returns(Integer) }
         def start_hour; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class StripeS700 < Stripe::StripeObject
         # A File ID representing an image to display on the reader
         sig { returns(T.nilable(T.any(String, Stripe::File))) }
         def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Tipping < Stripe::StripeObject
         class Aed < Stripe::StripeObject
@@ -46,6 +70,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Aud < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -57,6 +87,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Bgn < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -68,6 +104,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Cad < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -79,6 +121,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Chf < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -90,6 +138,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Czk < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -101,6 +155,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Dkk < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -112,6 +172,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Eur < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -123,6 +189,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Gbp < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -134,6 +206,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Hkd < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -145,6 +223,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Huf < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -156,6 +240,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Jpy < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -167,6 +257,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Mxn < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -178,6 +274,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Myr < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -189,6 +291,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Nok < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -200,6 +308,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Nzd < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -211,6 +325,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Pln < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -222,6 +342,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Ron < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -233,6 +359,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Sek < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -244,6 +376,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Sgd < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -255,6 +393,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Usd < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -266,6 +410,12 @@ module Stripe
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           sig { returns(T.nilable(Integer)) }
           def smart_tip_threshold; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field aed
         sig { returns(T.nilable(Aed)) }
@@ -330,11 +480,45 @@ module Stripe
         # Attribute for field usd
         sig { returns(T.nilable(Usd)) }
         def usd; end
+        def self.inner_class_types
+          @inner_class_types = {
+            aed: Aed,
+            aud: Aud,
+            bgn: Bgn,
+            cad: Cad,
+            chf: Chf,
+            czk: Czk,
+            dkk: Dkk,
+            eur: Eur,
+            gbp: Gbp,
+            hkd: Hkd,
+            huf: Huf,
+            jpy: Jpy,
+            mxn: Mxn,
+            myr: Myr,
+            nok: Nok,
+            nzd: Nzd,
+            pln: Pln,
+            ron: Ron,
+            sek: Sek,
+            sgd: Sgd,
+            usd: Usd,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class VerifoneP400 < Stripe::StripeObject
         # A File ID representing an image to display on the reader
         sig { returns(T.nilable(T.any(String, Stripe::File))) }
         def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Wifi < Stripe::StripeObject
         class EnterpriseEapPeap < Stripe::StripeObject
@@ -350,6 +534,12 @@ module Stripe
           # Username for connecting to the WiFi network
           sig { returns(String) }
           def username; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class EnterpriseEapTls < Stripe::StripeObject
           # A File ID representing a PEM file containing the server certificate
@@ -367,6 +557,12 @@ module Stripe
           # Name of the WiFi network
           sig { returns(String) }
           def ssid; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class PersonalPsk < Stripe::StripeObject
           # Password for connecting to the WiFi network
@@ -375,6 +571,12 @@ module Stripe
           # Name of the WiFi network
           sig { returns(String) }
           def ssid; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field enterprise_eap_peap
         sig { returns(T.nilable(EnterpriseEapPeap)) }
@@ -388,6 +590,16 @@ module Stripe
         # Security type of the WiFi network. The hash with the corresponding name contains the credentials for this security type.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            enterprise_eap_peap: EnterpriseEapPeap,
+            enterprise_eap_tls: EnterpriseEapTls,
+            personal_psk: PersonalPsk,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field bbpos_wisepos_e
       sig { returns(T.nilable(BbposWiseposE)) }

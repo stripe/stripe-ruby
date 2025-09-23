@@ -29,6 +29,12 @@ module Stripe
       # Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
       sig { returns(T.nilable(T::Hash[String, T.untyped])) }
       def previous_attributes; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Reason < Stripe::StripeObject
       class AutomationAction < Stripe::StripeObject
@@ -73,6 +79,12 @@ module Stripe
       # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
       sig { returns(T.nilable(String)) }
       def idempotency_key; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The connected account that originates the event.
     sig { returns(T.nilable(String)) }

@@ -22,6 +22,12 @@ module Stripe
         # The state/county/province/region where the supplier is located.
         sig { returns(T.nilable(String)) }
         def region; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Unique identifier for the object.
       sig { returns(String) }

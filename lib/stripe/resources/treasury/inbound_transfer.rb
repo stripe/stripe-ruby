@@ -18,11 +18,27 @@ module Stripe
       class FailureDetails < Stripe::StripeObject
         # Reason for the failure.
         attr_reader :code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class LinkedFlows < Stripe::StripeObject
         # If funds for this flow were returned after the flow went to the `succeeded` state, this field contains a reference to the ReceivedDebit return.
         attr_reader :received_debit
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class OriginPaymentMethodDetails < Stripe::StripeObject
@@ -40,6 +56,14 @@ module Stripe
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field address
           attr_reader :address
@@ -47,6 +71,14 @@ module Stripe
           attr_reader :email
           # Full name.
           attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class UsBankAccount < Stripe::StripeObject
@@ -66,6 +98,14 @@ module Stripe
           attr_reader :network
           # Routing number of the bank account.
           attr_reader :routing_number
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field billing_details
         attr_reader :billing_details
@@ -73,6 +113,14 @@ module Stripe
         attr_reader :type
         # Attribute for field us_bank_account
         attr_reader :us_bank_account
+
+        def self.inner_class_types
+          @inner_class_types = { billing_details: BillingDetails, us_bank_account: UsBankAccount }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class StatusTransitions < Stripe::StripeObject
@@ -82,6 +130,14 @@ module Stripe
         attr_reader :failed_at
         # Timestamp describing when an InboundTransfer changed status to `succeeded`.
         attr_reader :succeeded_at
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -350,6 +406,19 @@ module Stripe
             opts: opts
           )
         end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          failure_details: FailureDetails,
+          linked_flows: LinkedFlows,
+          origin_payment_method_details: OriginPaymentMethodDetails,
+          status_transitions: StatusTransitions,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

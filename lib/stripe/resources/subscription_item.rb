@@ -18,6 +18,14 @@ module Stripe
     class BillingThresholds < Stripe::StripeObject
       # Usage threshold that triggers the subscription to create an invoice
       attr_reader :usage_gte
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class DeleteParams < Stripe::RequestParams
@@ -410,6 +418,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { billing_thresholds: BillingThresholds }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

@@ -30,6 +30,14 @@ module Stripe
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AddressKana < Stripe::StripeObject
@@ -47,6 +55,14 @@ module Stripe
         attr_reader :state
         # Town/cho-me.
         attr_reader :town
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AddressKanji < Stripe::StripeObject
@@ -64,6 +80,14 @@ module Stripe
         attr_reader :state
         # Town/cho-me.
         attr_reader :town
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class DeleteParams < Stripe::RequestParams; end
@@ -455,6 +479,18 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          address: Address,
+          address_kana: AddressKana,
+          address_kanji: AddressKanji,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

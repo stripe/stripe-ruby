@@ -19,11 +19,27 @@ module Stripe
     class AppliesTo < Stripe::StripeObject
       # A list of product IDs this coupon applies to
       attr_reader :products
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CurrencyOptions < Stripe::StripeObject
       # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
       attr_reader :amount_off
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class DeleteParams < Stripe::RequestParams; end
@@ -244,6 +260,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { applies_to: AppliesTo, currency_options: CurrencyOptions }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

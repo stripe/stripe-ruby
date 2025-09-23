@@ -10,6 +10,12 @@ module Stripe
       # Usage threshold that triggers the subscription to create an invoice
       sig { returns(T.nilable(Integer)) }
       def usage_gte; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
     sig { returns(T.nilable(BillingThresholds)) }

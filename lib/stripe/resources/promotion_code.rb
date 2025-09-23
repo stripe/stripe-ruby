@@ -22,12 +22,28 @@ module Stripe
       attr_reader :coupon
       # The type of promotion.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Restrictions < Stripe::StripeObject
       class CurrencyOptions < Stripe::StripeObject
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
         attr_reader :minimum_amount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Promotion code restrictions defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency_options
@@ -37,6 +53,14 @@ module Stripe
       attr_reader :minimum_amount
       # Three-letter [ISO code](https://stripe.com/docs/currencies) for minimum_amount
       attr_reader :minimum_amount_currency
+
+      def self.inner_class_types
+        @inner_class_types = { currency_options: CurrencyOptions }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -264,6 +288,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { promotion: Promotion, restrictions: Restrictions }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

@@ -20,6 +20,14 @@ module Stripe
     class Networks < Stripe::StripeObject
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       attr_reader :preferred
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field account
     attr_reader :account
@@ -141,6 +149,14 @@ module Stripe
             "ID. List cards using `Customer.list_sources(" \
             "'customer_id')` or " \
             "`Account.list_external_accounts('account_id')`"
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { networks: Networks }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

@@ -28,15 +28,33 @@ module Stripe
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           def state; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field address
         sig { returns(Address) }
         def address; end
+        def self.inner_class_types
+          @inner_class_types = {address: Address}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Company < Stripe::StripeObject
         # Whether the company's business ID number was provided.
         sig { returns(T::Boolean) }
         def tax_id_provided; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Individual < Stripe::StripeObject
         class CardIssuing < Stripe::StripeObject
@@ -50,10 +68,22 @@ module Stripe
             # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
             sig { returns(T.nilable(String)) }
             def user_agent; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
           sig { returns(T.nilable(UserTermsAcceptance)) }
           def user_terms_acceptance; end
+          def self.inner_class_types
+            @inner_class_types = {user_terms_acceptance: UserTermsAcceptance}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Dob < Stripe::StripeObject
           # The day of birth, between 1 and 31.
@@ -65,6 +95,12 @@ module Stripe
           # The four-digit year of birth.
           sig { returns(T.nilable(Integer)) }
           def year; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Verification < Stripe::StripeObject
           class Document < Stripe::StripeObject
@@ -74,10 +110,22 @@ module Stripe
             # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
             sig { returns(T.nilable(T.any(String, Stripe::File))) }
             def front; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # An identifying document, either a passport or local ID card.
           sig { returns(T.nilable(Document)) }
           def document; end
+          def self.inner_class_types
+            @inner_class_types = {document: Document}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Information related to the card_issuing program for this cardholder.
         sig { returns(T.nilable(CardIssuing)) }
@@ -94,6 +142,12 @@ module Stripe
         # Government-issued ID document for this cardholder.
         sig { returns(T.nilable(Verification)) }
         def verification; end
+        def self.inner_class_types
+          @inner_class_types = {card_issuing: CardIssuing, dob: Dob, verification: Verification}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Requirements < Stripe::StripeObject
         # If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
@@ -102,6 +156,12 @@ module Stripe
         # Array of fields that need to be collected in order to verify and re-enable the cardholder.
         sig { returns(T.nilable(T::Array[String])) }
         def past_due; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class SpendingControls < Stripe::StripeObject
         class SpendingLimit < Stripe::StripeObject
@@ -114,6 +174,12 @@ module Stripe
           # Interval (or event) to which the amount applies.
           sig { returns(String) }
           def interval; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         sig { returns(T.nilable(T::Array[String])) }
@@ -133,6 +199,12 @@ module Stripe
         # Currency of the amounts within `spending_limits`.
         sig { returns(T.nilable(String)) }
         def spending_limits_currency; end
+        def self.inner_class_types
+          @inner_class_types = {spending_limits: SpendingLimit}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field billing
       sig { returns(Billing) }

@@ -21,6 +21,14 @@ module Stripe
         attr_reader :tax_behavior
         # Default [tax code](https://stripe.com/docs/tax/tax-categories) used to classify your products and prices.
         attr_reader :tax_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class HeadOffice < Stripe::StripeObject
@@ -37,22 +45,62 @@ module Stripe
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field address
         attr_reader :address
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class StatusDetails < Stripe::StripeObject
-        class Active < Stripe::StripeObject; end
+        class Active < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
 
         class Pending < Stripe::StripeObject
           # The list of missing fields that are required to perform calculations. It includes the entry `head_office` when the status is `pending`. It is recommended to set the optional values even if they aren't listed as required for calculating taxes. Calculations can fail if missing fields aren't explicitly provided on every call.
           attr_reader :missing_fields
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field active
         attr_reader :active
         # Attribute for field pending
         attr_reader :pending
+
+        def self.inner_class_types
+          @inner_class_types = { active: Active, pending: Pending }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class UpdateParams < Stripe::RequestParams
@@ -131,6 +179,18 @@ module Stripe
       attr_reader :status
       # Attribute for field status_details
       attr_reader :status_details
+
+      def self.inner_class_types
+        @inner_class_types = {
+          defaults: Defaults,
+          head_office: HeadOffice,
+          status_details: StatusDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

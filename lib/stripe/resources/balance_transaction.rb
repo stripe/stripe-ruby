@@ -25,6 +25,14 @@ module Stripe
       attr_reader :description
       # Type of the fee, one of: `application_fee`, `payment_method_passthrough_fee`, `stripe_fee` or `tax`.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -129,6 +137,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { fee_details: FeeDetail }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

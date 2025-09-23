@@ -40,6 +40,14 @@ module Stripe
       attr_reader :allow_redirects
       # Automatically calculates compatible payment methods
       attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class LastSetupError < Stripe::StripeObject
@@ -109,6 +117,14 @@ module Stripe
       attr_reader :source
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class NextAction < Stripe::StripeObject
@@ -120,6 +136,14 @@ module Stripe
           attr_reader :image_url_png
           # The image_url_svg string used to render QR code
           attr_reader :image_url_svg
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The URL to the hosted Cash App Pay instructions page, which allows customers to view the QR code, and supports QR code refreshing on expiration.
         attr_reader :hosted_instructions_url
@@ -127,6 +151,14 @@ module Stripe
         attr_reader :mobile_auth_url
         # Attribute for field qr_code
         attr_reader :qr_code
+
+        def self.inner_class_types
+          @inner_class_types = { qr_code: QrCode }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RedirectToUrl < Stripe::StripeObject
@@ -134,6 +166,14 @@ module Stripe
         attr_reader :return_url
         # The URL you must redirect your customer to in order to authenticate.
         attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class VerifyWithMicrodeposits < Stripe::StripeObject
@@ -143,6 +183,14 @@ module Stripe
         attr_reader :hosted_verification_url
         # The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
         attr_reader :microdeposit_type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field cashapp_handle_redirect_or_display_qr_code
       attr_reader :cashapp_handle_redirect_or_display_qr_code
@@ -154,6 +202,18 @@ module Stripe
       attr_reader :use_stripe_sdk
       # Attribute for field verify_with_microdeposits
       attr_reader :verify_with_microdeposits
+
+      def self.inner_class_types
+        @inner_class_types = {
+          cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
+          redirect_to_url: RedirectToUrl,
+          verify_with_microdeposits: VerifyWithMicrodeposits,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PaymentMethodConfigurationDetails < Stripe::StripeObject
@@ -161,6 +221,14 @@ module Stripe
       attr_reader :id
       # ID of the parent payment method configuration used.
       attr_reader :parent
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class PaymentMethodOptions < Stripe::StripeObject
@@ -176,6 +244,14 @@ module Stripe
           attr_reader :payment_schedule
           # Transaction type of the mandate.
           attr_reader :transaction_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Currency supported by the bank account
         attr_reader :currency
@@ -183,17 +259,49 @@ module Stripe
         attr_reader :mandate_options
         # Bank account verification method.
         attr_reader :verification_method
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class AmazonPay < Stripe::StripeObject; end
+      class AmazonPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class BacsDebit < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           attr_reader :reference_prefix
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field mandate_options
         attr_reader :mandate_options
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Card < Stripe::StripeObject
@@ -218,6 +326,14 @@ module Stripe
           attr_reader :start_date
           # Specifies the type of mandates supported. Possible values are `india`.
           attr_reader :supported_types
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Configuration options for setting up an eMandate for cards issued in India.
         attr_reader :mandate_options
@@ -225,34 +341,90 @@ module Stripe
         attr_reader :network
         # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_reader :request_three_d_secure
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class CardPresent < Stripe::StripeObject; end
+      class CardPresent < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
 
       class Klarna < Stripe::StripeObject
         # The currency of the setup intent. Three letter ISO currency code.
         attr_reader :currency
         # Preferred locale of the Klarna checkout page that the customer is redirected to.
         attr_reader :preferred_locale
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Link < Stripe::StripeObject
         # [Deprecated] This is a legacy parameter that no longer has any function.
         attr_reader :persistent_token
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Paypal < Stripe::StripeObject
         # The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
         attr_reader :billing_agreement_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SepaDebit < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
           attr_reader :reference_prefix
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field mandate_options
         attr_reader :mandate_options
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class UsBankAccount < Stripe::StripeObject
@@ -260,6 +432,14 @@ module Stripe
           class Filters < Stripe::StripeObject
             # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
             attr_reader :account_subcategories
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field filters
           attr_reader :filters
@@ -269,11 +449,27 @@ module Stripe
           attr_reader :prefetch
           # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
           attr_reader :return_url
+
+          def self.inner_class_types
+            @inner_class_types = { filters: Filters }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class MandateOptions < Stripe::StripeObject
           # Mandate collection method
           attr_reader :collection_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field financial_connections
         attr_reader :financial_connections
@@ -281,6 +477,17 @@ module Stripe
         attr_reader :mandate_options
         # Bank account verification method.
         attr_reader :verification_method
+
+        def self.inner_class_types
+          @inner_class_types = {
+            financial_connections: FinancialConnections,
+            mandate_options: MandateOptions,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field acss_debit
       attr_reader :acss_debit
@@ -302,6 +509,25 @@ module Stripe
       attr_reader :sepa_debit
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
+
+      def self.inner_class_types
+        @inner_class_types = {
+          acss_debit: AcssDebit,
+          amazon_pay: AmazonPay,
+          bacs_debit: BacsDebit,
+          card: Card,
+          card_present: CardPresent,
+          klarna: Klarna,
+          link: Link,
+          paypal: Paypal,
+          sepa_debit: SepaDebit,
+          us_bank_account: UsBankAccount,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -3768,6 +3994,20 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        automatic_payment_methods: AutomaticPaymentMethods,
+        last_setup_error: LastSetupError,
+        next_action: NextAction,
+        payment_method_configuration_details: PaymentMethodConfigurationDetails,
+        payment_method_options: PaymentMethodOptions,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

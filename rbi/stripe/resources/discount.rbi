@@ -15,6 +15,12 @@ module Stripe
       # The source type of the discount.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
     sig { returns(T.nilable(String)) }

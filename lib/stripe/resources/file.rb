@@ -156,5 +156,13 @@ module Stripe
     def self.resource_url
       "/v1/files"
     end
+
+    def self.inner_class_types
+      @inner_class_types = {}
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

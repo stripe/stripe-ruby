@@ -14,6 +14,12 @@ module Stripe
           # Indicates the strategy for how you want Stripe to retry the payment.
           sig { returns(String) }
           def retry_strategy; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TransferData < Stripe::StripeObject
           # The amount transferred to the destination account. This transfer will occur
@@ -29,6 +35,12 @@ module Stripe
           # where funds from the payment are transferred to after payment success.
           sig { returns(String) }
           def destination; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The “presentment amount” to be collected from the customer.
         sig { returns(Stripe::V2::Amount) }

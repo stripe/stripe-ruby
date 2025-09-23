@@ -10,6 +10,12 @@ module Stripe
         # The raw magstripe data collected by the reader.
         sig { returns(T.nilable(String)) }
         def data; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

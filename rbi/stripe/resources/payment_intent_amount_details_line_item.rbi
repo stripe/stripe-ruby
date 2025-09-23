@@ -9,11 +9,23 @@ module Stripe
         # Attribute for field commodity_code
         sig { returns(T.nilable(String)) }
         def commodity_code; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class CardPresent < Stripe::StripeObject
         # Attribute for field commodity_code
         sig { returns(T.nilable(String)) }
         def commodity_code; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Klarna < Stripe::StripeObject
         # Attribute for field image_url
@@ -22,6 +34,12 @@ module Stripe
         # Attribute for field product_url
         sig { returns(T.nilable(String)) }
         def product_url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Paypal < Stripe::StripeObject
         # Type of the line item.
@@ -33,6 +51,12 @@ module Stripe
         # The Stripe account ID of the connected account that sells the item. This is only needed when using [Separate Charges and Transfers](https://docs.stripe.com/connect/separate-charges-and-transfers).
         sig { returns(T.nilable(String)) }
         def sold_by; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field card
       sig { returns(T.nilable(Card)) }
@@ -46,11 +70,23 @@ module Stripe
       # Attribute for field paypal
       sig { returns(T.nilable(Paypal)) }
       def paypal; end
+      def self.inner_class_types
+        @inner_class_types = {card: Card, card_present: CardPresent, klarna: Klarna, paypal: Paypal}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Tax < Stripe::StripeObject
       # Total portion of the amount that is for tax.
       sig { returns(Integer) }
       def total_tax_amount; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The amount an item was discounted for. Positive integer.
     sig { returns(T.nilable(Integer)) }

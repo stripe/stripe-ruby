@@ -21,6 +21,12 @@ module Stripe
           # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
           sig { returns(T.nilable(String)) }
           def up_to_inf; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TransformQuantity < Stripe::StripeObject
           # Divide usage by this number.
@@ -29,6 +35,12 @@ module Stripe
           # After division, round the result up or down.
           sig { returns(String) }
           def round; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Timestamp of when the object was created.
         sig { returns(String) }

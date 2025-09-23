@@ -11,10 +11,22 @@ module Stripe
             # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Settings for calculating tax.
           sig { returns(T.nilable(Tax)) }
           def tax; end
+          def self.inner_class_types
+            @inner_class_types = {tax: Tax}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Invoice < Stripe::StripeObject
           class TimeUntilDue < Stripe::StripeObject
@@ -25,10 +37,22 @@ module Stripe
             # the invoice will be due in 30 days.
             sig { returns(Integer) }
             def interval_count; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The amount of time until the invoice will be overdue for payment.
           sig { returns(T.nilable(TimeUntilDue)) }
           def time_until_due; end
+          def self.inner_class_types
+            @inner_class_types = {time_until_due: TimeUntilDue}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Settings related to calculating a bill.
         sig { returns(T.nilable(Calculation)) }

@@ -32,6 +32,12 @@ module Stripe
           # Town or cho-me.
           sig { returns(T.nilable(String)) }
           def town; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class AdditionalName < Stripe::StripeObject
           # The individual's full name.
@@ -46,6 +52,12 @@ module Stripe
           # The individual's last or family name.
           sig { returns(T.nilable(String)) }
           def surname; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class AdditionalTermsOfService < Stripe::StripeObject
           class Account < Stripe::StripeObject
@@ -58,10 +70,22 @@ module Stripe
             # The user agent of the browser from which the Account's representative accepted the terms of service.
             sig { returns(T.nilable(String)) }
             def user_agent; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Stripe terms of service agreement.
           sig { returns(T.nilable(Account)) }
           def account; end
+          def self.inner_class_types
+            @inner_class_types = {account: Account}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Address < Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -85,6 +109,12 @@ module Stripe
           # Town or cho-me.
           sig { returns(T.nilable(String)) }
           def town; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class DateOfBirth < Stripe::StripeObject
           # The day of birth, between 1 and 31.
@@ -96,6 +126,12 @@ module Stripe
           # The four-digit year of birth.
           sig { returns(Integer) }
           def year; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Documents < Stripe::StripeObject
           class CompanyAuthorization < Stripe::StripeObject
@@ -105,6 +141,12 @@ module Stripe
             # The format of the document. Currently supports `files` only.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Passport < Stripe::StripeObject
             # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -113,6 +155,12 @@ module Stripe
             # The format of the document. Currently supports `files` only.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class PrimaryVerification < Stripe::StripeObject
             class FrontBack < Stripe::StripeObject
@@ -122,6 +170,12 @@ module Stripe
               # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(String) }
               def front; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
             sig { returns(FrontBack) }
@@ -129,6 +183,12 @@ module Stripe
             # The format of the verification document. Currently supports `front_back` only.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {front_back: FrontBack}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class SecondaryVerification < Stripe::StripeObject
             class FrontBack < Stripe::StripeObject
@@ -138,6 +198,12 @@ module Stripe
               # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(String) }
               def front; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
             sig { returns(FrontBack) }
@@ -145,6 +211,12 @@ module Stripe
             # The format of the verification document. Currently supports `front_back` only.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {front_back: FrontBack}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Visa < Stripe::StripeObject
             # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
@@ -153,6 +225,12 @@ module Stripe
             # The format of the document. Currently supports `files` only.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # One or more documents that demonstrate proof that this person is authorized to represent the company.
           sig { returns(T.nilable(CompanyAuthorization)) }
@@ -169,11 +247,29 @@ module Stripe
           # One or more documents showing the person’s visa required for living in the country where they are residing.
           sig { returns(T.nilable(Visa)) }
           def visa; end
+          def self.inner_class_types
+            @inner_class_types = {
+              company_authorization: CompanyAuthorization,
+              passport: Passport,
+              primary_verification: PrimaryVerification,
+              secondary_verification: SecondaryVerification,
+              visa: Visa,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class IdNumber < Stripe::StripeObject
           # The ID number type of an individual.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Relationship < Stripe::StripeObject
           # Whether the individual is an authorizer of the Account’s legal entity.
@@ -200,6 +296,12 @@ module Stripe
           # The individual's title (e.g., CEO, Support Engineer).
           sig { returns(T.nilable(String)) }
           def title; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class ScriptAddresses < Stripe::StripeObject
           class Kana < Stripe::StripeObject
@@ -224,6 +326,12 @@ module Stripe
             # Town or cho-me.
             sig { returns(T.nilable(String)) }
             def town; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Kanji < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -247,6 +355,12 @@ module Stripe
             # Town or cho-me.
             sig { returns(T.nilable(String)) }
             def town; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Kana Address.
           sig { returns(T.nilable(Kana)) }
@@ -254,6 +368,12 @@ module Stripe
           # Kanji Address.
           sig { returns(T.nilable(Kanji)) }
           def kanji; end
+          def self.inner_class_types
+            @inner_class_types = {kana: Kana, kanji: Kanji}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class ScriptNames < Stripe::StripeObject
           class Kana < Stripe::StripeObject
@@ -263,6 +383,12 @@ module Stripe
             # The person's last or family name.
             sig { returns(T.nilable(String)) }
             def surname; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Kanji < Stripe::StripeObject
             # The person's first or given name.
@@ -271,6 +397,12 @@ module Stripe
             # The person's last or family name.
             sig { returns(T.nilable(String)) }
             def surname; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Persons name in kana script.
           sig { returns(T.nilable(Kana)) }
@@ -278,6 +410,12 @@ module Stripe
           # Persons name in kanji script.
           sig { returns(T.nilable(Kanji)) }
           def kanji; end
+          def self.inner_class_types
+            @inner_class_types = {kana: Kana, kanji: Kanji}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The account ID which the individual belongs to.
         sig { returns(String) }

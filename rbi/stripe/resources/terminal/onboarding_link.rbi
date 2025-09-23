@@ -14,10 +14,22 @@ module Stripe
           # The business name of the merchant accepting Apple's Terms and Conditions.
           sig { returns(String) }
           def merchant_display_name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The options associated with the Apple Terms and Conditions link type.
         sig { returns(T.nilable(AppleTermsAndConditions)) }
         def apple_terms_and_conditions; end
+        def self.inner_class_types
+          @inner_class_types = {apple_terms_and_conditions: AppleTermsAndConditions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Link type options associated with the current onboarding link object.
       sig { returns(LinkOptions) }

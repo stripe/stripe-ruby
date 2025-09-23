@@ -14,6 +14,12 @@ module Stripe
           # Attribute for field type
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Lte < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
@@ -36,6 +42,12 @@ module Stripe
               # The status of the custom pricing unit.
               sig { returns(String) }
               def status; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The custom pricing unit object.
             sig { returns(T.nilable(CustomPricingUnitDetails)) }
@@ -46,6 +58,12 @@ module Stripe
             # A positive decimal string representing the amount.
             sig { returns(String) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -54,6 +72,12 @@ module Stripe
             # A positive integer representing the amount.
             sig { returns(Integer) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The type of this balance. We currently only support `monetary` amounts.
           sig { returns(String) }
@@ -64,6 +88,12 @@ module Stripe
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
           def monetary; end
+          def self.inner_class_types
+            @inner_class_types = {custom_pricing_unit: CustomPricingUnit, monetary: Monetary}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The filters allow limiting the scope of this credit balance alert. You must specify only a customer filter at this time.
         sig { returns(T.nilable(T::Array[Filter])) }
@@ -71,6 +101,12 @@ module Stripe
         # Attribute for field lte
         sig { returns(Lte) }
         def lte; end
+        def self.inner_class_types
+          @inner_class_types = {filters: Filter, lte: Lte}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class UsageThreshold < Stripe::StripeObject
         class Filter < Stripe::StripeObject
@@ -80,6 +116,12 @@ module Stripe
           # Attribute for field type
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
         sig { returns(T.nilable(T::Array[Filter])) }
@@ -93,6 +135,12 @@ module Stripe
         # Defines how the alert will behave.
         sig { returns(String) }
         def recurrence; end
+        def self.inner_class_types
+          @inner_class_types = {filters: Filter}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Defines the type of the alert.
       sig { returns(String) }

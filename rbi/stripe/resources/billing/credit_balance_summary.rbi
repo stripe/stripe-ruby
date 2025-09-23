@@ -28,6 +28,12 @@ module Stripe
               # The status of the custom pricing unit.
               sig { returns(String) }
               def status; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The custom pricing unit object.
             sig { returns(T.nilable(CustomPricingUnitDetails)) }
@@ -38,6 +44,12 @@ module Stripe
             # A positive integer representing the amount.
             sig { returns(String) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -46,6 +58,12 @@ module Stripe
             # A positive integer representing the amount.
             sig { returns(Integer) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The custom pricing unit amount.
           sig { returns(T.nilable(CustomPricingUnit)) }
@@ -56,6 +74,12 @@ module Stripe
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {custom_pricing_unit: CustomPricingUnit, monetary: Monetary}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class LedgerBalance < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
@@ -78,6 +102,12 @@ module Stripe
               # The status of the custom pricing unit.
               sig { returns(String) }
               def status; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The custom pricing unit object.
             sig { returns(T.nilable(CustomPricingUnitDetails)) }
@@ -88,6 +118,12 @@ module Stripe
             # A positive integer representing the amount.
             sig { returns(String) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -96,6 +132,12 @@ module Stripe
             # A positive integer representing the amount.
             sig { returns(Integer) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The custom pricing unit amount.
           sig { returns(T.nilable(CustomPricingUnit)) }
@@ -106,6 +148,12 @@ module Stripe
           # The type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {custom_pricing_unit: CustomPricingUnit, monetary: Monetary}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field available_balance
         sig { returns(AvailableBalance) }
@@ -113,6 +161,12 @@ module Stripe
         # Attribute for field ledger_balance
         sig { returns(LedgerBalance) }
         def ledger_balance; end
+        def self.inner_class_types
+          @inner_class_types = {available_balance: AvailableBalance, ledger_balance: LedgerBalance}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.
       sig { returns(T::Array[Balance]) }

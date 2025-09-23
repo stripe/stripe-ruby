@@ -14,6 +14,12 @@ module Stripe
       # Type of object that created the application fee.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # ID of the Stripe account this fee was taken from.
     sig { returns(T.any(String, Stripe::Account)) }

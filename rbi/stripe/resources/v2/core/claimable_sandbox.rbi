@@ -24,6 +24,12 @@ module Stripe
           # Should be stored securely in server-side code (such as an environment variable).
           sig { returns(String) }
           def secret; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Prefill < Stripe::StripeObject
           # Country in which the account holder resides, or in which the business is legally established.
@@ -37,6 +43,12 @@ module Stripe
           # Name for the sandbox.
           sig { returns(String) }
           def name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Keys that can be used to set up an integration for this sandbox and operate on the account.
         sig { returns(ApiKeys) }

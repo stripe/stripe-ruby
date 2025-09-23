@@ -11,6 +11,12 @@ module Stripe
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
           def bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class From < Stripe::StripeObject
           # The monetary amount debited from the sender, only set on responses.
@@ -19,17 +25,35 @@ module Stripe
           # The FinancialAccount that funds were pulled from.
           sig { returns(String) }
           def financial_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusDetails < Stripe::StripeObject
           class Failed < Stripe::StripeObject
             # Open Enum. The `failed` status reason.
             sig { returns(String) }
             def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Returned < Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             sig { returns(String) }
             def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The `failed` status reason.
           sig { returns(T.nilable(Failed)) }
@@ -37,6 +61,12 @@ module Stripe
           # The `returned` status reason.
           sig { returns(T.nilable(Returned)) }
           def returned; end
+          def self.inner_class_types
+            @inner_class_types = {failed: Failed, returned: Returned}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusTransitions < Stripe::StripeObject
           # Timestamp describing when an OutboundTransfer changed status to `canceled`.
@@ -55,6 +85,12 @@ module Stripe
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           sig { returns(T.nilable(String)) }
           def returned_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class To < Stripe::StripeObject
           # The monetary amount being credited to the destination.
@@ -63,6 +99,12 @@ module Stripe
           # The payout method which the OutboundTransfer uses to send payout.
           sig { returns(String) }
           def payout_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TraceId < Stripe::StripeObject
           # Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
@@ -74,6 +116,12 @@ module Stripe
           # The trace ID value if `trace_id.status` is `supported`, otherwise empty.
           sig { returns(T.nilable(String)) }
           def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The "presentment amount" for the OutboundTransfer.
         sig { returns(Stripe::V2::Amount) }

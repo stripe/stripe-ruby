@@ -24,6 +24,12 @@ module Stripe
         # Per-transaction rate at which Stripe will withhold funds to repay the financing.
         sig { returns(Float) }
         def withhold_rate; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class OfferedTerms < Stripe::StripeObject
         # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
@@ -47,6 +53,12 @@ module Stripe
         # Per-transaction rate at which Stripe will withhold funds to repay the financing.
         sig { returns(Float) }
         def withhold_rate; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # This is an object representing the terms of an offer of financing from
       # Stripe Capital to a Connected account. This resource represents

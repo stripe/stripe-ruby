@@ -11,21 +11,45 @@ module Stripe
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
           def supported; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Ownership < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
           def supported; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class PaymentMethod < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
           def supported; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Transactions < Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
           def supported; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field balances
         sig { returns(Balances) }
@@ -39,6 +63,17 @@ module Stripe
         # Attribute for field transactions
         sig { returns(Transactions) }
         def transactions; end
+        def self.inner_class_types
+          @inner_class_types = {
+            balances: Balances,
+            ownership: Ownership,
+            payment_method: PaymentMethod,
+            transactions: Transactions,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The list of countries supported by this institution, formatted as ISO country codes.
       sig { returns(T::Array[String]) }

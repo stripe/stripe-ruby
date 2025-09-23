@@ -24,6 +24,12 @@ module Stripe
       # Type of owner referenced.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Verification < Stripe::StripeObject
       # Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
@@ -35,6 +41,12 @@ module Stripe
       # Verified name.
       sig { returns(T.nilable(String)) }
       def verified_name; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Two-letter ISO code representing the country of the tax ID.
     sig { returns(T.nilable(String)) }

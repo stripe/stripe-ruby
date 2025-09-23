@@ -15,6 +15,12 @@ module Stripe
       # Attribute for field minimum
       sig { returns(T.nilable(Integer)) }
       def minimum; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Discount < Stripe::StripeObject
       # The amount discounted.
@@ -26,6 +32,12 @@ module Stripe
       # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
       sig { returns(Stripe::Discount) }
       def discount; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Display < Stripe::StripeObject
       # Attribute for field description
@@ -37,6 +49,12 @@ module Stripe
       # Attribute for field name
       sig { returns(String) }
       def name; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TaxCalculationReference < Stripe::StripeObject
       # The calculation identifier for tax calculation response.
@@ -45,6 +63,12 @@ module Stripe
       # The calculation identifier for tax calculation response line item.
       sig { returns(T.nilable(String)) }
       def calculation_item_id; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Tax < Stripe::StripeObject
       # Amount of tax applied for this rate.
@@ -61,6 +85,12 @@ module Stripe
       # The amount on which tax is calculated, in cents (or local equivalent).
       sig { returns(T.nilable(Integer)) }
       def taxable_amount; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field adjustable_quantity
     sig { returns(T.nilable(AdjustableQuantity)) }

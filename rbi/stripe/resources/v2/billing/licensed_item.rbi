@@ -12,6 +12,12 @@ module Stripe
           # Product tax code (PTC).
           sig { returns(String) }
           def tax_code; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Timestamp of when the object was created.
         sig { returns(String) }

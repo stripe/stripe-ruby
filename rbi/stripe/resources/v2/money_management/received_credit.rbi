@@ -12,11 +12,23 @@ module Stripe
             # Open Enum. The `failed` status reason.
             sig { returns(String) }
             def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Returned < Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             sig { returns(String) }
             def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Hash that provides additional information regarding the reason behind a `failed` ReceivedCredit status. It is only present when the ReceivedCredit status is `failed`.
           sig { returns(T.nilable(Failed)) }
@@ -24,6 +36,12 @@ module Stripe
           # Hash that provides additional information regarding the reason behind a `returned` ReceivedCredit status. It is only present when the ReceivedCredit status is `returned`.
           sig { returns(T.nilable(Returned)) }
           def returned; end
+          def self.inner_class_types
+            @inner_class_types = {failed: Failed, returned: Returned}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusTransitions < Stripe::StripeObject
           # Timestamp describing when the ReceivedCredit was marked as `failed`.
@@ -38,6 +56,12 @@ module Stripe
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           sig { returns(T.nilable(String)) }
           def succeeded_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BalanceTransfer < Stripe::StripeObject
           # The ID of the account that owns the source object originated the ReceivedCredit.
@@ -55,6 +79,12 @@ module Stripe
           # The ID of the payout object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def payout_v1; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BankTransfer < Stripe::StripeObject
           class GbBankAccount < Stripe::StripeObject
@@ -73,6 +103,12 @@ module Stripe
             # The sort code of the account that originated the transfer.
             sig { returns(T.nilable(String)) }
             def sort_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class UsBankAccount < Stripe::StripeObject
             # The bank name the transfer was received from.
@@ -87,6 +123,12 @@ module Stripe
             # The routing number of the account that originated the transfer.
             sig { returns(T.nilable(String)) }
             def routing_number; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Financial Address on which funds for ReceivedCredit were received.
           sig { returns(String) }
@@ -103,6 +145,12 @@ module Stripe
           # Hash containing the transaction bank details. Present if `payment_method_type` field value is `us_bank_account`.
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount and currency of the ReceivedCredit.
         sig { returns(Stripe::V2::Amount) }

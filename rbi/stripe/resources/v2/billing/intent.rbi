@@ -25,6 +25,12 @@ module Stripe
           # Total amount for the Billing Intent.
           sig { returns(String) }
           def total; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusTransitions < Stripe::StripeObject
           # Time at which the Billing Intent was canceled.
@@ -39,6 +45,12 @@ module Stripe
           # Time at which the Billing Intent was reserved.
           sig { returns(T.nilable(String)) }
           def reserved_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Breakdown of the amount for this Billing Intent.
         sig { returns(AmountDetails) }

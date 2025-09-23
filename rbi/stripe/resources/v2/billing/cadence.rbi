@@ -22,10 +22,22 @@ module Stripe
               # Must be an integer between 0 and 59, inclusive.
               sig { returns(T.nilable(Integer)) }
               def second; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The time at which the billing cycle ends.
             sig { returns(Time) }
             def time; end
+            def self.inner_class_types
+              @inner_class_types = {time: Time}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Month < Stripe::StripeObject
             class Time < Stripe::StripeObject
@@ -42,6 +54,12 @@ module Stripe
               # Must be an integer between 0 and 59, inclusive.
               sig { returns(T.nilable(Integer)) }
               def second; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The day to anchor the billing on for a type="month" billing cycle from 1-31.
             # If this number is greater than the number of days in the month being billed,
@@ -51,6 +69,12 @@ module Stripe
             # The time at which the billing cycle ends.
             sig { returns(Time) }
             def time; end
+            def self.inner_class_types
+              @inner_class_types = {time: Time}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Week < Stripe::StripeObject
             class Time < Stripe::StripeObject
@@ -67,6 +91,12 @@ module Stripe
               # Must be an integer between 0 and 59, inclusive.
               sig { returns(T.nilable(Integer)) }
               def second; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The day of the week to bill the type=week billing cycle on.
             # Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601 week day numbering.
@@ -75,6 +105,12 @@ module Stripe
             # The time at which the billing cycle ends.
             sig { returns(Time) }
             def time; end
+            def self.inner_class_types
+              @inner_class_types = {time: Time}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Year < Stripe::StripeObject
             class Time < Stripe::StripeObject
@@ -91,6 +127,12 @@ module Stripe
               # Must be an integer between 0 and 59, inclusive.
               sig { returns(T.nilable(Integer)) }
               def second; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The day to anchor the billing on for a type="month" billing cycle from 1-31.
             # If this number is greater than the number of days in the month being billed,
@@ -103,6 +145,12 @@ module Stripe
             # The time at which the billing cycle ends.
             sig { returns(Time) }
             def time; end
+            def self.inner_class_types
+              @inner_class_types = {time: Time}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
           sig { returns(Integer) }
@@ -122,6 +170,12 @@ module Stripe
           # Specific configuration for determining billing dates when type=year.
           sig { returns(T.nilable(Year)) }
           def year; end
+          def self.inner_class_types
+            @inner_class_types = {day: Day, month: Month, week: Week, year: Year}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class InvoiceDiscountRule < Stripe::StripeObject
           class PercentOff < Stripe::StripeObject
@@ -129,6 +183,12 @@ module Stripe
               # Max applications type of this discount, ex: indefinite.
               sig { returns(String) }
               def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The maximum applications configuration for this discount.
             sig { returns(MaximumApplications) }
@@ -136,6 +196,12 @@ module Stripe
             # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
             sig { returns(String) }
             def percent_off; end
+            def self.inner_class_types
+              @inner_class_types = {maximum_applications: MaximumApplications}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Unique identifier for the object.
           sig { returns(String) }
@@ -146,6 +212,12 @@ module Stripe
           # Details if the discount is a percentage off.
           sig { returns(T.nilable(PercentOff)) }
           def percent_off; end
+          def self.inner_class_types
+            @inner_class_types = {percent_off: PercentOff}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Payer < Stripe::StripeObject
           # The ID of the Billing Profile object which determines how a bill will be paid.
@@ -157,6 +229,12 @@ module Stripe
           # A string identifying the type of the payer. Currently the only supported value is `customer`.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Settings < Stripe::StripeObject
           class Bill < Stripe::StripeObject
@@ -166,6 +244,12 @@ module Stripe
             # Returns the Settings Version when the cadence is pinned to a specific version.
             sig { returns(T.nilable(String)) }
             def version; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Collection < Stripe::StripeObject
             # The ID of the referenced settings object.
@@ -174,6 +258,12 @@ module Stripe
             # Returns the Settings Version when the cadence is pinned to a specific version.
             sig { returns(T.nilable(String)) }
             def version; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Settings that configure bills generation, which includes calculating totals, tax, and presenting invoices.
           sig { returns(T.nilable(Bill)) }
@@ -181,6 +271,12 @@ module Stripe
           # Settings that configure and manage the behavior of collecting payments.
           sig { returns(T.nilable(Collection)) }
           def collection; end
+          def self.inner_class_types
+            @inner_class_types = {bill: Bill, collection: Collection}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The billing cycle is the object that defines future billing cycle dates.
         sig { returns(BillingCycle) }

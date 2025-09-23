@@ -29,6 +29,12 @@ module Stripe
       # Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
       sig { returns(T.nilable(T::Hash[String, T.untyped])) }
       def previous_attributes; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Reason < Stripe::StripeObject
       class AutomationAction < Stripe::StripeObject
@@ -36,6 +42,12 @@ module Stripe
           # Set of key-value pairs attached to the action when creating an Automation.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def custom_data; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field stripe_send_webhook_custom_event
         sig { returns(T.nilable(StripeSendWebhookCustomEvent)) }
@@ -47,6 +59,12 @@ module Stripe
         # The type of the `automation_action`.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {stripe_send_webhook_custom_event: StripeSendWebhookCustomEvent}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Request < Stripe::StripeObject
         # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
@@ -55,6 +73,12 @@ module Stripe
         # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
         sig { returns(T.nilable(String)) }
         def idempotency_key; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field automation_action
       sig { returns(T.nilable(AutomationAction)) }
@@ -65,6 +89,12 @@ module Stripe
       # The type of the reason for the event.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {automation_action: AutomationAction, request: Request}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Request < Stripe::StripeObject
       # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
@@ -73,6 +103,12 @@ module Stripe
       # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
       sig { returns(T.nilable(String)) }
       def idempotency_key; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The connected account that originates the event.
     sig { returns(T.nilable(String)) }

@@ -24,6 +24,12 @@ module Stripe
       # The state/county/province/region where the payment originated.
       sig { returns(T.nilable(String)) }
       def region; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Session < Stripe::StripeObject
       # The browser used in this browser session (e.g., `Chrome`).
@@ -38,6 +44,12 @@ module Stripe
       # The version for the browser session (e.g., `61.0.3163.100`).
       sig { returns(T.nilable(String)) }
       def version; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The ZIP or postal code of the card used, if applicable.
     sig { returns(T.nilable(String)) }

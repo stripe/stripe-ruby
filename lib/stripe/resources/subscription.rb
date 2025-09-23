@@ -69,13 +69,27 @@ module Stripe
     end
 
     class BillingMode < Stripe::StripeObject
+      class Flexible < Stripe::StripeObject
+        # Controls how invoices and invoice items display proration amounts and discount amounts.
+        attr_reader :proration_discounts
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configure behavior for flexible billing mode
+      attr_reader :flexible
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_reader :type
       # Details on when the current billing_mode was adopted.
       attr_reader :updated_at
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = { flexible: Flexible }
       end
 
       def self.field_remappings
@@ -571,7 +585,7 @@ module Stripe
         attr_accessor :discounts
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
@@ -1377,7 +1391,7 @@ module Stripe
         attr_accessor :discounts
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
@@ -1452,10 +1466,21 @@ module Stripe
       end
 
       class BillingMode < Stripe::RequestParams
-        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_accessor :proration_discounts
+
+          def initialize(proration_discounts: nil)
+            @proration_discounts = proration_discounts
+          end
+        end
+        # Configure behavior for flexible billing mode.
+        attr_accessor :flexible
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         attr_accessor :type
 
-        def initialize(type: nil)
+        def initialize(flexible: nil, type: nil)
+          @flexible = flexible
           @type = type
         end
       end
@@ -1842,7 +1867,7 @@ module Stripe
       attr_accessor :backdate_start_date
       # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
       attr_accessor :billing_cycle_anchor
-      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
       attr_accessor :billing_cycle_anchor_config
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_accessor :billing_mode
@@ -2004,10 +2029,21 @@ module Stripe
 
     class MigrateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Attribute for param field type
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_accessor :proration_discounts
+
+          def initialize(proration_discounts: nil)
+            @proration_discounts = proration_discounts
+          end
+        end
+        # Configure behavior for flexible billing mode.
+        attr_accessor :flexible
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
         attr_accessor :type
 
-        def initialize(type: nil)
+        def initialize(flexible: nil, type: nil)
+          @flexible = flexible
           @type = type
         end
       end

@@ -20,10 +20,10 @@ module Stripe
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               sig { returns(T.nilable(String)) }
               def country; end
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               sig { returns(T.nilable(String)) }
               def line1; end
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               sig { returns(T.nilable(String)) }
               def line2; end
               # ZIP or postal code.
@@ -78,10 +78,10 @@ module Stripe
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               sig { returns(T.nilable(String)) }
               def country; end
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               sig { returns(T.nilable(String)) }
               def line1; end
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               sig { returns(T.nilable(String)) }
               def line2; end
               # ZIP or postal code.
@@ -357,6 +357,9 @@ module Stripe
         end
       end
       class Klarna < Stripe::StripeObject
+        # Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+        sig { returns(T.nilable(String)) }
+        def chargeback_loss_reason_code; end
         # The reason for the dispute as defined by Klarna
         sig { returns(T.nilable(String)) }
         def reason_code; end
@@ -550,12 +553,12 @@ module Stripe
                 def country; end
                 sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
-                # Address line 1 (e.g., street, PO Box, or company name).
+                # Address line 1, such as the street, PO Box, or company name.
                 sig { returns(T.nilable(String)) }
                 def line1; end
                 sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
                 def line1=(_line1); end
-                # Address line 2 (e.g., apartment, suite, unit, or building).
+                # Address line 2, such as the apartment, suite, unit, or building.
                 sig { returns(T.nilable(String)) }
                 def line2; end
                 sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -654,12 +657,12 @@ module Stripe
                 def country; end
                 sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
-                # Address line 1 (e.g., street, PO Box, or company name).
+                # Address line 1, such as the street, PO Box, or company name.
                 sig { returns(T.nilable(String)) }
                 def line1; end
                 sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
                 def line1=(_line1); end
-                # Address line 2 (e.g., apartment, suite, unit, or building).
+                # Address line 2, such as the apartment, suite, unit, or building.
                 sig { returns(T.nilable(String)) }
                 def line2; end
                 sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }

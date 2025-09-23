@@ -403,7 +403,7 @@ module Stripe
           params(_payment_method_options: T.nilable(::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions)).returns(T.nilable(::Stripe::InvoiceService::UpdateParams::PaymentSettings::PaymentMethodOptions))
          }
         def payment_method_options=(_payment_method_options); end
-        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         def payment_method_types; end
         sig {
@@ -644,12 +644,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -1441,7 +1441,7 @@ module Stripe
           params(_payment_method_options: T.nilable(::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions)).returns(T.nilable(::Stripe::InvoiceService::CreateParams::PaymentSettings::PaymentMethodOptions))
          }
         def payment_method_options=(_payment_method_options); end
-        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
         def payment_method_types; end
         sig {
@@ -1682,12 +1682,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -2072,15 +2072,21 @@ module Stripe
             def tax_code; end
             sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
             def tax_code=(_tax_code); end
+            # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+            sig { returns(T.nilable(String)) }
+            def unit_label; end
+            sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
+            def unit_label=(_unit_label); end
             sig {
-              params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String)).void
+              params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
              }
             def initialize(
               description: nil,
               images: nil,
               metadata: nil,
               name: nil,
-              tax_code: nil
+              tax_code: nil,
+              unit_label: nil
             ); end
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -2558,15 +2564,21 @@ module Stripe
             def tax_code; end
             sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
             def tax_code=(_tax_code); end
+            # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+            sig { returns(T.nilable(String)) }
+            def unit_label; end
+            sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
+            def unit_label=(_unit_label); end
             sig {
-              params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String)).void
+              params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
              }
             def initialize(
               description: nil,
               images: nil,
               metadata: nil,
               name: nil,
-              tax_code: nil
+              tax_code: nil,
+              unit_label: nil
             ); end
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -2896,12 +2908,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -2940,12 +2952,12 @@ module Stripe
             def country; end
             sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
             def country=(_country); end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
             sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
             def line1=(_line1); end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -3295,13 +3307,33 @@ module Stripe
       end
       class ScheduleDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            sig { returns(T.nilable(String)) }
+            def proration_discounts; end
+            sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+            def proration_discounts=(_proration_discounts); end
+            sig { params(proration_discounts: T.nilable(String)).void }
+            def initialize(proration_discounts: nil); end
+          end
+          # Configure behavior for flexible billing mode.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::BillingMode::Flexible))
+           }
+          def flexible; end
+          sig {
+            params(_flexible: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::BillingMode::Flexible)).returns(T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::BillingMode::Flexible))
+           }
+          def flexible=(_flexible); end
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          sig { params(type: String).void }
-          def initialize(type: nil); end
+          sig {
+            params(flexible: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::BillingMode::Flexible), type: String).void
+           }
+          def initialize(flexible: nil, type: nil); end
         end
         class Phase < Stripe::RequestParams
           class AddInvoiceItem < Stripe::RequestParams
@@ -3431,7 +3463,7 @@ module Stripe
               params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
              }
             def metadata=(_metadata); end
-            # The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+            # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
             sig {
               returns(T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Period))
              }
@@ -3890,11 +3922,6 @@ module Stripe
             params(_items: T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item]).returns(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item])
            }
           def items=(_items); end
-          # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-          sig { returns(T.nilable(Integer)) }
-          def iterations; end
-          sig { params(_iterations: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def iterations=(_iterations); end
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
@@ -3941,7 +3968,7 @@ module Stripe
            }
           def trial_end=(_trial_end); end
           sig {
-            params(add_invoice_items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Discount])), duration: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_end: T.nilable(T.any(Integer, String))).void
+            params(add_invoice_items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Discount])), duration: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_end: T.nilable(T.any(Integer, String))).void
            }
           def initialize(
             add_invoice_items: nil,
@@ -3959,7 +3986,6 @@ module Stripe
             end_date: nil,
             invoice_settings: nil,
             items: nil,
-            iterations: nil,
             metadata: nil,
             on_behalf_of: nil,
             proration_behavior: nil,
@@ -4009,13 +4035,33 @@ module Stripe
       end
       class SubscriptionDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            sig { returns(T.nilable(String)) }
+            def proration_discounts; end
+            sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+            def proration_discounts=(_proration_discounts); end
+            sig { params(proration_discounts: T.nilable(String)).void }
+            def initialize(proration_discounts: nil); end
+          end
+          # Configure behavior for flexible billing mode.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::BillingMode::Flexible))
+           }
+          def flexible; end
+          sig {
+            params(_flexible: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::BillingMode::Flexible)).returns(T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::BillingMode::Flexible))
+           }
+          def flexible=(_flexible); end
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          sig { params(type: String).void }
-          def initialize(type: nil); end
+          sig {
+            params(flexible: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::BillingMode::Flexible), type: String).void
+           }
+          def initialize(flexible: nil, type: nil); end
         end
         class Item < Stripe::RequestParams
           class BillingThresholds < Stripe::RequestParams

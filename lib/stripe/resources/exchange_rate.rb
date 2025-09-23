@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
+  # [Deprecated] The `ExchangeRate` APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+  #
   # `ExchangeRate` objects allow you to determine the rates that Stripe is currently
   # using to convert from one currency to another. Since this number is variable
   # throughout the day, there are various reasons why you might want to know the current
@@ -29,6 +31,7 @@ module Stripe
   #
   # *Using this Exchange Rates API beta for any purpose other than to transact on Stripe is strictly prohibited and constitutes a violation of Stripe's terms of service.*
   class ExchangeRate < APIResource
+    extend Gem::Deprecate
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "exchange_rate"
@@ -60,9 +63,16 @@ module Stripe
     # Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency.
     attr_reader :rates
 
+    # [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+    #
     # Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/exchange_rates", params: params, opts: opts)
+    end
+
+    class << self
+      extend Gem::Deprecate
+      deprecate :list, :none, 2024, 3
     end
 
     def self.inner_class_types

@@ -53,7 +53,7 @@ module Stripe
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     sig { returns(T.nilable(T::Array[String])) }
     def available_payout_methods; end
-    # Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
+    # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     sig { returns(String) }
     def brand; end
     # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.

@@ -238,9 +238,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -261,9 +261,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -311,9 +311,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -334,9 +334,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -382,9 +382,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -405,9 +405,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -451,9 +451,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -474,9 +474,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -522,9 +522,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -545,9 +545,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -595,9 +595,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -618,9 +618,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -1858,6 +1858,25 @@ module Stripe
         end
       end
 
+      class MbWay < Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Mobilepay < Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
@@ -2038,6 +2057,16 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
 
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Paypay < Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -2406,6 +2435,8 @@ module Stripe
       attr_reader :kr_card
       # Attribute for field link
       attr_reader :link
+      # Attribute for field mb_way
+      attr_reader :mb_way
       # Attribute for field mobilepay
       attr_reader :mobilepay
       # Attribute for field multibanco
@@ -2426,6 +2457,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field pix
       attr_reader :pix
       # Attribute for field promptpay
@@ -2481,6 +2514,7 @@ module Stripe
           konbini: Konbini,
           kr_card: KrCard,
           link: Link,
+          mb_way: MbWay,
           mobilepay: Mobilepay,
           multibanco: Multibanco,
           naver_pay: NaverPay,
@@ -2491,6 +2525,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           pix: Pix,
           promptpay: Promptpay,
           revolut_pay: RevolutPay,
@@ -2573,9 +2608,9 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
@@ -2784,9 +2819,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -2906,6 +2941,7 @@ module Stripe
         class Konbini < Stripe::RequestParams; end
         class KrCard < Stripe::RequestParams; end
         class Link < Stripe::RequestParams; end
+        class MbWay < Stripe::RequestParams; end
         class Mobilepay < Stripe::RequestParams; end
         class Multibanco < Stripe::RequestParams; end
 
@@ -2964,6 +3000,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
         class Pix < Stripe::RequestParams; end
         class Promptpay < Stripe::RequestParams; end
 
@@ -3086,6 +3123,8 @@ module Stripe
         attr_accessor :kr_card
         # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         attr_accessor :link
+        # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        attr_accessor :mb_way
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
@@ -3108,6 +3147,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
         attr_accessor :pix
         # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
@@ -3166,6 +3207,7 @@ module Stripe
           konbini: nil,
           kr_card: nil,
           link: nil,
+          mb_way: nil,
           metadata: nil,
           mobilepay: nil,
           multibanco: nil,
@@ -3177,6 +3219,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           pix: nil,
           promptpay: nil,
           radar_options: nil,
@@ -3220,6 +3263,7 @@ module Stripe
           @konbini = konbini
           @kr_card = kr_card
           @link = link
+          @mb_way = mb_way
           @metadata = metadata
           @mobilepay = mobilepay
           @multibanco = multibanco
@@ -3231,6 +3275,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @pix = pix
           @promptpay = promptpay
           @radar_options = radar_options
@@ -4181,6 +4226,23 @@ module Stripe
           end
         end
 
+        class MbWay < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Mobilepay < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
           #
@@ -4368,6 +4430,19 @@ module Stripe
             @reference = reference
             @risk_correlation_id = risk_correlation_id
             @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Paypay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
           end
         end
 
@@ -4736,6 +4811,8 @@ module Stripe
         attr_accessor :kr_card
         # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         attr_accessor :link
+        # If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
+        attr_accessor :mb_way
         # If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
         attr_accessor :mobilepay
         # If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
@@ -4756,6 +4833,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
         attr_accessor :pix
         # If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
@@ -4810,6 +4889,7 @@ module Stripe
           konbini: nil,
           kr_card: nil,
           link: nil,
+          mb_way: nil,
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
@@ -4820,6 +4900,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           pix: nil,
           promptpay: nil,
           revolut_pay: nil,
@@ -4861,6 +4942,7 @@ module Stripe
           @konbini = konbini
           @kr_card = kr_card
           @link = link
+          @mb_way = mb_way
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
@@ -4871,6 +4953,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @pix = pix
           @promptpay = promptpay
           @revolut_pay = revolut_pay
@@ -4901,9 +4984,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -5181,9 +5264,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -5303,6 +5386,7 @@ module Stripe
         class Konbini < Stripe::RequestParams; end
         class KrCard < Stripe::RequestParams; end
         class Link < Stripe::RequestParams; end
+        class MbWay < Stripe::RequestParams; end
         class Mobilepay < Stripe::RequestParams; end
         class Multibanco < Stripe::RequestParams; end
 
@@ -5361,6 +5445,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
         class Pix < Stripe::RequestParams; end
         class Promptpay < Stripe::RequestParams; end
 
@@ -5483,6 +5568,8 @@ module Stripe
         attr_accessor :kr_card
         # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         attr_accessor :link
+        # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        attr_accessor :mb_way
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
@@ -5505,6 +5592,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
         attr_accessor :pix
         # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
@@ -5563,6 +5652,7 @@ module Stripe
           konbini: nil,
           kr_card: nil,
           link: nil,
+          mb_way: nil,
           metadata: nil,
           mobilepay: nil,
           multibanco: nil,
@@ -5574,6 +5664,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           pix: nil,
           promptpay: nil,
           radar_options: nil,
@@ -5617,6 +5708,7 @@ module Stripe
           @konbini = konbini
           @kr_card = kr_card
           @link = link
+          @mb_way = mb_way
           @metadata = metadata
           @mobilepay = mobilepay
           @multibanco = multibanco
@@ -5628,6 +5720,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @pix = pix
           @promptpay = promptpay
           @radar_options = radar_options
@@ -6578,6 +6671,23 @@ module Stripe
           end
         end
 
+        class MbWay < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Mobilepay < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
           #
@@ -6765,6 +6875,19 @@ module Stripe
             @reference = reference
             @risk_correlation_id = risk_correlation_id
             @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Paypay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
           end
         end
 
@@ -7133,6 +7256,8 @@ module Stripe
         attr_accessor :kr_card
         # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         attr_accessor :link
+        # If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
+        attr_accessor :mb_way
         # If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
         attr_accessor :mobilepay
         # If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
@@ -7153,6 +7278,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
         attr_accessor :pix
         # If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
@@ -7207,6 +7334,7 @@ module Stripe
           konbini: nil,
           kr_card: nil,
           link: nil,
+          mb_way: nil,
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
@@ -7217,6 +7345,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           pix: nil,
           promptpay: nil,
           revolut_pay: nil,
@@ -7258,6 +7387,7 @@ module Stripe
           @konbini = konbini
           @kr_card = kr_card
           @link = link
+          @mb_way = mb_way
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
@@ -7268,6 +7398,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @pix = pix
           @promptpay = promptpay
           @revolut_pay = revolut_pay
@@ -7289,9 +7420,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -7358,6 +7489,8 @@ module Stripe
       attr_accessor :customer
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
+      # The list of payment method types to exclude from use with this payment.
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -7406,6 +7539,7 @@ module Stripe
         currency: nil,
         customer: nil,
         description: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         metadata: nil,
         payment_method: nil,
@@ -7427,6 +7561,7 @@ module Stripe
         @currency = currency
         @customer = customer
         @description = description
+        @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @metadata = metadata
         @payment_method = payment_method
@@ -7638,9 +7773,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -7760,6 +7895,7 @@ module Stripe
         class Konbini < Stripe::RequestParams; end
         class KrCard < Stripe::RequestParams; end
         class Link < Stripe::RequestParams; end
+        class MbWay < Stripe::RequestParams; end
         class Mobilepay < Stripe::RequestParams; end
         class Multibanco < Stripe::RequestParams; end
 
@@ -7818,6 +7954,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
         class Pix < Stripe::RequestParams; end
         class Promptpay < Stripe::RequestParams; end
 
@@ -7940,6 +8077,8 @@ module Stripe
         attr_accessor :kr_card
         # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         attr_accessor :link
+        # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        attr_accessor :mb_way
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
@@ -7962,6 +8101,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
         attr_accessor :pix
         # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
@@ -8020,6 +8161,7 @@ module Stripe
           konbini: nil,
           kr_card: nil,
           link: nil,
+          mb_way: nil,
           metadata: nil,
           mobilepay: nil,
           multibanco: nil,
@@ -8031,6 +8173,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           pix: nil,
           promptpay: nil,
           radar_options: nil,
@@ -8074,6 +8217,7 @@ module Stripe
           @konbini = konbini
           @kr_card = kr_card
           @link = link
+          @mb_way = mb_way
           @metadata = metadata
           @mobilepay = mobilepay
           @multibanco = multibanco
@@ -8085,6 +8229,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @pix = pix
           @promptpay = promptpay
           @radar_options = radar_options
@@ -9035,6 +9180,23 @@ module Stripe
           end
         end
 
+        class MbWay < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Mobilepay < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
           #
@@ -9222,6 +9384,19 @@ module Stripe
             @reference = reference
             @risk_correlation_id = risk_correlation_id
             @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Paypay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
           end
         end
 
@@ -9590,6 +9765,8 @@ module Stripe
         attr_accessor :kr_card
         # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         attr_accessor :link
+        # If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
+        attr_accessor :mb_way
         # If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
         attr_accessor :mobilepay
         # If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
@@ -9610,6 +9787,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
         attr_accessor :pix
         # If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
@@ -9664,6 +9843,7 @@ module Stripe
           konbini: nil,
           kr_card: nil,
           link: nil,
+          mb_way: nil,
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
@@ -9674,6 +9854,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           pix: nil,
           promptpay: nil,
           revolut_pay: nil,
@@ -9715,6 +9896,7 @@ module Stripe
           @konbini = konbini
           @kr_card = kr_card
           @link = link
+          @mb_way = mb_way
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
@@ -9725,6 +9907,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @pix = pix
           @promptpay = promptpay
           @revolut_pay = revolut_pay
@@ -9755,9 +9938,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -9807,6 +9990,8 @@ module Stripe
       attr_accessor :confirmation_token
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
       attr_accessor :error_on_requires_action
+      # The list of payment method types to exclude from use with this payment.
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # ID of the mandate that's used for this payment.
@@ -9853,6 +10038,7 @@ module Stripe
         capture_method: nil,
         confirmation_token: nil,
         error_on_requires_action: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         mandate: nil,
         mandate_data: nil,
@@ -9871,6 +10057,7 @@ module Stripe
         @capture_method = capture_method
         @confirmation_token = confirmation_token
         @error_on_requires_action = error_on_requires_action
+        @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @mandate = mandate
         @mandate_data = mandate_data

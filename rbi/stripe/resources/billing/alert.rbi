@@ -139,7 +139,7 @@ module Stripe
           def meter; end
           sig { params(_meter: String).returns(String) }
           def meter=(_meter); end
-          # Whether the alert should only fire only once, or once per billing cycle.
+          # Defines how the alert will behave.
           sig { returns(String) }
           def recurrence; end
           sig { params(_recurrence: String).returns(String) }

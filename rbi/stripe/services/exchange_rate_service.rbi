@@ -39,12 +39,16 @@ module Stripe
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
+    # [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+    #
     # Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
     sig {
       params(params: T.any(::Stripe::ExchangeRateService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
      }
     def list(params = {}, opts = {}); end
 
+    # [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+    #
     # Retrieves the exchange rates from the given currency to every supported currency.
     sig {
       params(rate_id: String, params: T.any(::Stripe::ExchangeRateService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ExchangeRate)

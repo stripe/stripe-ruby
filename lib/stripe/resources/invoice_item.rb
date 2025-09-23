@@ -96,6 +96,33 @@ module Stripe
       end
     end
 
+    class ProrationDetails < Stripe::StripeObject
+      class DiscountAmount < Stripe::StripeObject
+        # The amount, in cents (or local equivalent), of the discount.
+        attr_reader :amount
+        # The discount that was applied to get this discount amount.
+        attr_reader :discount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Discount amounts applied when the proration was created.
+      attr_reader :discount_amounts
+
+      def self.inner_class_types
+        @inner_class_types = { discount_amounts: DiscountAmount }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
@@ -441,6 +468,8 @@ module Stripe
     attr_reader :livemode
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
+    # The amount after discounts, but before credits and taxes. This field is `null` for `discountable=true` items.
+    attr_reader :net_amount
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # The parent that generated this invoice item.
@@ -451,6 +480,8 @@ module Stripe
     attr_reader :pricing
     # Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
     attr_reader :proration
+    # Attribute for field proration_details
+    attr_reader :proration_details
     # Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
     attr_reader :quantity
     # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
@@ -501,7 +532,12 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { parent: Parent, period: Period, pricing: Pricing }
+      @inner_class_types = {
+        parent: Parent,
+        period: Period,
+        pricing: Pricing,
+        proration_details: ProrationDetails,
+      }
     end
 
     def self.field_remappings

@@ -304,11 +304,25 @@ module Stripe
 
     class SubscriptionData < Stripe::StripeObject
       class BillingMode < Stripe::StripeObject
+        class Flexible < Stripe::StripeObject
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_reader :proration_discounts
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field flexible
+        attr_reader :flexible
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         attr_reader :type
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { flexible: Flexible }
         end
 
         def self.field_remappings
@@ -611,10 +625,21 @@ module Stripe
 
       class SubscriptionData < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            attr_accessor :proration_discounts
+
+            def initialize(proration_discounts: nil)
+              @proration_discounts = proration_discounts
+            end
+          end
+          # Configure behavior for flexible billing mode.
+          attr_accessor :flexible
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           attr_accessor :type
 
-          def initialize(type: nil)
+          def initialize(flexible: nil, type: nil)
+            @flexible = flexible
             @type = type
           end
         end

@@ -3,12 +3,26 @@
 
 # typed: true
 module Stripe
-  # A Promotion Code represents a customer-redeemable code for a [coupon](https://stripe.com/docs/api#coupons).
-  # You can create multiple codes for a single coupon.
+  # A Promotion Code represents a customer-redeemable code for an underlying promotion.
+  # You can create multiple codes for a single promotion.
   #
   # If you enable promotion codes in your [customer portal configuration](https://stripe.com/docs/customer-management/configure-portal), then customers can redeem a code themselves when updating a subscription in the portal.
   # Customers can also view the currently active promotion codes and coupons on each of their subscriptions in the portal.
   class PromotionCode < APIResource
+    class Promotion < Stripe::StripeObject
+      # If promotion `type` is `coupon`, the coupon for this promotion.
+      sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
+      def coupon; end
+      # The type of promotion.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Restrictions < Stripe::StripeObject
       class CurrencyOptions < Stripe::StripeObject
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
@@ -46,11 +60,6 @@ module Stripe
     # The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
     sig { returns(String) }
     def code; end
-    # A coupon contains information about a percent-off or amount-off discount you
-    # might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
-    # [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
-    sig { returns(Stripe::Coupon) }
-    def coupon; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def created; end
@@ -75,6 +84,9 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
+    # Attribute for field promotion
+    sig { returns(Promotion) }
+    def promotion; end
     # Attribute for field restrictions
     sig { returns(Restrictions) }
     def restrictions; end
@@ -171,6 +183,20 @@ module Stripe
       ); end
     end
     class CreateParams < Stripe::RequestParams
+      class Promotion < Stripe::RequestParams
+        # If promotion `type` is `coupon`, the coupon for this promotion code.
+        sig { returns(T.nilable(String)) }
+        def coupon; end
+        sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+        def coupon=(_coupon); end
+        # Specifies the type of promotion.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig { params(coupon: T.nilable(String), type: String).void }
+        def initialize(coupon: nil, type: nil); end
+      end
       class Restrictions < Stripe::RequestParams
         class CurrencyOptions < Stripe::RequestParams
           # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
@@ -229,11 +255,6 @@ module Stripe
       def code; end
       sig { params(_code: T.nilable(String)).returns(T.nilable(String)) }
       def code=(_code); end
-      # The coupon for this promotion code.
-      sig { returns(String) }
-      def coupon; end
-      sig { params(_coupon: String).returns(String) }
-      def coupon=(_coupon); end
       # The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
       sig { returns(T.nilable(String)) }
       def customer; end
@@ -261,6 +282,13 @@ module Stripe
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
+      # The promotion referenced by this promotion code.
+      sig { returns(::Stripe::PromotionCode::CreateParams::Promotion) }
+      def promotion; end
+      sig {
+        params(_promotion: ::Stripe::PromotionCode::CreateParams::Promotion).returns(::Stripe::PromotionCode::CreateParams::Promotion)
+       }
+      def promotion=(_promotion); end
       # Settings that restrict the redemption of the promotion code.
       sig { returns(T.nilable(::Stripe::PromotionCode::CreateParams::Restrictions)) }
       def restrictions; end
@@ -269,17 +297,17 @@ module Stripe
        }
       def restrictions=(_restrictions); end
       sig {
-        params(active: T.nilable(T::Boolean), code: T.nilable(String), coupon: String, customer: T.nilable(String), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), max_redemptions: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), restrictions: T.nilable(::Stripe::PromotionCode::CreateParams::Restrictions)).void
+        params(active: T.nilable(T::Boolean), code: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), max_redemptions: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), promotion: ::Stripe::PromotionCode::CreateParams::Promotion, restrictions: T.nilable(::Stripe::PromotionCode::CreateParams::Restrictions)).void
        }
       def initialize(
         active: nil,
         code: nil,
-        coupon: nil,
         customer: nil,
         expand: nil,
         expires_at: nil,
         max_redemptions: nil,
         metadata: nil,
+        promotion: nil,
         restrictions: nil
       ); end
     end
@@ -337,7 +365,7 @@ module Stripe
        }
       def initialize(active: nil, expand: nil, metadata: nil, restrictions: nil); end
     end
-    # A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+    # A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
     sig {
       params(params: T.any(::Stripe::PromotionCode::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PromotionCode)
      }

@@ -7,6 +7,17 @@ module Stripe
     # A Configurations object represents how features should be configured for terminal readers.
     # For information about how to use it, see the [Terminal configurations documentation](https://docs.stripe.com/terminal/fleet/configurations-overview).
     class Configuration < APIResource
+      class BbposWisepad3 < Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class BbposWiseposE < Stripe::StripeObject
         # A File ID representing an image to display on the reader
         sig { returns(T.nilable(T.any(String, Stripe::File))) }
@@ -596,6 +607,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field bbpos_wisepad3
+      sig { returns(T.nilable(BbposWisepad3)) }
+      def bbpos_wisepad3; end
       # Attribute for field bbpos_wisepos_e
       sig { returns(T.nilable(BbposWiseposE)) }
       def bbpos_wisepos_e; end
@@ -637,6 +651,15 @@ module Stripe
       def deleted; end
       class DeleteParams < Stripe::RequestParams; end
       class UpdateParams < Stripe::RequestParams
+        class BbposWisepad3 < Stripe::RequestParams
+          # A File ID representing an image you would like displayed on the reader.
+          sig { returns(T.nilable(String)) }
+          def splashscreen; end
+          sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
+          def splashscreen=(_splashscreen); end
+          sig { params(splashscreen: T.nilable(String)).void }
+          def initialize(splashscreen: nil); end
+        end
         class BbposWiseposE < Stripe::RequestParams
           # A File ID representing an image to display on the reader
           sig { returns(T.nilable(String)) }
@@ -1507,6 +1530,15 @@ module Stripe
             type: nil
           ); end
         end
+        # An object containing device type specific settings for BBPOS WisePad 3 readers
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWisepad3)))
+         }
+        def bbpos_wisepad3; end
+        sig {
+          params(_bbpos_wisepad3: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWisepad3))).returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWisepad3)))
+         }
+        def bbpos_wisepad3=(_bbpos_wisepad3); end
         # An object containing device type specific settings for BBPOS WisePOS E readers
         sig {
           returns(T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE)))
@@ -1581,9 +1613,10 @@ module Stripe
          }
         def wifi=(_wifi); end
         sig {
-          params(bbpos_wisepos_e: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Offline)), reboot_window: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::RebootWindow)), stripe_s700: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::StripeS700)), tipping: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Tipping)), verifone_p400: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::VerifoneP400)), wifi: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Wifi))).void
+          params(bbpos_wisepad3: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWisepad3)), bbpos_wisepos_e: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Offline)), reboot_window: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::RebootWindow)), stripe_s700: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::StripeS700)), tipping: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Tipping)), verifone_p400: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::VerifoneP400)), wifi: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::UpdateParams::Wifi))).void
          }
         def initialize(
+          bbpos_wisepad3: nil,
           bbpos_wisepos_e: nil,
           expand: nil,
           name: nil,
@@ -1633,6 +1666,15 @@ module Stripe
         ); end
       end
       class CreateParams < Stripe::RequestParams
+        class BbposWisepad3 < Stripe::RequestParams
+          # A File ID representing an image you would like displayed on the reader.
+          sig { returns(T.nilable(String)) }
+          def splashscreen; end
+          sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
+          def splashscreen=(_splashscreen); end
+          sig { params(splashscreen: T.nilable(String)).void }
+          def initialize(splashscreen: nil); end
+        end
         class BbposWiseposE < Stripe::RequestParams
           # A File ID representing an image to display on the reader
           sig { returns(T.nilable(String)) }
@@ -2503,6 +2545,13 @@ module Stripe
             type: nil
           ); end
         end
+        # An object containing device type specific settings for BBPOS WisePad 3 readers
+        sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::BbposWisepad3)) }
+        def bbpos_wisepad3; end
+        sig {
+          params(_bbpos_wisepad3: T.nilable(::Stripe::Terminal::Configuration::CreateParams::BbposWisepad3)).returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::BbposWisepad3))
+         }
+        def bbpos_wisepad3=(_bbpos_wisepad3); end
         # An object containing device type specific settings for BBPOS WisePOS E readers
         sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::BbposWiseposE)) }
         def bbpos_wisepos_e; end
@@ -2569,9 +2618,10 @@ module Stripe
          }
         def wifi=(_wifi); end
         sig {
-          params(bbpos_wisepos_e: T.nilable(::Stripe::Terminal::Configuration::CreateParams::BbposWiseposE), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Offline)), reboot_window: T.nilable(::Stripe::Terminal::Configuration::CreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::Configuration::CreateParams::StripeS700), tipping: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Tipping)), verifone_p400: T.nilable(::Stripe::Terminal::Configuration::CreateParams::VerifoneP400), wifi: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Wifi))).void
+          params(bbpos_wisepad3: T.nilable(::Stripe::Terminal::Configuration::CreateParams::BbposWisepad3), bbpos_wisepos_e: T.nilable(::Stripe::Terminal::Configuration::CreateParams::BbposWiseposE), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Offline)), reboot_window: T.nilable(::Stripe::Terminal::Configuration::CreateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::Configuration::CreateParams::StripeS700), tipping: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Tipping)), verifone_p400: T.nilable(::Stripe::Terminal::Configuration::CreateParams::VerifoneP400), wifi: T.nilable(T.any(String, ::Stripe::Terminal::Configuration::CreateParams::Wifi))).void
          }
         def initialize(
+          bbpos_wisepad3: nil,
           bbpos_wisepos_e: nil,
           expand: nil,
           name: nil,

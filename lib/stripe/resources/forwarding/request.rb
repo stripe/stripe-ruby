@@ -33,6 +33,14 @@ module Stripe
         attr_reader :destination_duration
         # The IP address of the destination.
         attr_reader :destination_ip_address
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RequestDetails < Stripe::StripeObject
@@ -41,6 +49,14 @@ module Stripe
           attr_reader :name
           # The header value.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The body payload to send to the destination endpoint.
         attr_reader :body
@@ -48,6 +64,14 @@ module Stripe
         attr_reader :headers
         # The HTTP method used to call the destination endpoint.
         attr_reader :http_method
+
+        def self.inner_class_types
+          @inner_class_types = { headers: Header }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ResponseDetails < Stripe::StripeObject
@@ -56,6 +80,14 @@ module Stripe
           attr_reader :name
           # The header value.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The response body from the destination endpoint to Stripe.
         attr_reader :body
@@ -63,6 +95,14 @@ module Stripe
         attr_reader :headers
         # The HTTP status code that the destination endpoint returned.
         attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = { headers: Header }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -202,6 +242,18 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          request_context: RequestContext,
+          request_details: RequestDetails,
+          response_details: ResponseDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

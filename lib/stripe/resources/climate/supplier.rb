@@ -23,6 +23,14 @@ module Stripe
         attr_reader :longitude
         # The state/county/province/region where the supplier is located.
         attr_reader :region
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -65,6 +73,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { locations: Location }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

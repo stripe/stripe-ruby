@@ -19,6 +19,14 @@ module Stripe
         attr_reader :customer
         # Type of account holder that this account belongs to.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Filters < Stripe::StripeObject
@@ -26,6 +34,14 @@ module Stripe
         attr_reader :account_subcategories
         # List of countries from which to filter accounts.
         attr_reader :countries
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CreateParams < Stripe::RequestParams
@@ -115,6 +131,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { account_holder: AccountHolder, filters: Filters }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

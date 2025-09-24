@@ -87,6 +87,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = { data: V1BillingMeterNoMeterFoundEventData }
       end
+      attr_reader :data
     end
 
     # Occurs when a Meter's id is missing or invalid in async usage events.

@@ -18,6 +18,7 @@ module Stripe
           opts: { stripe_context: context }
         )
       end
+      attr_reader :related_object
     end
 
     # A ping event used to test the connection to an EventDestination.

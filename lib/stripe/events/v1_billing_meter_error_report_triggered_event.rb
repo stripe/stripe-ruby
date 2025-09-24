@@ -87,6 +87,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = { data: V1BillingMeterErrorReportTriggeredEventData }
       end
+      attr_reader :data, :related_object
 
       # Retrieves the related object from the API. Makes an API request on every call.
       def fetch_related_object

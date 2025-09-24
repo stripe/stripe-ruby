@@ -19,6 +19,7 @@ Layout/LineLength:
     - "lib/stripe/stripe_client.rb"
     - "lib/stripe/resources/**/*.rb"
     - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/events/**/*.rb"
     - "test/**/*.rb"
 
 Lint/MissingSuper:

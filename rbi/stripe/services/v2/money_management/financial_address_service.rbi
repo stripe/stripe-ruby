@@ -28,18 +28,18 @@ module Stripe
           def initialize(financial_account: nil, include: nil, limit: nil); end
         end
         class CreateParams < Stripe::RequestParams
-          # Open Enum. The currency the FinancialAddress should support. Currently, only the `usd` and `gbp` values are supported.
-          sig { returns(String) }
-          def currency; end
-          sig { params(_currency: String).returns(String) }
-          def currency=(_currency); end
           # The ID of the FinancialAccount the new FinancialAddress should be associated with.
           sig { returns(String) }
           def financial_account; end
           sig { params(_financial_account: String).returns(String) }
           def financial_account=(_financial_account); end
-          sig { params(currency: String, financial_account: String).void }
-          def initialize(currency: nil, financial_account: nil); end
+          # The type of FinancialAddress details to provision.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig { params(financial_account: String, type: String).void }
+          def initialize(financial_account: nil, type: nil); end
         end
         class RetrieveParams < Stripe::RequestParams
           # Open Enum. A list of fields to reveal in the FinancialAddresses returned.

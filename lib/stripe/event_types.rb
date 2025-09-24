@@ -7,6 +7,7 @@ module Stripe
         # The beginning of the section generated from our OpenAPI spec
         V1BillingMeterErrorReportTriggeredEvent.lookup_type => V1BillingMeterErrorReportTriggeredEvent,
         V1BillingMeterNoMeterFoundEvent.lookup_type => V1BillingMeterNoMeterFoundEvent,
+        V2BillingBillSettingUpdatedEvent.lookup_type => V2BillingBillSettingUpdatedEvent,
         V2CoreAccountClosedEvent.lookup_type => V2CoreAccountClosedEvent,
         V2CoreAccountCreatedEvent.lookup_type => V2CoreAccountCreatedEvent,
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>

@@ -1771,6 +1771,31 @@ module Stripe
             def initialize(customer: nil, merchant: nil, recipient: nil, storer: nil); end
           end
           class Defaults < Stripe::RequestParams
+            class Profile < Stripe::RequestParams
+              # The business's publicly-available website.
+              sig { returns(T.nilable(String)) }
+              def business_url; end
+              sig { params(_business_url: T.nilable(String)).returns(T.nilable(String)) }
+              def business_url=(_business_url); end
+              # The name which is used by the business.
+              sig { returns(T.nilable(String)) }
+              def doing_business_as; end
+              sig { params(_doing_business_as: T.nilable(String)).returns(T.nilable(String)) }
+              def doing_business_as=(_doing_business_as); end
+              # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+              sig { returns(T.nilable(String)) }
+              def product_description; end
+              sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
+              def product_description=(_product_description); end
+              sig {
+                params(business_url: T.nilable(String), doing_business_as: T.nilable(String), product_description: T.nilable(String)).void
+               }
+              def initialize(
+                business_url: nil,
+                doing_business_as: nil,
+                product_description: nil
+              ); end
+            end
             class Responsibilities < Stripe::RequestParams
               # A value indicating the party responsible for collecting fees from this account.
               sig { returns(String) }
@@ -1797,6 +1822,15 @@ module Stripe
               params(_locales: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
             def locales=(_locales); end
+            # Account profile information.
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Profile))
+             }
+            def profile; end
+            sig {
+              params(_profile: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Profile)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Profile))
+             }
+            def profile=(_profile); end
             # Default responsibilities held by either Stripe or the platform.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Responsibilities))
@@ -1807,9 +1841,9 @@ module Stripe
              }
             def responsibilities=(_responsibilities); end
             sig {
-              params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), responsibilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Responsibilities)).void
+              params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), profile: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Profile), responsibilities: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Defaults::Responsibilities)).void
              }
-            def initialize(currency: nil, locales: nil, responsibilities: nil); end
+            def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil); end
           end
           class Identity < Stripe::RequestParams
             class Attestations < Stripe::RequestParams
@@ -2554,11 +2588,6 @@ module Stripe
                 params(_documents: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents)).returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents))
                }
               def documents=(_documents); end
-              # The name which is used by the business.
-              sig { returns(T.nilable(String)) }
-              def doing_business_as; end
-              sig { params(_doing_business_as: T.nilable(String)).returns(T.nilable(String)) }
-              def doing_business_as=(_doing_business_as); end
               # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
               sig { returns(T.nilable(Integer)) }
               def estimated_worker_count; end
@@ -2589,11 +2618,6 @@ module Stripe
               def phone; end
               sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
               def phone=(_phone); end
-              # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
-              sig { returns(T.nilable(String)) }
-              def product_description; end
-              sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
-              def product_description=(_product_description); end
               # The business legal name.
               sig { returns(T.nilable(String)) }
               def registered_name; end
@@ -2622,29 +2646,21 @@ module Stripe
               def structure; end
               sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
               def structure=(_structure); end
-              # The business's publicly available website.
-              sig { returns(T.nilable(String)) }
-              def url; end
-              sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
-              def url=(_url); end
               sig {
-                params(address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents), doing_business_as: T.nilable(String), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), product_description: T.nilable(String), registered_name: T.nilable(String), script_addresses: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String), url: T.nilable(String)).void
+                params(address: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), script_addresses: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
                }
               def initialize(
                 address: nil,
                 annual_revenue: nil,
                 documents: nil,
-                doing_business_as: nil,
                 estimated_worker_count: nil,
                 id_numbers: nil,
                 monthly_estimated_revenue: nil,
                 phone: nil,
-                product_description: nil,
                 registered_name: nil,
                 script_addresses: nil,
                 script_names: nil,
-                structure: nil,
-                url: nil
+                structure: nil
               ); end
             end
             class Individual < Stripe::RequestParams
@@ -4945,7 +4961,7 @@ module Stripe
                 params(_capabilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities))
                }
               def capabilities=(_capabilities); end
-              # The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination.
+              # The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination. For further details about creating an Outbound Destination, see [Collect recipient's payment details](https://docs.corp.stripe.com/global-payouts-private-preview/quickstart?dashboard-or-api=api#collect-bank-account-details).
               sig { returns(T.nilable(String)) }
               def default_outbound_destination; end
               sig {
@@ -5254,6 +5270,31 @@ module Stripe
             def initialize(customer: nil, merchant: nil, recipient: nil, storer: nil); end
           end
           class Defaults < Stripe::RequestParams
+            class Profile < Stripe::RequestParams
+              # The business's publicly-available website.
+              sig { returns(T.nilable(String)) }
+              def business_url; end
+              sig { params(_business_url: T.nilable(String)).returns(T.nilable(String)) }
+              def business_url=(_business_url); end
+              # The name which is used by the business.
+              sig { returns(T.nilable(String)) }
+              def doing_business_as; end
+              sig { params(_doing_business_as: T.nilable(String)).returns(T.nilable(String)) }
+              def doing_business_as=(_doing_business_as); end
+              # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+              sig { returns(T.nilable(String)) }
+              def product_description; end
+              sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
+              def product_description=(_product_description); end
+              sig {
+                params(business_url: T.nilable(String), doing_business_as: T.nilable(String), product_description: T.nilable(String)).void
+               }
+              def initialize(
+                business_url: nil,
+                doing_business_as: nil,
+                product_description: nil
+              ); end
+            end
             class Responsibilities < Stripe::RequestParams
               # A value indicating the party responsible for collecting fees from this account.
               sig { returns(String) }
@@ -5280,6 +5321,15 @@ module Stripe
               params(_locales: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
             def locales=(_locales); end
+            # Account profile information.
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Profile))
+             }
+            def profile; end
+            sig {
+              params(_profile: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Profile)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Profile))
+             }
+            def profile=(_profile); end
             # Default responsibilities held by either Stripe or the platform.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Responsibilities))
@@ -5290,9 +5340,9 @@ module Stripe
              }
             def responsibilities=(_responsibilities); end
             sig {
-              params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), responsibilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Responsibilities)).void
+              params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), profile: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Profile), responsibilities: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Defaults::Responsibilities)).void
              }
-            def initialize(currency: nil, locales: nil, responsibilities: nil); end
+            def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil); end
           end
           class Identity < Stripe::RequestParams
             class Attestations < Stripe::RequestParams
@@ -6041,11 +6091,6 @@ module Stripe
                 params(_documents: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents)).returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents))
                }
               def documents=(_documents); end
-              # The name which is used by the business.
-              sig { returns(T.nilable(String)) }
-              def doing_business_as; end
-              sig { params(_doing_business_as: T.nilable(String)).returns(T.nilable(String)) }
-              def doing_business_as=(_doing_business_as); end
               # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
               sig { returns(T.nilable(Integer)) }
               def estimated_worker_count; end
@@ -6076,11 +6121,6 @@ module Stripe
               def phone; end
               sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
               def phone=(_phone); end
-              # Internal-only description of the product sold or service provided by the business. It’s used by Stripe for risk and underwriting purposes.
-              sig { returns(T.nilable(String)) }
-              def product_description; end
-              sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
-              def product_description=(_product_description); end
               # The business legal name.
               sig { returns(T.nilable(String)) }
               def registered_name; end
@@ -6109,29 +6149,21 @@ module Stripe
               def structure; end
               sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
               def structure=(_structure); end
-              # The business's publicly available website.
-              sig { returns(T.nilable(String)) }
-              def url; end
-              sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
-              def url=(_url); end
               sig {
-                params(address: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents), doing_business_as: T.nilable(String), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), product_description: T.nilable(String), registered_name: T.nilable(String), script_addresses: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String), url: T.nilable(String)).void
+                params(address: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), script_addresses: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
                }
               def initialize(
                 address: nil,
                 annual_revenue: nil,
                 documents: nil,
-                doing_business_as: nil,
                 estimated_worker_count: nil,
                 id_numbers: nil,
                 monthly_estimated_revenue: nil,
                 phone: nil,
-                product_description: nil,
                 registered_name: nil,
                 script_addresses: nil,
                 script_names: nil,
-                structure: nil,
-                url: nil
+                structure: nil
               ); end
             end
             class Individual < Stripe::RequestParams
@@ -6966,12 +6998,16 @@ module Stripe
         def list(params = {}, opts = {}); end
 
         # Retrieves the details of an Account.
+        #
+        # ** raises RateLimitError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::AccountService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Account)
          }
         def retrieve(id, params = {}, opts = {}); end
 
         # Updates the details of an Account.
+        #
+        # ** raises RateLimitError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::AccountService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Account)
          }

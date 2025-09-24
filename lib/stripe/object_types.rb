@@ -187,9 +187,15 @@ module Stripe
         V2::ListObject.object_name => V2::ListObject,
 
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
+        V2::Billing::BillSetting.object_name => V2::Billing::BillSetting,
+        V2::Billing::BillSettingVersion.object_name => V2::Billing::BillSettingVersion,
+        V2::Billing::Cadence.object_name => V2::Billing::Cadence,
+        V2::Billing::CollectionSetting.object_name => V2::Billing::CollectionSetting,
+        V2::Billing::CollectionSettingVersion.object_name => V2::Billing::CollectionSettingVersion,
         V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,
         V2::Billing::MeterEventAdjustment.object_name => V2::Billing::MeterEventAdjustment,
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
+        V2::Billing::Profile.object_name => V2::Billing::Profile,
         V2::Core::Account.object_name => V2::Core::Account,
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
         V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,

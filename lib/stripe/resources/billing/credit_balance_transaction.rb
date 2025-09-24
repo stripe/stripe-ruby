@@ -19,11 +19,27 @@ module Stripe
             attr_reader :currency
             # A positive integer representing the amount.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { monetary: Monetary }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CreditsApplicationInvoiceVoided < Stripe::StripeObject
@@ -31,6 +47,14 @@ module Stripe
           attr_reader :invoice
           # The invoice line item to which the reinstated billing credits were originally applied.
           attr_reader :invoice_line_item
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field amount
         attr_reader :amount
@@ -38,6 +62,17 @@ module Stripe
         attr_reader :credits_application_invoice_voided
         # The type of credit transaction.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            amount: Amount,
+            credits_application_invoice_voided: CreditsApplicationInvoiceVoided,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Debit < Stripe::StripeObject
@@ -47,11 +82,27 @@ module Stripe
             attr_reader :currency
             # A positive integer representing the amount.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { monetary: Monetary }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CreditsApplied < Stripe::StripeObject
@@ -59,6 +110,14 @@ module Stripe
           attr_reader :invoice
           # The invoice line item to which the billing credits were applied.
           attr_reader :invoice_line_item
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field amount
         attr_reader :amount
@@ -66,6 +125,14 @@ module Stripe
         attr_reader :credits_applied
         # The type of debit transaction.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { amount: Amount, credits_applied: CreditsApplied }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -127,6 +194,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { credit: Credit, debit: Debit }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

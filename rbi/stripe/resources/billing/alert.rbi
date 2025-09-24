@@ -14,6 +14,12 @@ module Stripe
           # Attribute for field type
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
         sig { returns(T.nilable(T::Array[Filter])) }
@@ -27,6 +33,12 @@ module Stripe
         # Defines how the alert will behave.
         sig { returns(String) }
         def recurrence; end
+        def self.inner_class_types
+          @inner_class_types = {filters: Filter}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Defines the type of the alert.
       sig { returns(String) }
@@ -127,7 +139,7 @@ module Stripe
           def meter; end
           sig { params(_meter: String).returns(String) }
           def meter=(_meter); end
-          # Whether the alert should only fire only once, or once per billing cycle.
+          # Defines how the alert will behave.
           sig { returns(String) }
           def recurrence; end
           sig { params(_recurrence: String).returns(String) }

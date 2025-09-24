@@ -27,14 +27,22 @@ module Stripe
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       attr_reader :country
-      # Address line 1 (e.g., street, PO Box, or company name).
+      # Address line 1, such as the street, PO Box, or company name.
       attr_reader :line1
-      # Address line 2 (e.g., apartment, suite, unit, or building).
+      # Address line 2, such as the apartment, suite, unit, or building.
       attr_reader :line2
       # ZIP or postal code.
       attr_reader :postal_code
       # State, county, province, or region.
       attr_reader :state
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class InvoiceSettings < Stripe::StripeObject
@@ -43,6 +51,14 @@ module Stripe
         attr_reader :name
         # The value of the custom field.
         attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class RenderingOptions < Stripe::StripeObject
@@ -50,6 +66,14 @@ module Stripe
         attr_reader :amount_tax_display
         # ID of the invoice rendering template to be used for this customer's invoices. If set, the template will be used on all invoices for this customer unless a template is set directly on the invoice.
         attr_reader :template
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Default custom fields to be displayed on invoices for this customer.
       attr_reader :custom_fields
@@ -59,6 +83,14 @@ module Stripe
       attr_reader :footer
       # Default options for invoice PDF rendering for this customer.
       attr_reader :rendering_options
+
+      def self.inner_class_types
+        @inner_class_types = { custom_fields: CustomField, rendering_options: RenderingOptions }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Shipping < Stripe::StripeObject
@@ -67,14 +99,22 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field address
       attr_reader :address
@@ -86,6 +126,14 @@ module Stripe
       attr_reader :phone
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       attr_reader :tracking_number
+
+      def self.inner_class_types
+        @inner_class_types = { address: Address }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Tax < Stripe::StripeObject
@@ -96,6 +144,14 @@ module Stripe
         attr_reader :source
         # The identified tax state, county, province, or region of the customer.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Surfaces if automatic tax computation is possible given the current customer location information.
       attr_reader :automatic_tax
@@ -103,6 +159,14 @@ module Stripe
       attr_reader :ip_address
       # The identified tax location of the customer.
       attr_reader :location
+
+      def self.inner_class_types
+        @inner_class_types = { location: Location }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class DeleteParams < Stripe::RequestParams; end
@@ -113,9 +177,9 @@ module Stripe
         attr_accessor :city
         # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_accessor :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_accessor :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
@@ -209,9 +273,9 @@ module Stripe
           attr_accessor :city
           # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -263,6 +327,8 @@ module Stripe
       attr_accessor :address
       # An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
       attr_accessor :balance
+      # The customer's business name. This may be up to *150 characters*.
+      attr_accessor :business_name
       # Balance information and default balance settings for this customer.
       attr_accessor :cash_balance
       # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
@@ -277,6 +343,8 @@ module Stripe
       attr_accessor :email
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # The customer's full name. This may be up to *150 characters*.
+      attr_accessor :individual_name
       # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
       attr_accessor :invoice_prefix
       # Default invoice settings for this customer.
@@ -305,11 +373,13 @@ module Stripe
       def initialize(
         address: nil,
         balance: nil,
+        business_name: nil,
         cash_balance: nil,
         default_source: nil,
         description: nil,
         email: nil,
         expand: nil,
+        individual_name: nil,
         invoice_prefix: nil,
         invoice_settings: nil,
         metadata: nil,
@@ -325,11 +395,13 @@ module Stripe
       )
         @address = address
         @balance = balance
+        @business_name = business_name
         @cash_balance = cash_balance
         @default_source = default_source
         @description = description
         @email = email
         @expand = expand
+        @individual_name = individual_name
         @invoice_prefix = invoice_prefix
         @invoice_settings = invoice_settings
         @metadata = metadata
@@ -405,9 +477,9 @@ module Stripe
         attr_accessor :city
         # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_accessor :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_accessor :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_accessor :line2
         # ZIP or postal code.
         attr_accessor :postal_code
@@ -501,9 +573,9 @@ module Stripe
           attr_accessor :city
           # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -567,6 +639,8 @@ module Stripe
       attr_accessor :address
       # An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
       attr_accessor :balance
+      # The customer's business name. This may be up to *150 characters*.
+      attr_accessor :business_name
       # Balance information and default balance settings for this customer.
       attr_accessor :cash_balance
       # An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
@@ -575,6 +649,8 @@ module Stripe
       attr_accessor :email
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # The customer's full name. This may be up to *150 characters*.
+      attr_accessor :individual_name
       # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
       attr_accessor :invoice_prefix
       # Default invoice settings for this customer.
@@ -609,10 +685,12 @@ module Stripe
       def initialize(
         address: nil,
         balance: nil,
+        business_name: nil,
         cash_balance: nil,
         description: nil,
         email: nil,
         expand: nil,
+        individual_name: nil,
         invoice_prefix: nil,
         invoice_settings: nil,
         metadata: nil,
@@ -631,10 +709,12 @@ module Stripe
       )
         @address = address
         @balance = balance
+        @business_name = business_name
         @cash_balance = cash_balance
         @description = description
         @email = email
         @expand = expand
+        @individual_name = individual_name
         @invoice_prefix = invoice_prefix
         @invoice_settings = invoice_settings
         @metadata = metadata
@@ -783,6 +863,8 @@ module Stripe
     attr_reader :address
     # The current balance, if any, that's stored on the customer in their default currency. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize. For multi-currency balances, see [invoice_credit_balance](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance).
     attr_reader :balance
+    # The customer's business name.
+    attr_reader :business_name
     # The current funds being held by Stripe on behalf of the customer. You can apply these funds towards payment intents when the source is "cash_balance". The `settings[reconciliation_mode]` field describes if these funds apply to these payment intents manually or automatically.
     attr_reader :cash_balance
     # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -807,6 +889,8 @@ module Stripe
     attr_reader :email
     # Unique identifier for the object.
     attr_reader :id
+    # The customer's individual name.
+    attr_reader :individual_name
     # The current multi-currency balances, if any, that's stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that's added to their next invoice denominated in that currency. These balances don't apply to unpaid invoices. They solely track amounts that Stripe hasn't successfully applied to any invoice. Stripe only applies a balance in a specific currency to an invoice after that invoice (which is in the same currency) finalizes.
     attr_reader :invoice_credit_balance
     # The prefix for the customer used to generate unique invoice numbers.
@@ -1035,6 +1119,19 @@ module Stripe
           opts: opts
         )
       end
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        address: Address,
+        invoice_settings: InvoiceSettings,
+        shipping: Shipping,
+        tax: Tax,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

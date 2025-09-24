@@ -13,6 +13,12 @@ module Stripe
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       sig { returns(T.nilable(String)) }
       def preferred; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field account
     sig { returns(T.nilable(T.any(String, Stripe::Account))) }
@@ -47,7 +53,7 @@ module Stripe
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     sig { returns(T.nilable(T::Array[String])) }
     def available_payout_methods; end
-    # Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
+    # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     sig { returns(String) }
     def brand; end
     # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.

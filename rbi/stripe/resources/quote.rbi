@@ -14,6 +14,12 @@ module Stripe
         # Type of the account referenced.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Automatically calculate taxes
       sig { returns(T::Boolean) }
@@ -27,6 +33,12 @@ module Stripe
       # The status of the most recent automated tax calculation for this quote.
       sig { returns(T.nilable(String)) }
       def status; end
+      def self.inner_class_types
+        @inner_class_types = {liability: Liability}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Computed < Stripe::StripeObject
       class Recurring < Stripe::StripeObject
@@ -42,6 +54,12 @@ module Stripe
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
               sig { returns(Stripe::Discount) }
               def discount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Tax < Stripe::StripeObject
               # Amount of tax applied for this rate.
@@ -58,6 +76,12 @@ module Stripe
               # The amount on which tax is calculated, in cents (or local equivalent).
               sig { returns(T.nilable(Integer)) }
               def taxable_amount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The aggregated discounts.
             sig { returns(T::Array[Discount]) }
@@ -65,6 +89,12 @@ module Stripe
             # The aggregated tax amounts by rate.
             sig { returns(T::Array[Tax]) }
             def taxes; end
+            def self.inner_class_types
+              @inner_class_types = {discounts: Discount, taxes: Tax}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # This is the sum of all the discounts.
           sig { returns(Integer) }
@@ -78,6 +108,12 @@ module Stripe
           # Attribute for field breakdown
           sig { returns(T.nilable(Breakdown)) }
           def breakdown; end
+          def self.inner_class_types
+            @inner_class_types = {breakdown: Breakdown}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Total before any discounts or taxes are applied.
         sig { returns(Integer) }
@@ -94,6 +130,12 @@ module Stripe
         # Attribute for field total_details
         sig { returns(TotalDetails) }
         def total_details; end
+        def self.inner_class_types
+          @inner_class_types = {total_details: TotalDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Upfront < Stripe::StripeObject
         class TotalDetails < Stripe::StripeObject
@@ -108,6 +150,12 @@ module Stripe
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
               sig { returns(Stripe::Discount) }
               def discount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             class Tax < Stripe::StripeObject
               # Amount of tax applied for this rate.
@@ -124,6 +172,12 @@ module Stripe
               # The amount on which tax is calculated, in cents (or local equivalent).
               sig { returns(T.nilable(Integer)) }
               def taxable_amount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The aggregated discounts.
             sig { returns(T::Array[Discount]) }
@@ -131,6 +185,12 @@ module Stripe
             # The aggregated tax amounts by rate.
             sig { returns(T::Array[Tax]) }
             def taxes; end
+            def self.inner_class_types
+              @inner_class_types = {discounts: Discount, taxes: Tax}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # This is the sum of all the discounts.
           sig { returns(Integer) }
@@ -144,6 +204,12 @@ module Stripe
           # Attribute for field breakdown
           sig { returns(T.nilable(Breakdown)) }
           def breakdown; end
+          def self.inner_class_types
+            @inner_class_types = {breakdown: Breakdown}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Total before any discounts or taxes are applied.
         sig { returns(Integer) }
@@ -157,6 +223,12 @@ module Stripe
         # Attribute for field total_details
         sig { returns(TotalDetails) }
         def total_details; end
+        def self.inner_class_types
+          @inner_class_types = {total_details: TotalDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices.
       sig { returns(T.nilable(Recurring)) }
@@ -164,6 +236,12 @@ module Stripe
       # Attribute for field upfront
       sig { returns(Upfront) }
       def upfront; end
+      def self.inner_class_types
+        @inner_class_types = {recurring: Recurring, upfront: Upfront}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class FromQuote < Stripe::StripeObject
       # Whether this quote is a revision of a different quote.
@@ -172,6 +250,12 @@ module Stripe
       # The quote that was cloned.
       sig { returns(T.any(String, Stripe::Quote)) }
       def quote; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class InvoiceSettings < Stripe::StripeObject
       class Issuer < Stripe::StripeObject
@@ -181,6 +265,12 @@ module Stripe
         # Type of the account referenced.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
       sig { returns(T.nilable(Integer)) }
@@ -188,6 +278,12 @@ module Stripe
       # Attribute for field issuer
       sig { returns(Issuer) }
       def issuer; end
+      def self.inner_class_types
+        @inner_class_types = {issuer: Issuer}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class StatusTransitions < Stripe::StripeObject
       # The time that the quote was accepted. Measured in seconds since Unix epoch.
@@ -199,12 +295,38 @@ module Stripe
       # The time that the quote was finalized. Measured in seconds since Unix epoch.
       sig { returns(T.nilable(Integer)) }
       def finalized_at; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class SubscriptionData < Stripe::StripeObject
       class BillingMode < Stripe::StripeObject
+        class Flexible < Stripe::StripeObject
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          sig { returns(T.nilable(String)) }
+          def proration_discounts; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field flexible
+        sig { returns(T.nilable(Flexible)) }
+        def flexible; end
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {flexible: Flexible}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The billing mode of the quote.
       sig { returns(BillingMode) }
@@ -221,6 +343,12 @@ module Stripe
       # Integer representing the number of trial period days before the customer is charged for the first time.
       sig { returns(T.nilable(Integer)) }
       def trial_period_days; end
+      def self.inner_class_types
+        @inner_class_types = {billing_mode: BillingMode}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TotalDetails < Stripe::StripeObject
       class Breakdown < Stripe::StripeObject
@@ -234,6 +362,12 @@ module Stripe
           # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
           sig { returns(Stripe::Discount) }
           def discount; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Tax < Stripe::StripeObject
           # Amount of tax applied for this rate.
@@ -250,6 +384,12 @@ module Stripe
           # The amount on which tax is calculated, in cents (or local equivalent).
           sig { returns(T.nilable(Integer)) }
           def taxable_amount; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The aggregated discounts.
         sig { returns(T::Array[Discount]) }
@@ -257,6 +397,12 @@ module Stripe
         # The aggregated tax amounts by rate.
         sig { returns(T::Array[Tax]) }
         def taxes; end
+        def self.inner_class_types
+          @inner_class_types = {discounts: Discount, taxes: Tax}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # This is the sum of all the discounts.
       sig { returns(Integer) }
@@ -270,6 +416,12 @@ module Stripe
       # Attribute for field breakdown
       sig { returns(T.nilable(Breakdown)) }
       def breakdown; end
+      def self.inner_class_types
+        @inner_class_types = {breakdown: Breakdown}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TransferData < Stripe::StripeObject
       # The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
@@ -281,6 +433,12 @@ module Stripe
       # The account where funds from the payment will be transferred to upon payment success.
       sig { returns(T.any(String, Stripe::Account)) }
       def destination; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Total before any discounts or taxes are applied.
     sig { returns(Integer) }
@@ -663,13 +821,33 @@ module Stripe
       end
       class SubscriptionData < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            sig { returns(T.nilable(String)) }
+            def proration_discounts; end
+            sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+            def proration_discounts=(_proration_discounts); end
+            sig { params(proration_discounts: T.nilable(String)).void }
+            def initialize(proration_discounts: nil); end
+          end
+          # Configure behavior for flexible billing mode.
+          sig {
+            returns(T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible))
+           }
+          def flexible; end
+          sig {
+            params(_flexible: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible)).returns(T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible))
+           }
+          def flexible=(_flexible); end
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          sig { params(type: String).void }
-          def initialize(type: nil); end
+          sig {
+            params(flexible: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible), type: String).void
+           }
+          def initialize(flexible: nil, type: nil); end
         end
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         sig { returns(T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode)) }

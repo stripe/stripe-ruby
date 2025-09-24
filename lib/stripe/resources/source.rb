@@ -41,6 +41,14 @@ module Stripe
       attr_reader :routing_number
       # Attribute for field swift_code
       attr_reader :swift_code
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AchDebit < Stripe::StripeObject
@@ -56,6 +64,14 @@ module Stripe
       attr_reader :routing_number
       # Attribute for field type
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AcssDebit < Stripe::StripeObject
@@ -79,6 +95,14 @@ module Stripe
       attr_reader :last4
       # Attribute for field routing_number
       attr_reader :routing_number
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Alipay < Stripe::StripeObject
@@ -88,6 +112,14 @@ module Stripe
       attr_reader :native_url
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class AuBecsDebit < Stripe::StripeObject
@@ -97,6 +129,14 @@ module Stripe
       attr_reader :fingerprint
       # Attribute for field last4
       attr_reader :last4
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Bancontact < Stripe::StripeObject
@@ -112,6 +152,14 @@ module Stripe
       attr_reader :preferred_language
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Card < Stripe::StripeObject
@@ -149,6 +197,14 @@ module Stripe
       attr_reader :three_d_secure
       # Attribute for field tokenization_method
       attr_reader :tokenization_method
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CardPresent < Stripe::StripeObject
@@ -204,6 +260,14 @@ module Stripe
       attr_reader :terminal_verification_results
       # Attribute for field transaction_status_information
       attr_reader :transaction_status_information
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class CodeVerification < Stripe::StripeObject
@@ -211,6 +275,14 @@ module Stripe
       attr_reader :attempts_remaining
       # The status of the code verification, either `pending` (awaiting verification, `attempts_remaining` should be greater than 0), `succeeded` (successful verification) or `failed` (failed verification, cannot be verified anymore as `attempts_remaining` should be 0).
       attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Eps < Stripe::StripeObject
@@ -218,6 +290,14 @@ module Stripe
       attr_reader :reference
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Giropay < Stripe::StripeObject
@@ -229,6 +309,14 @@ module Stripe
       attr_reader :bic
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Ideal < Stripe::StripeObject
@@ -240,6 +328,14 @@ module Stripe
       attr_reader :iban_last4
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Klarna < Stripe::StripeObject
@@ -295,6 +391,14 @@ module Stripe
       attr_reader :shipping_first_name
       # Attribute for field shipping_last_name
       attr_reader :shipping_last_name
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Multibanco < Stripe::StripeObject
@@ -318,6 +422,14 @@ module Stripe
       attr_reader :refund_account_holder_name
       # Attribute for field refund_iban
       attr_reader :refund_iban
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Owner < Stripe::StripeObject
@@ -326,14 +438,22 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class VerifiedAddress < Stripe::StripeObject
@@ -341,14 +461,22 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
         # State, county, province, or region.
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Owner's address.
       attr_reader :address
@@ -366,11 +494,27 @@ module Stripe
       attr_reader :verified_name
       # Verified owner's phone number (including extension). Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated.
       attr_reader :verified_phone
+
+      def self.inner_class_types
+        @inner_class_types = { address: Address, verified_address: VerifiedAddress }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class P24 < Stripe::StripeObject
       # Attribute for field reference
       attr_reader :reference
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Receiver < Stripe::StripeObject
@@ -386,6 +530,14 @@ module Stripe
       attr_reader :refund_attributes_method
       # Type of refund attribute status, one of `missing`, `requested`, or `available`.
       attr_reader :refund_attributes_status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Redirect < Stripe::StripeObject
@@ -393,10 +545,18 @@ module Stripe
       attr_reader :failure_reason
       # The URL you provide to redirect the customer to after they authenticated their payment.
       attr_reader :return_url
-      # The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (succesful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
+      # The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (successful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
       attr_reader :status
       # The URL provided to you to redirect a customer to as part of a `redirect` authentication flow.
       attr_reader :url
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SepaCreditTransfer < Stripe::StripeObject
@@ -422,6 +582,14 @@ module Stripe
       attr_reader :refund_account_holder_name
       # Attribute for field refund_iban
       attr_reader :refund_iban
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SepaDebit < Stripe::StripeObject
@@ -439,6 +607,14 @@ module Stripe
       attr_reader :mandate_reference
       # Attribute for field mandate_url
       attr_reader :mandate_url
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Sofort < Stripe::StripeObject
@@ -456,6 +632,14 @@ module Stripe
       attr_reader :preferred_language
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class SourceOrder < Stripe::StripeObject
@@ -472,6 +656,14 @@ module Stripe
         attr_reader :quantity
         # The type of this order item. Must be `sku`, `tax`, or `shipping`.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Shipping < Stripe::StripeObject
@@ -480,14 +672,22 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field address
         attr_reader :address
@@ -499,6 +699,14 @@ module Stripe
         attr_reader :phone
         # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
         attr_reader :tracking_number
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order.
       attr_reader :amount
@@ -510,6 +718,14 @@ module Stripe
       attr_reader :items
       # Attribute for field shipping
       attr_reader :shipping
+
+      def self.inner_class_types
+        @inner_class_types = { items: Item, shipping: Shipping }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ThreeDSecure < Stripe::StripeObject
@@ -553,6 +769,14 @@ module Stripe
       attr_reader :three_d_secure
       # Attribute for field tokenization_method
       attr_reader :tokenization_method
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class Wechat < Stripe::StripeObject
@@ -562,6 +786,14 @@ module Stripe
       attr_reader :qr_code_url
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class UpdateParams < Stripe::RequestParams
@@ -655,9 +887,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -735,9 +967,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -910,9 +1142,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -1008,9 +1240,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -1283,5 +1515,38 @@ module Stripe
     end
     extend Gem::Deprecate
     deprecate :source_transactions, :"Source.list_source_transactions", 2020, 1
+
+    def self.inner_class_types
+      @inner_class_types = {
+        ach_credit_transfer: AchCreditTransfer,
+        ach_debit: AchDebit,
+        acss_debit: AcssDebit,
+        alipay: Alipay,
+        au_becs_debit: AuBecsDebit,
+        bancontact: Bancontact,
+        card: Card,
+        card_present: CardPresent,
+        code_verification: CodeVerification,
+        eps: Eps,
+        giropay: Giropay,
+        ideal: Ideal,
+        klarna: Klarna,
+        multibanco: Multibanco,
+        owner: Owner,
+        p24: P24,
+        receiver: Receiver,
+        redirect: Redirect,
+        sepa_credit_transfer: SepaCreditTransfer,
+        sepa_debit: SepaDebit,
+        sofort: Sofort,
+        source_order: SourceOrder,
+        three_d_secure: ThreeDSecure,
+        wechat: Wechat,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

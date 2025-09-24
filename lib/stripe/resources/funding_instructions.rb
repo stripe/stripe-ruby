@@ -21,14 +21,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class BankAddress < Stripe::StripeObject
@@ -36,14 +44,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           attr_reader :account_holder_address
@@ -59,6 +75,17 @@ module Stripe
           attr_reader :bank_name
           # The ABA routing number
           attr_reader :routing_number
+
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Iban < Stripe::StripeObject
@@ -67,14 +94,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class BankAddress < Stripe::StripeObject
@@ -82,14 +117,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           attr_reader :account_holder_address
@@ -103,6 +146,17 @@ module Stripe
           attr_reader :country
           # The IBAN of the account.
           attr_reader :iban
+
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class SortCode < Stripe::StripeObject
@@ -111,14 +165,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class BankAddress < Stripe::StripeObject
@@ -126,14 +188,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           attr_reader :account_holder_address
@@ -145,6 +215,17 @@ module Stripe
           attr_reader :bank_address
           # The six-digit sort code
           attr_reader :sort_code
+
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Spei < Stripe::StripeObject
@@ -153,14 +234,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class BankAddress < Stripe::StripeObject
@@ -168,14 +257,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           attr_reader :account_holder_address
@@ -189,6 +286,17 @@ module Stripe
           attr_reader :bank_name
           # The CLABE number
           attr_reader :clabe
+
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Swift < Stripe::StripeObject
@@ -197,14 +305,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class BankAddress < Stripe::StripeObject
@@ -212,14 +328,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           attr_reader :account_holder_address
@@ -235,6 +359,17 @@ module Stripe
           attr_reader :bank_name
           # The SWIFT code
           attr_reader :swift_code
+
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Zengin < Stripe::StripeObject
@@ -243,14 +378,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class BankAddress < Stripe::StripeObject
@@ -258,14 +401,22 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           attr_reader :account_holder_address
@@ -285,6 +436,17 @@ module Stripe
           attr_reader :branch_code
           # The branch name of the account
           attr_reader :branch_name
+
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ABA Records contain U.S. bank account details per the ABA format.
         attr_reader :aba
@@ -302,6 +464,21 @@ module Stripe
         attr_reader :type
         # Zengin Records contain Japan bank account details per the Zengin format.
         attr_reader :zengin
+
+        def self.inner_class_types
+          @inner_class_types = {
+            aba: Aba,
+            iban: Iban,
+            sort_code: SortCode,
+            spei: Spei,
+            swift: Swift,
+            zengin: Zengin,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The country of the bank account to fund
       attr_reader :country
@@ -309,6 +486,14 @@ module Stripe
       attr_reader :financial_addresses
       # The bank_transfer type
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { financial_addresses: FinancialAddress }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field bank_transfer
     attr_reader :bank_transfer
@@ -327,6 +512,14 @@ module Stripe
               "FundingInstructions cannot be accessed without a customer ID."
       end
       "#{Customer.resource_url}/#{CGI.escape(customer)}/funding_instructions" + "/#{CGI.escape(id)}"
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { bank_transfer: BankTransfer }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

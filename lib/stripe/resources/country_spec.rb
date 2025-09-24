@@ -22,6 +22,14 @@ module Stripe
         attr_reader :additional
         # Fields which every account must eventually provide.
         attr_reader :minimum
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Individual < Stripe::StripeObject
@@ -29,11 +37,27 @@ module Stripe
         attr_reader :additional
         # Fields which every account must eventually provide.
         attr_reader :minimum
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field company
       attr_reader :company
       # Attribute for field individual
       attr_reader :individual
+
+      def self.inner_class_types
+        @inner_class_types = { company: Company, individual: Individual }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
     class ListParams < Stripe::RequestParams
@@ -73,6 +97,14 @@ module Stripe
     # Lists all Country Spec objects available in the API.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/country_specs", params: params, opts: opts)
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { verification_fields: VerificationFields }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

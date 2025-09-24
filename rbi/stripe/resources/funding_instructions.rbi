@@ -19,10 +19,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -31,6 +31,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -39,10 +45,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -51,6 +57,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
@@ -73,6 +85,15 @@ module Stripe
           # The ABA routing number
           sig { returns(String) }
           def routing_number; end
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Iban < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
@@ -82,10 +103,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -94,6 +115,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -102,10 +129,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -114,6 +141,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
@@ -133,6 +166,15 @@ module Stripe
           # The IBAN of the account.
           sig { returns(String) }
           def iban; end
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class SortCode < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
@@ -142,10 +184,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -154,6 +196,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -162,10 +210,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -174,6 +222,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
@@ -190,6 +244,15 @@ module Stripe
           # The six-digit sort code
           sig { returns(String) }
           def sort_code; end
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Spei < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
@@ -199,10 +262,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -211,6 +274,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -219,10 +288,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -231,6 +300,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
@@ -250,6 +325,15 @@ module Stripe
           # The CLABE number
           sig { returns(String) }
           def clabe; end
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Swift < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
@@ -259,10 +343,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -271,6 +355,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -279,10 +369,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -291,6 +381,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
@@ -313,6 +409,15 @@ module Stripe
           # The SWIFT code
           sig { returns(String) }
           def swift_code; end
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Zengin < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
@@ -322,10 +427,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -334,6 +439,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class BankAddress < Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -342,10 +453,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -354,6 +465,12 @@ module Stripe
             # State, county, province, or region.
             sig { returns(T.nilable(String)) }
             def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field account_holder_address
           sig { returns(AccountHolderAddress) }
@@ -382,6 +499,15 @@ module Stripe
           # The branch name of the account
           sig { returns(T.nilable(String)) }
           def branch_name; end
+          def self.inner_class_types
+            @inner_class_types = {
+              account_holder_address: AccountHolderAddress,
+              bank_address: BankAddress,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # ABA Records contain U.S. bank account details per the ABA format.
         sig { returns(T.nilable(Aba)) }
@@ -407,6 +533,19 @@ module Stripe
         # Zengin Records contain Japan bank account details per the Zengin format.
         sig { returns(T.nilable(Zengin)) }
         def zengin; end
+        def self.inner_class_types
+          @inner_class_types = {
+            aba: Aba,
+            iban: Iban,
+            sort_code: SortCode,
+            spei: Spei,
+            swift: Swift,
+            zengin: Zengin,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The country of the bank account to fund
       sig { returns(String) }
@@ -417,6 +556,12 @@ module Stripe
       # The bank_transfer type
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {financial_addresses: FinancialAddress}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field bank_transfer
     sig { returns(BankTransfer) }

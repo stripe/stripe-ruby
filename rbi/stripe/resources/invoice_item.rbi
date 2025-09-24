@@ -20,6 +20,12 @@ module Stripe
         # The subscription item that generated this invoice item
         sig { returns(T.nilable(String)) }
         def subscription_item; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Details about the subscription that generated this invoice item
       sig { returns(T.nilable(SubscriptionDetails)) }
@@ -27,6 +33,12 @@ module Stripe
       # The type of parent that generated this invoice item
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {subscription_details: SubscriptionDetails}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Period < Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
@@ -35,6 +47,12 @@ module Stripe
       # The start of the period. This value is inclusive.
       sig { returns(Integer) }
       def start; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Pricing < Stripe::StripeObject
       class PriceDetails < Stripe::StripeObject
@@ -44,6 +62,12 @@ module Stripe
         # The ID of the product this item is associated with.
         sig { returns(String) }
         def product; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field price_details
       sig { returns(T.nilable(PriceDetails)) }
@@ -54,6 +78,37 @@ module Stripe
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       def unit_amount_decimal; end
+      def self.inner_class_types
+        @inner_class_types = {price_details: PriceDetails}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class ProrationDetails < Stripe::StripeObject
+      class DiscountAmount < Stripe::StripeObject
+        # The amount, in cents (or local equivalent), of the discount.
+        sig { returns(Integer) }
+        def amount; end
+        # The discount that was applied to get this discount amount.
+        sig { returns(T.any(String, Stripe::Discount)) }
+        def discount; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Discount amounts applied when the proration was created.
+      sig { returns(T::Array[DiscountAmount]) }
+      def discount_amounts; end
+      def self.inner_class_types
+        @inner_class_types = {discount_amounts: DiscountAmount}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Amount (in the `currency` specified) of the invoice item. This should always be equal to `unit_amount * quantity`.
     sig { returns(Integer) }
@@ -88,6 +143,9 @@ module Stripe
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
+    # The amount after discounts, but before credits and taxes. This field is `null` for `discountable=true` items.
+    sig { returns(T.nilable(Integer)) }
+    def net_amount; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
@@ -103,6 +161,9 @@ module Stripe
     # Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
     sig { returns(T::Boolean) }
     def proration; end
+    # Attribute for field proration_details
+    sig { returns(T.nilable(ProrationDetails)) }
+    def proration_details; end
     # Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
     sig { returns(Integer) }
     def quantity; end

@@ -13,10 +13,10 @@ module Stripe
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       sig { returns(T.nilable(String)) }
       def country; end
-      # Address line 1 (e.g., street, PO Box, or company name).
+      # Address line 1, such as the street, PO Box, or company name.
       sig { returns(T.nilable(String)) }
       def line1; end
-      # Address line 2 (e.g., apartment, suite, unit, or building).
+      # Address line 2, such as the apartment, suite, unit, or building.
       sig { returns(T.nilable(String)) }
       def line2; end
       # ZIP or postal code.
@@ -25,6 +25,12 @@ module Stripe
       # State, county, province, or region.
       sig { returns(T.nilable(String)) }
       def state; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class InvoiceSettings < Stripe::StripeObject
       class CustomField < Stripe::StripeObject
@@ -34,6 +40,12 @@ module Stripe
         # The value of the custom field.
         sig { returns(String) }
         def value; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class RenderingOptions < Stripe::StripeObject
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
@@ -42,6 +54,12 @@ module Stripe
         # ID of the invoice rendering template to be used for this customer's invoices. If set, the template will be used on all invoices for this customer unless a template is set directly on the invoice.
         sig { returns(T.nilable(String)) }
         def template; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Default custom fields to be displayed on invoices for this customer.
       sig { returns(T.nilable(T::Array[CustomField])) }
@@ -55,6 +73,12 @@ module Stripe
       # Default options for invoice PDF rendering for this customer.
       sig { returns(T.nilable(RenderingOptions)) }
       def rendering_options; end
+      def self.inner_class_types
+        @inner_class_types = {custom_fields: CustomField, rendering_options: RenderingOptions}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Shipping < Stripe::StripeObject
       class Address < Stripe::StripeObject
@@ -64,10 +88,10 @@ module Stripe
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(T.nilable(String)) }
         def country; end
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         sig { returns(T.nilable(String)) }
         def line1; end
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         sig { returns(T.nilable(String)) }
         def line2; end
         # ZIP or postal code.
@@ -76,6 +100,12 @@ module Stripe
         # State, county, province, or region.
         sig { returns(T.nilable(String)) }
         def state; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field address
       sig { returns(T.nilable(Address)) }
@@ -92,6 +122,12 @@ module Stripe
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       sig { returns(T.nilable(String)) }
       def tracking_number; end
+      def self.inner_class_types
+        @inner_class_types = {address: Address}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Tax < Stripe::StripeObject
       class Location < Stripe::StripeObject
@@ -104,6 +140,12 @@ module Stripe
         # The identified tax state, county, province, or region of the customer.
         sig { returns(T.nilable(String)) }
         def state; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Surfaces if automatic tax computation is possible given the current customer location information.
       sig { returns(String) }
@@ -114,6 +156,12 @@ module Stripe
       # The identified tax location of the customer.
       sig { returns(T.nilable(Location)) }
       def location; end
+      def self.inner_class_types
+        @inner_class_types = {location: Location}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The customer's address.
     sig { returns(T.nilable(Address)) }
@@ -121,6 +169,9 @@ module Stripe
     # The current balance, if any, that's stored on the customer in their default currency. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize. For multi-currency balances, see [invoice_credit_balance](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance).
     sig { returns(T.nilable(Integer)) }
     def balance; end
+    # The customer's business name.
+    sig { returns(T.nilable(String)) }
+    def business_name; end
     # The current funds being held by Stripe on behalf of the customer. You can apply these funds towards payment intents when the source is "cash_balance". The `settings[reconciliation_mode]` field describes if these funds apply to these payment intents manually or automatically.
     sig { returns(T.nilable(Stripe::CashBalance)) }
     def cash_balance; end
@@ -156,6 +207,9 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
+    # The customer's individual name.
+    sig { returns(T.nilable(String)) }
+    def individual_name; end
     # The current multi-currency balances, if any, that's stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that's added to their next invoice denominated in that currency. These balances don't apply to unpaid invoices. They solely track amounts that Stripe hasn't successfully applied to any invoice. Stripe only applies a balance in a specific currency to an invoice after that invoice (which is in the same currency) finalizes.
     sig { returns(T.nilable(T::Hash[String, Integer])) }
     def invoice_credit_balance; end
@@ -223,12 +277,12 @@ module Stripe
         def country; end
         sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
         def country=(_country); end
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         sig { returns(T.nilable(String)) }
         def line1; end
         sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
         def line1=(_line1); end
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         sig { returns(T.nilable(String)) }
         def line2; end
         sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -361,12 +415,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -441,6 +495,11 @@ module Stripe
       def balance; end
       sig { params(_balance: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def balance=(_balance); end
+      # The customer's business name. This may be up to *150 characters*.
+      sig { returns(T.nilable(String)) }
+      def business_name; end
+      sig { params(_business_name: T.nilable(String)).returns(T.nilable(String)) }
+      def business_name=(_business_name); end
       # Balance information and default balance settings for this customer.
       sig { returns(T.nilable(::Stripe::Customer::UpdateParams::CashBalance)) }
       def cash_balance; end
@@ -472,6 +531,11 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # The customer's full name. This may be up to *150 characters*.
+      sig { returns(T.nilable(String)) }
+      def individual_name; end
+      sig { params(_individual_name: T.nilable(String)).returns(T.nilable(String)) }
+      def individual_name=(_individual_name); end
       # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
       sig { returns(T.nilable(String)) }
       def invoice_prefix; end
@@ -545,16 +609,18 @@ module Stripe
       sig { params(_validate: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def validate=(_validate); end
       sig {
-        params(address: T.nilable(T.any(String, ::Stripe::Customer::UpdateParams::Address)), balance: T.nilable(Integer), cash_balance: T.nilable(::Stripe::Customer::UpdateParams::CashBalance), default_source: T.nilable(String), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::Customer::UpdateParams::InvoiceSettings), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, ::Stripe::Customer::UpdateParams::Shipping)), source: T.nilable(String), tax: T.nilable(::Stripe::Customer::UpdateParams::Tax), tax_exempt: T.nilable(T.any(String, String)), validate: T.nilable(T::Boolean)).void
+        params(address: T.nilable(T.any(String, ::Stripe::Customer::UpdateParams::Address)), balance: T.nilable(Integer), business_name: T.nilable(String), cash_balance: T.nilable(::Stripe::Customer::UpdateParams::CashBalance), default_source: T.nilable(String), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual_name: T.nilable(String), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::Customer::UpdateParams::InvoiceSettings), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, ::Stripe::Customer::UpdateParams::Shipping)), source: T.nilable(String), tax: T.nilable(::Stripe::Customer::UpdateParams::Tax), tax_exempt: T.nilable(T.any(String, String)), validate: T.nilable(T::Boolean)).void
        }
       def initialize(
         address: nil,
         balance: nil,
+        business_name: nil,
         cash_balance: nil,
         default_source: nil,
         description: nil,
         email: nil,
         expand: nil,
+        individual_name: nil,
         invoice_prefix: nil,
         invoice_settings: nil,
         metadata: nil,
@@ -659,12 +725,12 @@ module Stripe
         def country; end
         sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
         def country=(_country); end
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         sig { returns(T.nilable(String)) }
         def line1; end
         sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
         def line1=(_line1); end
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         sig { returns(T.nilable(String)) }
         def line2; end
         sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -797,12 +863,12 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
           sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
           def line1=(_line1); end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -891,6 +957,11 @@ module Stripe
       def balance; end
       sig { params(_balance: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def balance=(_balance); end
+      # The customer's business name. This may be up to *150 characters*.
+      sig { returns(T.nilable(String)) }
+      def business_name; end
+      sig { params(_business_name: T.nilable(String)).returns(T.nilable(String)) }
+      def business_name=(_business_name); end
       # Balance information and default balance settings for this customer.
       sig { returns(T.nilable(::Stripe::Customer::CreateParams::CashBalance)) }
       def cash_balance; end
@@ -913,6 +984,11 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # The customer's full name. This may be up to *150 characters*.
+      sig { returns(T.nilable(String)) }
+      def individual_name; end
+      sig { params(_individual_name: T.nilable(String)).returns(T.nilable(String)) }
+      def individual_name=(_individual_name); end
       # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
       sig { returns(T.nilable(String)) }
       def invoice_prefix; end
@@ -1003,15 +1079,17 @@ module Stripe
       sig { params(_validate: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def validate=(_validate); end
       sig {
-        params(address: T.nilable(T.any(String, ::Stripe::Customer::CreateParams::Address)), balance: T.nilable(Integer), cash_balance: T.nilable(::Stripe::Customer::CreateParams::CashBalance), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::Customer::CreateParams::InvoiceSettings), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), payment_method: T.nilable(String), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, ::Stripe::Customer::CreateParams::Shipping)), source: T.nilable(String), tax: T.nilable(::Stripe::Customer::CreateParams::Tax), tax_exempt: T.nilable(T.any(String, String)), tax_id_data: T.nilable(T::Array[::Stripe::Customer::CreateParams::TaxIdDatum]), test_clock: T.nilable(String), validate: T.nilable(T::Boolean)).void
+        params(address: T.nilable(T.any(String, ::Stripe::Customer::CreateParams::Address)), balance: T.nilable(Integer), business_name: T.nilable(String), cash_balance: T.nilable(::Stripe::Customer::CreateParams::CashBalance), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual_name: T.nilable(String), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::Customer::CreateParams::InvoiceSettings), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), payment_method: T.nilable(String), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, ::Stripe::Customer::CreateParams::Shipping)), source: T.nilable(String), tax: T.nilable(::Stripe::Customer::CreateParams::Tax), tax_exempt: T.nilable(T.any(String, String)), tax_id_data: T.nilable(T::Array[::Stripe::Customer::CreateParams::TaxIdDatum]), test_clock: T.nilable(String), validate: T.nilable(T::Boolean)).void
        }
       def initialize(
         address: nil,
         balance: nil,
+        business_name: nil,
         cash_balance: nil,
         description: nil,
         email: nil,
         expand: nil,
+        individual_name: nil,
         invoice_prefix: nil,
         invoice_settings: nil,
         metadata: nil,

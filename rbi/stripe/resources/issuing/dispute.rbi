@@ -40,6 +40,12 @@ module Stripe
           # Date when the product was returned or attempted to be returned.
           sig { returns(T.nilable(Integer)) }
           def returned_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Duplicate < Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -60,6 +66,12 @@ module Stripe
           # Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
           sig { returns(T.nilable(String)) }
           def original_transaction; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Fraudulent < Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -68,6 +80,12 @@ module Stripe
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           def explanation; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class MerchandiseNotAsDescribed < Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -88,6 +106,12 @@ module Stripe
           # Date when the product was returned or attempted to be returned.
           sig { returns(T.nilable(Integer)) }
           def returned_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class NoValidAuthorization < Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -96,6 +120,12 @@ module Stripe
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           def explanation; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class NotReceived < Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -113,6 +143,12 @@ module Stripe
           # Whether the product was a merchandise or service.
           sig { returns(T.nilable(String)) }
           def product_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Other < Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -127,6 +163,12 @@ module Stripe
           # Whether the product was a merchandise or service.
           sig { returns(T.nilable(String)) }
           def product_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class ServiceNotAsDescribed < Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -144,6 +186,12 @@ module Stripe
           # Date when the product was received.
           sig { returns(T.nilable(Integer)) }
           def received_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field canceled
         sig { returns(T.nilable(Canceled)) }
@@ -172,6 +220,21 @@ module Stripe
         # Attribute for field service_not_as_described
         sig { returns(T.nilable(ServiceNotAsDescribed)) }
         def service_not_as_described; end
+        def self.inner_class_types
+          @inner_class_types = {
+            canceled: Canceled,
+            duplicate: Duplicate,
+            fraudulent: Fraudulent,
+            merchandise_not_as_described: MerchandiseNotAsDescribed,
+            no_valid_authorization: NoValidAuthorization,
+            not_received: NotReceived,
+            other: Other,
+            service_not_as_described: ServiceNotAsDescribed,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Treasury < Stripe::StripeObject
         # The Treasury [DebitReversal](https://stripe.com/docs/api/treasury/debit_reversals) representing this Issuing dispute
@@ -180,6 +243,12 @@ module Stripe
         # The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) that is being disputed.
         sig { returns(String) }
         def received_debit; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Disputed amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation).
       sig { returns(Integer) }

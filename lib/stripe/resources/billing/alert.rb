@@ -19,6 +19,14 @@ module Stripe
           attr_reader :customer
           # Attribute for field type
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
         attr_reader :filters
@@ -28,6 +36,14 @@ module Stripe
         attr_reader :meter
         # Defines how the alert will behave.
         attr_reader :recurrence
+
+        def self.inner_class_types
+          @inner_class_types = { filters: Filter }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -80,7 +96,7 @@ module Stripe
           attr_accessor :gte
           # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
           attr_accessor :meter
-          # Whether the alert should only fire only once, or once per billing cycle.
+          # Defines how the alert will behave.
           attr_accessor :recurrence
 
           def initialize(filters: nil, gte: nil, meter: nil, recurrence: nil)
@@ -216,6 +232,14 @@ module Stripe
       # Lists billing active and inactive alerts
       def self.list(params = {}, opts = {})
         request_stripe_object(method: :get, path: "/v1/billing/alerts", params: params, opts: opts)
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { usage_threshold: UsageThreshold }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

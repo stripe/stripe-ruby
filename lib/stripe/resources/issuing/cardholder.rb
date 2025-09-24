@@ -22,22 +22,46 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field address
         attr_reader :address
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Company < Stripe::StripeObject
         # Whether the company's business ID number was provided.
         attr_reader :tax_id_provided
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Individual < Stripe::StripeObject
@@ -49,9 +73,25 @@ module Stripe
             attr_reader :ip
             # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
             attr_reader :user_agent
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
           attr_reader :user_terms_acceptance
+
+          def self.inner_class_types
+            @inner_class_types = { user_terms_acceptance: UserTermsAcceptance }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Dob < Stripe::StripeObject
@@ -61,6 +101,14 @@ module Stripe
           attr_reader :month
           # The four-digit year of birth.
           attr_reader :year
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Verification < Stripe::StripeObject
@@ -69,9 +117,25 @@ module Stripe
             attr_reader :back
             # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
             attr_reader :front
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # An identifying document, either a passport or local ID card.
           attr_reader :document
+
+          def self.inner_class_types
+            @inner_class_types = { document: Document }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Information related to the card_issuing program for this cardholder.
         attr_reader :card_issuing
@@ -83,6 +147,14 @@ module Stripe
         attr_reader :last_name
         # Government-issued ID document for this cardholder.
         attr_reader :verification
+
+        def self.inner_class_types
+          @inner_class_types = { card_issuing: CardIssuing, dob: Dob, verification: Verification }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Requirements < Stripe::StripeObject
@@ -90,6 +162,14 @@ module Stripe
         attr_reader :disabled_reason
         # Array of fields that need to be collected in order to verify and re-enable the cardholder.
         attr_reader :past_due
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SpendingControls < Stripe::StripeObject
@@ -100,6 +180,14 @@ module Stripe
           attr_reader :categories
           # Interval (or event) to which the amount applies.
           attr_reader :interval
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         attr_reader :allowed_categories
@@ -113,6 +201,14 @@ module Stripe
         attr_reader :spending_limits
         # Currency of the amounts within `spending_limits`.
         attr_reader :spending_limits_currency
+
+        def self.inner_class_types
+          @inner_class_types = { spending_limits: SpendingLimit }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -182,9 +278,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -414,9 +510,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -692,6 +788,20 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          billing: Billing,
+          company: Company,
+          individual: Individual,
+          requirements: Requirements,
+          spending_controls: SpendingControls,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

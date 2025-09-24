@@ -16,6 +16,15 @@ module Stripe
       end
 
       class UpdateParams < Stripe::RequestParams
+        class BbposWisepad3 < Stripe::RequestParams
+          # A File ID representing an image you would like displayed on the reader.
+          attr_accessor :splashscreen
+
+          def initialize(splashscreen: nil)
+            @splashscreen = splashscreen
+          end
+        end
+
         class BbposWiseposE < Stripe::RequestParams
           # A File ID representing an image to display on the reader
           attr_accessor :splashscreen
@@ -547,6 +556,8 @@ module Stripe
             @type = type
           end
         end
+        # An object containing device type specific settings for BBPOS WisePad 3 readers
+        attr_accessor :bbpos_wisepad3
         # An object containing device type specific settings for BBPOS WisePOS E readers
         attr_accessor :bbpos_wisepos_e
         # Specifies which fields in the response should be expanded.
@@ -567,6 +578,7 @@ module Stripe
         attr_accessor :wifi
 
         def initialize(
+          bbpos_wisepad3: nil,
           bbpos_wisepos_e: nil,
           expand: nil,
           name: nil,
@@ -577,6 +589,7 @@ module Stripe
           verifone_p400: nil,
           wifi: nil
         )
+          @bbpos_wisepad3 = bbpos_wisepad3
           @bbpos_wisepos_e = bbpos_wisepos_e
           @expand = expand
           @name = name
@@ -617,6 +630,15 @@ module Stripe
       end
 
       class CreateParams < Stripe::RequestParams
+        class BbposWisepad3 < Stripe::RequestParams
+          # A File ID representing an image you would like displayed on the reader.
+          attr_accessor :splashscreen
+
+          def initialize(splashscreen: nil)
+            @splashscreen = splashscreen
+          end
+        end
+
         class BbposWiseposE < Stripe::RequestParams
           # A File ID representing an image to display on the reader
           attr_accessor :splashscreen
@@ -1148,6 +1170,8 @@ module Stripe
             @type = type
           end
         end
+        # An object containing device type specific settings for BBPOS WisePad 3 readers
+        attr_accessor :bbpos_wisepad3
         # An object containing device type specific settings for BBPOS WisePOS E readers
         attr_accessor :bbpos_wisepos_e
         # Specifies which fields in the response should be expanded.
@@ -1168,6 +1192,7 @@ module Stripe
         attr_accessor :wifi
 
         def initialize(
+          bbpos_wisepad3: nil,
           bbpos_wisepos_e: nil,
           expand: nil,
           name: nil,
@@ -1178,6 +1203,7 @@ module Stripe
           verifone_p400: nil,
           wifi: nil
         )
+          @bbpos_wisepad3 = bbpos_wisepad3
           @bbpos_wisepos_e = bbpos_wisepos_e
           @expand = expand
           @name = name

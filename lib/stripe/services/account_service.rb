@@ -93,9 +93,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -461,6 +461,15 @@ module Stripe
           end
         end
 
+        class MbWayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class MobilepayPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -543,6 +552,15 @@ module Stripe
         end
 
         class PaynowPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
+        class PaypayPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
 
@@ -767,6 +785,8 @@ module Stripe
         attr_accessor :legacy_payments
         # The link_payments capability.
         attr_accessor :link_payments
+        # The mb_way_payments capability.
+        attr_accessor :mb_way_payments
         # The mobilepay_payments capability.
         attr_accessor :mobilepay_payments
         # The multibanco_payments capability.
@@ -787,6 +807,8 @@ module Stripe
         attr_accessor :payco_payments
         # The paynow_payments capability.
         attr_accessor :paynow_payments
+        # The paypay_payments capability.
+        attr_accessor :paypay_payments
         # The pix_payments capability.
         attr_accessor :pix_payments
         # The promptpay_payments capability.
@@ -855,6 +877,7 @@ module Stripe
           kr_card_payments: nil,
           legacy_payments: nil,
           link_payments: nil,
+          mb_way_payments: nil,
           mobilepay_payments: nil,
           multibanco_payments: nil,
           mx_bank_transfer_payments: nil,
@@ -865,6 +888,7 @@ module Stripe
           pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
+          paypay_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
           revolut_pay_payments: nil,
@@ -915,6 +939,7 @@ module Stripe
           @kr_card_payments = kr_card_payments
           @legacy_payments = legacy_payments
           @link_payments = link_payments
+          @mb_way_payments = mb_way_payments
           @mobilepay_payments = mobilepay_payments
           @multibanco_payments = multibanco_payments
           @mx_bank_transfer_payments = mx_bank_transfer_payments
@@ -925,6 +950,7 @@ module Stripe
           @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
+          @paypay_payments = paypay_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
           @revolut_pay_payments = revolut_pay_payments
@@ -1033,9 +1059,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -1425,9 +1451,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -1541,9 +1567,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -1852,9 +1878,9 @@ module Stripe
             attr_accessor :monthly_anchor
             # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
             attr_accessor :monthly_payout_days
-            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_anchor
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_payout_days
 
             def initialize(
@@ -2153,9 +2179,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -2521,6 +2547,15 @@ module Stripe
           end
         end
 
+        class MbWayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class MobilepayPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -2603,6 +2638,15 @@ module Stripe
         end
 
         class PaynowPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
+        class PaypayPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
 
@@ -2827,6 +2871,8 @@ module Stripe
         attr_accessor :legacy_payments
         # The link_payments capability.
         attr_accessor :link_payments
+        # The mb_way_payments capability.
+        attr_accessor :mb_way_payments
         # The mobilepay_payments capability.
         attr_accessor :mobilepay_payments
         # The multibanco_payments capability.
@@ -2847,6 +2893,8 @@ module Stripe
         attr_accessor :payco_payments
         # The paynow_payments capability.
         attr_accessor :paynow_payments
+        # The paypay_payments capability.
+        attr_accessor :paypay_payments
         # The pix_payments capability.
         attr_accessor :pix_payments
         # The promptpay_payments capability.
@@ -2915,6 +2963,7 @@ module Stripe
           kr_card_payments: nil,
           legacy_payments: nil,
           link_payments: nil,
+          mb_way_payments: nil,
           mobilepay_payments: nil,
           multibanco_payments: nil,
           mx_bank_transfer_payments: nil,
@@ -2925,6 +2974,7 @@ module Stripe
           pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
+          paypay_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
           revolut_pay_payments: nil,
@@ -2975,6 +3025,7 @@ module Stripe
           @kr_card_payments = kr_card_payments
           @legacy_payments = legacy_payments
           @link_payments = link_payments
+          @mb_way_payments = mb_way_payments
           @mobilepay_payments = mobilepay_payments
           @multibanco_payments = multibanco_payments
           @mx_bank_transfer_payments = mx_bank_transfer_payments
@@ -2985,6 +3036,7 @@ module Stripe
           @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
+          @paypay_payments = paypay_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
           @revolut_pay_payments = revolut_pay_payments
@@ -3093,9 +3145,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -3529,9 +3581,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -3645,9 +3697,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -3953,9 +4005,9 @@ module Stripe
             attr_accessor :monthly_anchor
             # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
             attr_accessor :monthly_payout_days
-            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+            # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_anchor
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             attr_accessor :weekly_payout_days
 
             def initialize(

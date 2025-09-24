@@ -30,6 +30,14 @@ module Stripe
       class AdaptivePricing < Stripe::StripeObject
         # If enabled, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions).
         attr_reader :enabled
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AfterExpiration < Stripe::StripeObject
@@ -44,9 +52,25 @@ module Stripe
           attr_reader :expires_at
           # URL that creates a new Checkout Session when clicked that is a copy of this expired Checkout Session
           attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # When set, configuration used to recover the Checkout Session on expiry.
         attr_reader :recovery
+
+        def self.inner_class_types
+          @inner_class_types = { recovery: Recovery }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class AutomaticTax < Stripe::StripeObject
@@ -55,6 +79,14 @@ module Stripe
           attr_reader :account
           # Type of the account referenced.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Indicates whether automatic tax is enabled for the session
         attr_reader :enabled
@@ -64,6 +96,72 @@ module Stripe
         attr_reader :provider
         # The status of the most recent automated tax calculation for this session.
         attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = { liability: Liability }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BrandingSettings < Stripe::StripeObject
+        class Icon < Stripe::StripeObject
+          # The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+          attr_reader :file
+          # The type of image for the icon. Must be one of `file` or `url`.
+          attr_reader :type
+          # The URL of the image. Present when `type` is `url`.
+          attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Logo < Stripe::StripeObject
+          # The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+          attr_reader :file
+          # The type of image for the logo. Must be one of `file` or `url`.
+          attr_reader :type
+          # The URL of the image. Present when `type` is `url`.
+          attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # A hex color value starting with `#` representing the background color for the Checkout Session.
+        attr_reader :background_color
+        # The border style for the Checkout Session. Must be one of `rounded`, `rectangular`, or `pill`.
+        attr_reader :border_style
+        # A hex color value starting with `#` representing the button color for the Checkout Session.
+        attr_reader :button_color
+        # The display name shown on the Checkout Session.
+        attr_reader :display_name
+        # The font family for the Checkout Session. Must be one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+        attr_reader :font_family
+        # The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        attr_reader :icon
+        # The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        attr_reader :logo
+
+        def self.inner_class_types
+          @inner_class_types = { icon: Icon, logo: Logo }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CollectedInformation < Stripe::StripeObject
@@ -73,22 +171,50 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
             # State, county, province, or region.
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field address
           attr_reader :address
           # Customer name.
           attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
+        # Customer’s business name for this Checkout Session
+        attr_reader :business_name
+        # Customer’s individual name for this Checkout Session
+        attr_reader :individual_name
         # Shipping information for this Checkout Session.
         attr_reader :shipping_details
+
+        def self.inner_class_types
+          @inner_class_types = { shipping_details: ShippingDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Consent < Stripe::StripeObject
@@ -97,6 +223,14 @@ module Stripe
         attr_reader :promotions
         # If `accepted`, the customer in this Checkout Session has agreed to the merchant's terms of service.
         attr_reader :terms_of_service
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ConsentCollection < Stripe::StripeObject
@@ -105,6 +239,14 @@ module Stripe
           #
           # When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
           attr_reader :position
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # If set to `hidden`, it will hide legal text related to the reuse of a payment method.
         attr_reader :payment_method_reuse_agreement
@@ -114,6 +256,14 @@ module Stripe
         attr_reader :promotions
         # If set to `required`, it requires customers to accept the terms of service before being able to pay.
         attr_reader :terms_of_service
+
+        def self.inner_class_types
+          @inner_class_types = { payment_method_reuse_agreement: PaymentMethodReuseAgreement }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CurrencyConversion < Stripe::StripeObject
@@ -125,6 +275,14 @@ module Stripe
         attr_reader :fx_rate
         # Creation currency of the CheckoutSession before localization
         attr_reader :source_currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CustomField < Stripe::StripeObject
@@ -134,6 +292,14 @@ module Stripe
             attr_reader :label
             # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The value that will pre-fill on the payment page.
           attr_reader :default_value
@@ -141,6 +307,14 @@ module Stripe
           attr_reader :options
           # The option selected by the customer. This will be the `value` for the option.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = { options: Option }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Label < Stripe::StripeObject
@@ -148,6 +322,14 @@ module Stripe
           attr_reader :custom
           # The type of the label.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Numeric < Stripe::StripeObject
@@ -159,6 +341,14 @@ module Stripe
           attr_reader :minimum_length
           # The value entered by the customer, containing only digits.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Text < Stripe::StripeObject
@@ -170,6 +360,14 @@ module Stripe
           attr_reader :minimum_length
           # The value entered by the customer.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field dropdown
         attr_reader :dropdown
@@ -185,27 +383,67 @@ module Stripe
         attr_reader :text
         # The type of the field.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { dropdown: Dropdown, label: Label, numeric: Numeric, text: Text }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CustomText < Stripe::StripeObject
         class AfterSubmit < Stripe::StripeObject
           # Text may be up to 1200 characters in length.
           attr_reader :message
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class ShippingAddress < Stripe::StripeObject
           # Text may be up to 1200 characters in length.
           attr_reader :message
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Submit < Stripe::StripeObject
           # Text may be up to 1200 characters in length.
           attr_reader :message
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class TermsOfServiceAcceptance < Stripe::StripeObject
           # Text may be up to 1200 characters in length.
           attr_reader :message
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Custom text that should be displayed after the payment confirmation button.
         attr_reader :after_submit
@@ -215,6 +453,19 @@ module Stripe
         attr_reader :submit
         # Custom text that should be displayed in place of the default terms of service agreement text.
         attr_reader :terms_of_service_acceptance
+
+        def self.inner_class_types
+          @inner_class_types = {
+            after_submit: AfterSubmit,
+            shipping_address: ShippingAddress,
+            submit: Submit,
+            terms_of_service_acceptance: TermsOfServiceAcceptance,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class CustomerDetails < Stripe::StripeObject
@@ -223,14 +474,22 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
           # State, county, province, or region.
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class TaxId < Stripe::StripeObject
@@ -238,12 +497,24 @@ module Stripe
           attr_reader :type
           # The value of the tax ID.
           attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The customer's address after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
         attr_reader :address
+        # The customer's business name after a completed Checkout Session.
+        attr_reader :business_name
         # The email associated with the Customer, if one exists, on the Checkout Session after a completed Checkout Session or at time of session expiry.
         # Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form.
         attr_reader :email
+        # The customer's individual name after a completed Checkout Session.
+        attr_reader :individual_name
         # The customer's name after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
         attr_reader :name
         # The customer's phone number after a completed Checkout Session.
@@ -252,6 +523,14 @@ module Stripe
         attr_reader :tax_exempt
         # The customer’s tax IDs after a completed Checkout Session.
         attr_reader :tax_ids
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address, tax_ids: TaxId }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Discount < Stripe::StripeObject
@@ -259,6 +538,14 @@ module Stripe
         attr_reader :coupon
         # Promotion code attached to the Checkout Session.
         attr_reader :promotion_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class InvoiceCreation < Stripe::StripeObject
@@ -268,6 +555,14 @@ module Stripe
             attr_reader :name
             # The value of the custom field.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Issuer < Stripe::StripeObject
@@ -275,6 +570,14 @@ module Stripe
             attr_reader :account
             # Type of the account referenced.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class RenderingOptions < Stripe::StripeObject
@@ -282,6 +585,14 @@ module Stripe
             attr_reader :amount_tax_display
             # ID of the invoice rendering template to be used for the generated invoice.
             attr_reader :template
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The account tax IDs associated with the invoice.
           attr_reader :account_tax_ids
@@ -297,11 +608,75 @@ module Stripe
           attr_reader :metadata
           # Options for invoice PDF rendering.
           attr_reader :rendering_options
+
+          def self.inner_class_types
+            @inner_class_types = {
+              custom_fields: CustomField,
+              issuer: Issuer,
+              rendering_options: RenderingOptions,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Indicates whether invoice creation is enabled for the Checkout Session.
         attr_reader :enabled
         # Attribute for field invoice_data
         attr_reader :invoice_data
+
+        def self.inner_class_types
+          @inner_class_types = { invoice_data: InvoiceData }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class NameCollection < Stripe::StripeObject
+        class Business < Stripe::StripeObject
+          # Indicates whether business name collection is enabled for the session
+          attr_reader :enabled
+          # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+          attr_reader :optional
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Individual < Stripe::StripeObject
+          # Indicates whether individual name collection is enabled for the session
+          attr_reader :enabled
+          # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+          attr_reader :optional
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field business
+        attr_reader :business
+        # Attribute for field individual
+        attr_reader :individual
+
+        def self.inner_class_types
+          @inner_class_types = { business: Business, individual: Individual }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class OptionalItem < Stripe::StripeObject
@@ -312,6 +687,14 @@ module Stripe
           attr_reader :maximum
           # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
           attr_reader :minimum
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field adjustable_quantity
         attr_reader :adjustable_quantity
@@ -319,6 +702,14 @@ module Stripe
         attr_reader :price
         # Attribute for field quantity
         attr_reader :quantity
+
+        def self.inner_class_types
+          @inner_class_types = { adjustable_quantity: AdjustableQuantity }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PaymentMethodConfigurationDetails < Stripe::StripeObject
@@ -326,6 +717,14 @@ module Stripe
         attr_reader :id
         # ID of the parent payment method configuration used.
         attr_reader :parent
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PaymentMethodOptions < Stripe::StripeObject
@@ -341,6 +740,14 @@ module Stripe
             attr_reader :payment_schedule
             # Transaction type of the mandate.
             attr_reader :transaction_type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Currency supported by the bank account. Returned when the Session is in `setup` mode.
           attr_reader :currency
@@ -358,9 +765,19 @@ module Stripe
           attr_reader :target_date
           # Bank account verification method.
           attr_reader :verification_method
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Affirm < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -369,9 +786,19 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class AfterpayClearpay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -380,6 +807,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Alipay < Stripe::StripeObject
@@ -391,9 +826,32 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Alma < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class AmazonPay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -402,6 +860,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class AuBecsDebit < Stripe::StripeObject
@@ -415,12 +881,28 @@ module Stripe
           attr_reader :setup_future_usage
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           attr_reader :target_date
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class BacsDebit < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
             attr_reader :reference_prefix
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field mandate_options
           attr_reader :mandate_options
@@ -434,6 +916,14 @@ module Stripe
           attr_reader :setup_future_usage
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           attr_reader :target_date
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Bancontact < Stripe::StripeObject
@@ -445,6 +935,27 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Billie < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Boleto < Stripe::StripeObject
@@ -458,18 +969,44 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Card < Stripe::StripeObject
           class Installments < Stripe::StripeObject
             # Indicates if installments are enabled
             attr_reader :enabled
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Restrictions < Stripe::StripeObject
             # Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
             attr_reader :brands_blocked
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
           # Attribute for field installments
           attr_reader :installments
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
@@ -496,9 +1033,19 @@ module Stripe
           attr_reader :statement_descriptor_suffix_kana
           # Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
           attr_reader :statement_descriptor_suffix_kanji
+
+          def self.inner_class_types
+            @inner_class_types = { installments: Installments, restrictions: Restrictions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Cashapp < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -507,6 +1054,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class CustomerBalance < Stripe::StripeObject
@@ -514,6 +1069,14 @@ module Stripe
             class EuBankTransfer < Stripe::StripeObject
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               attr_reader :country
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field eu_bank_transfer
             attr_reader :eu_bank_transfer
@@ -523,6 +1086,14 @@ module Stripe
             attr_reader :requested_address_types
             # The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
             attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { eu_bank_transfer: EuBankTransfer }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field bank_transfer
           attr_reader :bank_transfer
@@ -536,6 +1107,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = { bank_transfer: BankTransfer }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Eps < Stripe::StripeObject
@@ -547,6 +1126,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Fpx < Stripe::StripeObject
@@ -558,6 +1145,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Giropay < Stripe::StripeObject
@@ -569,6 +1164,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Grabpay < Stripe::StripeObject
@@ -580,6 +1183,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Ideal < Stripe::StripeObject
@@ -591,6 +1202,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class KakaoPay < Stripe::StripeObject
@@ -604,9 +1223,19 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Klarna < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -615,6 +1244,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Konbini < Stripe::StripeObject
@@ -628,6 +1265,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class KrCard < Stripe::StripeObject
@@ -641,9 +1286,19 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Link < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -652,9 +1307,19 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Mobilepay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -663,6 +1328,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Multibanco < Stripe::StripeObject
@@ -674,6 +1347,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class NaverPay < Stripe::StripeObject
@@ -687,6 +1368,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Oxxo < Stripe::StripeObject
@@ -700,6 +1389,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class P24 < Stripe::StripeObject
@@ -711,11 +1408,27 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Payco < Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Paynow < Stripe::StripeObject
@@ -727,6 +1440,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Paypal < Stripe::StripeObject
@@ -744,6 +1465,14 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Pix < Stripe::StripeObject
@@ -759,9 +1488,19 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class RevolutPay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -770,17 +1509,54 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class SamsungPay < Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Satispay < Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class SepaDebit < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
             # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
             attr_reader :reference_prefix
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field mandate_options
           attr_reader :mandate_options
@@ -794,6 +1570,14 @@ module Stripe
           attr_reader :setup_future_usage
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           attr_reader :target_date
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Sofort < Stripe::StripeObject
@@ -805,11 +1589,27 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class Swish < Stripe::StripeObject
           # The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
           attr_reader :reference
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
         class UsBankAccount < Stripe::StripeObject
@@ -817,6 +1617,14 @@ module Stripe
             class Filters < Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               attr_reader :account_subcategories
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Attribute for field filters
             attr_reader :filters
@@ -826,6 +1634,14 @@ module Stripe
             attr_reader :prefetch
             # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
             attr_reader :return_url
+
+            def self.inner_class_types
+              @inner_class_types = { filters: Filters }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field financial_connections
           attr_reader :financial_connections
@@ -841,6 +1657,14 @@ module Stripe
           attr_reader :target_date
           # Bank account verification method.
           attr_reader :verification_method
+
+          def self.inner_class_types
+            @inner_class_types = { financial_connections: FinancialConnections }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field acss_debit
         attr_reader :acss_debit
@@ -850,6 +1674,8 @@ module Stripe
         attr_reader :afterpay_clearpay
         # Attribute for field alipay
         attr_reader :alipay
+        # Attribute for field alma
+        attr_reader :alma
         # Attribute for field amazon_pay
         attr_reader :amazon_pay
         # Attribute for field au_becs_debit
@@ -858,6 +1684,8 @@ module Stripe
         attr_reader :bacs_debit
         # Attribute for field bancontact
         attr_reader :bancontact
+        # Attribute for field billie
+        attr_reader :billie
         # Attribute for field boleto
         attr_reader :boleto
         # Attribute for field card
@@ -908,6 +1736,8 @@ module Stripe
         attr_reader :revolut_pay
         # Attribute for field samsung_pay
         attr_reader :samsung_pay
+        # Attribute for field satispay
+        attr_reader :satispay
         # Attribute for field sepa_debit
         attr_reader :sepa_debit
         # Attribute for field sofort
@@ -916,6 +1746,55 @@ module Stripe
         attr_reader :swish
         # Attribute for field us_bank_account
         attr_reader :us_bank_account
+
+        def self.inner_class_types
+          @inner_class_types = {
+            acss_debit: AcssDebit,
+            affirm: Affirm,
+            afterpay_clearpay: AfterpayClearpay,
+            alipay: Alipay,
+            alma: Alma,
+            amazon_pay: AmazonPay,
+            au_becs_debit: AuBecsDebit,
+            bacs_debit: BacsDebit,
+            bancontact: Bancontact,
+            billie: Billie,
+            boleto: Boleto,
+            card: Card,
+            cashapp: Cashapp,
+            customer_balance: CustomerBalance,
+            eps: Eps,
+            fpx: Fpx,
+            giropay: Giropay,
+            grabpay: Grabpay,
+            ideal: Ideal,
+            kakao_pay: KakaoPay,
+            klarna: Klarna,
+            konbini: Konbini,
+            kr_card: KrCard,
+            link: Link,
+            mobilepay: Mobilepay,
+            multibanco: Multibanco,
+            naver_pay: NaverPay,
+            oxxo: Oxxo,
+            p24: P24,
+            payco: Payco,
+            paynow: Paynow,
+            paypal: Paypal,
+            pix: Pix,
+            revolut_pay: RevolutPay,
+            samsung_pay: SamsungPay,
+            satispay: Satispay,
+            sepa_debit: SepaDebit,
+            sofort: Sofort,
+            swish: Swish,
+            us_bank_account: UsBankAccount,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class Permissions < Stripe::StripeObject
@@ -925,11 +1804,27 @@ module Stripe
         #
         # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
         attr_reader :update_shipping_details
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PhoneNumberCollection < Stripe::StripeObject
         # Indicates whether phone number collection is enabled for the session
         attr_reader :enabled
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class PresentmentDetails < Stripe::StripeObject
@@ -937,6 +1832,14 @@ module Stripe
         attr_reader :presentment_amount
         # Currency presented to the customer during payment.
         attr_reader :presentment_currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class SavedPaymentMethodOptions < Stripe::StripeObject
@@ -946,12 +1849,28 @@ module Stripe
         attr_reader :payment_method_remove
         # Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
         attr_reader :payment_method_save
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ShippingAddressCollection < Stripe::StripeObject
         # An array of two-letter ISO country codes representing which countries Checkout should provide as options for
         # shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SY, UM, VI`.
         attr_reader :allowed_countries
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ShippingCost < Stripe::StripeObject
@@ -966,6 +1885,14 @@ module Stripe
           attr_reader :taxability_reason
           # The amount on which tax is calculated, in cents (or local equivalent).
           attr_reader :taxable_amount
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Total shipping cost before any discounts or taxes are applied.
         attr_reader :amount_subtotal
@@ -977,6 +1904,14 @@ module Stripe
         attr_reader :shipping_rate
         # The taxes applied to the shipping rate.
         attr_reader :taxes
+
+        def self.inner_class_types
+          @inner_class_types = { taxes: Tax }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ShippingOption < Stripe::StripeObject
@@ -984,6 +1919,14 @@ module Stripe
         attr_reader :shipping_amount
         # The shipping rate.
         attr_reader :shipping_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class TaxIdCollection < Stripe::StripeObject
@@ -991,6 +1934,14 @@ module Stripe
         attr_reader :enabled
         # Indicates whether a tax ID is required on the payment page
         attr_reader :required
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class TotalDetails < Stripe::StripeObject
@@ -1003,6 +1954,14 @@ module Stripe
             #
             # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
             attr_reader :discount
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
           class Tax < Stripe::StripeObject
@@ -1016,11 +1975,27 @@ module Stripe
             attr_reader :taxability_reason
             # The amount on which tax is calculated, in cents (or local equivalent).
             attr_reader :taxable_amount
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The aggregated discounts.
           attr_reader :discounts
           # The aggregated tax amounts by rate.
           attr_reader :taxes
+
+          def self.inner_class_types
+            @inner_class_types = { discounts: Discount, taxes: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # This is the sum of all the discounts.
         attr_reader :amount_discount
@@ -1030,15 +2005,39 @@ module Stripe
         attr_reader :amount_tax
         # Attribute for field breakdown
         attr_reader :breakdown
+
+        def self.inner_class_types
+          @inner_class_types = { breakdown: Breakdown }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class WalletOptions < Stripe::StripeObject
         class Link < Stripe::StripeObject
           # Describes whether Checkout should display Link. Defaults to `auto`.
           attr_reader :display
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field link
         attr_reader :link
+
+        def self.inner_class_types
+          @inner_class_types = { link: Link }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
       class ListParams < Stripe::RequestParams
@@ -1172,6 +2171,70 @@ module Stripe
           def initialize(enabled: nil, liability: nil)
             @enabled = enabled
             @liability = liability
+          end
+        end
+
+        class BrandingSettings < Stripe::RequestParams
+          class Icon < Stripe::RequestParams
+            # The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+            attr_accessor :file
+            # The type of image for the icon. Must be one of `file` or `url`.
+            attr_accessor :type
+            # The URL of the image. Required if `type` is `url` and disallowed otherwise.
+            attr_accessor :url
+
+            def initialize(file: nil, type: nil, url: nil)
+              @file = file
+              @type = type
+              @url = url
+            end
+          end
+
+          class Logo < Stripe::RequestParams
+            # The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+            attr_accessor :file
+            # The type of image for the logo. Must be one of `file` or `url`.
+            attr_accessor :type
+            # The URL of the image. Required if `type` is `url` and disallowed otherwise.
+            attr_accessor :url
+
+            def initialize(file: nil, type: nil, url: nil)
+              @file = file
+              @type = type
+              @url = url
+            end
+          end
+          # A hex color value starting with `#` representing the background color for the Checkout Session.
+          attr_accessor :background_color
+          # The border style for the Checkout Session.
+          attr_accessor :border_style
+          # A hex color value starting with `#` representing the button color for the Checkout Session.
+          attr_accessor :button_color
+          # A string to override the business name shown on the Checkout Session.
+          attr_accessor :display_name
+          # The font family for the Checkout Session corresponding to one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+          attr_accessor :font_family
+          # The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+          attr_accessor :icon
+          # The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+          attr_accessor :logo
+
+          def initialize(
+            background_color: nil,
+            border_style: nil,
+            button_color: nil,
+            display_name: nil,
+            font_family: nil,
+            icon: nil,
+            logo: nil
+          )
+            @background_color = background_color
+            @border_style = border_style
+            @button_color = button_color
+            @display_name = display_name
+            @font_family = font_family
+            @icon = icon
+            @logo = logo
           end
         end
 
@@ -1501,13 +2564,23 @@ module Stripe
               attr_accessor :name
               # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
               attr_accessor :tax_code
+              # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+              attr_accessor :unit_label
 
-              def initialize(description: nil, images: nil, metadata: nil, name: nil, tax_code: nil)
+              def initialize(
+                description: nil,
+                images: nil,
+                metadata: nil,
+                name: nil,
+                tax_code: nil,
+                unit_label: nil
+              )
                 @description = description
                 @images = images
                 @metadata = metadata
                 @name = name
                 @tax_code = tax_code
+                @unit_label = unit_label
               end
             end
 
@@ -1585,6 +2658,41 @@ module Stripe
           end
         end
 
+        class NameCollection < Stripe::RequestParams
+          class Business < Stripe::RequestParams
+            # Enable business name collection on the Checkout Session. Defaults to `false`.
+            attr_accessor :enabled
+            # Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
+            attr_accessor :optional
+
+            def initialize(enabled: nil, optional: nil)
+              @enabled = enabled
+              @optional = optional
+            end
+          end
+
+          class Individual < Stripe::RequestParams
+            # Enable individual name collection on the Checkout Session. Defaults to `false`.
+            attr_accessor :enabled
+            # Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
+            attr_accessor :optional
+
+            def initialize(enabled: nil, optional: nil)
+              @enabled = enabled
+              @optional = optional
+            end
+          end
+          # Controls settings applied for collecting the customer's business name on the session.
+          attr_accessor :business
+          # Controls settings applied for collecting the customer's individual name on the session.
+          attr_accessor :individual
+
+          def initialize(business: nil, individual: nil)
+            @business = business
+            @individual = individual
+          end
+        end
+
         class OptionalItem < Stripe::RequestParams
           class AdjustableQuantity < Stripe::RequestParams
             # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -1621,9 +2729,9 @@ module Stripe
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_accessor :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_accessor :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_accessor :line2
               # ZIP or postal code.
               attr_accessor :postal_code
@@ -1830,6 +2938,8 @@ module Stripe
           end
 
           class Affirm < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1839,12 +2949,15 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
 
           class AfterpayClearpay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1854,7 +2967,8 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
@@ -1874,7 +2988,18 @@ module Stripe
             end
           end
 
+          class Alma < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
+
+            def initialize(capture_method: nil)
+              @capture_method = capture_method
+            end
+          end
+
           class AmazonPay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1884,7 +3009,8 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
@@ -1951,6 +3077,15 @@ module Stripe
             end
           end
 
+          class Billie < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
+
+            def initialize(capture_method: nil)
+              @capture_method = capture_method
+            end
+          end
+
           class Boleto < Stripe::RequestParams
             # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
             attr_accessor :expires_after_days
@@ -1988,6 +3123,8 @@ module Stripe
                 @brands_blocked = brands_blocked
               end
             end
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Installment options for card payments
             attr_accessor :installments
             # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
@@ -2016,6 +3153,7 @@ module Stripe
             attr_accessor :statement_descriptor_suffix_kanji
 
             def initialize(
+              capture_method: nil,
               installments: nil,
               request_extended_authorization: nil,
               request_incremental_authorization: nil,
@@ -2027,6 +3165,7 @@ module Stripe
               statement_descriptor_suffix_kana: nil,
               statement_descriptor_suffix_kanji: nil
             )
+              @capture_method = capture_method
               @installments = installments
               @request_extended_authorization = request_extended_authorization
               @request_incremental_authorization = request_incremental_authorization
@@ -2041,6 +3180,8 @@ module Stripe
           end
 
           class Cashapp < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2050,7 +3191,8 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
@@ -2096,6 +3238,21 @@ module Stripe
             def initialize(bank_transfer: nil, funding_type: nil, setup_future_usage: nil)
               @bank_transfer = bank_transfer
               @funding_type = funding_type
+              @setup_future_usage = setup_future_usage
+            end
+          end
+
+          class DemoPay < Stripe::RequestParams
+            # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+            #
+            # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+            #
+            # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+            #
+            # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+            attr_accessor :setup_future_usage
+
+            def initialize(setup_future_usage: nil)
               @setup_future_usage = setup_future_usage
             end
           end
@@ -2231,6 +3388,8 @@ module Stripe
                 @reference = reference
               end
             end
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2242,7 +3401,8 @@ module Stripe
             # Subscription details if the Checkout Session sets up a future subscription.
             attr_accessor :subscriptions
 
-            def initialize(setup_future_usage: nil, subscriptions: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil, subscriptions: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
               @subscriptions = subscriptions
             end
@@ -2285,6 +3445,8 @@ module Stripe
           end
 
           class Link < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2294,12 +3456,15 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
 
           class Mobilepay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2309,7 +3474,8 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
@@ -2470,6 +3636,8 @@ module Stripe
           end
 
           class RevolutPay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2479,12 +3647,22 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
 
-            def initialize(setup_future_usage: nil)
+            def initialize(capture_method: nil, setup_future_usage: nil)
+              @capture_method = capture_method
               @setup_future_usage = setup_future_usage
             end
           end
 
           class SamsungPay < Stripe::RequestParams
+            # Controls when the funds will be captured from the customer's account.
+            attr_accessor :capture_method
+
+            def initialize(capture_method: nil)
+              @capture_method = capture_method
+            end
+          end
+
+          class Satispay < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.
             attr_accessor :capture_method
 
@@ -2614,6 +3792,8 @@ module Stripe
           attr_accessor :afterpay_clearpay
           # contains details about the Alipay payment method options.
           attr_accessor :alipay
+          # contains details about the Alma payment method options.
+          attr_accessor :alma
           # contains details about the AmazonPay payment method options.
           attr_accessor :amazon_pay
           # contains details about the AU Becs Debit payment method options.
@@ -2622,6 +3802,8 @@ module Stripe
           attr_accessor :bacs_debit
           # contains details about the Bancontact payment method options.
           attr_accessor :bancontact
+          # contains details about the Billie payment method options.
+          attr_accessor :billie
           # contains details about the Boleto payment method options.
           attr_accessor :boleto
           # contains details about the Card payment method options.
@@ -2630,6 +3812,8 @@ module Stripe
           attr_accessor :cashapp
           # contains details about the Customer Balance payment method options.
           attr_accessor :customer_balance
+          # contains details about the DemoPay payment method options.
+          attr_accessor :demo_pay
           # contains details about the EPS payment method options.
           attr_accessor :eps
           # contains details about the FPX payment method options.
@@ -2674,6 +3858,8 @@ module Stripe
           attr_accessor :revolut_pay
           # contains details about the Samsung Pay payment method options.
           attr_accessor :samsung_pay
+          # contains details about the Satispay payment method options.
+          attr_accessor :satispay
           # contains details about the Sepa Debit payment method options.
           attr_accessor :sepa_debit
           # contains details about the Sofort payment method options.
@@ -2690,14 +3876,17 @@ module Stripe
             affirm: nil,
             afterpay_clearpay: nil,
             alipay: nil,
+            alma: nil,
             amazon_pay: nil,
             au_becs_debit: nil,
             bacs_debit: nil,
             bancontact: nil,
+            billie: nil,
             boleto: nil,
             card: nil,
             cashapp: nil,
             customer_balance: nil,
+            demo_pay: nil,
             eps: nil,
             fpx: nil,
             giropay: nil,
@@ -2720,6 +3909,7 @@ module Stripe
             pix: nil,
             revolut_pay: nil,
             samsung_pay: nil,
+            satispay: nil,
             sepa_debit: nil,
             sofort: nil,
             swish: nil,
@@ -2730,14 +3920,17 @@ module Stripe
             @affirm = affirm
             @afterpay_clearpay = afterpay_clearpay
             @alipay = alipay
+            @alma = alma
             @amazon_pay = amazon_pay
             @au_becs_debit = au_becs_debit
             @bacs_debit = bacs_debit
             @bancontact = bancontact
+            @billie = billie
             @boleto = boleto
             @card = card
             @cashapp = cashapp
             @customer_balance = customer_balance
+            @demo_pay = demo_pay
             @eps = eps
             @fpx = fpx
             @giropay = giropay
@@ -2760,6 +3953,7 @@ module Stripe
             @pix = pix
             @revolut_pay = revolut_pay
             @samsung_pay = samsung_pay
+            @satispay = satispay
             @sepa_debit = sepa_debit
             @sofort = sofort
             @swish = swish
@@ -2944,10 +4138,21 @@ module Stripe
 
         class SubscriptionData < Stripe::RequestParams
           class BillingMode < Stripe::RequestParams
-            # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+            class Flexible < Stripe::RequestParams
+              # Controls how invoices and invoice items display proration amounts and discount amounts.
+              attr_accessor :proration_discounts
+
+              def initialize(proration_discounts: nil)
+                @proration_discounts = proration_discounts
+              end
+            end
+            # Configure behavior for flexible billing mode.
+            attr_accessor :flexible
+            # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
             attr_accessor :type
 
-            def initialize(type: nil)
+            def initialize(flexible: nil, type: nil)
+              @flexible = flexible
               @type = type
             end
           end
@@ -3100,6 +4305,8 @@ module Stripe
         attr_accessor :automatic_tax
         # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
         attr_accessor :billing_address_collection
+        # The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+        attr_accessor :branding_settings
         # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
         attr_accessor :cancel_url
         # A unique string to reference the Checkout Session. This can be a
@@ -3146,6 +4353,8 @@ module Stripe
         attr_accessor :customer_update
         # The coupon or promotion code to apply to this Session. Currently, only up to one may be specified.
         attr_accessor :discounts
+        # A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        attr_accessor :excluded_payment_method_types
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # The Epoch time in seconds at which the Checkout Session will expire. It can be anywhere from 30 minutes to 24 hours after Checkout Session creation. By default, this value is 24 hours from creation.
@@ -3164,6 +4373,12 @@ module Stripe
         attr_accessor :metadata
         # The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         attr_accessor :mode
+        # Controls name collection settings for the session.
+        #
+        # You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
+        #
+        # If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
+        attr_accessor :name_collection
         # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
         #
         # There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
@@ -3250,6 +4465,7 @@ module Stripe
           allow_promotion_codes: nil,
           automatic_tax: nil,
           billing_address_collection: nil,
+          branding_settings: nil,
           cancel_url: nil,
           client_reference_id: nil,
           consent_collection: nil,
@@ -3261,6 +4477,7 @@ module Stripe
           customer_email: nil,
           customer_update: nil,
           discounts: nil,
+          excluded_payment_method_types: nil,
           expand: nil,
           expires_at: nil,
           invoice_creation: nil,
@@ -3268,6 +4485,7 @@ module Stripe
           locale: nil,
           metadata: nil,
           mode: nil,
+          name_collection: nil,
           optional_items: nil,
           origin_context: nil,
           payment_intent_data: nil,
@@ -3296,6 +4514,7 @@ module Stripe
           @allow_promotion_codes = allow_promotion_codes
           @automatic_tax = automatic_tax
           @billing_address_collection = billing_address_collection
+          @branding_settings = branding_settings
           @cancel_url = cancel_url
           @client_reference_id = client_reference_id
           @consent_collection = consent_collection
@@ -3307,6 +4526,7 @@ module Stripe
           @customer_email = customer_email
           @customer_update = customer_update
           @discounts = discounts
+          @excluded_payment_method_types = excluded_payment_method_types
           @expand = expand
           @expires_at = expires_at
           @invoice_creation = invoice_creation
@@ -3314,6 +4534,7 @@ module Stripe
           @locale = locale
           @metadata = metadata
           @mode = mode
+          @name_collection = name_collection
           @optional_items = optional_items
           @origin_context = origin_context
           @payment_intent_data = payment_intent_data
@@ -3347,9 +4568,9 @@ module Stripe
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_accessor :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_accessor :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_accessor :line2
               # ZIP or postal code.
               attr_accessor :postal_code
@@ -3557,6 +4778,8 @@ module Stripe
       attr_reader :automatic_tax
       # Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.
       attr_reader :billing_address_collection
+      # Attribute for field branding_settings
+      attr_reader :branding_settings
       # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
       attr_reader :cancel_url
       # A unique string to reference the Checkout Session. This can be a
@@ -3600,6 +4823,8 @@ module Stripe
       attr_reader :customer_email
       # List of coupons and promotion codes attached to the Checkout Session.
       attr_reader :discounts
+      # A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+      attr_reader :excluded_payment_method_types
       # The timestamp at which the Checkout Session will expire.
       attr_reader :expires_at
       # Unique identifier for the object.
@@ -3618,6 +4843,8 @@ module Stripe
       attr_reader :metadata
       # The mode of the Checkout Session.
       attr_reader :mode
+      # Attribute for field name_collection
+      attr_reader :name_collection
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # The optional items presented to the customer at checkout.
@@ -3761,6 +4988,42 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          adaptive_pricing: AdaptivePricing,
+          after_expiration: AfterExpiration,
+          automatic_tax: AutomaticTax,
+          branding_settings: BrandingSettings,
+          collected_information: CollectedInformation,
+          consent: Consent,
+          consent_collection: ConsentCollection,
+          currency_conversion: CurrencyConversion,
+          custom_fields: CustomField,
+          custom_text: CustomText,
+          customer_details: CustomerDetails,
+          discounts: Discount,
+          invoice_creation: InvoiceCreation,
+          name_collection: NameCollection,
+          optional_items: OptionalItem,
+          payment_method_configuration_details: PaymentMethodConfigurationDetails,
+          payment_method_options: PaymentMethodOptions,
+          permissions: Permissions,
+          phone_number_collection: PhoneNumberCollection,
+          presentment_details: PresentmentDetails,
+          saved_payment_method_options: SavedPaymentMethodOptions,
+          shipping_address_collection: ShippingAddressCollection,
+          shipping_cost: ShippingCost,
+          shipping_options: ShippingOption,
+          tax_id_collection: TaxIdCollection,
+          total_details: TotalDetails,
+          wallet_options: WalletOptions,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

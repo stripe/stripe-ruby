@@ -23,6 +23,12 @@ module Stripe
         # A message that explains the reason for verification or user-session failure.
         sig { returns(T.nilable(String)) }
         def reason; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Options < Stripe::StripeObject
         class Document < Stripe::StripeObject
@@ -38,13 +44,32 @@ module Stripe
           # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
           sig { returns(T.nilable(T::Boolean)) }
           def require_matching_selfie; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Email < Stripe::StripeObject
           # Request one time password verification of `provided_details.email`.
           sig { returns(T.nilable(T::Boolean)) }
           def require_verification; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
-        class IdNumber < Stripe::StripeObject; end
+        class IdNumber < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Matching < Stripe::StripeObject
           # Strictness of the DOB matching policy to apply.
           sig { returns(T.nilable(String)) }
@@ -52,11 +77,23 @@ module Stripe
           # Strictness of the name matching policy to apply.
           sig { returns(T.nilable(String)) }
           def name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Phone < Stripe::StripeObject
           # Request one time password verification of `provided_details.phone`.
           sig { returns(T.nilable(T::Boolean)) }
           def require_verification; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field document
         sig { returns(T.nilable(Document)) }
@@ -73,6 +110,18 @@ module Stripe
         # Attribute for field phone
         sig { returns(T.nilable(Phone)) }
         def phone; end
+        def self.inner_class_types
+          @inner_class_types = {
+            document: Document,
+            email: Email,
+            id_number: IdNumber,
+            matching: Matching,
+            phone: Phone,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class ProvidedDetails < Stripe::StripeObject
         # Email of user being verified
@@ -81,11 +130,23 @@ module Stripe
         # Phone number of user being verified
         sig { returns(T.nilable(String)) }
         def phone; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Redaction < Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class RelatedPerson < Stripe::StripeObject
         # Token referencing the associated Account of the related Person resource.
@@ -94,6 +155,12 @@ module Stripe
         # Token referencing the related Person resource.
         sig { returns(String) }
         def person; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class VerifiedOutputs < Stripe::StripeObject
         class Address < Stripe::StripeObject
@@ -103,10 +170,10 @@ module Stripe
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
           def country; end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           # ZIP or postal code.
@@ -115,6 +182,12 @@ module Stripe
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           def state; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Dob < Stripe::StripeObject
           # Numerical day between 1 and 31.
@@ -126,6 +199,12 @@ module Stripe
           # The four-digit year.
           sig { returns(T.nilable(Integer)) }
           def year; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The user's verified address.
         sig { returns(T.nilable(Address)) }
@@ -160,6 +239,12 @@ module Stripe
         # The user's verified sex as it appears in the document.
         sig { returns(T.nilable(String)) }
         def unparsed_sex; end
+        def self.inner_class_types
+          @inner_class_types = {address: Address, dob: Dob}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       sig { returns(T.nilable(String)) }

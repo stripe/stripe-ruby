@@ -123,10 +123,21 @@ module Stripe
 
     class CreateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_accessor :proration_discounts
+
+          def initialize(proration_discounts: nil)
+            @proration_discounts = proration_discounts
+          end
+        end
+        # Configure behavior for flexible billing mode.
+        attr_accessor :flexible
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         attr_accessor :type
 
-        def initialize(type: nil)
+        def initialize(flexible: nil, type: nil)
+          @flexible = flexible
           @type = type
         end
       end
@@ -332,7 +343,7 @@ module Stripe
           attr_accessor :discounts
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
-          # The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+          # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
           attr_accessor :period
           # The ID of the price object. One of `price` or `price_data` is required.
           attr_accessor :price
@@ -595,8 +606,6 @@ module Stripe
         attr_accessor :invoice_settings
         # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         attr_accessor :items
-        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        attr_accessor :iterations
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         attr_accessor :metadata
         # The account on behalf of which to charge, for each of the associated subscription's invoices.
@@ -626,7 +635,6 @@ module Stripe
           end_date: nil,
           invoice_settings: nil,
           items: nil,
-          iterations: nil,
           metadata: nil,
           on_behalf_of: nil,
           proration_behavior: nil,
@@ -649,7 +657,6 @@ module Stripe
           @end_date = end_date
           @invoice_settings = invoice_settings
           @items = items
-          @iterations = iterations
           @metadata = metadata
           @on_behalf_of = on_behalf_of
           @proration_behavior = proration_behavior
@@ -911,7 +918,7 @@ module Stripe
           attr_accessor :discounts
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
-          # The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+          # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
           attr_accessor :period
           # The ID of the price object. One of `price` or `price_data` is required.
           attr_accessor :price
@@ -1174,8 +1181,6 @@ module Stripe
         attr_accessor :invoice_settings
         # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         attr_accessor :items
-        # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        attr_accessor :iterations
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         attr_accessor :metadata
         # The account on behalf of which to charge, for each of the associated subscription's invoices.
@@ -1207,7 +1212,6 @@ module Stripe
           end_date: nil,
           invoice_settings: nil,
           items: nil,
-          iterations: nil,
           metadata: nil,
           on_behalf_of: nil,
           proration_behavior: nil,
@@ -1231,7 +1235,6 @@ module Stripe
           @end_date = end_date
           @invoice_settings = invoice_settings
           @items = items
-          @iterations = iterations
           @metadata = metadata
           @on_behalf_of = on_behalf_of
           @proration_behavior = proration_behavior

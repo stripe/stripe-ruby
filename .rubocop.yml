@@ -41,6 +41,12 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Enabled: false
 
+Metrics/CollectionLiteralLength:
+  Enabled: true
+  Exclude:
+    # We have thin event types that are automatically generated from the OpenAPI spec
+    - "lib/stripe/event_types.rb"
+
 # There are several methods with many branches in api_requestor due to
 # request logic.
 Metrics/CyclomaticComplexity:
@@ -64,6 +70,7 @@ Metrics/MethodLength:
     - "lib/stripe/api_requestor.rb"
   AllowedMethods:
     - initialize
+    - inner_class_types
 
 # TODO(xavdid): remove this once the first `basil` release is out
 Naming/MethodName:
@@ -208,8 +215,6 @@ Lint/UselessAssignment:
 Lint/UselessRescue: # new in 1.43
   Enabled: true
 Lint/UselessRuby2Keywords: # new in 1.23
-  Enabled: true
-Metrics/CollectionLiteralLength: # new in 1.47
   Enabled: true
 Naming/BlockForwarding: # new in 1.24
   Enabled: true

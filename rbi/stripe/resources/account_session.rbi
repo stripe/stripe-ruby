@@ -20,6 +20,12 @@ module Stripe
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           def external_account_collection; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -27,6 +33,12 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class AccountOnboarding < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -36,6 +48,12 @@ module Stripe
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           def external_account_collection; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -43,15 +61,34 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class BalanceReport < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Balances < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -70,6 +107,12 @@ module Stripe
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           sig { returns(T::Boolean) }
           def standard_payouts; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -77,6 +120,12 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class DisputesList < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -92,6 +141,12 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -99,15 +154,34 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Documents < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class FinancialAccount < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -123,6 +197,12 @@ module Stripe
           # Whether to allow transferring balance.
           sig { returns(T::Boolean) }
           def transfer_balance; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -130,12 +210,24 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class FinancialAccountTransactions < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether to allow card spend dispute management features.
           sig { returns(T::Boolean) }
           def card_spend_dispute_management; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -143,6 +235,12 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class InstantPayoutsPromotion < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -155,6 +253,12 @@ module Stripe
           # Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           sig { returns(T::Boolean) }
           def instant_payouts; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -162,6 +266,12 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class IssuingCard < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -177,6 +287,12 @@ module Stripe
           # Whether to allow spend control management features.
           sig { returns(T::Boolean) }
           def spend_control_management; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -184,6 +300,12 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class IssuingCardsList < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -202,6 +324,12 @@ module Stripe
           # Whether to allow spend control management features.
           sig { returns(T::Boolean) }
           def spend_control_management; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -209,6 +337,12 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class NotificationBanner < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -218,6 +352,12 @@ module Stripe
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
           sig { returns(T::Boolean) }
           def external_account_collection; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -225,6 +365,12 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PaymentDetails < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -240,6 +386,12 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -247,6 +399,12 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PaymentDisputes < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -259,6 +417,12 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -266,6 +430,12 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Payments < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -281,6 +451,12 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -288,24 +464,56 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PayoutDetails < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PayoutReconciliationReport < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Payouts < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -324,6 +532,12 @@ module Stripe
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           sig { returns(T::Boolean) }
           def standard_payouts; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
@@ -331,33 +545,78 @@ module Stripe
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PayoutsList < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class TaxRegistrations < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class TaxSettings < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field account_management
       sig { returns(AccountManagement) }
@@ -422,6 +681,34 @@ module Stripe
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
+      def self.inner_class_types
+        @inner_class_types = {
+          account_management: AccountManagement,
+          account_onboarding: AccountOnboarding,
+          balance_report: BalanceReport,
+          balances: Balances,
+          disputes_list: DisputesList,
+          documents: Documents,
+          financial_account: FinancialAccount,
+          financial_account_transactions: FinancialAccountTransactions,
+          instant_payouts_promotion: InstantPayoutsPromotion,
+          issuing_card: IssuingCard,
+          issuing_cards_list: IssuingCardsList,
+          notification_banner: NotificationBanner,
+          payment_details: PaymentDetails,
+          payment_disputes: PaymentDisputes,
+          payments: Payments,
+          payout_details: PayoutDetails,
+          payout_reconciliation_report: PayoutReconciliationReport,
+          payouts: Payouts,
+          payouts_list: PayoutsList,
+          tax_registrations: TaxRegistrations,
+          tax_settings: TaxSettings,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The ID of the account the AccountSession was created for
     sig { returns(String) }

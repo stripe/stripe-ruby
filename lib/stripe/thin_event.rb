@@ -26,7 +26,7 @@ module Stripe
       @id = event_payload[:id]
       @type = event_payload[:type]
       @created = event_payload[:created]
-      @context = event_payload[:context]
+      @context = event_payload[:context].nil? ? nil : StripeContext.parse(event_payload[:context])
       @livemode = event_payload[:livemode]
       @related_object = event_payload[:related_object]
       return if event_payload[:reason].nil?

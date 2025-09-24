@@ -82,7 +82,16 @@ module Stripe
       RequestOptions.error_on_non_string_user_opts(normalized_opts)
 
       OPTS_USER_SPECIFIED.each do |opt|
-        req_opts[opt] = normalized_opts[opt] if normalized_opts.key?(opt)
+        if normalized_opts.key?(opt)
+          val = normalized_opts[opt]
+          # Convert StripeContext to string for stripe_context
+          if opt == :stripe_context && val.is_a?(StripeContext)
+            context_value = val.to_s
+            req_opts[opt] = context_value unless context_value.empty?
+          else
+            req_opts[opt] = val
+          end
+        end
         normalized_opts.delete(opt)
       end
 
@@ -100,6 +109,7 @@ module Stripe
         val = normalized_opts[opt]
         next if val.nil?
         next if val.is_a?(String)
+        next if opt == :stripe_context && val.is_a?(StripeContext)
 
         raise ArgumentError,
               "request option '#{opt}' should be a string value " \

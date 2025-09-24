@@ -22,6 +22,12 @@ module Stripe
           # When the collection status transitioned to unpaid.
           sig { returns(T.nilable(String)) }
           def unpaid_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class ServicingStatusTransitions < Stripe::StripeObject
           # When the servicing status transitioned to activated.
@@ -33,6 +39,18 @@ module Stripe
           # When the servicing status transitioned to paused.
           sig { returns(T.nilable(String)) }
           def paused_at; end
+          # When the servicing is scheduled to transition to activate.
+          sig { returns(T.nilable(String)) }
+          def will_activate_at; end
+          # When the servicing is scheduled to cancel.
+          sig { returns(T.nilable(String)) }
+          def will_cancel_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The ID of the Billing Cadence this subscription is billed on.
         sig { returns(String) }

@@ -65,16 +65,29 @@ module Stripe
             attr_accessor :amount
             # Defines the scope where the credit grant is applicable.
             attr_accessor :applicability_config
+            # The category of the credit grant.
+            attr_accessor :category
             # The expiry configuration for the credit grant.
             attr_accessor :expiry_config
             # A descriptive name shown in dashboard.
             attr_accessor :name
+            # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+            attr_accessor :priority
 
-            def initialize(amount: nil, applicability_config: nil, expiry_config: nil, name: nil)
+            def initialize(
+              amount: nil,
+              applicability_config: nil,
+              category: nil,
+              expiry_config: nil,
+              name: nil,
+              priority: nil
+            )
               @amount = amount
               @applicability_config = applicability_config
+              @category = category
               @expiry_config = expiry_config
               @name = name
+              @priority = priority
             end
           end
 
@@ -179,25 +192,33 @@ module Stripe
             attr_accessor :amount
             # Defines the scope where the credit grant is applicable.
             attr_accessor :applicability_config
+            # The category of the credit grant.
+            attr_accessor :category
             # The expiry configuration for the credit grant.
             attr_accessor :expiry_config
             # The grant condition for the credit grant.
             attr_accessor :grant_condition
             # Customer-facing name for the credit grant.
             attr_accessor :name
+            # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+            attr_accessor :priority
 
             def initialize(
               amount: nil,
               applicability_config: nil,
+              category: nil,
               expiry_config: nil,
               grant_condition: nil,
-              name: nil
+              name: nil,
+              priority: nil
             )
               @amount = amount
               @applicability_config = applicability_config
+              @category = category
               @expiry_config = expiry_config
               @grant_condition = grant_condition
               @name = name
+              @priority = priority
             end
           end
           # An internal key you can use to search for this service action. Maximum length of 200 characters.
@@ -232,6 +253,38 @@ module Stripe
 
         class RetrieveParams < Stripe::RequestParams; end
 
+        class UpdateParams < Stripe::RequestParams
+          class CreditGrant < Stripe::RequestParams
+            # A descriptive name shown in dashboard.
+            attr_accessor :name
+
+            def initialize(name: nil)
+              @name = name
+            end
+          end
+
+          class CreditGrantPerTenant < Stripe::RequestParams
+            # A descriptive name shown in dashboard.
+            attr_accessor :name
+
+            def initialize(name: nil)
+              @name = name
+            end
+          end
+          # An internal key you can use to search for this service action. Maximum length of 200 characters.
+          attr_accessor :lookup_key
+          # Details for the credit grant. Can only be set if the service action's `type` is `credit_grant`.
+          attr_accessor :credit_grant
+          # Details for the credit grant per tenant. Can only be set if the service action's `type` is `credit_grant_per_tenant`.
+          attr_accessor :credit_grant_per_tenant
+
+          def initialize(lookup_key: nil, credit_grant: nil, credit_grant_per_tenant: nil)
+            @lookup_key = lookup_key
+            @credit_grant = credit_grant
+            @credit_grant_per_tenant = credit_grant_per_tenant
+          end
+        end
+
         # Create a Service Action object.
         def create(params = {}, opts = {})
           request(
@@ -247,6 +300,17 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
+            path: format("/v2/billing/service_actions/%<id>s", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Update a ServiceAction object.
+        def update(id, params = {}, opts = {})
+          request(
+            method: :post,
             path: format("/v2/billing/service_actions/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,

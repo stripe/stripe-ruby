@@ -110,6 +110,12 @@ module Stripe
         # The status of the last refresh attempt.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class OwnershipRefresh < Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.

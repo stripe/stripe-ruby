@@ -235,6 +235,16 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+
+            def initialize(amount_includes_iof: nil)
+              @amount_includes_iof = amount_includes_iof
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -311,6 +321,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -325,6 +337,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -335,6 +348,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -344,7 +358,7 @@ module Stripe
         attr_accessor :default_mandate
         # Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
         attr_accessor :payment_method_options
-        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         attr_accessor :payment_method_types
 
         def initialize(default_mandate: nil, payment_method_options: nil, payment_method_types: nil)
@@ -494,9 +508,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -702,6 +716,8 @@ module Stripe
           @lte = lte
         end
       end
+      # Only return invoices for the cadence specified by this billing cadence ID.
+      attr_accessor :billing_cadence
       # The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`.
       attr_accessor :collection_method
       # Only return invoices that were created during the given date interval.
@@ -726,6 +742,7 @@ module Stripe
       attr_accessor :subscription
 
       def initialize(
+        billing_cadence: nil,
         collection_method: nil,
         created: nil,
         customer: nil,
@@ -738,6 +755,7 @@ module Stripe
         status: nil,
         subscription: nil
       )
+        @billing_cadence = billing_cadence
         @collection_method = collection_method
         @created = created
         @customer = customer
@@ -978,6 +996,16 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+
+            def initialize(amount_includes_iof: nil)
+              @amount_includes_iof = amount_includes_iof
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -1054,6 +1082,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -1068,6 +1098,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -1078,6 +1109,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -1087,7 +1119,7 @@ module Stripe
         attr_accessor :default_mandate
         # Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
         attr_accessor :payment_method_options
-        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         attr_accessor :payment_method_types
 
         def initialize(default_mandate: nil, payment_method_options: nil, payment_method_types: nil)
@@ -1237,9 +1269,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -1520,13 +1552,23 @@ module Stripe
             attr_accessor :name
             # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
             attr_accessor :tax_code
+            # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+            attr_accessor :unit_label
 
-            def initialize(description: nil, images: nil, metadata: nil, name: nil, tax_code: nil)
+            def initialize(
+              description: nil,
+              images: nil,
+              metadata: nil,
+              name: nil,
+              tax_code: nil,
+              unit_label: nil
+            )
               @description = description
               @images = images
               @metadata = metadata
               @name = name
               @tax_code = tax_code
+              @unit_label = unit_label
             end
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -1924,13 +1966,23 @@ module Stripe
             attr_accessor :name
             # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
             attr_accessor :tax_code
+            # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+            attr_accessor :unit_label
 
-            def initialize(description: nil, images: nil, metadata: nil, name: nil, tax_code: nil)
+            def initialize(
+              description: nil,
+              images: nil,
+              metadata: nil,
+              name: nil,
+              tax_code: nil,
+              unit_label: nil
+            )
               @description = description
               @images = images
               @metadata = metadata
               @name = name
               @tax_code = tax_code
+              @unit_label = unit_label
             end
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -2148,9 +2200,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -2180,9 +2232,9 @@ module Stripe
             attr_accessor :city
             # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -2920,10 +2972,21 @@ module Stripe
         end
 
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            attr_accessor :proration_discounts
+
+            def initialize(proration_discounts: nil)
+              @proration_discounts = proration_discounts
+            end
+          end
+          # Configure behavior for flexible billing mode.
+          attr_accessor :flexible
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           attr_accessor :type
 
-          def initialize(type: nil)
+          def initialize(flexible: nil, type: nil)
+            @flexible = flexible
             @type = type
           end
         end
@@ -3038,7 +3101,7 @@ module Stripe
             attr_accessor :discounts
             # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             attr_accessor :metadata
-            # The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+            # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
             attr_accessor :period
             # The ID of the price object. One of `price` or `price_data` is required.
             attr_accessor :price
@@ -3399,8 +3462,6 @@ module Stripe
           attr_accessor :invoice_settings
           # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
           attr_accessor :items
-          # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-          attr_accessor :iterations
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
           attr_accessor :metadata
           # The account on behalf of which to charge, for each of the associated subscription's invoices.
@@ -3438,7 +3499,6 @@ module Stripe
             end_date: nil,
             invoice_settings: nil,
             items: nil,
-            iterations: nil,
             metadata: nil,
             on_behalf_of: nil,
             pause_collection: nil,
@@ -3465,7 +3525,6 @@ module Stripe
             @end_date = end_date
             @invoice_settings = invoice_settings
             @items = items
-            @iterations = iterations
             @metadata = metadata
             @on_behalf_of = on_behalf_of
             @pause_collection = pause_collection
@@ -3563,11 +3622,74 @@ module Stripe
 
       class SubscriptionDetails < Stripe::RequestParams
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            attr_accessor :proration_discounts
+
+            def initialize(proration_discounts: nil)
+              @proration_discounts = proration_discounts
+            end
+          end
+          # Configure behavior for flexible billing mode.
+          attr_accessor :flexible
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           attr_accessor :type
 
-          def initialize(type: nil)
+          def initialize(flexible: nil, type: nil)
+            @flexible = flexible
             @type = type
+          end
+        end
+
+        class BillingSchedule < Stripe::RequestParams
+          class AppliesTo < Stripe::RequestParams
+            # The ID of the price object.
+            attr_accessor :price
+            # Controls which subscription items the billing schedule applies to.
+            attr_accessor :type
+
+            def initialize(price: nil, type: nil)
+              @price = price
+              @type = type
+            end
+          end
+
+          class BillUntil < Stripe::RequestParams
+            class Duration < Stripe::RequestParams
+              # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+              attr_accessor :interval
+              # The multiplier applied to the interval.
+              attr_accessor :interval_count
+
+              def initialize(interval: nil, interval_count: nil)
+                @interval = interval
+                @interval_count = interval_count
+              end
+            end
+            # Specifies the billing period.
+            attr_accessor :duration
+            # The end date of the billing schedule.
+            attr_accessor :timestamp
+            # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+            attr_accessor :type
+
+            def initialize(duration: nil, timestamp: nil, type: nil)
+              @duration = duration
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+          # Configure billing schedule differently for individual subscription items.
+          attr_accessor :applies_to
+          # The end date for the billing schedule.
+          attr_accessor :bill_until
+          # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+          attr_accessor :key
+
+          def initialize(applies_to: nil, bill_until: nil, key: nil)
+            @applies_to = applies_to
+            @bill_until = bill_until
+            @key = key
           end
         end
 
@@ -3727,6 +3849,8 @@ module Stripe
         attr_accessor :billing_cycle_anchor
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         attr_accessor :billing_mode
+        # Sets the billing schedules for the subscription.
+        attr_accessor :billing_schedules
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         attr_accessor :cancel_at
         # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
@@ -3753,6 +3877,7 @@ module Stripe
         def initialize(
           billing_cycle_anchor: nil,
           billing_mode: nil,
+          billing_schedules: nil,
           cancel_at: nil,
           cancel_at_period_end: nil,
           cancel_now: nil,
@@ -3767,6 +3892,7 @@ module Stripe
         )
           @billing_cycle_anchor = billing_cycle_anchor
           @billing_mode = billing_mode
+          @billing_schedules = billing_schedules
           @cancel_at = cancel_at
           @cancel_at_period_end = cancel_at_period_end
           @cancel_now = cancel_now

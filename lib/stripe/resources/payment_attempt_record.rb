@@ -419,9 +419,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -499,7 +499,7 @@ module Stripe
         end
 
         class NetworkToken < Stripe::StripeObject
-          # Attribute for field used
+          # Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
           attr_reader :used
 
           def self.inner_class_types
@@ -523,6 +523,47 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Wallet < Stripe::StripeObject
+          class ApplePay < Stripe::StripeObject
+            # Type of the apple_pay transaction, one of `apple_pay` or `apple_pay_later`.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class GooglePay < Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field apple_pay
+          attr_reader :apple_pay
+          # (For tokenized numbers only.) The last four digits of the device account number.
+          attr_reader :dynamic_last4
+          # Attribute for field google_pay
+          attr_reader :google_pay
+          # The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { apple_pay: ApplePay, google_pay: GooglePay }
           end
 
           def self.field_remappings
@@ -559,12 +600,15 @@ module Stripe
         attr_reader :network_transaction_id
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
+        # If this Card is part of a card wallet, this contains the details of the card wallet.
+        attr_reader :wallet
 
         def self.inner_class_types
           @inner_class_types = {
             checks: Checks,
             network_token: NetworkToken,
             three_d_secure: ThreeDSecure,
+            wallet: Wallet,
           }
         end
 
@@ -1223,6 +1267,10 @@ module Stripe
       end
 
       class Paynow < Stripe::StripeObject
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # Reference number associated with this PayNow payment
         attr_reader :reference
 
@@ -1256,9 +1304,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -1279,9 +1327,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -1331,6 +1379,16 @@ module Stripe
             shipping: Shipping,
             verified_address: VerifiedAddress,
           }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Paypay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -1778,6 +1836,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix
@@ -1870,6 +1930,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
@@ -1933,9 +1994,9 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code

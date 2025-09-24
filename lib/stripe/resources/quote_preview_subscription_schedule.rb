@@ -26,13 +26,27 @@ module Stripe
     end
 
     class BillingMode < Stripe::StripeObject
+      class Flexible < Stripe::StripeObject
+        # Controls how invoices and invoice items display proration amounts and discount amounts.
+        attr_reader :proration_discounts
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configure behavior for flexible billing mode
+      attr_reader :flexible
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_reader :type
       # Details on when the current billing_mode was adopted.
       attr_reader :updated_at
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = { flexible: Flexible }
       end
 
       def self.field_remappings

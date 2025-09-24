@@ -22,6 +22,39 @@ module Stripe
             # The sort code of the UK Bank Account.
             sig { returns(String) }
             def sort_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class SepaBankAccount < Stripe::StripeObject
+            # The account holder name to be used during bank transfers.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The name of the Bank.
+            sig { returns(String) }
+            def bank_name; end
+            # The BIC of the SEPA Bank Account.
+            sig { returns(String) }
+            def bic; end
+            # The originating country of the SEPA Bank account.
+            sig { returns(String) }
+            def country; end
+            # The IBAN of the SEPA Bank Account.
+            sig { returns(String) }
+            def iban; end
+            # The last four digits of the SEPA Bank Account number. This will always be returned.
+            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
+            sig { returns(String) }
+            def last4; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class UsBankAccount < Stripe::StripeObject
             # The account number of the US Bank Account.
@@ -40,6 +73,12 @@ module Stripe
             # The swift code of the bank or financial institution.
             sig { returns(T.nilable(String)) }
             def swift_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
           sig { returns(String) }
@@ -47,9 +86,22 @@ module Stripe
           # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
           sig { returns(T.nilable(GbBankAccount)) }
           def gb_bank_account; end
+          # The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
+          sig { returns(T.nilable(SepaBankAccount)) }
+          def sepa_bank_account; end
           # The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {
+              gb_bank_account: GbBankAccount,
+              sepa_bank_account: SepaBankAccount,
+              us_bank_account: UsBankAccount,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The creation timestamp of the FinancialAddress.
         sig { returns(String) }
@@ -71,6 +123,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+        sig { returns(T.nilable(String)) }
+        def settlement_currency; end
         # Closed Enum. An enum representing the status of the FinancialAddress. This indicates whether or not the FinancialAddress can be used for any money movement flows.
         sig { returns(String) }
         def status; end

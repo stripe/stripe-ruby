@@ -13,6 +13,12 @@ module Stripe
           # The version of the LicenseFee. Defaults to 'latest', if not specified.
           sig { returns(T.nilable(String)) }
           def version; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class RateCard < Stripe::StripeObject
           # The ID of the Rate Card.
@@ -21,11 +27,23 @@ module Stripe
           # The version of the RateCard. Defaults to 'latest', if not specified.
           sig { returns(T.nilable(String)) }
           def version; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class ServiceAction < Stripe::StripeObject
           # The ID of the service action.
           sig { returns(String) }
           def id; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time at which the object was created.
         sig { returns(String) }

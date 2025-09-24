@@ -75,6 +75,27 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class CryptoWallet < Stripe::StripeObject
+          # Destination wallet address.
+          attr_reader :address
+          # Whether the crypto wallet was archived. Crypto wallets can be archived through the /archive API,
+          # and they will not be automatically archived by Stripe. Archived crypto wallets cannot be used as
+          # payout method and will not appear in the payout method list.
+          attr_reader :archived
+          # Optional field, required if network supports memos (only "stellar" currently).
+          attr_reader :memo
+          # Which rail is being used to make an outbound money movement to this wallet.
+          attr_reader :network
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # A set of available payout speeds for this payout method.
         attr_reader :available_payout_speeds
         # Created timestamp.
@@ -95,9 +116,16 @@ module Stripe
         attr_reader :bank_account
         # The PayoutMethodCard object details.
         attr_reader :card
+        # The PayoutMethodCryptoWallet object details.
+        attr_reader :crypto_wallet
 
         def self.inner_class_types
-          @inner_class_types = { usage_status: UsageStatus, bank_account: BankAccount, card: Card }
+          @inner_class_types = {
+            usage_status: UsageStatus,
+            bank_account: BankAccount,
+            card: Card,
+            crypto_wallet: CryptoWallet,
+          }
         end
 
         def self.field_remappings

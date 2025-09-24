@@ -7,12 +7,21 @@ module Stripe
     module Billing
       class RateCardRate < APIResource
         class CustomPricingUnitAmount < Stripe::StripeObject
+          # The Custom Pricing Unit object.
+          sig { returns(T.nilable(Stripe::V2::Billing::CustomPricingUnit)) }
+          def custom_pricing_unit_details; end
           # The id of the custom pricing unit.
           sig { returns(String) }
           def id; end
           # The unit value for the custom pricing unit, as a string.
           sig { returns(String) }
           def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Tier < Stripe::StripeObject
           # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
@@ -29,6 +38,12 @@ module Stripe
           # No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
           sig { returns(T.nilable(String)) }
           def up_to_inf; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TransformQuantity < Stripe::StripeObject
           # Divide usage by this number.
@@ -37,6 +52,12 @@ module Stripe
           # After division, round the result up or down.
           sig { returns(String) }
           def round; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Timestamp of when the object was created.
         sig { returns(String) }

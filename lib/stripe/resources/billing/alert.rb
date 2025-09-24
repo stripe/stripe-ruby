@@ -183,12 +183,62 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         class CreditBalanceThreshold < Stripe::RequestParams
           class Filter < Stripe::RequestParams
+            class CreditGrants < Stripe::RequestParams
+              class ApplicabilityConfig < Stripe::RequestParams
+                class Scope < Stripe::RequestParams
+                  class BillableItem < Stripe::RequestParams
+                    # The billable item ID this credit grant should apply to.
+                    attr_accessor :id
+
+                    def initialize(id: nil)
+                      @id = id
+                    end
+                  end
+
+                  class Price < Stripe::RequestParams
+                    # The price ID this credit grant should apply to.
+                    attr_accessor :id
+
+                    def initialize(id: nil)
+                      @id = id
+                    end
+                  end
+                  # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+                  attr_accessor :billable_items
+                  # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
+                  attr_accessor :price_type
+                  # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+                  attr_accessor :prices
+
+                  def initialize(billable_items: nil, price_type: nil, prices: nil)
+                    @billable_items = billable_items
+                    @price_type = price_type
+                    @prices = prices
+                  end
+                end
+                # Specify the scope of this applicability config.
+                attr_accessor :scope
+
+                def initialize(scope: nil)
+                  @scope = scope
+                end
+              end
+              # The applicability configuration for this credit grants filter.
+              attr_accessor :applicability_config
+
+              def initialize(applicability_config: nil)
+                @applicability_config = applicability_config
+              end
+            end
+            # The credit grants for which to configure the credit balance alert.
+            attr_accessor :credit_grants
             # Limit the scope to this credit balance alert only to this customer.
             attr_accessor :customer
             # What type of filter is being applied to this credit balance alert.
             attr_accessor :type
 
-            def initialize(customer: nil, type: nil)
+            def initialize(credit_grants: nil, customer: nil, type: nil)
+              @credit_grants = credit_grants
               @customer = customer
               @type = type
             end
@@ -260,7 +310,7 @@ module Stripe
           attr_accessor :gte
           # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
           attr_accessor :meter
-          # Whether the alert should only fire only once, or once per billing cycle.
+          # Defines how the alert will behave.
           attr_accessor :recurrence
 
           def initialize(filters: nil, gte: nil, meter: nil, recurrence: nil)

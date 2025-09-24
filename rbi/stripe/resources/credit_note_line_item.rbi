@@ -46,6 +46,12 @@ module Stripe
       # The calculation identifier for tax calculation response line item.
       sig { returns(T.nilable(String)) }
       def calculation_item_id; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Tax < Stripe::StripeObject
       class TaxRateDetails < Stripe::StripeObject

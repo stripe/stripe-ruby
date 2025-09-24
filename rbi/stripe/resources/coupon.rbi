@@ -39,6 +39,12 @@ module Stripe
       # The script implementation ID for this coupon.
       sig { returns(String) }
       def id; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     sig { returns(T.nilable(Integer)) }

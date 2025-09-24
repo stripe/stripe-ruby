@@ -71,9 +71,6 @@ module Stripe
             attr_accessor :metadata
             # The Metered Item that this rate binds to.
             attr_accessor :metered_item
-            # The ID of the price object to take price information from. The price must have the same interval as the rate card.
-            # Updates to the Price will not be reflected in the Rate Card or its rates.
-            attr_accessor :price
             # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
             # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
             # grows into new tiers. Can only be set if `tiers` is set.
@@ -90,7 +87,6 @@ module Stripe
               custom_pricing_unit_amount: nil,
               metadata: nil,
               metered_item: nil,
-              price: nil,
               tiering_mode: nil,
               tiers: nil,
               transform_quantity: nil,
@@ -99,7 +95,6 @@ module Stripe
               @custom_pricing_unit_amount = custom_pricing_unit_amount
               @metadata = metadata
               @metered_item = metered_item
-              @price = price
               @tiering_mode = tiering_mode
               @tiers = tiers
               @transform_quantity = transform_quantity

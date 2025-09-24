@@ -16,14 +16,210 @@ module Stripe
           def initialize(limit: nil); end
         end
         class CreateParams < Stripe::RequestParams
+          class AmountDetails < Stripe::RequestParams
+            class LineItem < Stripe::RequestParams
+              class Tax < Stripe::RequestParams
+                # Total portion of the amount that is for tax.
+                sig { returns(T.nilable(Integer)) }
+                def total_tax_amount; end
+                sig { params(_total_tax_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def total_tax_amount=(_total_tax_amount); end
+                sig { params(total_tax_amount: T.nilable(Integer)).void }
+                def initialize(total_tax_amount: nil); end
+              end
+              # The amount an item was discounted for. Positive integer.
+              sig { returns(T.nilable(Integer)) }
+              def discount_amount; end
+              sig { params(_discount_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def discount_amount=(_discount_amount); end
+              # Unique identifier of the product. At most 12 characters long.
+              sig { returns(T.nilable(String)) }
+              def product_code; end
+              sig { params(_product_code: T.nilable(String)).returns(T.nilable(String)) }
+              def product_code=(_product_code); end
+              # Name of the product. At most 100 characters long.
+              sig { returns(String) }
+              def product_name; end
+              sig { params(_product_name: String).returns(String) }
+              def product_name=(_product_name); end
+              # Number of items of the product. Positive integer.
+              sig { returns(Integer) }
+              def quantity; end
+              sig { params(_quantity: Integer).returns(Integer) }
+              def quantity=(_quantity); end
+              # Contains information about the tax on the item.
+              sig {
+                returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::LineItem::Tax))
+               }
+              def tax; end
+              sig {
+                params(_tax: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::LineItem::Tax)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::LineItem::Tax))
+               }
+              def tax=(_tax); end
+              # Cost of the product. Non-negative integer.
+              sig { returns(Integer) }
+              def unit_cost; end
+              sig { params(_unit_cost: Integer).returns(Integer) }
+              def unit_cost=(_unit_cost); end
+              sig {
+                params(discount_amount: T.nilable(Integer), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::LineItem::Tax), unit_cost: Integer).void
+               }
+              def initialize(
+                discount_amount: nil,
+                product_code: nil,
+                product_name: nil,
+                quantity: nil,
+                tax: nil,
+                unit_cost: nil
+              ); end
+            end
+            class Shipping < Stripe::RequestParams
+              # Portion of the amount that is for shipping.
+              sig { returns(T.nilable(Integer)) }
+              def amount; end
+              sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def amount=(_amount); end
+              # The postal code that represents the shipping source.
+              sig { returns(T.nilable(String)) }
+              def from_postal_code; end
+              sig { params(_from_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def from_postal_code=(_from_postal_code); end
+              # The postal code that represents the shipping destination.
+              sig { returns(T.nilable(String)) }
+              def to_postal_code; end
+              sig { params(_to_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def to_postal_code=(_to_postal_code); end
+              sig {
+                params(amount: T.nilable(Integer), from_postal_code: T.nilable(String), to_postal_code: T.nilable(String)).void
+               }
+              def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
+            end
+            class Tax < Stripe::RequestParams
+              # Total portion of the amount that is for tax.
+              sig { returns(T.nilable(Integer)) }
+              def total_tax_amount; end
+              sig { params(_total_tax_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def total_tax_amount=(_total_tax_amount); end
+              sig { params(total_tax_amount: T.nilable(Integer)).void }
+              def initialize(total_tax_amount: nil); end
+            end
+            # The amount the total transaction was discounted for.
+            sig { returns(T.nilable(Integer)) }
+            def discount_amount; end
+            sig { params(_discount_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def discount_amount=(_discount_amount); end
+            # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+            sig {
+              returns(T::Array[::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::LineItem])
+             }
+            def line_items; end
+            sig {
+              params(_line_items: T::Array[::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::LineItem]).returns(T::Array[::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::LineItem])
+             }
+            def line_items=(_line_items); end
+            # Contains information about the shipping portion of the amount.
+            sig {
+              returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::Shipping))
+             }
+            def shipping; end
+            sig {
+              params(_shipping: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::Shipping)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::Shipping))
+             }
+            def shipping=(_shipping); end
+            # Contains information about the tax portion of the amount.
+            sig {
+              returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::Tax))
+             }
+            def tax; end
+            sig {
+              params(_tax: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::Tax)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::Tax))
+             }
+            def tax=(_tax); end
+            sig {
+              params(discount_amount: T.nilable(Integer), line_items: T::Array[::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::LineItem], shipping: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::Shipping), tax: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails::Tax)).void
+             }
+            def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil); end
+          end
+          class MandateData < Stripe::RequestParams
+            class CustomerAcceptance < Stripe::RequestParams
+              # The time at which the customer accepted the Mandate.
+              sig { returns(T.nilable(String)) }
+              def accepted_at; end
+              sig { params(_accepted_at: T.nilable(String)).returns(T.nilable(String)) }
+              def accepted_at=(_accepted_at); end
+              # The type of customer acceptance information included with the Mandate.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig { params(accepted_at: T.nilable(String), type: String).void }
+              def initialize(accepted_at: nil, type: nil); end
+            end
+            # This hash contains details about the customer acceptance of the Mandate.
+            sig {
+              returns(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::MandateData::CustomerAcceptance)
+             }
+            def customer_acceptance; end
+            sig {
+              params(_customer_acceptance: ::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::MandateData::CustomerAcceptance).returns(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::MandateData::CustomerAcceptance)
+             }
+            def customer_acceptance=(_customer_acceptance); end
+            sig {
+              params(customer_acceptance: ::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::MandateData::CustomerAcceptance).void
+             }
+            def initialize(customer_acceptance: nil); end
+          end
+          class PaymentMethodOptions < Stripe::RequestParams
+            class Card < Stripe::RequestParams
+              # If you are making a Credential On File transaction with a previously saved card, you should pass the Network Transaction ID
+              # from a prior initial authorization on Stripe (from a successful SetupIntent or a PaymentIntent with `setup_future_usage` set),
+              # or one that you have obtained from another payment processor. This is a token from the network which uniquely identifies the transaction.
+              # Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
+              # Note that you should pass in a Network Transaction ID if you have one, regardless of whether this is a
+              # Customer-Initiated Transaction (CIT) or a Merchant-Initiated Transaction (MIT).
+              sig { returns(String) }
+              def network_transaction_id; end
+              sig { params(_network_transaction_id: String).returns(String) }
+              def network_transaction_id=(_network_transaction_id); end
+              sig { params(network_transaction_id: String).void }
+              def initialize(network_transaction_id: nil); end
+            end
+            # Payment method options for the card payment type.
+            sig {
+              returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentMethodOptions::Card))
+             }
+            def card; end
+            sig {
+              params(_card: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentMethodOptions::Card)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentMethodOptions::Card))
+             }
+            def card=(_card); end
+            sig {
+              params(card: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentMethodOptions::Card)).void
+             }
+            def initialize(card: nil); end
+          end
+          class PaymentsOrchestration < Stripe::RequestParams
+            # True when you want to enable payments orchestration for this off-session payment. False otherwise.
+            sig { returns(T::Boolean) }
+            def enabled; end
+            sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+            def enabled=(_enabled); end
+            sig { params(enabled: T::Boolean).void }
+            def initialize(enabled: nil); end
+          end
           class RetryDetails < Stripe::RequestParams
+            # The pre-configured retry policy to use for the payment.
+            sig { returns(T.nilable(String)) }
+            def retry_policy; end
+            sig { params(_retry_policy: T.nilable(String)).returns(T.nilable(String)) }
+            def retry_policy=(_retry_policy); end
             # Indicates the strategy for how you want Stripe to retry the payment.
             sig { returns(String) }
             def retry_strategy; end
             sig { params(_retry_strategy: String).returns(String) }
             def retry_strategy=(_retry_strategy); end
-            sig { params(retry_strategy: String).void }
-            def initialize(retry_strategy: nil); end
+            sig { params(retry_policy: T.nilable(String), retry_strategy: String).void }
+            def initialize(retry_policy: nil, retry_strategy: nil); end
           end
           class TransferData < Stripe::RequestParams
             # The amount transferred to the destination account. This transfer will occur
@@ -51,6 +247,15 @@ module Stripe
           def amount; end
           sig { params(_amount: Stripe::V2::Amount).returns(Stripe::V2::Amount) }
           def amount=(_amount); end
+          # Provides industry-specific information about the amount.
+          sig {
+            returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails))
+           }
+          def amount_details; end
+          sig {
+            params(_amount_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails))
+           }
+          def amount_details=(_amount_details); end
           # The frequency of the underlying payment.
           sig { returns(String) }
           def cadence; end
@@ -61,6 +266,15 @@ module Stripe
           def customer; end
           sig { params(_customer: String).returns(String) }
           def customer=(_customer); end
+          # This hash contains details about the Mandate to create.
+          sig {
+            returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::MandateData))
+           }
+          def mandate_data; end
+          sig {
+            params(_mandate_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::MandateData)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::MandateData))
+           }
+          def mandate_data=(_mandate_data); end
           # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
           # attach to an object. This can be useful for storing additional information about
           # the object in a structured format. Learn more about
@@ -79,6 +293,24 @@ module Stripe
           def payment_method; end
           sig { params(_payment_method: String).returns(String) }
           def payment_method=(_payment_method); end
+          # Payment method options for the off-session payment.
+          sig {
+            returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentMethodOptions))
+           }
+          def payment_method_options; end
+          sig {
+            params(_payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentMethodOptions))
+           }
+          def payment_method_options=(_payment_method_options); end
+          # Details about the payments orchestration configuration.
+          sig {
+            returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentsOrchestration))
+           }
+          def payments_orchestration; end
+          sig {
+            params(_payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentsOrchestration)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentsOrchestration))
+           }
+          def payments_orchestration=(_payments_orchestration); end
           # Details about the OffSessionPayment retries.
           sig {
             returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::RetryDetails))
@@ -118,15 +350,19 @@ module Stripe
            }
           def transfer_data=(_transfer_data); end
           sig {
-            params(amount: Stripe::V2::Amount, cadence: String, customer: String, metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: String, retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::TransferData)).void
+            params(amount: Stripe::V2::Amount, amount_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::AmountDetails), cadence: String, customer: String, mandate_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::MandateData), metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), payment_method: String, payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentService::CreateParams::TransferData)).void
            }
           def initialize(
             amount: nil,
+            amount_details: nil,
             cadence: nil,
             customer: nil,
+            mandate_data: nil,
             metadata: nil,
             on_behalf_of: nil,
             payment_method: nil,
+            payment_method_options: nil,
+            payments_orchestration: nil,
             retry_details: nil,
             statement_descriptor: nil,
             statement_descriptor_suffix: nil,

@@ -17,6 +17,12 @@ module Stripe
           # Impact to the outbound_pending balance.
           sig { returns(Stripe::V2::Amount) }
           def outbound_pending; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TransactionDetails < Stripe::StripeObject
           class Flow < Stripe::StripeObject
@@ -47,6 +53,12 @@ module Stripe
             # If applicable, the ID of the ReceivedDebit that created this Transaction.
             sig { returns(T.nilable(String)) }
             def received_debit; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Closed Enum for now, and will be turned into an Open Enum soon. A descriptive category used to classify the Transaction.
           sig { returns(String) }
@@ -57,6 +69,12 @@ module Stripe
           # Details about the Flow object that created the Transaction.
           sig { returns(Flow) }
           def flow; end
+          def self.inner_class_types
+            @inner_class_types = {flow: Flow}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The delta to the FinancialAccount's balance.
         sig { returns(BalanceImpact) }

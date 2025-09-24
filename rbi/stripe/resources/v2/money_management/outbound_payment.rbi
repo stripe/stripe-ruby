@@ -11,6 +11,12 @@ module Stripe
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
           def bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class From < Stripe::StripeObject
           # The monetary amount debited from the sender, only set on responses.
@@ -19,23 +25,47 @@ module Stripe
           # The FinancialAccount that funds were pulled from.
           sig { returns(String) }
           def financial_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class RecipientNotification < Stripe::StripeObject
           # Closed Enum. Configuration option to enable or disable notifications to recipients.
           # Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
           sig { returns(String) }
           def setting; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusDetails < Stripe::StripeObject
           class Failed < Stripe::StripeObject
             # Open Enum. The `failed` status reason.
             sig { returns(String) }
             def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Returned < Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             sig { returns(String) }
             def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The `failed` status reason.
           sig { returns(T.nilable(Failed)) }
@@ -43,6 +73,12 @@ module Stripe
           # The `returned` status reason.
           sig { returns(T.nilable(Returned)) }
           def returned; end
+          def self.inner_class_types
+            @inner_class_types = {failed: Failed, returned: Returned}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusTransitions < Stripe::StripeObject
           # Timestamp describing when an OutboundPayment changed status to `canceled`.
@@ -61,6 +97,12 @@ module Stripe
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           sig { returns(T.nilable(String)) }
           def returned_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class To < Stripe::StripeObject
           # The monetary amount being credited to the destination.
@@ -72,6 +114,12 @@ module Stripe
           # To which account the OutboundPayment is sent.
           sig { returns(String) }
           def recipient; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TraceId < Stripe::StripeObject
           # Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
@@ -83,6 +131,12 @@ module Stripe
           # The trace ID value if `trace_id.status` is `supported`, otherwise empty.
           sig { returns(T.nilable(String)) }
           def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The "presentment amount" for the OutboundPayment.
         sig { returns(Stripe::V2::Amount) }
@@ -125,6 +179,9 @@ module Stripe
         # Details about the OutboundPayment notification settings for recipient.
         sig { returns(RecipientNotification) }
         def recipient_notification; end
+        # The recipient verification id for this OutboundPayment. Only required for countries with regulatory mandates to verify recipient names before OutboundPayment creation.
+        sig { returns(T.nilable(String)) }
+        def recipient_verification; end
         # The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer). It will default to `STRIPE` if not set on the account settings.
         sig { returns(String) }
         def statement_descriptor; end

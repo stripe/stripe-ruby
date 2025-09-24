@@ -27,6 +27,12 @@ module Stripe
         # The reference rate provider.
         sig { returns(T.nilable(String)) }
         def reference_rate_provider; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The rate that includes the FX fee rate.
       sig { returns(Float) }
@@ -34,6 +40,12 @@ module Stripe
       # Attribute for field rate_details
       sig { returns(RateDetails) }
       def rate_details; end
+      def self.inner_class_types
+        @inner_class_types = {rate_details: RateDetails}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Usage < Stripe::StripeObject
       class Payment < Stripe::StripeObject
@@ -47,6 +59,12 @@ module Stripe
         # This field must match the account ID that would be used in the PaymentIntent’s on_behalf_of field.
         sig { returns(T.nilable(String)) }
         def on_behalf_of; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Transfer < Stripe::StripeObject
         # The Stripe account ID that the funds will be transferred to.
@@ -54,6 +72,12 @@ module Stripe
         # This field should match the account ID that would be used in the Transfer’s destination field.
         sig { returns(String) }
         def destination; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The details required to use an FX Quote for a payment
       sig { returns(T.nilable(Payment)) }
@@ -66,6 +90,12 @@ module Stripe
       # Can be 'payment' or 'transfer'.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {payment: Payment, transfer: Transfer}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Time at which the quote was created, measured in seconds since the Unix epoch.
     sig { returns(Integer) }

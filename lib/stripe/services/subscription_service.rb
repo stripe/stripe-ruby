@@ -151,7 +151,7 @@ module Stripe
         attr_accessor :discounts
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
@@ -201,6 +201,58 @@ module Stripe
         def initialize(enabled: nil, liability: nil)
           @enabled = enabled
           @liability = liability
+        end
+      end
+
+      class BillingSchedule < Stripe::RequestParams
+        class AppliesTo < Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillUntil < Stripe::RequestParams
+          class Duration < Stripe::RequestParams
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The multiplier applied to the interval.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Specifies the billing period.
+          attr_accessor :duration
+          # The end date of the billing schedule.
+          attr_accessor :timestamp
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The end date for the billing schedule.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_until = bill_until
+          @key = key
         end
       end
 
@@ -543,6 +595,38 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments. If not provided, defaults to 40000.
+              attr_accessor :amount
+              # Determines if the amount includes the IOF tax. Defaults to `never`.
+              attr_accessor :amount_includes_iof
+              # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+              attr_accessor :end_date
+              # Schedule at which the future payments will be charged. Defaults to `weekly`.
+              attr_accessor :payment_schedule
+
+              def initialize(
+                amount: nil,
+                amount_includes_iof: nil,
+                end_date: nil,
+                payment_schedule: nil
+              )
+                @amount = amount
+                @amount_includes_iof = amount_includes_iof
+                @end_date = end_date
+                @payment_schedule = payment_schedule
+              end
+            end
+            # Configuration options for setting up a mandate
+            attr_accessor :mandate_options
+
+            def initialize(mandate_options: nil)
+              @mandate_options = mandate_options
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -619,6 +703,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # This sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # This sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # This sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -633,6 +719,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -643,6 +730,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -724,8 +812,12 @@ module Stripe
       attr_accessor :application_fee_percent
       # Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
       attr_accessor :automatic_tax
+      # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+      attr_accessor :billing_cadence
       # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_accessor :billing_cycle_anchor
+      # Sets the billing schedules for the subscription.
+      attr_accessor :billing_schedules
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
       attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -793,7 +885,9 @@ module Stripe
         add_invoice_items: nil,
         application_fee_percent: nil,
         automatic_tax: nil,
+        billing_cadence: nil,
         billing_cycle_anchor: nil,
+        billing_schedules: nil,
         billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
@@ -826,7 +920,9 @@ module Stripe
         @add_invoice_items = add_invoice_items
         @application_fee_percent = application_fee_percent
         @automatic_tax = automatic_tax
+        @billing_cadence = billing_cadence
         @billing_cycle_anchor = billing_cycle_anchor
+        @billing_schedules = billing_schedules
         @billing_thresholds = billing_thresholds
         @cancel_at = cancel_at
         @cancel_at_period_end = cancel_at_period_end
@@ -1099,7 +1195,7 @@ module Stripe
         attr_accessor :discounts
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-        # The period associated with this invoice item. Defaults to the current period of the subscription.
+        # The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
@@ -1174,11 +1270,74 @@ module Stripe
       end
 
       class BillingMode < Stripe::RequestParams
-        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_accessor :proration_discounts
+
+          def initialize(proration_discounts: nil)
+            @proration_discounts = proration_discounts
+          end
+        end
+        # Configure behavior for flexible billing mode.
+        attr_accessor :flexible
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         attr_accessor :type
 
-        def initialize(type: nil)
+        def initialize(flexible: nil, type: nil)
+          @flexible = flexible
           @type = type
+        end
+      end
+
+      class BillingSchedule < Stripe::RequestParams
+        class AppliesTo < Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillUntil < Stripe::RequestParams
+          class Duration < Stripe::RequestParams
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The multiplier applied to the interval.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Specifies the billing period.
+          attr_accessor :duration
+          # The end date of the billing schedule.
+          attr_accessor :timestamp
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The end date for the billing schedule.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_until = bill_until
+          @key = key
         end
       end
 
@@ -1501,6 +1660,38 @@ module Stripe
 
           class IdBankTransfer < Stripe::RequestParams; end
           class Konbini < Stripe::RequestParams; end
+
+          class Pix < Stripe::RequestParams
+            class MandateOptions < Stripe::RequestParams
+              # Amount to be charged for future payments. If not provided, defaults to 40000.
+              attr_accessor :amount
+              # Determines if the amount includes the IOF tax. Defaults to `never`.
+              attr_accessor :amount_includes_iof
+              # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+              attr_accessor :end_date
+              # Schedule at which the future payments will be charged. Defaults to `weekly`.
+              attr_accessor :payment_schedule
+
+              def initialize(
+                amount: nil,
+                amount_includes_iof: nil,
+                end_date: nil,
+                payment_schedule: nil
+              )
+                @amount = amount
+                @amount_includes_iof = amount_includes_iof
+                @end_date = end_date
+                @payment_schedule = payment_schedule
+              end
+            end
+            # Configuration options for setting up a mandate
+            attr_accessor :mandate_options
+
+            def initialize(mandate_options: nil)
+              @mandate_options = mandate_options
+            end
+          end
+
           class SepaDebit < Stripe::RequestParams; end
 
           class Upi < Stripe::RequestParams
@@ -1577,6 +1768,8 @@ module Stripe
           attr_accessor :id_bank_transfer
           # This sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :konbini
+          # This sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+          attr_accessor :pix
           # This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
           attr_accessor :sepa_debit
           # This sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -1591,6 +1784,7 @@ module Stripe
             customer_balance: nil,
             id_bank_transfer: nil,
             konbini: nil,
+            pix: nil,
             sepa_debit: nil,
             upi: nil,
             us_bank_account: nil
@@ -1601,6 +1795,7 @@ module Stripe
             @customer_balance = customer_balance
             @id_bank_transfer = id_bank_transfer
             @konbini = konbini
+            @pix = pix
             @sepa_debit = sepa_debit
             @upi = upi
             @us_bank_account = us_bank_account
@@ -1688,10 +1883,12 @@ module Stripe
       attr_accessor :billing_cadence
       # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
       attr_accessor :billing_cycle_anchor
-      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+      # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
       attr_accessor :billing_cycle_anchor_config
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_accessor :billing_mode
+      # Sets the billing schedules for the subscription.
+      attr_accessor :billing_schedules
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
       attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -1770,6 +1967,7 @@ module Stripe
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
         billing_mode: nil,
+        billing_schedules: nil,
         billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
@@ -1808,6 +2006,7 @@ module Stripe
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_cycle_anchor_config = billing_cycle_anchor_config
         @billing_mode = billing_mode
+        @billing_schedules = billing_schedules
         @billing_thresholds = billing_thresholds
         @cancel_at = cancel_at
         @cancel_at_period_end = cancel_at_period_end
@@ -1872,10 +2071,21 @@ module Stripe
 
     class MigrateParams < Stripe::RequestParams
       class BillingMode < Stripe::RequestParams
-        # Attribute for param field type
+        class Flexible < Stripe::RequestParams
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          attr_accessor :proration_discounts
+
+          def initialize(proration_discounts: nil)
+            @proration_discounts = proration_discounts
+          end
+        end
+        # Configure behavior for flexible billing mode.
+        attr_accessor :flexible
+        # Controls the calculation and orchestration of prorations and invoices for subscriptions.
         attr_accessor :type
 
-        def initialize(type: nil)
+        def initialize(flexible: nil, type: nil)
+          @flexible = flexible
           @type = type
         end
       end

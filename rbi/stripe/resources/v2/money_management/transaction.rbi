@@ -17,6 +17,12 @@ module Stripe
           # Impact to the outbound_pending balance.
           sig { returns(Stripe::V2::Amount) }
           def outbound_pending; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Flow < Stripe::StripeObject
           # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
@@ -46,6 +52,12 @@ module Stripe
           # If applicable, the ID of the ReceivedDebit that created this Transaction.
           sig { returns(T.nilable(String)) }
           def received_debit; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class StatusTransitions < Stripe::StripeObject
           # The time at which the Transaction became posted. Only present if status == posted.
@@ -54,6 +66,12 @@ module Stripe
           # The time at which the Transaction became void. Only present if status == void.
           sig { returns(T.nilable(String)) }
           def void_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The amount of the Transaction.
         sig { returns(Stripe::V2::Amount) }

@@ -24,7 +24,16 @@ module Stripe
       # Determines the type of trial for this item.
       sig { returns(String) }
       def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
+    # The time period the subscription item has been billed for.
+    sig { returns(T.nilable(Integer)) }
+    def billed_until; end
     # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
     sig { returns(T.nilable(BillingThresholds)) }
     def billing_thresholds; end

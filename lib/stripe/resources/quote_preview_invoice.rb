@@ -154,9 +154,9 @@ module Stripe
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       attr_reader :country
-      # Address line 1 (e.g., street, PO Box, or company name).
+      # Address line 1, such as the street, PO Box, or company name.
       attr_reader :line1
-      # Address line 2 (e.g., apartment, suite, unit, or building).
+      # Address line 2, such as the apartment, suite, unit, or building.
       attr_reader :line2
       # ZIP or postal code.
       attr_reader :postal_code
@@ -178,9 +178,9 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
@@ -549,6 +549,19 @@ module Stripe
           end
         end
 
+        class Pix < Stripe::StripeObject
+          # Determines if the amount includes the IOF tax.
+          attr_reader :amount_includes_iof
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class SepaDebit < Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
@@ -646,6 +659,8 @@ module Stripe
         attr_reader :id_bank_transfer
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :konbini
+        # If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :pix
         # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :sepa_debit
         # If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice’s PaymentIntent.
@@ -661,6 +676,7 @@ module Stripe
             customer_balance: CustomerBalance,
             id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
+            pix: Pix,
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
@@ -765,9 +781,9 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code

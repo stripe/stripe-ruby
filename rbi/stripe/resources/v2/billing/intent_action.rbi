@@ -13,6 +13,12 @@ module Stripe
                 # The type of maximum applications configuration.
                 sig { returns(String) }
                 def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # The maximum number of times this discount can be applied for this Billing Cadence.
               sig { returns(MaximumApplications) }
@@ -20,6 +26,12 @@ module Stripe
               # Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
               sig { returns(String) }
               def percent_off; end
+              def self.inner_class_types
+                @inner_class_types = {maximum_applications: MaximumApplications}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The entity that the discount rule applies to, for example, the Billing Cadence.
             sig { returns(String) }
@@ -33,6 +45,12 @@ module Stripe
             # Configuration for percentage off discount.
             sig { returns(T.nilable(PercentOff)) }
             def percent_off; end
+            def self.inner_class_types
+              @inner_class_types = {percent_off: PercentOff}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Type of the apply action details.
           sig { returns(String) }
@@ -40,12 +58,24 @@ module Stripe
           # Details for applying a discount rule to future invoices.
           sig { returns(T.nilable(InvoiceDiscountRule)) }
           def invoice_discount_rule; end
+          def self.inner_class_types
+            @inner_class_types = {invoice_discount_rule: InvoiceDiscountRule}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Deactivate < Stripe::StripeObject
           class BillingDetails < Stripe::StripeObject
             # This controls the proration adjustment for the partial servicing period.
             sig { returns(T.nilable(String)) }
             def proration_behavior; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class EffectiveAt < Stripe::StripeObject
             # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
@@ -54,11 +84,23 @@ module Stripe
             # When the deactivate action will take effect.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class PricingPlanSubscriptionDetails < Stripe::StripeObject
             # ID of the Pricing Plan Subscription to deactivate.
             sig { returns(String) }
             def pricing_plan_subscription; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Configuration for the billing details.
           sig { returns(BillingDetails) }
@@ -72,12 +114,28 @@ module Stripe
           # Details for deactivating a Pricing Plan Subscription.
           sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
           def pricing_plan_subscription_details; end
+          def self.inner_class_types
+            @inner_class_types = {
+              billing_details: BillingDetails,
+              effective_at: EffectiveAt,
+              pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Modify < Stripe::StripeObject
           class BillingDetails < Stripe::StripeObject
             # This controls the proration adjustment for the partial servicing period.
             sig { returns(T.nilable(String)) }
             def proration_behavior; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class EffectiveAt < Stripe::StripeObject
             # The timestamp at which the modify action will take effect. Only present if type is timestamp.
@@ -86,6 +144,12 @@ module Stripe
             # When the modify action will take effect.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class PricingPlanSubscriptionDetails < Stripe::StripeObject
             class ComponentConfiguration < Stripe::StripeObject
@@ -98,6 +162,12 @@ module Stripe
               # ID of the pricing plan component.
               sig { returns(T.nilable(String)) }
               def pricing_plan_component; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # New configurations for the components of the Pricing Plan.
             sig { returns(T::Array[ComponentConfiguration]) }
@@ -111,6 +181,12 @@ module Stripe
             # ID of the Pricing Plan Subscription to modify.
             sig { returns(String) }
             def pricing_plan_subscription; end
+            def self.inner_class_types
+              @inner_class_types = {component_configurations: ComponentConfiguration}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Configuration for the billing details.
           sig { returns(BillingDetails) }
@@ -124,6 +200,16 @@ module Stripe
           # Details for modifying a Pricing Plan Subscription.
           sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
           def pricing_plan_subscription_details; end
+          def self.inner_class_types
+            @inner_class_types = {
+              billing_details: BillingDetails,
+              effective_at: EffectiveAt,
+              pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Remove < Stripe::StripeObject
           # Type of the remove action.
@@ -132,12 +218,24 @@ module Stripe
           # The ID of the discount rule to remove for future invoices.
           sig { returns(T.nilable(String)) }
           def invoice_discount_rule; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Subscribe < Stripe::StripeObject
           class BillingDetails < Stripe::StripeObject
             # This controls the proration adjustment for the partial servicing period.
             sig { returns(T.nilable(String)) }
             def proration_behavior; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class EffectiveAt < Stripe::StripeObject
             # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
@@ -146,6 +244,12 @@ module Stripe
             # When the subscribe action will take effect.
             sig { returns(String) }
             def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class PricingPlanSubscriptionDetails < Stripe::StripeObject
             class ComponentConfiguration < Stripe::StripeObject
@@ -158,6 +262,12 @@ module Stripe
               # ID of the pricing plan component.
               sig { returns(T.nilable(String)) }
               def pricing_plan_component; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Configurations for the components of the Pricing Plan.
             sig { returns(T::Array[ComponentConfiguration]) }
@@ -174,6 +284,12 @@ module Stripe
             # Version of the Pricing Plan to use.
             sig { returns(String) }
             def pricing_plan_version; end
+            def self.inner_class_types
+              @inner_class_types = {component_configurations: ComponentConfiguration}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class V1SubscriptionDetails < Stripe::StripeObject
             class Item < Stripe::StripeObject
@@ -186,6 +302,12 @@ module Stripe
               # Quantity for this item. If not provided, will default to 1.
               sig { returns(T.nilable(Integer)) }
               def quantity; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The subscription’s description, meant to be displayable to the customer.
             # Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
@@ -197,6 +319,12 @@ module Stripe
             # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             sig { returns(T.nilable(T::Hash[String, String])) }
             def metadata; end
+            def self.inner_class_types
+              @inner_class_types = {items: Item}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Configuration for the billing details. If not specified, see the default behavior for individual attributes.
           sig { returns(BillingDetails) }
@@ -213,6 +341,17 @@ module Stripe
           # Details for subscribing to a V1 subscription.
           sig { returns(T.nilable(V1SubscriptionDetails)) }
           def v1_subscription_details; end
+          def self.inner_class_types
+            @inner_class_types = {
+              billing_details: BillingDetails,
+              effective_at: EffectiveAt,
+              pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
+              v1_subscription_details: V1SubscriptionDetails,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time at which the object was created.
         sig { returns(String) }

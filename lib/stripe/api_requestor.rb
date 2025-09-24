@@ -881,6 +881,8 @@ module Stripe
         NotCancelableError.new(error_data[:message], **opts)
       when "quota_exceeded"
         QuotaExceededError.new(error_data[:message], **opts)
+      when "rate_limit"
+        RateLimitError.new(error_data[:message], **opts)
       when "recipient_not_notifiable"
         RecipientNotNotifiableError.new(error_data[:message], **opts)
       when "temporary_session_expired"

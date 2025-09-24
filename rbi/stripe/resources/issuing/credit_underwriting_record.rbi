@@ -18,6 +18,12 @@ module Stripe
         # Date when the applicant submitted their application.
         sig { returns(Integer) }
         def submitted_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class CreditUser < Stripe::StripeObject
         # Email of the applicant or accountholder.
@@ -26,6 +32,12 @@ module Stripe
         # Full name of the company or person.
         sig { returns(String) }
         def name; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Decision < Stripe::StripeObject
         class ApplicationRejected < Stripe::StripeObject
@@ -35,6 +47,12 @@ module Stripe
           # List of reasons why the application was rejected up to 4 reasons, in order of importance.
           sig { returns(T::Array[String]) }
           def reasons; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class CreditLimitApproved < Stripe::StripeObject
           # Credit amount approved. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
@@ -43,6 +61,12 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           def currency; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class CreditLimitDecreased < Stripe::StripeObject
           # Credit amount approved after decrease. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
@@ -57,6 +81,12 @@ module Stripe
           # List of reasons why the existing credit was decreased, up to 4 reasons, in order of importance.
           sig { returns(T::Array[String]) }
           def reasons; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class CreditLineClosed < Stripe::StripeObject
           # Details about the `reasons.other` when present.
@@ -65,6 +95,12 @@ module Stripe
           # List of reasons why the existing account was closed, up to 4 reasons, in order of importance.
           sig { returns(T::Array[String]) }
           def reasons; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Details about a decision application_rejected.
         sig { returns(T.nilable(ApplicationRejected)) }
@@ -81,6 +117,17 @@ module Stripe
         # Outcome of the decision.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            application_rejected: ApplicationRejected,
+            credit_limit_approved: CreditLimitApproved,
+            credit_limit_decreased: CreditLimitDecreased,
+            credit_line_closed: CreditLineClosed,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class UnderwritingException < Stripe::StripeObject
         # Written explanation for the exception.
@@ -89,6 +136,12 @@ module Stripe
         # The decision before the exception was applied.
         sig { returns(String) }
         def original_decision_type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # For decisions triggered by an application, details about the submission.
       sig { returns(T.nilable(Application)) }

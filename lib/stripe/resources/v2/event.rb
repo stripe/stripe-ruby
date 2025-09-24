@@ -52,6 +52,8 @@ module Stripe
       attr_reader :reason
       # The type of the event.
       attr_reader :type
+      # For interop events, this is the snapshot event ID.
+      attr_reader :v1_event_id
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
 

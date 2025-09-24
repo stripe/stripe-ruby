@@ -115,6 +115,8 @@ module Stripe
           attr_accessor :outbound_payment_quote
           # Details about the notification settings for the OutboundPayment recipient.
           attr_accessor :recipient_notification
+          # The recipient verification id for this OutboundPayment. Only required for countries with regulatory mandates to verify recipient names before OutboundPayment creation.
+          attr_accessor :recipient_verification
           # To which payout method to send the OutboundPayment.
           attr_accessor :to
 
@@ -126,6 +128,7 @@ module Stripe
             metadata: nil,
             outbound_payment_quote: nil,
             recipient_notification: nil,
+            recipient_verification: nil,
             to: nil
           )
             @amount = amount
@@ -135,6 +138,7 @@ module Stripe
             @metadata = metadata
             @outbound_payment_quote = outbound_payment_quote
             @recipient_notification = recipient_notification
+            @recipient_verification = recipient_verification
             @to = to
           end
         end

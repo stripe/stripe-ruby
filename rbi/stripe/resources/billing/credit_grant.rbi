@@ -29,6 +29,12 @@ module Stripe
             # The status of the custom pricing unit.
             sig { returns(String) }
             def status; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The custom pricing unit object.
           sig { returns(T.nilable(CustomPricingUnitDetails)) }
@@ -39,6 +45,12 @@ module Stripe
           # A positive integer representing the amount.
           sig { returns(String) }
           def value; end
+          def self.inner_class_types
+            @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Monetary < Stripe::StripeObject
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -64,7 +76,7 @@ module Stripe
         sig { returns(String) }
         def type; end
         def self.inner_class_types
-          @inner_class_types = {monetary: Monetary}
+          @inner_class_types = {custom_pricing_unit: CustomPricingUnit, monetary: Monetary}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -76,6 +88,12 @@ module Stripe
             # Unique identifier for the object.
             sig { returns(T.nilable(String)) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Price < Stripe::StripeObject
             # Unique identifier for the object.
@@ -98,7 +116,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[Price])) }
           def prices; end
           def self.inner_class_types
-            @inner_class_types = {prices: Price}
+            @inner_class_types = {billable_items: BillableItem, prices: Price}
           end
           def self.field_remappings
             @field_remappings = {}

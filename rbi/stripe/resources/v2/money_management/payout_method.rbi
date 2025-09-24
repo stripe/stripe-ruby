@@ -14,6 +14,12 @@ module Stripe
           # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
           sig { returns(String) }
           def transfers; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BankAccount < Stripe::StripeObject
           # Whether this PayoutMethodBankAccount object was archived. PayoutMethodBankAccount objects can be archived through
@@ -42,6 +48,12 @@ module Stripe
           # The list of currencies supported by this bank account.
           sig { returns(T::Array[String]) }
           def supported_currencies; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Card < Stripe::StripeObject
           # Whether the PayoutMethodCard object was archived. PayoutMethodCard objects can be archived through
@@ -58,6 +70,34 @@ module Stripe
           # The last 4 digits of the card number.
           sig { returns(String) }
           def last4; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CryptoWallet < Stripe::StripeObject
+          # Destination wallet address.
+          sig { returns(String) }
+          def address; end
+          # Whether the crypto wallet was archived. Crypto wallets can be archived through the /archive API,
+          # and they will not be automatically archived by Stripe. Archived crypto wallets cannot be used as
+          # payout method and will not appear in the payout method list.
+          sig { returns(T::Boolean) }
+          def archived; end
+          # Optional field, required if network supports memos (only "stellar" currently).
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # Which rail is being used to make an outbound money movement to this wallet.
+          sig { returns(String) }
+          def network; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # A set of available payout speeds for this payout method.
         sig { returns(T::Array[String]) }
@@ -89,6 +129,9 @@ module Stripe
         # The PayoutMethodCard object details.
         sig { returns(T.nilable(Card)) }
         def card; end
+        # The PayoutMethodCryptoWallet object details.
+        sig { returns(T.nilable(CryptoWallet)) }
+        def crypto_wallet; end
       end
     end
   end

@@ -28,6 +28,12 @@ module Stripe
       # The margin that was applied to get this margin amount.
       sig { returns(T.any(String, Stripe::Margin)) }
       def margin; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Parent < Stripe::StripeObject
       class InvoiceItemDetails < Stripe::StripeObject
@@ -91,6 +97,12 @@ module Stripe
         # The pricing plan version at the time this line item was generated
         sig { returns(String) }
         def pricing_plan_version; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class RateCardSubscriptionDetails < Stripe::StripeObject
         # The invoice item that generated this line item
@@ -108,6 +120,12 @@ module Stripe
         # The rate card version at the time this line item was generated
         sig { returns(String) }
         def rate_card_version; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class SubscriptionItemDetails < Stripe::StripeObject
         class ProrationDetails < Stripe::StripeObject
@@ -175,6 +193,8 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           invoice_item_details: InvoiceItemDetails,
+          license_fee_subscription_details: LicenseFeeSubscriptionDetails,
+          rate_card_subscription_details: RateCardSubscriptionDetails,
           subscription_item_details: SubscriptionItemDetails,
         }
       end
@@ -230,6 +250,12 @@ module Stripe
         # The ID of the licensed item this item is associated with
         sig { returns(String) }
         def licensed_item; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PriceDetails < Stripe::StripeObject
         # The ID of the price this item is associated with.
@@ -255,6 +281,12 @@ module Stripe
         # The ID of the rate card rate this item is associated with
         sig { returns(String) }
         def rate_card_rate; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field license_fee_details
       sig { returns(T.nilable(LicenseFeeDetails)) }
@@ -272,7 +304,11 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def unit_amount_decimal; end
       def self.inner_class_types
-        @inner_class_types = {price_details: PriceDetails}
+        @inner_class_types = {
+          license_fee_details: LicenseFeeDetails,
+          price_details: PriceDetails,
+          rate_card_rate_details: RateCardRateDetails,
+        }
       end
       def self.field_remappings
         @field_remappings = {}
@@ -285,6 +321,12 @@ module Stripe
       # The calculation identifier for tax calculation response line item.
       sig { returns(T.nilable(String)) }
       def calculation_item_id; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Tax < Stripe::StripeObject
       class TaxRateDetails < Stripe::StripeObject
@@ -497,15 +539,21 @@ module Stripe
           def tax_code; end
           sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
           def tax_code=(_tax_code); end
+          # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+          sig { returns(T.nilable(String)) }
+          def unit_label; end
+          sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
+          def unit_label=(_unit_label); end
           sig {
-            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String)).void
+            params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
            }
           def initialize(
             description: nil,
             images: nil,
             metadata: nil,
             name: nil,
-            tax_code: nil
+            tax_code: nil,
+            unit_label: nil
           ); end
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

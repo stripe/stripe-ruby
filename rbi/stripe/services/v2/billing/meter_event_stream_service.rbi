@@ -40,7 +40,7 @@ module Stripe
              }
             def initialize(event_name: nil, identifier: nil, payload: nil, timestamp: nil); end
           end
-          # List of meter events to include in the request.
+          # List of meter events to include in the request. Supports up to 100 events per request.
           sig {
             returns(T::Array[::Stripe::V2::Billing::MeterEventStreamService::CreateParams::Event])
            }

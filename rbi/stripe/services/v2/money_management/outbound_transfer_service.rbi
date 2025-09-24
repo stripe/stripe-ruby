@@ -139,6 +139,11 @@ module Stripe
             params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
            }
           def metadata=(_metadata); end
+          # The recipient verification id for this OutboundTransfer. Only required for countries with regulatory mandates to verify recipient names before OutboundTransfer creation.
+          sig { returns(T.nilable(String)) }
+          def recipient_verification; end
+          sig { params(_recipient_verification: T.nilable(String)).returns(T.nilable(String)) }
+          def recipient_verification=(_recipient_verification); end
           # To which payout method to send the OutboundTransfer.
           sig { returns(::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams::To) }
           def to; end
@@ -147,7 +152,7 @@ module Stripe
            }
           def to=(_to); end
           sig {
-            params(amount: Stripe::V2::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams::From, metadata: T.nilable(T::Hash[String, String]), to: ::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams::To).void
+            params(amount: Stripe::V2::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams::From, metadata: T.nilable(T::Hash[String, String]), recipient_verification: T.nilable(String), to: ::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams::To).void
            }
           def initialize(
             amount: nil,
@@ -155,6 +160,7 @@ module Stripe
             description: nil,
             from: nil,
             metadata: nil,
+            recipient_verification: nil,
             to: nil
           ); end
         end

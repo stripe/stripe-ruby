@@ -11,9 +11,107 @@ module Stripe
           "v2.payments.off_session_payment"
         end
 
+        class AmountDetails < Stripe::StripeObject
+          class LineItem < Stripe::StripeObject
+            class Tax < Stripe::StripeObject
+              # Total portion of the amount that is for tax.
+              attr_reader :total_tax_amount
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The amount an item was discounted for. Positive integer.
+            attr_reader :discount_amount
+            # Unique identifier of the product. At most 12 characters long.
+            attr_reader :product_code
+            # Name of the product. At most 100 characters long.
+            attr_reader :product_name
+            # Number of items of the product. Positive integer.
+            attr_reader :quantity
+            # Contains information about the tax on the item.
+            attr_reader :tax
+            # Cost of the product. Non-negative integer.
+            attr_reader :unit_cost
+
+            def self.inner_class_types
+              @inner_class_types = { tax: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Shipping < Stripe::StripeObject
+            # Portion of the amount that is for shipping.
+            attr_reader :amount
+            # The postal code that represents the shipping source.
+            attr_reader :from_postal_code
+            # The postal code that represents the shipping destination.
+            attr_reader :to_postal_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tax < Stripe::StripeObject
+            # Total portion of the amount that is for tax.
+            attr_reader :total_tax_amount
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The amount the total transaction was discounted for.
+          attr_reader :discount_amount
+          # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+          attr_reader :line_items
+          # Contains information about the shipping portion of the amount.
+          attr_reader :shipping
+          # Contains information about the tax portion of the amount.
+          attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { line_items: LineItem, shipping: Shipping, tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PaymentsOrchestration < Stripe::StripeObject
+          # True when you want to enable payments orchestration for this off-session payment. False otherwise.
+          attr_reader :enabled
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class RetryDetails < Stripe::StripeObject
           # Number of authorization attempts so far.
           attr_reader :attempts
+          # The pre-configured retry policy to use for the payment.
+          attr_reader :retry_policy
           # Indicates the strategy for how you want Stripe to retry the payment.
           attr_reader :retry_strategy
 
@@ -47,6 +145,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Provides industry-specific information about the amount.
+        attr_reader :amount_details
         # The “presentment amount” to be collected from the customer.
         attr_reader :amount_requested
         # The frequency of the underlying payment.
@@ -60,7 +160,7 @@ module Stripe
         attr_reader :customer
         # The reason why the OffSessionPayment failed.
         attr_reader :failure_reason
-        # Unique identifier for the object..
+        # Unique identifier for the object.
         attr_reader :id
         # The payment error encountered in the previous attempt to authorize the payment.
         attr_reader :last_authorization_attempt_error
@@ -81,6 +181,8 @@ module Stripe
         attr_reader :payment_method
         # Payment record associated with the OffSessionPayment.
         attr_reader :payment_record
+        # Details about the payments orchestration configuration.
+        attr_reader :payments_orchestration
         # Details about the OffSessionPayment retries.
         attr_reader :retry_details
         # Text that appears on the customer’s statement as the statement descriptor for a
@@ -101,7 +203,12 @@ module Stripe
         attr_reader :transfer_data
 
         def self.inner_class_types
-          @inner_class_types = { retry_details: RetryDetails, transfer_data: TransferData }
+          @inner_class_types = {
+            amount_details: AmountDetails,
+            payments_orchestration: PaymentsOrchestration,
+            retry_details: RetryDetails,
+            transfer_data: TransferData,
+          }
         end
 
         def self.field_remappings

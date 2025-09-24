@@ -15,6 +15,12 @@ module Stripe
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class CaMrdp < Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
@@ -23,6 +29,12 @@ module Stripe
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class EuDac7 < Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
@@ -31,6 +43,12 @@ module Stripe
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class FilingStatus < Stripe::StripeObject
         class Jurisdiction < Stripe::StripeObject
@@ -43,6 +61,12 @@ module Stripe
           # [ISO 3166-2 U.S. state code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix, if any. For example, "NY" for New York, United States. Null for non-U.S. forms.
           sig { returns(T.nilable(String)) }
           def state; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time when the filing status was updated.
         sig { returns(Integer) }
@@ -53,6 +77,12 @@ module Stripe
         # The current status of the filed form.
         sig { returns(String) }
         def value; end
+        def self.inner_class_types
+          @inner_class_types = {jurisdiction: Jurisdiction}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class GbMrdp < Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
@@ -61,6 +91,12 @@ module Stripe
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class NzMrdp < Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
@@ -69,6 +105,12 @@ module Stripe
         # Start date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Payee < Stripe::StripeObject
         # The ID of the payee's Stripe account.
@@ -80,21 +122,45 @@ module Stripe
         # Either `account` or `external_reference`.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Us1099K < Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
         def reporting_year; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Us1099Misc < Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
         def reporting_year; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Us1099Nec < Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
         def reporting_year; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field au_serr
       sig { returns(T.nilable(AuSerr)) }

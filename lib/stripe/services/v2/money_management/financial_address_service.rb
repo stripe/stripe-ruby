@@ -21,14 +21,25 @@ module Stripe
         end
 
         class CreateParams < Stripe::RequestParams
-          # Open Enum. The currency the FinancialAddress should support. Currently, only the `usd` and `gbp` values are supported.
-          attr_accessor :currency
+          class SepaBankAccount < Stripe::RequestParams
+            # The originating country of the SEPA Bank account.
+            attr_accessor :country
+
+            def initialize(country: nil)
+              @country = country
+            end
+          end
           # The ID of the FinancialAccount the new FinancialAddress should be associated with.
           attr_accessor :financial_account
+          # Optional SEPA Bank account options, used to configure the type of SEPA Bank account to create, such as the originating country.
+          attr_accessor :sepa_bank_account
+          # The type of FinancialAddress details to provision.
+          attr_accessor :type
 
-          def initialize(currency: nil, financial_account: nil)
-            @currency = currency
+          def initialize(financial_account: nil, sepa_bank_account: nil, type: nil)
             @financial_account = financial_account
+            @sepa_bank_account = sepa_bank_account
+            @type = type
           end
         end
 

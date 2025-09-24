@@ -416,6 +416,8 @@ module Stripe
         @trial = trial
       end
     end
+    # The time period the subscription item has been billed for.
+    attr_reader :billed_until
     # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
     attr_reader :billing_thresholds
     # Time at which the object was created. Measured in seconds since the Unix epoch.

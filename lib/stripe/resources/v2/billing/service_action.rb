@@ -13,6 +13,8 @@ module Stripe
         class CreditGrant < Stripe::StripeObject
           class Amount < Stripe::StripeObject
             class CustomPricingUnit < Stripe::StripeObject
+              # The Custom Pricing Unit object.
+              attr_reader :custom_pricing_unit_details
               # The id of the custom pricing unit.
               attr_reader :id
               # The value of the credit grant, decimal value represented as a string.
@@ -85,10 +87,14 @@ module Stripe
           attr_reader :amount
           # Defines the scope where the credit grant is applicable.
           attr_reader :applicability_config
+          # The category of the credit grant.
+          attr_reader :category
           # The expiry configuration for the credit grant.
           attr_reader :expiry_config
           # A descriptive name shown in dashboard.
           attr_reader :name
+          # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+          attr_reader :priority
 
           def self.inner_class_types
             @inner_class_types = {
@@ -106,6 +112,8 @@ module Stripe
         class CreditGrantPerTenant < Stripe::StripeObject
           class Amount < Stripe::StripeObject
             class CustomPricingUnit < Stripe::StripeObject
+              # The Custom Pricing Unit object.
+              attr_reader :custom_pricing_unit_details
               # The id of the custom pricing unit.
               attr_reader :id
               # The value of the credit grant, decimal value represented as a string.
@@ -178,10 +186,14 @@ module Stripe
           attr_reader :amount
           # Defines the scope where the credit grant is applicable.
           attr_reader :applicability_config
+          # The category of the credit grant.
+          attr_reader :category
           # The expiry configuration for the credit grant.
           attr_reader :expiry_config
           # Customer-facing name for the credit grant.
           attr_reader :name
+          # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+          attr_reader :priority
 
           def self.inner_class_types
             @inner_class_types = {

@@ -128,31 +128,70 @@ module Stripe
         end
       end
       class CapitalFinancing < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class CapitalFinancingApplication < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class CapitalFinancingPromotion < Stripe::StripeObject
-        class Features < Stripe::StripeObject; end
+        class Features < Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         # Attribute for field features
         sig { returns(Features) }
         def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class DisputesList < Stripe::StripeObject
         class Features < Stripe::StripeObject
@@ -723,6 +762,9 @@ module Stripe
           account_onboarding: AccountOnboarding,
           balance_report: BalanceReport,
           balances: Balances,
+          capital_financing: CapitalFinancing,
+          capital_financing_application: CapitalFinancingApplication,
+          capital_financing_promotion: CapitalFinancingPromotion,
           disputes_list: DisputesList,
           documents: Documents,
           financial_account: FinancialAccount,

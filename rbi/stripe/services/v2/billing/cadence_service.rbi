@@ -31,7 +31,15 @@ module Stripe
           def limit; end
           sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def limit=(_limit); end
-          # If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock`.
+          # Only return the cadences with these lookup_keys, if any exist. You can specify up to 10 lookup_keys.
+          # Mutually exclusive with `test_clock` and `payer`.
+          sig { returns(T.nilable(T::Array[String])) }
+          def lookup_keys; end
+          sig {
+            params(_lookup_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def lookup_keys=(_lookup_keys); end
+          # If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock` and `lookup_keys`.
           sig { returns(T.nilable(::Stripe::V2::Billing::CadenceService::ListParams::Payer)) }
           def payer; end
           sig {
@@ -46,9 +54,15 @@ module Stripe
           sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
           def test_clock=(_test_clock); end
           sig {
-            params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer), payer: T.nilable(::Stripe::V2::Billing::CadenceService::ListParams::Payer), test_clock: T.nilable(String)).void
+            params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer), lookup_keys: T.nilable(T::Array[String]), payer: T.nilable(::Stripe::V2::Billing::CadenceService::ListParams::Payer), test_clock: T.nilable(String)).void
            }
-          def initialize(include: nil, limit: nil, payer: nil, test_clock: nil); end
+          def initialize(
+            include: nil,
+            limit: nil,
+            lookup_keys: nil,
+            payer: nil,
+            test_clock: nil
+          ); end
         end
         class CreateParams < Stripe::RequestParams
           class BillingCycle < Stripe::RequestParams
@@ -124,6 +138,14 @@ module Stripe
               def day_of_month; end
               sig { params(_day_of_month: Integer).returns(Integer) }
               def day_of_month=(_day_of_month); end
+              # The month to anchor the billing on for a type="month" billing cycle from
+              # 1-12. If not provided, this will default to the month the cadence was created.
+              # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
+              # All occurrences will be calculated from month provided.
+              sig { returns(T.nilable(Integer)) }
+              def month_of_year; end
+              sig { params(_month_of_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def month_of_year=(_month_of_year); end
               # The time at which the billing cycle ends.
               # This field is optional, and if not provided, it will default to
               # the time at which the cadence was created in UTC timezone.
@@ -136,9 +158,9 @@ module Stripe
                }
               def time=(_time); end
               sig {
-                params(day_of_month: Integer, time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time)).void
+                params(day_of_month: Integer, month_of_year: T.nilable(Integer), time: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle::Month::Time)).void
                }
-              def initialize(day_of_month: nil, time: nil); end
+              def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
             end
             class Week < Stripe::RequestParams
               class Time < Stripe::RequestParams
@@ -303,26 +325,13 @@ module Stripe
             ); end
           end
           class Payer < Stripe::RequestParams
-            # The ID of the Billing Profile object which determines how a bill will be paid. If provided, the created cadence will be
-            # associated with the provided Billing Profile. If not provided, a new Billing Profile will be created and associated with the cadence.
-            sig { returns(T.nilable(String)) }
+            # The ID of the Billing Profile object which determines how a bill will be paid.
+            sig { returns(String) }
             def billing_profile; end
-            sig { params(_billing_profile: T.nilable(String)).returns(T.nilable(String)) }
+            sig { params(_billing_profile: String).returns(String) }
             def billing_profile=(_billing_profile); end
-            # The ID of the Customer object.
-            sig { returns(T.nilable(String)) }
-            def customer; end
-            sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
-            def customer=(_customer); end
-            # A string identifying the type of the payer. Currently the only supported value is `customer`.
-            sig { returns(T.nilable(String)) }
-            def type; end
-            sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-            def type=(_type); end
-            sig {
-              params(billing_profile: T.nilable(String), customer: T.nilable(String), type: T.nilable(String)).void
-             }
-            def initialize(billing_profile: nil, customer: nil, type: nil); end
+            sig { params(billing_profile: String).void }
+            def initialize(billing_profile: nil); end
           end
           class Settings < Stripe::RequestParams
             class Bill < Stripe::RequestParams
@@ -394,6 +403,11 @@ module Stripe
           def include; end
           sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
           def include=(_include); end
+          # A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
+          sig { returns(T.nilable(String)) }
+          def lookup_key; end
+          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+          def lookup_key=(_lookup_key); end
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
@@ -416,11 +430,12 @@ module Stripe
            }
           def settings=(_settings); end
           sig {
-            params(billing_cycle: ::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payer: ::Stripe::V2::Billing::CadenceService::CreateParams::Payer, settings: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings)).void
+            params(billing_cycle: ::Stripe::V2::Billing::CadenceService::CreateParams::BillingCycle, include: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), payer: ::Stripe::V2::Billing::CadenceService::CreateParams::Payer, settings: T.nilable(::Stripe::V2::Billing::CadenceService::CreateParams::Settings)).void
            }
           def initialize(
             billing_cycle: nil,
             include: nil,
+            lookup_key: nil,
             metadata: nil,
             payer: nil,
             settings: nil
@@ -508,6 +523,11 @@ module Stripe
           def include; end
           sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
           def include=(_include); end
+          # A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
+          sig { returns(T.nilable(String)) }
+          def lookup_key; end
+          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+          def lookup_key=(_lookup_key); end
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
           def metadata; end
@@ -530,9 +550,15 @@ module Stripe
            }
           def settings=(_settings); end
           sig {
-            params(include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), payer: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Payer), settings: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings)).void
+            params(include: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), payer: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Payer), settings: T.nilable(::Stripe::V2::Billing::CadenceService::UpdateParams::Settings)).void
            }
-          def initialize(include: nil, metadata: nil, payer: nil, settings: nil); end
+          def initialize(
+            include: nil,
+            lookup_key: nil,
+            metadata: nil,
+            payer: nil,
+            settings: nil
+          ); end
         end
         class CancelParams < Stripe::RequestParams
           # Additional resource to include in the response.

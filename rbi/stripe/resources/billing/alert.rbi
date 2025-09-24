@@ -14,6 +14,12 @@ module Stripe
           # Attribute for field type
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class Lte < Stripe::StripeObject
           class CustomPricingUnit < Stripe::StripeObject
@@ -36,6 +42,12 @@ module Stripe
               # The status of the custom pricing unit.
               sig { returns(String) }
               def status; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The custom pricing unit object.
             sig { returns(T.nilable(CustomPricingUnitDetails)) }
@@ -46,6 +58,12 @@ module Stripe
             # A positive decimal string representing the amount.
             sig { returns(String) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {custom_pricing_unit_details: CustomPricingUnitDetails}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Monetary < Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -54,6 +72,12 @@ module Stripe
             # A positive integer representing the amount.
             sig { returns(Integer) }
             def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The type of this balance. We currently only support `monetary` amounts.
           sig { returns(String) }
@@ -64,6 +88,12 @@ module Stripe
           # The monetary amount.
           sig { returns(T.nilable(Monetary)) }
           def monetary; end
+          def self.inner_class_types
+            @inner_class_types = {custom_pricing_unit: CustomPricingUnit, monetary: Monetary}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The filters allow limiting the scope of this credit balance alert. You must specify only a customer filter at this time.
         sig { returns(T.nilable(T::Array[Filter])) }
@@ -71,6 +101,12 @@ module Stripe
         # Attribute for field lte
         sig { returns(Lte) }
         def lte; end
+        def self.inner_class_types
+          @inner_class_types = {filters: Filter, lte: Lte}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class UsageThreshold < Stripe::StripeObject
         class Filter < Stripe::StripeObject
@@ -182,6 +218,92 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         class CreditBalanceThreshold < Stripe::RequestParams
           class Filter < Stripe::RequestParams
+            class CreditGrants < Stripe::RequestParams
+              class ApplicabilityConfig < Stripe::RequestParams
+                class Scope < Stripe::RequestParams
+                  class BillableItem < Stripe::RequestParams
+                    # The billable item ID this credit grant should apply to.
+                    sig { returns(String) }
+                    def id; end
+                    sig { params(_id: String).returns(String) }
+                    def id=(_id); end
+                    sig { params(id: String).void }
+                    def initialize(id: nil); end
+                  end
+                  class Price < Stripe::RequestParams
+                    # The price ID this credit grant should apply to.
+                    sig { returns(String) }
+                    def id; end
+                    sig { params(_id: String).returns(String) }
+                    def id=(_id); end
+                    sig { params(id: String).void }
+                    def initialize(id: nil); end
+                  end
+                  # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+                  sig {
+                    returns(T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem]))
+                   }
+                  def billable_items; end
+                  sig {
+                    params(_billable_items: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem])).returns(T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem]))
+                   }
+                  def billable_items=(_billable_items); end
+                  # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
+                  sig { returns(T.nilable(String)) }
+                  def price_type; end
+                  sig { params(_price_type: T.nilable(String)).returns(T.nilable(String)) }
+                  def price_type=(_price_type); end
+                  # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+                  sig {
+                    returns(T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price]))
+                   }
+                  def prices; end
+                  sig {
+                    params(_prices: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price])).returns(T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price]))
+                   }
+                  def prices=(_prices); end
+                  sig {
+                    params(billable_items: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope::Price])).void
+                   }
+                  def initialize(billable_items: nil, price_type: nil, prices: nil); end
+                end
+                # Specify the scope of this applicability config.
+                sig {
+                  returns(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope)
+                 }
+                def scope; end
+                sig {
+                  params(_scope: ::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope).returns(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope)
+                 }
+                def scope=(_scope); end
+                sig {
+                  params(scope: ::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig::Scope).void
+                 }
+                def initialize(scope: nil); end
+              end
+              # The applicability configuration for this credit grants filter.
+              sig {
+                returns(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig)
+               }
+              def applicability_config; end
+              sig {
+                params(_applicability_config: ::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig).returns(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig)
+               }
+              def applicability_config=(_applicability_config); end
+              sig {
+                params(applicability_config: ::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants::ApplicabilityConfig).void
+               }
+              def initialize(applicability_config: nil); end
+            end
+            # The credit grants for which to configure the credit balance alert.
+            sig {
+              returns(T.nilable(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants))
+             }
+            def credit_grants; end
+            sig {
+              params(_credit_grants: T.nilable(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants)).returns(T.nilable(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants))
+             }
+            def credit_grants=(_credit_grants); end
             # Limit the scope to this credit balance alert only to this customer.
             sig { returns(T.nilable(String)) }
             def customer; end
@@ -192,8 +314,10 @@ module Stripe
             def type; end
             sig { params(_type: String).returns(String) }
             def type=(_type); end
-            sig { params(customer: T.nilable(String), type: String).void }
-            def initialize(customer: nil, type: nil); end
+            sig {
+              params(credit_grants: T.nilable(::Stripe::Billing::Alert::CreateParams::CreditBalanceThreshold::Filter::CreditGrants), customer: T.nilable(String), type: String).void
+             }
+            def initialize(credit_grants: nil, customer: nil, type: nil); end
           end
           class Lte < Stripe::RequestParams
             class CustomPricingUnit < Stripe::RequestParams
@@ -307,7 +431,7 @@ module Stripe
           def meter; end
           sig { params(_meter: String).returns(String) }
           def meter=(_meter); end
-          # Whether the alert should only fire only once, or once per billing cycle.
+          # Defines how the alert will behave.
           sig { returns(String) }
           def recurrence; end
           sig { params(_recurrence: String).returns(String) }

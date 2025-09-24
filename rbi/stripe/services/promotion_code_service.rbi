@@ -102,6 +102,20 @@ module Stripe
       ); end
     end
     class CreateParams < Stripe::RequestParams
+      class Promotion < Stripe::RequestParams
+        # If promotion `type` is `coupon`, the coupon for this promotion code.
+        sig { returns(T.nilable(String)) }
+        def coupon; end
+        sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+        def coupon=(_coupon); end
+        # Specifies the type of promotion.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig { params(coupon: T.nilable(String), type: String).void }
+        def initialize(coupon: nil, type: nil); end
+      end
       class Restrictions < Stripe::RequestParams
         class CurrencyOptions < Stripe::RequestParams
           # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
@@ -160,11 +174,6 @@ module Stripe
       def code; end
       sig { params(_code: T.nilable(String)).returns(T.nilable(String)) }
       def code=(_code); end
-      # The coupon for this promotion code.
-      sig { returns(String) }
-      def coupon; end
-      sig { params(_coupon: String).returns(String) }
-      def coupon=(_coupon); end
       # The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
       sig { returns(T.nilable(String)) }
       def customer; end
@@ -197,6 +206,13 @@ module Stripe
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
+      # The promotion referenced by this promotion code.
+      sig { returns(::Stripe::PromotionCodeService::CreateParams::Promotion) }
+      def promotion; end
+      sig {
+        params(_promotion: ::Stripe::PromotionCodeService::CreateParams::Promotion).returns(::Stripe::PromotionCodeService::CreateParams::Promotion)
+       }
+      def promotion=(_promotion); end
       # Settings that restrict the redemption of the promotion code.
       sig { returns(T.nilable(::Stripe::PromotionCodeService::CreateParams::Restrictions)) }
       def restrictions; end
@@ -205,18 +221,18 @@ module Stripe
        }
       def restrictions=(_restrictions); end
       sig {
-        params(active: T.nilable(T::Boolean), code: T.nilable(String), coupon: String, customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), max_redemptions: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), restrictions: T.nilable(::Stripe::PromotionCodeService::CreateParams::Restrictions)).void
+        params(active: T.nilable(T::Boolean), code: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), max_redemptions: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), promotion: ::Stripe::PromotionCodeService::CreateParams::Promotion, restrictions: T.nilable(::Stripe::PromotionCodeService::CreateParams::Restrictions)).void
        }
       def initialize(
         active: nil,
         code: nil,
-        coupon: nil,
         customer: nil,
         customer_account: nil,
         expand: nil,
         expires_at: nil,
         max_redemptions: nil,
         metadata: nil,
+        promotion: nil,
         restrictions: nil
       ); end
     end
@@ -283,7 +299,7 @@ module Stripe
        }
       def initialize(active: nil, expand: nil, metadata: nil, restrictions: nil); end
     end
-    # A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+    # A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
     sig {
       params(params: T.any(::Stripe::PromotionCodeService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PromotionCode)
      }

@@ -11,6 +11,12 @@ module Stripe
           # Open Enum. Method for bank account.
           sig { returns(T.nilable(String)) }
           def bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class EstimatedFee < Stripe::StripeObject
           # The fee amount for corresponding fee type.
@@ -19,6 +25,12 @@ module Stripe
           # The fee type.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class From < Stripe::StripeObject
           # The monetary amount debited from the sender, only set on responses.
@@ -27,20 +39,32 @@ module Stripe
           # The FinancialAccount that funds were pulled from.
           sig { returns(String) }
           def financial_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class FxQuote < Stripe::StripeObject
           class Rates < Stripe::StripeObject
             # The exchange rate going from_currency -> to_currency.
             sig { returns(String) }
             def exchange_rate; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
-          # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes.
+          # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes or none.
           sig { returns(String) }
           def lock_duration; end
-          # Time at which the rate lock will expire, measured in seconds since the Unix epoch.
-          sig { returns(String) }
+          # Time at which the rate lock will expire, measured in seconds since the Unix epoch. Null when rate locking is not supported.
+          sig { returns(T.nilable(String)) }
           def lock_expires_at; end
-          # Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active or expired.
+          # Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active, expired or none.
           sig { returns(String) }
           def lock_status; end
           # Key pair: from currency Value: exchange rate going from_currency -> to_currency.
@@ -49,6 +73,12 @@ module Stripe
           # The currency that the transaction is exchanging to.
           sig { returns(String) }
           def to_currency; end
+          def self.inner_class_types
+            @inner_class_types = {rates: Rates}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class To < Stripe::StripeObject
           # The monetary amount being credited to the destination.
@@ -60,6 +90,12 @@ module Stripe
           # To which account the OutboundPayment is sent.
           sig { returns(String) }
           def recipient; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The "presentment amount" for the OutboundPaymentQuote.
         sig { returns(Stripe::V2::Amount) }

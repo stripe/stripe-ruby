@@ -29,6 +29,12 @@ module Stripe
           # If applicable, the ID of the ReceivedDebit linked to this Adjustment.
           sig { returns(T.nilable(String)) }
           def received_debit; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # If applicable, contains information about the original flow linked to this Adjustment.
         sig { returns(T.nilable(AdjustedFlow)) }

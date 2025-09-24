@@ -16,6 +16,12 @@ module Stripe
               # A unique key representing the instance of this localizable string.
               sig { returns(String) }
               def localization_key; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The local name of the field.
             sig { returns(String) }
@@ -38,10 +44,22 @@ module Stripe
             # The validation regex of the field.
             sig { returns(String) }
             def validation_regex; end
+            def self.inner_class_types
+              @inner_class_types = {local_name_human: LocalNameHuman}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The list of fields for a country, along with associated information.
           sig { returns(T::Array[Field]) }
           def fields; end
+          def self.inner_class_types
+            @inner_class_types = {fields: Field}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The list of specs by country.
         sig { returns(T::Hash[String, Countries]) }

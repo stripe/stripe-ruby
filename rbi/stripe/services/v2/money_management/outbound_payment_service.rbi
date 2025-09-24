@@ -174,6 +174,11 @@ module Stripe
             params(_recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::RecipientNotification)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::RecipientNotification))
            }
           def recipient_notification=(_recipient_notification); end
+          # The recipient verification id for this OutboundPayment. Only required for countries with regulatory mandates to verify recipient names before OutboundPayment creation.
+          sig { returns(T.nilable(String)) }
+          def recipient_verification; end
+          sig { params(_recipient_verification: T.nilable(String)).returns(T.nilable(String)) }
+          def recipient_verification=(_recipient_verification); end
           # To which payout method to send the OutboundPayment.
           sig { returns(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::To) }
           def to; end
@@ -182,7 +187,7 @@ module Stripe
            }
           def to=(_to); end
           sig {
-            params(amount: Stripe::V2::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::From, metadata: T.nilable(T::Hash[String, String]), outbound_payment_quote: T.nilable(String), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::RecipientNotification), to: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::To).void
+            params(amount: Stripe::V2::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::From, metadata: T.nilable(T::Hash[String, String]), outbound_payment_quote: T.nilable(String), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::RecipientNotification), recipient_verification: T.nilable(String), to: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::To).void
            }
           def initialize(
             amount: nil,
@@ -192,6 +197,7 @@ module Stripe
             metadata: nil,
             outbound_payment_quote: nil,
             recipient_notification: nil,
+            recipient_verification: nil,
             to: nil
           ); end
         end

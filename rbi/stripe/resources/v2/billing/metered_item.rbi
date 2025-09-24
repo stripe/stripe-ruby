@@ -15,11 +15,23 @@ module Stripe
           # To count usage towards this metered item, the dimension must have this value.
           sig { returns(String) }
           def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class TaxDetails < Stripe::StripeObject
           # Product tax code (PTC).
           sig { returns(String) }
           def tax_code; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Timestamp of when the object was created.
         sig { returns(String) }

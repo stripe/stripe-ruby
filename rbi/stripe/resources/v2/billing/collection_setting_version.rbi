@@ -14,10 +14,22 @@ module Stripe
             # If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
             sig { returns(T::Boolean) }
             def include_payment_link; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
           sig { returns(T.nilable(PaymentDue)) }
           def payment_due; end
+          def self.inner_class_types
+            @inner_class_types = {payment_due: PaymentDue}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class PaymentMethodOptions < Stripe::StripeObject
           class AcssDebit < Stripe::StripeObject
@@ -25,6 +37,12 @@ module Stripe
               # Transaction type of the mandate.
               sig { returns(T.nilable(String)) }
               def transaction_type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Additional fields for Mandate creation.
             sig { returns(T.nilable(MandateOptions)) }
@@ -32,11 +50,23 @@ module Stripe
             # Verification method.
             sig { returns(T.nilable(String)) }
             def verification_method; end
+            def self.inner_class_types
+              @inner_class_types = {mandate_options: MandateOptions}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Bancontact < Stripe::StripeObject
             # Preferred language of the Bancontact authorization page that the customer is redirected to.
             sig { returns(T.nilable(String)) }
             def preferred_language; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class Card < Stripe::StripeObject
             class MandateOptions < Stripe::StripeObject
@@ -49,6 +79,12 @@ module Stripe
               # A description of the mandate that is meant to be displayed to the customer.
               sig { returns(T.nilable(String)) }
               def description; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Configuration options for setting up an eMandate for cards issued in India.
             sig { returns(T.nilable(MandateOptions)) }
@@ -62,6 +98,12 @@ module Stripe
             # Read our guide on [manually requesting 3D Secure](https://docs.corp.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             sig { returns(T.nilable(String)) }
             def request_three_d_secure; end
+            def self.inner_class_types
+              @inner_class_types = {mandate_options: MandateOptions}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class CustomerBalance < Stripe::StripeObject
             class BankTransfer < Stripe::StripeObject
@@ -69,6 +111,12 @@ module Stripe
                 # The desired country code of the bank account information.
                 sig { returns(String) }
                 def country; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Configuration for `eu_bank_transfer` funding type. Required if `type` is `eu_bank_transfer`.
               sig { returns(T.nilable(EuBankTransfer)) }
@@ -76,6 +124,12 @@ module Stripe
               # The bank transfer type that can be used for funding.
               sig { returns(T.nilable(String)) }
               def type; end
+              def self.inner_class_types
+                @inner_class_types = {eu_bank_transfer: EuBankTransfer}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
             sig { returns(T.nilable(BankTransfer)) }
@@ -83,6 +137,12 @@ module Stripe
             # The funding method type to be used when there are not enough funds in the customer balance. Currently the only supported value is `bank_transfer`.
             sig { returns(T.nilable(String)) }
             def funding_type; end
+            def self.inner_class_types
+              @inner_class_types = {bank_transfer: BankTransfer}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class UsBankAccount < Stripe::StripeObject
             class FinancialConnections < Stripe::StripeObject
@@ -90,6 +150,12 @@ module Stripe
                 # The account subcategories to use to filter for selectable accounts.
                 sig { returns(T::Array[String]) }
                 def account_subcategories; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # Provide filters for the linked accounts that the customer can select for the payment method.
               sig { returns(T.nilable(Filters)) }
@@ -100,6 +166,12 @@ module Stripe
               # List of data features that you would like to retrieve upon account creation.
               sig { returns(T::Array[String]) }
               def prefetch; end
+              def self.inner_class_types
+                @inner_class_types = {filters: Filters}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Additional fields for Financial Connections Session creation.
             sig { returns(FinancialConnections) }
@@ -107,6 +179,12 @@ module Stripe
             # Verification method.
             sig { returns(String) }
             def verification_method; end
+            def self.inner_class_types
+              @inner_class_types = {financial_connections: FinancialConnections}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # This sub-hash contains details about the Canadian pre-authorized debit payment method options.
           sig { returns(T.nilable(AcssDebit)) }
@@ -129,6 +207,18 @@ module Stripe
           # This sub-hash contains details about the ACH direct debit payment method options.
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {
+              acss_debit: AcssDebit,
+              bancontact: Bancontact,
+              card: Card,
+              customer_balance: CustomerBalance,
+              us_bank_account: UsBankAccount,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
         # bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,

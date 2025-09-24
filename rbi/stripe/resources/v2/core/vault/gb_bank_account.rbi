@@ -18,6 +18,12 @@ module Stripe
                 # The name given by the bank for this account, in case of a MATCH or PARTIAL_MATCH.
                 sig { returns(T.nilable(String)) }
                 def name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               class Provided < Stripe::StripeObject
                 # The provided or Legal Entity business type to match against the CoP service. Closed enum.
@@ -26,6 +32,12 @@ module Stripe
                 # The provided or Legal Entity name to match against the CoP service.
                 sig { returns(String) }
                 def name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
               end
               # When the CoP result was created.
               sig { returns(String) }
@@ -42,6 +54,12 @@ module Stripe
               # The fields that are matched against what the network has on file.
               sig { returns(Provided) }
               def provided; end
+              def self.inner_class_types
+                @inner_class_types = {matched: Matched, provided: Provided}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # The result of the Confirmation of Payee check, once the check has been initiated. Closed enum.
             sig { returns(Result) }
@@ -49,6 +67,12 @@ module Stripe
             # The current state of Confirmation of Payee on this bank account. Closed enum.
             sig { returns(String) }
             def status; end
+            def self.inner_class_types
+              @inner_class_types = {result: Result}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Whether this bank account object was archived. Bank account objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived bank account objects

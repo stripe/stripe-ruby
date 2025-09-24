@@ -48,20 +48,18 @@ module Stripe
       end
     end
     class MultiUse < Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-    class MultiUse < Stripe::StripeObject
       # The amount of the payment on a multi use mandate.
       sig { returns(T.nilable(Integer)) }
       def amount; end
       # The currency of the payment on a multi use mandate.
       sig { returns(T.nilable(String)) }
       def currency; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class PaymentMethodDetails < Stripe::StripeObject
       class AcssDebit < Stripe::StripeObject
@@ -201,6 +199,12 @@ module Stripe
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
         def verified_email; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Payto < Stripe::StripeObject
         # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -224,6 +228,12 @@ module Stripe
         # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
         sig { returns(T.nilable(String)) }
         def start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Pix < Stripe::StripeObject
         # Determines if the amount includes the IOF tax.
@@ -244,6 +254,20 @@ module Stripe
         # Start date of the mandate, in `YYYY-MM-DD`.
         sig { returns(T.nilable(String)) }
         def start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class RevolutPay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class SepaDebit < Stripe::StripeObject
         # The unique reference of the mandate.
@@ -342,6 +366,8 @@ module Stripe
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
+          payto: Payto,
+          pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
           us_bank_account: UsBankAccount,

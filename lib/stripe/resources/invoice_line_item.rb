@@ -429,13 +429,23 @@ module Stripe
           attr_accessor :name
           # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
           attr_accessor :tax_code
+          # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+          attr_accessor :unit_label
 
-          def initialize(description: nil, images: nil, metadata: nil, name: nil, tax_code: nil)
+          def initialize(
+            description: nil,
+            images: nil,
+            metadata: nil,
+            name: nil,
+            tax_code: nil,
+            unit_label: nil
+          )
             @description = description
             @images = images
             @metadata = metadata
             @name = name
             @tax_code = tax_code
+            @unit_label = unit_label
           end
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

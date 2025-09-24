@@ -15,6 +15,12 @@ module Stripe
             # The Confirmation of Payee status.
             sig { returns(String) }
             def status; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The type of next action.
           sig { returns(String) }
@@ -22,6 +28,12 @@ module Stripe
           # Confirmation of Payee details.
           sig { returns(T.nilable(ConfirmationOfPayee)) }
           def confirmation_of_payee; end
+          def self.inner_class_types
+            @inner_class_types = {confirmation_of_payee: ConfirmationOfPayee}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Created timestamp.
         sig { returns(String) }

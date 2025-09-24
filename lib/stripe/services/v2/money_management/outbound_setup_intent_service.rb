@@ -61,17 +61,35 @@ module Stripe
                 @number = number
               end
             end
+
+            class CryptoWallet < Stripe::RequestParams
+              # Crypto wallet address.
+              attr_accessor :address
+              # Optional field, required if network supports memos (only "stellar" currently).
+              attr_accessor :memo
+              # Which rail we should use to make an Outbound money movement to this wallet.
+              attr_accessor :network
+
+              def initialize(address: nil, memo: nil, network: nil)
+                @address = address
+                @memo = memo
+                @network = network
+              end
+            end
             # Closed Enum. The type of payout method to be created.
             attr_accessor :type
             # The type specific details of the bank account payout method.
             attr_accessor :bank_account
             # The type specific details of the card payout method.
             attr_accessor :card
+            # The type specific details of the crypto wallet payout method.
+            attr_accessor :crypto_wallet
 
-            def initialize(type: nil, bank_account: nil, card: nil)
+            def initialize(type: nil, bank_account: nil, card: nil, crypto_wallet: nil)
               @type = type
               @bank_account = bank_account
               @card = card
+              @crypto_wallet = crypto_wallet
             end
           end
           # If provided, the existing payout method resource to link to this setup intent.

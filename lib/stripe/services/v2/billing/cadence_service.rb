@@ -21,16 +21,20 @@ module Stripe
           attr_accessor :include
           # Optionally set the maximum number of results per page. Defaults to 20.
           attr_accessor :limit
-          # If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock`.
+          # Only return the cadences with these lookup_keys, if any exist. You can specify up to 10 lookup_keys.
+          # Mutually exclusive with `test_clock` and `payer`.
+          attr_accessor :lookup_keys
+          # If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock` and `lookup_keys`.
           attr_accessor :payer
           # If provided, only cadences that specifically reference the provided test clock ID (via the
           # customer's test clock) will be returned.
           # Mutually exclusive with `payer`.
           attr_accessor :test_clock
 
-          def initialize(include: nil, limit: nil, payer: nil, test_clock: nil)
+          def initialize(include: nil, limit: nil, lookup_keys: nil, payer: nil, test_clock: nil)
             @include = include
             @limit = limit
+            @lookup_keys = lookup_keys
             @payer = payer
             @test_clock = test_clock
           end
@@ -91,13 +95,19 @@ module Stripe
               # billed, this will anchor to the last day of the month. If not provided,
               # this will default to the day the cadence was created.
               attr_accessor :day_of_month
+              # The month to anchor the billing on for a type="month" billing cycle from
+              # 1-12. If not provided, this will default to the month the cadence was created.
+              # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
+              # All occurrences will be calculated from month provided.
+              attr_accessor :month_of_year
               # The time at which the billing cycle ends.
               # This field is optional, and if not provided, it will default to
               # the time at which the cadence was created in UTC timezone.
               attr_accessor :time
 
-              def initialize(day_of_month: nil, time: nil)
+              def initialize(day_of_month: nil, month_of_year: nil, time: nil)
                 @day_of_month = day_of_month
+                @month_of_year = month_of_year
                 @time = time
               end
             end
@@ -208,18 +218,11 @@ module Stripe
           end
 
           class Payer < Stripe::RequestParams
-            # The ID of the Billing Profile object which determines how a bill will be paid. If provided, the created cadence will be
-            # associated with the provided Billing Profile. If not provided, a new Billing Profile will be created and associated with the cadence.
+            # The ID of the Billing Profile object which determines how a bill will be paid.
             attr_accessor :billing_profile
-            # The ID of the Customer object.
-            attr_accessor :customer
-            # A string identifying the type of the payer. Currently the only supported value is `customer`.
-            attr_accessor :type
 
-            def initialize(billing_profile: nil, customer: nil, type: nil)
+            def initialize(billing_profile: nil)
               @billing_profile = billing_profile
-              @customer = customer
-              @type = type
             end
           end
 
@@ -267,6 +270,8 @@ module Stripe
           attr_accessor :billing_cycle
           # Additional resource to include in the response.
           attr_accessor :include
+          # A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
+          attr_accessor :lookup_key
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
           # The payer determines the entity financially responsible for the bill.
@@ -274,9 +279,17 @@ module Stripe
           # The settings associated with the cadence.
           attr_accessor :settings
 
-          def initialize(billing_cycle: nil, include: nil, metadata: nil, payer: nil, settings: nil)
+          def initialize(
+            billing_cycle: nil,
+            include: nil,
+            lookup_key: nil,
+            metadata: nil,
+            payer: nil,
+            settings: nil
+          )
             @billing_cycle = billing_cycle
             @include = include
+            @lookup_key = lookup_key
             @metadata = metadata
             @payer = payer
             @settings = settings
@@ -344,6 +357,8 @@ module Stripe
           end
           # Additional resource to include in the response.
           attr_accessor :include
+          # A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
+          attr_accessor :lookup_key
           # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
           # The payer determines the entity financially responsible for the bill.
@@ -351,8 +366,9 @@ module Stripe
           # The settings associated with the cadence.
           attr_accessor :settings
 
-          def initialize(include: nil, metadata: nil, payer: nil, settings: nil)
+          def initialize(include: nil, lookup_key: nil, metadata: nil, payer: nil, settings: nil)
             @include = include
+            @lookup_key = lookup_key
             @metadata = metadata
             @payer = payer
             @settings = settings

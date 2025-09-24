@@ -100,6 +100,12 @@ module Stripe
       # The id of the price being migrated to
       sig { returns(String) }
       def price; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class Recurring < Stripe::StripeObject
       # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.

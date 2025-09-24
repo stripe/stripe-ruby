@@ -106,12 +106,12 @@ module Stripe
                 def country; end
                 sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
-                # Address line 1 (e.g., street, PO Box, or company name).
+                # Address line 1, such as the street, PO Box, or company name.
                 sig { returns(T.nilable(String)) }
                 def line1; end
                 sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
                 def line1=(_line1); end
-                # Address line 2 (e.g., apartment, suite, unit, or building).
+                # Address line 2, such as the apartment, suite, unit, or building.
                 sig { returns(T.nilable(String)) }
                 def line2; end
                 sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -210,12 +210,12 @@ module Stripe
                 def country; end
                 sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
-                # Address line 1 (e.g., street, PO Box, or company name).
+                # Address line 1, such as the street, PO Box, or company name.
                 sig { returns(T.nilable(String)) }
                 def line1; end
                 sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
                 def line1=(_line1); end
-                # Address line 2 (e.g., apartment, suite, unit, or building).
+                # Address line 2, such as the apartment, suite, unit, or building.
                 sig { returns(T.nilable(String)) }
                 def line2; end
                 sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -551,6 +551,11 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # Intended submission method for the dispute.
+      sig { returns(T.nilable(String)) }
+      def intended_submission_method; end
+      sig { params(_intended_submission_method: T.nilable(String)).returns(T.nilable(String)) }
+      def intended_submission_method=(_intended_submission_method); end
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
@@ -564,9 +569,15 @@ module Stripe
       sig { params(_submit: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def submit=(_submit); end
       sig {
-        params(evidence: T.nilable(::Stripe::DisputeService::UpdateParams::Evidence), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), submit: T.nilable(T::Boolean)).void
+        params(evidence: T.nilable(::Stripe::DisputeService::UpdateParams::Evidence), expand: T.nilable(T::Array[String]), intended_submission_method: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), submit: T.nilable(T::Boolean)).void
        }
-      def initialize(evidence: nil, expand: nil, metadata: nil, submit: nil); end
+      def initialize(
+        evidence: nil,
+        expand: nil,
+        intended_submission_method: nil,
+        metadata: nil,
+        submit: nil
+      ); end
     end
     class CloseParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.

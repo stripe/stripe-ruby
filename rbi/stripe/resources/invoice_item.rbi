@@ -26,6 +26,12 @@ module Stripe
         # The pricing plan version at the time this invoice item was generated
         sig { returns(String) }
         def pricing_plan_version; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class RateCardSubscriptionDetails < Stripe::StripeObject
         # The pricing plan subscription that manages the rate card subscription
@@ -40,6 +46,12 @@ module Stripe
         # The rate card version that generated this invoice item
         sig { returns(String) }
         def rate_card_version; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class SubscriptionDetails < Stripe::StripeObject
         # The subscription that generated this invoice item
@@ -68,7 +80,11 @@ module Stripe
       sig { returns(String) }
       def type; end
       def self.inner_class_types
-        @inner_class_types = {subscription_details: SubscriptionDetails}
+        @inner_class_types = {
+          license_fee_subscription_details: LicenseFeeSubscriptionDetails,
+          rate_card_subscription_details: RateCardSubscriptionDetails,
+          subscription_details: SubscriptionDetails,
+        }
       end
       def self.field_remappings
         @field_remappings = {}
@@ -99,6 +115,12 @@ module Stripe
         # The ID of the licensed item this item is associated with
         sig { returns(String) }
         def licensed_item; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class PriceDetails < Stripe::StripeObject
         # The ID of the price this item is associated with.
@@ -124,6 +146,12 @@ module Stripe
         # The ID of the rate card rate this item is associated with
         sig { returns(String) }
         def rate_card_rate; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field license_fee_details
       sig { returns(T.nilable(LicenseFeeDetails)) }
@@ -141,7 +169,36 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def unit_amount_decimal; end
       def self.inner_class_types
-        @inner_class_types = {price_details: PriceDetails}
+        @inner_class_types = {
+          license_fee_details: LicenseFeeDetails,
+          price_details: PriceDetails,
+          rate_card_rate_details: RateCardRateDetails,
+        }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class ProrationDetails < Stripe::StripeObject
+      class DiscountAmount < Stripe::StripeObject
+        # The amount, in cents (or local equivalent), of the discount.
+        sig { returns(Integer) }
+        def amount; end
+        # The discount that was applied to get this discount amount.
+        sig { returns(T.any(String, Stripe::Discount)) }
+        def discount; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Discount amounts applied when the proration was created.
+      sig { returns(T::Array[DiscountAmount]) }
+      def discount_amounts; end
+      def self.inner_class_types
+        @inner_class_types = {discount_amounts: DiscountAmount}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -186,6 +243,9 @@ module Stripe
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
+    # The amount after discounts, but before credits and taxes. This field is `null` for `discountable=true` items.
+    sig { returns(T.nilable(Integer)) }
+    def net_amount; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
@@ -201,6 +261,9 @@ module Stripe
     # Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
     sig { returns(T::Boolean) }
     def proration; end
+    # Attribute for field proration_details
+    sig { returns(T.nilable(ProrationDetails)) }
+    def proration_details; end
     # Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
     sig { returns(Integer) }
     def quantity; end

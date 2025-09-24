@@ -251,7 +251,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Cashapp < Stripe::StripeObject; end
       class IdBankTransfer < Stripe::StripeObject
         # Bank where the account is located.
         sig { returns(T.nilable(String)) }
@@ -265,6 +264,12 @@ module Stripe
         # Merchant name and billing details name, for the customer to check for the correct merchant when performing the bank transfer.
         sig { returns(T.nilable(String)) }
         def display_name; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Ideal < Stripe::StripeObject
         # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
@@ -352,6 +357,22 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Payto < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Pix < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RevolutPay < Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -368,12 +389,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NzBankAccount < Stripe::StripeObject; end
-      class Paypal < Stripe::StripeObject; end
-      class Payto < Stripe::StripeObject; end
-      class Pix < Stripe::StripeObject; end
-      class RevolutPay < Stripe::StripeObject; end
-      class SepaDebit < Stripe::StripeObject; end
       class Sofort < Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
@@ -408,6 +423,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class StripeBalance < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class UsBankAccount < Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -416,8 +439,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StripeBalance < Stripe::StripeObject; end
-      class UsBankAccount < Stripe::StripeObject; end
       # Attribute for field acss_debit
       sig { returns(T.nilable(AcssDebit)) }
       def acss_debit; end
@@ -507,6 +528,7 @@ module Stripe
           card: Card,
           card_present: CardPresent,
           cashapp: Cashapp,
+          id_bank_transfer: IdBankTransfer,
           ideal: Ideal,
           kakao_pay: KakaoPay,
           klarna: Klarna,
@@ -515,9 +537,12 @@ module Stripe
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
+          payto: Payto,
+          pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
+          stripe_balance: StripeBalance,
           us_bank_account: UsBankAccount,
         }
       end

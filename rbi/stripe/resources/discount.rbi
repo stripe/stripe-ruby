@@ -8,14 +8,23 @@ module Stripe
   #
   # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
   class Discount < StripeObject
+    class Source < Stripe::StripeObject
+      # The coupon that was redeemed to create this discount.
+      sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
+      def coupon; end
+      # The source type of the discount.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
     sig { returns(T.nilable(String)) }
     def checkout_session; end
-    # A coupon contains information about a percent-off or amount-off discount you
-    # might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
-    # [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
-    sig { returns(Stripe::Coupon) }
-    def coupon; end
     # The ID of the customer associated with this discount.
     sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
     def customer; end
@@ -40,6 +49,9 @@ module Stripe
     # The promotion code applied to create this discount.
     sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
     def promotion_code; end
+    # Attribute for field source
+    sig { returns(Source) }
+    def source; end
     # Date that the coupon was applied.
     sig { returns(Integer) }
     def start; end

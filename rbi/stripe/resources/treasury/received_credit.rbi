@@ -15,10 +15,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -179,6 +179,12 @@ module Stripe
           # ACH Addenda record
           sig { returns(T.nilable(String)) }
           def addenda; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Details about an ACH transaction.
         sig { returns(T.nilable(Ach)) }
@@ -186,6 +192,12 @@ module Stripe
         # The type of flow that originated the ReceivedCredit.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {ach: Ach}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class ReversalDetails < Stripe::StripeObject
         # Time before which a ReceivedCredit can be reversed.

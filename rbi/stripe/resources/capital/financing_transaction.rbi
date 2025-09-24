@@ -14,6 +14,12 @@ module Stripe
           # The linked Treasury Financing Transaction ID.
           sig { returns(T.nilable(String)) }
           def treasury_transaction; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The advance amount being repaid, paid out, or reversed in minor units.
         sig { returns(Integer) }
@@ -40,6 +46,12 @@ module Stripe
         # This is an object representing a linked transaction on a Capital Financing Transaction.
         sig { returns(T.nilable(Transaction)) }
         def transaction; end
+        def self.inner_class_types
+          @inner_class_types = {transaction: Transaction}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The ID of the merchant associated with this financing transaction.
       sig { returns(String) }

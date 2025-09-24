@@ -52,6 +52,12 @@ module Stripe
           # The reason the reestimation failed.
           sig { returns(String) }
           def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # When `status` is `failed`, provides details about the quote reestimation failure.
         sig { returns(T.nilable(Failed)) }
@@ -59,6 +65,12 @@ module Stripe
         # Latest status of the reestimation.
         sig { returns(String) }
         def status; end
+        def self.inner_class_types
+          @inner_class_types = {failed: Failed}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Recurring < Stripe::StripeObject
         class TotalDetails < Stripe::StripeObject
@@ -262,7 +274,11 @@ module Stripe
       sig { returns(Upfront) }
       def upfront; end
       def self.inner_class_types
-        @inner_class_types = {recurring: Recurring, upfront: Upfront}
+        @inner_class_types = {
+          last_reestimation_details: LastReestimationDetails,
+          recurring: Recurring,
+          upfront: Upfront,
+        }
       end
       def self.field_remappings
         @field_remappings = {}
@@ -318,6 +334,12 @@ module Stripe
         # Time at which the quote was marked as canceled. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
         def transitioned_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class Stale < Stripe::StripeObject
         class LastReason < Stripe::StripeObject
@@ -328,16 +350,34 @@ module Stripe
             # The list of lines that became invalid at the given timestamp.
             sig { returns(T::Array[String]) }
             def lines; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class SubscriptionChanged < Stripe::StripeObject
             # The subscription's state before the quote was marked as stale.
             sig { returns(T.nilable(Stripe::Subscription)) }
             def previous_subscription; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class SubscriptionScheduleChanged < Stripe::StripeObject
             # The subscription schedule's state before the quote was marked as stale.
             sig { returns(T.nilable(Stripe::SubscriptionSchedule)) }
             def previous_subscription_schedule; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The ID of the line that is invalid if the stale reason type is `line_invalid`.
           sig { returns(T.nilable(String)) }
@@ -369,6 +409,16 @@ module Stripe
           # The reason the quote was marked as stale.
           sig { returns(T.nilable(String)) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {
+              lines_invalid: LinesInvalid,
+              subscription_changed: SubscriptionChanged,
+              subscription_schedule_changed: SubscriptionScheduleChanged,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Time at which the quote expires. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
@@ -382,6 +432,12 @@ module Stripe
         # Time at which the quote was marked as stale. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
         def transitioned_at; end
+        def self.inner_class_types
+          @inner_class_types = {last_reason: LastReason}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field canceled
       sig { returns(T.nilable(Canceled)) }
@@ -389,6 +445,12 @@ module Stripe
       # Attribute for field stale
       sig { returns(T.nilable(Stale)) }
       def stale; end
+      def self.inner_class_types
+        @inner_class_types = {canceled: Canceled, stale: Stale}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class StatusTransitions < Stripe::StripeObject
       # The time that the quote was accepted. Measured in seconds since Unix epoch.
@@ -414,6 +476,12 @@ module Stripe
             # Unique identifier for the object.
             sig { returns(String) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           sig { returns(T.nilable(Integer)) }
@@ -427,6 +495,12 @@ module Stripe
           # The type of method to specify the `bill_from` time.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {line_starts_at: LineStartsAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BillUntil < Stripe::StripeObject
           class Duration < Stripe::StripeObject
@@ -436,11 +510,23 @@ module Stripe
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             sig { returns(Integer) }
             def interval_count; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class LineEndsAt < Stripe::StripeObject
             # Unique identifier for the object.
             sig { returns(String) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           sig { returns(T.nilable(Integer)) }
@@ -457,6 +543,12 @@ module Stripe
           # The type of method to specify the `bill_until` time.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {duration: Duration, line_ends_at: LineEndsAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The start of the period to bill from when the Quote is accepted.
         sig { returns(T.nilable(BillFrom)) }
@@ -464,13 +556,33 @@ module Stripe
         # The end of the period to bill until when the Quote is accepted.
         sig { returns(T.nilable(BillUntil)) }
         def bill_until; end
+        def self.inner_class_types
+          @inner_class_types = {bill_from: BillFrom, bill_until: BillUntil}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class BillingMode < Stripe::StripeObject
+        class Flexible < Stripe::StripeObject
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          sig { returns(T.nilable(String)) }
+          def proration_discounts; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field flexible
+        sig { returns(T.nilable(Flexible)) }
+        def flexible; end
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         sig { returns(String) }
         def type; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {flexible: Flexible}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -480,6 +592,12 @@ module Stripe
         # Attribute for field iterations
         sig { returns(Integer) }
         def iterations; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Describes the period to bill for upon accepting the quote.
       sig { returns(T.nilable(BillOnAcceptance)) }
@@ -518,7 +636,11 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       def trial_period_days; end
       def self.inner_class_types
-        @inner_class_types = {billing_mode: BillingMode}
+        @inner_class_types = {
+          bill_on_acceptance: BillOnAcceptance,
+          billing_mode: BillingMode,
+          prebilling: Prebilling,
+        }
       end
       def self.field_remappings
         @field_remappings = {}
@@ -535,6 +657,12 @@ module Stripe
         # Describes whether the quote line is affecting a new schedule or an existing schedule.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       class BillOnAcceptance < Stripe::StripeObject
         class BillFrom < Stripe::StripeObject
@@ -542,6 +670,12 @@ module Stripe
             # Unique identifier for the object.
             sig { returns(String) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           sig { returns(T.nilable(Integer)) }
@@ -555,6 +689,12 @@ module Stripe
           # The type of method to specify the `bill_from` time.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {line_starts_at: LineStartsAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         class BillUntil < Stripe::StripeObject
           class Duration < Stripe::StripeObject
@@ -564,11 +704,23 @@ module Stripe
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             sig { returns(Integer) }
             def interval_count; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           class LineEndsAt < Stripe::StripeObject
             # Unique identifier for the object.
             sig { returns(String) }
             def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The materialized time.
           sig { returns(T.nilable(Integer)) }
@@ -585,6 +737,12 @@ module Stripe
           # The type of method to specify the `bill_until` time.
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {duration: Duration, line_ends_at: LineEndsAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The start of the period to bill from when the Quote is accepted.
         sig { returns(T.nilable(BillFrom)) }
@@ -592,6 +750,12 @@ module Stripe
         # The end of the period to bill until when the Quote is accepted.
         sig { returns(T.nilable(BillUntil)) }
         def bill_until; end
+        def self.inner_class_types
+          @inner_class_types = {bill_from: BillFrom, bill_until: BillUntil}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field applies_to
       sig { returns(AppliesTo) }
@@ -614,6 +778,12 @@ module Stripe
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
       sig { returns(T.nilable(String)) }
       def proration_behavior; end
+      def self.inner_class_types
+        @inner_class_types = {applies_to: AppliesTo, bill_on_acceptance: BillOnAcceptance}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class SubscriptionSchedule < Stripe::StripeObject
       class AppliesTo < Stripe::StripeObject
@@ -626,6 +796,12 @@ module Stripe
         # Describes whether the quote line is affecting a new schedule or an existing schedule.
         sig { returns(String) }
         def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Attribute for field applies_to
       sig { returns(AppliesTo) }
@@ -633,6 +809,12 @@ module Stripe
       # The subscription schedule that was created or updated from this quote.
       sig { returns(String) }
       def subscription_schedule; end
+      def self.inner_class_types
+        @inner_class_types = {applies_to: AppliesTo}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     class TotalDetails < Stripe::StripeObject
       class Breakdown < Stripe::StripeObject
@@ -2099,13 +2281,33 @@ module Stripe
           def initialize(bill_from: nil, bill_until: nil); end
         end
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            sig { returns(T.nilable(String)) }
+            def proration_discounts; end
+            sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+            def proration_discounts=(_proration_discounts); end
+            sig { params(proration_discounts: T.nilable(String)).void }
+            def initialize(proration_discounts: nil); end
+          end
+          # Configure behavior for flexible billing mode.
+          sig {
+            returns(T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible))
+           }
+          def flexible; end
+          sig {
+            params(_flexible: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible)).returns(T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible))
+           }
+          def flexible=(_flexible); end
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          sig { params(type: String).void }
-          def initialize(type: nil); end
+          sig {
+            params(flexible: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible), type: String).void
+           }
+          def initialize(flexible: nil, type: nil); end
         end
         class Prebilling < Stripe::RequestParams
           # This is used to determine the number of billing cycles to prebill.

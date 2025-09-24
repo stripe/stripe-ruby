@@ -67,7 +67,7 @@ module Stripe
 
       parsed = JSON.parse(payload, symbolize_names: true)
 
-      cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::UnknownEventNotification)
+      cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::V2::UnknownEventNotification)
 
       cls.new(parsed, self)
     end

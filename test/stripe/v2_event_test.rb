@@ -95,7 +95,7 @@ module Stripe
       context ".event_signing" do
         should "parse v2 events" do
           event = parse_signed_event(@v2_push_payload)
-          assert event.is_a?(Stripe::EventNotification)
+          assert event.is_a?(Stripe::V2::EventNotification)
           assert_equal "evt_234", event.id
           assert_equal "v1.billing.meter.error_report_triggered", event.type
           assert_equal "2022-02-15T00:27:45.330Z", event.created
@@ -104,9 +104,9 @@ module Stripe
 
         should "parse v2 events with livemode and reason" do
           event = parse_signed_event(@v2_push_payload_with_livemode_and_reason)
-          assert event.is_a?(Stripe::EventNotification)
-          assert event.related_object.is_a?(Stripe::RelatedObject)
-          assert event.reason.is_a?(Stripe::EventReason)
+          assert event.is_a?(Stripe::V2::EventNotification)
+          assert event.related_object.is_a?(Stripe::V2::RelatedObject)
+          assert event.reason.is_a?(Stripe::V2::EventReason)
 
           assert_equal "evt_234", event.id
           assert_equal "v1.billing.meter.error_report_triggered", event.type
@@ -128,7 +128,7 @@ module Stripe
       context "Event notifications" do
         should "parse event notifications and pull data" do
           event_notif = parse_signed_event(@v2_push_payload)
-          assert event_notif.instance_of?(Stripe::V1BillingMeterErrorReportTriggeredEventNotification)
+          assert event_notif.instance_of?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
 
           stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/billing/meters/mtr_123")
             .to_return(body: JSON.generate({ "id" => "mtr_123", "object" => "billing.meter" }))
@@ -140,7 +140,7 @@ module Stripe
           assert meter.id == "mtr_123"
 
           event = event_notif.fetch_event
-          assert event.is_a?(Stripe::V1BillingMeterErrorReportTriggeredEvent)
+          assert event.is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEvent)
           assert_equal "a", event.data.reason.error_types.first.sample_errors.first.request.identifier
         end
 
@@ -151,14 +151,14 @@ module Stripe
 
           event = @client.v2.core.events.retrieve(event_notif.id)
 
-          assert event.is_a?(Stripe::V1BillingMeterErrorReportTriggeredEvent)
+          assert event.is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEvent)
           assert event.data.error == "bufo"
           assert event.data.reason.error_types[0].code == "meter_event_invalid_value"
         end
 
         should "parse unknown events" do
           event_notif = parse_signed_event(@v2_payload_fake_event)
-          assert event_notif.instance_of?(Stripe::UnknownEventNotification)
+          assert event_notif.instance_of?(Stripe::V2::UnknownEventNotification)
 
           stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_234")
             .to_return(body: {

@@ -5,9 +5,10 @@ module Stripe
     def self.v2_event_types_to_classes
       {
         # v2 event types: The beginning of the section generated from our OpenAPI spec
-        V1BillingMeterErrorReportTriggeredEvent.lookup_type => V1BillingMeterErrorReportTriggeredEvent,
-        V1BillingMeterNoMeterFoundEvent.lookup_type => V1BillingMeterNoMeterFoundEvent,
-        V2CoreEventDestinationPingEvent.lookup_type => V2CoreEventDestinationPingEvent,
+        Events::V1BillingMeterErrorReportTriggeredEvent.lookup_type =>
+        Events::V1BillingMeterErrorReportTriggeredEvent,
+        Events::V1BillingMeterNoMeterFoundEvent.lookup_type => Events::V1BillingMeterNoMeterFoundEvent,
+        Events::V2CoreEventDestinationPingEvent.lookup_type => Events::V2CoreEventDestinationPingEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
       }
     end
@@ -15,12 +16,12 @@ module Stripe
     def self.event_notification_types_to_classes
       {
         # event notification types: The beginning of the section generated from our OpenAPI spec
-        V1BillingMeterErrorReportTriggeredEventNotification.lookup_type =>
-        V1BillingMeterErrorReportTriggeredEventNotification,
-        V1BillingMeterNoMeterFoundEventNotification.lookup_type =>
-        V1BillingMeterNoMeterFoundEventNotification,
-        V2CoreEventDestinationPingEventNotification.lookup_type =>
-        V2CoreEventDestinationPingEventNotification,
+        Events::V1BillingMeterErrorReportTriggeredEventNotification.lookup_type =>
+        Events::V1BillingMeterErrorReportTriggeredEventNotification,
+        Events::V1BillingMeterNoMeterFoundEventNotification.lookup_type =>
+        Events::V1BillingMeterNoMeterFoundEventNotification,
+        Events::V2CoreEventDestinationPingEventNotification.lookup_type =>
+        Events::V2CoreEventDestinationPingEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec
       }
     end

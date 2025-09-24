@@ -4826,7 +4826,6 @@ module Stripe
                 quantity: 1,
               },
             ],
-            iterations: 12,
           },
         ],
       })
@@ -4850,7 +4849,6 @@ module Stripe
                 quantity: 1,
               },
             ],
-            iterations: 12,
           },
         ],
       })
@@ -7623,7 +7621,7 @@ module Stripe
       stub_request(
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
-      ).to_return(body: '{"id":"abc_123","object":"some.object.tag","deleted":true}', status: 200)
+      ).to_return(body: '{"id":"abc_123","object":"some.object.tag"}', status: 200)
       client = Stripe::StripeClient.new("sk_test_123")
 
       deleted = client.v2.core.event_destinations.delete("id_123")

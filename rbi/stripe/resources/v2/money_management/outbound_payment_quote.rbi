@@ -58,13 +58,13 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes.
+          # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes or none.
           sig { returns(String) }
           def lock_duration; end
-          # Time at which the rate lock will expire, measured in seconds since the Unix epoch.
-          sig { returns(String) }
+          # Time at which the rate lock will expire, measured in seconds since the Unix epoch. Null when rate locking is not supported.
+          sig { returns(T.nilable(String)) }
           def lock_expires_at; end
-          # Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active or expired.
+          # Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active, expired or none.
           sig { returns(String) }
           def lock_status; end
           # Key pair: from currency Value: exchange rate going from_currency -> to_currency.

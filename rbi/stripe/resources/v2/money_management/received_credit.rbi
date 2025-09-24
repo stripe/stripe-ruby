@@ -110,6 +110,32 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class SepaBankAccount < Stripe::StripeObject
+            # The account holder name of the bank account the transfer was received from.
+            sig { returns(T.nilable(String)) }
+            def account_holder_name; end
+            # The bank name the transfer was received from.
+            sig { returns(T.nilable(String)) }
+            def bank_name; end
+            # The BIC of the SEPA account.
+            sig { returns(T.nilable(String)) }
+            def bic; end
+            # The origination country of the bank transfer.
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # The IBAN that originated the transfer.
+            sig { returns(T.nilable(String)) }
+            def iban; end
+            # The money transmission network used to send funds for this ReceivedCredit.
+            sig { returns(String) }
+            def network; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UsBankAccount < Stripe::StripeObject
             # The bank name the transfer was received from.
             sig { returns(T.nilable(String)) }
@@ -133,20 +159,27 @@ module Stripe
           # Financial Address on which funds for ReceivedCredit were received.
           sig { returns(String) }
           def financial_address; end
-          # Open Enum. Indicates the type of source via from which external funds originated.
+          # Open Enum. Indicates the origin of source from which external funds originated from.
           sig { returns(String) }
-          def payment_method_type; end
+          def origin_type; end
           # Freeform string set by originator of the external ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end
-          # Hash containing the transaction bank details. Present if `payment_method_type` field value is `gb_bank_account`.
+          # Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
           sig { returns(T.nilable(GbBankAccount)) }
           def gb_bank_account; end
-          # Hash containing the transaction bank details. Present if `payment_method_type` field value is `us_bank_account`.
+          # Hash containing the transaction bank details. Present if `origin_type` field value is `sepa_bank_account`.
+          sig { returns(T.nilable(SepaBankAccount)) }
+          def sepa_bank_account; end
+          # Hash containing the transaction bank details. Present if `origin_type` field value is `us_bank_account`.
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
           def self.inner_class_types
-            @inner_class_types = {gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount}
+            @inner_class_types = {
+              gb_bank_account: GbBankAccount,
+              sepa_bank_account: SepaBankAccount,
+              us_bank_account: UsBankAccount,
+            }
           end
           def self.field_remappings
             @field_remappings = {}
@@ -192,7 +225,7 @@ module Stripe
         # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
         sig { returns(T.nilable(BalanceTransfer)) }
         def balance_transfer; end
-        # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
+        # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
         sig { returns(T.nilable(BankTransfer)) }
         def bank_transfer; end
       end

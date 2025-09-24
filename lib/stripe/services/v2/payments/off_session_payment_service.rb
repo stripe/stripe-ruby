@@ -15,11 +15,145 @@ module Stripe
         end
 
         class CreateParams < Stripe::RequestParams
+          class AmountDetails < Stripe::RequestParams
+            class LineItem < Stripe::RequestParams
+              class Tax < Stripe::RequestParams
+                # Total portion of the amount that is for tax.
+                attr_accessor :total_tax_amount
+
+                def initialize(total_tax_amount: nil)
+                  @total_tax_amount = total_tax_amount
+                end
+              end
+              # The amount an item was discounted for. Positive integer.
+              attr_accessor :discount_amount
+              # Unique identifier of the product. At most 12 characters long.
+              attr_accessor :product_code
+              # Name of the product. At most 100 characters long.
+              attr_accessor :product_name
+              # Number of items of the product. Positive integer.
+              attr_accessor :quantity
+              # Contains information about the tax on the item.
+              attr_accessor :tax
+              # Cost of the product. Non-negative integer.
+              attr_accessor :unit_cost
+
+              def initialize(
+                discount_amount: nil,
+                product_code: nil,
+                product_name: nil,
+                quantity: nil,
+                tax: nil,
+                unit_cost: nil
+              )
+                @discount_amount = discount_amount
+                @product_code = product_code
+                @product_name = product_name
+                @quantity = quantity
+                @tax = tax
+                @unit_cost = unit_cost
+              end
+            end
+
+            class Shipping < Stripe::RequestParams
+              # Portion of the amount that is for shipping.
+              attr_accessor :amount
+              # The postal code that represents the shipping source.
+              attr_accessor :from_postal_code
+              # The postal code that represents the shipping destination.
+              attr_accessor :to_postal_code
+
+              def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil)
+                @amount = amount
+                @from_postal_code = from_postal_code
+                @to_postal_code = to_postal_code
+              end
+            end
+
+            class Tax < Stripe::RequestParams
+              # Total portion of the amount that is for tax.
+              attr_accessor :total_tax_amount
+
+              def initialize(total_tax_amount: nil)
+                @total_tax_amount = total_tax_amount
+              end
+            end
+            # The amount the total transaction was discounted for.
+            attr_accessor :discount_amount
+            # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+            attr_accessor :line_items
+            # Contains information about the shipping portion of the amount.
+            attr_accessor :shipping
+            # Contains information about the tax portion of the amount.
+            attr_accessor :tax
+
+            def initialize(discount_amount: nil, line_items: nil, shipping: nil, tax: nil)
+              @discount_amount = discount_amount
+              @line_items = line_items
+              @shipping = shipping
+              @tax = tax
+            end
+          end
+
+          class MandateData < Stripe::RequestParams
+            class CustomerAcceptance < Stripe::RequestParams
+              # The time at which the customer accepted the Mandate.
+              attr_accessor :accepted_at
+              # The type of customer acceptance information included with the Mandate.
+              attr_accessor :type
+
+              def initialize(accepted_at: nil, type: nil)
+                @accepted_at = accepted_at
+                @type = type
+              end
+            end
+            # This hash contains details about the customer acceptance of the Mandate.
+            attr_accessor :customer_acceptance
+
+            def initialize(customer_acceptance: nil)
+              @customer_acceptance = customer_acceptance
+            end
+          end
+
+          class PaymentMethodOptions < Stripe::RequestParams
+            class Card < Stripe::RequestParams
+              # If you are making a Credential On File transaction with a previously saved card, you should pass the Network Transaction ID
+              # from a prior initial authorization on Stripe (from a successful SetupIntent or a PaymentIntent with `setup_future_usage` set),
+              # or one that you have obtained from another payment processor. This is a token from the network which uniquely identifies the transaction.
+              # Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
+              # Note that you should pass in a Network Transaction ID if you have one, regardless of whether this is a
+              # Customer-Initiated Transaction (CIT) or a Merchant-Initiated Transaction (MIT).
+              attr_accessor :network_transaction_id
+
+              def initialize(network_transaction_id: nil)
+                @network_transaction_id = network_transaction_id
+              end
+            end
+            # Payment method options for the card payment type.
+            attr_accessor :card
+
+            def initialize(card: nil)
+              @card = card
+            end
+          end
+
+          class PaymentsOrchestration < Stripe::RequestParams
+            # True when you want to enable payments orchestration for this off-session payment. False otherwise.
+            attr_accessor :enabled
+
+            def initialize(enabled: nil)
+              @enabled = enabled
+            end
+          end
+
           class RetryDetails < Stripe::RequestParams
+            # The pre-configured retry policy to use for the payment.
+            attr_accessor :retry_policy
             # Indicates the strategy for how you want Stripe to retry the payment.
             attr_accessor :retry_strategy
 
-            def initialize(retry_strategy: nil)
+            def initialize(retry_policy: nil, retry_strategy: nil)
+              @retry_policy = retry_policy
               @retry_strategy = retry_strategy
             end
           end
@@ -44,10 +178,14 @@ module Stripe
           end
           # The “presentment amount” to be collected from the customer.
           attr_accessor :amount
+          # Provides industry-specific information about the amount.
+          attr_accessor :amount_details
           # The frequency of the underlying payment.
           attr_accessor :cadence
           # ID of the Customer to which this OffSessionPayment belongs.
           attr_accessor :customer
+          # This hash contains details about the Mandate to create.
+          attr_accessor :mandate_data
           # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
           # attach to an object. This can be useful for storing additional information about
           # the object in a structured format. Learn more about
@@ -57,6 +195,10 @@ module Stripe
           attr_accessor :on_behalf_of
           # ID of the payment method used in this OffSessionPayment.
           attr_accessor :payment_method
+          # Payment method options for the off-session payment.
+          attr_accessor :payment_method_options
+          # Details about the payments orchestration configuration.
+          attr_accessor :payments_orchestration
           # Details about the OffSessionPayment retries.
           attr_accessor :retry_details
           # Text that appears on the customer’s statement as the statement descriptor for a
@@ -75,11 +217,15 @@ module Stripe
 
           def initialize(
             amount: nil,
+            amount_details: nil,
             cadence: nil,
             customer: nil,
+            mandate_data: nil,
             metadata: nil,
             on_behalf_of: nil,
             payment_method: nil,
+            payment_method_options: nil,
+            payments_orchestration: nil,
             retry_details: nil,
             statement_descriptor: nil,
             statement_descriptor_suffix: nil,
@@ -87,11 +233,15 @@ module Stripe
             transfer_data: nil
           )
             @amount = amount
+            @amount_details = amount_details
             @cadence = cadence
             @customer = customer
+            @mandate_data = mandate_data
             @metadata = metadata
             @on_behalf_of = on_behalf_of
             @payment_method = payment_method
+            @payment_method_options = payment_method_options
+            @payments_orchestration = payments_orchestration
             @retry_details = retry_details
             @statement_descriptor = statement_descriptor
             @statement_descriptor_suffix = statement_descriptor_suffix

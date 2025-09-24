@@ -1159,6 +1159,21 @@ module Stripe
           end
 
           class Defaults < Stripe::RequestParams
+            class Profile < Stripe::RequestParams
+              # The business's publicly-available website.
+              attr_accessor :business_url
+              # The name which is used by the business.
+              attr_accessor :doing_business_as
+              # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+              attr_accessor :product_description
+
+              def initialize(business_url: nil, doing_business_as: nil, product_description: nil)
+                @business_url = business_url
+                @doing_business_as = doing_business_as
+                @product_description = product_description
+              end
+            end
+
             class Responsibilities < Stripe::RequestParams
               # A value indicating the party responsible for collecting fees from this account.
               attr_accessor :fees_collector
@@ -1174,12 +1189,15 @@ module Stripe
             attr_accessor :currency
             # The Account's preferred locales (languages), ordered by preference.
             attr_accessor :locales
+            # Account profile information.
+            attr_accessor :profile
             # Default responsibilities held by either Stripe or the platform.
             attr_accessor :responsibilities
 
-            def initialize(currency: nil, locales: nil, responsibilities: nil)
+            def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil)
               @currency = currency
               @locales = locales
+              @profile = profile
               @responsibilities = responsibilities
             end
           end
@@ -1665,8 +1683,6 @@ module Stripe
               attr_accessor :annual_revenue
               # A document verifying the business.
               attr_accessor :documents
-              # The name which is used by the business.
-              attr_accessor :doing_business_as
               # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
               attr_accessor :estimated_worker_count
               # The ID numbers of a business entity.
@@ -1675,8 +1691,6 @@ module Stripe
               attr_accessor :monthly_estimated_revenue
               # The phone number of the Business Entity.
               attr_accessor :phone
-              # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
-              attr_accessor :product_description
               # The business legal name.
               attr_accessor :registered_name
               # The business registration address of the business entity in non latin script.
@@ -1685,39 +1699,31 @@ module Stripe
               attr_accessor :script_names
               # The category identifying the legal structure of the business.
               attr_accessor :structure
-              # The business's publicly available website.
-              attr_accessor :url
 
               def initialize(
                 address: nil,
                 annual_revenue: nil,
                 documents: nil,
-                doing_business_as: nil,
                 estimated_worker_count: nil,
                 id_numbers: nil,
                 monthly_estimated_revenue: nil,
                 phone: nil,
-                product_description: nil,
                 registered_name: nil,
                 script_addresses: nil,
                 script_names: nil,
-                structure: nil,
-                url: nil
+                structure: nil
               )
                 @address = address
                 @annual_revenue = annual_revenue
                 @documents = documents
-                @doing_business_as = doing_business_as
                 @estimated_worker_count = estimated_worker_count
                 @id_numbers = id_numbers
                 @monthly_estimated_revenue = monthly_estimated_revenue
                 @phone = phone
-                @product_description = product_description
                 @registered_name = registered_name
                 @script_addresses = script_addresses
                 @script_names = script_names
                 @structure = structure
-                @url = url
               end
             end
 
@@ -3214,7 +3220,7 @@ module Stripe
               attr_accessor :applied
               # Capabilities to request on the Recipient Configuration.
               attr_accessor :capabilities
-              # The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination.
+              # The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination. For further details about creating an Outbound Destination, see [Collect recipient's payment details](https://docs.corp.stripe.com/global-payouts-private-preview/quickstart?dashboard-or-api=api#collect-bank-account-details).
               attr_accessor :default_outbound_destination
 
               def initialize(applied: nil, capabilities: nil, default_outbound_destination: nil)
@@ -3399,6 +3405,21 @@ module Stripe
           end
 
           class Defaults < Stripe::RequestParams
+            class Profile < Stripe::RequestParams
+              # The business's publicly-available website.
+              attr_accessor :business_url
+              # The name which is used by the business.
+              attr_accessor :doing_business_as
+              # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+              attr_accessor :product_description
+
+              def initialize(business_url: nil, doing_business_as: nil, product_description: nil)
+                @business_url = business_url
+                @doing_business_as = doing_business_as
+                @product_description = product_description
+              end
+            end
+
             class Responsibilities < Stripe::RequestParams
               # A value indicating the party responsible for collecting fees from this account.
               attr_accessor :fees_collector
@@ -3414,12 +3435,15 @@ module Stripe
             attr_accessor :currency
             # The Account's preferred locales (languages), ordered by preference.
             attr_accessor :locales
+            # Account profile information.
+            attr_accessor :profile
             # Default responsibilities held by either Stripe or the platform.
             attr_accessor :responsibilities
 
-            def initialize(currency: nil, locales: nil, responsibilities: nil)
+            def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil)
               @currency = currency
               @locales = locales
+              @profile = profile
               @responsibilities = responsibilities
             end
           end
@@ -3905,8 +3929,6 @@ module Stripe
               attr_accessor :annual_revenue
               # A document verifying the business.
               attr_accessor :documents
-              # The name which is used by the business.
-              attr_accessor :doing_business_as
               # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
               attr_accessor :estimated_worker_count
               # The ID numbers of a business entity.
@@ -3915,8 +3937,6 @@ module Stripe
               attr_accessor :monthly_estimated_revenue
               # The phone number of the Business Entity.
               attr_accessor :phone
-              # Internal-only description of the product sold or service provided by the business. It’s used by Stripe for risk and underwriting purposes.
-              attr_accessor :product_description
               # The business legal name.
               attr_accessor :registered_name
               # The business registration address of the business entity in non latin script.
@@ -3925,39 +3945,31 @@ module Stripe
               attr_accessor :script_names
               # The category identifying the legal structure of the business.
               attr_accessor :structure
-              # The business's publicly available website.
-              attr_accessor :url
 
               def initialize(
                 address: nil,
                 annual_revenue: nil,
                 documents: nil,
-                doing_business_as: nil,
                 estimated_worker_count: nil,
                 id_numbers: nil,
                 monthly_estimated_revenue: nil,
                 phone: nil,
-                product_description: nil,
                 registered_name: nil,
                 script_addresses: nil,
                 script_names: nil,
-                structure: nil,
-                url: nil
+                structure: nil
               )
                 @address = address
                 @annual_revenue = annual_revenue
                 @documents = documents
-                @doing_business_as = doing_business_as
                 @estimated_worker_count = estimated_worker_count
                 @id_numbers = id_numbers
                 @monthly_estimated_revenue = monthly_estimated_revenue
                 @phone = phone
-                @product_description = product_description
                 @registered_name = registered_name
                 @script_addresses = script_addresses
                 @script_names = script_names
                 @structure = structure
-                @url = url
               end
             end
 
@@ -4510,6 +4522,8 @@ module Stripe
         end
 
         # Retrieves the details of an Account.
+        #
+        # ** raises RateLimitError
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -4521,6 +4535,8 @@ module Stripe
         end
 
         # Updates the details of an Account.
+        #
+        # ** raises RateLimitError
         def update(id, params = {}, opts = {})
           request(
             method: :post,

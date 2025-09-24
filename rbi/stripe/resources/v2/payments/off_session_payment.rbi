@@ -7,10 +7,109 @@ module Stripe
     module Payments
       # OffSessionPayment resource.
       class OffSessionPayment < APIResource
+        class AmountDetails < Stripe::StripeObject
+          class LineItem < Stripe::StripeObject
+            class Tax < Stripe::StripeObject
+              # Total portion of the amount that is for tax.
+              sig { returns(T.nilable(Integer)) }
+              def total_tax_amount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The amount an item was discounted for. Positive integer.
+            sig { returns(T.nilable(Integer)) }
+            def discount_amount; end
+            # Unique identifier of the product. At most 12 characters long.
+            sig { returns(T.nilable(String)) }
+            def product_code; end
+            # Name of the product. At most 100 characters long.
+            sig { returns(String) }
+            def product_name; end
+            # Number of items of the product. Positive integer.
+            sig { returns(Integer) }
+            def quantity; end
+            # Contains information about the tax on the item.
+            sig { returns(T.nilable(Tax)) }
+            def tax; end
+            # Cost of the product. Non-negative integer.
+            sig { returns(Integer) }
+            def unit_cost; end
+            def self.inner_class_types
+              @inner_class_types = {tax: Tax}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Shipping < Stripe::StripeObject
+            # Portion of the amount that is for shipping.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # The postal code that represents the shipping source.
+            sig { returns(T.nilable(String)) }
+            def from_postal_code; end
+            # The postal code that represents the shipping destination.
+            sig { returns(T.nilable(String)) }
+            def to_postal_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Tax < Stripe::StripeObject
+            # Total portion of the amount that is for tax.
+            sig { returns(T.nilable(Integer)) }
+            def total_tax_amount; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The amount the total transaction was discounted for.
+          sig { returns(T.nilable(Integer)) }
+          def discount_amount; end
+          # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+          sig { returns(T::Array[LineItem]) }
+          def line_items; end
+          # Contains information about the shipping portion of the amount.
+          sig { returns(T.nilable(Shipping)) }
+          def shipping; end
+          # Contains information about the tax portion of the amount.
+          sig { returns(T.nilable(Tax)) }
+          def tax; end
+          def self.inner_class_types
+            @inner_class_types = {line_items: LineItem, shipping: Shipping, tax: Tax}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PaymentsOrchestration < Stripe::StripeObject
+          # True when you want to enable payments orchestration for this off-session payment. False otherwise.
+          sig { returns(T::Boolean) }
+          def enabled; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class RetryDetails < Stripe::StripeObject
           # Number of authorization attempts so far.
           sig { returns(Integer) }
           def attempts; end
+          # The pre-configured retry policy to use for the payment.
+          sig { returns(T.nilable(String)) }
+          def retry_policy; end
           # Indicates the strategy for how you want Stripe to retry the payment.
           sig { returns(String) }
           def retry_strategy; end
@@ -42,6 +141,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Provides industry-specific information about the amount.
+        sig { returns(T.nilable(AmountDetails)) }
+        def amount_details; end
         # The “presentment amount” to be collected from the customer.
         sig { returns(Stripe::V2::Amount) }
         def amount_requested; end
@@ -61,7 +163,7 @@ module Stripe
         # The reason why the OffSessionPayment failed.
         sig { returns(T.nilable(String)) }
         def failure_reason; end
-        # Unique identifier for the object..
+        # Unique identifier for the object.
         sig { returns(String) }
         def id; end
         # The payment error encountered in the previous attempt to authorize the payment.
@@ -91,6 +193,9 @@ module Stripe
         # Payment record associated with the OffSessionPayment.
         sig { returns(T.nilable(String)) }
         def payment_record; end
+        # Details about the payments orchestration configuration.
+        sig { returns(PaymentsOrchestration) }
+        def payments_orchestration; end
         # Details about the OffSessionPayment retries.
         sig { returns(RetryDetails) }
         def retry_details; end

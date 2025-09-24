@@ -219,6 +219,9 @@ module Stripe
   class QuotaExceededError < StripeError
   end
 
+  class RateLimitError < StripeError
+  end
+
   class RecipientNotNotifiableError < StripeError
   end
 

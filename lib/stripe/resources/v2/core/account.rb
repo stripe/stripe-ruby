@@ -2161,7 +2161,7 @@ module Stripe
             attr_reader :applied
             # Capabilities that have been requested on the Recipient Configuration.
             attr_reader :capabilities
-            # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard.
+            # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard or APIs.
             attr_reader :default_outbound_destination
 
             def self.inner_class_types
@@ -2560,6 +2560,23 @@ module Stripe
         end
 
         class Defaults < Stripe::StripeObject
+          class Profile < Stripe::StripeObject
+            # The business's publicly-available website.
+            attr_reader :business_url
+            # The company’s legal name.
+            attr_reader :doing_business_as
+            # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+            attr_reader :product_description
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Responsibilities < Stripe::StripeObject
             # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this Account.
             attr_reader :fees_collector
@@ -2578,11 +2595,13 @@ module Stripe
           attr_reader :currency
           # The Account's preferred locales (languages), ordered by preference.
           attr_reader :locales
+          # Account profile information.
+          attr_reader :profile
           # Default responsibilities held by either Stripe or the platform.
           attr_reader :responsibilities
 
           def self.inner_class_types
-            @inner_class_types = { responsibilities: Responsibilities }
+            @inner_class_types = { profile: Profile, responsibilities: Responsibilities }
           end
 
           def self.field_remappings
@@ -3098,8 +3117,6 @@ module Stripe
             attr_reader :annual_revenue
             # Documents that may be submitted to satisfy various informational requests.
             attr_reader :documents
-            # The company’s legal name.
-            attr_reader :doing_business_as
             # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
             attr_reader :estimated_worker_count
             # The provided ID numbers of a business entity.
@@ -3108,8 +3125,6 @@ module Stripe
             attr_reader :monthly_estimated_revenue
             # The company’s phone number (used for verification).
             attr_reader :phone
-            # Internal-only description of the product sold or service provided by the business. It’s used by Stripe for risk and underwriting purposes.
-            attr_reader :product_description
             # The business legal name.
             attr_reader :registered_name
             # The business registration address of the business entity in non latin script.
@@ -3118,8 +3133,6 @@ module Stripe
             attr_reader :script_names
             # The category identifying the legal structure of the business.
             attr_reader :structure
-            # The business's publicly available website.
-            attr_reader :url
 
             def self.inner_class_types
               @inner_class_types = {

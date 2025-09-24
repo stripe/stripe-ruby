@@ -11,6 +11,8 @@ module Stripe
         end
 
         class CustomPricingUnitAmount < Stripe::StripeObject
+          # The Custom Pricing Unit object.
+          attr_reader :custom_pricing_unit_details
           # The id of the custom pricing unit.
           attr_reader :id
           # The unit value for the custom pricing unit, as a string.

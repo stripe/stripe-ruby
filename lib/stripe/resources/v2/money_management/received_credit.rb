@@ -114,6 +114,29 @@ module Stripe
             end
           end
 
+          class SepaBankAccount < Stripe::StripeObject
+            # The account holder name of the bank account the transfer was received from.
+            attr_reader :account_holder_name
+            # The bank name the transfer was received from.
+            attr_reader :bank_name
+            # The BIC of the SEPA account.
+            attr_reader :bic
+            # The origination country of the bank transfer.
+            attr_reader :country
+            # The IBAN that originated the transfer.
+            attr_reader :iban
+            # The money transmission network used to send funds for this ReceivedCredit.
+            attr_reader :network
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UsBankAccount < Stripe::StripeObject
             # The bank name the transfer was received from.
             attr_reader :bank_name
@@ -134,17 +157,23 @@ module Stripe
           end
           # Financial Address on which funds for ReceivedCredit were received.
           attr_reader :financial_address
-          # Open Enum. Indicates the type of source via from which external funds originated.
-          attr_reader :payment_method_type
+          # Open Enum. Indicates the origin of source from which external funds originated from.
+          attr_reader :origin_type
           # Freeform string set by originator of the external ReceivedCredit.
           attr_reader :statement_descriptor
-          # Hash containing the transaction bank details. Present if `payment_method_type` field value is `gb_bank_account`.
+          # Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
           attr_reader :gb_bank_account
-          # Hash containing the transaction bank details. Present if `payment_method_type` field value is `us_bank_account`.
+          # Hash containing the transaction bank details. Present if `origin_type` field value is `sepa_bank_account`.
+          attr_reader :sepa_bank_account
+          # Hash containing the transaction bank details. Present if `origin_type` field value is `us_bank_account`.
           attr_reader :us_bank_account
 
           def self.inner_class_types
-            @inner_class_types = { gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount }
+            @inner_class_types = {
+              gb_bank_account: GbBankAccount,
+              sepa_bank_account: SepaBankAccount,
+              us_bank_account: UsBankAccount,
+            }
           end
 
           def self.field_remappings
@@ -178,7 +207,7 @@ module Stripe
         attr_reader :livemode
         # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
         attr_reader :balance_transfer
-        # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
+        # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
         attr_reader :bank_transfer
 
         def self.inner_class_types

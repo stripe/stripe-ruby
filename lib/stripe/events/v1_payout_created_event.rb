@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Occurs when a billing Cadence encounters an error during a tick.
-  class V2BillingCadenceErroredEvent < Stripe::V2::Event
+  # Occurs whenever a payout is created.
+  class V1PayoutCreatedEvent < Stripe::V2::Event
     def self.lookup_type
-      "v2.billing.cadence.errored"
+      "v1.payout.created"
     end
 
     # Retrieves the related object from the API. Make an API request on every call.

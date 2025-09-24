@@ -71,6 +71,9 @@ module Stripe
           # The Financial Address that was debited.
           sig { returns(String) }
           def financial_address; end
+          # Open Enum. Indicates the origin type through which this debit was initiated.
+          sig { returns(String) }
+          def origin_type; end
           # Open Enum. The type of the payment method used to originate the debit.
           sig { returns(String) }
           def payment_method_type; end

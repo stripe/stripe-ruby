@@ -2103,6 +2103,37 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class CryptoWallets < Stripe::StripeObject
+                class StatusDetail < Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Whether the Capability has been requested.
+                sig { returns(T::Boolean) }
+                def requested; end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class StripeBalance < Stripe::StripeObject
                 class Payouts < Stripe::StripeObject
                   class StatusDetail < Stripe::StripeObject
@@ -2185,6 +2216,9 @@ module Stripe
               # Capability that enable OutboundPayments to a debit card linked to this Account.
               sig { returns(T.nilable(Cards)) }
               def cards; end
+              # Capability that enable OutboundPayments to a crypto wallet linked to this Account.
+              sig { returns(T.nilable(CryptoWallets)) }
+              def crypto_wallets; end
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               sig { returns(T.nilable(StripeBalance)) }
               def stripe_balance; end
@@ -2192,6 +2226,7 @@ module Stripe
                 @inner_class_types = {
                   bank_accounts: BankAccounts,
                   cards: Cards,
+                  crypto_wallets: CryptoWallets,
                   stripe_balance: StripeBalance,
                 }
               end
@@ -2219,7 +2254,7 @@ module Stripe
             # Capabilities that have been requested on the Recipient Configuration.
             sig { returns(T.nilable(Capabilities)) }
             def capabilities; end
-            # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard.
+            # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard or APIs.
             sig { returns(T.nilable(DefaultOutboundDestination)) }
             def default_outbound_destination; end
             def self.inner_class_types
@@ -2619,6 +2654,23 @@ module Stripe
           end
         end
         class Defaults < Stripe::StripeObject
+          class Profile < Stripe::StripeObject
+            # The business's publicly-available website.
+            sig { returns(T.nilable(String)) }
+            def business_url; end
+            # The company’s legal name.
+            sig { returns(T.nilable(String)) }
+            def doing_business_as; end
+            # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+            sig { returns(T.nilable(String)) }
+            def product_description; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Responsibilities < Stripe::StripeObject
             # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this Account.
             sig { returns(String) }
@@ -2639,11 +2691,14 @@ module Stripe
           # The Account's preferred locales (languages), ordered by preference.
           sig { returns(T.nilable(T::Array[String])) }
           def locales; end
+          # Account profile information.
+          sig { returns(T.nilable(Profile)) }
+          def profile; end
           # Default responsibilities held by either Stripe or the platform.
           sig { returns(T.nilable(Responsibilities)) }
           def responsibilities; end
           def self.inner_class_types
-            @inner_class_types = {responsibilities: Responsibilities}
+            @inner_class_types = {profile: Profile, responsibilities: Responsibilities}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -3166,9 +3221,6 @@ module Stripe
             # Documents that may be submitted to satisfy various informational requests.
             sig { returns(T.nilable(Documents)) }
             def documents; end
-            # The company’s legal name.
-            sig { returns(T.nilable(String)) }
-            def doing_business_as; end
             # An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
             sig { returns(T.nilable(Integer)) }
             def estimated_worker_count; end
@@ -3181,9 +3233,6 @@ module Stripe
             # The company’s phone number (used for verification).
             sig { returns(T.nilable(String)) }
             def phone; end
-            # Internal-only description of the product sold or service provided by the business. It’s used by Stripe for risk and underwriting purposes.
-            sig { returns(T.nilable(String)) }
-            def product_description; end
             # The business legal name.
             sig { returns(T.nilable(String)) }
             def registered_name; end
@@ -3196,9 +3245,6 @@ module Stripe
             # The category identifying the legal structure of the business.
             sig { returns(T.nilable(String)) }
             def structure; end
-            # The business's publicly available website.
-            sig { returns(T.nilable(String)) }
-            def url; end
             def self.inner_class_types
               @inner_class_types = {
                 address: Address,

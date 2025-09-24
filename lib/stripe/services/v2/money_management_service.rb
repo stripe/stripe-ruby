@@ -4,7 +4,7 @@
 module Stripe
   module V2
     class MoneyManagementService < StripeService
-      attr_reader :adjustments, :financial_accounts, :financial_addresses, :inbound_transfers, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :transactions, :transaction_entries
+      attr_reader :adjustments, :financial_accounts, :financial_addresses, :inbound_transfers, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :recipient_verifications, :transactions, :transaction_entries
 
       def initialize(requestor)
         super
@@ -23,6 +23,8 @@ module Stripe
                                             .new(@requestor)
         @received_credits = Stripe::V2::MoneyManagement::ReceivedCreditService.new(@requestor)
         @received_debits = Stripe::V2::MoneyManagement::ReceivedDebitService.new(@requestor)
+        @recipient_verifications = Stripe::V2::MoneyManagement::RecipientVerificationService
+                                   .new(@requestor)
         @transactions = Stripe::V2::MoneyManagement::TransactionService.new(@requestor)
         @transaction_entries = Stripe::V2::MoneyManagement::TransactionEntryService.new(@requestor)
       end

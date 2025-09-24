@@ -67,11 +67,11 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes.
+          # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes or none.
           attr_reader :lock_duration
-          # Time at which the rate lock will expire, measured in seconds since the Unix epoch.
+          # Time at which the rate lock will expire, measured in seconds since the Unix epoch. Null when rate locking is not supported.
           attr_reader :lock_expires_at
-          # Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active or expired.
+          # Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active, expired or none.
           attr_reader :lock_status
           # Key pair: from currency Value: exchange rate going from_currency -> to_currency.
           attr_reader :rates

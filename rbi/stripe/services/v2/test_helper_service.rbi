@@ -6,6 +6,7 @@ module Stripe
   module V2
     class TestHelperService < StripeService
       attr_reader :financial_addresses
+      attr_reader :money_management
     end
   end
 end

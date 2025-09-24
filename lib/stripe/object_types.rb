@@ -237,6 +237,8 @@ module Stripe
         V2::MoneyManagement::PayoutMethodsBankAccountSpec,
         V2::MoneyManagement::ReceivedCredit.object_name => V2::MoneyManagement::ReceivedCredit,
         V2::MoneyManagement::ReceivedDebit.object_name => V2::MoneyManagement::ReceivedDebit,
+        V2::MoneyManagement::RecipientVerification.object_name =>
+        V2::MoneyManagement::RecipientVerification,
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         V2::Payments::OffSessionPayment.object_name => V2::Payments::OffSessionPayment,

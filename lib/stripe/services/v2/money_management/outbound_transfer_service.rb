@@ -94,6 +94,8 @@ module Stripe
           attr_accessor :from
           # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
           attr_accessor :metadata
+          # The recipient verification id for this OutboundTransfer. Only required for countries with regulatory mandates to verify recipient names before OutboundTransfer creation.
+          attr_accessor :recipient_verification
           # To which payout method to send the OutboundTransfer.
           attr_accessor :to
 
@@ -103,6 +105,7 @@ module Stripe
             description: nil,
             from: nil,
             metadata: nil,
+            recipient_verification: nil,
             to: nil
           )
             @amount = amount
@@ -110,6 +113,7 @@ module Stripe
             @description = description
             @from = from
             @metadata = metadata
+            @recipient_verification = recipient_verification
             @to = to
           end
         end

@@ -111,12 +111,6 @@ module Stripe
             def metered_item; end
             sig { params(_metered_item: T.nilable(String)).returns(T.nilable(String)) }
             def metered_item=(_metered_item); end
-            # The ID of the price object to take price information from. The price must have the same interval as the rate card.
-            # Updates to the Price will not be reflected in the Rate Card or its rates.
-            sig { returns(T.nilable(String)) }
-            def price; end
-            sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
-            def price=(_price); end
             # Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
             # quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
             # grows into new tiers. Can only be set if `tiers` is set.
@@ -149,13 +143,12 @@ module Stripe
             sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
             def unit_amount=(_unit_amount); end
             sig {
-              params(custom_pricing_unit_amount: T.nilable(::Stripe::V2::Billing::RateCards::RateService::CreateParams::CustomPricingUnitAmount), metadata: T.nilable(T::Hash[String, String]), metered_item: T.nilable(String), price: T.nilable(String), tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::V2::Billing::RateCards::RateService::CreateParams::Tier]), transform_quantity: T.nilable(::Stripe::V2::Billing::RateCards::RateService::CreateParams::TransformQuantity), unit_amount: T.nilable(String)).void
+              params(custom_pricing_unit_amount: T.nilable(::Stripe::V2::Billing::RateCards::RateService::CreateParams::CustomPricingUnitAmount), metadata: T.nilable(T::Hash[String, String]), metered_item: T.nilable(String), tiering_mode: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::V2::Billing::RateCards::RateService::CreateParams::Tier]), transform_quantity: T.nilable(::Stripe::V2::Billing::RateCards::RateService::CreateParams::TransformQuantity), unit_amount: T.nilable(String)).void
              }
             def initialize(
               custom_pricing_unit_amount: nil,
               metadata: nil,
               metered_item: nil,
-              price: nil,
               tiering_mode: nil,
               tiers: nil,
               transform_quantity: nil,

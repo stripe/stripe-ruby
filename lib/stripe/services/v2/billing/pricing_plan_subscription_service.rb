@@ -49,6 +49,18 @@ module Stripe
 
         class RetrieveParams < Stripe::RequestParams; end
 
+        class UpdateParams < Stripe::RequestParams
+          # When set to true, the `servicing_status_transition.will_cancel_at` field will be cleared.
+          attr_accessor :clear_cancel_at
+          # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          attr_accessor :metadata
+
+          def initialize(clear_cancel_at: nil, metadata: nil)
+            @clear_cancel_at = clear_cancel_at
+            @metadata = metadata
+          end
+        end
+
         # List all Pricing Plan Subscription objects.
         def list(params = {}, opts = {})
           request(
@@ -64,6 +76,17 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
+            path: format("/v2/billing/pricing_plan_subscriptions/%<id>s", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Update a Pricing Plan Subscription object.
+        def update(id, params = {}, opts = {})
+          request(
+            method: :post,
             path: format("/v2/billing/pricing_plan_subscriptions/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,

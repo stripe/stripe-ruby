@@ -9,6 +9,9 @@ module Stripe
         class CreditGrant < Stripe::StripeObject
           class Amount < Stripe::StripeObject
             class CustomPricingUnit < Stripe::StripeObject
+              # The Custom Pricing Unit object.
+              sig { returns(T.nilable(Stripe::V2::Billing::CustomPricingUnit)) }
+              def custom_pricing_unit_details; end
               # The id of the custom pricing unit.
               sig { returns(String) }
               def id; end
@@ -80,12 +83,18 @@ module Stripe
           # Defines the scope where the credit grant is applicable.
           sig { returns(ApplicabilityConfig) }
           def applicability_config; end
+          # The category of the credit grant.
+          sig { returns(T.nilable(String)) }
+          def category; end
           # The expiry configuration for the credit grant.
           sig { returns(ExpiryConfig) }
           def expiry_config; end
           # A descriptive name shown in dashboard.
           sig { returns(String) }
           def name; end
+          # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+          sig { returns(T.nilable(Integer)) }
+          def priority; end
           def self.inner_class_types
             @inner_class_types = {
               amount: Amount,
@@ -100,6 +109,9 @@ module Stripe
         class CreditGrantPerTenant < Stripe::StripeObject
           class Amount < Stripe::StripeObject
             class CustomPricingUnit < Stripe::StripeObject
+              # The Custom Pricing Unit object.
+              sig { returns(T.nilable(Stripe::V2::Billing::CustomPricingUnit)) }
+              def custom_pricing_unit_details; end
               # The id of the custom pricing unit.
               sig { returns(String) }
               def id; end
@@ -171,12 +183,18 @@ module Stripe
           # Defines the scope where the credit grant is applicable.
           sig { returns(ApplicabilityConfig) }
           def applicability_config; end
+          # The category of the credit grant.
+          sig { returns(T.nilable(String)) }
+          def category; end
           # The expiry configuration for the credit grant.
           sig { returns(ExpiryConfig) }
           def expiry_config; end
           # Customer-facing name for the credit grant.
           sig { returns(String) }
           def name; end
+          # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+          sig { returns(T.nilable(Integer)) }
+          def priority; end
           def self.inner_class_types
             @inner_class_types = {
               amount: Amount,

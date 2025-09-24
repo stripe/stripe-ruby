@@ -76,6 +76,8 @@ module Stripe
           end
           # The Financial Address that was debited.
           attr_reader :financial_address
+          # Open Enum. Indicates the origin type through which this debit was initiated.
+          attr_reader :origin_type
           # Open Enum. The type of the payment method used to originate the debit.
           attr_reader :payment_method_type
           # The statement descriptor set by the originator of the debit.

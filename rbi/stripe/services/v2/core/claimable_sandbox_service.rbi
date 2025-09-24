@@ -33,7 +33,7 @@ module Stripe
           def enable_mcp_access; end
           sig { params(_enable_mcp_access: T::Boolean).returns(T::Boolean) }
           def enable_mcp_access=(_enable_mcp_access); end
-          # Values that are prefilled when a user claims the sandbox.
+          # Values that are prefilled when a user claims the sandbox. When a user claims the sandbox, they will be able to update these values.
           sig { returns(::Stripe::V2::Core::ClaimableSandboxService::CreateParams::Prefill) }
           def prefill; end
           sig {
@@ -45,12 +45,21 @@ module Stripe
            }
           def initialize(enable_mcp_access: nil, prefill: nil); end
         end
+        class RetrieveParams < Stripe::RequestParams; end
         # Create an anonymous, claimable sandbox. This sandbox can be prefilled with data. The response will include
         # a claim URL that allow a user to claim the account.
         sig {
           params(params: T.any(::Stripe::V2::Core::ClaimableSandboxService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::ClaimableSandbox)
          }
         def create(params = {}, opts = {}); end
+
+        # Retrieves the details of a claimable sandbox that was previously been created.
+        # Supply the unique claimable sandbox ID that was returned from your creation request,
+        # and Stripe will return the corresponding sandbox information.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Core::ClaimableSandboxService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::ClaimableSandbox)
+         }
+        def retrieve(id, params = {}, opts = {}); end
       end
     end
   end

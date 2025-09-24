@@ -28,18 +28,38 @@ module Stripe
           def initialize(financial_account: nil, include: nil, limit: nil); end
         end
         class CreateParams < Stripe::RequestParams
-          # Open Enum. The currency the FinancialAddress should support. Currently, only the `usd` and `gbp` values are supported.
-          sig { returns(String) }
-          def currency; end
-          sig { params(_currency: String).returns(String) }
-          def currency=(_currency); end
+          class SepaBankAccount < Stripe::RequestParams
+            # The originating country of the SEPA Bank account.
+            sig { returns(String) }
+            def country; end
+            sig { params(_country: String).returns(String) }
+            def country=(_country); end
+            sig { params(country: String).void }
+            def initialize(country: nil); end
+          end
           # The ID of the FinancialAccount the new FinancialAddress should be associated with.
           sig { returns(String) }
           def financial_account; end
           sig { params(_financial_account: String).returns(String) }
           def financial_account=(_financial_account); end
-          sig { params(currency: String, financial_account: String).void }
-          def initialize(currency: nil, financial_account: nil); end
+          # Optional SEPA Bank account options, used to configure the type of SEPA Bank account to create, such as the originating country.
+          sig {
+            returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressService::CreateParams::SepaBankAccount))
+           }
+          def sepa_bank_account; end
+          sig {
+            params(_sepa_bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressService::CreateParams::SepaBankAccount)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressService::CreateParams::SepaBankAccount))
+           }
+          def sepa_bank_account=(_sepa_bank_account); end
+          # The type of FinancialAddress details to provision.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(financial_account: String, sepa_bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressService::CreateParams::SepaBankAccount), type: String).void
+           }
+          def initialize(financial_account: nil, sepa_bank_account: nil, type: nil); end
         end
         class RetrieveParams < Stripe::RequestParams
           # Open Enum. A list of fields to reveal in the FinancialAddresses returned.

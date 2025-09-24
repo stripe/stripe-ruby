@@ -55,6 +55,9 @@ module Stripe
       # The type of the event.
       sig { returns(String) }
       def type; end
+      # For interop events, this is the snapshot event ID.
+      sig { returns(T.nilable(String)) }
+      def v1_event_id; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end

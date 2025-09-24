@@ -77,6 +77,28 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class CryptoWallet < Stripe::StripeObject
+          # Destination wallet address.
+          sig { returns(String) }
+          def address; end
+          # Whether the crypto wallet was archived. Crypto wallets can be archived through the /archive API,
+          # and they will not be automatically archived by Stripe. Archived crypto wallets cannot be used as
+          # payout method and will not appear in the payout method list.
+          sig { returns(T::Boolean) }
+          def archived; end
+          # Optional field, required if network supports memos (only "stellar" currently).
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # Which rail is being used to make an outbound money movement to this wallet.
+          sig { returns(String) }
+          def network; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # A set of available payout speeds for this payout method.
         sig { returns(T::Array[String]) }
         def available_payout_speeds; end
@@ -107,6 +129,9 @@ module Stripe
         # The PayoutMethodCard object details.
         sig { returns(T.nilable(Card)) }
         def card; end
+        # The PayoutMethodCryptoWallet object details.
+        sig { returns(T.nilable(CryptoWallet)) }
+        def crypto_wallet; end
       end
     end
   end

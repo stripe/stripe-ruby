@@ -7,6 +7,9 @@ module Stripe
     module Billing
       class RateCardRate < APIResource
         class CustomPricingUnitAmount < Stripe::StripeObject
+          # The Custom Pricing Unit object.
+          sig { returns(T.nilable(Stripe::V2::Billing::CustomPricingUnit)) }
+          def custom_pricing_unit_details; end
           # The id of the custom pricing unit.
           sig { returns(String) }
           def id; end

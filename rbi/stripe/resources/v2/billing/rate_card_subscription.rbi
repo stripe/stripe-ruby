@@ -39,6 +39,12 @@ module Stripe
           # When the servicing status transitioned to paused.
           sig { returns(T.nilable(String)) }
           def paused_at; end
+          # When the servicing is scheduled to transition to activate.
+          sig { returns(T.nilable(String)) }
+          def will_activate_at; end
+          # When the servicing is scheduled to cancel.
+          sig { returns(T.nilable(String)) }
+          def will_cancel_at; end
           def self.inner_class_types
             @inner_class_types = {}
           end

@@ -7811,7 +7811,7 @@ module Stripe
                 type: "percent_off",
                 percent_off: {
                   maximum_applications: { type: "indefinite" },
-                  percent_off: "991934883.3333334",
+                  percent_off: "percent_off",
                 },
               },
             },

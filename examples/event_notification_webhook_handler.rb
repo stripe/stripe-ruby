@@ -26,7 +26,7 @@ post "/webhook" do
   sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
   event_notification = client.parse_event_notification(webhook_body, sig_header, webhook_secret)
 
-  if event_notification.instance_of?(Stripe::Events::V1BillingMeterErrorReportTriggeredEvent)
+  if event_notification.instance_of?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
     meter = event_notification.fetch_related_object
     meter_id = meter.id
     puts "Success!", meter_id

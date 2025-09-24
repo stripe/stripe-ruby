@@ -15,6 +15,8 @@ module Stripe
       end
 
       class Defaults < Stripe::StripeObject
+        # The tax calculation provider this account uses. Defaults to `stripe` when not using a [third-party provider](/tax/third-party-apps).
+        attr_reader :provider
         # Default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) used to specify whether the price is considered inclusive of taxes or exclusive of taxes. If the item's price has a tax behavior set, it will take precedence over the default tax behavior.
         attr_reader :tax_behavior
         # Default [tax code](https://stripe.com/docs/tax/tax-categories) used to classify your products and prices.
@@ -35,9 +37,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -120,13 +122,13 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
-            # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+            # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
             attr_accessor :state
 
             def initialize(

@@ -273,6 +273,77 @@ module Stripe
             sig { params(acquiring_institution_id: T.nilable(String)).void }
             def initialize(acquiring_institution_id: nil); end
           end
+          class RiskAssessment < Stripe::RequestParams
+            class CardTestingRisk < Stripe::RequestParams
+              # The % of declines due to a card number not existing in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of card testing activity, meaning bad actors may be attempting different card number combinations to guess a correct one. Takes on values between 0 and 100.
+              sig { returns(T.nilable(Integer)) }
+              def invalid_account_number_decline_rate_past_hour; end
+              sig {
+                params(_invalid_account_number_decline_rate_past_hour: T.nilable(Integer)).returns(T.nilable(Integer))
+               }
+              def invalid_account_number_decline_rate_past_hour=(
+                _invalid_account_number_decline_rate_past_hour
+              ); end
+              # The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
+              sig { returns(T.nilable(Integer)) }
+              def invalid_credentials_decline_rate_past_hour; end
+              sig {
+                params(_invalid_credentials_decline_rate_past_hour: T.nilable(Integer)).returns(T.nilable(Integer))
+               }
+              def invalid_credentials_decline_rate_past_hour=(
+                _invalid_credentials_decline_rate_past_hour
+              ); end
+              # The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
+              sig { returns(String) }
+              def risk_level; end
+              sig { params(_risk_level: String).returns(String) }
+              def risk_level=(_risk_level); end
+              sig {
+                params(invalid_account_number_decline_rate_past_hour: T.nilable(Integer), invalid_credentials_decline_rate_past_hour: T.nilable(Integer), risk_level: String).void
+               }
+              def initialize(
+                invalid_account_number_decline_rate_past_hour: nil,
+                invalid_credentials_decline_rate_past_hour: nil,
+                risk_level: nil
+              ); end
+            end
+            class MerchantDisputeRisk < Stripe::RequestParams
+              # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
+              sig { returns(T.nilable(Integer)) }
+              def dispute_rate; end
+              sig { params(_dispute_rate: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def dispute_rate=(_dispute_rate); end
+              # The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
+              sig { returns(String) }
+              def risk_level; end
+              sig { params(_risk_level: String).returns(String) }
+              def risk_level=(_risk_level); end
+              sig { params(dispute_rate: T.nilable(Integer), risk_level: String).void }
+              def initialize(dispute_rate: nil, risk_level: nil); end
+            end
+            # Stripe's assessment of this authorization's likelihood of being card testing activity.
+            sig {
+              returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment::CardTestingRisk))
+             }
+            def card_testing_risk; end
+            sig {
+              params(_card_testing_risk: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment::CardTestingRisk)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment::CardTestingRisk))
+             }
+            def card_testing_risk=(_card_testing_risk); end
+            # The dispute risk of the merchant (the seller on a purchase) on an authorization based on all Stripe Issuing activity.
+            sig {
+              returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment::MerchantDisputeRisk))
+             }
+            def merchant_dispute_risk; end
+            sig {
+              params(_merchant_dispute_risk: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment::MerchantDisputeRisk)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment::MerchantDisputeRisk))
+             }
+            def merchant_dispute_risk=(_merchant_dispute_risk); end
+            sig {
+              params(card_testing_risk: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment::CardTestingRisk), merchant_dispute_risk: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment::MerchantDisputeRisk)).void
+             }
+            def initialize(card_testing_risk: nil, merchant_dispute_risk: nil); end
+          end
           class VerificationData < Stripe::RequestParams
             class AuthenticationExemption < Stripe::RequestParams
               # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
@@ -390,6 +461,13 @@ module Stripe
             params(_fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet))
            }
           def fleet=(_fleet); end
+          # Probability that this transaction can be disputed in the event of fraud. Assessed by comparing the characteristics of the authorization to card network rules.
+          sig { returns(T.nilable(String)) }
+          def fraud_disputability_likelihood; end
+          sig {
+            params(_fraud_disputability_likelihood: T.nilable(String)).returns(T.nilable(String))
+           }
+          def fraud_disputability_likelihood=(_fraud_disputability_likelihood); end
           # Information about fuel that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fuel))
@@ -434,6 +512,15 @@ module Stripe
             params(_network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::NetworkData)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::NetworkData))
            }
           def network_data=(_network_data); end
+          # Stripe’s assessment of the fraud risk for this authorization.
+          sig {
+            returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment))
+           }
+          def risk_assessment; end
+          sig {
+            params(_risk_assessment: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment))
+           }
+          def risk_assessment=(_risk_assessment); end
           # Verifications that Stripe performed on information that the cardholder provided to the merchant.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData))
@@ -449,7 +536,7 @@ module Stripe
           sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
           def wallet=(_wallet); end
           sig {
-            params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::NetworkData), verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData), wallet: T.nilable(String)).void
+            params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationService::CreateParams::VerificationData), wallet: T.nilable(String)).void
            }
           def initialize(
             amount: nil,
@@ -459,12 +546,14 @@ module Stripe
             currency: nil,
             expand: nil,
             fleet: nil,
+            fraud_disputability_likelihood: nil,
             fuel: nil,
             is_amount_controllable: nil,
             merchant_amount: nil,
             merchant_currency: nil,
             merchant_data: nil,
             network_data: nil,
+            risk_assessment: nil,
             verification_data: nil,
             wallet: nil
           ); end

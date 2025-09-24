@@ -29,7 +29,7 @@ module Stripe
               params(_monthly_payout_days: T.nilable(T::Array[Integer])).returns(T.nilable(T::Array[Integer]))
              }
             def monthly_payout_days=(_monthly_payout_days); end
-            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
             sig { returns(T.nilable(T::Array[String])) }
             def weekly_payout_days; end
             sig {
@@ -41,6 +41,13 @@ module Stripe
              }
             def initialize(interval: nil, monthly_payout_days: nil, weekly_payout_days: nil); end
           end
+          # The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](/payouts/minimum-balances-for-automatic-payouts).
+          sig { returns(T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)]))) }
+          def minimum_balance_by_currency; end
+          sig {
+            params(_minimum_balance_by_currency: T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)]))).returns(T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)])))
+           }
+          def minimum_balance_by_currency=(_minimum_balance_by_currency); end
           # Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](/connect/bank-transfers#payout-information) documentation.
           sig {
             returns(T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts::Schedule))
@@ -56,17 +63,23 @@ module Stripe
           sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
           def statement_descriptor=(_statement_descriptor); end
           sig {
-            params(schedule: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts::Schedule), statement_descriptor: T.nilable(String)).void
+            params(minimum_balance_by_currency: T.nilable(T.any(String, T::Hash[String, T.any(String, Integer)])), schedule: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments::Payouts::Schedule), statement_descriptor: T.nilable(String)).void
            }
-          def initialize(schedule: nil, statement_descriptor: nil); end
+          def initialize(
+            minimum_balance_by_currency: nil,
+            schedule: nil,
+            statement_descriptor: nil
+          ); end
         end
         class SettlementTiming < Stripe::RequestParams
-          # The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](/connect/manage-payout-schedule).
-          sig { returns(T.nilable(Integer)) }
+          # Change `delay_days` for this account, which determines the number of days charge funds are held before becoming available. The maximum value is 31. Passing an empty string to `delay_days_override` will return `delay_days` to the default, which is the lowest available value for the account. [Learn more about controlling delay days](/connect/manage-payout-schedule).
+          sig { returns(T.nilable(T.any(String, Integer))) }
           def delay_days_override; end
-          sig { params(_delay_days_override: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          sig {
+            params(_delay_days_override: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+           }
           def delay_days_override=(_delay_days_override); end
-          sig { params(delay_days_override: T.nilable(Integer)).void }
+          sig { params(delay_days_override: T.nilable(T.any(String, Integer))).void }
           def initialize(delay_days_override: nil); end
         end
         # A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](/connect/account-balances).
@@ -105,14 +118,14 @@ module Stripe
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
       # Settings that apply to the [Payments Balance](https://docs.stripe.com/api/balance).
-      sig { returns(::Stripe::BalanceSettingsService::UpdateParams::Payments) }
+      sig { returns(T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments)) }
       def payments; end
       sig {
-        params(_payments: ::Stripe::BalanceSettingsService::UpdateParams::Payments).returns(::Stripe::BalanceSettingsService::UpdateParams::Payments)
+        params(_payments: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments)).returns(T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments))
        }
       def payments=(_payments); end
       sig {
-        params(expand: T.nilable(T::Array[String]), payments: ::Stripe::BalanceSettingsService::UpdateParams::Payments).void
+        params(expand: T.nilable(T::Array[String]), payments: T.nilable(::Stripe::BalanceSettingsService::UpdateParams::Payments)).void
        }
       def initialize(expand: nil, payments: nil); end
     end

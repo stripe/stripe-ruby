@@ -422,10 +422,10 @@ module Stripe
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
           def country; end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           # ZIP or postal code.
@@ -501,7 +501,7 @@ module Stripe
           end
         end
         class NetworkToken < Stripe::StripeObject
-          # Attribute for field used
+          # Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
           sig { returns(T::Boolean) }
           def used; end
           def self.inner_class_types
@@ -526,6 +526,45 @@ module Stripe
           def version; end
           def self.inner_class_types
             @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Wallet < Stripe::StripeObject
+          class ApplePay < Stripe::StripeObject
+            # Type of the apple_pay transaction, one of `apple_pay` or `apple_pay_later`.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class GooglePay < Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field apple_pay
+          sig { returns(T.nilable(ApplePay)) }
+          def apple_pay; end
+          # (For tokenized numbers only.) The last four digits of the device account number.
+          sig { returns(T.nilable(String)) }
+          def dynamic_last4; end
+          # Attribute for field google_pay
+          sig { returns(T.nilable(GooglePay)) }
+          def google_pay; end
+          # The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {apple_pay: ApplePay, google_pay: GooglePay}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -575,11 +614,15 @@ module Stripe
         # Populated if this transaction used 3D Secure authentication.
         sig { returns(T.nilable(ThreeDSecure)) }
         def three_d_secure; end
+        # If this Card is part of a card wallet, this contains the details of the card wallet.
+        sig { returns(T.nilable(Wallet)) }
+        def wallet; end
         def self.inner_class_types
           @inner_class_types = {
             checks: Checks,
             network_token: NetworkToken,
             three_d_secure: ThreeDSecure,
+            wallet: Wallet,
           }
         end
         def self.field_remappings
@@ -1271,6 +1314,12 @@ module Stripe
         end
       end
       class Paynow < Stripe::StripeObject
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(T.nilable(String)) }
+        def location; end
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        sig { returns(T.nilable(String)) }
+        def reader; end
         # Reference number associated with this PayNow payment
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -1303,10 +1352,10 @@ module Stripe
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
           def country; end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           # ZIP or postal code.
@@ -1329,10 +1378,10 @@ module Stripe
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
           def country; end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           # ZIP or postal code.
@@ -1392,6 +1441,14 @@ module Stripe
             shipping: Shipping,
             verified_address: VerifiedAddress,
           }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Paypay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -1883,6 +1940,9 @@ module Stripe
       # Attribute for field paypal
       sig { returns(T.nilable(Paypal)) }
       def paypal; end
+      # Attribute for field paypay
+      sig { returns(T.nilable(Paypay)) }
+      def paypay; end
       # Attribute for field payto
       sig { returns(T.nilable(Payto)) }
       def payto; end
@@ -1995,6 +2055,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
@@ -2024,7 +2085,7 @@ module Stripe
     class ProcessorDetails < Stripe::StripeObject
       class Custom < Stripe::StripeObject
         # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def payment_reference; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -2056,10 +2117,10 @@ module Stripe
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(T.nilable(String)) }
         def country; end
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         sig { returns(T.nilable(String)) }
         def line1; end
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         sig { returns(T.nilable(String)) }
         def line2; end
         # ZIP or postal code.

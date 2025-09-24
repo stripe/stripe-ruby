@@ -417,9 +417,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -497,7 +497,7 @@ module Stripe
         end
 
         class NetworkToken < Stripe::StripeObject
-          # Attribute for field used
+          # Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
           attr_reader :used
 
           def self.inner_class_types
@@ -521,6 +521,47 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Wallet < Stripe::StripeObject
+          class ApplePay < Stripe::StripeObject
+            # Type of the apple_pay transaction, one of `apple_pay` or `apple_pay_later`.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class GooglePay < Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field apple_pay
+          attr_reader :apple_pay
+          # (For tokenized numbers only.) The last four digits of the device account number.
+          attr_reader :dynamic_last4
+          # Attribute for field google_pay
+          attr_reader :google_pay
+          # The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { apple_pay: ApplePay, google_pay: GooglePay }
           end
 
           def self.field_remappings
@@ -557,12 +598,15 @@ module Stripe
         attr_reader :network_transaction_id
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
+        # If this Card is part of a card wallet, this contains the details of the card wallet.
+        attr_reader :wallet
 
         def self.inner_class_types
           @inner_class_types = {
             checks: Checks,
             network_token: NetworkToken,
             three_d_secure: ThreeDSecure,
+            wallet: Wallet,
           }
         end
 
@@ -1221,6 +1265,10 @@ module Stripe
       end
 
       class Paynow < Stripe::StripeObject
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # Reference number associated with this PayNow payment
         attr_reader :reference
 
@@ -1254,9 +1302,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -1277,9 +1325,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -1329,6 +1377,16 @@ module Stripe
             shipping: Shipping,
             verified_address: VerifiedAddress,
           }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Paypay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -1776,6 +1834,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix
@@ -1868,6 +1928,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
@@ -1931,9 +1992,9 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
@@ -1990,9 +2051,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -2066,9 +2127,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -2191,6 +2252,95 @@ module Stripe
       end
     end
 
+    class ReportPaymentAttemptInformationalParams < Stripe::RequestParams
+      class CustomerDetails < Stripe::RequestParams
+        # The customer who made the payment.
+        attr_accessor :customer
+        # The customer's phone number.
+        attr_accessor :email
+        # The customer's name.
+        attr_accessor :name
+        # The customer's phone number.
+        attr_accessor :phone
+
+        def initialize(customer: nil, email: nil, name: nil, phone: nil)
+          @customer = customer
+          @email = email
+          @name = name
+          @phone = phone
+        end
+      end
+
+      class ShippingDetails < Stripe::RequestParams
+        class Address < Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          attr_accessor :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_accessor :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_accessor :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_accessor :line2
+          # ZIP or postal code.
+          attr_accessor :postal_code
+          # State, county, province, or region.
+          attr_accessor :state
+
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          )
+            @city = city
+            @country = country
+            @line1 = line1
+            @line2 = line2
+            @postal_code = postal_code
+            @state = state
+          end
+        end
+        # The physical shipping address.
+        attr_accessor :address
+        # The shipping recipient's name.
+        attr_accessor :name
+        # The shipping recipient's phone number.
+        attr_accessor :phone
+
+        def initialize(address: nil, name: nil, phone: nil)
+          @address = address
+          @name = name
+          @phone = phone
+        end
+      end
+      # Customer information for this payment.
+      attr_accessor :customer_details
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      attr_accessor :description
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      attr_accessor :metadata
+      # Shipping information for this payment.
+      attr_accessor :shipping_details
+
+      def initialize(
+        customer_details: nil,
+        description: nil,
+        expand: nil,
+        metadata: nil,
+        shipping_details: nil
+      )
+        @customer_details = customer_details
+        @description = description
+        @expand = expand
+        @metadata = metadata
+        @shipping_details = shipping_details
+      end
+    end
+
     class ReportPaymentParams < Stripe::RequestParams
       class AmountRequested < Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -2247,9 +2397,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -2343,9 +2493,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -2574,6 +2724,26 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/payment_records/%<id>s/report_payment_attempt_guaranteed", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Report informational updates on the specified Payment Record.
+    def report_payment_attempt_informational(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_records/%<id>s/report_payment_attempt_informational", { id: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Report informational updates on the specified Payment Record.
+    def self.report_payment_attempt_informational(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_records/%<id>s/report_payment_attempt_informational", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

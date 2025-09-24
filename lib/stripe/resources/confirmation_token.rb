@@ -246,9 +246,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -548,9 +548,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -571,9 +571,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -625,9 +625,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -648,9 +648,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -1266,6 +1266,16 @@ module Stripe
         end
       end
 
+      class Paypay < Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Payto < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         attr_reader :bsb_number
@@ -1648,6 +1658,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix
@@ -1729,6 +1741,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
@@ -1760,9 +1773,9 @@ module Stripe
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
@@ -1849,9 +1862,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -2040,6 +2053,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
 
         class Payto < Stripe::RequestParams
           # The account number for the bank account.
@@ -2244,6 +2258,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -2326,6 +2342,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -2388,6 +2405,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -2457,9 +2475,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code

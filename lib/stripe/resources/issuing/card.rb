@@ -20,9 +20,9 @@ module Stripe
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
@@ -44,9 +44,9 @@ module Stripe
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
@@ -302,9 +302,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -427,6 +427,10 @@ module Stripe
         attr_accessor :cardholder
         # The currency for the card.
         attr_accessor :currency
+        # The desired expiration month (1-12) for this card if [specifying a custom expiration date](/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        attr_accessor :exp_month
+        # The desired 4-digit expiration year for this card if [specifying a custom expiration date](/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        attr_accessor :exp_year
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # The new financial account ID the card will be associated with. This field allows a card to be reassigned to a different financial account.
@@ -455,6 +459,8 @@ module Stripe
         def initialize(
           cardholder: nil,
           currency: nil,
+          exp_month: nil,
+          exp_year: nil,
           expand: nil,
           financial_account: nil,
           metadata: nil,
@@ -470,6 +476,8 @@ module Stripe
         )
           @cardholder = cardholder
           @currency = currency
+          @exp_month = exp_month
+          @exp_year = exp_year
           @expand = expand
           @financial_account = financial_account
           @metadata = metadata
@@ -501,9 +509,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -744,6 +752,8 @@ module Stripe
       attr_reader :replacement_for
       # The reason why the previous card needed to be replaced.
       attr_reader :replacement_reason
+      # Text separate from cardholder name, printed on the card.
+      attr_reader :second_line
       # Where and how the card will be shipped.
       attr_reader :shipping
       # Attribute for field spending_controls

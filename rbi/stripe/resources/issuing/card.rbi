@@ -14,10 +14,10 @@ module Stripe
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
           def country; end
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
           def line1; end
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
           def line2; end
           # ZIP or postal code.
@@ -41,10 +41,10 @@ module Stripe
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(T.nilable(String)) }
             def country; end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(T.nilable(String)) }
             def line1; end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             # ZIP or postal code.
@@ -284,6 +284,9 @@ module Stripe
       # The reason why the previous card needed to be replaced.
       sig { returns(T.nilable(String)) }
       def replacement_reason; end
+      # Text separate from cardholder name, printed on the card.
+      sig { returns(T.nilable(String)) }
+      def second_line; end
       # Where and how the card will be shipped.
       sig { returns(T.nilable(Shipping)) }
       def shipping; end
@@ -428,12 +431,12 @@ module Stripe
             def country; end
             sig { params(_country: String).returns(String) }
             def country=(_country); end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(String) }
             def line1; end
             sig { params(_line1: String).returns(String) }
             def line1=(_line1); end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
@@ -622,6 +625,16 @@ module Stripe
         def currency; end
         sig { params(_currency: String).returns(String) }
         def currency=(_currency); end
+        # The desired expiration month (1-12) for this card if [specifying a custom expiration date](/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        sig { returns(T.nilable(Integer)) }
+        def exp_month; end
+        sig { params(_exp_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def exp_month=(_exp_month); end
+        # The desired 4-digit expiration year for this card if [specifying a custom expiration date](/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        sig { returns(T.nilable(Integer)) }
+        def exp_year; end
+        sig { params(_exp_year: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def exp_year=(_exp_year); end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         def expand; end
@@ -691,11 +704,13 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(cardholder: T.nilable(String), currency: String, expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::Card::CreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::Card::CreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::Card::CreateParams::SpendingControls), status: T.nilable(String), type: String).void
+          params(cardholder: T.nilable(String), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::Card::CreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::Card::CreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::Card::CreateParams::SpendingControls), status: T.nilable(String), type: String).void
          }
         def initialize(
           cardholder: nil,
           currency: nil,
+          exp_month: nil,
+          exp_year: nil,
           expand: nil,
           financial_account: nil,
           metadata: nil,
@@ -732,12 +747,12 @@ module Stripe
             def country; end
             sig { params(_country: String).returns(String) }
             def country=(_country); end
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             sig { returns(String) }
             def line1; end
             sig { params(_line1: String).returns(String) }
             def line1=(_line1); end
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             sig { returns(T.nilable(String)) }
             def line2; end
             sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }

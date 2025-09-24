@@ -174,6 +174,8 @@ module Stripe
           attr_reader :proration_behavior
           # Attribute for field schedule_at_period_end
           attr_reader :schedule_at_period_end
+          # Determines how handle updates to trialing subscriptions. Valid values are `end_trial` and `continue_trial`. Defaults to a value of `end_trial` if you don't set it during creation.
+          attr_reader :trial_update_behavior
 
           def self.inner_class_types
             @inner_class_types = { products: Product, schedule_at_period_end: ScheduleAtPeriodEnd }
@@ -394,19 +396,23 @@ module Stripe
             attr_accessor :proration_behavior
             # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
             attr_accessor :schedule_at_period_end
+            # The behavior when updating a subscription that is trialing.
+            attr_accessor :trial_update_behavior
 
             def initialize(
               default_allowed_updates: nil,
               enabled: nil,
               products: nil,
               proration_behavior: nil,
-              schedule_at_period_end: nil
+              schedule_at_period_end: nil,
+              trial_update_behavior: nil
             )
               @default_allowed_updates = default_allowed_updates
               @enabled = enabled
               @products = products
               @proration_behavior = proration_behavior
               @schedule_at_period_end = schedule_at_period_end
+              @trial_update_behavior = trial_update_behavior
             end
           end
           # Information about updating the customer details in the portal.
@@ -614,19 +620,23 @@ module Stripe
             attr_accessor :proration_behavior
             # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
             attr_accessor :schedule_at_period_end
+            # The behavior when updating a subscription that is trialing.
+            attr_accessor :trial_update_behavior
 
             def initialize(
               default_allowed_updates: nil,
               enabled: nil,
               products: nil,
               proration_behavior: nil,
-              schedule_at_period_end: nil
+              schedule_at_period_end: nil,
+              trial_update_behavior: nil
             )
               @default_allowed_updates = default_allowed_updates
               @enabled = enabled
               @products = products
               @proration_behavior = proration_behavior
               @schedule_at_period_end = schedule_at_period_end
+              @trial_update_behavior = trial_update_behavior
             end
           end
           # Information about updating the customer details in the portal.

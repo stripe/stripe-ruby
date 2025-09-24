@@ -564,11 +564,25 @@ module Stripe
         end
       end
       class BillingMode < Stripe::StripeObject
+        class Flexible < Stripe::StripeObject
+          # Controls how invoices and invoice items display proration amounts and discount amounts.
+          sig { returns(T.nilable(String)) }
+          def proration_discounts; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field flexible
+        sig { returns(T.nilable(Flexible)) }
+        def flexible; end
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         sig { returns(String) }
         def type; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {flexible: Flexible}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -2267,13 +2281,33 @@ module Stripe
           def initialize(bill_from: nil, bill_until: nil); end
         end
         class BillingMode < Stripe::RequestParams
-          # Controls the calculation and orchestration of prorations and invoices for subscriptions.
+          class Flexible < Stripe::RequestParams
+            # Controls how invoices and invoice items display proration amounts and discount amounts.
+            sig { returns(T.nilable(String)) }
+            def proration_discounts; end
+            sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+            def proration_discounts=(_proration_discounts); end
+            sig { params(proration_discounts: T.nilable(String)).void }
+            def initialize(proration_discounts: nil); end
+          end
+          # Configure behavior for flexible billing mode.
+          sig {
+            returns(T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible))
+           }
+          def flexible; end
+          sig {
+            params(_flexible: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible)).returns(T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible))
+           }
+          def flexible=(_flexible); end
+          # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          sig { params(type: String).void }
-          def initialize(type: nil); end
+          sig {
+            params(flexible: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillingMode::Flexible), type: String).void
+           }
+          def initialize(flexible: nil, type: nil); end
         end
         class Prebilling < Stripe::RequestParams
           # This is used to determine the number of billing cycles to prebill.

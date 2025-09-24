@@ -199,7 +199,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items
@@ -363,9 +363,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -394,9 +394,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -527,9 +527,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -756,9 +756,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -1054,9 +1054,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -1245,6 +1245,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
 
         class Payto < Stripe::RequestParams
           # The account number for the bank account.
@@ -1449,6 +1450,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -1531,6 +1534,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -1593,6 +1597,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -1982,9 +1987,9 @@ module Stripe
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_accessor :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_accessor :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_accessor :line2
               # ZIP or postal code.
               attr_accessor :postal_code
@@ -2910,6 +2915,19 @@ module Stripe
           end
         end
 
+        class Paypay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Payto < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -3467,6 +3485,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
@@ -3544,6 +3564,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -3603,6 +3624,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -3638,9 +3660,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -4039,7 +4061,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items
@@ -4181,9 +4203,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -4212,9 +4234,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -4345,9 +4367,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -4574,9 +4596,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -4872,9 +4894,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -5063,6 +5085,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
 
         class Payto < Stripe::RequestParams
           # The account number for the bank account.
@@ -5267,6 +5290,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -5349,6 +5374,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -5411,6 +5437,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -5800,9 +5827,9 @@ module Stripe
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_accessor :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_accessor :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_accessor :line2
               # ZIP or postal code.
               attr_accessor :postal_code
@@ -6728,6 +6755,19 @@ module Stripe
           end
         end
 
+        class Paypay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Payto < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -7285,6 +7325,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
@@ -7362,6 +7404,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -7421,6 +7464,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -7447,9 +7491,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -7524,6 +7568,8 @@ module Stripe
       attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
+      # The list of payment method types to exclude from use with this payment.
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
@@ -7582,6 +7628,7 @@ module Stripe
         customer: nil,
         customer_account: nil,
         description: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         fx_quote: nil,
         hooks: nil,
@@ -7609,6 +7656,7 @@ module Stripe
         @customer = customer
         @customer_account = customer_account
         @description = description
+        @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @fx_quote = fx_quote
         @hooks = hooks
@@ -7816,7 +7864,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items
@@ -7927,9 +7975,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -7958,9 +8006,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -8091,9 +8139,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -8320,9 +8368,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -8761,7 +8809,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items
@@ -8911,9 +8959,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -8942,9 +8990,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -9075,9 +9123,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -9304,9 +9352,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -9602,9 +9650,9 @@ module Stripe
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_accessor :line2
             # ZIP or postal code.
             attr_accessor :postal_code
@@ -9793,6 +9841,7 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
+        class Paypay < Stripe::RequestParams; end
 
         class Payto < Stripe::RequestParams
           # The account number for the bank account.
@@ -9997,6 +10046,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -10079,6 +10130,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -10141,6 +10193,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -10530,9 +10583,9 @@ module Stripe
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_accessor :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_accessor :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_accessor :line2
               # ZIP or postal code.
               attr_accessor :postal_code
@@ -11458,6 +11511,19 @@ module Stripe
           end
         end
 
+        class Paypay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Payto < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
             # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -12015,6 +12081,8 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
@@ -12092,6 +12160,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
@@ -12151,6 +12220,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
@@ -12186,9 +12256,9 @@ module Stripe
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_accessor :line2
           # ZIP or postal code.
           attr_accessor :postal_code
@@ -12242,6 +12312,8 @@ module Stripe
       attr_accessor :confirmation_token
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
       attr_accessor :error_on_requires_action
+      # The list of payment method types to exclude from use with this payment.
+      attr_accessor :excluded_payment_method_types
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
@@ -12296,6 +12368,7 @@ module Stripe
         capture_method: nil,
         confirmation_token: nil,
         error_on_requires_action: nil,
+        excluded_payment_method_types: nil,
         expand: nil,
         fx_quote: nil,
         hooks: nil,
@@ -12319,6 +12392,7 @@ module Stripe
         @capture_method = capture_method
         @confirmation_token = confirmation_token
         @error_on_requires_action = error_on_requires_action
+        @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @fx_quote = fx_quote
         @hooks = hooks
@@ -12545,7 +12619,7 @@ module Stripe
             @total_tax_amount = total_tax_amount
           end
         end
-        # The amount an item was discounted for.
+        # The total discount applied on the transaction.
         attr_accessor :discount_amount
         # A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
         attr_accessor :line_items

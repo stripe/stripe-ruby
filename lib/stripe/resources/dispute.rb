@@ -25,9 +25,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -74,9 +74,9 @@ module Stripe
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
+              # Address line 1, such as the street, PO Box, or company name.
               attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
+              # Address line 2, such as the apartment, suite, unit, or building.
               attr_reader :line2
               # ZIP or postal code.
               attr_reader :postal_code
@@ -326,6 +326,8 @@ module Stripe
       end
 
       class Klarna < Stripe::StripeObject
+        # Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+        attr_reader :chargeback_loss_reason_code
         # The reason for the dispute as defined by Klarna
         attr_reader :reason_code
 
@@ -449,9 +451,9 @@ module Stripe
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 attr_accessor :country
-                # Address line 1 (e.g., street, PO Box, or company name).
+                # Address line 1, such as the street, PO Box, or company name.
                 attr_accessor :line1
-                # Address line 2 (e.g., apartment, suite, unit, or building).
+                # Address line 2, such as the apartment, suite, unit, or building.
                 attr_accessor :line2
                 # ZIP or postal code.
                 attr_accessor :postal_code
@@ -518,9 +520,9 @@ module Stripe
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
                 attr_accessor :country
-                # Address line 1 (e.g., street, PO Box, or company name).
+                # Address line 1, such as the street, PO Box, or company name.
                 attr_accessor :line1
-                # Address line 2 (e.g., apartment, suite, unit, or building).
+                # Address line 2, such as the apartment, suite, unit, or building.
                 attr_accessor :line2
                 # ZIP or postal code.
                 attr_accessor :postal_code
@@ -730,14 +732,23 @@ module Stripe
       attr_accessor :evidence
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # Intended submission method for the dispute.
+      attr_accessor :intended_submission_method
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
       attr_accessor :submit
 
-      def initialize(evidence: nil, expand: nil, metadata: nil, submit: nil)
+      def initialize(
+        evidence: nil,
+        expand: nil,
+        intended_submission_method: nil,
+        metadata: nil,
+        submit: nil
+      )
         @evidence = evidence
         @expand = expand
+        @intended_submission_method = intended_submission_method
         @metadata = metadata
         @submit = submit
       end
@@ -769,6 +780,8 @@ module Stripe
     attr_reader :evidence_details
     # Unique identifier for the object.
     attr_reader :id
+    # Intended submission method for the dispute.
+    attr_reader :intended_submission_method
     # If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.
     attr_reader :is_charge_refundable
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

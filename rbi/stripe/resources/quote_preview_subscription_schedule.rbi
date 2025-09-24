@@ -22,6 +22,20 @@ module Stripe
       end
     end
     class BillingMode < Stripe::StripeObject
+      class Flexible < Stripe::StripeObject
+        # Controls how invoices and invoice items display proration amounts and discount amounts.
+        sig { returns(T.nilable(String)) }
+        def proration_discounts; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configure behavior for flexible billing mode
+      sig { returns(T.nilable(Flexible)) }
+      def flexible; end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       sig { returns(String) }
       def type; end
@@ -29,7 +43,7 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       def updated_at; end
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = {flexible: Flexible}
       end
       def self.field_remappings
         @field_remappings = {}

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # typed: false
 
-# event_notification_webhook_handler.rb - receive and process event notifications like the
+# event_notification_webhook_handler.rb - receive and process event notification like the
 # v1.billing.meter.error_report_triggered event.
 #
 # In this example, we:
@@ -26,14 +26,10 @@ post "/webhook" do
   sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
   event_notification = client.parse_event_notification(webhook_body, sig_header, webhook_secret)
 
-  if event_notification.is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
-    # our type is narrowed now
+  if event_notification.instance_of?(Stripe::Events::V1BillingMeterErrorReportTriggeredEvent)
     meter = event_notification.fetch_related_object
-    puts("Meter ID: #{meter.id}")
-
-    # can also fetch the full event, including data
-    event = event_notification.fetch_event
-    puts("Summary: #{event.data.developer_message_summary}")
+    meter_id = meter.id
+    puts "Success!", meter_id
   end
 
   # Record the failures and alert your team

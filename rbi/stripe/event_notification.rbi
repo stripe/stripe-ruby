@@ -16,7 +16,7 @@ module Stripe
     class EventReason
       sig { returns(String) }
       def type; end
-      sig { returns(EventReasonRequest) }
+      sig { returns(::Stripe::V2::EventReasonRequest) }
       def request; end
 
       sig { params(event_reason_payload: T::Hash[T.untyped, T.untyped]).void }
@@ -34,7 +34,7 @@ module Stripe
       def context; end
       sig { returns(T::Boolean) }
       def livemode; end
-      sig { returns(T.nilable(EventReason)) }
+      sig { returns(T.nilable(::Stripe::V2::EventReason)) }
       def reason; end
     end
   end

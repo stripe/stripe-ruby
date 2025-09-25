@@ -343,6 +343,17 @@ module Stripe
       end
     end
     class Parent < Stripe::StripeObject
+      class BillingCadenceDetails < Stripe::StripeObject
+        # The billing cadence that generated this invoice
+        sig { returns(String) }
+        def billing_cadence; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class QuoteDetails < Stripe::StripeObject
         # The quote that generated this invoice
         sig { returns(String) }
@@ -389,6 +400,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Details about the billing cadence that generated this invoice
+      sig { returns(T.nilable(BillingCadenceDetails)) }
+      def billing_cadence_details; end
       # Details about the quote that generated this invoice
       sig { returns(T.nilable(QuoteDetails)) }
       def quote_details; end
@@ -400,6 +414,7 @@ module Stripe
       def type; end
       def self.inner_class_types
         @inner_class_types = {
+          billing_cadence_details: BillingCadenceDetails,
           quote_details: QuoteDetails,
           subscription_details: SubscriptionDetails,
         }
@@ -7406,6 +7421,11 @@ module Stripe
         params(_automatic_tax: T.nilable(::Stripe::Invoice::CreatePreviewParams::AutomaticTax)).returns(T.nilable(::Stripe::Invoice::CreatePreviewParams::AutomaticTax))
        }
       def automatic_tax=(_automatic_tax); end
+      # The identifier of the billing cadence for which you’d like to retrieve the upcoming invoice.Cannot be provided when `subscription`, `schedule`, `subscription_details` or `schedule_details` are provided.
+      sig { returns(T.nilable(String)) }
+      def billing_cadence; end
+      sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
+      def billing_cadence=(_billing_cadence); end
       # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
       sig { returns(T.nilable(String)) }
       def currency; end
@@ -7491,10 +7511,11 @@ module Stripe
        }
       def subscription_details=(_subscription_details); end
       sig {
-        params(automatic_tax: T.nilable(::Stripe::Invoice::CreatePreviewParams::AutomaticTax), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::Invoice::CreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::Invoice::CreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails)).void
+        params(automatic_tax: T.nilable(::Stripe::Invoice::CreatePreviewParams::AutomaticTax), billing_cadence: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::Invoice::CreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::Invoice::CreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails)).void
        }
       def initialize(
         automatic_tax: nil,
+        billing_cadence: nil,
         currency: nil,
         customer: nil,
         customer_account: nil,

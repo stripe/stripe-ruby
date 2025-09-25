@@ -2,20 +2,43 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Occurs whenever a personalization design is deactivated following the deactivation of the physical bundle that belongs to it.
-  class V1IssuingPersonalizationDesignDeactivatedEvent < Stripe::V2::Event
-    def self.lookup_type
-      "v1.issuing_personalization_design.deactivated"
+  module Events
+    # Occurs whenever a personalization design is deactivated following the deactivation of the physical bundle that belongs to it.
+    class V1IssuingPersonalizationDesignDeactivatedEvent < Stripe::V2::Event
+      def self.lookup_type
+        "v1.issuing_personalization_design.deactivated"
+      end
+
+      # Retrieves the related object from the API. Makes an API request on every call.
+      def fetch_related_object
+        _request(
+          method: :get,
+          path: related_object.url,
+          base_address: :api,
+          opts: { stripe_context: context }
+        )
+      end
+      attr_reader :related_object
     end
 
-    # Retrieves the related object from the API. Make an API request on every call.
-    def fetch_related_object
-      _request(
-        method: :get,
-        path: related_object.url,
-        base_address: :api,
-        opts: { stripe_account: context }
-      )
+    # Occurs whenever a personalization design is deactivated following the deactivation of the physical bundle that belongs to it.
+    class V1IssuingPersonalizationDesignDeactivatedEventNotification < Stripe::V2::EventNotification
+      def self.lookup_type
+        "v1.issuing_personalization_design.deactivated"
+      end
+
+      attr_reader :related_object
+
+      # Retrieves the PersonalizationDesign related to this EventNotification from the Stripe API. Makes an API request on every call.
+      def fetch_related_object
+        resp = @client.raw_request(
+          :get,
+          related_object.url,
+          opts: { stripe_context: context },
+          usage: ["fetch_related_object"]
+        )
+        @client.deserialize(resp.http_body, api_mode: Util.get_api_mode(related_object.url))
+      end
     end
   end
 end

@@ -2,20 +2,43 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Occurs when funds are reinstated to your account after a dispute is closed. This includes [partially refunded payments](https://docs.stripe.com/disputes#disputes-on-partially-refunded-payments).
-  class V1ChargeDisputeFundsReinstatedEvent < Stripe::V2::Event
-    def self.lookup_type
-      "v1.charge.dispute.funds_reinstated"
+  module Events
+    # Occurs when funds are reinstated to your account after a dispute is closed. This includes [partially refunded payments](https://docs.stripe.com/disputes#disputes-on-partially-refunded-payments).
+    class V1ChargeDisputeFundsReinstatedEvent < Stripe::V2::Event
+      def self.lookup_type
+        "v1.charge.dispute.funds_reinstated"
+      end
+
+      # Retrieves the related object from the API. Makes an API request on every call.
+      def fetch_related_object
+        _request(
+          method: :get,
+          path: related_object.url,
+          base_address: :api,
+          opts: { stripe_context: context }
+        )
+      end
+      attr_reader :related_object
     end
 
-    # Retrieves the related object from the API. Make an API request on every call.
-    def fetch_related_object
-      _request(
-        method: :get,
-        path: related_object.url,
-        base_address: :api,
-        opts: { stripe_account: context }
-      )
+    # Occurs when funds are reinstated to your account after a dispute is closed. This includes [partially refunded payments](https://docs.stripe.com/disputes#disputes-on-partially-refunded-payments).
+    class V1ChargeDisputeFundsReinstatedEventNotification < Stripe::V2::EventNotification
+      def self.lookup_type
+        "v1.charge.dispute.funds_reinstated"
+      end
+
+      attr_reader :related_object
+
+      # Retrieves the Dispute related to this EventNotification from the Stripe API. Makes an API request on every call.
+      def fetch_related_object
+        resp = @client.raw_request(
+          :get,
+          related_object.url,
+          opts: { stripe_context: context },
+          usage: ["fetch_related_object"]
+        )
+        @client.deserialize(resp.http_body, api_mode: Util.get_api_mode(related_object.url))
+      end
     end
   end
 end

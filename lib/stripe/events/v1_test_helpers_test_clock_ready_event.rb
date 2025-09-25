@@ -2,20 +2,43 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Occurs whenever a test clock transitions to a ready status.
-  class V1TestHelpersTestClockReadyEvent < Stripe::V2::Event
-    def self.lookup_type
-      "v1.test_helpers.test_clock.ready"
+  module Events
+    # Occurs whenever a test clock transitions to a ready status.
+    class V1TestHelpersTestClockReadyEvent < Stripe::V2::Event
+      def self.lookup_type
+        "v1.test_helpers.test_clock.ready"
+      end
+
+      # Retrieves the related object from the API. Makes an API request on every call.
+      def fetch_related_object
+        _request(
+          method: :get,
+          path: related_object.url,
+          base_address: :api,
+          opts: { stripe_context: context }
+        )
+      end
+      attr_reader :related_object
     end
 
-    # Retrieves the related object from the API. Make an API request on every call.
-    def fetch_related_object
-      _request(
-        method: :get,
-        path: related_object.url,
-        base_address: :api,
-        opts: { stripe_account: context }
-      )
+    # Occurs whenever a test clock transitions to a ready status.
+    class V1TestHelpersTestClockReadyEventNotification < Stripe::V2::EventNotification
+      def self.lookup_type
+        "v1.test_helpers.test_clock.ready"
+      end
+
+      attr_reader :related_object
+
+      # Retrieves the TestClock related to this EventNotification from the Stripe API. Makes an API request on every call.
+      def fetch_related_object
+        resp = @client.raw_request(
+          :get,
+          related_object.url,
+          opts: { stripe_context: context },
+          usage: ["fetch_related_object"]
+        )
+        @client.deserialize(resp.http_body, api_mode: Util.get_api_mode(related_object.url))
+      end
     end
   end
 end

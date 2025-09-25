@@ -38,8 +38,11 @@ module Stripe
         @type = event_payload[:type]
         @created = event_payload[:created]
         @livemode = event_payload[:livemode]
-        @context = event_payload[:context]
         @reason = EventReason.new(event_payload[:reason]) if event_payload[:reason]
+        if event_payload[:context] && !event_payload[:context].empty?
+          puts "setting!"
+          @context = StripeContext.parse(event_payload[:context])
+        end
         # private unless a child declares an attr_reader
         @related_object = RelatedObject.new(event_payload[:related_object]) if event_payload[:related_object]
 

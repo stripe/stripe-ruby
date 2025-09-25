@@ -27,20 +27,17 @@ Gem::Specification.new do |s|
     "rubygems_mfa_required" => "false",
   }
 
-  ignored = Regexp.union(
-    /\A\.editorconfig/,
-    /\A\.git/,
-    /\A\.rubocop/,
-    /\A\.travis.yml/,
-    /\A\.vscode/,
-    /\Abin/,
-    /\Asorbet/,
-    /\Atest/,
-    # Ignores the contents of rbi/stripe/** but keeps rbi/stripe.rbi
-    # Only rbi/stripe.rbi is included in the gem
-    %r{\Arbi/stripe/}
+  included = Regexp.union(
+    %r{\Alib/},
+    %r{\Aexe/},
+    # generated RBI files
+    %r{\Arbi/stripe\.rbi\z},
+    # Handwritten RBIs
+    # TODO(helenye): http://go/j/DEVSDK-2769
+    %r{\Arbi/stripe/stripe_client.rbi\z},
+    %r{\Arbi/stripe/event_notification.rbi\z}
   )
-  s.files = `git ls-files`.split("\n").grep_v(ignored)
+  s.files = `git ls-files`.split("\n").grep(included)
   s.bindir = "exe"
   s.executables   = `git ls-files -- exe/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]

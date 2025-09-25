@@ -40,18 +40,9 @@ module Stripe
       # Version of the Report Type. Different versions report with the same ID will have the same purpose, but may take different run parameters or have different result schemas.
       sig { returns(Integer) }
       def version; end
-      class ListParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        def expand; end
-        sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def expand=(_expand); end
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       # Returns a full list of Report Types.
       sig {
-        params(params: T.any(::Stripe::Reporting::ReportType::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Reporting::ReportTypeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

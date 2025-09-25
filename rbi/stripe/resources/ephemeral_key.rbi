@@ -22,24 +22,15 @@ module Stripe
     # The key's secret. You can use this value to make authorized requests to the Stripe API.
     sig { returns(T.nilable(String)) }
     def secret; end
-    class DeleteParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     # Invalidates a short-lived API key for a given resource.
     sig {
-      params(key: String, params: T.any(::Stripe::EphemeralKey::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::EphemeralKey)
+      params(key: String, params: T.any(::Stripe::EphemeralKeyDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::EphemeralKey)
      }
     def self.delete(key, params = {}, opts = {}); end
 
     # Invalidates a short-lived API key for a given resource.
     sig {
-      params(params: T.any(::Stripe::EphemeralKey::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::EphemeralKey)
+      params(params: T.any(::Stripe::EphemeralKeyDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::EphemeralKey)
      }
     def delete(params = {}, opts = {}); end
   end

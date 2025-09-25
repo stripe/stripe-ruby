@@ -214,8 +214,6 @@ module Stripe
       attr_reader :payco_payments
       # The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
       attr_reader :paynow_payments
-      # The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
-      attr_reader :paypay_payments
       # The status of the pix payments capability of the account, or whether the account can directly process pix charges.
       attr_reader :pix_payments
       # The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
@@ -1491,15 +1489,6 @@ module Stripe
           end
         end
 
-        class PaypayPayments < Stripe::RequestParams
-          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
-          attr_accessor :requested
-
-          def initialize(requested: nil)
-            @requested = requested
-          end
-        end
-
         class PixPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -1738,8 +1727,6 @@ module Stripe
         attr_accessor :payco_payments
         # The paynow_payments capability.
         attr_accessor :paynow_payments
-        # The paypay_payments capability.
-        attr_accessor :paypay_payments
         # The pix_payments capability.
         attr_accessor :pix_payments
         # The promptpay_payments capability.
@@ -1819,7 +1806,6 @@ module Stripe
           pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
-          paypay_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
           revolut_pay_payments: nil,
@@ -1881,7 +1867,6 @@ module Stripe
           @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
-          @paypay_payments = paypay_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
           @revolut_pay_payments = revolut_pay_payments
@@ -3568,15 +3553,6 @@ module Stripe
           end
         end
 
-        class PaypayPayments < Stripe::RequestParams
-          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
-          attr_accessor :requested
-
-          def initialize(requested: nil)
-            @requested = requested
-          end
-        end
-
         class PixPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3815,8 +3791,6 @@ module Stripe
         attr_accessor :payco_payments
         # The paynow_payments capability.
         attr_accessor :paynow_payments
-        # The paypay_payments capability.
-        attr_accessor :paypay_payments
         # The pix_payments capability.
         attr_accessor :pix_payments
         # The promptpay_payments capability.
@@ -3896,7 +3870,6 @@ module Stripe
           pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
-          paypay_payments: nil,
           pix_payments: nil,
           promptpay_payments: nil,
           revolut_pay_payments: nil,
@@ -3958,7 +3931,6 @@ module Stripe
           @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
-          @paypay_payments = paypay_payments
           @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
           @revolut_pay_payments = revolut_pay_payments

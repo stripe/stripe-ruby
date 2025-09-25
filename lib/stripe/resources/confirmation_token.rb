@@ -1230,16 +1230,6 @@ module Stripe
         end
       end
 
-      class Paypay < Stripe::StripeObject
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class Pix < Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1533,8 +1523,6 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
-      # Attribute for field paypay
-      attr_reader :paypay
       # Attribute for field pix
       attr_reader :pix
       # Attribute for field promptpay
@@ -1604,7 +1592,6 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
-          paypay: Paypay,
           pix: Pix,
           promptpay: Promptpay,
           revolut_pay: RevolutPay,
@@ -1901,7 +1888,6 @@ module Stripe
         class Payco < Stripe::RequestParams; end
         class Paynow < Stripe::RequestParams; end
         class Paypal < Stripe::RequestParams; end
-        class Paypay < Stripe::RequestParams; end
         class Pix < Stripe::RequestParams; end
         class Promptpay < Stripe::RequestParams; end
 
@@ -2048,8 +2034,6 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
-        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        attr_accessor :paypay
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
         attr_accessor :pix
         # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
@@ -2120,7 +2104,6 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
-          paypay: nil,
           pix: nil,
           promptpay: nil,
           radar_options: nil,
@@ -2176,7 +2159,6 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
-          @paypay = paypay
           @pix = pix
           @promptpay = promptpay
           @radar_options = radar_options

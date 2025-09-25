@@ -54,9 +54,6 @@ module Stripe
         Events::V1CreditNoteVoidedEvent.lookup_type => Events::V1CreditNoteVoidedEvent,
         Events::V1CustomerCreatedEvent.lookup_type => Events::V1CustomerCreatedEvent,
         Events::V1CustomerDeletedEvent.lookup_type => Events::V1CustomerDeletedEvent,
-        Events::V1CustomerDiscountCreatedEvent.lookup_type => Events::V1CustomerDiscountCreatedEvent,
-        Events::V1CustomerDiscountDeletedEvent.lookup_type => Events::V1CustomerDiscountDeletedEvent,
-        Events::V1CustomerDiscountUpdatedEvent.lookup_type => Events::V1CustomerDiscountUpdatedEvent,
         Events::V1CustomerSubscriptionCreatedEvent.lookup_type =>
         Events::V1CustomerSubscriptionCreatedEvent,
         Events::V1CustomerSubscriptionDeletedEvent.lookup_type =>
@@ -555,12 +552,6 @@ module Stripe
         Events::V1CustomerCreatedEventNotification,
         Events::V1CustomerDeletedEventNotification.lookup_type =>
         Events::V1CustomerDeletedEventNotification,
-        Events::V1CustomerDiscountCreatedEventNotification.lookup_type =>
-        Events::V1CustomerDiscountCreatedEventNotification,
-        Events::V1CustomerDiscountDeletedEventNotification.lookup_type =>
-        Events::V1CustomerDiscountDeletedEventNotification,
-        Events::V1CustomerDiscountUpdatedEventNotification.lookup_type =>
-        Events::V1CustomerDiscountUpdatedEventNotification,
         Events::V1CustomerSubscriptionCreatedEventNotification.lookup_type =>
         Events::V1CustomerSubscriptionCreatedEventNotification,
         Events::V1CustomerSubscriptionDeletedEventNotification.lookup_type =>

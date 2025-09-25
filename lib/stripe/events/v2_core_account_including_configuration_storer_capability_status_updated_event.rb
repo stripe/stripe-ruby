@@ -2,22 +2,62 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Occurs when the status of an Account's storer configuration capability is updated.
-  class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent < Stripe::V2::Event
-    def self.lookup_type
-      "v2.core.account[configuration.storer].capability_status_updated"
-    end
-    # There is additional data present for this event, accessible with the `data` property.
-    # See the Stripe API docs for more information.
+  module Events
+    # Occurs when the status of an Account's storer configuration capability is updated.
+    class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent < Stripe::V2::Event
+      def self.lookup_type
+        "v2.core.account[configuration.storer].capability_status_updated"
+      end
 
-    # Retrieves the related object from the API. Make an API request on every call.
-    def fetch_related_object
-      _request(
-        method: :get,
-        path: related_object.url,
-        base_address: :api,
-        opts: { stripe_account: context }
-      )
+      class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData < Stripe::StripeObject
+        # Open Enum. The capability which had its status updated.
+        attr_reader :updated_capability
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          data: V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData,
+        }
+      end
+      attr_reader :data, :related_object
+
+      # Retrieves the related object from the API. Makes an API request on every call.
+      def fetch_related_object
+        _request(
+          method: :get,
+          path: related_object.url,
+          base_address: :api,
+          opts: { stripe_context: context }
+        )
+      end
+    end
+
+    # Occurs when the status of an Account's storer configuration capability is updated.
+    class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification < Stripe::V2::EventNotification
+      def self.lookup_type
+        "v2.core.account[configuration.storer].capability_status_updated"
+      end
+
+      attr_reader :related_object
+
+      # Retrieves the Account related to this EventNotification from the Stripe API. Makes an API request on every call.
+      def fetch_related_object
+        resp = @client.raw_request(
+          :get,
+          related_object.url,
+          opts: { stripe_context: context },
+          usage: ["fetch_related_object"]
+        )
+        @client.deserialize(resp.http_body, api_mode: Util.get_api_mode(related_object.url))
+      end
     end
   end
 end

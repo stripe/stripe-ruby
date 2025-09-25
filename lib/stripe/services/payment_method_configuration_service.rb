@@ -728,23 +728,6 @@ module Stripe
         end
       end
 
-      class Paypay < Stripe::RequestParams
-        class DisplayPreference < Stripe::RequestParams
-          # The account's preference for whether or not to display this payment method.
-          attr_accessor :preference
-
-          def initialize(preference: nil)
-            @preference = preference
-          end
-        end
-        # Whether or not the payment method should be displayed.
-        attr_accessor :display_preference
-
-        def initialize(display_preference: nil)
-          @display_preference = display_preference
-        end
-      end
-
       class Pix < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1036,8 +1019,6 @@ module Stripe
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
       attr_accessor :paypal
-      # Customers can pay with PayPay online or using the PayPay app.
-      attr_accessor :paypay
       # Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
       attr_accessor :pix
       # PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
@@ -1108,7 +1089,6 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
-        paypay: nil,
         pix: nil,
         promptpay: nil,
         revolut_pay: nil,
@@ -1166,7 +1146,6 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
-        @paypay = paypay
         @pix = pix
         @promptpay = promptpay
         @revolut_pay = revolut_pay
@@ -1889,23 +1868,6 @@ module Stripe
         end
       end
 
-      class Paypay < Stripe::RequestParams
-        class DisplayPreference < Stripe::RequestParams
-          # The account's preference for whether or not to display this payment method.
-          attr_accessor :preference
-
-          def initialize(preference: nil)
-            @preference = preference
-          end
-        end
-        # Whether or not the payment method should be displayed.
-        attr_accessor :display_preference
-
-        def initialize(display_preference: nil)
-          @display_preference = display_preference
-        end
-      end
-
       class Pix < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -2197,8 +2159,6 @@ module Stripe
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
       attr_accessor :paypal
-      # Customers can pay with PayPay online or using the PayPay app.
-      attr_accessor :paypay
       # Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
       attr_accessor :pix
       # PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
@@ -2269,7 +2229,6 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
-        paypay: nil,
         pix: nil,
         promptpay: nil,
         revolut_pay: nil,
@@ -2327,7 +2286,6 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
-        @paypay = paypay
         @pix = pix
         @promptpay = promptpay
         @revolut_pay = revolut_pay

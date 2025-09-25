@@ -812,6 +812,8 @@ module Stripe
       attr_accessor :application_fee_percent
       # Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
       attr_accessor :automatic_tax
+      # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+      attr_accessor :billing_cadence
       # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_accessor :billing_cycle_anchor
       # Sets the billing schedules for the subscription.
@@ -883,6 +885,7 @@ module Stripe
         add_invoice_items: nil,
         application_fee_percent: nil,
         automatic_tax: nil,
+        billing_cadence: nil,
         billing_cycle_anchor: nil,
         billing_schedules: nil,
         billing_thresholds: nil,
@@ -917,6 +920,7 @@ module Stripe
         @add_invoice_items = add_invoice_items
         @application_fee_percent = application_fee_percent
         @automatic_tax = automatic_tax
+        @billing_cadence = billing_cadence
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_schedules = billing_schedules
         @billing_thresholds = billing_thresholds
@@ -1875,6 +1879,8 @@ module Stripe
       attr_accessor :automatic_tax
       # A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
       attr_accessor :backdate_start_date
+      # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+      attr_accessor :billing_cadence
       # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
       attr_accessor :billing_cycle_anchor
       # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
@@ -1957,6 +1963,7 @@ module Stripe
         application_fee_percent: nil,
         automatic_tax: nil,
         backdate_start_date: nil,
+        billing_cadence: nil,
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
         billing_mode: nil,
@@ -1995,6 +2002,7 @@ module Stripe
         @application_fee_percent = application_fee_percent
         @automatic_tax = automatic_tax
         @backdate_start_date = backdate_start_date
+        @billing_cadence = billing_cadence
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_cycle_anchor_config = billing_cycle_anchor_config
         @billing_mode = billing_mode
@@ -2046,6 +2054,18 @@ module Stripe
         @limit = limit
         @page = page
         @query = query
+      end
+    end
+
+    class AttachCadenceParams < Stripe::RequestParams
+      # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+      attr_accessor :billing_cadence
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(billing_cadence: nil, expand: nil)
+        @billing_cadence = billing_cadence
+        @expand = expand
       end
     end
 
@@ -2101,6 +2121,17 @@ module Stripe
         @proration_behavior = proration_behavior
         @proration_date = proration_date
       end
+    end
+
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+    def attach_cadence(subscription, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/attach_cadence", { subscription: CGI.escape(subscription) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
     end
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).

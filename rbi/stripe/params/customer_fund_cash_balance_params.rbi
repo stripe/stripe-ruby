@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class CustomerFundCashBalanceParams < Stripe::RequestParams
     # Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to fund $1.00 or 100 to fund ¥100, a zero-decimal currency).

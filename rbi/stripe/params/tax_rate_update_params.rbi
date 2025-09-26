@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class TaxRateUpdateParams < Stripe::RequestParams
     # Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.

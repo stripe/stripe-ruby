@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class PaymentMethodAttachParams < Stripe::RequestParams
     # The ID of the customer to which to attach the PaymentMethod.

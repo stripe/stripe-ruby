@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class TransferReversalCreateParams < Stripe::RequestParams
     # A positive integer in cents (or local equivalent) representing how much of this transfer to reverse. Can only reverse up to the unreversed amount remaining of the transfer. Partial transfer reversals are only allowed for transfers to Stripe Accounts. Defaults to the entire transfer amount.

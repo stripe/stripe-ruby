@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class SetupIntentVerifyMicrodepositsParams < Stripe::RequestParams
     # Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.

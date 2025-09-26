@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class SubscriptionItemDeleteParams < Stripe::RequestParams
     # Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`.

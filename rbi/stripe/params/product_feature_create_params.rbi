@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class ProductFeatureCreateParams < Stripe::RequestParams
     # The ID of the [Feature](https://stripe.com/docs/api/entitlements/feature) object attached to this product.

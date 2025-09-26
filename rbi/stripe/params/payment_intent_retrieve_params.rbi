@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class PaymentIntentRetrieveParams < Stripe::RequestParams
     # The client secret of the PaymentIntent. We require it if you use a publishable key to retrieve the source.

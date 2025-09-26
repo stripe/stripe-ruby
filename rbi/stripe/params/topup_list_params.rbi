@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class TopupListParams < Stripe::RequestParams
     class Amount < Stripe::RequestParams

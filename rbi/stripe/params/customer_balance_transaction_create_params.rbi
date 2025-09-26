@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class CustomerBalanceTransactionCreateParams < Stripe::RequestParams
     # The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance.

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class SourceRetrieveParams < Stripe::RequestParams
     # The client secret of the source. Required if a publishable key is used to retrieve the source.

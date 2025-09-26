@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class EphemeralKeyCreateParams < Stripe::RequestParams
     # The ID of the Customer you'd like to modify using the resulting ephemeral key.

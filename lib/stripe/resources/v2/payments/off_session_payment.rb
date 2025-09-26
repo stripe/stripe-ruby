@@ -94,6 +94,21 @@ module Stripe
           end
         end
 
+        class Capture < Stripe::StripeObject
+          # The timestamp when this payment is no longer eligible to be captured.
+          attr_reader :capture_before
+          # The method to use to capture the payment.
+          attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class PaymentsOrchestration < Stripe::StripeObject
           # True when you want to enable payments orchestration for this off-session payment. False otherwise.
           attr_reader :enabled
@@ -145,12 +160,18 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The amount available to be captured.
+        attr_reader :amount_capturable
         # Provides industry-specific information about the amount.
         attr_reader :amount_details
         # The “presentment amount” to be collected from the customer.
         attr_reader :amount_requested
         # The frequency of the underlying payment.
         attr_reader :cadence
+        # Details about the capture configuration for the OffSessionPayment.
+        attr_reader :capture
+        # Whether the OffSessionPayment should be captured automatically or manually.
+        attr_reader :capture_method
         # ID of the owning compartment.
         attr_reader :compartment_id
         # Creation time of the OffSessionPayment. Represented as a RFC 3339 date & time UTC
@@ -205,6 +226,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             amount_details: AmountDetails,
+            capture: Capture,
             payments_orchestration: PaymentsOrchestration,
             retry_details: RetryDetails,
             transfer_data: TransferData,

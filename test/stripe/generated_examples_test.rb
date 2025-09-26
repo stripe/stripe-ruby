@@ -9728,6 +9728,25 @@ module Stripe
       off_session_payment = client.v2.payments.off_session_payments.cancel("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/cancel"
     end
+    should "Test v2 payments off session payment post 3 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/capture"
+      ).to_return(
+        body: '{"amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","compartment_id":"compartment_id","created":"1970-01-12T21:42:34.472Z","customer":"customer","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"object":"v2.payments.off_session_payment","payment_method":"payment_method","payments_orchestration":{"enabled":true},"retry_details":{"attempts":542738246,"retry_strategy":"scheduled"},"status":"pending"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      off_session_payment = client.v2.payments.off_session_payments.capture(
+        "id_123",
+        {
+          amount_to_capture: 1_374_310_455,
+          metadata: { key: "metadata" },
+        }
+      )
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/capture"
+    end
     should "Test v2 tax automatic rule post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/tax/automatic_rules").to_return(
         body: '{"billable_item":"billable_item","created":"1970-01-12T21:42:34.472Z","id":"obj_123","object":"v2.tax.automatic_rule","status":"active","tax_code":"tax_code","livemode":true}',

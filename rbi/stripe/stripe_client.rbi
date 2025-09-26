@@ -10,7 +10,7 @@ module Stripe
         secret: String,
         tolerance: T.nilable(Integer)
       )
-        .returns(::Stripe::V2::EventNotification)
+        .returns(::Stripe::V2::Core::EventNotification)
     end
     def parse_event_notification(payload, sig_header, secret, tolerance:); end
   end

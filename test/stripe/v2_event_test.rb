@@ -95,7 +95,7 @@ module Stripe
       context ".event_signing" do
         should "parse v2 events" do
           event = parse_signed_event(@v2_push_payload)
-          assert event.is_a?(Stripe::V2::EventNotification)
+          assert event.is_a?(Stripe::V2::Core::EventNotification)
           assert_equal "evt_234", event.id
           assert_equal "v1.billing.meter.error_report_triggered", event.type
           assert_equal "2022-02-15T00:27:45.330Z", event.created
@@ -104,9 +104,9 @@ module Stripe
 
         should "parse v2 events with livemode and reason" do
           event = parse_signed_event(@v2_push_payload_with_livemode_and_reason)
-          assert event.is_a?(Stripe::V2::EventNotification)
-          assert event.related_object.is_a?(Stripe::V2::RelatedObject)
-          assert event.reason.is_a?(Stripe::V2::EventReason)
+          assert event.is_a?(Stripe::V2::Core::EventNotification)
+          assert event.related_object.is_a?(Stripe::V2::Core::RelatedObject)
+          assert event.reason.is_a?(Stripe::V2::Core::EventReason)
 
           assert_equal "evt_234", event.id
           assert_equal "v1.billing.meter.error_report_triggered", event.type
@@ -158,7 +158,7 @@ module Stripe
 
         should "parse unknown events" do
           event_notif = parse_signed_event(@v2_payload_fake_event)
-          assert event_notif.instance_of?(Stripe::V2::UnknownEventNotification)
+          assert event_notif.instance_of?(Stripe::Events::UnknownEventNotification)
 
           stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_234")
             .to_return(body: {
@@ -169,7 +169,7 @@ module Stripe
             }.to_json)
 
           event = event_notif.fetch_event
-          assert event.instance_of?(Stripe::V2::Event)
+          assert event.instance_of?(Stripe::V2::Core::Event)
         end
       end
     end

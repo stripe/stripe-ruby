@@ -262,4 +262,5 @@ require "stripe/events/v2_payments_off_session_payment_authorization_attempt_sta
 require "stripe/events/v2_payments_off_session_payment_canceled_event"
 require "stripe/events/v2_payments_off_session_payment_created_event"
 require "stripe/events/v2_payments_off_session_payment_failed_event"
+require "stripe/events/v2_payments_off_session_payment_requires_capture_event"
 require "stripe/events/v2_payments_off_session_payment_succeeded_event"

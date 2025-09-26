@@ -1554,11 +1554,7 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
     end
     should "Test customers sources post" do
-      payment_source = Stripe::Customer.update_source(
-        "cus_123",
-        "card_123",
-        { account_holder_name: "Kamil" }
-      )
+      payment_source = Stripe::Customer.update_source("cus_123", "card_123", { name: "Kamil" })
       assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources/card_123"
     end
     should "Test customers sources post (service)" do
@@ -1568,11 +1564,7 @@ module Stripe
       ).to_return(body: "{}")
       client = Stripe::StripeClient.new("sk_test_123")
 
-      result = client.v1.customers.payment_sources.update(
-        "cus_123",
-        "card_123",
-        { account_holder_name: "Kamil" }
-      )
+      result = client.v1.customers.payment_sources.update("cus_123", "card_123", { name: "Kamil" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123/sources/card_123"
     end
     should "Test customers sources post 2" do

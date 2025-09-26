@@ -57,6 +57,7 @@ require "stripe/event_notification"
 # Named API resources
 require "stripe/resources"
 require "stripe/services"
+require "stripe/params"
 
 # OAuth
 require "stripe/oauth"

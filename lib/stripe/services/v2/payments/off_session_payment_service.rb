@@ -95,23 +95,12 @@ module Stripe
             end
           end
 
-          class MandateData < Stripe::RequestParams
-            class CustomerAcceptance < Stripe::RequestParams
-              # The time at which the customer accepted the Mandate.
-              attr_accessor :accepted_at
-              # The type of customer acceptance information included with the Mandate.
-              attr_accessor :type
+          class Capture < Stripe::RequestParams
+            # The method to use to capture the payment.
+            attr_accessor :capture_method
 
-              def initialize(accepted_at: nil, type: nil)
-                @accepted_at = accepted_at
-                @type = type
-              end
-            end
-            # This hash contains details about the customer acceptance of the Mandate.
-            attr_accessor :customer_acceptance
-
-            def initialize(customer_acceptance: nil)
-              @customer_acceptance = customer_acceptance
+            def initialize(capture_method: nil)
+              @capture_method = capture_method
             end
           end
 
@@ -182,10 +171,12 @@ module Stripe
           attr_accessor :amount_details
           # The frequency of the underlying payment.
           attr_accessor :cadence
+          # Details about the capture configuration for the OffSessionPayment.
+          attr_accessor :capture
+          # Whether the OffSessionPayment should be captured automatically or manually.
+          attr_accessor :capture_method
           # ID of the Customer to which this OffSessionPayment belongs.
           attr_accessor :customer
-          # This hash contains details about the Mandate to create.
-          attr_accessor :mandate_data
           # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
           # attach to an object. This can be useful for storing additional information about
           # the object in a structured format. Learn more about
@@ -219,8 +210,9 @@ module Stripe
             amount: nil,
             amount_details: nil,
             cadence: nil,
+            capture: nil,
+            capture_method: nil,
             customer: nil,
-            mandate_data: nil,
             metadata: nil,
             on_behalf_of: nil,
             payment_method: nil,
@@ -235,8 +227,9 @@ module Stripe
             @amount = amount
             @amount_details = amount_details
             @cadence = cadence
+            @capture = capture
+            @capture_method = capture_method
             @customer = customer
-            @mandate_data = mandate_data
             @metadata = metadata
             @on_behalf_of = on_behalf_of
             @payment_method = payment_method
@@ -253,11 +246,75 @@ module Stripe
         class RetrieveParams < Stripe::RequestParams; end
         class CancelParams < Stripe::RequestParams; end
 
+        class CaptureParams < Stripe::RequestParams
+          class TransferData < Stripe::RequestParams
+            # The amount transferred to the destination account. This transfer will occur
+            # automatically after the payment succeeds. If no amount is specified, by default
+            # the entire payment amount is transferred to the destination account. The amount
+            # must be less than or equal to the
+            # [amount_requested](https://docs.corp.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
+            # and must be a positive integer representing how much to transfer in the smallest
+            # currency unit (e.g., 100 cents to charge $1.00).
+            attr_accessor :amount
+            # The account (if any) that the payment is attributed to for tax reporting, and
+            # where funds from the payment are transferred to after payment success.
+            attr_accessor :destination
+
+            def initialize(amount: nil, destination: nil)
+              @amount = amount
+              @destination = destination
+            end
+          end
+          # The amount to capture.
+          attr_accessor :amount_to_capture
+          # Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
+          # attach to an object. This can be useful for storing additional information about
+          # the object in a structured format. Learn more about
+          # [storing information in metadata](https://docs.corp.stripe.com/payments/payment-intents#storing-information-in-metadata).
+          attr_accessor :metadata
+          # Text that appears on the customer’s statement as the statement descriptor for a
+          # non-card charge. This value overrides the account’s default statement descriptor.
+          # For information about requirements, including the 22-character limit, see the
+          # [Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+          attr_accessor :statement_descriptor
+          # Provides information about a card charge. Concatenated to the account’s
+          # [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
+          # to form the complete statement descriptor that appears on the customer’s statement.
+          attr_accessor :statement_descriptor_suffix
+          # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
+          attr_accessor :transfer_data
+
+          def initialize(
+            amount_to_capture: nil,
+            metadata: nil,
+            statement_descriptor: nil,
+            statement_descriptor_suffix: nil,
+            transfer_data: nil
+          )
+            @amount_to_capture = amount_to_capture
+            @metadata = metadata
+            @statement_descriptor = statement_descriptor
+            @statement_descriptor_suffix = statement_descriptor_suffix
+            @transfer_data = transfer_data
+          end
+        end
+
         # Cancel an OffSessionPayment that has previously been created.
         def cancel(id, params = {}, opts = {})
           request(
             method: :post,
             path: format("/v2/payments/off_session_payments/%<id>s/cancel", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Captures an OffSessionPayment that has previously been created.
+        def capture(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/payments/off_session_payments/%<id>s/capture", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

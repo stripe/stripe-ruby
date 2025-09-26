@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class PaymentMethodDomainListParams < Stripe::RequestParams
     # The domain name that this payment method domain object represents.

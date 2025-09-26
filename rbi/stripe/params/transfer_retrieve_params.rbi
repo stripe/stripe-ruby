@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class TransferRetrieveParams < Stripe::RequestParams
     # Specifies which fields in the response should be expanded.

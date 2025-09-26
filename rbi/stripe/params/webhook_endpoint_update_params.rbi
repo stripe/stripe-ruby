@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class WebhookEndpointUpdateParams < Stripe::RequestParams
     # An optional description of what the webhook is used for.

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class TransferUpdateParams < Stripe::RequestParams
     # An arbitrary string attached to the object. Often useful for displaying to users.

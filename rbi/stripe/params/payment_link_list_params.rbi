@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class PaymentLinkListParams < Stripe::RequestParams
     # Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links).

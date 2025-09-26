@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class TransferCreateParams < Stripe::RequestParams
     # A positive integer in cents (or local equivalent) representing how much to transfer.

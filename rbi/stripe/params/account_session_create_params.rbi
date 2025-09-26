@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class AccountSessionCreateParams < Stripe::RequestParams
     class Components < Stripe::RequestParams

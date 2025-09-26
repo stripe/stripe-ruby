@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   class SetupIntentRetrieveParams < Stripe::RequestParams
     # The client secret of the SetupIntent. We require this string if you use a publishable key to retrieve the SetupIntent.

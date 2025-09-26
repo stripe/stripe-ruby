@@ -92,6 +92,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Capture < Stripe::StripeObject
+          # The timestamp when this payment is no longer eligible to be captured.
+          sig { returns(T.nilable(String)) }
+          def capture_before; end
+          # The method to use to capture the payment.
+          sig { returns(String) }
+          def capture_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class PaymentsOrchestration < Stripe::StripeObject
           # True when you want to enable payments orchestration for this off-session payment. False otherwise.
           sig { returns(T::Boolean) }
@@ -141,6 +155,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The amount available to be captured.
+        sig { returns(T.nilable(Stripe::V2::Amount)) }
+        def amount_capturable; end
         # Provides industry-specific information about the amount.
         sig { returns(T.nilable(AmountDetails)) }
         def amount_details; end
@@ -150,6 +167,12 @@ module Stripe
         # The frequency of the underlying payment.
         sig { returns(String) }
         def cadence; end
+        # Details about the capture configuration for the OffSessionPayment.
+        sig { returns(T.nilable(Capture)) }
+        def capture; end
+        # Whether the OffSessionPayment should be captured automatically or manually.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
         # ID of the owning compartment.
         sig { returns(String) }
         def compartment_id; end

@@ -31,7 +31,7 @@ module Stripe
 
         # Retrieves the details of an event.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::Core::EventService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Event)
+          params(id: String, params: T.any(::Stripe::V2::Core::EventService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Event)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

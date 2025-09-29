@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Meter has invalid async usage events.
-    class V1BillingMeterErrorReportTriggeredEvent < Stripe::V2::Core::Event
+    class V1BillingMeterErrorReportTriggeredEvent < Stripe::V2::Event
       def self.lookup_type
         "v1.billing.meter.error_report_triggered"
       end
@@ -101,7 +101,7 @@ module Stripe
     end
 
     # Occurs when a Meter has invalid async usage events.
-    class V1BillingMeterErrorReportTriggeredEventNotification < Stripe::V2::Core::EventNotification
+    class V1BillingMeterErrorReportTriggeredEventNotification < Stripe::V2::EventNotification
       def self.lookup_type
         "v1.billing.meter.error_report_triggered"
       end

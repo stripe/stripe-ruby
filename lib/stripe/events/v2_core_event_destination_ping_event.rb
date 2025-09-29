@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # A ping event used to test the connection to an EventDestination.
-    class V2CoreEventDestinationPingEvent < Stripe::V2::Core::Event
+    class V2CoreEventDestinationPingEvent < Stripe::V2::Event
       def self.lookup_type
         "v2.core.event_destination.ping"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # A ping event used to test the connection to an EventDestination.
-    class V2CoreEventDestinationPingEventNotification < Stripe::V2::Core::EventNotification
+    class V2CoreEventDestinationPingEventNotification < Stripe::V2::EventNotification
       def self.lookup_type
         "v2.core.event_destination.ping"
       end

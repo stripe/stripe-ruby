@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when RateCardSubscription servicing is paused.
-    class V2BillingRateCardSubscriptionServicingPausedEvent < Stripe::V2::Event
+    class V2BillingRateCardSubscriptionServicingPausedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.rate_card_subscription.servicing_paused"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when RateCardSubscription servicing is paused.
-    class V2BillingRateCardSubscriptionServicingPausedEventNotification < Stripe::V2::EventNotification
+    class V2BillingRateCardSubscriptionServicingPausedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.rate_card_subscription.servicing_paused"
       end

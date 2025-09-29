@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a SetupIntent is in requires_action state.
-    class V1SetupIntentRequiresActionEvent < Stripe::V2::Event
+    class V1SetupIntentRequiresActionEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.setup_intent.requires_action"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a SetupIntent is in requires_action state.
-    class V1SetupIntentRequiresActionEventNotification < Stripe::V2::EventNotification
+    class V1SetupIntentRequiresActionEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.setup_intent.requires_action"
       end

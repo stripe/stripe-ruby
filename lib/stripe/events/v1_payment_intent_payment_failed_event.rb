@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a PaymentIntent has failed the attempt to create a payment method or a payment.
-    class V1PaymentIntentPaymentFailedEvent < Stripe::V2::Event
+    class V1PaymentIntentPaymentFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payment_intent.payment_failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a PaymentIntent has failed the attempt to create a payment method or a payment.
-    class V1PaymentIntentPaymentFailedEventNotification < Stripe::V2::EventNotification
+    class V1PaymentIntentPaymentFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payment_intent.payment_failed"
       end

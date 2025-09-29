@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an action sent to a Terminal reader failed.
-    class V1TerminalReaderActionFailedEvent < Stripe::V2::Event
+    class V1TerminalReaderActionFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.terminal.reader.action_failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an action sent to a Terminal reader failed.
-    class V1TerminalReaderActionFailedEventNotification < Stripe::V2::EventNotification
+    class V1TerminalReaderActionFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.terminal.reader.action_failed"
       end

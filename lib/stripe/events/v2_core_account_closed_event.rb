@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # This event occurs when an account is closed.
-    class V2CoreAccountClosedEvent < Stripe::V2::Event
+    class V2CoreAccountClosedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.account.closed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # This event occurs when an account is closed.
-    class V2CoreAccountClosedEventNotification < Stripe::V2::EventNotification
+    class V2CoreAccountClosedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.account.closed"
       end

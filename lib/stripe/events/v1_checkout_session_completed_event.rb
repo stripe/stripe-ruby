@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Checkout Session has been successfully completed.
-    class V1CheckoutSessionCompletedEvent < Stripe::V2::Event
+    class V1CheckoutSessionCompletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.checkout.session.completed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a Checkout Session has been successfully completed.
-    class V1CheckoutSessionCompletedEventNotification < Stripe::V2::EventNotification
+    class V1CheckoutSessionCompletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.checkout.session.completed"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a card is updated.
-    class V1IssuingCardUpdatedEvent < Stripe::V2::Event
+    class V1IssuingCardUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_card.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a card is updated.
-    class V1IssuingCardUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1IssuingCardUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_card.updated"
       end

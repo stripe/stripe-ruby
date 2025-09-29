@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a claimable sandbox is created.
-    class V2CoreClaimableSandboxCreatedEvent < Stripe::V2::Event
+    class V2CoreClaimableSandboxCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.claimable_sandbox.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a claimable sandbox is created.
-    class V2CoreClaimableSandboxCreatedEventNotification < Stripe::V2::EventNotification
+    class V2CoreClaimableSandboxCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.claimable_sandbox.created"
       end

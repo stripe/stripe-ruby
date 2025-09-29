@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a RateCardRate is created.
-    class V2BillingRateCardRateCreatedEvent < Stripe::V2::Event
+    class V2BillingRateCardRateCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.rate_card_rate.created"
       end
@@ -45,7 +45,7 @@ module Stripe
     end
 
     # Occurs when a RateCardRate is created.
-    class V2BillingRateCardRateCreatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingRateCardRateCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.rate_card_rate.created"
       end

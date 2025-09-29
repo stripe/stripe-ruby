@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Transaction is created.
-    class V2MoneyManagementTransactionCreatedEvent < Stripe::V2::Event
+    class V2MoneyManagementTransactionCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.transaction.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a Transaction is created.
-    class V2MoneyManagementTransactionCreatedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementTransactionCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.transaction.created"
       end

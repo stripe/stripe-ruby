@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Represents a synchronous request for authorization, see [Using your integration to handle authorization requests](https://docs.stripe.com/issuing/purchases/authorizations#authorization-handling).
-    class V1IssuingAuthorizationRequestEvent < Stripe::V2::Event
+    class V1IssuingAuthorizationRequestEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_authorization.request"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Represents a synchronous request for authorization, see [Using your integration to handle authorization requests](https://docs.stripe.com/issuing/purchases/authorizations#authorization-handling).
-    class V1IssuingAuthorizationRequestEventNotification < Stripe::V2::EventNotification
+    class V1IssuingAuthorizationRequestEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_authorization.request"
       end

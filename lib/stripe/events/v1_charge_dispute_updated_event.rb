@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when the dispute is updated (usually with evidence).
-    class V1ChargeDisputeUpdatedEvent < Stripe::V2::Event
+    class V1ChargeDisputeUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.charge.dispute.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when the dispute is updated (usually with evidence).
-    class V1ChargeDisputeUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1ChargeDisputeUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.charge.dispute.updated"
       end

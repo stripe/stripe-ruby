@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an invoice is voided.
-    class V1InvoiceVoidedEvent < Stripe::V2::Event
+    class V1InvoiceVoidedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.voided"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an invoice is voided.
-    class V1InvoiceVoidedEventNotification < Stripe::V2::EventNotification
+    class V1InvoiceVoidedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.voided"
       end

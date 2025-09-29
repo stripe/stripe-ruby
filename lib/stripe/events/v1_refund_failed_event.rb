@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a refund has failed.
-    class V1RefundFailedEvent < Stripe::V2::Event
+    class V1RefundFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.refund.failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a refund has failed.
-    class V1RefundFailedEventNotification < Stripe::V2::EventNotification
+    class V1RefundFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.refund.failed"
       end

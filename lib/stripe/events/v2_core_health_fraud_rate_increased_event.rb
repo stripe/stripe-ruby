@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when the fraud rate has increased.
-    class V2CoreHealthFraudRateIncreasedEvent < Stripe::V2::Event
+    class V2CoreHealthFraudRateIncreasedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.health.fraud_rate.increased"
       end
@@ -55,7 +55,7 @@ module Stripe
     end
 
     # Occurs when the fraud rate has increased.
-    class V2CoreHealthFraudRateIncreasedEventNotification < Stripe::V2::EventNotification
+    class V2CoreHealthFraudRateIncreasedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.health.fraud_rate.increased"
       end

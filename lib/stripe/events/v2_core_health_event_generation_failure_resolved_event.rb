@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an event generation failure alert is resolved.
-    class V2CoreHealthEventGenerationFailureResolvedEvent < Stripe::V2::Event
+    class V2CoreHealthEventGenerationFailureResolvedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.health.event_generation_failure.resolved"
       end
@@ -57,7 +57,7 @@ module Stripe
     end
 
     # Occurs when an event generation failure alert is resolved.
-    class V2CoreHealthEventGenerationFailureResolvedEventNotification < Stripe::V2::EventNotification
+    class V2CoreHealthEventGenerationFailureResolvedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.health.event_generation_failure.resolved"
       end

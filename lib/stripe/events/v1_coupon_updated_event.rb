@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a coupon is updated.
-    class V1CouponUpdatedEvent < Stripe::V2::Event
+    class V1CouponUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.coupon.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a coupon is updated.
-    class V1CouponUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1CouponUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.coupon.updated"
       end

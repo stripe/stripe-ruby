@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an issuing transaction is created.
-    class V1IssuingTransactionCreatedEvent < Stripe::V2::Event
+    class V1IssuingTransactionCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_transaction.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an issuing transaction is created.
-    class V1IssuingTransactionCreatedEventNotification < Stripe::V2::EventNotification
+    class V1IssuingTransactionCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_transaction.created"
       end

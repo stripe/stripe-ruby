@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a RateCard is updated.
-    class V2BillingRateCardUpdatedEvent < Stripe::V2::Event
+    class V2BillingRateCardUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.rate_card.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a RateCard is updated.
-    class V2BillingRateCardUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingRateCardUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.rate_card.updated"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an Account is created.
-    class V2CoreAccountCreatedEvent < Stripe::V2::Event
+    class V2CoreAccountCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.account.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an Account is created.
-    class V2CoreAccountCreatedEventNotification < Stripe::V2::EventNotification
+    class V2CoreAccountCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.account.created"
       end

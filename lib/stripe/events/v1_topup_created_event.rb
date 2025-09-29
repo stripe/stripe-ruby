@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a top-up is created.
-    class V1TopupCreatedEvent < Stripe::V2::Event
+    class V1TopupCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.topup.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a top-up is created.
-    class V1TopupCreatedEventNotification < Stripe::V2::EventNotification
+    class V1TopupCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.topup.created"
       end

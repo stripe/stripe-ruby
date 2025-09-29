@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Climate order's product is substituted for another.
-    class V1ClimateOrderProductSubstitutedEvent < Stripe::V2::Event
+    class V1ClimateOrderProductSubstitutedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.climate.order.product_substituted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a Climate order's product is substituted for another.
-    class V1ClimateOrderProductSubstitutedEventNotification < Stripe::V2::EventNotification
+    class V1ClimateOrderProductSubstitutedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.climate.order.product_substituted"
       end

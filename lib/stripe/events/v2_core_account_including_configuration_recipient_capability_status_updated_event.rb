@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when the status of an Account's recipient configuration capability is updated.
-    class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent < Stripe::V2::Event
+    class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.account[configuration.recipient].capability_status_updated"
       end
@@ -41,7 +41,7 @@ module Stripe
     end
 
     # Occurs when the status of an Account's recipient configuration capability is updated.
-    class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.account[configuration.recipient].capability_status_updated"
       end

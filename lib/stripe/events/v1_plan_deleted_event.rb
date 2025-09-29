@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a plan is deleted.
-    class V1PlanDeletedEvent < Stripe::V2::Event
+    class V1PlanDeletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.plan.deleted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a plan is deleted.
-    class V1PlanDeletedEventNotification < Stripe::V2::EventNotification
+    class V1PlanDeletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.plan.deleted"
       end

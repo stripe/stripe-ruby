@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs three days before a subscription's trial period is scheduled to end, or when a trial is ended immediately (using `trial_end=now`).
-    class V1CustomerSubscriptionTrialWillEndEvent < Stripe::V2::Event
+    class V1CustomerSubscriptionTrialWillEndEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.customer.subscription.trial_will_end"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs three days before a subscription's trial period is scheduled to end, or when a trial is ended immediately (using `trial_end=now`).
-    class V1CustomerSubscriptionTrialWillEndEventNotification < Stripe::V2::EventNotification
+    class V1CustomerSubscriptionTrialWillEndEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.customer.subscription.trial_will_end"
       end

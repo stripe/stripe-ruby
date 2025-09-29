@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an invoice item is deleted.
-    class V1InvoiceitemDeletedEvent < Stripe::V2::Event
+    class V1InvoiceitemDeletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoiceitem.deleted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an invoice item is deleted.
-    class V1InvoiceitemDeletedEventNotification < Stripe::V2::EventNotification
+    class V1InvoiceitemDeletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoiceitem.deleted"
       end

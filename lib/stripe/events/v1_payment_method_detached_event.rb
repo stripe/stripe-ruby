@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a payment method is detached from a customer.
-    class V1PaymentMethodDetachedEvent < Stripe::V2::Event
+    class V1PaymentMethodDetachedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payment_method.detached"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a payment method is detached from a customer.
-    class V1PaymentMethodDetachedEventNotification < Stripe::V2::EventNotification
+    class V1PaymentMethodDetachedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payment_method.detached"
       end

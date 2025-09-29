@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a PricingPlanSubscription's collection is past due.
-    class V2BillingPricingPlanSubscriptionCollectionPastDueEvent < Stripe::V2::Event
+    class V2BillingPricingPlanSubscriptionCollectionPastDueEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.pricing_plan_subscription.collection_past_due"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a PricingPlanSubscription's collection is past due.
-    class V2BillingPricingPlanSubscriptionCollectionPastDueEventNotification < Stripe::V2::EventNotification
+    class V2BillingPricingPlanSubscriptionCollectionPastDueEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.pricing_plan_subscription.collection_past_due"
       end

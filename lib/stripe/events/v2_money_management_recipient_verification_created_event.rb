@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a RecipientVerification is created.
-    class V2MoneyManagementRecipientVerificationCreatedEvent < Stripe::V2::Event
+    class V2MoneyManagementRecipientVerificationCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.recipient_verification.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a RecipientVerification is created.
-    class V2MoneyManagementRecipientVerificationCreatedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementRecipientVerificationCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.recipient_verification.created"
       end

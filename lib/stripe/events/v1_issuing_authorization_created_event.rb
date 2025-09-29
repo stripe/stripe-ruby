@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an authorization is created.
-    class V1IssuingAuthorizationCreatedEvent < Stripe::V2::Event
+    class V1IssuingAuthorizationCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_authorization.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an authorization is created.
-    class V1IssuingAuthorizationCreatedEventNotification < Stripe::V2::EventNotification
+    class V1IssuingAuthorizationCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_authorization.created"
       end

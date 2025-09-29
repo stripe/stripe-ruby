@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a PaymentIntent is canceled.
-    class V1PaymentIntentCanceledEvent < Stripe::V2::Event
+    class V1PaymentIntentCanceledEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payment_intent.canceled"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a PaymentIntent is canceled.
-    class V1PaymentIntentCanceledEventNotification < Stripe::V2::EventNotification
+    class V1PaymentIntentCanceledEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payment_intent.canceled"
       end

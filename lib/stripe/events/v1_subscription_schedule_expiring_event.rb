@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs 7 days before a subscription schedule will expire.
-    class V1SubscriptionScheduleExpiringEvent < Stripe::V2::Event
+    class V1SubscriptionScheduleExpiringEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.subscription_schedule.expiring"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs 7 days before a subscription schedule will expire.
-    class V1SubscriptionScheduleExpiringEventNotification < Stripe::V2::EventNotification
+    class V1SubscriptionScheduleExpiringEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.subscription_schedule.expiring"
       end

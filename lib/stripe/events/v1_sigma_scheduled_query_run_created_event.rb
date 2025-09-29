@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a Sigma scheduled query run finishes.
-    class V1SigmaScheduledQueryRunCreatedEvent < Stripe::V2::Event
+    class V1SigmaScheduledQueryRunCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.sigma.scheduled_query_run.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a Sigma scheduled query run finishes.
-    class V1SigmaScheduledQueryRunCreatedEventNotification < Stripe::V2::EventNotification
+    class V1SigmaScheduledQueryRunCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.sigma.scheduled_query_run.created"
       end

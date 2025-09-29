@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an uncaptured charge expires.
-    class V1ChargeExpiredEvent < Stripe::V2::Event
+    class V1ChargeExpiredEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.charge.expired"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an uncaptured charge expires.
-    class V1ChargeExpiredEventNotification < Stripe::V2::EventNotification
+    class V1ChargeExpiredEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.charge.expired"
       end

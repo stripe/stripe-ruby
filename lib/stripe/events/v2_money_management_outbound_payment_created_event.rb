@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an OutboundPayment is created.
-    class V2MoneyManagementOutboundPaymentCreatedEvent < Stripe::V2::Event
+    class V2MoneyManagementOutboundPaymentCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.outbound_payment.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an OutboundPayment is created.
-    class V2MoneyManagementOutboundPaymentCreatedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementOutboundPaymentCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.outbound_payment.created"
       end

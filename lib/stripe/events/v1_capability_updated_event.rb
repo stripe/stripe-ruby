@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a capability has new requirements or a new status.
-    class V1CapabilityUpdatedEvent < Stripe::V2::Event
+    class V1CapabilityUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.capability.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a capability has new requirements or a new status.
-    class V1CapabilityUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1CapabilityUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.capability.updated"
       end

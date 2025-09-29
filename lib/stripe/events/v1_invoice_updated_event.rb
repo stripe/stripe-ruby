@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an invoice changes (e.g., the invoice amount).
-    class V1InvoiceUpdatedEvent < Stripe::V2::Event
+    class V1InvoiceUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an invoice changes (e.g., the invoice amount).
-    class V1InvoiceUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1InvoiceUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.updated"
       end

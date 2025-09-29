@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an issuing transaction is updated with receipt data.
-    class V1IssuingTransactionPurchaseDetailsReceiptUpdatedEvent < Stripe::V2::Event
+    class V1IssuingTransactionPurchaseDetailsReceiptUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_transaction.purchase_details_receipt_updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an issuing transaction is updated with receipt data.
-    class V1IssuingTransactionPurchaseDetailsReceiptUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1IssuingTransactionPurchaseDetailsReceiptUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_transaction.purchase_details_receipt_updated"
       end

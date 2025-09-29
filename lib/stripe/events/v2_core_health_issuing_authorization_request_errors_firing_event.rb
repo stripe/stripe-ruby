@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an issuing authorization request errors alert is firing.
-    class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent < Stripe::V2::Event
+    class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.health.issuing_authorization_request_errors.firing"
       end
@@ -53,7 +53,7 @@ module Stripe
     end
 
     # Occurs when an issuing authorization request errors alert is firing.
-    class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventNotification < Stripe::V2::EventNotification
+    class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.health.issuing_authorization_request_errors.firing"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a ReceivedDebit succeeds.
-    class V2MoneyManagementReceivedDebitSucceededEvent < Stripe::V2::Event
+    class V2MoneyManagementReceivedDebitSucceededEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.received_debit.succeeded"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a ReceivedDebit succeeds.
-    class V2MoneyManagementReceivedDebitSucceededEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementReceivedDebitSucceededEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.received_debit.succeeded"
       end

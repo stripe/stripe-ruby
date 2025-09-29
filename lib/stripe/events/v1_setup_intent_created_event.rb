@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a new SetupIntent is created.
-    class V1SetupIntentCreatedEvent < Stripe::V2::Event
+    class V1SetupIntentCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.setup_intent.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a new SetupIntent is created.
-    class V1SetupIntentCreatedEventNotification < Stripe::V2::EventNotification
+    class V1SetupIntentCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.setup_intent.created"
       end

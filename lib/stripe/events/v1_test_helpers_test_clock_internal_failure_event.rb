@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a test clock fails to advance its frozen time.
-    class V1TestHelpersTestClockInternalFailureEvent < Stripe::V2::Event
+    class V1TestHelpersTestClockInternalFailureEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.test_helpers.test_clock.internal_failure"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a test clock fails to advance its frozen time.
-    class V1TestHelpersTestClockInternalFailureEventNotification < Stripe::V2::EventNotification
+    class V1TestHelpersTestClockInternalFailureEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.test_helpers.test_clock.internal_failure"
       end

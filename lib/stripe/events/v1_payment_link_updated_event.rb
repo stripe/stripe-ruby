@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a payment link is updated.
-    class V1PaymentLinkUpdatedEvent < Stripe::V2::Event
+    class V1PaymentLinkUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payment_link.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a payment link is updated.
-    class V1PaymentLinkUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1PaymentLinkUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payment_link.updated"
       end

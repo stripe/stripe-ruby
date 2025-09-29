@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an application fee is created on a charge.
-    class V1ApplicationFeeCreatedEvent < Stripe::V2::Event
+    class V1ApplicationFeeCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.application_fee.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an application fee is created on a charge.
-    class V1ApplicationFeeCreatedEventNotification < Stripe::V2::EventNotification
+    class V1ApplicationFeeCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.application_fee.created"
       end

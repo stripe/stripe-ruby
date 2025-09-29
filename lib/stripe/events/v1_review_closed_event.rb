@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a review is closed. The review's `reason` field indicates why: `approved`, `disputed`, `refunded`, `refunded_as_fraud`, or `canceled`.
-    class V1ReviewClosedEvent < Stripe::V2::Event
+    class V1ReviewClosedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.review.closed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a review is closed. The review's `reason` field indicates why: `approved`, `disputed`, `refunded`, `refunded_as_fraud`, or `canceled`.
-    class V1ReviewClosedEventNotification < Stripe::V2::EventNotification
+    class V1ReviewClosedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.review.closed"
       end

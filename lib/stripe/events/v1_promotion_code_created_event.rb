@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a promotion code is created.
-    class V1PromotionCodeCreatedEvent < Stripe::V2::Event
+    class V1PromotionCodeCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.promotion_code.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a promotion code is created.
-    class V1PromotionCodeCreatedEventNotification < Stripe::V2::EventNotification
+    class V1PromotionCodeCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.promotion_code.created"
       end

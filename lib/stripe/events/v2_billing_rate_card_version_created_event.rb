@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a RateCardVersion is created.
-    class V2BillingRateCardVersionCreatedEvent < Stripe::V2::Event
+    class V2BillingRateCardVersionCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.rate_card_version.created"
       end
@@ -39,7 +39,7 @@ module Stripe
     end
 
     # Occurs when a RateCardVersion is created.
-    class V2BillingRateCardVersionCreatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingRateCardVersionCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.rate_card_version.created"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an InvoicePayment is successfully paid.
-    class V1InvoicePaymentPaidEvent < Stripe::V2::Event
+    class V1InvoicePaymentPaidEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice_payment.paid"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an InvoicePayment is successfully paid.
-    class V1InvoicePaymentPaidEventNotification < Stripe::V2::EventNotification
+    class V1InvoicePaymentPaidEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice_payment.paid"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a PricingPlanSubscription's collection is paused.
-    class V2BillingPricingPlanSubscriptionCollectionPausedEvent < Stripe::V2::Event
+    class V2BillingPricingPlanSubscriptionCollectionPausedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.pricing_plan_subscription.collection_paused"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a PricingPlanSubscription's collection is paused.
-    class V2BillingPricingPlanSubscriptionCollectionPausedEventNotification < Stripe::V2::EventNotification
+    class V2BillingPricingPlanSubscriptionCollectionPausedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.pricing_plan_subscription.collection_paused"
       end

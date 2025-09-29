@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a PricingPlan is updated.
-    class V2BillingPricingPlanUpdatedEvent < Stripe::V2::Event
+    class V2BillingPricingPlanUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.pricing_plan.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a PricingPlan is updated.
-    class V2BillingPricingPlanUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingPricingPlanUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.pricing_plan.updated"
       end

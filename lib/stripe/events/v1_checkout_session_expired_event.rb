@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Checkout Session is expired.
-    class V1CheckoutSessionExpiredEvent < Stripe::V2::Event
+    class V1CheckoutSessionExpiredEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.checkout.session.expired"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a Checkout Session is expired.
-    class V1CheckoutSessionExpiredEventNotification < Stripe::V2::EventNotification
+    class V1CheckoutSessionExpiredEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.checkout.session.expired"
       end

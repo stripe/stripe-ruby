@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an API latency alert is resolved.
-    class V2CoreHealthApiLatencyResolvedEvent < Stripe::V2::Event
+    class V2CoreHealthApiLatencyResolvedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.health.api_latency.resolved"
       end
@@ -55,7 +55,7 @@ module Stripe
     end
 
     # Occurs when an API latency alert is resolved.
-    class V2CoreHealthApiLatencyResolvedEventNotification < Stripe::V2::EventNotification
+    class V2CoreHealthApiLatencyResolvedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.health.api_latency.resolved"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a credit note is updated.
-    class V1CreditNoteUpdatedEvent < Stripe::V2::Event
+    class V1CreditNoteUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.credit_note.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a credit note is updated.
-    class V1CreditNoteUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1CreditNoteUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.credit_note.updated"
       end

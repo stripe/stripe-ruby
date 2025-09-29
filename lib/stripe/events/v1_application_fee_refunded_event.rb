@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an application fee is refunded, whether from refunding a charge or from [refunding the application fee directly](https://docs.stripe.com/api#fee_refunds). This includes partial refunds.
-    class V1ApplicationFeeRefundedEvent < Stripe::V2::Event
+    class V1ApplicationFeeRefundedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.application_fee.refunded"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an application fee is refunded, whether from refunding a charge or from [refunding the application fee directly](https://docs.stripe.com/api#fee_refunds). This includes partial refunds.
-    class V1ApplicationFeeRefundedEventNotification < Stripe::V2::EventNotification
+    class V1ApplicationFeeRefundedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.application_fee.refunded"
       end

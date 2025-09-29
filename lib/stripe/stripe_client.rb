@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "stripe/events/unknown_event_notification"
 
 module Stripe
   class StripeClient
@@ -67,7 +68,7 @@ module Stripe
 
       parsed = JSON.parse(payload, symbolize_names: true)
 
-      cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::V2::UnknownEventNotification)
+      cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::Events::UnknownEventNotification)
 
       cls.new(parsed, self)
     end

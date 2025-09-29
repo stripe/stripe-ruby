@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a charge description or metadata is updated, or upon an asynchronous capture.
-    class V1ChargeUpdatedEvent < Stripe::V2::Event
+    class V1ChargeUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.charge.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a charge description or metadata is updated, or upon an asynchronous capture.
-    class V1ChargeUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1ChargeUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.charge.updated"
       end

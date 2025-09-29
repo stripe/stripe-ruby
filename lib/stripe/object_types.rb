@@ -217,10 +217,10 @@ module Stripe
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
         V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,
         V2::Core::ClaimableSandbox.object_name => V2::Core::ClaimableSandbox,
+        V2::Core::Event.object_name => V2::Core::Event,
+        V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
-        V2::Event.object_name => V2::Event,
-        V2::EventDestination.object_name => V2::EventDestination,
         V2::FinancialAddressCreditSimulation.object_name => V2::FinancialAddressCreditSimulation,
         V2::FinancialAddressGeneratedMicrodeposits.object_name =>
         V2::FinancialAddressGeneratedMicrodeposits,

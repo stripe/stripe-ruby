@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a quote is created.
-    class V1QuoteCreatedEvent < Stripe::V2::Event
+    class V1QuoteCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.quote.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a quote is created.
-    class V1QuoteCreatedEventNotification < Stripe::V2::EventNotification
+    class V1QuoteCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.quote.created"
       end

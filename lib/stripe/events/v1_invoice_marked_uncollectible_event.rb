@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an invoice is marked uncollectible.
-    class V1InvoiceMarkedUncollectibleEvent < Stripe::V2::Event
+    class V1InvoiceMarkedUncollectibleEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.marked_uncollectible"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an invoice is marked uncollectible.
-    class V1InvoiceMarkedUncollectibleEventNotification < Stripe::V2::EventNotification
+    class V1InvoiceMarkedUncollectibleEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.marked_uncollectible"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when the generated AccountLink is completed.
-    class V2CoreAccountLinkReturnedEvent < Stripe::V2::Event
+    class V2CoreAccountLinkReturnedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.account_link.returned"
       end
@@ -33,7 +33,7 @@ module Stripe
     end
 
     # Occurs when the generated AccountLink is completed.
-    class V2CoreAccountLinkReturnedEventNotification < Stripe::V2::EventNotification
+    class V2CoreAccountLinkReturnedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.account_link.returned"
       end

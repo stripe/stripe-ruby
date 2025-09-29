@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Storer's configuration is updated.
-    class V2CoreAccountIncludingConfigurationStorerUpdatedEvent < Stripe::V2::Event
+    class V2CoreAccountIncludingConfigurationStorerUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.account[configuration.storer].updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a Storer's configuration is updated.
-    class V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.account[configuration.storer].updated"
       end

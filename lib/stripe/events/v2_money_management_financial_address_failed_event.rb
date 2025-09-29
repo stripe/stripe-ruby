@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a FinancialAddress fails to activate and can not receive funds.
-    class V2MoneyManagementFinancialAddressFailedEvent < Stripe::V2::Event
+    class V2MoneyManagementFinancialAddressFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.financial_address.failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a FinancialAddress fails to activate and can not receive funds.
-    class V2MoneyManagementFinancialAddressFailedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementFinancialAddressFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.financial_address.failed"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an InboundTransfer's funds are made available.
-    class V2MoneyManagementInboundTransferAvailableEvent < Stripe::V2::Event
+    class V2MoneyManagementInboundTransferAvailableEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.inbound_transfer.available"
       end
@@ -39,7 +39,7 @@ module Stripe
     end
 
     # Occurs when an InboundTransfer's funds are made available.
-    class V2MoneyManagementInboundTransferAvailableEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementInboundTransferAvailableEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.inbound_transfer.available"
       end

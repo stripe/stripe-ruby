@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a ReceivedCredit's funds are received and are available in your balance.
-    class V2MoneyManagementReceivedCreditAvailableEvent < Stripe::V2::Event
+    class V2MoneyManagementReceivedCreditAvailableEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.received_credit.available"
       end
@@ -39,7 +39,7 @@ module Stripe
     end
 
     # Occurs when a ReceivedCredit's funds are received and are available in your balance.
-    class V2MoneyManagementReceivedCreditAvailableEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementReceivedCreditAvailableEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.received_credit.available"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Sent immediately following a user's call to the Off-Session Payments cancel endpoint.
-    class V2PaymentsOffSessionPaymentCanceledEvent < Stripe::V2::Event
+    class V2PaymentsOffSessionPaymentCanceledEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.payments.off_session_payment.canceled"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Sent immediately following a user's call to the Off-Session Payments cancel endpoint.
-    class V2PaymentsOffSessionPaymentCanceledEventNotification < Stripe::V2::EventNotification
+    class V2PaymentsOffSessionPaymentCanceledEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.payments.off_session_payment.canceled"
       end

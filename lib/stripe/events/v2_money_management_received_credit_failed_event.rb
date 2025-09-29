@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a ReceivedCredit is attempted to your balance and fails. See the status_details for more information.
-    class V2MoneyManagementReceivedCreditFailedEvent < Stripe::V2::Event
+    class V2MoneyManagementReceivedCreditFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.received_credit.failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a ReceivedCredit is attempted to your balance and fails. See the status_details for more information.
-    class V2MoneyManagementReceivedCreditFailedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementReceivedCreditFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.received_credit.failed"
       end

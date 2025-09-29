@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an OutboundPayment transitions into the canceled state.
-    class V2MoneyManagementOutboundPaymentCanceledEvent < Stripe::V2::Event
+    class V2MoneyManagementOutboundPaymentCanceledEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.outbound_payment.canceled"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an OutboundPayment transitions into the canceled state.
-    class V2MoneyManagementOutboundPaymentCanceledEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementOutboundPaymentCanceledEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.outbound_payment.canceled"
       end

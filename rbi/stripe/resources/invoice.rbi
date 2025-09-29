@@ -1098,7 +1098,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def hosted_invoice_url; end
     # Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
-    sig { returns(T.nilable(String)) }
+    sig { returns(String) }
     def id; end
     # The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
     sig { returns(T.nilable(String)) }

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a ReceivedCredit is reversed, returned to the originator, and deducted from your balance.
-    class V2MoneyManagementReceivedCreditReturnedEvent < Stripe::V2::Event
+    class V2MoneyManagementReceivedCreditReturnedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.received_credit.returned"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a ReceivedCredit is reversed, returned to the originator, and deducted from your balance.
-    class V2MoneyManagementReceivedCreditReturnedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementReceivedCreditReturnedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.received_credit.returned"
       end

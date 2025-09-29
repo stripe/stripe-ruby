@@ -5,7 +5,7 @@ module Stripe
   module Events
     # Sent when our internal scheduling system kicks off an attempt at authorization, whether it's a
     # retry or an initial authorization.
-    class V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent < Stripe::V2::Event
+    class V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.payments.off_session_payment.authorization_attempt_started"
       end
@@ -24,7 +24,7 @@ module Stripe
 
     # Sent when our internal scheduling system kicks off an attempt at authorization, whether it's a
     # retry or an initial authorization.
-    class V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification < Stripe::V2::EventNotification
+    class V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.payments.off_session_payment.authorization_attempt_started"
       end

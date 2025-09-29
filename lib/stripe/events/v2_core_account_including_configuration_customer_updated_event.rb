@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an Account's customer configuration is updated.
-    class V2CoreAccountIncludingConfigurationCustomerUpdatedEvent < Stripe::V2::Event
+    class V2CoreAccountIncludingConfigurationCustomerUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.account[configuration.customer].updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an Account's customer configuration is updated.
-    class V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.account[configuration.customer].updated"
       end

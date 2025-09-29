@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Off-Session payment requires capture event definition.
-    class V2PaymentsOffSessionPaymentRequiresCaptureEvent < Stripe::V2::Event
+    class V2PaymentsOffSessionPaymentRequiresCaptureEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.payments.off_session_payment.requires_capture"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Off-Session payment requires capture event definition.
-    class V2PaymentsOffSessionPaymentRequiresCaptureEventNotification < Stripe::V2::EventNotification
+    class V2PaymentsOffSessionPaymentRequiresCaptureEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.payments.off_session_payment.requires_capture"
       end

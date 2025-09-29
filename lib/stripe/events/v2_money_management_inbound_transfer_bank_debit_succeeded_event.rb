@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an InboundTransfer succeeds.
-    class V2MoneyManagementInboundTransferBankDebitSucceededEvent < Stripe::V2::Event
+    class V2MoneyManagementInboundTransferBankDebitSucceededEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.inbound_transfer.bank_debit_succeeded"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an InboundTransfer succeeds.
-    class V2MoneyManagementInboundTransferBankDebitSucceededEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementInboundTransferBankDebitSucceededEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.inbound_transfer.bank_debit_succeeded"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a FinancialAccount is created.
-    class V2MoneyManagementFinancialAccountCreatedEvent < Stripe::V2::Event
+    class V2MoneyManagementFinancialAccountCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.financial_account.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a FinancialAccount is created.
-    class V2MoneyManagementFinancialAccountCreatedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementFinancialAccountCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.financial_account.created"
       end

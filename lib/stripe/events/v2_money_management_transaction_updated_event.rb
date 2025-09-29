@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Transaction is updated.
-    class V2MoneyManagementTransactionUpdatedEvent < Stripe::V2::Event
+    class V2MoneyManagementTransactionUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.transaction.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a Transaction is updated.
-    class V2MoneyManagementTransactionUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementTransactionUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.transaction.updated"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an OutboundTransfer transitions into the failed state.
-    class V2MoneyManagementOutboundTransferFailedEvent < Stripe::V2::Event
+    class V2MoneyManagementOutboundTransferFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.outbound_transfer.failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an OutboundTransfer transitions into the failed state.
-    class V2MoneyManagementOutboundTransferFailedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementOutboundTransferFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.outbound_transfer.failed"
       end

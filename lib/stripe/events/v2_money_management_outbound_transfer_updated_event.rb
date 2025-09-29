@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Event that is emitted every time an Outbound Transfer is updated.
-    class V2MoneyManagementOutboundTransferUpdatedEvent < Stripe::V2::Event
+    class V2MoneyManagementOutboundTransferUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.outbound_transfer.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Event that is emitted every time an Outbound Transfer is updated.
-    class V2MoneyManagementOutboundTransferUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementOutboundTransferUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.outbound_transfer.updated"
       end

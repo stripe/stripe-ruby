@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a FinancialAddress is activated and is ready to receive funds.
-    class V2MoneyManagementFinancialAddressActivatedEvent < Stripe::V2::Event
+    class V2MoneyManagementFinancialAddressActivatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.financial_address.activated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a FinancialAddress is activated and is ready to receive funds.
-    class V2MoneyManagementFinancialAddressActivatedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementFinancialAddressActivatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.financial_address.activated"
       end

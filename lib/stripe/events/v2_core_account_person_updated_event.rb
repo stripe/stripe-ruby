@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Person is updated.
-    class V2CoreAccountPersonUpdatedEvent < Stripe::V2::Event
+    class V2CoreAccountPersonUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.account_person.updated"
       end
@@ -39,7 +39,7 @@ module Stripe
     end
 
     # Occurs when a Person is updated.
-    class V2CoreAccountPersonUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2CoreAccountPersonUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.account_person.updated"
       end

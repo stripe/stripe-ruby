@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an Account's requirements are updated.
-    class V2CoreAccountIncludingRequirementsUpdatedEvent < Stripe::V2::Event
+    class V2CoreAccountIncludingRequirementsUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.account[requirements].updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an Account's requirements are updated.
-    class V2CoreAccountIncludingRequirementsUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2CoreAccountIncludingRequirementsUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.account[requirements].updated"
       end

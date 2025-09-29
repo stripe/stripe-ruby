@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a ReceivedDebit is set to pending.
-    class V2MoneyManagementReceivedDebitPendingEvent < Stripe::V2::Event
+    class V2MoneyManagementReceivedDebitPendingEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.received_debit.pending"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a ReceivedDebit is set to pending.
-    class V2MoneyManagementReceivedDebitPendingEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementReceivedDebitPendingEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.received_debit.pending"
       end

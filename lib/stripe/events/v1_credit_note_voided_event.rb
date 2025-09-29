@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a credit note is voided.
-    class V1CreditNoteVoidedEvent < Stripe::V2::Event
+    class V1CreditNoteVoidedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.credit_note.voided"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a credit note is voided.
-    class V1CreditNoteVoidedEventNotification < Stripe::V2::EventNotification
+    class V1CreditNoteVoidedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.credit_note.voided"
       end

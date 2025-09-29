@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a person associated with an account is deleted.
-    class V1PersonDeletedEvent < Stripe::V2::Event
+    class V1PersonDeletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.person.deleted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a person associated with an account is deleted.
-    class V1PersonDeletedEventNotification < Stripe::V2::EventNotification
+    class V1PersonDeletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.person.deleted"
       end

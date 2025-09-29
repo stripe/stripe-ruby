@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a MeteredItem is created.
-    class V2BillingMeteredItemCreatedEvent < Stripe::V2::Event
+    class V2BillingMeteredItemCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.metered_item.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a MeteredItem is created.
-    class V2BillingMeteredItemCreatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingMeteredItemCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.metered_item.created"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an authorization rate drop alert is firing.
-    class V2CoreHealthAuthorizationRateDropFiringEvent < Stripe::V2::Event
+    class V2CoreHealthAuthorizationRateDropFiringEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.health.authorization_rate_drop.firing"
       end
@@ -71,7 +71,7 @@ module Stripe
     end
 
     # Occurs when an authorization rate drop alert is firing.
-    class V2CoreHealthAuthorizationRateDropFiringEventNotification < Stripe::V2::EventNotification
+    class V2CoreHealthAuthorizationRateDropFiringEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.health.authorization_rate_drop.firing"
       end

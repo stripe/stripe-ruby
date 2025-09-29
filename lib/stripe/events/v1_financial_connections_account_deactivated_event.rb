@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Financial Connections account's status is updated from `active` to `inactive`.
-    class V1FinancialConnectionsAccountDeactivatedEvent < Stripe::V2::Event
+    class V1FinancialConnectionsAccountDeactivatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.financial_connections.account.deactivated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a Financial Connections account's status is updated from `active` to `inactive`.
-    class V1FinancialConnectionsAccountDeactivatedEventNotification < Stripe::V2::EventNotification
+    class V1FinancialConnectionsAccountDeactivatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.financial_connections.account.deactivated"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a dispute is won, lost or expired.
-    class V1IssuingDisputeClosedEvent < Stripe::V2::Event
+    class V1IssuingDisputeClosedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_dispute.closed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a dispute is won, lost or expired.
-    class V1IssuingDisputeClosedEventNotification < Stripe::V2::EventNotification
+    class V1IssuingDisputeClosedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_dispute.closed"
       end

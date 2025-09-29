@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an early fraud warning is created.
-    class V1RadarEarlyFraudWarningCreatedEvent < Stripe::V2::Event
+    class V1RadarEarlyFraudWarningCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.radar.early_fraud_warning.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an early fraud warning is created.
-    class V1RadarEarlyFraudWarningCreatedEventNotification < Stripe::V2::EventNotification
+    class V1RadarEarlyFraudWarningCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.radar.early_fraud_warning.created"
       end

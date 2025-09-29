@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a tax rate is updated.
-    class V1TaxRateUpdatedEvent < Stripe::V2::Event
+    class V1TaxRateUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.tax_rate.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a tax rate is updated.
-    class V1TaxRateUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1TaxRateUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.tax_rate.updated"
       end

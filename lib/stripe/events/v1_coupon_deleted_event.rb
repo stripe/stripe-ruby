@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a coupon is deleted.
-    class V1CouponDeletedEvent < Stripe::V2::Event
+    class V1CouponDeletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.coupon.deleted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a coupon is deleted.
-    class V1CouponDeletedEventNotification < Stripe::V2::EventNotification
+    class V1CouponDeletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.coupon.deleted"
       end

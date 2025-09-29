@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an invoice payment attempt requires further user action to complete.
-    class V1InvoicePaymentActionRequiredEvent < Stripe::V2::Event
+    class V1InvoicePaymentActionRequiredEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.payment_action_required"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an invoice payment attempt requires further user action to complete.
-    class V1InvoicePaymentActionRequiredEventNotification < Stripe::V2::EventNotification
+    class V1InvoicePaymentActionRequiredEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.payment_action_required"
       end

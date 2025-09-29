@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a payout is *expected* to be available in the destination account. If the payout fails, a `payout.failed` notification is also sent, at a later time.
-    class V1PayoutPaidEvent < Stripe::V2::Event
+    class V1PayoutPaidEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payout.paid"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a payout is *expected* to be available in the destination account. If the payout fails, a `payout.failed` notification is also sent, at a later time.
-    class V1PayoutPaidEventNotification < Stripe::V2::EventNotification
+    class V1PayoutPaidEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payout.paid"
       end

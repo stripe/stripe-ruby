@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a PricingPlanSubscription's collection is awaiting customer action.
-    class V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEvent < Stripe::V2::Event
+    class V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.pricing_plan_subscription.collection_awaiting_customer_action"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a PricingPlanSubscription's collection is awaiting customer action.
-    class V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEventNotification < Stripe::V2::EventNotification
+    class V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.pricing_plan_subscription.collection_awaiting_customer_action"
       end

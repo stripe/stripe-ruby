@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an early fraud warning is updated.
-    class V1RadarEarlyFraudWarningUpdatedEvent < Stripe::V2::Event
+    class V1RadarEarlyFraudWarningUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.radar.early_fraud_warning.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an early fraud warning is updated.
-    class V1RadarEarlyFraudWarningUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1RadarEarlyFraudWarningUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.radar.early_fraud_warning.updated"
       end

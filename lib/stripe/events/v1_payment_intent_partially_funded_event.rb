@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when funds are applied to a customer_balance PaymentIntent and the 'amount_remaining' changes.
-    class V1PaymentIntentPartiallyFundedEvent < Stripe::V2::Event
+    class V1PaymentIntentPartiallyFundedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payment_intent.partially_funded"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when funds are applied to a customer_balance PaymentIntent and the 'amount_remaining' changes.
-    class V1PaymentIntentPartiallyFundedEventNotification < Stripe::V2::EventNotification
+    class V1PaymentIntentPartiallyFundedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payment_intent.partially_funded"
       end

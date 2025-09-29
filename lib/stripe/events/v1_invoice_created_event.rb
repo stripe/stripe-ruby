@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a new invoice is created. To learn how webhooks can be used with this event, and how they can affect it, see [Using Webhooks with Subscriptions](https://docs.stripe.com/subscriptions/webhooks).
-    class V1InvoiceCreatedEvent < Stripe::V2::Event
+    class V1InvoiceCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a new invoice is created. To learn how webhooks can be used with this event, and how they can affect it, see [Using Webhooks with Subscriptions](https://docs.stripe.com/subscriptions/webhooks).
-    class V1InvoiceCreatedEventNotification < Stripe::V2::EventNotification
+    class V1InvoiceCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.created"
       end

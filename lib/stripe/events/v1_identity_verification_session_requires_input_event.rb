@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a VerificationSession transitions to require user input.
-    class V1IdentityVerificationSessionRequiresInputEvent < Stripe::V2::Event
+    class V1IdentityVerificationSessionRequiresInputEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.identity.verification_session.requires_input"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a VerificationSession transitions to require user input.
-    class V1IdentityVerificationSessionRequiresInputEventNotification < Stripe::V2::EventNotification
+    class V1IdentityVerificationSessionRequiresInputEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.identity.verification_session.requires_input"
       end

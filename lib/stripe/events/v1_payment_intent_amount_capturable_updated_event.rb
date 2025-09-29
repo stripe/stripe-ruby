@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a PaymentIntent has funds to be captured. Check the `amount_capturable` property on the PaymentIntent to determine the amount that can be captured. You may capture the PaymentIntent with an `amount_to_capture` value up to the specified amount. [Learn more about capturing PaymentIntents.](https://docs.stripe.com/api/payment_intents/capture).
-    class V1PaymentIntentAmountCapturableUpdatedEvent < Stripe::V2::Event
+    class V1PaymentIntentAmountCapturableUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payment_intent.amount_capturable_updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a PaymentIntent has funds to be captured. Check the `amount_capturable` property on the PaymentIntent to determine the amount that can be captured. You may capture the PaymentIntent with an `amount_to_capture` value up to the specified amount. [Learn more about capturing PaymentIntents.](https://docs.stripe.com/api/payment_intents/capture).
-    class V1PaymentIntentAmountCapturableUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1PaymentIntentAmountCapturableUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payment_intent.amount_capturable_updated"
       end

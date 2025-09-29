@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a person associated with an account is created.
-    class V1PersonCreatedEvent < Stripe::V2::Event
+    class V1PersonCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.person.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a person associated with an account is created.
-    class V1PersonCreatedEventNotification < Stripe::V2::EventNotification
+    class V1PersonCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.person.created"
       end

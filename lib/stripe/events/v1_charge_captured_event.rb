@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a previously uncaptured charge is captured.
-    class V1ChargeCapturedEvent < Stripe::V2::Event
+    class V1ChargeCapturedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.charge.captured"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a previously uncaptured charge is captured.
-    class V1ChargeCapturedEventNotification < Stripe::V2::EventNotification
+    class V1ChargeCapturedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.charge.captured"
       end

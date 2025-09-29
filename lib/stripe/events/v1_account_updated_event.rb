@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an account status or property has changed.
-    class V1AccountUpdatedEvent < Stripe::V2::Event
+    class V1AccountUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.account.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an account status or property has changed.
-    class V1AccountUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1AccountUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.account.updated"
       end

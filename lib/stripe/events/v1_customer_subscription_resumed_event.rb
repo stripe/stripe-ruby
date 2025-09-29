@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a customer's subscription is no longer paused. Only applies when a `status=paused` subscription is [resumed](https://docs.stripe.com/api/subscriptions/resume), not when [payment collection](https://docs.stripe.com/billing/subscriptions/pause) is resumed.
-    class V1CustomerSubscriptionResumedEvent < Stripe::V2::Event
+    class V1CustomerSubscriptionResumedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.customer.subscription.resumed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a customer's subscription is no longer paused. Only applies when a `status=paused` subscription is [resumed](https://docs.stripe.com/api/subscriptions/resume), not when [payment collection](https://docs.stripe.com/billing/subscriptions/pause) is resumed.
-    class V1CustomerSubscriptionResumedEventNotification < Stripe::V2::EventNotification
+    class V1CustomerSubscriptionResumedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.customer.subscription.resumed"
       end

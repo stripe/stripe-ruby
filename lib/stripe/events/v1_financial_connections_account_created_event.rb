@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a new Financial Connections account is created.
-    class V1FinancialConnectionsAccountCreatedEvent < Stripe::V2::Event
+    class V1FinancialConnectionsAccountCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.financial_connections.account.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a new Financial Connections account is created.
-    class V1FinancialConnectionsAccountCreatedEventNotification < Stripe::V2::EventNotification
+    class V1FinancialConnectionsAccountCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.financial_connections.account.created"
       end

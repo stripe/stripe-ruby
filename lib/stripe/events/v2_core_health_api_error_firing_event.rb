@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an API error alert is firing.
-    class V2CoreHealthApiErrorFiringEvent < Stripe::V2::Event
+    class V2CoreHealthApiErrorFiringEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.health.api_error.firing"
       end
@@ -57,7 +57,7 @@ module Stripe
     end
 
     # Occurs when an API error alert is firing.
-    class V2CoreHealthApiErrorFiringEventNotification < Stripe::V2::EventNotification
+    class V2CoreHealthApiErrorFiringEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.health.api_error.firing"
       end

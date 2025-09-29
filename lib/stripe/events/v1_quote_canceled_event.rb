@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a quote is canceled.
-    class V1QuoteCanceledEvent < Stripe::V2::Event
+    class V1QuoteCanceledEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.quote.canceled"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a quote is canceled.
-    class V1QuoteCanceledEventNotification < Stripe::V2::EventNotification
+    class V1QuoteCanceledEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.quote.canceled"
       end

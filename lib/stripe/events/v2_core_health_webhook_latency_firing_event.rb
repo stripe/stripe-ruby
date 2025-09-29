@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a webhook latency alert is firing.
-    class V2CoreHealthWebhookLatencyFiringEvent < Stripe::V2::Event
+    class V2CoreHealthWebhookLatencyFiringEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.health.webhook_latency.firing"
       end
@@ -49,7 +49,7 @@ module Stripe
     end
 
     # Occurs when a webhook latency alert is firing.
-    class V2CoreHealthWebhookLatencyFiringEventNotification < Stripe::V2::EventNotification
+    class V2CoreHealthWebhookLatencyFiringEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.health.webhook_latency.firing"
       end

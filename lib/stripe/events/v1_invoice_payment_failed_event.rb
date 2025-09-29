@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an invoice payment attempt fails, due to either a declined payment, including soft decline, or to the lack of a stored payment method.
-    class V1InvoicePaymentFailedEvent < Stripe::V2::Event
+    class V1InvoicePaymentFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.payment_failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an invoice payment attempt fails, due to either a declined payment, including soft decline, or to the lack of a stored payment method.
-    class V1InvoicePaymentFailedEventNotification < Stripe::V2::EventNotification
+    class V1InvoicePaymentFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.payment_failed"
       end

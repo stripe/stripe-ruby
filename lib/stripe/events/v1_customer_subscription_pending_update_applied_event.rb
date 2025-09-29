@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a customer's subscription's pending update is applied, and the subscription is updated.
-    class V1CustomerSubscriptionPendingUpdateAppliedEvent < Stripe::V2::Event
+    class V1CustomerSubscriptionPendingUpdateAppliedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.customer.subscription.pending_update_applied"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a customer's subscription's pending update is applied, and the subscription is updated.
-    class V1CustomerSubscriptionPendingUpdateAppliedEventNotification < Stripe::V2::EventNotification
+    class V1CustomerSubscriptionPendingUpdateAppliedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.customer.subscription.pending_update_applied"
       end

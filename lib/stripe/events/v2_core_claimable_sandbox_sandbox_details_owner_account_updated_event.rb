@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a claimable sandbox is activated by the user with the intention to go live and your Stripe app is installed on the live account.
-    class V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent < Stripe::V2::Event
+    class V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.claimable_sandbox.sandbox_details_owner_account_updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a claimable sandbox is activated by the user with the intention to go live and your Stripe app is installed on the live account.
-    class V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.claimable_sandbox.sandbox_details_owner_account_updated"
       end

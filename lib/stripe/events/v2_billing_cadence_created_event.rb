@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a billing Cadence is created.
-    class V2BillingCadenceCreatedEvent < Stripe::V2::Event
+    class V2BillingCadenceCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.cadence.created"
       end
@@ -39,7 +39,7 @@ module Stripe
     end
 
     # Occurs when a billing Cadence is created.
-    class V2BillingCadenceCreatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingCadenceCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.cadence.created"
       end

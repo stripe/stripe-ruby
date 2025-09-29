@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a LicenseFee is created.
-    class V2BillingLicenseFeeCreatedEvent < Stripe::V2::Event
+    class V2BillingLicenseFeeCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.license_fee.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a LicenseFee is created.
-    class V2BillingLicenseFeeCreatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingLicenseFeeCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.license_fee.created"
       end

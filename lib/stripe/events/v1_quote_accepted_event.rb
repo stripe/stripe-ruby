@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a quote is accepted.
-    class V1QuoteAcceptedEvent < Stripe::V2::Event
+    class V1QuoteAcceptedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.quote.accepted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a quote is accepted.
-    class V1QuoteAcceptedEventNotification < Stripe::V2::EventNotification
+    class V1QuoteAcceptedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.quote.accepted"
       end

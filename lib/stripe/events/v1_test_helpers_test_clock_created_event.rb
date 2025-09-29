@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a test clock is created.
-    class V1TestHelpersTestClockCreatedEvent < Stripe::V2::Event
+    class V1TestHelpersTestClockCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.test_helpers.test_clock.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a test clock is created.
-    class V1TestHelpersTestClockCreatedEventNotification < Stripe::V2::EventNotification
+    class V1TestHelpersTestClockCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.test_helpers.test_clock.created"
       end

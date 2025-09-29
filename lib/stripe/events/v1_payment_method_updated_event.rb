@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a payment method is updated via the [PaymentMethod update API](https://docs.stripe.com/api/payment_methods/update).
-    class V1PaymentMethodUpdatedEvent < Stripe::V2::Event
+    class V1PaymentMethodUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payment_method.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a payment method is updated via the [PaymentMethod update API](https://docs.stripe.com/api/payment_methods/update).
-    class V1PaymentMethodUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1PaymentMethodUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payment_method.updated"
       end

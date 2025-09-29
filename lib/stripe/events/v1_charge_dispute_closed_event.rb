@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a dispute is closed and the dispute status changes to `lost`, `warning_closed`, or `won`.
-    class V1ChargeDisputeClosedEvent < Stripe::V2::Event
+    class V1ChargeDisputeClosedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.charge.dispute.closed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a dispute is closed and the dispute status changes to `lost`, `warning_closed`, or `won`.
-    class V1ChargeDisputeClosedEventNotification < Stripe::V2::EventNotification
+    class V1ChargeDisputeClosedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.charge.dispute.closed"
       end

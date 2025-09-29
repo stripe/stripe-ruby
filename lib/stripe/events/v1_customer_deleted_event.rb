@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a customer is deleted.
-    class V1CustomerDeletedEvent < Stripe::V2::Event
+    class V1CustomerDeletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.customer.deleted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a customer is deleted.
-    class V1CustomerDeletedEventNotification < Stripe::V2::EventNotification
+    class V1CustomerDeletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.customer.deleted"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a payment intent using a delayed payment method fails.
-    class V1CheckoutSessionAsyncPaymentFailedEvent < Stripe::V2::Event
+    class V1CheckoutSessionAsyncPaymentFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.checkout.session.async_payment_failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a payment intent using a delayed payment method fails.
-    class V1CheckoutSessionAsyncPaymentFailedEventNotification < Stripe::V2::EventNotification
+    class V1CheckoutSessionAsyncPaymentFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.checkout.session.async_payment_failed"
       end

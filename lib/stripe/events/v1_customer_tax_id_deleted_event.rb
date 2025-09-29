@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a tax ID is deleted from a customer.
-    class V1CustomerTaxIdDeletedEvent < Stripe::V2::Event
+    class V1CustomerTaxIdDeletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.customer.tax_id.deleted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a tax ID is deleted from a customer.
-    class V1CustomerTaxIdDeletedEventNotification < Stripe::V2::EventNotification
+    class V1CustomerTaxIdDeletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.customer.tax_id.deleted"
       end

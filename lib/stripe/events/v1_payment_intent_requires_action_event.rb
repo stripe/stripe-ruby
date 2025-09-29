@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a PaymentIntent transitions to requires_action state.
-    class V1PaymentIntentRequiresActionEvent < Stripe::V2::Event
+    class V1PaymentIntentRequiresActionEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payment_intent.requires_action"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a PaymentIntent transitions to requires_action state.
-    class V1PaymentIntentRequiresActionEventNotification < Stripe::V2::EventNotification
+    class V1PaymentIntentRequiresActionEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payment_intent.requires_action"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a draft invoice cannot be finalized. See the invoice's [last finalization error](https://docs.stripe.com/api/invoices/object#invoice_object-last_finalization_error) for details.
-    class V1InvoiceFinalizationFailedEvent < Stripe::V2::Event
+    class V1InvoiceFinalizationFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.finalization_failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a draft invoice cannot be finalized. See the invoice's [last finalization error](https://docs.stripe.com/api/invoices/object#invoice_object-last_finalization_error) for details.
-    class V1InvoiceFinalizationFailedEventNotification < Stripe::V2::EventNotification
+    class V1InvoiceFinalizationFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.finalization_failed"
       end

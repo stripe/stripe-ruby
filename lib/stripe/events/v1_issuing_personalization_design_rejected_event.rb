@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a personalization design is rejected by design review.
-    class V1IssuingPersonalizationDesignRejectedEvent < Stripe::V2::Event
+    class V1IssuingPersonalizationDesignRejectedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_personalization_design.rejected"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a personalization design is rejected by design review.
-    class V1IssuingPersonalizationDesignRejectedEventNotification < Stripe::V2::EventNotification
+    class V1IssuingPersonalizationDesignRejectedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_personalization_design.rejected"
       end

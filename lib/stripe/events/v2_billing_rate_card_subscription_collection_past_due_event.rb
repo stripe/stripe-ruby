@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a RateCardSubscription's collection is past due.
-    class V2BillingRateCardSubscriptionCollectionPastDueEvent < Stripe::V2::Event
+    class V2BillingRateCardSubscriptionCollectionPastDueEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.rate_card_subscription.collection_past_due"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a RateCardSubscription's collection is past due.
-    class V2BillingRateCardSubscriptionCollectionPastDueEventNotification < Stripe::V2::EventNotification
+    class V2BillingRateCardSubscriptionCollectionPastDueEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.rate_card_subscription.collection_past_due"
       end

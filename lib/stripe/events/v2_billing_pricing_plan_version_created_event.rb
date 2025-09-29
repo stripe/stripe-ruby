@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a PricingPlanVersion is created.
-    class V2BillingPricingPlanVersionCreatedEvent < Stripe::V2::Event
+    class V2BillingPricingPlanVersionCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.pricing_plan_version.created"
       end
@@ -39,7 +39,7 @@ module Stripe
     end
 
     # Occurs when a PricingPlanVersion is created.
-    class V2BillingPricingPlanVersionCreatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingPricingPlanVersionCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.pricing_plan_version.created"
       end

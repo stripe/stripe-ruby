@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when PricingPlanSubscription servicing is activated.
-    class V2BillingPricingPlanSubscriptionServicingActivatedEvent < Stripe::V2::Event
+    class V2BillingPricingPlanSubscriptionServicingActivatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.pricing_plan_subscription.servicing_activated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when PricingPlanSubscription servicing is activated.
-    class V2BillingPricingPlanSubscriptionServicingActivatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingPricingPlanSubscriptionServicingActivatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.pricing_plan_subscription.servicing_activated"
       end

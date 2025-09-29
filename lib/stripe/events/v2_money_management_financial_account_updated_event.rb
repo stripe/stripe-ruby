@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a FinancialAccount is updated.
-    class V2MoneyManagementFinancialAccountUpdatedEvent < Stripe::V2::Event
+    class V2MoneyManagementFinancialAccountUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.money_management.financial_account.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a FinancialAccount is updated.
-    class V2MoneyManagementFinancialAccountUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2MoneyManagementFinancialAccountUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.money_management.financial_account.updated"
       end

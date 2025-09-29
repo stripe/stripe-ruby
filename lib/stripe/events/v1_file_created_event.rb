@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a new Stripe-generated file is available for your account.
-    class V1FileCreatedEvent < Stripe::V2::Event
+    class V1FileCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.file.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a new Stripe-generated file is available for your account.
-    class V1FileCreatedEventNotification < Stripe::V2::EventNotification
+    class V1FileCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.file.created"
       end

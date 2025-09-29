@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an invoice transitions to paid with a non-zero amount_overpaid.
-    class V1InvoiceOverpaidEvent < Stripe::V2::Event
+    class V1InvoiceOverpaidEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.overpaid"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an invoice transitions to paid with a non-zero amount_overpaid.
-    class V1InvoiceOverpaidEventNotification < Stripe::V2::EventNotification
+    class V1InvoiceOverpaidEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.overpaid"
       end

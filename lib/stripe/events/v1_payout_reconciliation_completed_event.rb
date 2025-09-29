@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever balance transactions paid out in an automatic payout can be queried.
-    class V1PayoutReconciliationCompletedEvent < Stripe::V2::Event
+    class V1PayoutReconciliationCompletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.payout.reconciliation_completed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever balance transactions paid out in an automatic payout can be queried.
-    class V1PayoutReconciliationCompletedEventNotification < Stripe::V2::EventNotification
+    class V1PayoutReconciliationCompletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.payout.reconciliation_completed"
       end

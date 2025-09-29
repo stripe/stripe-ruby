@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a claimable sandbox is expiring in 7 days.
-    class V2CoreClaimableSandboxExpiringEvent < Stripe::V2::Event
+    class V2CoreClaimableSandboxExpiringEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.claimable_sandbox.expiring"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a claimable sandbox is expiring in 7 days.
-    class V2CoreClaimableSandboxExpiringEventNotification < Stripe::V2::EventNotification
+    class V2CoreClaimableSandboxExpiringEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.claimable_sandbox.expiring"
       end

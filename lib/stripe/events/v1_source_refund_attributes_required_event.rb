@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever the refund attributes are required on a receiver source to process a refund or a mispayment.
-    class V1SourceRefundAttributesRequiredEvent < Stripe::V2::Event
+    class V1SourceRefundAttributesRequiredEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.source.refund_attributes_required"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever the refund attributes are required on a receiver source to process a refund or a mispayment.
-    class V1SourceRefundAttributesRequiredEventNotification < Stripe::V2::EventNotification
+    class V1SourceRefundAttributesRequiredEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.source.refund_attributes_required"
       end

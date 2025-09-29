@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a RateCardSubscription's collection is current.
-    class V2BillingRateCardSubscriptionCollectionCurrentEvent < Stripe::V2::Event
+    class V2BillingRateCardSubscriptionCollectionCurrentEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.rate_card_subscription.collection_current"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a RateCardSubscription's collection is current.
-    class V2BillingRateCardSubscriptionCollectionCurrentEventNotification < Stripe::V2::EventNotification
+    class V2BillingRateCardSubscriptionCollectionCurrentEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.rate_card_subscription.collection_current"
       end

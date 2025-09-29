@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when funds are removed from your account due to a dispute.
-    class V1ChargeDisputeFundsWithdrawnEvent < Stripe::V2::Event
+    class V1ChargeDisputeFundsWithdrawnEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.charge.dispute.funds_withdrawn"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when funds are removed from your account due to a dispute.
-    class V1ChargeDisputeFundsWithdrawnEventNotification < Stripe::V2::EventNotification
+    class V1ChargeDisputeFundsWithdrawnEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.charge.dispute.funds_withdrawn"
       end

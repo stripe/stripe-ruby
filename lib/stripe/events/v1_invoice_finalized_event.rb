@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a draft invoice is finalized and updated to be an open invoice.
-    class V1InvoiceFinalizedEvent < Stripe::V2::Event
+    class V1InvoiceFinalizedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.finalized"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a draft invoice is finalized and updated to be an open invoice.
-    class V1InvoiceFinalizedEventNotification < Stripe::V2::EventNotification
+    class V1InvoiceFinalizedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.finalized"
       end

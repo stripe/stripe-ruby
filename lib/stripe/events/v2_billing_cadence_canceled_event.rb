@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a billing Cadence is canceled.
-    class V2BillingCadenceCanceledEvent < Stripe::V2::Event
+    class V2BillingCadenceCanceledEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.cadence.canceled"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a billing Cadence is canceled.
-    class V2BillingCadenceCanceledEventNotification < Stripe::V2::EventNotification
+    class V2BillingCadenceCanceledEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.cadence.canceled"
       end

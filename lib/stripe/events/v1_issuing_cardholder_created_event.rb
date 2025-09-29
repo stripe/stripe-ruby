@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a cardholder is created.
-    class V1IssuingCardholderCreatedEvent < Stripe::V2::Event
+    class V1IssuingCardholderCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_cardholder.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a cardholder is created.
-    class V1IssuingCardholderCreatedEventNotification < Stripe::V2::EventNotification
+    class V1IssuingCardholderCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_cardholder.created"
       end

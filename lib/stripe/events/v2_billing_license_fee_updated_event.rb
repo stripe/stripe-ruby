@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a LicenseFee is updated.
-    class V2BillingLicenseFeeUpdatedEvent < Stripe::V2::Event
+    class V2BillingLicenseFeeUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.license_fee.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a LicenseFee is updated.
-    class V2BillingLicenseFeeUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingLicenseFeeUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.license_fee.updated"
       end

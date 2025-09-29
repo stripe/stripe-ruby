@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Sent after a failed authorization if there are no retries remaining, or if the failure is unretryable.
-    class V2PaymentsOffSessionPaymentFailedEvent < Stripe::V2::Event
+    class V2PaymentsOffSessionPaymentFailedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.payments.off_session_payment.failed"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Sent after a failed authorization if there are no retries remaining, or if the failure is unretryable.
-    class V2PaymentsOffSessionPaymentFailedEventNotification < Stripe::V2::EventNotification
+    class V2PaymentsOffSessionPaymentFailedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.payments.off_session_payment.failed"
       end

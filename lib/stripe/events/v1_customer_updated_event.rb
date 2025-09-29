@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever any property of a customer changes.
-    class V1CustomerUpdatedEvent < Stripe::V2::Event
+    class V1CustomerUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.customer.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever any property of a customer changes.
-    class V1CustomerUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1CustomerUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.customer.updated"
       end

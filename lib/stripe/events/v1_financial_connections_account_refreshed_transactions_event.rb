@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when an Account's `transaction_refresh` status transitions from `pending` to either `succeeded` or `failed`.
-    class V1FinancialConnectionsAccountRefreshedTransactionsEvent < Stripe::V2::Event
+    class V1FinancialConnectionsAccountRefreshedTransactionsEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.financial_connections.account.refreshed_transactions"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when an Account's `transaction_refresh` status transitions from `pending` to either `succeeded` or `failed`.
-    class V1FinancialConnectionsAccountRefreshedTransactionsEventNotification < Stripe::V2::EventNotification
+    class V1FinancialConnectionsAccountRefreshedTransactionsEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.financial_connections.account.refreshed_transactions"
       end

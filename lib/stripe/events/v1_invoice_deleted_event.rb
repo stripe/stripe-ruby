@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a draft invoice is deleted. Note: This event is not sent for [invoice previews](https://docs.stripe.com/api/invoices/create_preview).
-    class V1InvoiceDeletedEvent < Stripe::V2::Event
+    class V1InvoiceDeletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.invoice.deleted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a draft invoice is deleted. Note: This event is not sent for [invoice previews](https://docs.stripe.com/api/invoices/create_preview).
-    class V1InvoiceDeletedEventNotification < Stripe::V2::EventNotification
+    class V1InvoiceDeletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.invoice.deleted"
       end

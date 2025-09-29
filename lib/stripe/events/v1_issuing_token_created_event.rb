@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever an issuing digital wallet token is created.
-    class V1IssuingTokenCreatedEvent < Stripe::V2::Event
+    class V1IssuingTokenCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_token.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever an issuing digital wallet token is created.
-    class V1IssuingTokenCreatedEventNotification < Stripe::V2::EventNotification
+    class V1IssuingTokenCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_token.created"
       end

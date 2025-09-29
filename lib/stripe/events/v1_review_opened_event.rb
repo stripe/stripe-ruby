@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a review is opened.
-    class V1ReviewOpenedEvent < Stripe::V2::Event
+    class V1ReviewOpenedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.review.opened"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a review is opened.
-    class V1ReviewOpenedEventNotification < Stripe::V2::EventNotification
+    class V1ReviewOpenedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.review.opened"
       end

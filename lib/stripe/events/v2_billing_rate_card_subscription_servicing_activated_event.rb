@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when RateCardSubscription servicing is activated.
-    class V2BillingRateCardSubscriptionServicingActivatedEvent < Stripe::V2::Event
+    class V2BillingRateCardSubscriptionServicingActivatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.rate_card_subscription.servicing_activated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when RateCardSubscription servicing is activated.
-    class V2BillingRateCardSubscriptionServicingActivatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingRateCardSubscriptionServicingActivatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.rate_card_subscription.servicing_activated"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a subscription schedule is canceled due to the underlying subscription being canceled because of delinquency.
-    class V1SubscriptionScheduleAbortedEvent < Stripe::V2::Event
+    class V1SubscriptionScheduleAbortedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.subscription_schedule.aborted"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a subscription schedule is canceled due to the underlying subscription being canceled because of delinquency.
-    class V1SubscriptionScheduleAbortedEventNotification < Stripe::V2::EventNotification
+    class V1SubscriptionScheduleAbortedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.subscription_schedule.aborted"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # This event occurs when a bill setting is updated.
-    class V2BillingBillSettingUpdatedEvent < Stripe::V2::Event
+    class V2BillingBillSettingUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.billing.bill_setting.updated"
       end
@@ -39,7 +39,7 @@ module Stripe
     end
 
     # This event occurs when a bill setting is updated.
-    class V2BillingBillSettingUpdatedEventNotification < Stripe::V2::EventNotification
+    class V2BillingBillSettingUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.billing.bill_setting.updated"
       end

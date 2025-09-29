@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a subscription changes (e.g., switching from one plan to another, or changing the status from trial to active).
-    class V1CustomerSubscriptionUpdatedEvent < Stripe::V2::Event
+    class V1CustomerSubscriptionUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.customer.subscription.updated"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a subscription changes (e.g., switching from one plan to another, or changing the status from trial to active).
-    class V1CustomerSubscriptionUpdatedEventNotification < Stripe::V2::EventNotification
+    class V1CustomerSubscriptionUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.customer.subscription.updated"
       end

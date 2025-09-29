@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs whenever a customer's subscription's pending update expires before the related invoice is paid.
-    class V1CustomerSubscriptionPendingUpdateExpiredEvent < Stripe::V2::Event
+    class V1CustomerSubscriptionPendingUpdateExpiredEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.customer.subscription.pending_update_expired"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs whenever a customer's subscription's pending update expires before the related invoice is paid.
-    class V1CustomerSubscriptionPendingUpdateExpiredEventNotification < Stripe::V2::EventNotification
+    class V1CustomerSubscriptionPendingUpdateExpiredEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.customer.subscription.pending_update_expired"
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Events
     # Occurs when a Climate order is created.
-    class V1ClimateOrderCreatedEvent < Stripe::V2::Event
+    class V1ClimateOrderCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.climate.order.created"
       end
@@ -22,7 +22,7 @@ module Stripe
     end
 
     # Occurs when a Climate order is created.
-    class V1ClimateOrderCreatedEventNotification < Stripe::V2::EventNotification
+    class V1ClimateOrderCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.climate.order.created"
       end

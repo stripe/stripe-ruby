@@ -68,28 +68,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class BalanceReport < Stripe::StripeObject
-        class Features < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Whether the embedded component is enabled.
-        sig { returns(T::Boolean) }
-        def enabled; end
-        # Attribute for field features
-        sig { returns(Features) }
-        def features; end
-        def self.inner_class_types
-          @inner_class_types = {features: Features}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class Balances < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -493,28 +471,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PayoutReconciliationReport < Stripe::StripeObject
-        class Features < Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Whether the embedded component is enabled.
-        sig { returns(T::Boolean) }
-        def enabled; end
-        # Attribute for field features
-        sig { returns(Features) }
-        def features; end
-        def self.inner_class_types
-          @inner_class_types = {features: Features}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class Payouts < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -624,9 +580,6 @@ module Stripe
       # Attribute for field account_onboarding
       sig { returns(AccountOnboarding) }
       def account_onboarding; end
-      # Attribute for field balance_report
-      sig { returns(BalanceReport) }
-      def balance_report; end
       # Attribute for field balances
       sig { returns(Balances) }
       def balances; end
@@ -666,9 +619,6 @@ module Stripe
       # Attribute for field payout_details
       sig { returns(PayoutDetails) }
       def payout_details; end
-      # Attribute for field payout_reconciliation_report
-      sig { returns(PayoutReconciliationReport) }
-      def payout_reconciliation_report; end
       # Attribute for field payouts
       sig { returns(Payouts) }
       def payouts; end
@@ -685,7 +635,6 @@ module Stripe
         @inner_class_types = {
           account_management: AccountManagement,
           account_onboarding: AccountOnboarding,
-          balance_report: BalanceReport,
           balances: Balances,
           disputes_list: DisputesList,
           documents: Documents,
@@ -699,7 +648,6 @@ module Stripe
           payment_disputes: PaymentDisputes,
           payments: Payments,
           payout_details: PayoutDetails,
-          payout_reconciliation_report: PayoutReconciliationReport,
           payouts: Payouts,
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,
@@ -817,27 +765,6 @@ module Stripe
           def features=(_features); end
           sig {
             params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding::Features)).void
-           }
-          def initialize(enabled: nil, features: nil); end
-        end
-        class BalanceReport < Stripe::RequestParams
-          class Features < Stripe::RequestParams; end
-          # Whether the embedded component is enabled.
-          sig { returns(T::Boolean) }
-          def enabled; end
-          sig { params(_enabled: T::Boolean).returns(T::Boolean) }
-          def enabled=(_enabled); end
-          # An empty list, because this embedded component has no features.
-          sig {
-            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::BalanceReport::Features))
-           }
-          def features; end
-          sig {
-            params(_features: T.nilable(::Stripe::AccountSession::CreateParams::Components::BalanceReport::Features)).returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::BalanceReport::Features))
-           }
-          def features=(_features); end
-          sig {
-            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::BalanceReport::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -1468,27 +1395,6 @@ module Stripe
            }
           def initialize(enabled: nil, features: nil); end
         end
-        class PayoutReconciliationReport < Stripe::RequestParams
-          class Features < Stripe::RequestParams; end
-          # Whether the embedded component is enabled.
-          sig { returns(T::Boolean) }
-          def enabled; end
-          sig { params(_enabled: T::Boolean).returns(T::Boolean) }
-          def enabled=(_enabled); end
-          # An empty list, because this embedded component has no features.
-          sig {
-            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutReconciliationReport::Features))
-           }
-          def features; end
-          sig {
-            params(_features: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutReconciliationReport::Features)).returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutReconciliationReport::Features))
-           }
-          def features=(_features); end
-          sig {
-            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutReconciliationReport::Features)).void
-           }
-          def initialize(enabled: nil, features: nil); end
-        end
         class Payouts < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -1633,15 +1539,6 @@ module Stripe
           params(_account_onboarding: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding)).returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding))
          }
         def account_onboarding=(_account_onboarding); end
-        # Configuration for the [balance report](/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
-        sig {
-          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::BalanceReport))
-         }
-        def balance_report; end
-        sig {
-          params(_balance_report: T.nilable(::Stripe::AccountSession::CreateParams::Components::BalanceReport)).returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::BalanceReport))
-         }
-        def balance_report=(_balance_report); end
         # Configuration for the [balances](/connect/supported-embedded-components/balances/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances)) }
         def balances; end
@@ -1749,15 +1646,6 @@ module Stripe
           params(_payout_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutDetails)).returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutDetails))
          }
         def payout_details=(_payout_details); end
-        # Configuration for the [payout reconciliation report](/connect/supported-embedded-components/financial-reports#payout-reconciliation-report) embedded component.
-        sig {
-          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutReconciliationReport))
-         }
-        def payout_reconciliation_report; end
-        sig {
-          params(_payout_reconciliation_report: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutReconciliationReport)).returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutReconciliationReport))
-         }
-        def payout_reconciliation_report=(_payout_reconciliation_report); end
         # Configuration for the [payouts](/connect/supported-embedded-components/payouts/) embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts)) }
         def payouts; end
@@ -1789,12 +1677,11 @@ module Stripe
          }
         def tax_settings=(_tax_settings); end
         sig {
-          params(account_management: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding), balance_report: T.nilable(::Stripe::AccountSession::CreateParams::Components::BalanceReport), balances: T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances), disputes_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList), documents: T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents), financial_account: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions), instant_payouts_promotion: T.nilable(::Stripe::AccountSession::CreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDisputes), payments: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments), payout_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutDetails), payout_reconciliation_report: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutReconciliationReport), payouts: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList), tax_registrations: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings)).void
+          params(account_management: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding), balances: T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances), disputes_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList), documents: T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents), financial_account: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions), instant_payouts_promotion: T.nilable(::Stripe::AccountSession::CreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDisputes), payments: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments), payout_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutDetails), payouts: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList), tax_registrations: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings)).void
          }
         def initialize(
           account_management: nil,
           account_onboarding: nil,
-          balance_report: nil,
           balances: nil,
           disputes_list: nil,
           documents: nil,
@@ -1808,7 +1695,6 @@ module Stripe
           payment_disputes: nil,
           payments: nil,
           payout_details: nil,
-          payout_reconciliation_report: nil,
           payouts: nil,
           payouts_list: nil,
           tax_registrations: nil,

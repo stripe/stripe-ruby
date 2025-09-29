@@ -52,7 +52,7 @@ require "stripe/api_resource_test_helpers"
 require "stripe/singleton_api_resource"
 require "stripe/webhook"
 require "stripe/stripe_configuration"
-require "stripe/event_notification"
+require "stripe/resources/v2/core/event_notification"
 
 # Named API resources
 require "stripe/resources"

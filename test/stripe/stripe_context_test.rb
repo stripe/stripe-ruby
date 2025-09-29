@@ -377,7 +377,7 @@ module Stripe
           context: "workspace/account/customer",
         }
 
-        notification = Stripe::V2::EventNotification.new(event_payload, client)
+        notification = Stripe::V2::Core::EventNotification.new(event_payload, client)
 
         assert_not_nil notification.context
         assert_equal "workspace/account/customer", notification.context.to_s
@@ -395,7 +395,7 @@ module Stripe
           context: nil,
         }
 
-        notification = Stripe::V2::EventNotification.new(event_payload, client)
+        notification = Stripe::V2::Core::EventNotification.new(event_payload, client)
 
         assert_nil notification.context
       end
@@ -410,7 +410,7 @@ module Stripe
           context: "",
         }
 
-        notification = Stripe::V2::EventNotification.new(event_payload, client)
+        notification = Stripe::V2::Core::EventNotification.new(event_payload, client)
 
         assert_nil notification.context
       end

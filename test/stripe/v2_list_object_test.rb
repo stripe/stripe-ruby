@@ -199,7 +199,7 @@ module Stripe
           .to_return(body: JSON.generate(data: [{ id: 2, object: "v2.core.event" }, { id: 3, object: "v2.core.event" }, { id: 4, object: "v2.core.event" }], next_page_url: nil))
 
         list.each do |obj|
-          assert_instance_of(Stripe::V2::Event, obj)
+          assert_instance_of(Stripe::V2::Core::Event, obj)
         end
       end
 

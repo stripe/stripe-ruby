@@ -927,13 +927,13 @@ module Stripe
     context "v2 resources" do
       should "raise an NotImplementedError on resource_url" do
         assert_raises NotImplementedError do
-          Stripe::V2::Event.resource_url
+          Stripe::V2::Core::Event.resource_url
         end
       end
 
       should "raise an NotImplementedError on retrieve" do
         assert_raises NotImplementedError do
-          Stripe::V2::Event.retrieve("acct_123")
+          Stripe::V2::Core::Event.retrieve("acct_123")
         end
       end
 

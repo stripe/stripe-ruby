@@ -8,11 +8,7 @@ module Stripe
       class EventDestinationService < StripeService
         # Create a new event destination.
         sig {
-<<<<<<< HEAD
-          params(params: T.any(::Stripe::V2::Core::EventDestinationService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
-=======
-          params(params: T.any(::Stripe::V2::Core::EventDestinationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::EventDestination)
->>>>>>> aa8d3aa8 (generated changes)
+          params(params: T.any(::Stripe::V2::Core::EventDestinationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
          }
         def create(params = {}, opts = {}); end
 
@@ -24,21 +20,13 @@ module Stripe
 
         # Disable an event destination.
         sig {
-<<<<<<< HEAD
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationService::DisableParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
-=======
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationDisableParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::EventDestination)
->>>>>>> aa8d3aa8 (generated changes)
+          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationDisableParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
          }
         def disable(id, params = {}, opts = {}); end
 
         # Enable an event destination.
         sig {
-<<<<<<< HEAD
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationService::EnableParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
-=======
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationEnableParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::EventDestination)
->>>>>>> aa8d3aa8 (generated changes)
+          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationEnableParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
          }
         def enable(id, params = {}, opts = {}); end
 
@@ -50,31 +38,19 @@ module Stripe
 
         # Send a `ping` event to an event destination.
         sig {
-<<<<<<< HEAD
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationService::PingParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Event)
-=======
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationPingParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Event)
->>>>>>> aa8d3aa8 (generated changes)
+          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationPingParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Event)
          }
         def ping(id, params = {}, opts = {}); end
 
         # Retrieves the details of an event destination.
         sig {
-<<<<<<< HEAD
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
-=======
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::EventDestination)
->>>>>>> aa8d3aa8 (generated changes)
+          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
          }
         def retrieve(id, params = {}, opts = {}); end
 
         # Update the details of an event destination.
         sig {
-<<<<<<< HEAD
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
-=======
-          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::EventDestination)
->>>>>>> aa8d3aa8 (generated changes)
+          params(id: String, params: T.any(::Stripe::V2::Core::EventDestinationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::EventDestination)
          }
         def update(id, params = {}, opts = {}); end
       end

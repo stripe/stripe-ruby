@@ -97,19 +97,6 @@ module Stripe
           end
         end
 
-        class BalanceReport < Stripe::RequestParams
-          class Features < Stripe::RequestParams; end
-          # Whether the embedded component is enabled.
-          attr_accessor :enabled
-          # An empty list, because this embedded component has no features.
-          attr_accessor :features
-
-          def initialize(enabled: nil, features: nil)
-            @enabled = enabled
-            @features = features
-          end
-        end
-
         class Balances < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -566,19 +553,6 @@ module Stripe
           end
         end
 
-        class PayoutReconciliationReport < Stripe::RequestParams
-          class Features < Stripe::RequestParams; end
-          # Whether the embedded component is enabled.
-          attr_accessor :enabled
-          # An empty list, because this embedded component has no features.
-          attr_accessor :features
-
-          def initialize(enabled: nil, features: nil)
-            @enabled = enabled
-            @features = features
-          end
-        end
-
         class Payouts < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -722,8 +696,6 @@ module Stripe
         attr_accessor :app_install
         # Configuration for the [app viewport](/connect/supported-embedded-components/app-viewport/) embedded component.
         attr_accessor :app_viewport
-        # Configuration for the [balance report](/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
-        attr_accessor :balance_report
         # Configuration for the [balances](/connect/supported-embedded-components/balances/) embedded component.
         attr_accessor :balances
         # Configuration for the [Capital financing](/connect/supported-embedded-components/capital-financing/) embedded component.
@@ -762,8 +734,6 @@ module Stripe
         attr_accessor :payments
         # Configuration for the [payout details](/connect/supported-embedded-components/payout-details/) embedded component.
         attr_accessor :payout_details
-        # Configuration for the [payout reconciliation report](/connect/supported-embedded-components/financial-reports#payout-reconciliation-report) embedded component.
-        attr_accessor :payout_reconciliation_report
         # Configuration for the [payouts](/connect/supported-embedded-components/payouts/) embedded component.
         attr_accessor :payouts
         # Configuration for the [payouts list](/connect/supported-embedded-components/payouts-list/) embedded component.
@@ -786,7 +756,6 @@ module Stripe
           account_onboarding: nil,
           app_install: nil,
           app_viewport: nil,
-          balance_report: nil,
           balances: nil,
           capital_financing: nil,
           capital_financing_application: nil,
@@ -806,7 +775,6 @@ module Stripe
           payment_method_settings: nil,
           payments: nil,
           payout_details: nil,
-          payout_reconciliation_report: nil,
           payouts: nil,
           payouts_list: nil,
           product_tax_code_selector: nil,
@@ -820,7 +788,6 @@ module Stripe
           @account_onboarding = account_onboarding
           @app_install = app_install
           @app_viewport = app_viewport
-          @balance_report = balance_report
           @balances = balances
           @capital_financing = capital_financing
           @capital_financing_application = capital_financing_application
@@ -840,7 +807,6 @@ module Stripe
           @payment_method_settings = payment_method_settings
           @payments = payments
           @payout_details = payout_details
-          @payout_reconciliation_report = payout_reconciliation_report
           @payouts = payouts
           @payouts_list = payouts_list
           @product_tax_code_selector = product_tax_code_selector

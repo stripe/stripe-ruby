@@ -3,15 +3,6 @@
 
 module Stripe
   class ConfirmationTokenService < StripeService
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
-
     # Retrieves an existing ConfirmationToken object
     def retrieve(confirmation_token, params = {}, opts = {})
       request(

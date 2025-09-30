@@ -728,18 +728,16 @@ module Stripe
 
         context "Stripe-Account header" do
           should "use a globally set header" do
-            begin
-              old = Stripe.stripe_account
-              Stripe.stripe_account = "acct_1234"
+            old = Stripe.stripe_account
+            Stripe.stripe_account = "acct_1234"
 
-              stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
-                .with(headers: { "Stripe-Account" => Stripe.stripe_account })
-                .to_return(body: JSON.generate(object: "account"))
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
+              .with(headers: { "Stripe-Account" => Stripe.stripe_account })
+              .to_return(body: JSON.generate(object: "account"))
 
-              Stripe::Account.create
-            ensure
-              Stripe.stripe_account = old
-            end
+            Stripe::Account.create
+          ensure
+            Stripe.stripe_account = old
           end
 
           should "use a local request set header" do
@@ -798,41 +796,39 @@ module Stripe
 
         context "app_info" do
           should "send app_info if set" do
-            begin
-              old = Stripe.app_info
-              Stripe.set_app_info(
-                "MyAwesomePlugin",
-                partner_id: "partner_1234",
-                url: "https://myawesomeplugin.info",
-                version: "1.2.34"
-              )
+            old = Stripe.app_info
+            Stripe.set_app_info(
+              "MyAwesomePlugin",
+              partner_id: "partner_1234",
+              url: "https://myawesomeplugin.info",
+              version: "1.2.34"
+            )
 
-              stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
-                .with do |req|
-                  assert_equal \
-                    "Stripe/v1 RubyBindings/#{Stripe::VERSION} " \
-                    "MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)",
-                    req.headers["User-Agent"]
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
+              .with do |req|
+                assert_equal \
+                  "Stripe/v1 RubyBindings/#{Stripe::VERSION} " \
+                  "MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)",
+                  req.headers["User-Agent"]
 
-                  data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"],
-                                    symbolize_names: true)
+                data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"],
+                                  symbolize_names: true)
 
-                  assert_equal({
-                    name: "MyAwesomePlugin",
-                    partner_id: "partner_1234",
-                    url: "https://myawesomeplugin.info",
-                    version: "1.2.34",
-                  }, data[:application])
+                assert_equal({
+                  name: "MyAwesomePlugin",
+                  partner_id: "partner_1234",
+                  url: "https://myawesomeplugin.info",
+                  version: "1.2.34",
+                }, data[:application])
 
-                  true
-                end.to_return(body: JSON.generate(object: "account"))
+                true
+              end.to_return(body: JSON.generate(object: "account"))
 
-              client = APIRequestor.new("sk_test_123")
-              client.send(request_method, :post, "/v1/account", :api,
-                          &@read_body_chunk_block)
-            ensure
-              Stripe.app_info = old
-            end
+            client = APIRequestor.new("sk_test_123")
+            client.send(request_method, :post, "/v1/account", :api,
+                        &@read_body_chunk_block)
+          ensure
+            Stripe.app_info = old
           end
         end
 
@@ -1361,17 +1357,15 @@ module Stripe
       end
 
       should "reset local thread state after a call" do
-        begin
-          APIRequestor.current_thread_context.active_requestor = :api_requestor
+        APIRequestor.current_thread_context.active_requestor = :api_requestor
 
-          client = APIRequestor.new("sk_test_123")
-          client.request { 0 }
+        client = APIRequestor.new("sk_test_123")
+        client.request { 0 }
 
-          assert_equal :api_requestor,
-                       APIRequestor.current_thread_context.active_requestor
-        ensure
-          APIRequestor.current_thread_context.active_requestor = nil
-        end
+        assert_equal :api_requestor,
+                     APIRequestor.current_thread_context.active_requestor
+      ensure
+        APIRequestor.current_thread_context.active_requestor = nil
       end
 
       should "correctly return last responses despite multiple clients" do
@@ -1468,25 +1462,23 @@ module Stripe
 
     context "#proxy" do
       should "run the request through the proxy" do
-        begin
-          APIRequestor.clear_all_connection_managers
+        APIRequestor.clear_all_connection_managers
 
-          Stripe.proxy = "http://user:pass@localhost:8080"
+        Stripe.proxy = "http://user:pass@localhost:8080"
 
-          client = APIRequestor.new("sk_test_123")
-          client.request { 0 }
+        client = APIRequestor.new("sk_test_123")
+        client.request { 0 }
 
-          connection = Stripe::APIRequestor.default_connection_manager.connection_for(Stripe::DEFAULT_API_BASE)
+        connection = Stripe::APIRequestor.default_connection_manager.connection_for(Stripe::DEFAULT_API_BASE)
 
-          assert_equal "localhost", connection.proxy_address
-          assert_equal 8080, connection.proxy_port
-          assert_equal "user", connection.proxy_user
-          assert_equal "pass", connection.proxy_pass
-        ensure
-          Stripe.proxy = nil
+        assert_equal "localhost", connection.proxy_address
+        assert_equal 8080, connection.proxy_port
+        assert_equal "user", connection.proxy_user
+        assert_equal "pass", connection.proxy_pass
+      ensure
+        Stripe.proxy = nil
 
-          APIRequestor.clear_all_connection_managers
-        end
+        APIRequestor.clear_all_connection_managers
       end
     end
 

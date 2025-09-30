@@ -159,21 +159,19 @@ module Stripe
 
     context "#to_hash" do
       should "skip calling to_hash on nil" do
-        begin
-          module NilWithToHash
-            def to_hash
-              raise "Can't call to_hash on nil"
-            end
+        module NilWithToHash
+          def to_hash
+            raise "Can't call to_hash on nil"
           end
-          ::NilClass.include NilWithToHash
-
-          hash_with_nil = { id: 3, foo: nil }
-          obj = StripeObject.construct_from(hash_with_nil)
-          expected_hash = { id: 3, foo: nil }
-          assert_equal expected_hash, obj.to_hash
-        ensure
-          ::NilClass.send(:undef_method, :to_hash)
         end
+        ::NilClass.include NilWithToHash
+
+        hash_with_nil = { id: 3, foo: nil }
+        obj = StripeObject.construct_from(hash_with_nil)
+        expected_hash = { id: 3, foo: nil }
+        assert_equal expected_hash, obj.to_hash
+      ensure
+        ::NilClass.send(:undef_method, :to_hash)
       end
 
       should "recursively call to_hash on its values" do

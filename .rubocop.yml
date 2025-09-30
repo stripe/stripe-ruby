@@ -20,12 +20,12 @@ Layout/LineLength:
     - "lib/stripe/resources/**/*.rb"
     - "lib/stripe/services/**/*.rb"
     - "lib/stripe/events/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
     - "test/**/*.rb"
 
 Lint/MissingSuper:
   Exclude:
-    - "lib/stripe/resources/**/*.rb"
-    - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
     - "test/stripe/request_params_test.rb"
 
 Metrics/AbcSize:
@@ -92,20 +92,18 @@ Metrics/ParameterLists:
     - "lib/stripe/api_operations/request.rb"
     - "lib/stripe/stripe_object.rb"
     - "lib/stripe/stripe_client.rb"
-    - "lib/stripe/resources/**/*.rb"
-    - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
 
 Naming/MethodParameterName:
   # We have many parameters that are less than 3 characters for tax codes
   Exclude:
-    - "lib/stripe/resources/**/*.rb"
-    - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
 
 Naming/VariableNumber:
   # We use a variety of variable number syntaxes
   Exclude:
     - "lib/stripe/resources/**/*.rb"
-    - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
 
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline

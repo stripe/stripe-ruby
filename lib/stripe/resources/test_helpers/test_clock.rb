@@ -40,53 +40,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-
-      class DeleteParams < Stripe::RequestParams; end
-
-      class ListParams < Stripe::RequestParams
-        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        attr_accessor :ending_before
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        attr_accessor :limit
-        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        attr_accessor :starting_after
-
-        def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil)
-          @ending_before = ending_before
-          @expand = expand
-          @limit = limit
-          @starting_after = starting_after
-        end
-      end
-
-      class CreateParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # The initial frozen time for this test clock.
-        attr_accessor :frozen_time
-        # The name for this test clock.
-        attr_accessor :name
-
-        def initialize(expand: nil, frozen_time: nil, name: nil)
-          @expand = expand
-          @frozen_time = frozen_time
-          @name = name
-        end
-      end
-
-      class AdvanceParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest subscription in this test clock. If there are no subscriptions in this test clock, it cannot be more than two years in the future.
-        attr_accessor :frozen_time
-
-        def initialize(expand: nil, frozen_time: nil)
-          @expand = expand
-          @frozen_time = frozen_time
-        end
-      end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
       # Time at which this clock is scheduled to auto delete.

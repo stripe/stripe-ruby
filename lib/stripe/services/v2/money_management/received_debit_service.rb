@@ -5,17 +5,6 @@ module Stripe
   module V2
     module MoneyManagement
       class ReceivedDebitService < StripeService
-        class ListParams < Stripe::RequestParams
-          # The page limit.
-          attr_accessor :limit
-
-          def initialize(limit: nil)
-            @limit = limit
-          end
-        end
-
-        class RetrieveParams < Stripe::RequestParams; end
-
         # Retrieves a list of ReceivedDebits, given the selected filters.
         def list(params = {}, opts = {})
           request(

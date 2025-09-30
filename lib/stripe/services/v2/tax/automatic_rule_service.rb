@@ -5,40 +5,6 @@ module Stripe
   module V2
     module Tax
       class AutomaticRuleService < StripeService
-        class CreateParams < Stripe::RequestParams
-          # The BillableItem ID to set automatic Tax configuration for.
-          attr_accessor :billable_item
-          # The TaxCode object to be used for automatic tax calculations.
-          attr_accessor :tax_code
-
-          def initialize(billable_item: nil, tax_code: nil)
-            @billable_item = billable_item
-            @tax_code = tax_code
-          end
-        end
-
-        class FindParams < Stripe::RequestParams
-          # The BillableItem ID to search by.
-          attr_accessor :billable_item
-
-          def initialize(billable_item: nil)
-            @billable_item = billable_item
-          end
-        end
-
-        class RetrieveParams < Stripe::RequestParams; end
-
-        class UpdateParams < Stripe::RequestParams
-          # The TaxCode object to be used for automatic tax calculations.
-          attr_accessor :tax_code
-
-          def initialize(tax_code: nil)
-            @tax_code = tax_code
-          end
-        end
-
-        class DeactivateParams < Stripe::RequestParams; end
-
         # Creates an AutomaticRule object.
         def create(params = {}, opts = {})
           request(

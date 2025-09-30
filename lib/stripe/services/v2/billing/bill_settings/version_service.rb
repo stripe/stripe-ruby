@@ -6,17 +6,6 @@ module Stripe
     module Billing
       module BillSettings
         class VersionService < StripeService
-          class ListParams < Stripe::RequestParams
-            # Optionally set the maximum number of results per page. Defaults to 20.
-            attr_accessor :limit
-
-            def initialize(limit: nil)
-              @limit = limit
-            end
-          end
-
-          class RetrieveParams < Stripe::RequestParams; end
-
           # List all BillSettingVersions by BillSetting ID.
           def list(bill_setting_id, params = {}, opts = {})
             request(

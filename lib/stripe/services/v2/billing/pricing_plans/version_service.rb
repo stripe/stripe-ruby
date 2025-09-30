@@ -6,17 +6,6 @@ module Stripe
     module Billing
       module PricingPlans
         class VersionService < StripeService
-          class ListParams < Stripe::RequestParams
-            # Optionally set the maximum number of results per page. Defaults to 20.
-            attr_accessor :limit
-
-            def initialize(limit: nil)
-              @limit = limit
-            end
-          end
-
-          class RetrieveParams < Stripe::RequestParams; end
-
           # List all Pricing Plan Versions of a Pricing Plan.
           def list(pricing_plan_id, params = {}, opts = {})
             request(

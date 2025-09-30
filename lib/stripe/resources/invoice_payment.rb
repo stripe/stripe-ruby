@@ -51,55 +51,6 @@ module Stripe
         @field_remappings = {}
       end
     end
-
-    class ListParams < Stripe::RequestParams
-      class Payment < Stripe::RequestParams
-        # Only return invoice payments associated by this payment intent ID.
-        attr_accessor :payment_intent
-        # Only return invoice payments associated by this payment record ID.
-        attr_accessor :payment_record
-        # Only return invoice payments associated by this payment type.
-        attr_accessor :type
-
-        def initialize(payment_intent: nil, payment_record: nil, type: nil)
-          @payment_intent = payment_intent
-          @payment_record = payment_record
-          @type = type
-        end
-      end
-      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      attr_accessor :ending_before
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # The identifier of the invoice whose payments to return.
-      attr_accessor :invoice
-      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      attr_accessor :limit
-      # The payment details of the invoice payments to return.
-      attr_accessor :payment
-      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      attr_accessor :starting_after
-      # The status of the invoice payments to return.
-      attr_accessor :status
-
-      def initialize(
-        ending_before: nil,
-        expand: nil,
-        invoice: nil,
-        limit: nil,
-        payment: nil,
-        starting_after: nil,
-        status: nil
-      )
-        @ending_before = ending_before
-        @expand = expand
-        @invoice = invoice
-        @limit = limit
-        @payment = payment
-        @starting_after = starting_after
-        @status = status
-      end
-    end
     # Amount that was actually paid for this invoice, in cents (or local equivalent). This field is null until the payment is `paid`. This amount can be less than the `amount_requested` if the PaymentIntent’s `amount_received` is not sufficient to pay all of the invoices that it is attached to.
     attr_reader :amount_paid
     # Amount intended to be paid toward this invoice, in cents (or local equivalent)

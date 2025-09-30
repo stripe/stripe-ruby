@@ -4,67 +4,15 @@
 # typed: true
 module Stripe
   class CustomerPaymentMethodService < StripeService
-    class ListParams < Stripe::RequestParams
-      # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
-      sig { returns(T.nilable(String)) }
-      def allow_redisplay; end
-      sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
-      def allow_redisplay=(_allow_redisplay); end
-      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      sig { returns(T.nilable(String)) }
-      def ending_before; end
-      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
-      def ending_before=(_ending_before); end
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
-      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      sig { returns(T.nilable(Integer)) }
-      def limit; end
-      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
-      def limit=(_limit); end
-      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      sig { returns(T.nilable(String)) }
-      def starting_after; end
-      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
-      def starting_after=(_starting_after); end
-      # An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
-      sig { returns(T.nilable(String)) }
-      def type; end
-      sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
-      def type=(_type); end
-      sig {
-        params(allow_redisplay: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String)).void
-       }
-      def initialize(
-        allow_redisplay: nil,
-        ending_before: nil,
-        expand: nil,
-        limit: nil,
-        starting_after: nil,
-        type: nil
-      ); end
-    end
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      def expand; end
-      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-      def expand=(_expand); end
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     # Returns a list of PaymentMethods for a given Customer
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerPaymentMethodService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(customer: String, params: T.any(::Stripe::CustomerPaymentMethodListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
      }
     def list(customer, params = {}, opts = {}); end
 
     # Retrieves a PaymentMethod object for a given Customer.
     sig {
-      params(customer: String, payment_method: String, params: T.any(::Stripe::CustomerPaymentMethodService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(customer: String, payment_method: String, params: T.any(::Stripe::CustomerPaymentMethodRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
      }
     def retrieve(customer, payment_method, params = {}, opts = {}); end
   end

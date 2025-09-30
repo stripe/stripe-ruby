@@ -37,7 +37,9 @@ gem build stripe.gemspec
 
 ### Requirements
 
-- Ruby 2.3+.
+Per our [Language Version Support Policy](https://docs.stripe.com/sdks/versioning?server=ruby#stripe-sdk-language-version-support-policy), we currently support **Ruby 2.6+**.
+
+Support for Ruby 2.6 and 2.7 is deprecated and will be removed in upcoming major versions. Read more and see the full schedule in the docs: https://docs.stripe.com/sdks/versioning?server=ruby#stripe-sdk-language-version-support-policy
 
 ### Bundler
 
@@ -55,8 +57,7 @@ gem 'stripe'
 ## Usage
 
 The library needs to be configured with your account's secret key which is
-available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
-value:
+available in your [Stripe Dashboard][api-keys]. Initialize a new client with your API key:
 
 ```ruby
 require 'stripe'

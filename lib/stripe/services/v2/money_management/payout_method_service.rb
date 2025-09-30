@@ -5,33 +5,6 @@ module Stripe
   module V2
     module MoneyManagement
       class PayoutMethodService < StripeService
-        class ListParams < Stripe::RequestParams
-          class UsageStatus < Stripe::RequestParams
-            # List of payments status to filter by.
-            attr_accessor :payments
-            # List of transfers status to filter by.
-            attr_accessor :transfers
-
-            def initialize(payments: nil, transfers: nil)
-              @payments = payments
-              @transfers = transfers
-            end
-          end
-          # The page size.
-          attr_accessor :limit
-          # Usage status filter.
-          attr_accessor :usage_status
-
-          def initialize(limit: nil, usage_status: nil)
-            @limit = limit
-            @usage_status = usage_status
-          end
-        end
-
-        class RetrieveParams < Stripe::RequestParams; end
-        class ArchiveParams < Stripe::RequestParams; end
-        class UnarchiveParams < Stripe::RequestParams; end
-
         # Archive a PayoutMethod object. Archived objects cannot be used as payout methods
         # and will not appear in the payout method list.
         #

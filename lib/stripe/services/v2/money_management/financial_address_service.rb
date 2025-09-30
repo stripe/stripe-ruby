@@ -5,42 +5,6 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAddressService < StripeService
-        class ListParams < Stripe::RequestParams
-          # The ID of the FinancialAccount for which FinancialAddresses are to be returned.
-          attr_accessor :financial_account
-          # Open Enum. A list of fields to reveal in the FinancialAddresses returned.
-          attr_accessor :include
-          # The page limit.
-          attr_accessor :limit
-
-          def initialize(financial_account: nil, include: nil, limit: nil)
-            @financial_account = financial_account
-            @include = include
-            @limit = limit
-          end
-        end
-
-        class CreateParams < Stripe::RequestParams
-          # The ID of the FinancialAccount the new FinancialAddress should be associated with.
-          attr_accessor :financial_account
-          # The type of FinancialAddress details to provision.
-          attr_accessor :type
-
-          def initialize(financial_account: nil, type: nil)
-            @financial_account = financial_account
-            @type = type
-          end
-        end
-
-        class RetrieveParams < Stripe::RequestParams
-          # Open Enum. A list of fields to reveal in the FinancialAddresses returned.
-          attr_accessor :include
-
-          def initialize(include: nil)
-            @include = include
-          end
-        end
-
         # Create a new FinancialAddress for a FinancialAccount.
         #
         # ** raises FinancialAccountNotOpenError

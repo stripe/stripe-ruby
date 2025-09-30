@@ -1,0 +1,257 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module Billing
+      class CadenceCreateParams < Stripe::RequestParams
+        class BillingCycle < Stripe::RequestParams
+          class Day < Stripe::RequestParams
+            class Time < Stripe::RequestParams
+              # The hour at which the billing cycle ends.
+              # This must be an integer between 0 and 23, inclusive.
+              # 0 represents midnight, and 23 represents 11 PM.
+              attr_accessor :hour
+              # The minute at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_accessor :minute
+              # The second at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_accessor :second
+
+              def initialize(hour: nil, minute: nil, second: nil)
+                @hour = hour
+                @minute = minute
+                @second = second
+              end
+            end
+            # The time at which the billing cycle ends.
+            # This field is optional, and if not provided, it will default to
+            # the time at which the cadence was created in UTC timezone.
+            attr_accessor :time
+
+            def initialize(time: nil)
+              @time = time
+            end
+          end
+
+          class Month < Stripe::RequestParams
+            class Time < Stripe::RequestParams
+              # The hour at which the billing cycle ends.
+              # This must be an integer between 0 and 23, inclusive.
+              # 0 represents midnight, and 23 represents 11 PM.
+              attr_accessor :hour
+              # The minute at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_accessor :minute
+              # The second at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_accessor :second
+
+              def initialize(hour: nil, minute: nil, second: nil)
+                @hour = hour
+                @minute = minute
+                @second = second
+              end
+            end
+            # The day to anchor the billing on for a type="month" billing cycle from
+            # 1-31. If this number is greater than the number of days in the month being
+            # billed, this will anchor to the last day of the month. If not provided,
+            # this will default to the day the cadence was created.
+            attr_accessor :day_of_month
+            # The month to anchor the billing on for a type="month" billing cycle from
+            # 1-12. If not provided, this will default to the month the cadence was created.
+            # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
+            # All occurrences will be calculated from month provided.
+            attr_accessor :month_of_year
+            # The time at which the billing cycle ends.
+            # This field is optional, and if not provided, it will default to
+            # the time at which the cadence was created in UTC timezone.
+            attr_accessor :time
+
+            def initialize(day_of_month: nil, month_of_year: nil, time: nil)
+              @day_of_month = day_of_month
+              @month_of_year = month_of_year
+              @time = time
+            end
+          end
+
+          class Week < Stripe::RequestParams
+            class Time < Stripe::RequestParams
+              # The hour at which the billing cycle ends.
+              # This must be an integer between 0 and 23, inclusive.
+              # 0 represents midnight, and 23 represents 11 PM.
+              attr_accessor :hour
+              # The minute at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_accessor :minute
+              # The second at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_accessor :second
+
+              def initialize(hour: nil, minute: nil, second: nil)
+                @hour = hour
+                @minute = minute
+                @second = second
+              end
+            end
+            # The day of the week to bill the type=week billing cycle on.
+            # Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
+            # week day numbering. If not provided, this will default to the day the
+            # cadence was created.
+            attr_accessor :day_of_week
+            # The time at which the billing cycle ends.
+            # This field is optional, and if not provided, it will default to
+            # the time at which the cadence was created in UTC timezone.
+            attr_accessor :time
+
+            def initialize(day_of_week: nil, time: nil)
+              @day_of_week = day_of_week
+              @time = time
+            end
+          end
+
+          class Year < Stripe::RequestParams
+            class Time < Stripe::RequestParams
+              # The hour at which the billing cycle ends.
+              # This must be an integer between 0 and 23, inclusive.
+              # 0 represents midnight, and 23 represents 11 PM.
+              attr_accessor :hour
+              # The minute at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_accessor :minute
+              # The second at which the billing cycle ends.
+              # Must be an integer between 0 and 59, inclusive.
+              attr_accessor :second
+
+              def initialize(hour: nil, minute: nil, second: nil)
+                @hour = hour
+                @minute = minute
+                @second = second
+              end
+            end
+            # The day to anchor the billing on for a type="month" billing cycle from
+            # 1-31. If this number is greater than the number of days in the month being
+            # billed, this will anchor to the last day of the month. If not provided,
+            # this will default to the day the cadence was created.
+            attr_accessor :day_of_month
+            # The month to bill on from 1-12. If not provided, this will default to the
+            # month the cadence was created.
+            attr_accessor :month_of_year
+            # The time at which the billing cycle ends.
+            # This field is optional, and if not provided, it will default to
+            # the time at which the cadence was created in UTC timezone.
+            attr_accessor :time
+
+            def initialize(day_of_month: nil, month_of_year: nil, time: nil)
+              @day_of_month = day_of_month
+              @month_of_year = month_of_year
+              @time = time
+            end
+          end
+          # The number of intervals (specified in the interval attribute) between
+          # cadence billings. For example, type=month and interval_count=3 bills every
+          # 3 months. If this is not provided, it will default to 1.
+          attr_accessor :interval_count
+          # The frequency at which a cadence bills.
+          attr_accessor :type
+          # Specific configuration for determining billing dates when type=day.
+          attr_accessor :day
+          # Specific configuration for determining billing dates when type=month.
+          attr_accessor :month
+          # Specific configuration for determining billing dates when type=week.
+          attr_accessor :week
+          # Specific configuration for determining billing dates when type=year.
+          attr_accessor :year
+
+          def initialize(interval_count: nil, type: nil, day: nil, month: nil, week: nil, year: nil)
+            @interval_count = interval_count
+            @type = type
+            @day = day
+            @month = month
+            @week = week
+            @year = year
+          end
+        end
+
+        class Payer < Stripe::RequestParams
+          # The ID of the Billing Profile object which determines how a bill will be paid.
+          attr_accessor :billing_profile
+
+          def initialize(billing_profile: nil)
+            @billing_profile = billing_profile
+          end
+        end
+
+        class Settings < Stripe::RequestParams
+          class Bill < Stripe::RequestParams
+            # The ID of the referenced settings object.
+            attr_accessor :id
+            # An optional field to specify the version of the Settings to use.
+            # If not provided, this will always default to the live version any time the settings are used.
+            attr_accessor :version
+
+            def initialize(id: nil, version: nil)
+              @id = id
+              @version = version
+            end
+          end
+
+          class Collection < Stripe::RequestParams
+            # The ID of the referenced settings object.
+            attr_accessor :id
+            # An optional field to specify the version of the Settings to use.
+            # If not provided, this will always default to the live version any time the settings are used.
+            attr_accessor :version
+
+            def initialize(id: nil, version: nil)
+              @id = id
+              @version = version
+            end
+          end
+          # Settings that configure bill generation, which includes calculating totals, tax, and presenting invoices.
+          # If no setting is provided here, the settings from the customer referenced on the payer will be used.
+          # If no customer settings are present, the merchant default settings will be used.
+          attr_accessor :bill
+          # Settings that configure and manage the behavior of collecting payments.
+          # If no setting is provided here, the settings from the customer referenced from the payer will be used if they exist.
+          # If no customer settings are present, the merchant default settings will be used.
+          attr_accessor :collection
+
+          def initialize(bill: nil, collection: nil)
+            @bill = bill
+            @collection = collection
+          end
+        end
+        # The billing cycle is the object that defines future billing cycle dates.
+        attr_accessor :billing_cycle
+        # Additional resource to include in the response.
+        attr_accessor :include
+        # A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
+        attr_accessor :lookup_key
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        attr_accessor :metadata
+        # The payer determines the entity financially responsible for the bill.
+        attr_accessor :payer
+        # The settings associated with the cadence.
+        attr_accessor :settings
+
+        def initialize(
+          billing_cycle: nil,
+          include: nil,
+          lookup_key: nil,
+          metadata: nil,
+          payer: nil,
+          settings: nil
+        )
+          @billing_cycle = billing_cycle
+          @include = include
+          @lookup_key = lookup_key
+          @metadata = metadata
+          @payer = payer
+          @settings = settings
+        end
+      end
+    end
+  end
+end

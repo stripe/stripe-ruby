@@ -6,17 +6,6 @@ module Stripe
     module Billing
       module Intents
         class ActionService < StripeService
-          class ListParams < Stripe::RequestParams
-            # Optionally set the maximum number of results per page. Defaults to 10.
-            attr_accessor :limit
-
-            def initialize(limit: nil)
-              @limit = limit
-            end
-          end
-
-          class RetrieveParams < Stripe::RequestParams; end
-
           # List Billing Intent Actions.
           def list(intent_id, params = {}, opts = {})
             request(

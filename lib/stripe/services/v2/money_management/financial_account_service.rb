@@ -5,66 +5,6 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountService < StripeService
-        class ListParams < Stripe::RequestParams
-          # The page limit.
-          attr_accessor :limit
-          # The status of the FinancialAccount to filter by. By default, closed FinancialAccounts are not returned.
-          attr_accessor :status
-
-          def initialize(limit: nil, status: nil)
-            @limit = limit
-            @status = status
-          end
-        end
-
-        class CreateParams < Stripe::RequestParams
-          class Storage < Stripe::RequestParams
-            # The currencies that this FinancialAccount can hold.
-            attr_accessor :holds_currencies
-
-            def initialize(holds_currencies: nil)
-              @holds_currencies = holds_currencies
-            end
-          end
-          # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
-          attr_accessor :display_name
-          # Metadata associated with the FinancialAccount.
-          attr_accessor :metadata
-          # Parameters specific to creating `storage` type FinancialAccounts.
-          attr_accessor :storage
-          # The type of FinancialAccount to create.
-          attr_accessor :type
-
-          def initialize(display_name: nil, metadata: nil, storage: nil, type: nil)
-            @display_name = display_name
-            @metadata = metadata
-            @storage = storage
-            @type = type
-          end
-        end
-
-        class RetrieveParams < Stripe::RequestParams; end
-
-        class CloseParams < Stripe::RequestParams
-          class ForwardingSettings < Stripe::RequestParams
-            # The address to send forwarded payments to.
-            attr_accessor :payment_method
-            # The address to send forwarded payouts to.
-            attr_accessor :payout_method
-
-            def initialize(payment_method: nil, payout_method: nil)
-              @payment_method = payment_method
-              @payout_method = payout_method
-            end
-          end
-          # The addresses to forward any incoming transactions to.
-          attr_accessor :forwarding_settings
-
-          def initialize(forwarding_settings: nil)
-            @forwarding_settings = forwarding_settings
-          end
-        end
-
         # Closes a FinancialAccount with or without forwarding settings.
         #
         # ** raises NonZeroBalanceError

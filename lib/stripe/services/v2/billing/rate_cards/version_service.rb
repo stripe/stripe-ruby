@@ -6,17 +6,6 @@ module Stripe
     module Billing
       module RateCards
         class VersionService < StripeService
-          class ListParams < Stripe::RequestParams
-            # Optionally set the maximum number of results per page. Defaults to 20.
-            attr_accessor :limit
-
-            def initialize(limit: nil)
-              @limit = limit
-            end
-          end
-
-          class RetrieveParams < Stripe::RequestParams; end
-
           # List the versions of a Rate Card object. Results are sorted in reverse chronological order (most recent first).
           def list(rate_card_id, params = {}, opts = {})
             request(

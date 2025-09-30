@@ -1,0 +1,36 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module Core
+      class ClaimableSandboxCreateParams < Stripe::RequestParams
+        class Prefill < Stripe::RequestParams
+          # Country in which the account holder resides, or in which the business is legally established.
+          # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_accessor :country
+          # Email that this sandbox is meant to be claimed by. Stripe will
+          # notify this email address before the sandbox expires.
+          attr_accessor :email
+          # Name for the sandbox. If not provided, this will be generated.
+          attr_accessor :name
+
+          def initialize(country: nil, email: nil, name: nil)
+            @country = country
+            @email = email
+            @name = name
+          end
+        end
+        # If true, returns a key that can be used with [Stripe's MCP server](https://docs.stripe.com/mcp).
+        attr_accessor :enable_mcp_access
+        # Values that are prefilled when a user claims the sandbox. When a user claims the sandbox, they will be able to update these values.
+        attr_accessor :prefill
+
+        def initialize(enable_mcp_access: nil, prefill: nil)
+          @enable_mcp_access = enable_mcp_access
+          @prefill = prefill
+        end
+      end
+    end
+  end
+end

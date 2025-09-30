@@ -2,7 +2,8 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.6
+  SuggestExtensions: false
 
 Layout/CaseIndentation:
   EnforcedStyle: end
@@ -72,14 +73,6 @@ Metrics/MethodLength:
     - initialize
     - inner_class_types
 
-# TODO(xavdid): remove this once the first `basil` release is out
-Naming/MethodName:
-  # these endpoints are removed soon so we pulled their overrides, meaning their names are wrong
-  # that won't make it out to users, but it's breaking linting/formatting in the meantime
-  Exclude:
-    - "lib/stripe/services/invoice_service.rb"
-    - "lib/stripe/resources/invoice.rb"
-
 Metrics/ModuleLength:
   Enabled: false
 
@@ -122,6 +115,9 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+  Exclude:
+    # RUN_DEVSDK-1956
+    - "lib/stripe/api_requestor.rb"
 
 Style/NumericPredicate:
   Enabled: false
@@ -266,6 +262,9 @@ Style/MapCompactWithConditionalBlock: # new in 1.30
   Enabled: true
 Style/MapToHash: # new in 1.24
   Enabled: true
+  Exclude:
+    # RUN_DEVSDK-1956
+    - "lib/stripe/api_requestor.rb"
 Style/MapToSet: # new in 1.42
   Enabled: true
 Style/MinMaxComparison: # new in 1.42

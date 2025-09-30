@@ -202,13 +202,13 @@ module Stripe
         value.respond_to?(:to_hash) ? value.to_hash : value
       end
 
-      @values.each_with_object({}) do |(key, value), acc|
-        acc[key] = case value
-                   when Array
-                     value.map(&maybe_to_hash)
-                   else
-                     maybe_to_hash.call(value)
-                   end
+      @values.transform_values do |value|
+        case value
+        when Array
+          value.map(&maybe_to_hash)
+        else
+          maybe_to_hash.call(value)
+        end
       end
     end
 
@@ -273,7 +273,7 @@ module Stripe
 
       # a `nil` that makes it out of `#serialize_params_value` signals an empty
       # value that we shouldn't appear in the serialized form of the object
-      update_hash.reject! { |_, v| v.nil? }
+      update_hash.compact!
 
       update_hash
     end

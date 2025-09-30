@@ -46,9 +46,6 @@ module Stripe
       client_config = StripeConfiguration.setup do |instance|
         imported_options.each do |key|
           instance.public_send("#{key}=", global_config.public_send(key)) if global_config.respond_to?(key)
-        rescue NotImplementedError => e
-          # In Ruby <= 2.5, we can't set write_timeout on Net::HTTP, log an error and continue
-          Util.log_error("Failed to set #{key} on client configuration: #{e}")
         end
       end
       client_config.reverse_duplicate_merge(config_opts)

@@ -132,9 +132,7 @@ module Stripe
 
     # Get options that are copyable from StripeObject to StripeObject
     def self.copyable(req_opts)
-      req_opts.select do |k, _v|
-        RequestOptions::OPTS_COPYABLE.include?(k)
-      end
+      req_opts.slice(*RequestOptions::OPTS_COPYABLE)
     end
   end
 end

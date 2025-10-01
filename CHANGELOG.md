@@ -4,6 +4,11 @@
 This release changes the pinned API version to `2025-09-30.preview`. It is built on top of SDK version 16.0.0 and 16.1.0-beta.1 which contain breaking changes. Please review the changelog for these versions if upgrading from older SDK versions.
 
 * [#1659](https://github.com/stripe/stripe-ruby/pull/1659) Update generated code for private-preview
+  * Add support for `paypay_payments` on `Account::Capability`, `Account::CreateParams::Capability`, and `Account::UpdateParams::Capability`
+  * Add support for `billing_cadence` on `Invoice::ListParams` and `Subscription::UpdateParams`
+  * Add support for `credit_grants` on `Billing::Alert::CreateParams::CreditBalanceThreshold::Filter`
+  * Add support for `payment_record_refund` and `type` on `CreditNote::CreateParams::Refund`, `CreditNote::ListPreviewLineItemsParams::Refund`, `CreditNote::PreviewParams::Refund`, and `CreditNote::Refund`
+
   * Add support for new resource `V2::MoneyManagement::RecipientVerification`
   * Add support for `acknowledge`, `create`, `recipient_verifications`, and `retrieve` methods on resource `V2::MoneyManagement::RecipientVerification`
   * Add support for `update` method on resources `V2::Billing::PricingPlanSubscription` and `V2::Billing::ServiceAction`
@@ -92,7 +97,7 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
        * Explicitly define methods for attributes in RBIs to allow Tapioca to reflect them
        * Ship combined RBI for shorter Tapioca time
 * [#1677](https://github.com/stripe/stripe-ruby/pull/1677) Move `V2.Event` API resources to `V2.Core.Events`
-  - ⚠️ Move `Stripe::V2::Event` and `Stripe::V2::EventDestination` to `Stripe::V2::Core::Event` and `Stripe::V2::Core::EventDestination` respectively. They now correctly match their API path 
+  - ⚠️ Move `Stripe::V2::Event` and `Stripe::V2::EventDestination` to `Stripe::V2::Core::Event` and `Stripe::V2::Core::EventDestination` respectively. They now correctly match their API path
 * [#1664](https://github.com/stripe/stripe-ruby/pull/1664) Add `StripeContext` object
   - Add the `StripeContext` class. Previously you could set the stripe_context to only a string value. Now you can use the new class as well
   - ⚠️ Change `EventNotification` (formerly known as `ThinEvent`)'s `context` property from `string` to `StripeContext`
@@ -118,7 +123,7 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
   * ⚠️ Resource and service request parameter types have been moved to the top-level and are shared.
     * For example, `Stripe::Account::CreateParams` and `Stripe::AccountService::CreateParams` have moved to `Stripe::AccountCreateParams`
     * This change only affects users who use Sorbet types for parameters
-    
+
 * [#1643](https://github.com/stripe/stripe-ruby/pull/1643), [#1667](https://github.com/stripe/stripe-ruby/pull/1667), [#1680](https://github.com/stripe/stripe-ruby/pull/1680), [#1678](https://github.com/stripe/stripe-ruby/pull/1678) Update generated code based on incoming API changes in the `2025-09-30.clover` API version.
   * ⚠️ Remove support for `balance_report` and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSession::CreateParams::Component`
   * Change `Invoice.id` to be required (i.e. not nilable).
@@ -153,18 +158,17 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
 
 ## 15.6.0-alpha.3 - 2025-09-17
 * [#1654](https://github.com/stripe/stripe-ruby/pull/1654) generate private-preview SDK w/ mid Sept changes
-  * Add support for `retrieve` method on resource `V2.Core.ClaimableSandbox`
-  * Add support for `month_of_year` on `V2.Billing.Cadence#create.billing_cycle.month` and `V2.Billing.Cadence.billing_cycle.month`
-  * Add support for `claimed_at`, `expires_at`, `sandbox_details`, and `status` on `V2.Core.ClaimableSandbox`
-  * Remove support for `api_keys` on `V2.Core.ClaimableSandbox`
-  * Change type of `V2.Core.ClaimableSandbox.claim_url` from `string` to `nullable(string)`
-  * Add support for new value `current_billing_period_end` on enums `V2.Billing.Intent#create.actions[].deactivate.effective_at.type` and `V2.Billing.IntentAction.deactivate.effective_at.type`
-  * Add support for `will_activate_at` and `will_cancel_at` on `V2.Billing.PricingPlanSubscription.servicing_status_transitions` and `V2.Billing.RateCardSubscription.servicing_status_transitions`
-  * Add support for `category` and `priority` on `V2.Billing.ServiceAction#create.credit_grant_per_tenant`, `V2.Billing.ServiceAction#create.credit_grant`, `V2.Billing.ServiceAction.credit_grant_per_tenant`, and `V2.Billing.ServiceAction.credit_grant`
-  * Change `V2.Billing.LicenseFee#update.display_name` to be optional
+  * Add support for `retrieve` method on resource `V2::Core::ClaimableSandbox`
+  * Add support for `month_of_year` on `V2::Billing::Cadence::BillingCycle::Month` and `V2::Billing::Cadence::CreateParams::BillingCycle::Month`
+  * Add support for `claimed_at`, `expires_at`, `sandbox_details`, and `status` on `V2::Core::ClaimableSandbox`
+  * Remove support for `api_keys` on `V2::Core::ClaimableSandbox`
+  * Change type of `V2::Core::ClaimableSandbox.claim_url` from `string` to `nullable(string)`
+  * Add support for `will_activate_at` and `will_cancel_at` on `V2::Billing::PricingPlanSubscription::ServicingStatusTransition` and `V2::Billing::RateCardSubscription::ServicingStatusTransition`
+  * Add support for `category` and `priority` on `V2::Billing::ServiceAction::CreateParams::CreditGrantPerTenant`, `V2::Billing::ServiceAction::CreateParams::CreditGrant`, `V2::Billing::ServiceAction::CreditGrantPerTenant`, and `V2::Billing::ServiceAction::CreditGrant`
+  * Change `V2::Billing::LicenseFee::UpdateParams.display_name`  to be optional
   * Add support for `invoices` on `EventsV2BillingCadenceBilledEvent`
-  * Add support for thin events `V2CoreClaimableSandboxClaimedEvent`, `V2CoreClaimableSandboxExpiredEvent`, `V2CoreClaimableSandboxExpiringEvent`, and `V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent` with related object `V2.Core.ClaimableSandbox`
-  * Remove support for thin event `V2BillingCadenceErroredEvent` with related object `V2.Billing.Cadence`
+  * Add support for thin events `V2CoreClaimableSandboxClaimedEvent`, `V2CoreClaimableSandboxExpiredEvent`, `V2CoreClaimableSandboxExpiringEvent`, and `V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent` with related object `V2::Core::ClaimableSandbox`
+  * Remove support for thin event `V2BillingCadenceErroredEvent` with related object `V2::Billing::Cadence`
 
 ## 15.6.0-alpha.2 - 2025-09-02
 * [#1642](https://github.com/stripe/stripe-ruby/pull/1642) Deserialize inner types in resources for more detailed types

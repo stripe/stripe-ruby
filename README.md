@@ -37,9 +37,9 @@ gem build stripe.gemspec
 
 ### Requirements
 
-Per our [Language Version Support Policy](https://docs.stripe.com/sdks/versioning?server=ruby#stripe-sdk-language-version-support-policy), we currently support **Ruby 2.6+**.
+Per our [Language Version Support Policy](https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy), we currently support **Ruby 2.6+**.
 
-Support for Ruby 2.6 and 2.7 is deprecated and will be removed in upcoming major versions. Read more and see the full schedule in the docs: https://docs.stripe.com/sdks/versioning?server=ruby#stripe-sdk-language-version-support-policy
+Support for Ruby 2.6 and 2.7 is deprecated and will be removed in upcoming major versions. Read more and see the full schedule in the docs: https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy
 
 ### Bundler
 

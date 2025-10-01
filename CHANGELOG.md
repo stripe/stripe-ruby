@@ -81,7 +81,7 @@ This release changes the pinned API version to `2025-09-30.preview`. It is built
   * Add support for `billed_until` on `SubscriptionItem`
 
 ## 16.0.0 - 2025-09-30
-This release changes the pinned API version to `2025-09-30.basil` and contains breaking changes (prefixed with ⚠️ below)
+This release changes the pinned API version to `2025-09-30.clover` and contains breaking changes (prefixed with ⚠️ below)
 
 * [#1652](https://github.com/stripe/stripe-ruby/pull/1652) ⚠️  Deserialize inner types in resources for more detailed types
   * ⚠️ Deserialize inner classes, so inner class types will now reflect generated inner classes
@@ -119,7 +119,7 @@ This release changes the pinned API version to `2025-09-30.basil` and contains b
     * For example, `Stripe::Account::CreateParams` and `Stripe::AccountService::CreateParams` have moved to `Stripe::AccountCreateParams`
     * This change only affects users who use Sorbet types for parameters
     
-* [#1643](https://github.com/stripe/stripe-ruby/pull/1643), [#1667](https://github.com/stripe/stripe-ruby/pull/1667), [#1680](https://github.com/stripe/stripe-ruby/pull/1680), [#1678](https://github.com/stripe/stripe-ruby/pull/1678) Update generated code based on incoming API changes in the `2025-09-30.basil` API version.
+* [#1643](https://github.com/stripe/stripe-ruby/pull/1643), [#1667](https://github.com/stripe/stripe-ruby/pull/1667), [#1680](https://github.com/stripe/stripe-ruby/pull/1680), [#1678](https://github.com/stripe/stripe-ruby/pull/1678) Update generated code based on incoming API changes in the `2025-09-30.clover` API version.
   * ⚠️ Remove support for `balance_report` and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSession::CreateParams::Component`
   * Change `Invoice.id` to be required (i.e. not nilable).
   * Add support for new resource `BalanceSettings`

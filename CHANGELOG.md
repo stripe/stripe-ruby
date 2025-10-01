@@ -1,5 +1,128 @@
 # Changelog
 
+## 16.1.0-beta.1 - 2025-09-30
+This release changes the pinned API version to `2025-09-30.preview`. It is built on top of SDK version 18.0.0 which contains breaking changes. Please review the [changelog for 16.0.0](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1600---2025-09-30) if upgrading from older SDK versions.
+* [#1671](https://github.com/stripe/stripe-ruby/pull/1671) Update generated code for beta
+  * Add support for `attach_cadence` method on resource `Subscription`
+  * Add support for `billing_cadence` on `Invoice::CreatePreviewParams`, `Subscription::CreateParams`, `Subscription::UpdateParams`, and `Subscription`
+  * Add support for `billing_cadence_details` on `Invoice::Parent` and `QuotePreviewInvoice::Parent`
+* [#1662](https://github.com/stripe/stripe-ruby/pull/1662) Update generated code for beta
+  * Add support for new resources `V2::Billing::BillSettingVersion`, `V2::Billing::BillSetting`, `V2::Billing::Cadence`, `V2::Billing::CollectionSettingVersion`, `V2::Billing::CollectionSetting`, and `V2::Billing::Profile`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resources `V2::Billing::BillSetting`, `V2::Billing::CollectionSetting`, and `V2::Billing::Profile`
+  * Add support for `list` and `retrieve` methods on resources `V2::Billing::BillSettingVersion` and `V2::Billing::CollectionSettingVersion`
+  * Add support for `cancel`, `create`, `list`, `retrieve`, and `update` methods on resource `V2::Billing::Cadence`
+  * Add support for `profile` on `V2::Core::Account::CreateParams::Default`, `V2::Core::Account::Default`, and `V2::Core::Account::UpdateParams::Default`
+  * Add support for `i_p` on `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Attestation::DirectorshipDeclaration`, `V2::Core::Account::Identity::Attestation::OwnershipDeclaration`, `V2::Core::Account::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Individual::AdditionalTermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Person::AdditionalTermsOfService::Account`, `V2::Core::Person::CreateParams::AdditionalTermsOfService::Account`, and `V2::Core::Person::UpdateParams::AdditionalTermsOfService::Account`
+  * Remove support for `ip` on `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Attestation::DirectorshipDeclaration`, `V2::Core::Account::Identity::Attestation::OwnershipDeclaration`, `V2::Core::Account::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Individual::AdditionalTermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Person::AdditionalTermsOfService::Account`, `V2::Core::Person::CreateParams::AdditionalTermsOfService::Account`, and `V2::Core::Person::UpdateParams::AdditionalTermsOfService::Account`
+  * Remove support for `doing_business_as`, `product_description`, and `url` on `V2::Core::Account::CreateParams::Identity::BusinessDetail`, `V2::Core::Account::Identity::BusinessDetail`, and `V2::Core::Account::UpdateParams::Identity::BusinessDetail`
+  * Add support for `settlement_currency` on `V2::MoneyManagement::FinancialAddress`
+  * Add support for `sepa_bank_account` on `V2::MoneyManagement::FinancialAddress::Credential` and `V2::MoneyManagement::ReceivedCredit::BankTransfer`
+  * Add support for `amount_details` and `payments_orchestration` on `V2::Payments::OffSessionPayment::CreateParams` and `V2::Payments::OffSessionPayment`
+  * Add support for `retry_policy` on `V2::Payments::OffSessionPayment::CreateParams::RetryDetail` and `V2::Payments::OffSessionPayment::RetryDetail`
+  * Change type of `V2::MoneyManagement::OutboundPaymentQuote::FxQuote.lock_duration` from `literal('five_minutes')` to `enum('five_minutes'|'none')`
+  * Change type of `V2::MoneyManagement::OutboundPaymentQuote::FxQuote.lock_expires_at` from `DateTime` to `nullable(DateTime)`
+  * Add support for `origin_type` on `V2::MoneyManagement::ReceivedCredit::BankTransfer`
+  * Remove support for `payment_method_type` on `V2::MoneyManagement::ReceivedCredit::BankTransfer`
+  * Add support for `mandate_data` and `payment_method_options` on `V2::Payments::OffSessionPayment::CreateParams`
+  * Add support for `type` on `V2::MoneyManagement::FinancialAddress::CreateParams`
+  * Remove support for `currency` on `V2::MoneyManagement::FinancialAddress::CreateParams`
+  * Add support for thin event `V2BillingBillSettingUpdatedEvent` with related object `V2::Billing::BillSetting`
+  * Add support for error type `RateLimitError`
+* [#1639](https://github.com/stripe/stripe-ruby/pull/1639) Update generated code for beta
+  * Add support for new resources `Billing::Analytics::MeterUsageRow` and `Billing::Analytics::MeterUsage`
+  * Remove support for resources `Billing::MeterUsageRow` and `Billing::MeterUsage`
+  * Add support for `retrieve` method on resource `Billing::Analytics::MeterUsage`
+  * Remove support for `retrieve` method on resource `Billing::MeterUsage`
+  * Add support for `report_payment_attempt_informational` method on resource `PaymentRecord`
+  * Add support for `minimum_balance_by_currency` on `BalanceSettings::Payment::Payout` and `BalanceSettings::UpdateParams::Payment::Payout`
+  * Change type of `BalanceSettings::UpdateParams::Payment::SettlementTiming.delay_days_override` from `longInteger` to `emptyable(longInteger)`
+  * Change `BalanceSettings::UpdateParams.payments` to be optional
+  * Add support for `delay_days_override` on `BalanceSettings::Payment::SettlementTiming`
+  * Add support for `automatic_tax` and `invoice_creation` on `Checkout::Session::UpdateParams`
+  * Add support for `unit_label` on `Checkout::Session::UpdateParams::LineItem::PriceDatum::ProductDatum`
+  * Add support for `invoice_settings` on `Checkout::Session::UpdateParams::SubscriptionDatum`
+  * Change `Checkout::Session::CollectedInformation.business_name` to be required
+  * Add support for `intended_submission_method` on `Dispute::UpdateParams` and `Dispute`
+  * Change type of `Dispute::SmartDispute.recommended_evidence` from `string` to `array(string)`
+  * Add support for `pix` on `Invoice::CreateParams::PaymentSetting::PaymentMethodOption`, `Invoice::PaymentSetting::PaymentMethodOption`, `Invoice::UpdateParams::PaymentSetting::PaymentMethodOption`, `QuotePreviewInvoice::PaymentSetting::PaymentMethodOption`, `Subscription::CreateParams::PaymentSetting::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, and `Subscription::UpdateParams::PaymentSetting::PaymentMethodOption`
+  * Add support for `billing_schedules` on `Invoice::CreatePreviewParams::SubscriptionDetail`, `Subscription::CreateParams`, `Subscription::UpdateParams`, and `Subscription`
+  * Add support for `paypay` on `PaymentAttemptRecord::PaymentMethodDetail` and `PaymentRecord::PaymentMethodDetail`
+  * Add support for `wallet` on `PaymentAttemptRecord::PaymentMethodDetail::Card` and `PaymentRecord::PaymentMethodDetail::Card`
+  * Change type of `PaymentAttemptRecord::ProcessorDetail::Custom.payment_reference` and `PaymentRecord::ProcessorDetail::Custom.payment_reference` from `string` to `nullable(string)`
+  * Add support for `flexible` on `QuotePreviewSubscriptionSchedule::BillingMode`
+  * Add support for `billed_until` on `SubscriptionItem`
+
+## 16.0.0 - 2025-09-30
+This release changes the pinned API version to `2025-09-30.basil` and contains breaking changes (prefixed with ⚠️ below)
+
+* [#1652](https://github.com/stripe/stripe-ruby/pull/1652) ⚠️  Deserialize inner types in resources for more detailed types
+  * ⚠️ Deserialize inner classes, so inner class types will now reflect generated inner classes
+    * For example, `Stripe::Customer.address` is deserialized to specific a `Stripe::Customer::Address` class instead of the generic `Stripe::StripeObject`, as is suggested by the static type annotations
+    * This should not affect any normal use cases of the SDK, as inner types remain children of `Stripe::StripeObject`
+* [#1649](https://github.com/stripe/stripe-ruby/pull/1649) Explicitly define methods for RBIs and ship combined RBI for Tapioca
+  * Improvements for Tapioca
+       * Explicitly define methods for attributes in RBIs to allow Tapioca to reflect them
+       * Ship combined RBI for shorter Tapioca time
+* [#1677](https://github.com/stripe/stripe-ruby/pull/1677) Move `V2.Event` API resources to `V2.Core.Events`
+  - ⚠️ Move `Stripe::V2::Event` and `Stripe::V2::EventDestination` to `Stripe::V2::Core::Event` and `Stripe::V2::Core::EventDestination` respectively. They now correctly match their API path 
+* [#1664](https://github.com/stripe/stripe-ruby/pull/1664) Add `StripeContext` object
+  - Add the `StripeContext` class. Previously you could set the stripe_context to only a string value. Now you can use the new class as well
+  - ⚠️ Change `EventNotification` (formerly known as `ThinEvent`)'s `context` property from `string` to `StripeContext`
+* [#1684](https://github.com/stripe/stripe-ruby/pull/1684) ⚠️ Drop support for Ruby < 2.6 & clarify version policy
+  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?server=ruby#stripe-sdk-language-version-support-policy)
+      - ⚠️ In this release, we drop support for Ruby 2.3, 2.4, and 2.5
+      -  Ruby 2.6 support is deprecated and will be removed in the next scheduled major release (March 2026)
+* [#1651](https://github.com/stripe/stripe-ruby/pull/1651) ⚠️ Build SDK w/ V2 OpenAPI spec
+  - ⚠️ The delete methods for v2 APIs (the ones in the `StripeClient.v2` namespace) now return a `V2DeletedObject` which has the id of the object that has been deleted and a string representing the type of the object that has been deleted.
+  - ⚠️ Deeply nested param hashes with no properties no longer have classes generated for them. Instead, they're typed as `T::Hash[String, T.untyped]`. Because there were no params, it's unlikely you were using these classes.
+* [#1650](https://github.com/stripe/stripe-ruby/pull/1650) ⚠️ Add strongly typed EventNotifications
+  We've overhauled how V2 Events are handled in the SDK! This approach should provide a lot more information at authoring and compile time, leading to more robust integrations. As part of this process, there are a number of changes to be aware of.
+  - Added matching `EventNotification` classes to every v2 `Event`
+    - For example, there's now a `V1BillingMeterErrorReportTriggeredEventNotification` to match the existing `V1BillingMeterErrorReportTriggeredEvent`
+    - Each notification class defines a `fetch_event()` method to retrieve its corresponding event
+    - For events with related objects, there's a `fetch_related_object()` method that performs the API call and casts the response to the correct type on both the `EventNotification` and `Event`.
+  - ⚠️ Rename function `StripeClient.parse_thin_event` to `StripeClient.parse_event_notification` and remove the `Stripe::ThinEvent` class.
+      - This function now returns a `Stripe::V2::Core::EventNotification` (which is the shared base class that all of the more specific `Stripe::Event::*EventNotification` classes  share) instead of `Stripe::ThinEvent`. When applicable, these event notifications will have the `relatedObject` property and a `fetch_related_object()` function. They also have a `fetch_event()` method to retrieve their corresponding `Stripe::Events::*Event` instance.
+      - If you parse an event the SDK doesn't have types for (e.g. it's newer than the SDK you're using), you'll get an instance of `Stripe::Events::UnknownEventNotification` instead of a more specific type. It has both the `related_object` property and the `fetch_related_object()` function (but they may be/return `nil`)
+  - ⚠️ Move all Event Classes into the `Events` module
+    - For example, `Stripe::V1BillingMeterErrorReportTriggeredEvent` is now `Stripe::Events::V1BillingMeterErrorReportTriggeredEvent`
+* [#1670](https://github.com/stripe/stripe-ruby/pull/1670) ⚠️ Unify resource and service method parameters into one class
+  * ⚠️ Resource and service request parameter types have been moved to the top-level and are shared.
+    * For example, `Stripe::Account::CreateParams` and `Stripe::AccountService::CreateParams` have moved to `Stripe::AccountCreateParams`
+    * This change only affects users who use Sorbet types for parameters
+    
+* [#1643](https://github.com/stripe/stripe-ruby/pull/1643), [#1667](https://github.com/stripe/stripe-ruby/pull/1667), [#1680](https://github.com/stripe/stripe-ruby/pull/1680), [#1678](https://github.com/stripe/stripe-ruby/pull/1678) Update generated code based on incoming API changes in the `2025-09-30.basil` API version.
+  * ⚠️ Remove support for `balance_report` and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSession::CreateParams::Component`
+  * Change `Invoice.id` to be required (i.e. not nilable).
+  * Add support for new resource `BalanceSettings`
+  * Add support for `retrieve` and `update` methods on resource `BalanceSettings`
+  * Add support for `source` on `Discount`
+  * Remove support for `coupon` on `Discount`, `PromotionCode::CreateParams`, and `PromotionCode`
+  * Add support for `mb_way_payments`on `Account::Capability`, `Account::CreateParams::Capability`, and `Account::UpdateParams::Capability`
+  * Add support for `trial_update_behavior` on `BillingPortal::Configuration::CreateParams::Feature::SubscriptionUpdate`, `BillingPortal::Configuration::Feature::SubscriptionUpdate`, and `BillingPortal::Configuration::UpdateParams::Feature::SubscriptionUpdate`
+  * Add support for `mb_way` on `Charge::PaymentMethodDetail`, `ConfirmationToken::CreateParams::PaymentMethodDatum`, `ConfirmationToken::PaymentMethodPreview`, `PaymentIntent::ConfirmParams::PaymentMethodDatum`, `PaymentIntent::ConfirmParams::PaymentMethodOption`, `PaymentIntent::CreateParams::PaymentMethodDatum`, `PaymentIntent::CreateParams::PaymentMethodOption`, `PaymentIntent::PaymentMethodOption`, `PaymentIntent::UpdateParams::PaymentMethodDatum`, `PaymentIntent::UpdateParams::PaymentMethodOption`, `PaymentMethod::CreateParams`, `PaymentMethod`, `SetupIntent::ConfirmParams::PaymentMethodDatum`, `SetupIntent::CreateParams::PaymentMethodDatum`, and `SetupIntent::UpdateParams::PaymentMethodDatum`
+  * Add support for `branding_settings` and `name_collection` on `Checkout::Session::CreateParams` and `Checkout::Session`
+  * Add support for `excluded_payment_method_types` on `Checkout::Session::CreateParams`, `Checkout::Session`, `PaymentIntent::ConfirmParams`, and `PaymentIntent::UpdateParams`
+  * Add support for `unit_label` on `Checkout::Session::CreateParams::LineItem::PriceDatum::ProductDatum`, `Invoice::AddLinesParams::Line::PriceDatum::ProductDatum`, `Invoice::UpdateLinesParams::Line::PriceDatum::ProductDatum`, `InvoiceLineItem::UpdateParams::PriceDatum::ProductDatum`, and `PaymentLink::CreateParams::LineItem::PriceDatum::ProductDatum`
+  * Add support for `alma`, `billie`, and `satispay` on `Checkout::Session::CreateParams::PaymentMethodOption` and `Checkout::Session::PaymentMethodOption`
+  * Add support for `demo_pay` on `Checkout::Session::CreateParams::PaymentMethodOption`
+  * Add support for `capture_method` on `Checkout::Session::CreateParams::PaymentMethodOption::Affirm`, `Checkout::Session::CreateParams::PaymentMethodOption::AfterpayClearpay`, `Checkout::Session::CreateParams::PaymentMethodOption::AmazonPay`, `Checkout::Session::CreateParams::PaymentMethodOption::Card`, `Checkout::Session::CreateParams::PaymentMethodOption::Cashapp`, `Checkout::Session::CreateParams::PaymentMethodOption::Klarna`, `Checkout::Session::CreateParams::PaymentMethodOption::Link`, `Checkout::Session::CreateParams::PaymentMethodOption::Mobilepay`, `Checkout::Session::CreateParams::PaymentMethodOption::RevolutPay`, `Checkout::Session::PaymentMethodOption::Affirm`, `Checkout::Session::PaymentMethodOption::AfterpayClearpay`, `Checkout::Session::PaymentMethodOption::AmazonPay`, `Checkout::Session::PaymentMethodOption::Card`, `Checkout::Session::PaymentMethodOption::Cashapp`, `Checkout::Session::PaymentMethodOption::Klarna`, `Checkout::Session::PaymentMethodOption::Link`, `Checkout::Session::PaymentMethodOption::Mobilepay`, and `Checkout::Session::PaymentMethodOption::RevolutPay`
+  * Add support for `flexible` on `Checkout::Session::CreateParams::SubscriptionDatum::BillingMode`, `Invoice::CreatePreviewParams::ScheduleDetail::BillingMode`, `Invoice::CreatePreviewParams::SubscriptionDetail::BillingMode`, `Quote::CreateParams::SubscriptionDatum::BillingMode`, `Quote::SubscriptionDatum::BillingMode`, `Subscription::BillingMode`, `Subscription::CreateParams::BillingMode`, `Subscription::MigrateParams::BillingMode`, `SubscriptionSchedule::BillingMode`, and `SubscriptionSchedule::CreateParams::BillingMode`
+  * Add support for `business_name` and `individual_name` on `Checkout::Session::CollectedInformation`, `Checkout::Session::CustomerDetail`, `Customer::CreateParams`, `Customer::UpdateParams`, and `Customer`
+  * Add support for `chargeback_loss_reason_code` on `Dispute::PaymentMethodDetail::Klarna`
+  * Add support for `net_amount` and `proration_details` on `InvoiceItem`
+  * Remove support for `iterations` on `Invoice::CreatePreviewParams::ScheduleDetail::Phase`, `SubscriptionSchedule::CreateParams::Phase`, and `SubscriptionSchedule::UpdateParams::Phase`
+  * Add support for `fraud_disputability_likelihood` and `risk_assessment` on `Issuing::Authorization::CreateParams`
+  * Add support for `second_line` on `Issuing::Card`
+  * Add support for `fr_meal_voucher_conecs` on `PaymentMethodConfiguration::CreateParams` and `PaymentMethodConfiguration::UpdateParams`
+  * Remove support for `link` and `pay_by_bank` on `PaymentMethod::UpdateParams`
+  * Add support for `promotion` on `PromotionCode::CreateParams` and `PromotionCode`
+  * Add support for `provider` on `Tax::Settings::Default`
+  * Add support for `bbpos_wisepad3` on `Terminal::Configuration::CreateParams`, `Terminal::Configuration::UpdateParams`, and `Terminal::Configuration`
+  * Add support for `address_kana`, `address_kanji`, `display_name_kana`, `display_name_kanji`, and `phone` on `Terminal::Location::CreateParams`, `Terminal::Location::UpdateParams`, and `Terminal::Location`
+  * Change `Terminal::Location::CreateParams.address` to be optional
+  * Change `Terminal::Location::CreateParams.display_name` to be optional
+
 ## 15.6.0-beta.1 - 2025-08-27
 This release changes the pinned API version to `2025-08-27.preview`.
 

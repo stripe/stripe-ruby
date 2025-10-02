@@ -30,16 +30,15 @@ post "/webhook" do
 
   if event_notification.instance_of?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
     # there's basic info about the related object in the notification
-    puts "Received event for meter", event_notification.related_object.id
+    puts "Received event for meter id:", event_notification.related_object.id
 
-    # but you can also fetch it if you need more info
+    # or you can fetch the full object form the API for more details
     meter = event_notification.fetch_related_object
-    puts "Meter name:", meter.display_name
+    puts "Meter #{meter.display_name} (#{meter.id}) had a problem"
 
-    # there's often more information on the actual event
+    # And you can always fetch the full event:
     event = event_notification.fetch_event
-
-    puts "Meter had an error", event.data.developer_message_summary
+    puts "More info:", event.data.developer_message_summary
   elsif event_notification.instance_of?(Stripe::Events::UnknownEventNotification)
     # this is a valid event type, but it's newer than this SDK, so there's no corresponding class
     # we'll have to match on "type" instead

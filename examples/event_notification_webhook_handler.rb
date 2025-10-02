@@ -41,8 +41,8 @@ post "/webhook" do
 
     puts "Meter had an error", event.data.developer_message_summary
   elsif event_notification.instance_of?(Stripe::Events::UnknownEventNotification)
-    # this is a valid event type, but this SDK predates it
-    # we'll have to match on type instead
+    # this is a valid event type, but it's newer than this SDK, so there's no corresponding class
+    # we'll have to match on "type" instead
     if event_notification.type == "some.new.event"
       # your logic goes here
     end

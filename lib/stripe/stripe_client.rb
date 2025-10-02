@@ -43,7 +43,7 @@ module Stripe
         connect_base: connect_base,
         meter_events_base: meter_events_base,
         client_id: client_id,
-      }.reject { |_k, v| v.nil? }
+      }.compact
 
       config = StripeConfiguration.client_init(config_opts)
       @requestor = APIRequestor.new(config)

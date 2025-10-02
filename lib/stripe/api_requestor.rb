@@ -572,8 +572,10 @@ module Stripe
         headers["Content-Type"] = content_type
 
         # `#to_s` any complex objects like files and the like to build output
-        # that's more condusive to logging.
+        # that's more conducive to logging.
         flattened_params =
+          # https://go/j/RUN_DEVSDK-1956 - this is probably a bug
+          # once fixed, you can remove the exclusions referencing this ticket in .rubocop.yml
           flattened_params.map { |k, v| [k, v.is_a?(String) ? v : v.to_s] }.to_h
 
       elsif api_mode == :v2

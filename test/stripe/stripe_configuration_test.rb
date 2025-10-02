@@ -126,7 +126,7 @@ module Stripe
         @client_opts[:api_key] = "client_test_123"
         @client_opts[:stripe_account] = "client_acct_123"
         @client_opts[:uploads_base] = "client_uploads_base.stripe.com"
-        @client_opts.reject! { |_k, v| v.nil? }
+        @client_opts.compact!
 
         client_config = Stripe::StripeConfiguration.client_init(@client_opts)
 

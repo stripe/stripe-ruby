@@ -334,7 +334,7 @@ module Stripe
     def self.valid_variable_name?(key)
       return false if key.empty? || key[0] !~ LEGAL_FIRST_CHARACTER
 
-      key[1..-1].chars.all? { |char| char =~ LEGAL_VARIABLE_CHARACTER }
+      key[1..].chars.all? { |char| char =~ LEGAL_VARIABLE_CHARACTER }
     end
 
     def self.check_string_argument!(key)
@@ -434,7 +434,7 @@ module Stripe
     private_class_method :level_name
 
     def self.log_internal(message, data = {}, color:, level:, logger:, out:)
-      data_str = data.reject { |_k, v| v.nil? }
+      data_str = data.compact
                      .map do |(k, v)|
         format("%<key>s=%<value>s",
                key: colorize(k, color, logger.nil? && !out.nil? && out.isatty),

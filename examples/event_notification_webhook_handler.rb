@@ -7,10 +7,12 @@
 # In this example, we:
 #     - create a StripeClient called client
 #     - use client.parse_event_notification to parse the received event notification webhook body
-#     - call client.v2.core.events.retrieve to retrieve the full event object
+#     - call event_notification.fetch_event to retrieve the full event object
 #     - if it is a V1BillingMeterErrorReportTriggeredEvent event type, call
-#       event.fetchRelatedObject to retrieve the Billing Meter object associated
+#       event_notification.fetch_related_object to retrieve the Billing Meter object associated
 #       with the event.
+#     - if it is an UnknownEventNotification, check the type property to see if it matches
+#       a known event type and handle it accordingly
 
 require "stripe"
 require "sinatra"
@@ -27,9 +29,23 @@ post "/webhook" do
   event_notification = client.parse_event_notification(webhook_body, sig_header, webhook_secret)
 
   if event_notification.instance_of?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
+    # there's basic info about the related object in the notification
+    puts "Received event for meter", event_notification.related_object.id
+
+    # but you can also fetch it if you need more info
     meter = event_notification.fetch_related_object
-    meter_id = meter.id
-    puts "Success!", meter_id
+    puts "Meter name:", meter.display_name
+
+    # there's often more information on the actual event
+    event = event_notification.fetch_event
+
+    puts "Meter had an error", event.data.developer_message_summary
+  elsif event_notification.instance_of?(Stripe::Events::UnknownEventNotification)
+    # this is a valid event type, but this SDK predates it
+    # we'll have to match on type instead
+    if event_notification.type == "some.new.event"
+      # your logic goes here
+    end
   end
 
   # Record the failures and alert your team

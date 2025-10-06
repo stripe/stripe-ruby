@@ -5,10 +5,11 @@ This release changes the pinned API version to `2025-09-30.preview`. It is built
 
 * [#1659](https://github.com/stripe/stripe-ruby/pull/1659) Update generated code for private-preview
   * Add support for `paypay_payments` on `Account::Capability`, `Account::CreateParams::Capability`, and `Account::UpdateParams::Capability`
-  * Add support for `billing_cadence` on `Invoice::ListParams` and `Subscription::UpdateParams`
+  * Add support for `billing_cadence` on `Invoice::ListParams`
   * Add support for `credit_grants` on `Billing::Alert::CreateParams::CreditBalanceThreshold::Filter`
   * Add support for `payment_record_refund` and `type` on `CreditNote::CreateParams::Refund`, `CreditNote::ListPreviewLineItemsParams::Refund`, `CreditNote::PreviewParams::Refund`, and `CreditNote::Refund`
-
+  * Add support for `paypay` on `Charge::PaymentMethodDetail`, `ConfirmationToken::CreateParams::PaymentMethodDatum`, `ConfirmationToken::PaymentMethodPreview`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::ConfirmParams::PaymentMethodDatum`, `PaymentIntent::ConfirmParams::PaymentMethodOption`, `PaymentIntent::CreateParams::PaymentMethodDatum`, `PaymentIntent::CreateParams::PaymentMethodOption`, `PaymentIntent::PaymentMethodOption`, `PaymentIntent::UpdateParams::PaymentMethodDatum`, `PaymentIntent::UpdateParams::PaymentMethodOption`, `PaymentMethod::CreateParams`, `PaymentMethodConfiguration::CreateParams`, `PaymentMethodConfiguration::UpdateParams`, `PaymentMethodConfiguration`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupIntent::ConfirmParams::PaymentMethodDatum`, `SetupIntent::CreateParams::PaymentMethodDatum`, and `SetupIntent::UpdateParams::PaymentMethodDatum`
+  * Add support for `location` and `reader` on `Charge::PaymentMethodDetail::Paynow`
   * Add support for new resource `V2::MoneyManagement::RecipientVerification`
   * Add support for `acknowledge`, `create`, `recipient_verifications`, and `retrieve` methods on resource `V2::MoneyManagement::RecipientVerification`
   * Add support for `update` method on resources `V2::Billing::PricingPlanSubscription` and `V2::Billing::ServiceAction`

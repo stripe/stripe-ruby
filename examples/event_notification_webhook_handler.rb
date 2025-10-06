@@ -23,7 +23,7 @@ webhook_secret = ENV.fetch("WEBHOOK_SECRET", nil)
 
 client = Stripe::StripeClient.new(api_key)
 
-post "/webhook" do
+
   webhook_body = request.body.read
   sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
   event_notification = client.parse_event_notification(webhook_body, sig_header, webhook_secret)
@@ -40,8 +40,10 @@ post "/webhook" do
     event = event_notification.fetch_event
     puts "More info:", event.data.developer_message_summary
   elsif event_notification.instance_of?(Stripe::Events::UnknownEventNotification)
-    # this is a valid event type, but it's newer than this SDK, so there's no corresponding class
-    # we'll have to match on "type" instead
+    # Events that were introduced after this SDK version release are
+    # represented as `UnknownEventNotification`s.
+    # They're valid, the SDK just doesn't have corresponding classes for them.
+    # You must match on the "type" property instead.
     if event_notification.type == "some.new.event"
       # your logic goes here
     end

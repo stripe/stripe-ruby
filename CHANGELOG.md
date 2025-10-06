@@ -103,7 +103,7 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
   - Add the `StripeContext` class. Previously you could set the stripe_context to only a string value. Now you can use the new class as well
   - ⚠️ Change `EventNotification` (formerly known as `ThinEvent`)'s `context` property from `string` to `StripeContext`
 * [#1684](https://github.com/stripe/stripe-ruby/pull/1684) ⚠️ Drop support for Ruby < 2.6 & clarify version policy
-  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?server=ruby#stripe-sdk-language-version-support-policy)
+  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy)
       - ⚠️ In this release, we drop support for Ruby 2.3, 2.4, and 2.5
       -  Ruby 2.6 support is deprecated and will be removed in the next scheduled major release (March 2026)
 * [#1651](https://github.com/stripe/stripe-ruby/pull/1651) ⚠️ Build SDK w/ V2 OpenAPI spec

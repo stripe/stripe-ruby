@@ -1188,6 +1188,31 @@ module Stripe
         @us_bank_account = us_bank_account
       end
     end
+
+    class SetupDetails < Stripe::RequestParams
+      class Benefit < Stripe::RequestParams
+        class FrMealVoucher < Stripe::RequestParams
+          # The 14-digit SIRET of the meal voucher acceptor.
+          attr_accessor :siret
+
+          def initialize(siret: nil)
+            @siret = siret
+          end
+        end
+        # French meal voucher benefit details for this SetupIntent.
+        attr_accessor :fr_meal_voucher
+
+        def initialize(fr_meal_voucher: nil)
+          @fr_meal_voucher = fr_meal_voucher
+        end
+      end
+      # Benefit details for this SetupIntent
+      attr_accessor :benefit
+
+      def initialize(benefit: nil)
+        @benefit = benefit
+      end
+    end
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
     # It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
@@ -1221,6 +1246,8 @@ module Stripe
     attr_accessor :payment_method_options
     # The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     attr_accessor :payment_method_types
+    # Provides industry-specific information about the SetupIntent.
+    attr_accessor :setup_details
 
     def initialize(
       attach_to_self: nil,
@@ -1234,7 +1261,8 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil
+      payment_method_types: nil,
+      setup_details: nil
     )
       @attach_to_self = attach_to_self
       @customer = customer
@@ -1248,6 +1276,7 @@ module Stripe
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
       @payment_method_types = payment_method_types
+      @setup_details = setup_details
     end
   end
 end

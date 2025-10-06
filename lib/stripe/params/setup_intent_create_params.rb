@@ -1242,6 +1242,31 @@ module Stripe
       end
     end
 
+    class SetupDetails < Stripe::RequestParams
+      class Benefit < Stripe::RequestParams
+        class FrMealVoucher < Stripe::RequestParams
+          # The 14-digit SIRET of the meal voucher acceptor.
+          attr_accessor :siret
+
+          def initialize(siret: nil)
+            @siret = siret
+          end
+        end
+        # French meal voucher benefit details for this SetupIntent.
+        attr_accessor :fr_meal_voucher
+
+        def initialize(fr_meal_voucher: nil)
+          @fr_meal_voucher = fr_meal_voucher
+        end
+      end
+      # Benefit details for this SetupIntent
+      attr_accessor :benefit
+
+      def initialize(benefit: nil)
+        @benefit = benefit
+      end
+    end
+
     class SingleUse < Stripe::RequestParams
       # Amount the customer is granting permission to collect later. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       attr_accessor :amount
@@ -1300,6 +1325,8 @@ module Stripe
     attr_accessor :payment_method_types
     # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
     attr_accessor :return_url
+    # Provides industry-specific information about the SetupIntent.
+    attr_accessor :setup_details
     # If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
     #
     # Single-use mandates are only valid for the following payment methods: `acss_debit`, `alipay`, `au_becs_debit`, `bacs_debit`, `bancontact`, `boleto`, `ideal`, `link`, `sepa_debit`, and `us_bank_account`.
@@ -1328,6 +1355,7 @@ module Stripe
       payment_method_options: nil,
       payment_method_types: nil,
       return_url: nil,
+      setup_details: nil,
       single_use: nil,
       usage: nil,
       use_stripe_sdk: nil
@@ -1350,6 +1378,7 @@ module Stripe
       @payment_method_options = payment_method_options
       @payment_method_types = payment_method_types
       @return_url = return_url
+      @setup_details = setup_details
       @single_use = single_use
       @usage = usage
       @use_stripe_sdk = use_stripe_sdk

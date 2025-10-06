@@ -1880,6 +1880,39 @@ module Stripe
         us_bank_account: nil
       ); end
     end
+    class SetupDetails < Stripe::RequestParams
+      class Benefit < Stripe::RequestParams
+        class FrMealVoucher < Stripe::RequestParams
+          # The 14-digit SIRET of the meal voucher acceptor.
+          sig { returns(String) }
+          def siret; end
+          sig { params(_siret: String).returns(String) }
+          def siret=(_siret); end
+          sig { params(siret: String).void }
+          def initialize(siret: nil); end
+        end
+        # French meal voucher benefit details for this SetupIntent.
+        sig { returns(T.nilable(SetupIntentConfirmParams::SetupDetails::Benefit::FrMealVoucher)) }
+        def fr_meal_voucher; end
+        sig {
+          params(_fr_meal_voucher: T.nilable(SetupIntentConfirmParams::SetupDetails::Benefit::FrMealVoucher)).returns(T.nilable(SetupIntentConfirmParams::SetupDetails::Benefit::FrMealVoucher))
+         }
+        def fr_meal_voucher=(_fr_meal_voucher); end
+        sig {
+          params(fr_meal_voucher: T.nilable(SetupIntentConfirmParams::SetupDetails::Benefit::FrMealVoucher)).void
+         }
+        def initialize(fr_meal_voucher: nil); end
+      end
+      # Benefit details for this SetupIntent
+      sig { returns(T.nilable(SetupIntentConfirmParams::SetupDetails::Benefit)) }
+      def benefit; end
+      sig {
+        params(_benefit: T.nilable(SetupIntentConfirmParams::SetupDetails::Benefit)).returns(T.nilable(SetupIntentConfirmParams::SetupDetails::Benefit))
+       }
+      def benefit=(_benefit); end
+      sig { params(benefit: T.nilable(SetupIntentConfirmParams::SetupDetails::Benefit)).void }
+      def initialize(benefit: nil); end
+    end
     # ID of the ConfirmationToken used to confirm this SetupIntent.
     #
     # If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
@@ -1926,13 +1959,20 @@ module Stripe
     def return_url; end
     sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
     def return_url=(_return_url); end
+    # Provides industry-specific information about the SetupIntent.
+    sig { returns(T.nilable(SetupIntentConfirmParams::SetupDetails)) }
+    def setup_details; end
+    sig {
+      params(_setup_details: T.nilable(SetupIntentConfirmParams::SetupDetails)).returns(T.nilable(SetupIntentConfirmParams::SetupDetails))
+     }
+    def setup_details=(_setup_details); end
     # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     sig { returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk; end
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, SetupIntentConfirmParams::MandateData)), payment_method: T.nilable(String), payment_method_data: T.nilable(SetupIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, SetupIntentConfirmParams::MandateData)), payment_method: T.nilable(String), payment_method_data: T.nilable(SetupIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), setup_details: T.nilable(SetupIntentConfirmParams::SetupDetails), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
       confirmation_token: nil,
@@ -1942,6 +1982,7 @@ module Stripe
       payment_method_data: nil,
       payment_method_options: nil,
       return_url: nil,
+      setup_details: nil,
       use_stripe_sdk: nil
     ); end
   end

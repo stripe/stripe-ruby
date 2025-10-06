@@ -211,6 +211,21 @@ module Stripe
     end
 
     class Card < Stripe::StripeObject
+      class Benefits < Stripe::StripeObject
+        # Issuer of this benefit card
+        attr_reader :issuer
+        # Available benefit programs for this card
+        attr_reader :programs
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Checks < Stripe::StripeObject
         # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
         attr_reader :address_line1_check
@@ -624,6 +639,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field benefits
+      attr_reader :benefits
       # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
       attr_reader :brand
       # Checks on Card address and CVC if provided.
@@ -663,6 +680,7 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
+          benefits: Benefits,
           checks: Checks,
           generated_from: GeneratedFrom,
           networks: Networks,
@@ -1667,6 +1685,26 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/payment_methods/%<payment_method>s/attach", { payment_method: CGI.escape(payment_method) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Retrieves a payment method's balance.
+    def check_balance(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_methods/%<payment_method>s/check_balance", { payment_method: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Retrieves a payment method's balance.
+    def self.check_balance(payment_method, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_methods/%<payment_method>s/check_balance", { payment_method: CGI.escape(payment_method) }),
         params: params,
         opts: opts
       )

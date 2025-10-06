@@ -17,6 +17,21 @@ module Stripe
       "card"
     end
 
+    class Benefits < Stripe::StripeObject
+      # Issuer of this benefit card
+      attr_reader :issuer
+      # Available benefit programs for this card
+      attr_reader :programs
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Networks < Stripe::StripeObject
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       attr_reader :preferred
@@ -51,6 +66,8 @@ module Stripe
     attr_reader :allow_redisplay
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     attr_reader :available_payout_methods
+    # Attribute for field benefits
+    attr_reader :benefits
     # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     attr_reader :brand
     # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
@@ -154,7 +171,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { networks: Networks }
+      @inner_class_types = { benefits: Benefits, networks: Networks }
     end
 
     def self.field_remappings

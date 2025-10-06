@@ -1181,6 +1181,31 @@ module Stripe
     end
 
     class PaymentDetails < Stripe::StripeObject
+      class Benefit < Stripe::StripeObject
+        class FrMealVoucher < Stripe::StripeObject
+          # The 14-digit SIRET of the meal voucher acceptor.
+          attr_reader :siret
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field fr_meal_voucher
+        attr_reader :fr_meal_voucher
+
+        def self.inner_class_types
+          @inner_class_types = { fr_meal_voucher: FrMealVoucher }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CarRental < Stripe::StripeObject
         class Affiliate < Stripe::StripeObject
           # The name of the affiliate that originated the purchase.
@@ -1512,6 +1537,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field benefit
+      attr_reader :benefit
       # Attribute for field car_rental
       attr_reader :car_rental
       # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
@@ -1525,6 +1552,7 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
+          benefit: Benefit,
           car_rental: CarRental,
           event_details: EventDetails,
           subscription: Subscription,

@@ -1816,6 +1816,39 @@ module Stripe
         us_bank_account: nil
       ); end
     end
+    class SetupDetails < Stripe::RequestParams
+      class Benefit < Stripe::RequestParams
+        class FrMealVoucher < Stripe::RequestParams
+          # The 14-digit SIRET of the meal voucher acceptor.
+          sig { returns(String) }
+          def siret; end
+          sig { params(_siret: String).returns(String) }
+          def siret=(_siret); end
+          sig { params(siret: String).void }
+          def initialize(siret: nil); end
+        end
+        # French meal voucher benefit details for this SetupIntent.
+        sig { returns(T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher)) }
+        def fr_meal_voucher; end
+        sig {
+          params(_fr_meal_voucher: T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher)).returns(T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher))
+         }
+        def fr_meal_voucher=(_fr_meal_voucher); end
+        sig {
+          params(fr_meal_voucher: T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit::FrMealVoucher)).void
+         }
+        def initialize(fr_meal_voucher: nil); end
+      end
+      # Benefit details for this SetupIntent
+      sig { returns(T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit)) }
+      def benefit; end
+      sig {
+        params(_benefit: T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit)).returns(T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit))
+       }
+      def benefit=(_benefit); end
+      sig { params(benefit: T.nilable(SetupIntentUpdateParams::SetupDetails::Benefit)).void }
+      def initialize(benefit: nil); end
+    end
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
     # It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
@@ -1895,8 +1928,15 @@ module Stripe
       params(_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
      }
     def payment_method_types=(_payment_method_types); end
+    # Provides industry-specific information about the SetupIntent.
+    sig { returns(T.nilable(SetupIntentUpdateParams::SetupDetails)) }
+    def setup_details; end
     sig {
-      params(attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String])).void
+      params(_setup_details: T.nilable(SetupIntentUpdateParams::SetupDetails)).returns(T.nilable(SetupIntentUpdateParams::SetupDetails))
+     }
+    def setup_details=(_setup_details); end
+    sig {
+      params(attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), setup_details: T.nilable(SetupIntentUpdateParams::SetupDetails)).void
      }
     def initialize(
       attach_to_self: nil,
@@ -1910,7 +1950,8 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil
+      payment_method_types: nil,
+      setup_details: nil
     ); end
   end
 end

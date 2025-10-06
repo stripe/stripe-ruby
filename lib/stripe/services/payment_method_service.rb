@@ -26,6 +26,17 @@ module Stripe
       )
     end
 
+    # Retrieves a payment method's balance.
+    def check_balance(payment_method, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_methods/%<payment_method>s/check_balance", { payment_method: CGI.escape(payment_method) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
     #
     # Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.

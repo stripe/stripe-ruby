@@ -1279,6 +1279,28 @@ module Stripe
       end
     end
     class PaymentDetails < Stripe::StripeObject
+      class Benefit < Stripe::StripeObject
+        class FrMealVoucher < Stripe::StripeObject
+          # The 14-digit SIRET of the meal voucher acceptor.
+          sig { returns(T.nilable(String)) }
+          def siret; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field fr_meal_voucher
+        sig { returns(T.nilable(FrMealVoucher)) }
+        def fr_meal_voucher; end
+        def self.inner_class_types
+          @inner_class_types = {fr_meal_voucher: FrMealVoucher}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class CarRental < Stripe::StripeObject
         class Affiliate < Stripe::StripeObject
           # The name of the affiliate that originated the purchase.
@@ -1645,6 +1667,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field benefit
+      sig { returns(T.nilable(Benefit)) }
+      def benefit; end
       # Attribute for field car_rental
       sig { returns(T.nilable(CarRental)) }
       def car_rental; end
@@ -1662,6 +1687,7 @@ module Stripe
       def subscription; end
       def self.inner_class_types
         @inner_class_types = {
+          benefit: Benefit,
           car_rental: CarRental,
           event_details: EventDetails,
           subscription: Subscription,

@@ -290,6 +290,20 @@ module Stripe
         end
       end
       class Card < Stripe::StripeObject
+        class Benefits < Stripe::StripeObject
+          # Issuer of this benefit card
+          sig { returns(T.nilable(String)) }
+          def issuer; end
+          # Available benefit programs for this card
+          sig { returns(T.nilable(T::Array[String])) }
+          def programs; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Checks < Stripe::StripeObject
           # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
@@ -741,6 +755,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field benefits
+        sig { returns(T.nilable(Benefits)) }
+        def benefits; end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(String) }
         def brand; end
@@ -796,6 +813,7 @@ module Stripe
         def wallet; end
         def self.inner_class_types
           @inner_class_types = {
+            benefits: Benefits,
             checks: Checks,
             generated_from: GeneratedFrom,
             networks: Networks,

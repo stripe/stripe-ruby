@@ -22,6 +22,12 @@ module Stripe
      }
     def attach(payment_method, params = {}, opts = {}); end
 
+    # Retrieves a payment method's balance.
+    sig {
+      params(payment_method: String, params: T.any(::Stripe::PaymentMethodCheckBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodBalance)
+     }
+    def check_balance(payment_method, params = {}, opts = {}); end
+
     # Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
     #
     # Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.

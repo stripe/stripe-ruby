@@ -235,6 +235,23 @@ module Stripe
     end
 
     class PaymentDetails < Stripe::RequestParams
+      class Benefit < Stripe::RequestParams
+        class FrMealVoucher < Stripe::RequestParams
+          # The 14-digit SIRET of the meal voucher acceptor.
+          attr_accessor :siret
+
+          def initialize(siret: nil)
+            @siret = siret
+          end
+        end
+        # French meal voucher benefit details for this PaymentIntent.
+        attr_accessor :fr_meal_voucher
+
+        def initialize(fr_meal_voucher: nil)
+          @fr_meal_voucher = fr_meal_voucher
+        end
+      end
+
       class CarRental < Stripe::RequestParams
         class Affiliate < Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
@@ -905,6 +922,8 @@ module Stripe
           @starts_at = starts_at
         end
       end
+      # Benefit details for this PaymentIntent
+      attr_accessor :benefit
       # Car rental details for this PaymentIntent.
       attr_accessor :car_rental
       # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
@@ -921,6 +940,7 @@ module Stripe
       attr_accessor :subscription
 
       def initialize(
+        benefit: nil,
         car_rental: nil,
         customer_reference: nil,
         event_details: nil,
@@ -929,6 +949,7 @@ module Stripe
         order_reference: nil,
         subscription: nil
       )
+        @benefit = benefit
         @car_rental = car_rental
         @customer_reference = customer_reference
         @event_details = event_details

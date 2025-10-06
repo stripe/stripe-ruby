@@ -471,6 +471,19 @@ module Stripe
       end
 
       class Card < Stripe::StripeObject
+        class Benefits < Stripe::StripeObject
+          # Issuer of the benefit card utilized on this payment
+          attr_reader :issuer
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Checks < Stripe::StripeObject
           # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_line1_check
@@ -868,6 +881,8 @@ module Stripe
         attr_reader :amount_requested
         # Authorization code on the charge.
         attr_reader :authorization_code
+        # Attribute for field benefits
+        attr_reader :benefits
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
@@ -929,6 +944,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            benefits: Benefits,
             checks: Checks,
             decremental_authorization: DecrementalAuthorization,
             extended_authorization: ExtendedAuthorization,

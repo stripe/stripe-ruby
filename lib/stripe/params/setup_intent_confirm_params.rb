@@ -1227,6 +1227,31 @@ module Stripe
         @us_bank_account = us_bank_account
       end
     end
+
+    class SetupDetails < Stripe::RequestParams
+      class Benefit < Stripe::RequestParams
+        class FrMealVoucher < Stripe::RequestParams
+          # The 14-digit SIRET of the meal voucher acceptor.
+          attr_accessor :siret
+
+          def initialize(siret: nil)
+            @siret = siret
+          end
+        end
+        # French meal voucher benefit details for this SetupIntent.
+        attr_accessor :fr_meal_voucher
+
+        def initialize(fr_meal_voucher: nil)
+          @fr_meal_voucher = fr_meal_voucher
+        end
+      end
+      # Benefit details for this SetupIntent
+      attr_accessor :benefit
+
+      def initialize(benefit: nil)
+        @benefit = benefit
+      end
+    end
     # ID of the ConfirmationToken used to confirm this SetupIntent.
     #
     # If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
@@ -1246,6 +1271,8 @@ module Stripe
     # If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
     # This parameter is only used for cards and other redirect-based payment methods.
     attr_accessor :return_url
+    # Provides industry-specific information about the SetupIntent.
+    attr_accessor :setup_details
     # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     attr_accessor :use_stripe_sdk
 
@@ -1257,6 +1284,7 @@ module Stripe
       payment_method_data: nil,
       payment_method_options: nil,
       return_url: nil,
+      setup_details: nil,
       use_stripe_sdk: nil
     )
       @confirmation_token = confirmation_token
@@ -1266,6 +1294,7 @@ module Stripe
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
       @return_url = return_url
+      @setup_details = setup_details
       @use_stripe_sdk = use_stripe_sdk
     end
   end

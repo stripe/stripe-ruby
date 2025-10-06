@@ -338,6 +338,30 @@ module Stripe
       def initialize(customer_acceptance: nil); end
     end
     class PaymentDetails < Stripe::RequestParams
+      class Benefit < Stripe::RequestParams
+        class FrMealVoucher < Stripe::RequestParams
+          # The 14-digit SIRET of the meal voucher acceptor.
+          sig { returns(String) }
+          def siret; end
+          sig { params(_siret: String).returns(String) }
+          def siret=(_siret); end
+          sig { params(siret: String).void }
+          def initialize(siret: nil); end
+        end
+        # French meal voucher benefit details for this PaymentIntent.
+        sig {
+          returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit::FrMealVoucher))
+         }
+        def fr_meal_voucher; end
+        sig {
+          params(_fr_meal_voucher: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit::FrMealVoucher)).returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit::FrMealVoucher))
+         }
+        def fr_meal_voucher=(_fr_meal_voucher); end
+        sig {
+          params(fr_meal_voucher: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit::FrMealVoucher)).void
+         }
+        def initialize(fr_meal_voucher: nil); end
+      end
       class CarRental < Stripe::RequestParams
         class Affiliate < Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
@@ -1352,6 +1376,13 @@ module Stripe
           starts_at: nil
         ); end
       end
+      # Benefit details for this PaymentIntent
+      sig { returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit)) }
+      def benefit; end
+      sig {
+        params(_benefit: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit)).returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit))
+       }
+      def benefit=(_benefit); end
       # Car rental details for this PaymentIntent.
       sig { returns(T.nilable(PaymentIntentConfirmParams::PaymentDetails::CarRental)) }
       def car_rental; end
@@ -1398,9 +1429,10 @@ module Stripe
        }
       def subscription=(_subscription); end
       sig {
-        params(car_rental: T.nilable(PaymentIntentConfirmParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(PaymentIntentConfirmParams::PaymentDetails::EventDetails), flight: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Flight), lodging: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Subscription)).void
+        params(benefit: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Benefit), car_rental: T.nilable(PaymentIntentConfirmParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(PaymentIntentConfirmParams::PaymentDetails::EventDetails), flight: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Flight), lodging: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(PaymentIntentConfirmParams::PaymentDetails::Subscription)).void
        }
       def initialize(
+        benefit: nil,
         car_rental: nil,
         customer_reference: nil,
         event_details: nil,

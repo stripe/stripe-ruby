@@ -157,6 +157,10 @@ module Stripe
         @values[k] = convert_value_with_inner_types(k, v, opts)
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
+
+        # Update instance variable to match the converted value in @values
+        # This ensures that if there's a static attr_reader, it returns the correct type
+        instance_variable_set(:"@#{k}", @values[k]) if Util.valid_variable_name?(k)
       end
     end
 

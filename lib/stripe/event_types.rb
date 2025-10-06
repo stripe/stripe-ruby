@@ -255,7 +255,6 @@ module Stripe
         Events::V1TransferCreatedEvent.lookup_type => Events::V1TransferCreatedEvent,
         Events::V1TransferReversedEvent.lookup_type => Events::V1TransferReversedEvent,
         Events::V1TransferUpdatedEvent.lookup_type => Events::V1TransferUpdatedEvent,
-        Events::V2BillingBillSettingUpdatedEvent.lookup_type => Events::V2BillingBillSettingUpdatedEvent,
         Events::V2BillingCadenceBilledEvent.lookup_type => Events::V2BillingCadenceBilledEvent,
         Events::V2BillingCadenceCanceledEvent.lookup_type => Events::V2BillingCadenceCanceledEvent,
         Events::V2BillingCadenceCreatedEvent.lookup_type => Events::V2BillingCadenceCreatedEvent,
@@ -806,8 +805,6 @@ module Stripe
         Events::V1TransferReversedEventNotification,
         Events::V1TransferUpdatedEventNotification.lookup_type =>
         Events::V1TransferUpdatedEventNotification,
-        Events::V2BillingBillSettingUpdatedEventNotification.lookup_type =>
-        Events::V2BillingBillSettingUpdatedEventNotification,
         Events::V2BillingCadenceBilledEventNotification.lookup_type =>
         Events::V2BillingCadenceBilledEventNotification,
         Events::V2BillingCadenceCanceledEventNotification.lookup_type =>

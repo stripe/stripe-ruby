@@ -23,7 +23,7 @@ webhook_secret = ENV.fetch("WEBHOOK_SECRET", nil)
 
 client = Stripe::StripeClient.new(api_key)
 
-
+post "/webhook" do
   webhook_body = request.body.read
   sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
   event_notification = client.parse_event_notification(webhook_body, sig_header, webhook_secret)

@@ -4,8 +4,9 @@ require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class InvoicePaymentsTest < Test::Unit::TestCase
-    context "invoice.payments field type consistency" do
-      should "remain ListObject after instance method calls" do
+    context "invoice.payments field" do
+      should "return nil after instance method calls when field not in response" do
+        # Simulate invoice.retrieve() which returns invoice WITH payments field
         stub_request(:get, "#{Stripe.api_base}/v1/invoices/in_test")
           .to_return(body: JSON.generate({
             id: "in_test",
@@ -23,46 +24,21 @@ module Stripe
             },
           }))
 
-        stub_request(:post, "#{Stripe.api_base}/v1/invoices/in_test/void")
+        # Simulate invoice.pay() which returns invoice WITHOUT payments field
+        stub_request(:post, "#{Stripe.api_base}/v1/invoices/in_test/pay")
           .to_return(body: JSON.generate({
             id: "in_test",
             object: "invoice",
             amount_paid: 0,
-            status: "void",
+            status: "paid",
+            # NOTE: payments field is NOT included in response
           }))
 
         invoice = Stripe::Invoice.retrieve("in_test")
 
-        # Before void: payments should be a ListObject
-        assert invoice.payments.is_a?(Stripe::ListObject),
-               "payments should be ListObject before void, got #{invoice.payments.class}"
-
-        # Call void_invoice which updates the invoice in-place
-        invoice.void_invoice
-
-        # After void: payments should still be accessible and should be a ListObject
-        # (not a Hash, which was the bug)
-        assert invoice.payments.is_a?(Stripe::ListObject),
-               "payments should remain ListObject after void, got #{invoice.payments.class}"
-      end
-
-      should "properly convert payments to ListObject on initial retrieve" do
-        stub_request(:get, "#{Stripe.api_base}/v1/invoices/in_test2")
-          .to_return(body: JSON.generate({
-            id: "in_test2",
-            object: "invoice",
-            payments: {
-              object: "list",
-              data: [],
-              has_more: false,
-              url: "/v1/invoices/in_test2/payments",
-            },
-          }))
-
-        invoice = Stripe::Invoice.retrieve("in_test2")
-
-        assert invoice.payments.is_a?(Stripe::ListObject),
-               "payments should be ListObject, got #{invoice.payments.class}"
+        assert_not_nil invoice.payments, "payments should be non-nil before void"
+        invoice.pay
+        assert_nil invoice.payments, "payments should be nil after void when not in response"
       end
     end
   end

@@ -157,10 +157,6 @@ module Stripe
         @values[k] = convert_value_with_inner_types(k, v, opts)
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
-
-        # Update instance variable to match the converted value in @values
-        # This ensures that if there's a static attr_reader, it returns the correct type
-        instance_variable_set(:"@#{k}", @values[k]) if Util.valid_variable_name?(k)
       end
     end
 
@@ -317,6 +313,7 @@ module Stripe
     protected def remove_accessors(keys)
       # not available in the #instance_eval below
       protected_fields = self.class.protected_fields
+      obj = self # capture self to use inside instance_eval
 
       metaclass.instance_eval do
         keys.each do |k|
@@ -346,6 +343,11 @@ module Stripe
                    "collide with an API property name.")
             end
           end
+
+          # Also remove instance variables so that static attr_readers (if any exist)
+          # will return nil instead of stale data or data of the wrong type
+          ivar_name = :"@#{k}"
+          obj.remove_instance_variable(ivar_name) if obj.instance_variable_defined?(ivar_name)
         end
       end
     end

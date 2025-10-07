@@ -34,7 +34,7 @@ module Stripe
             # NOTE: payments field is NOT included in response
           }))
 
-        invoice = Stripe::Invoice.retrieve("in_123", expand: ["payments"])
+        invoice = Stripe::Invoice.retrieve({ id: "in_123", expand: ["payments"] })
 
         assert_not_nil invoice.payments, "payments should be non-nil before pay"
         invoice.pay

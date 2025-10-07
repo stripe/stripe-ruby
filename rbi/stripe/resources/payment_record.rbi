@@ -2290,5 +2290,19 @@ module Stripe
       params(id: String, params: T.any(::Stripe::PaymentRecordReportPaymentAttemptInformationalParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentRecord)
      }
     def self.report_payment_attempt_informational(id, params = {}, opts = {}); end
+
+    # Report that the most recent payment attempt on the specified Payment Record
+    #  was refunded.
+    sig {
+      params(params: T.any(::Stripe::PaymentRecordReportRefundParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentRecord)
+     }
+    def report_refund(params = {}, opts = {}); end
+
+    # Report that the most recent payment attempt on the specified Payment Record
+    #  was refunded.
+    sig {
+      params(id: String, params: T.any(::Stripe::PaymentRecordReportRefundParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentRecord)
+     }
+    def self.report_refund(id, params = {}, opts = {}); end
   end
 end

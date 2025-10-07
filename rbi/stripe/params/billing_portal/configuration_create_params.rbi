@@ -60,8 +60,15 @@ module Stripe
           def enabled; end
           sig { params(_enabled: T::Boolean).returns(T::Boolean) }
           def enabled=(_enabled); end
-          sig { params(enabled: T::Boolean).void }
-          def initialize(enabled: nil); end
+          # The [Payment Method Configuration](/api/payment_method_configurations) to use for this portal session. When specified, customers will be able to update their payment method to one of the options specified by the payment method configuration. If not set or set to an empty string, the default payment method configuration is used.
+          sig { returns(T.nilable(String)) }
+          def payment_method_configuration; end
+          sig {
+            params(_payment_method_configuration: T.nilable(String)).returns(T.nilable(String))
+           }
+          def payment_method_configuration=(_payment_method_configuration); end
+          sig { params(enabled: T::Boolean, payment_method_configuration: T.nilable(String)).void }
+          def initialize(enabled: nil, payment_method_configuration: nil); end
         end
         class SubscriptionCancel < Stripe::RequestParams
           class CancellationReason < Stripe::RequestParams

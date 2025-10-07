@@ -44,9 +44,12 @@ module Stripe
         class PaymentMethodUpdate < Stripe::RequestParams
           # Whether the feature is enabled.
           attr_accessor :enabled
+          # The [Payment Method Configuration](/api/payment_method_configurations) to use for this portal session. When specified, customers will be able to update their payment method to one of the options specified by the payment method configuration. If not set or set to an empty string, the default payment method configuration is used.
+          attr_accessor :payment_method_configuration
 
-          def initialize(enabled: nil)
+          def initialize(enabled: nil, payment_method_configuration: nil)
             @enabled = enabled
+            @payment_method_configuration = payment_method_configuration
           end
         end
 

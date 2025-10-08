@@ -2054,13 +2054,6 @@ module Stripe
     def return_url; end
     sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
     def return_url=(_return_url); end
-    # Provides industry-specific information about the SetupIntent.
-    sig { returns(T.nilable(SetupIntentCreateParams::SetupDetails)) }
-    def setup_details; end
-    sig {
-      params(_setup_details: T.nilable(SetupIntentCreateParams::SetupDetails)).returns(T.nilable(SetupIntentCreateParams::SetupDetails))
-     }
-    def setup_details=(_setup_details); end
     # If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
     #
     # Single-use mandates are only valid for the following payment methods: `acss_debit`, `alipay`, `au_becs_debit`, `bacs_debit`, `bancontact`, `boleto`, `ideal`, `link`, `sepa_debit`, and `us_bank_account`.
@@ -2080,8 +2073,15 @@ module Stripe
     def use_stripe_sdk; end
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
+    # Provides industry-specific information about the SetupIntent.
+    sig { returns(T.nilable(SetupIntentCreateParams::SetupDetails)) }
+    def setup_details; end
     sig {
-      params(attach_to_self: T.nilable(T::Boolean), automatic_payment_methods: T.nilable(SetupIntentCreateParams::AutomaticPaymentMethods), confirm: T.nilable(T::Boolean), confirmation_token: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, SetupIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(SetupIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), setup_details: T.nilable(SetupIntentCreateParams::SetupDetails), single_use: T.nilable(SetupIntentCreateParams::SingleUse), usage: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(_setup_details: T.nilable(SetupIntentCreateParams::SetupDetails)).returns(T.nilable(SetupIntentCreateParams::SetupDetails))
+     }
+    def setup_details=(_setup_details); end
+    sig {
+      params(attach_to_self: T.nilable(T::Boolean), automatic_payment_methods: T.nilable(SetupIntentCreateParams::AutomaticPaymentMethods), confirm: T.nilable(T::Boolean), confirmation_token: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, SetupIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(SetupIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(SetupIntentCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), single_use: T.nilable(SetupIntentCreateParams::SingleUse), usage: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean), setup_details: T.nilable(SetupIntentCreateParams::SetupDetails)).void
      }
     def initialize(
       attach_to_self: nil,
@@ -2102,10 +2102,10 @@ module Stripe
       payment_method_options: nil,
       payment_method_types: nil,
       return_url: nil,
-      setup_details: nil,
       single_use: nil,
       usage: nil,
-      use_stripe_sdk: nil
+      use_stripe_sdk: nil,
+      setup_details: nil
     ); end
   end
 end

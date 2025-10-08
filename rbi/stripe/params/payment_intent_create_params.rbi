@@ -1390,13 +1390,6 @@ module Stripe
           starts_at: nil
         ); end
       end
-      # Benefit details for this PaymentIntent
-      sig { returns(T.nilable(PaymentIntentCreateParams::PaymentDetails::Benefit)) }
-      def benefit; end
-      sig {
-        params(_benefit: T.nilable(PaymentIntentCreateParams::PaymentDetails::Benefit)).returns(T.nilable(PaymentIntentCreateParams::PaymentDetails::Benefit))
-       }
-      def benefit=(_benefit); end
       # Car rental details for this PaymentIntent.
       sig { returns(T.nilable(PaymentIntentCreateParams::PaymentDetails::CarRental)) }
       def car_rental; end
@@ -1442,18 +1435,25 @@ module Stripe
         params(_subscription: T.nilable(PaymentIntentCreateParams::PaymentDetails::Subscription)).returns(T.nilable(PaymentIntentCreateParams::PaymentDetails::Subscription))
        }
       def subscription=(_subscription); end
+      # Benefit details for this PaymentIntent
+      sig { returns(T.nilable(PaymentIntentCreateParams::PaymentDetails::Benefit)) }
+      def benefit; end
       sig {
-        params(benefit: T.nilable(PaymentIntentCreateParams::PaymentDetails::Benefit), car_rental: T.nilable(PaymentIntentCreateParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(PaymentIntentCreateParams::PaymentDetails::EventDetails), flight: T.nilable(PaymentIntentCreateParams::PaymentDetails::Flight), lodging: T.nilable(PaymentIntentCreateParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(PaymentIntentCreateParams::PaymentDetails::Subscription)).void
+        params(_benefit: T.nilable(PaymentIntentCreateParams::PaymentDetails::Benefit)).returns(T.nilable(PaymentIntentCreateParams::PaymentDetails::Benefit))
+       }
+      def benefit=(_benefit); end
+      sig {
+        params(car_rental: T.nilable(PaymentIntentCreateParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(PaymentIntentCreateParams::PaymentDetails::EventDetails), flight: T.nilable(PaymentIntentCreateParams::PaymentDetails::Flight), lodging: T.nilable(PaymentIntentCreateParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(PaymentIntentCreateParams::PaymentDetails::Subscription), benefit: T.nilable(PaymentIntentCreateParams::PaymentDetails::Benefit)).void
        }
       def initialize(
-        benefit: nil,
         car_rental: nil,
         customer_reference: nil,
         event_details: nil,
         flight: nil,
         lodging: nil,
         order_reference: nil,
-        subscription: nil
+        subscription: nil,
+        benefit: nil
       ); end
     end
     class PaymentMethodData < Stripe::RequestParams

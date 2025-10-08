@@ -904,9 +904,6 @@ module Stripe
         # Authorization code on the charge.
         sig { returns(T.nilable(String)) }
         def authorization_code; end
-        # Attribute for field benefits
-        sig { returns(T.nilable(Benefits)) }
-        def benefits; end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(T.nilable(String)) }
         def brand; end
@@ -992,9 +989,11 @@ module Stripe
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         sig { returns(T.nilable(Wallet)) }
         def wallet; end
+        # Attribute for field benefits
+        sig { returns(T.nilable(Benefits)) }
+        def benefits; end
         def self.inner_class_types
           @inner_class_types = {
-            benefits: Benefits,
             checks: Checks,
             decremental_authorization: DecrementalAuthorization,
             extended_authorization: ExtendedAuthorization,
@@ -1006,6 +1005,7 @@ module Stripe
             partial_authorization: PartialAuthorization,
             three_d_secure: ThreeDSecure,
             wallet: Wallet,
+            benefits: Benefits,
           }
         end
         def self.field_remappings
@@ -1877,9 +1877,6 @@ module Stripe
         end
       end
       class Rechnung < Stripe::StripeObject
-        # Payment portal URL.
-        sig { returns(T.nilable(String)) }
-        def payment_portal_url; end
         def self.inner_class_types
           @inner_class_types = {}
         end

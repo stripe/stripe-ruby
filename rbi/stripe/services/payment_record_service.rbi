@@ -46,13 +46,6 @@ module Stripe
      }
     def report_payment_attempt_informational(id, params = {}, opts = {}); end
 
-    # Report that the most recent payment attempt on the specified Payment Record
-    #  was refunded.
-    sig {
-      params(id: String, params: T.any(::Stripe::PaymentRecordReportRefundParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentRecord)
-     }
-    def report_refund(id, params = {}, opts = {}); end
-
     # Retrieves a Payment Record with the given ID
     sig {
       params(id: String, params: T.any(::Stripe::PaymentRecordRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentRecord)

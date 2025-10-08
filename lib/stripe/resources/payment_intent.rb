@@ -1537,8 +1537,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Attribute for field benefit
-      attr_reader :benefit
       # Attribute for field car_rental
       attr_reader :car_rental
       # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
@@ -1549,13 +1547,15 @@ module Stripe
       attr_reader :order_reference
       # Attribute for field subscription
       attr_reader :subscription
+      # Attribute for field benefit
+      attr_reader :benefit
 
       def self.inner_class_types
         @inner_class_types = {
-          benefit: Benefit,
           car_rental: CarRental,
           event_details: EventDetails,
           subscription: Subscription,
+          benefit: Benefit,
         }
       end
 

@@ -1667,9 +1667,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Attribute for field benefit
-      sig { returns(T.nilable(Benefit)) }
-      def benefit; end
       # Attribute for field car_rental
       sig { returns(T.nilable(CarRental)) }
       def car_rental; end
@@ -1685,12 +1682,15 @@ module Stripe
       # Attribute for field subscription
       sig { returns(T.nilable(Subscription)) }
       def subscription; end
+      # Attribute for field benefit
+      sig { returns(T.nilable(Benefit)) }
+      def benefit; end
       def self.inner_class_types
         @inner_class_types = {
-          benefit: Benefit,
           car_rental: CarRental,
           event_details: EventDetails,
           subscription: Subscription,
+          benefit: Benefit,
         }
       end
       def self.field_remappings

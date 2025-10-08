@@ -507,8 +507,6 @@ module Stripe
       attr_reader :ip_address
       # Custom label given to the reader for easier identification.
       attr_reader :label
-      # The last time this reader reported to Stripe backend.
-      attr_reader :last_seen_at
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
       # The location identifier of the reader.

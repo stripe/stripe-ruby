@@ -1325,8 +1325,6 @@ module Stripe
     attr_accessor :payment_method_types
     # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
     attr_accessor :return_url
-    # Provides industry-specific information about the SetupIntent.
-    attr_accessor :setup_details
     # If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
     #
     # Single-use mandates are only valid for the following payment methods: `acss_debit`, `alipay`, `au_becs_debit`, `bacs_debit`, `bancontact`, `boleto`, `ideal`, `link`, `sepa_debit`, and `us_bank_account`.
@@ -1335,6 +1333,8 @@ module Stripe
     attr_accessor :usage
     # Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     attr_accessor :use_stripe_sdk
+    # Provides industry-specific information about the SetupIntent.
+    attr_accessor :setup_details
 
     def initialize(
       attach_to_self: nil,
@@ -1355,10 +1355,10 @@ module Stripe
       payment_method_options: nil,
       payment_method_types: nil,
       return_url: nil,
-      setup_details: nil,
       single_use: nil,
       usage: nil,
-      use_stripe_sdk: nil
+      use_stripe_sdk: nil,
+      setup_details: nil
     )
       @attach_to_self = attach_to_self
       @automatic_payment_methods = automatic_payment_methods
@@ -1378,10 +1378,10 @@ module Stripe
       @payment_method_options = payment_method_options
       @payment_method_types = payment_method_types
       @return_url = return_url
-      @setup_details = setup_details
       @single_use = single_use
       @usage = usage
       @use_stripe_sdk = use_stripe_sdk
+      @setup_details = setup_details
     end
   end
 end

@@ -758,28 +758,6 @@ module Stripe
        }
       def initialize(display_preference: nil); end
     end
-    class MbWay < Stripe::RequestParams
-      class DisplayPreference < Stripe::RequestParams
-        # The account's preference for whether or not to display this payment method.
-        sig { returns(T.nilable(String)) }
-        def preference; end
-        sig { params(_preference: T.nilable(String)).returns(T.nilable(String)) }
-        def preference=(_preference); end
-        sig { params(preference: T.nilable(String)).void }
-        def initialize(preference: nil); end
-      end
-      # Whether or not the payment method should be displayed.
-      sig { returns(T.nilable(PaymentMethodConfigurationCreateParams::MbWay::DisplayPreference)) }
-      def display_preference; end
-      sig {
-        params(_display_preference: T.nilable(PaymentMethodConfigurationCreateParams::MbWay::DisplayPreference)).returns(T.nilable(PaymentMethodConfigurationCreateParams::MbWay::DisplayPreference))
-       }
-      def display_preference=(_display_preference); end
-      sig {
-        params(display_preference: T.nilable(PaymentMethodConfigurationCreateParams::MbWay::DisplayPreference)).void
-       }
-      def initialize(display_preference: nil); end
-    end
     class Mobilepay < Stripe::RequestParams
       class DisplayPreference < Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
@@ -1614,13 +1592,6 @@ module Stripe
       params(_link: T.nilable(PaymentMethodConfigurationCreateParams::Link)).returns(T.nilable(PaymentMethodConfigurationCreateParams::Link))
      }
     def link=(_link); end
-    # MB WAY is the most popular wallet in Portugal. After entering their phone number in your checkout, customers approve the payment directly in their MB WAY app. Check this [page](https://stripe.com/docs/payments/mb-way) for more details.
-    sig { returns(T.nilable(PaymentMethodConfigurationCreateParams::MbWay)) }
-    def mb_way; end
-    sig {
-      params(_mb_way: T.nilable(PaymentMethodConfigurationCreateParams::MbWay)).returns(T.nilable(PaymentMethodConfigurationCreateParams::MbWay))
-     }
-    def mb_way=(_mb_way); end
     # MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
     sig { returns(T.nilable(PaymentMethodConfigurationCreateParams::Mobilepay)) }
     def mobilepay; end
@@ -1814,7 +1785,7 @@ module Stripe
      }
     def zip=(_zip); end
     sig {
-      params(acss_debit: T.nilable(PaymentMethodConfigurationCreateParams::AcssDebit), affirm: T.nilable(PaymentMethodConfigurationCreateParams::Affirm), afterpay_clearpay: T.nilable(PaymentMethodConfigurationCreateParams::AfterpayClearpay), alipay: T.nilable(PaymentMethodConfigurationCreateParams::Alipay), alma: T.nilable(PaymentMethodConfigurationCreateParams::Alma), amazon_pay: T.nilable(PaymentMethodConfigurationCreateParams::AmazonPay), apple_pay: T.nilable(PaymentMethodConfigurationCreateParams::ApplePay), apple_pay_later: T.nilable(PaymentMethodConfigurationCreateParams::ApplePayLater), au_becs_debit: T.nilable(PaymentMethodConfigurationCreateParams::AuBecsDebit), bacs_debit: T.nilable(PaymentMethodConfigurationCreateParams::BacsDebit), bancontact: T.nilable(PaymentMethodConfigurationCreateParams::Bancontact), billie: T.nilable(PaymentMethodConfigurationCreateParams::Billie), blik: T.nilable(PaymentMethodConfigurationCreateParams::Blik), boleto: T.nilable(PaymentMethodConfigurationCreateParams::Boleto), card: T.nilable(PaymentMethodConfigurationCreateParams::Card), cartes_bancaires: T.nilable(PaymentMethodConfigurationCreateParams::CartesBancaires), cashapp: T.nilable(PaymentMethodConfigurationCreateParams::Cashapp), customer_balance: T.nilable(PaymentMethodConfigurationCreateParams::CustomerBalance), eps: T.nilable(PaymentMethodConfigurationCreateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(PaymentMethodConfigurationCreateParams::Fpx), fr_meal_voucher_conecs: T.nilable(PaymentMethodConfigurationCreateParams::FrMealVoucherConecs), giropay: T.nilable(PaymentMethodConfigurationCreateParams::Giropay), google_pay: T.nilable(PaymentMethodConfigurationCreateParams::GooglePay), gopay: T.nilable(PaymentMethodConfigurationCreateParams::Gopay), grabpay: T.nilable(PaymentMethodConfigurationCreateParams::Grabpay), id_bank_transfer: T.nilable(PaymentMethodConfigurationCreateParams::IdBankTransfer), ideal: T.nilable(PaymentMethodConfigurationCreateParams::Ideal), jcb: T.nilable(PaymentMethodConfigurationCreateParams::Jcb), kakao_pay: T.nilable(PaymentMethodConfigurationCreateParams::KakaoPay), klarna: T.nilable(PaymentMethodConfigurationCreateParams::Klarna), konbini: T.nilable(PaymentMethodConfigurationCreateParams::Konbini), kr_card: T.nilable(PaymentMethodConfigurationCreateParams::KrCard), link: T.nilable(PaymentMethodConfigurationCreateParams::Link), mb_way: T.nilable(PaymentMethodConfigurationCreateParams::MbWay), mobilepay: T.nilable(PaymentMethodConfigurationCreateParams::Mobilepay), multibanco: T.nilable(PaymentMethodConfigurationCreateParams::Multibanco), name: T.nilable(String), naver_pay: T.nilable(PaymentMethodConfigurationCreateParams::NaverPay), nz_bank_account: T.nilable(PaymentMethodConfigurationCreateParams::NzBankAccount), oxxo: T.nilable(PaymentMethodConfigurationCreateParams::Oxxo), p24: T.nilable(PaymentMethodConfigurationCreateParams::P24), parent: T.nilable(String), pay_by_bank: T.nilable(PaymentMethodConfigurationCreateParams::PayByBank), payco: T.nilable(PaymentMethodConfigurationCreateParams::Payco), paynow: T.nilable(PaymentMethodConfigurationCreateParams::Paynow), paypal: T.nilable(PaymentMethodConfigurationCreateParams::Paypal), paypay: T.nilable(PaymentMethodConfigurationCreateParams::Paypay), payto: T.nilable(PaymentMethodConfigurationCreateParams::Payto), pix: T.nilable(PaymentMethodConfigurationCreateParams::Pix), promptpay: T.nilable(PaymentMethodConfigurationCreateParams::Promptpay), qris: T.nilable(PaymentMethodConfigurationCreateParams::Qris), revolut_pay: T.nilable(PaymentMethodConfigurationCreateParams::RevolutPay), samsung_pay: T.nilable(PaymentMethodConfigurationCreateParams::SamsungPay), satispay: T.nilable(PaymentMethodConfigurationCreateParams::Satispay), sepa_debit: T.nilable(PaymentMethodConfigurationCreateParams::SepaDebit), shopeepay: T.nilable(PaymentMethodConfigurationCreateParams::Shopeepay), sofort: T.nilable(PaymentMethodConfigurationCreateParams::Sofort), swish: T.nilable(PaymentMethodConfigurationCreateParams::Swish), twint: T.nilable(PaymentMethodConfigurationCreateParams::Twint), us_bank_account: T.nilable(PaymentMethodConfigurationCreateParams::UsBankAccount), wechat_pay: T.nilable(PaymentMethodConfigurationCreateParams::WechatPay), zip: T.nilable(PaymentMethodConfigurationCreateParams::Zip)).void
+      params(acss_debit: T.nilable(PaymentMethodConfigurationCreateParams::AcssDebit), affirm: T.nilable(PaymentMethodConfigurationCreateParams::Affirm), afterpay_clearpay: T.nilable(PaymentMethodConfigurationCreateParams::AfterpayClearpay), alipay: T.nilable(PaymentMethodConfigurationCreateParams::Alipay), alma: T.nilable(PaymentMethodConfigurationCreateParams::Alma), amazon_pay: T.nilable(PaymentMethodConfigurationCreateParams::AmazonPay), apple_pay: T.nilable(PaymentMethodConfigurationCreateParams::ApplePay), apple_pay_later: T.nilable(PaymentMethodConfigurationCreateParams::ApplePayLater), au_becs_debit: T.nilable(PaymentMethodConfigurationCreateParams::AuBecsDebit), bacs_debit: T.nilable(PaymentMethodConfigurationCreateParams::BacsDebit), bancontact: T.nilable(PaymentMethodConfigurationCreateParams::Bancontact), billie: T.nilable(PaymentMethodConfigurationCreateParams::Billie), blik: T.nilable(PaymentMethodConfigurationCreateParams::Blik), boleto: T.nilable(PaymentMethodConfigurationCreateParams::Boleto), card: T.nilable(PaymentMethodConfigurationCreateParams::Card), cartes_bancaires: T.nilable(PaymentMethodConfigurationCreateParams::CartesBancaires), cashapp: T.nilable(PaymentMethodConfigurationCreateParams::Cashapp), customer_balance: T.nilable(PaymentMethodConfigurationCreateParams::CustomerBalance), eps: T.nilable(PaymentMethodConfigurationCreateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(PaymentMethodConfigurationCreateParams::Fpx), fr_meal_voucher_conecs: T.nilable(PaymentMethodConfigurationCreateParams::FrMealVoucherConecs), giropay: T.nilable(PaymentMethodConfigurationCreateParams::Giropay), google_pay: T.nilable(PaymentMethodConfigurationCreateParams::GooglePay), gopay: T.nilable(PaymentMethodConfigurationCreateParams::Gopay), grabpay: T.nilable(PaymentMethodConfigurationCreateParams::Grabpay), id_bank_transfer: T.nilable(PaymentMethodConfigurationCreateParams::IdBankTransfer), ideal: T.nilable(PaymentMethodConfigurationCreateParams::Ideal), jcb: T.nilable(PaymentMethodConfigurationCreateParams::Jcb), kakao_pay: T.nilable(PaymentMethodConfigurationCreateParams::KakaoPay), klarna: T.nilable(PaymentMethodConfigurationCreateParams::Klarna), konbini: T.nilable(PaymentMethodConfigurationCreateParams::Konbini), kr_card: T.nilable(PaymentMethodConfigurationCreateParams::KrCard), link: T.nilable(PaymentMethodConfigurationCreateParams::Link), mobilepay: T.nilable(PaymentMethodConfigurationCreateParams::Mobilepay), multibanco: T.nilable(PaymentMethodConfigurationCreateParams::Multibanco), name: T.nilable(String), naver_pay: T.nilable(PaymentMethodConfigurationCreateParams::NaverPay), nz_bank_account: T.nilable(PaymentMethodConfigurationCreateParams::NzBankAccount), oxxo: T.nilable(PaymentMethodConfigurationCreateParams::Oxxo), p24: T.nilable(PaymentMethodConfigurationCreateParams::P24), parent: T.nilable(String), pay_by_bank: T.nilable(PaymentMethodConfigurationCreateParams::PayByBank), payco: T.nilable(PaymentMethodConfigurationCreateParams::Payco), paynow: T.nilable(PaymentMethodConfigurationCreateParams::Paynow), paypal: T.nilable(PaymentMethodConfigurationCreateParams::Paypal), paypay: T.nilable(PaymentMethodConfigurationCreateParams::Paypay), payto: T.nilable(PaymentMethodConfigurationCreateParams::Payto), pix: T.nilable(PaymentMethodConfigurationCreateParams::Pix), promptpay: T.nilable(PaymentMethodConfigurationCreateParams::Promptpay), qris: T.nilable(PaymentMethodConfigurationCreateParams::Qris), revolut_pay: T.nilable(PaymentMethodConfigurationCreateParams::RevolutPay), samsung_pay: T.nilable(PaymentMethodConfigurationCreateParams::SamsungPay), satispay: T.nilable(PaymentMethodConfigurationCreateParams::Satispay), sepa_debit: T.nilable(PaymentMethodConfigurationCreateParams::SepaDebit), shopeepay: T.nilable(PaymentMethodConfigurationCreateParams::Shopeepay), sofort: T.nilable(PaymentMethodConfigurationCreateParams::Sofort), swish: T.nilable(PaymentMethodConfigurationCreateParams::Swish), twint: T.nilable(PaymentMethodConfigurationCreateParams::Twint), us_bank_account: T.nilable(PaymentMethodConfigurationCreateParams::UsBankAccount), wechat_pay: T.nilable(PaymentMethodConfigurationCreateParams::WechatPay), zip: T.nilable(PaymentMethodConfigurationCreateParams::Zip)).void
      }
     def initialize(
       acss_debit: nil,
@@ -1851,7 +1822,6 @@ module Stripe
       konbini: nil,
       kr_card: nil,
       link: nil,
-      mb_way: nil,
       mobilepay: nil,
       multibanco: nil,
       name: nil,

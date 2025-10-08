@@ -524,9 +524,6 @@ module Stripe
       # Custom label given to the reader for easier identification.
       sig { returns(String) }
       def label; end
-      # The last time this reader reported to Stripe backend.
-      sig { returns(T.nilable(Integer)) }
-      def last_seen_at; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       def livemode; end

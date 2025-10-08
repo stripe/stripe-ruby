@@ -659,9 +659,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Attribute for field benefits
-      sig { returns(T.nilable(Benefits)) }
-      def benefits; end
       # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
       sig { returns(String) }
       def brand; end
@@ -715,14 +712,17 @@ module Stripe
       # If this Card is part of a card wallet, this contains the details of the card wallet.
       sig { returns(T.nilable(Wallet)) }
       def wallet; end
+      # Attribute for field benefits
+      sig { returns(T.nilable(Benefits)) }
+      def benefits; end
       def self.inner_class_types
         @inner_class_types = {
-          benefits: Benefits,
           checks: Checks,
           generated_from: GeneratedFrom,
           networks: Networks,
           three_d_secure_usage: ThreeDSecureUsage,
           wallet: Wallet,
+          benefits: Benefits,
         }
       end
       def self.field_remappings

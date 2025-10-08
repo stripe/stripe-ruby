@@ -1454,9 +1454,6 @@ module Stripe
       end
 
       class Rechnung < Stripe::StripeObject
-        # Payment portal URL.
-        attr_reader :payment_portal_url
-
         def self.inner_class_types
           @inner_class_types = {}
         end

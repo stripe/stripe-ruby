@@ -1452,9 +1452,6 @@ module Stripe
       end
 
       class Rechnung < Stripe::StripeObject
-        # Payment portal URL.
-        attr_reader :payment_portal_url
-
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -2183,28 +2180,6 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/payment_records/%<id>s/report_payment_attempt_informational", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Report that the most recent payment attempt on the specified Payment Record
-    #  was refunded.
-    def report_refund(params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/payment_records/%<id>s/report_refund", { id: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Report that the most recent payment attempt on the specified Payment Record
-    #  was refunded.
-    def self.report_refund(id, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/payment_records/%<id>s/report_refund", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

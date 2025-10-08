@@ -75,18 +75,6 @@ module Stripe
       )
     end
 
-    # Report that the most recent payment attempt on the specified Payment Record
-    #  was refunded.
-    def report_refund(id, params = {}, opts = {})
-      request(
-        method: :post,
-        path: format("/v1/payment_records/%<id>s/report_refund", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts,
-        base_address: :api
-      )
-    end
-
     # Retrieves a Payment Record with the given ID
     def retrieve(id, params = {}, opts = {})
       request(

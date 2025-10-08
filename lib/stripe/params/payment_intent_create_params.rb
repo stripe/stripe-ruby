@@ -922,8 +922,6 @@ module Stripe
           @starts_at = starts_at
         end
       end
-      # Benefit details for this PaymentIntent
-      attr_accessor :benefit
       # Car rental details for this PaymentIntent.
       attr_accessor :car_rental
       # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
@@ -938,18 +936,19 @@ module Stripe
       attr_accessor :order_reference
       # Subscription details for this PaymentIntent
       attr_accessor :subscription
+      # Benefit details for this PaymentIntent
+      attr_accessor :benefit
 
       def initialize(
-        benefit: nil,
         car_rental: nil,
         customer_reference: nil,
         event_details: nil,
         flight: nil,
         lodging: nil,
         order_reference: nil,
-        subscription: nil
+        subscription: nil,
+        benefit: nil
       )
-        @benefit = benefit
         @car_rental = car_rental
         @customer_reference = customer_reference
         @event_details = event_details
@@ -957,6 +956,7 @@ module Stripe
         @lodging = lodging
         @order_reference = order_reference
         @subscription = subscription
+        @benefit = benefit
       end
     end
 

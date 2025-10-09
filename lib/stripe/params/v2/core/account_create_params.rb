@@ -6,6 +6,123 @@ module Stripe
     module Core
       class AccountCreateParams < Stripe::RequestParams
         class Configuration < Stripe::RequestParams
+          class CardCreator < Stripe::RequestParams
+            class Capabilities < Stripe::RequestParams
+              class Commercial < Stripe::RequestParams
+                class Celtic < Stripe::RequestParams
+                  class ChargeCard < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class SpendCard < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Celtic as BIN sponsor.
+                  attr_accessor :charge_card
+                  # Can create commercial issuing spend cards with Celtic as BIN sponsor.
+                  attr_accessor :spend_card
+
+                  def initialize(charge_card: nil, spend_card: nil)
+                    @charge_card = charge_card
+                    @spend_card = spend_card
+                  end
+                end
+
+                class CrossRiverBank < Stripe::RequestParams
+                  class ChargeCard < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class SpendCard < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :charge_card
+                  # Can create commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :spend_card
+
+                  def initialize(charge_card: nil, spend_card: nil)
+                    @charge_card = charge_card
+                    @spend_card = spend_card
+                  end
+                end
+
+                class Stripe < Stripe::RequestParams
+                  class ChargeCard < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class PrepaidCard < Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Stripe as BIN sponsor.
+                  attr_accessor :charge_card
+                  # Can create commercial issuing prepaid cards with Stripe as BIN sponsor.
+                  attr_accessor :prepaid_card
+
+                  def initialize(charge_card: nil, prepaid_card: nil)
+                    @charge_card = charge_card
+                    @prepaid_card = prepaid_card
+                  end
+                end
+                # Can create commercial issuing cards with Celtic as BIN sponsor.
+                attr_accessor :celtic
+                # Can create commercial issuing cards with Cross River Bank as BIN sponsor.
+                attr_accessor :cross_river_bank
+                # Can create commercial issuing cards with Stripe as BIN sponsor.
+                attr_accessor :stripe
+
+                def initialize(celtic: nil, cross_river_bank: nil, stripe: nil)
+                  @celtic = celtic
+                  @cross_river_bank = cross_river_bank
+                  @stripe = stripe
+                end
+              end
+              # Can create cards for commercial issuing use cases.
+              attr_accessor :commercial
+
+              def initialize(commercial: nil)
+                @commercial = commercial
+              end
+            end
+            # Capabilities to request on the CardCreator Configuration.
+            attr_accessor :capabilities
+
+            def initialize(capabilities: nil)
+              @capabilities = capabilities
+            end
+          end
+
           class Customer < Stripe::RequestParams
             class AutomaticIndirectTax < Stripe::RequestParams
               # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
@@ -1138,6 +1255,8 @@ module Stripe
               @capabilities = capabilities
             end
           end
+          # The CardCreator Configuration allows the Account to create and issue cards to users.
+          attr_accessor :card_creator
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           attr_accessor :customer
           # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
@@ -1147,7 +1266,14 @@ module Stripe
           # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
           attr_accessor :storer
 
-          def initialize(customer: nil, merchant: nil, recipient: nil, storer: nil)
+          def initialize(
+            card_creator: nil,
+            customer: nil,
+            merchant: nil,
+            recipient: nil,
+            storer: nil
+          )
+            @card_creator = card_creator
             @customer = customer
             @merchant = merchant
             @recipient = recipient
@@ -1270,6 +1396,301 @@ module Stripe
                 end
               end
 
+              class CardCreator < Stripe::RequestParams
+                class Commercial < Stripe::RequestParams
+                  class AccountHolder < Stripe::RequestParams
+                    # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    attr_accessor :date
+                    # The IP address from which the Account's representative accepted the terms of service.
+                    attr_accessor :ip
+                    # The user agent of the browser from which the Account's representative accepted the terms of service.
+                    attr_accessor :user_agent
+
+                    def initialize(date: nil, ip: nil, user_agent: nil)
+                      @date = date
+                      @ip = ip
+                      @user_agent = user_agent
+                    end
+                  end
+
+                  class Celtic < Stripe::RequestParams
+                    class ApplePay < Stripe::RequestParams
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_accessor :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_accessor :ip
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_accessor :user_agent
+
+                      def initialize(date: nil, ip: nil, user_agent: nil)
+                        @date = date
+                        @ip = ip
+                        @user_agent = user_agent
+                      end
+                    end
+
+                    class ChargeCard < Stripe::RequestParams
+                      class BankTerms < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Platform terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @platform = platform
+                      end
+                    end
+
+                    class SpendCard < Stripe::RequestParams
+                      class BankTerms < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Celtic as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for commercial issuing charge cards with Celtic as BIN sponsor.
+                    attr_accessor :charge_card
+                    # Terms of service acceptances for commercial issuing spend cards with Celtic as BIN sponsor.
+                    attr_accessor :spend_card
+
+                    def initialize(apple_pay: nil, charge_card: nil, spend_card: nil)
+                      @apple_pay = apple_pay
+                      @charge_card = charge_card
+                      @spend_card = spend_card
+                    end
+                  end
+
+                  class CrossRiverBank < Stripe::RequestParams
+                    class ApplePay < Stripe::RequestParams
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_accessor :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_accessor :ip
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_accessor :user_agent
+
+                      def initialize(date: nil, ip: nil, user_agent: nil)
+                        @date = date
+                        @ip = ip
+                        @user_agent = user_agent
+                      end
+                    end
+
+                    class ChargeCard < Stripe::RequestParams
+                      class BankTerms < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+
+                    class SpendCard < Stripe::RequestParams
+                      class BankTerms < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :financing_disclosures
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :charge_card
+                    # Terms of service acceptances for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :spend_card
+
+                    def initialize(apple_pay: nil, charge_card: nil, spend_card: nil)
+                      @apple_pay = apple_pay
+                      @charge_card = charge_card
+                      @spend_card = spend_card
+                    end
+                  end
+                  # Terms of service acceptances for Stripe commercial card issuing.
+                  attr_accessor :account_holder
+                  # Terms of service acceptances for commercial issuing cards with Celtic as BIN sponsor.
+                  attr_accessor :celtic
+                  # Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :cross_river_bank
+
+                  def initialize(account_holder: nil, celtic: nil, cross_river_bank: nil)
+                    @account_holder = account_holder
+                    @celtic = celtic
+                    @cross_river_bank = cross_river_bank
+                  end
+                end
+                # Terms of service acceptances to create cards for commercial issuing use cases.
+                attr_accessor :commercial
+
+                def initialize(commercial: nil)
+                  @commercial = commercial
+                end
+              end
+
               class Storer < Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
@@ -1286,11 +1707,14 @@ module Stripe
               end
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               attr_accessor :account
+              # Details on the Account's acceptance of Issuing-specific terms of service.
+              attr_accessor :card_creator
               # Details on the Account's acceptance of Treasury-specific terms of service.
               attr_accessor :storer
 
-              def initialize(account: nil, storer: nil)
+              def initialize(account: nil, card_creator: nil, storer: nil)
                 @account = account
+                @card_creator = card_creator
                 @storer = storer
               end
             end

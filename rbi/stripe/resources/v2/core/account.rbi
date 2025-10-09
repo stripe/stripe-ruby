@@ -8,6 +8,280 @@ module Stripe
       # A V2 Account is a representation of a company or individual that a Stripe user does business with. Accounts contain the contact details, Legal Entity information, and configuration required to enable the Account for use across Stripe products.
       class Account < APIResource
         class Configuration < Stripe::StripeObject
+          class CardCreator < Stripe::StripeObject
+            class Capabilities < Stripe::StripeObject
+              class Commercial < Stripe::StripeObject
+                class Celtic < Stripe::StripeObject
+                  class ChargeCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class SpendCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Celtic as BIN sponsor.
+                  sig { returns(T.nilable(ChargeCard)) }
+                  def charge_card; end
+                  # Can create commercial issuing spend cards with Celtic as BIN sponsor.
+                  sig { returns(T.nilable(SpendCard)) }
+                  def spend_card; end
+                  def self.inner_class_types
+                    @inner_class_types = {charge_card: ChargeCard, spend_card: SpendCard}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class CrossRiverBank < Stripe::StripeObject
+                  class ChargeCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class SpendCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                  sig { returns(T.nilable(ChargeCard)) }
+                  def charge_card; end
+                  # Can create commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                  sig { returns(T.nilable(SpendCard)) }
+                  def spend_card; end
+                  def self.inner_class_types
+                    @inner_class_types = {charge_card: ChargeCard, spend_card: SpendCard}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Stripe < Stripe::StripeObject
+                  class ChargeCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class PrepaidCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Stripe as BIN sponsor.
+                  sig { returns(T.nilable(ChargeCard)) }
+                  def charge_card; end
+                  # Can create commercial issuing prepaid cards with Stripe as BIN sponsor.
+                  sig { returns(T.nilable(PrepaidCard)) }
+                  def prepaid_card; end
+                  def self.inner_class_types
+                    @inner_class_types = {charge_card: ChargeCard, prepaid_card: PrepaidCard}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can create commercial issuing cards with Celtic as BIN sponsor.
+                sig { returns(T.nilable(Celtic)) }
+                def celtic; end
+                # Can create commercial issuing cards with Cross River Bank as BIN sponsor.
+                sig { returns(T.nilable(CrossRiverBank)) }
+                def cross_river_bank; end
+                # Can create commercial issuing cards with Stripe as a BIN sponsor.
+                sig { returns(T.nilable(Stripe)) }
+                def stripe; end
+                def self.inner_class_types
+                  @inner_class_types = {
+                    celtic: Celtic,
+                    cross_river_bank: CrossRiverBank,
+                    stripe: Stripe,
+                  }
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Can create cards for commercial issuing use cases.
+              sig { returns(T.nilable(Commercial)) }
+              def commercial; end
+              def self.inner_class_types
+                @inner_class_types = {commercial: Commercial}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            sig { returns(T::Boolean) }
+            def applied; end
+            # Capabilities that have been requested on the CardCreator Configuration.
+            sig { returns(T.nilable(Capabilities)) }
+            def capabilities; end
+            def self.inner_class_types
+              @inner_class_types = {capabilities: Capabilities}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Customer < Stripe::StripeObject
             class AutomaticIndirectTax < Stripe::StripeObject
               class Location < Stripe::StripeObject
@@ -2629,6 +2903,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The CardCreator Configuration allows the Account to create and issue cards to users.
+          sig { returns(T.nilable(CardCreator)) }
+          def card_creator; end
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           sig { returns(T.nilable(Customer)) }
           def customer; end
@@ -2643,6 +2920,7 @@ module Stripe
           def storer; end
           def self.inner_class_types
             @inner_class_types = {
+              card_creator: CardCreator,
               customer: Customer,
               merchant: Merchant,
               recipient: Recipient,
@@ -2778,6 +3056,413 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class CardCreator < Stripe::StripeObject
+                class Commercial < Stripe::StripeObject
+                  class AccountHolder < Stripe::StripeObject
+                    # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    sig { returns(T.nilable(String)) }
+                    def date; end
+                    # The IP address from which the Account's representative accepted the terms of service.
+                    sig { returns(T.nilable(String)) }
+                    def ip; end
+                    # The URL to the service agreement the Account's representative accepted.
+                    sig { returns(T.nilable(String)) }
+                    def url; end
+                    # The user agent of the browser from which the Account's representative accepted the terms of service.
+                    sig { returns(T.nilable(String)) }
+                    def user_agent; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Celtic < Stripe::StripeObject
+                    class ApplePay < Stripe::StripeObject
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      sig { returns(T.nilable(String)) }
+                      def date; end
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      sig { returns(T.nilable(String)) }
+                      def ip; end
+                      # The URL to the service agreement the Account's representative accepted.
+                      sig { returns(T.nilable(String)) }
+                      def url; end
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      sig { returns(T.nilable(String)) }
+                      def user_agent; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    class ChargeCard < Stripe::StripeObject
+                      class BankTerms < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      class Platform < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      sig { returns(T.nilable(BankTerms)) }
+                      def bank_terms; end
+                      # Platform terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      sig { returns(T.nilable(Platform)) }
+                      def platform; end
+                      def self.inner_class_types
+                        @inner_class_types = {bank_terms: BankTerms, platform: Platform}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    class SpendCard < Stripe::StripeObject
+                      class BankTerms < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      class FinancingDisclosures < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      class Platform < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      sig { returns(T.nilable(BankTerms)) }
+                      def bank_terms; end
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      sig { returns(T.nilable(FinancingDisclosures)) }
+                      def financing_disclosures; end
+                      # Platform terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      sig { returns(T.nilable(Platform)) }
+                      def platform; end
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          bank_terms: BankTerms,
+                          financing_disclosures: FinancingDisclosures,
+                          platform: Platform,
+                        }
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Celtic as BIN sponsor.
+                    sig { returns(T.nilable(ApplePay)) }
+                    def apple_pay; end
+                    # Terms of service acceptances for commercial issuing charge cards with Celtic as BIN sponsor.
+                    sig { returns(T.nilable(ChargeCard)) }
+                    def charge_card; end
+                    # Terms of service acceptances for commercial issuing spend cards with Celtic as BIN sponsor.
+                    sig { returns(T.nilable(SpendCard)) }
+                    def spend_card; end
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        apple_pay: ApplePay,
+                        charge_card: ChargeCard,
+                        spend_card: SpendCard,
+                      }
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class CrossRiverBank < Stripe::StripeObject
+                    class ApplePay < Stripe::StripeObject
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      sig { returns(T.nilable(String)) }
+                      def date; end
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      sig { returns(T.nilable(String)) }
+                      def ip; end
+                      # The URL to the service agreement the Account's representative accepted.
+                      sig { returns(T.nilable(String)) }
+                      def url; end
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      sig { returns(T.nilable(String)) }
+                      def user_agent; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    class ChargeCard < Stripe::StripeObject
+                      class BankTerms < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      class FinancingDisclosures < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      class Platform < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      sig { returns(T.nilable(BankTerms)) }
+                      def bank_terms; end
+                      # Financial disclosures terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      sig { returns(T.nilable(FinancingDisclosures)) }
+                      def financing_disclosures; end
+                      # Platform terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      sig { returns(T.nilable(Platform)) }
+                      def platform; end
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          bank_terms: BankTerms,
+                          financing_disclosures: FinancingDisclosures,
+                          platform: Platform,
+                        }
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    class SpendCard < Stripe::StripeObject
+                      class BankTerms < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      class FinancingDisclosures < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        sig { returns(T.nilable(String)) }
+                        def date; end
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def ip; end
+                        # The URL to the service agreement the Account's representative accepted.
+                        sig { returns(T.nilable(String)) }
+                        def url; end
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        sig { returns(T.nilable(String)) }
+                        def user_agent; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      sig { returns(T.nilable(BankTerms)) }
+                      def bank_terms; end
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      sig { returns(T.nilable(FinancingDisclosures)) }
+                      def financing_disclosures; end
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          bank_terms: BankTerms,
+                          financing_disclosures: FinancingDisclosures,
+                        }
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Cross River Bank as BIN sponsor.
+                    sig { returns(T.nilable(ApplePay)) }
+                    def apple_pay; end
+                    # Terms of service acceptances for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                    sig { returns(T.nilable(ChargeCard)) }
+                    def charge_card; end
+                    # Terms of service acceptances for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                    sig { returns(T.nilable(SpendCard)) }
+                    def spend_card; end
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        apple_pay: ApplePay,
+                        charge_card: ChargeCard,
+                        spend_card: SpendCard,
+                      }
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Terms of service acceptances for Stripe commercial card issuing.
+                  sig { returns(T.nilable(AccountHolder)) }
+                  def account_holder; end
+                  # Terms of service acceptances for commercial issuing cards with Celtic as BIN sponsor.
+                  sig { returns(T.nilable(Celtic)) }
+                  def celtic; end
+                  # Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
+                  sig { returns(T.nilable(CrossRiverBank)) }
+                  def cross_river_bank; end
+                  def self.inner_class_types
+                    @inner_class_types = {
+                      account_holder: AccountHolder,
+                      celtic: Celtic,
+                      cross_river_bank: CrossRiverBank,
+                    }
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Terms of service acceptances to create cards for commercial issuing use cases.
+                sig { returns(T.nilable(Commercial)) }
+                def commercial; end
+                def self.inner_class_types
+                  @inner_class_types = {commercial: Commercial}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class Storer < Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
@@ -2798,11 +3483,14 @@ module Stripe
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               sig { returns(T.nilable(Account)) }
               def account; end
+              # Details on the Account's acceptance of Issuing-specific terms of service.
+              sig { returns(T.nilable(CardCreator)) }
+              def card_creator; end
               # Details on the Account's acceptance of Treasury-specific terms of service.
               sig { returns(T.nilable(Storer)) }
               def storer; end
               def self.inner_class_types
-                @inner_class_types = {account: Account, storer: Storer}
+                @inner_class_types = {account: Account, card_creator: CardCreator, storer: Storer}
               end
               def self.field_remappings
                 @field_remappings = {}

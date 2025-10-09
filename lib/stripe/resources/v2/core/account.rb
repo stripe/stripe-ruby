@@ -12,6 +12,280 @@ module Stripe
         end
 
         class Configuration < Stripe::StripeObject
+          class CardCreator < Stripe::StripeObject
+            class Capabilities < Stripe::StripeObject
+              class Commercial < Stripe::StripeObject
+                class Celtic < Stripe::StripeObject
+                  class ChargeCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    attr_reader :requested
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class SpendCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    attr_reader :requested
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Celtic as BIN sponsor.
+                  attr_reader :charge_card
+                  # Can create commercial issuing spend cards with Celtic as BIN sponsor.
+                  attr_reader :spend_card
+
+                  def self.inner_class_types
+                    @inner_class_types = { charge_card: ChargeCard, spend_card: SpendCard }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
+                class CrossRiverBank < Stripe::StripeObject
+                  class ChargeCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    attr_reader :requested
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class SpendCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    attr_reader :requested
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                  attr_reader :charge_card
+                  # Can create commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                  attr_reader :spend_card
+
+                  def self.inner_class_types
+                    @inner_class_types = { charge_card: ChargeCard, spend_card: SpendCard }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
+                class Stripe < Stripe::StripeObject
+                  class ChargeCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    attr_reader :requested
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class PrepaidCard < Stripe::StripeObject
+                    class StatusDetail < Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Whether the Capability has been requested.
+                    attr_reader :requested
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Stripe as BIN sponsor.
+                  attr_reader :charge_card
+                  # Can create commercial issuing prepaid cards with Stripe as BIN sponsor.
+                  attr_reader :prepaid_card
+
+                  def self.inner_class_types
+                    @inner_class_types = { charge_card: ChargeCard, prepaid_card: PrepaidCard }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can create commercial issuing cards with Celtic as BIN sponsor.
+                attr_reader :celtic
+                # Can create commercial issuing cards with Cross River Bank as BIN sponsor.
+                attr_reader :cross_river_bank
+                # Can create commercial issuing cards with Stripe as a BIN sponsor.
+                attr_reader :stripe
+
+                def self.inner_class_types
+                  @inner_class_types = {
+                    celtic: Celtic,
+                    cross_river_bank: CrossRiverBank,
+                    stripe: Stripe,
+                  }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Can create cards for commercial issuing use cases.
+              attr_reader :commercial
+
+              def self.inner_class_types
+                @inner_class_types = { commercial: Commercial }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            attr_reader :applied
+            # Capabilities that have been requested on the CardCreator Configuration.
+            attr_reader :capabilities
+
+            def self.inner_class_types
+              @inner_class_types = { capabilities: Capabilities }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Customer < Stripe::StripeObject
             class AutomaticIndirectTax < Stripe::StripeObject
               class Location < Stripe::StripeObject
@@ -2570,6 +2844,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The CardCreator Configuration allows the Account to create and issue cards to users.
+          attr_reader :card_creator
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           attr_reader :customer
           # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
@@ -2581,6 +2857,7 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = {
+              card_creator: CardCreator,
               customer: Customer,
               merchant: Merchant,
               recipient: Recipient,
@@ -2716,6 +2993,396 @@ module Stripe
                 end
               end
 
+              class CardCreator < Stripe::StripeObject
+                class Commercial < Stripe::StripeObject
+                  class AccountHolder < Stripe::StripeObject
+                    # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    attr_reader :date
+                    # The IP address from which the Account's representative accepted the terms of service.
+                    attr_reader :ip
+                    # The URL to the service agreement the Account's representative accepted.
+                    attr_reader :url
+                    # The user agent of the browser from which the Account's representative accepted the terms of service.
+                    attr_reader :user_agent
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class Celtic < Stripe::StripeObject
+                    class ApplePay < Stripe::StripeObject
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_reader :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_reader :ip
+                      # The URL to the service agreement the Account's representative accepted.
+                      attr_reader :url
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_reader :user_agent
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+
+                    class ChargeCard < Stripe::StripeObject
+                      class BankTerms < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+
+                      class Platform < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      attr_reader :bank_terms
+                      # Platform terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      attr_reader :platform
+
+                      def self.inner_class_types
+                        @inner_class_types = { bank_terms: BankTerms, platform: Platform }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+
+                    class SpendCard < Stripe::StripeObject
+                      class BankTerms < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+
+                      class FinancingDisclosures < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+
+                      class Platform < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_reader :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_reader :financing_disclosures
+                      # Platform terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_reader :platform
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          bank_terms: BankTerms,
+                          financing_disclosures: FinancingDisclosures,
+                          platform: Platform,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Celtic as BIN sponsor.
+                    attr_reader :apple_pay
+                    # Terms of service acceptances for commercial issuing charge cards with Celtic as BIN sponsor.
+                    attr_reader :charge_card
+                    # Terms of service acceptances for commercial issuing spend cards with Celtic as BIN sponsor.
+                    attr_reader :spend_card
+
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        apple_pay: ApplePay,
+                        charge_card: ChargeCard,
+                        spend_card: SpendCard,
+                      }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class CrossRiverBank < Stripe::StripeObject
+                    class ApplePay < Stripe::StripeObject
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_reader :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_reader :ip
+                      # The URL to the service agreement the Account's representative accepted.
+                      attr_reader :url
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_reader :user_agent
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+
+                    class ChargeCard < Stripe::StripeObject
+                      class BankTerms < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+
+                      class FinancingDisclosures < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+
+                      class Platform < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_reader :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_reader :financing_disclosures
+                      # Platform terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_reader :platform
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          bank_terms: BankTerms,
+                          financing_disclosures: FinancingDisclosures,
+                          platform: Platform,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+
+                    class SpendCard < Stripe::StripeObject
+                      class BankTerms < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+
+                      class FinancingDisclosures < Stripe::StripeObject
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_reader :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_reader :ip
+                        # The URL to the service agreement the Account's representative accepted.
+                        attr_reader :url
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_reader :user_agent
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      attr_reader :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      attr_reader :financing_disclosures
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          bank_terms: BankTerms,
+                          financing_disclosures: FinancingDisclosures,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Cross River Bank as BIN sponsor.
+                    attr_reader :apple_pay
+                    # Terms of service acceptances for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                    attr_reader :charge_card
+                    # Terms of service acceptances for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                    attr_reader :spend_card
+
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        apple_pay: ApplePay,
+                        charge_card: ChargeCard,
+                        spend_card: SpendCard,
+                      }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Terms of service acceptances for Stripe commercial card issuing.
+                  attr_reader :account_holder
+                  # Terms of service acceptances for commercial issuing cards with Celtic as BIN sponsor.
+                  attr_reader :celtic
+                  # Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
+                  attr_reader :cross_river_bank
+
+                  def self.inner_class_types
+                    @inner_class_types = {
+                      account_holder: AccountHolder,
+                      celtic: Celtic,
+                      cross_river_bank: CrossRiverBank,
+                    }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Terms of service acceptances to create cards for commercial issuing use cases.
+                attr_reader :commercial
+
+                def self.inner_class_types
+                  @inner_class_types = { commercial: Commercial }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class Storer < Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_reader :date
@@ -2734,11 +3401,13 @@ module Stripe
               end
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               attr_reader :account
+              # Details on the Account's acceptance of Issuing-specific terms of service.
+              attr_reader :card_creator
               # Details on the Account's acceptance of Treasury-specific terms of service.
               attr_reader :storer
 
               def self.inner_class_types
-                @inner_class_types = { account: Account, storer: Storer }
+                @inner_class_types = { account: Account, card_creator: CardCreator, storer: Storer }
               end
 
               def self.field_remappings

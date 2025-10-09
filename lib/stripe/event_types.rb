@@ -317,6 +317,10 @@ module Stripe
         Events::V2BillingRateCardVersionCreatedEvent,
         Events::V2CoreAccountClosedEvent.lookup_type => Events::V2CoreAccountClosedEvent,
         Events::V2CoreAccountCreatedEvent.lookup_type => Events::V2CoreAccountCreatedEvent,
+        Events::V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent.lookup_type =>
+        Events::V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent,
+        Events::V2CoreAccountIncludingConfigurationCardCreatorUpdatedEvent.lookup_type =>
+        Events::V2CoreAccountIncludingConfigurationCardCreatorUpdatedEvent,
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
         Events::V2CoreAccountIncludingConfigurationCustomerUpdatedEvent.lookup_type =>
@@ -883,6 +887,10 @@ module Stripe
         Events::V2CoreAccountClosedEventNotification,
         Events::V2CoreAccountCreatedEventNotification.lookup_type =>
         Events::V2CoreAccountCreatedEventNotification,
+        Events::V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventNotification.lookup_type =>
+        Events::V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventNotification,
+        Events::V2CoreAccountIncludingConfigurationCardCreatorUpdatedEventNotification.lookup_type =>
+        Events::V2CoreAccountIncludingConfigurationCardCreatorUpdatedEventNotification,
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
         Events::V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification.lookup_type =>

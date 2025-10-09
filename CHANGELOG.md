@@ -1,5 +1,19 @@
 # Changelog
 
+## 17.1.0-alpha.1 - 2025-10-09
+* Contains a breaking bug fix and other improvements from [v17.0.0](https://github.com/stripe/stripe-ruby/releases/tag/v17.0.0).
+* [#1697](https://github.com/stripe/stripe-ruby/pull/1697) Update generated code for private-preview
+  * Add support for new resource `PaymentMethodBalance`
+  * Add support for `check_balance` method on resource `PaymentMethod`
+  * Add support for `benefits` on `Card`, `Charge::PaymentMethodDetail::Card`, `ConfirmationToken::PaymentMethodPreview::Card`, and `PaymentMethod::Card`
+  * Add support for `benefit` on `PaymentIntent::PaymentDetail`, `PaymentIntentConfirmParams::PaymentDetail`, `PaymentIntentCreateParams::PaymentDetail`, and `PaymentIntentUpdateParams::PaymentDetail`
+  * Add support for `setup_details` on `SetupIntentConfirmParams`, `SetupIntentCreateParams`, `SetupIntentUpdateParams`, and `SetupIntent`
+  * Add support for `card_creator` on `V2::Core::Account::Configuration`, `V2::Core::Account::Identity::Attestation::TermsOfService`, `V2::Core::AccountCreateParams::Configuration`, `V2::Core::AccountCreateParams::Identity::Attestation::TermsOfService`, `V2::Core::AccountUpdateParams::Configuration`, and `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService`
+  * Add support for thin events `V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent` and `V2CoreAccountIncludingConfigurationCardCreatorUpdatedEvent` with related object `V2::Core::Account`
+  * Remove support for thin events `V1CustomerDiscountCreatedEvent`, `V1CustomerDiscountDeletedEvent`, and `V1CustomerDiscountUpdatedEvent` with related object `Discount`
+* [#1692](https://github.com/stripe/stripe-ruby/pull/1692) Update changelog for private preview 
+* [#1689](https://github.com/stripe/stripe-ruby/pull/1689) Update CHANGELOG.md to point to right API version
+
 ## 16.1.0-alpha.1 - 2025-10-01
 This release changes the pinned API version to `2025-09-30.preview`. It is built on top of SDK version 16.0.0 and 16.1.0-beta.1 which contain breaking changes. Please review the changelog for these versions if upgrading from older SDK versions.
 

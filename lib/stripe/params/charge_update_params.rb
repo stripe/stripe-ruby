@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class ChargeUpdateParams < Stripe::RequestParams
-    class FraudDetails < Stripe::RequestParams
+  class ChargeUpdateParams < ::Stripe::RequestParams
+    class FraudDetails < ::Stripe::RequestParams
       # Either `safe` or `fraudulent`.
       attr_accessor :user_report
 
@@ -12,8 +12,8 @@ module Stripe
       end
     end
 
-    class Shipping < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Shipping < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

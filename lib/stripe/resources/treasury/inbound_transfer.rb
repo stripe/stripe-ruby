@@ -15,7 +15,7 @@ module Stripe
         "treasury.inbound_transfer"
       end
 
-      class FailureDetails < Stripe::StripeObject
+      class FailureDetails < ::Stripe::StripeObject
         # Reason for the failure.
         attr_reader :code
 
@@ -28,7 +28,7 @@ module Stripe
         end
       end
 
-      class LinkedFlows < Stripe::StripeObject
+      class LinkedFlows < ::Stripe::StripeObject
         # If funds for this flow were returned after the flow went to the `succeeded` state, this field contains a reference to the ReceivedDebit return.
         attr_reader :received_debit
 
@@ -41,9 +41,9 @@ module Stripe
         end
       end
 
-      class OriginPaymentMethodDetails < Stripe::StripeObject
-        class BillingDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class OriginPaymentMethodDetails < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -81,7 +81,7 @@ module Stripe
           end
         end
 
-        class UsBankAccount < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
           # Account holder type: individual or company.
           attr_reader :account_holder_type
           # Account type: checkings or savings. Defaults to checking if omitted.
@@ -123,7 +123,7 @@ module Stripe
         end
       end
 
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Timestamp describing when an InboundTransfer changed status to `canceled`.
         attr_reader :canceled_at
         # Timestamp describing when an InboundTransfer changed status to `failed`.

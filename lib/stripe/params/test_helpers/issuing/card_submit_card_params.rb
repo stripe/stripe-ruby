@@ -4,7 +4,7 @@
 module Stripe
   module TestHelpers
     module Issuing
-      class CardSubmitCardParams < Stripe::RequestParams
+      class CardSubmitCardParams < ::Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
 

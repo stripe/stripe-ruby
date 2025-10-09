@@ -9,11 +9,11 @@ module Stripe
         "v1.billing.meter.error_report_triggered"
       end
 
-      class V1BillingMeterErrorReportTriggeredEventData < Stripe::StripeObject
-        class Reason < Stripe::StripeObject
-          class ErrorType < Stripe::StripeObject
-            class SampleError < Stripe::StripeObject
-              class Request < Stripe::StripeObject
+      class V1BillingMeterErrorReportTriggeredEventData < ::Stripe::StripeObject
+        class Reason < ::Stripe::StripeObject
+          class ErrorType < ::Stripe::StripeObject
+            class SampleError < ::Stripe::StripeObject
+              class Request < ::Stripe::StripeObject
                 # The request idempotency key.
                 attr_reader :identifier
 

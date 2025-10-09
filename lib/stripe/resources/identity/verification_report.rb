@@ -22,8 +22,8 @@ module Stripe
         "identity.verification_report"
       end
 
-      class Document < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class Document < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -46,7 +46,7 @@ module Stripe
           end
         end
 
-        class Dob < Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           attr_reader :day
           # Numerical month between 1 and 12.
@@ -63,7 +63,7 @@ module Stripe
           end
         end
 
-        class Error < Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -78,7 +78,7 @@ module Stripe
           end
         end
 
-        class ExpirationDate < Stripe::StripeObject
+        class ExpirationDate < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           attr_reader :day
           # Numerical month between 1 and 12.
@@ -95,7 +95,7 @@ module Stripe
           end
         end
 
-        class IssuedDate < Stripe::StripeObject
+        class IssuedDate < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           attr_reader :day
           # Numerical month between 1 and 12.
@@ -157,8 +157,8 @@ module Stripe
         end
       end
 
-      class Email < Stripe::StripeObject
-        class Error < Stripe::StripeObject
+      class Email < ::Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -188,8 +188,8 @@ module Stripe
         end
       end
 
-      class IdNumber < Stripe::StripeObject
-        class Dob < Stripe::StripeObject
+      class IdNumber < ::Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           attr_reader :day
           # Numerical month between 1 and 12.
@@ -206,7 +206,7 @@ module Stripe
           end
         end
 
-        class Error < Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -244,8 +244,8 @@ module Stripe
         end
       end
 
-      class Options < Stripe::StripeObject
-        class Document < Stripe::StripeObject
+      class Options < ::Stripe::StripeObject
+        class Document < ::Stripe::StripeObject
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           attr_reader :allowed_types
           # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
@@ -264,7 +264,7 @@ module Stripe
           end
         end
 
-        class IdNumber < Stripe::StripeObject
+        class IdNumber < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -287,8 +287,8 @@ module Stripe
         end
       end
 
-      class Phone < Stripe::StripeObject
-        class Error < Stripe::StripeObject
+      class Phone < ::Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -318,8 +318,8 @@ module Stripe
         end
       end
 
-      class Selfie < Stripe::StripeObject
-        class Error < Stripe::StripeObject
+      class Selfie < ::Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           attr_reader :code
           # A human-readable message giving the reason for the failure. These messages can be shown to your users.

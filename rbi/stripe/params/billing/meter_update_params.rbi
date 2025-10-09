@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Billing
-    class MeterUpdateParams < Stripe::RequestParams
+    class MeterUpdateParams < ::Stripe::RequestParams
       # The meter’s name. Not visible to the customer.
       sig { returns(T.nilable(String)) }
       def display_name; end

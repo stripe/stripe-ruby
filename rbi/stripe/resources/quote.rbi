@@ -6,10 +6,10 @@ module Stripe
   # A Quote is a way to model prices that you'd like to provide to a customer.
   # Once accepted, it will automatically create an invoice, subscription or subscription schedule.
   class Quote < APIResource
-    class AutomaticTax < Stripe::StripeObject
-      class Liability < Stripe::StripeObject
+    class AutomaticTax < ::Stripe::StripeObject
+      class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -40,11 +40,11 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Computed < Stripe::StripeObject
-      class Recurring < Stripe::StripeObject
-        class TotalDetails < Stripe::StripeObject
-          class Breakdown < Stripe::StripeObject
-            class Discount < Stripe::StripeObject
+    class Computed < ::Stripe::StripeObject
+      class Recurring < ::Stripe::StripeObject
+        class TotalDetails < ::Stripe::StripeObject
+          class Breakdown < ::Stripe::StripeObject
+            class Discount < ::Stripe::StripeObject
               # The amount discounted.
               sig { returns(Integer) }
               def amount; end
@@ -52,7 +52,7 @@ module Stripe
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
-              sig { returns(Stripe::Discount) }
+              sig { returns(::Stripe::Discount) }
               def discount; end
               def self.inner_class_types
                 @inner_class_types = {}
@@ -61,14 +61,14 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Tax < Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Amount of tax applied for this rate.
               sig { returns(Integer) }
               def amount; end
               # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
               #
               # Related guide: [Tax rates](/billing/taxes/tax-rates)
-              sig { returns(Stripe::TaxRate) }
+              sig { returns(::Stripe::TaxRate) }
               def rate; end
               # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
               sig { returns(T.nilable(String)) }
@@ -137,10 +137,10 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Upfront < Stripe::StripeObject
-        class TotalDetails < Stripe::StripeObject
-          class Breakdown < Stripe::StripeObject
-            class Discount < Stripe::StripeObject
+      class Upfront < ::Stripe::StripeObject
+        class TotalDetails < ::Stripe::StripeObject
+          class Breakdown < ::Stripe::StripeObject
+            class Discount < ::Stripe::StripeObject
               # The amount discounted.
               sig { returns(Integer) }
               def amount; end
@@ -148,7 +148,7 @@ module Stripe
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
               # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
-              sig { returns(Stripe::Discount) }
+              sig { returns(::Stripe::Discount) }
               def discount; end
               def self.inner_class_types
                 @inner_class_types = {}
@@ -157,14 +157,14 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Tax < Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Amount of tax applied for this rate.
               sig { returns(Integer) }
               def amount; end
               # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
               #
               # Related guide: [Tax rates](/billing/taxes/tax-rates)
-              sig { returns(Stripe::TaxRate) }
+              sig { returns(::Stripe::TaxRate) }
               def rate; end
               # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
               sig { returns(T.nilable(String)) }
@@ -218,7 +218,7 @@ module Stripe
         sig { returns(Integer) }
         def amount_total; end
         # The line items that will appear on the next invoice after this quote is accepted. This does not include pending invoice items that exist on the customer but may still be included in the next invoice.
-        sig { returns(T.nilable(Stripe::ListObject)) }
+        sig { returns(T.nilable(::Stripe::ListObject)) }
         def line_items; end
         # Attribute for field total_details
         sig { returns(TotalDetails) }
@@ -243,12 +243,12 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class FromQuote < Stripe::StripeObject
+    class FromQuote < ::Stripe::StripeObject
       # Whether this quote is a revision of a different quote.
       sig { returns(T::Boolean) }
       def is_revision; end
       # The quote that was cloned.
-      sig { returns(T.any(String, Stripe::Quote)) }
+      sig { returns(T.any(String, ::Stripe::Quote)) }
       def quote; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -257,10 +257,10 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class InvoiceSettings < Stripe::StripeObject
-      class Issuer < Stripe::StripeObject
+    class InvoiceSettings < ::Stripe::StripeObject
+      class Issuer < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -285,7 +285,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class StatusTransitions < Stripe::StripeObject
+    class StatusTransitions < ::Stripe::StripeObject
       # The time that the quote was accepted. Measured in seconds since Unix epoch.
       sig { returns(T.nilable(Integer)) }
       def accepted_at; end
@@ -302,9 +302,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class SubscriptionData < Stripe::StripeObject
-      class BillingMode < Stripe::StripeObject
-        class Flexible < Stripe::StripeObject
+    class SubscriptionData < ::Stripe::StripeObject
+      class BillingMode < ::Stripe::StripeObject
+        class Flexible < ::Stripe::StripeObject
           # Controls how invoices and invoice items display proration amounts and discount amounts.
           sig { returns(T.nilable(String)) }
           def proration_discounts; end
@@ -350,9 +350,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TotalDetails < Stripe::StripeObject
-      class Breakdown < Stripe::StripeObject
-        class Discount < Stripe::StripeObject
+    class TotalDetails < ::Stripe::StripeObject
+      class Breakdown < ::Stripe::StripeObject
+        class Discount < ::Stripe::StripeObject
           # The amount discounted.
           sig { returns(Integer) }
           def amount; end
@@ -360,7 +360,7 @@ module Stripe
           # It contains information about when the discount began, when it will end, and what it is applied to.
           #
           # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
-          sig { returns(Stripe::Discount) }
+          sig { returns(::Stripe::Discount) }
           def discount; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -369,14 +369,14 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Tax < Stripe::StripeObject
+        class Tax < ::Stripe::StripeObject
           # Amount of tax applied for this rate.
           sig { returns(Integer) }
           def amount; end
           # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
           #
           # Related guide: [Tax rates](/billing/taxes/tax-rates)
-          sig { returns(Stripe::TaxRate) }
+          sig { returns(::Stripe::TaxRate) }
           def rate; end
           # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
           sig { returns(T.nilable(String)) }
@@ -423,7 +423,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TransferData < Stripe::StripeObject
+    class TransferData < ::Stripe::StripeObject
       # The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
       sig { returns(T.nilable(Integer)) }
       def amount; end
@@ -431,7 +431,7 @@ module Stripe
       sig { returns(T.nilable(Float)) }
       def amount_percent; end
       # The account where funds from the payment will be transferred to upon payment success.
-      sig { returns(T.any(String, Stripe::Account)) }
+      sig { returns(T.any(String, ::Stripe::Account)) }
       def destination; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -447,7 +447,7 @@ module Stripe
     sig { returns(Integer) }
     def amount_total; end
     # ID of the Connect Application that created the quote.
-    sig { returns(T.nilable(T.any(String, Stripe::Application))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
     # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Only applicable if there are no line items with recurring prices on the quote.
     sig { returns(T.nilable(Integer)) }
@@ -471,16 +471,16 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def currency; end
     # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
-    sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # The tax rates applied to this quote.
-    sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxRate)])) }
+    sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxRate)])) }
     def default_tax_rates; end
     # A description that will be displayed on the quote PDF.
     sig { returns(T.nilable(String)) }
     def description; end
     # The discounts applied to this quote.
-    sig { returns(T::Array[T.any(String, Stripe::Discount)]) }
+    sig { returns(T::Array[T.any(String, ::Stripe::Discount)]) }
     def discounts; end
     # The date on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -498,13 +498,13 @@ module Stripe
     sig { returns(String) }
     def id; end
     # The invoice that was created from this quote.
-    sig { returns(T.nilable(T.any(String, Stripe::Invoice))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def invoice; end
     # Attribute for field invoice_settings
     sig { returns(InvoiceSettings) }
     def invoice_settings; end
     # A list of items the customer is being quoted for.
-    sig { returns(T.nilable(Stripe::ListObject)) }
+    sig { returns(T.nilable(::Stripe::ListObject)) }
     def line_items; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
@@ -519,7 +519,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
-    sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def on_behalf_of; end
     # The status of the quote.
     sig { returns(String) }
@@ -528,16 +528,16 @@ module Stripe
     sig { returns(StatusTransitions) }
     def status_transitions; end
     # The subscription that was created or updated from this quote.
-    sig { returns(T.nilable(T.any(String, Stripe::Subscription))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Subscription))) }
     def subscription; end
     # Attribute for field subscription_data
     sig { returns(SubscriptionData) }
     def subscription_data; end
     # The subscription schedule that was created or updated from this quote.
-    sig { returns(T.nilable(T.any(String, Stripe::SubscriptionSchedule))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::SubscriptionSchedule))) }
     def subscription_schedule; end
     # ID of the test clock this quote belongs to.
-    sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
     # Attribute for field total_details
     sig { returns(TotalDetails) }
@@ -547,73 +547,73 @@ module Stripe
     def transfer_data; end
     # Accepts the specified quote.
     sig {
-      params(params: T.any(::Stripe::QuoteAcceptParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(params: T.any(::Stripe::QuoteAcceptParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def accept(params = {}, opts = {}); end
 
     # Accepts the specified quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteAcceptParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::QuoteAcceptParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def self.accept(quote, params = {}, opts = {}); end
 
     # Cancels the quote.
     sig {
-      params(params: T.any(::Stripe::QuoteCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(params: T.any(::Stripe::QuoteCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def cancel(params = {}, opts = {}); end
 
     # Cancels the quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::QuoteCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def self.cancel(quote, params = {}, opts = {}); end
 
     # A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
     sig {
-      params(params: T.any(::Stripe::QuoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(params: T.any(::Stripe::QuoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def self.create(params = {}, opts = {}); end
 
     # Finalizes the quote.
     sig {
-      params(params: T.any(::Stripe::QuoteFinalizeQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(params: T.any(::Stripe::QuoteFinalizeQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def finalize_quote(params = {}, opts = {}); end
 
     # Finalizes the quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteFinalizeQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::QuoteFinalizeQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def self.finalize_quote(quote, params = {}, opts = {}); end
 
     # Returns a list of your quotes.
     sig {
-      params(params: T.any(::Stripe::QuoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::QuoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
     sig {
-      params(params: T.any(::Stripe::QuoteListComputedUpfrontLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::QuoteListComputedUpfrontLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list_computed_upfront_line_items(params = {}, opts = {}); end
 
     # When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteListComputedUpfrontLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(quote: String, params: T.any(::Stripe::QuoteListComputedUpfrontLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list_computed_upfront_line_items(quote, params = {}, opts = {}); end
 
     # When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     sig {
-      params(params: T.any(::Stripe::QuoteListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::QuoteListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list_line_items(params = {}, opts = {}); end
 
     # When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(quote: String, params: T.any(::Stripe::QuoteListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list_line_items(quote, params = {}, opts = {}); end
 
@@ -631,7 +631,7 @@ module Stripe
 
     # A quote models prices and services for a customer.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::QuoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def self.update(quote, params = {}, opts = {}); end
   end

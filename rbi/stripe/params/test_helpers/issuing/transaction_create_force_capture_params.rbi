@@ -5,8 +5,8 @@
 module Stripe
   module TestHelpers
     module Issuing
-      class TransactionCreateForceCaptureParams < Stripe::RequestParams
-        class MerchantData < Stripe::RequestParams
+      class TransactionCreateForceCaptureParams < ::Stripe::RequestParams
+        class MerchantData < ::Stripe::RequestParams
           # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
           sig { returns(T.nilable(String)) }
           def category; end
@@ -67,9 +67,9 @@ module Stripe
             url: nil
           ); end
         end
-        class PurchaseDetails < Stripe::RequestParams
-          class Fleet < Stripe::RequestParams
-            class CardholderPromptData < Stripe::RequestParams
+        class PurchaseDetails < ::Stripe::RequestParams
+          class Fleet < ::Stripe::RequestParams
+            class CardholderPromptData < ::Stripe::RequestParams
               # Driver ID.
               sig { returns(T.nilable(String)) }
               def driver_id; end
@@ -106,8 +106,8 @@ module Stripe
                 vehicle_number: nil
               ); end
             end
-            class ReportedBreakdown < Stripe::RequestParams
-              class Fuel < Stripe::RequestParams
+            class ReportedBreakdown < ::Stripe::RequestParams
+              class Fuel < ::Stripe::RequestParams
                 # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
                 sig { returns(T.nilable(String)) }
                 def gross_amount_decimal; end
@@ -116,7 +116,7 @@ module Stripe
                 sig { params(gross_amount_decimal: T.nilable(String)).void }
                 def initialize(gross_amount_decimal: nil); end
               end
-              class NonFuel < Stripe::RequestParams
+              class NonFuel < ::Stripe::RequestParams
                 # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
                 sig { returns(T.nilable(String)) }
                 def gross_amount_decimal; end
@@ -125,7 +125,7 @@ module Stripe
                 sig { params(gross_amount_decimal: T.nilable(String)).void }
                 def initialize(gross_amount_decimal: nil); end
               end
-              class Tax < Stripe::RequestParams
+              class Tax < ::Stripe::RequestParams
                 # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
                 sig { returns(T.nilable(String)) }
                 def local_amount_decimal; end
@@ -213,8 +213,8 @@ module Stripe
               service_type: nil
             ); end
           end
-          class Flight < Stripe::RequestParams
-            class Segment < Stripe::RequestParams
+          class Flight < ::Stripe::RequestParams
+            class Segment < ::Stripe::RequestParams
               # The three-letter IATA airport code of the flight's destination.
               sig { returns(T.nilable(String)) }
               def arrival_airport_code; end
@@ -299,7 +299,7 @@ module Stripe
               travel_agency: nil
             ); end
           end
-          class Fuel < Stripe::RequestParams
+          class Fuel < ::Stripe::RequestParams
             # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
             sig { returns(T.nilable(String)) }
             def industry_product_code; end
@@ -336,7 +336,7 @@ module Stripe
               unit_cost_decimal: nil
             ); end
           end
-          class Lodging < Stripe::RequestParams
+          class Lodging < ::Stripe::RequestParams
             # The time of checking into the lodging.
             sig { returns(T.nilable(Integer)) }
             def check_in_at; end
@@ -350,7 +350,7 @@ module Stripe
             sig { params(check_in_at: T.nilable(Integer), nights: T.nilable(Integer)).void }
             def initialize(check_in_at: nil, nights: nil); end
           end
-          class Receipt < Stripe::RequestParams
+          class Receipt < ::Stripe::RequestParams
             # Attribute for param field description
             sig { returns(T.nilable(String)) }
             def description; end

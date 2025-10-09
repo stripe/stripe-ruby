@@ -10,7 +10,7 @@ module Stripe
     #
     # By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
     sig {
-      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def cancel(subscription_exposed_id, params = {}, opts = {}); end
 
@@ -22,37 +22,37 @@ module Stripe
     # To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://docs.stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
     # Schedules provide the flexibility to model more complex billing configurations that change over time.
     sig {
-      params(params: T.any(::Stripe::SubscriptionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+      params(params: T.any(::Stripe::SubscriptionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def create(params = {}, opts = {}); end
 
     # Removes the currently applied discount on a subscription.
     sig {
-      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Discount)
+      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
      }
     def delete_discount(subscription_exposed_id, params = {}, opts = {}); end
 
     # By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
     sig {
-      params(params: T.any(::Stripe::SubscriptionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::SubscriptionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list(params = {}, opts = {}); end
 
     # Upgrade the billing_mode of an existing subscription.
     sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionMigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+      params(subscription: String, params: T.any(::Stripe::SubscriptionMigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def migrate(subscription, params = {}, opts = {}); end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+      params(subscription: String, params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def resume(subscription, params = {}, opts = {}); end
 
     # Retrieves the subscription with the given ID.
     sig {
-      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def retrieve(subscription_exposed_id, params = {}, opts = {}); end
 
@@ -61,7 +61,7 @@ module Stripe
     # conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
     # to an hour behind during outages. Search functionality is not available to merchants in India.
     sig {
-      params(params: T.any(::Stripe::SubscriptionSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::SubscriptionSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def search(params = {}, opts = {}); end
 
@@ -87,7 +87,7 @@ module Stripe
     #
     # Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
     sig {
-      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def update(subscription_exposed_id, params = {}, opts = {}); end
   end

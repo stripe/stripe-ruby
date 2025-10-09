@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class EphemeralKeyCreateParams < Stripe::RequestParams
+  class EphemeralKeyCreateParams < ::Stripe::RequestParams
     # The ID of the Customer you'd like to modify using the resulting ephemeral key.
     attr_accessor :customer
     # Specifies which fields in the response should be expanded.

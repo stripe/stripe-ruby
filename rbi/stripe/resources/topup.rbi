@@ -13,7 +13,7 @@ module Stripe
     sig { returns(Integer) }
     def amount; end
     # ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up.
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def balance_transaction; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -46,7 +46,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The source field is deprecated. It might not always be present in the API response.
-    sig { returns(T.nilable(Stripe::Source)) }
+    sig { returns(T.nilable(::Stripe::Source)) }
     def source; end
     # Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter.
     sig { returns(T.nilable(String)) }
@@ -59,31 +59,31 @@ module Stripe
     def transfer_group; end
     # Cancels a top-up. Only pending top-ups can be canceled.
     sig {
-      params(params: T.any(::Stripe::TopupCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Topup)
+      params(params: T.any(::Stripe::TopupCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Topup)
      }
     def cancel(params = {}, opts = {}); end
 
     # Cancels a top-up. Only pending top-ups can be canceled.
     sig {
-      params(topup: String, params: T.any(::Stripe::TopupCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Topup)
+      params(topup: String, params: T.any(::Stripe::TopupCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Topup)
      }
     def self.cancel(topup, params = {}, opts = {}); end
 
     # Top up the balance of an account
     sig {
-      params(params: T.any(::Stripe::TopupCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Topup)
+      params(params: T.any(::Stripe::TopupCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Topup)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of top-ups.
     sig {
-      params(params: T.any(::Stripe::TopupListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::TopupListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates the metadata of a top-up. Other top-up details are not editable by design.
     sig {
-      params(topup: String, params: T.any(::Stripe::TopupUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Topup)
+      params(topup: String, params: T.any(::Stripe::TopupUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Topup)
      }
     def self.update(topup, params = {}, opts = {}); end
   end

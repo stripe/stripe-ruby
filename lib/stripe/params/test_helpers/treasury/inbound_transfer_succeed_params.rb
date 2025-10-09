@@ -4,7 +4,7 @@
 module Stripe
   module TestHelpers
     module Treasury
-      class InboundTransferSucceedParams < Stripe::RequestParams
+      class InboundTransferSucceedParams < ::Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
 

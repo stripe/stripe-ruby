@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderProcessSetupIntentParams < Stripe::RequestParams
-      class ProcessConfig < Stripe::RequestParams
+    class ReaderProcessSetupIntentParams < ::Stripe::RequestParams
+      class ProcessConfig < ::Stripe::RequestParams
         # Enables cancel button on transaction screens.
         sig { returns(T.nilable(T::Boolean)) }
         def enable_customer_cancellation; end

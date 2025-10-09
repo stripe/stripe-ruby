@@ -12,9 +12,9 @@ module Stripe
         "treasury.received_debit"
       end
 
-      class InitiatingPaymentMethodDetails < Stripe::StripeObject
-        class BillingDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class InitiatingPaymentMethodDetails < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -52,7 +52,7 @@ module Stripe
           end
         end
 
-        class FinancialAccount < Stripe::StripeObject
+        class FinancialAccount < ::Stripe::StripeObject
           # The FinancialAccount ID.
           attr_reader :id
           # The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
@@ -67,7 +67,7 @@ module Stripe
           end
         end
 
-        class UsBankAccount < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
           # Bank name.
           attr_reader :bank_name
           # The last four digits of the bank account number.
@@ -109,7 +109,7 @@ module Stripe
         end
       end
 
-      class LinkedFlows < Stripe::StripeObject
+      class LinkedFlows < ::Stripe::StripeObject
         # The DebitReversal created as a result of this ReceivedDebit being reversed.
         attr_reader :debit_reversal
         # Set if the ReceivedDebit is associated with an InboundTransfer's return of funds.
@@ -130,7 +130,7 @@ module Stripe
         end
       end
 
-      class ReversalDetails < Stripe::StripeObject
+      class ReversalDetails < ::Stripe::StripeObject
         # Time before which a ReceivedDebit can be reversed.
         attr_reader :deadline
         # Set if a ReceivedDebit can't be reversed.

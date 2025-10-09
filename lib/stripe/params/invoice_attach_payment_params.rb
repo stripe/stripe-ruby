@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class InvoiceAttachPaymentParams < Stripe::RequestParams
+  class InvoiceAttachPaymentParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # The ID of the PaymentIntent to attach to the invoice.

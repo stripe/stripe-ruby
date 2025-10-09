@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      class EventListParams < Stripe::RequestParams
+      class EventListParams < ::Stripe::RequestParams
         # The page size.
         attr_accessor :limit
         # Primary object ID used to retrieve related events.

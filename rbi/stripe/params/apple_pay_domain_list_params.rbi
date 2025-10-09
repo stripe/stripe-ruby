@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class ApplePayDomainListParams < Stripe::RequestParams
+  class ApplePayDomainListParams < ::Stripe::RequestParams
     # Attribute for param field domain_name
     sig { returns(T.nilable(String)) }
     def domain_name; end

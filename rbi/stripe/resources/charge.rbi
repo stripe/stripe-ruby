@@ -7,8 +7,8 @@ module Stripe
   # PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://stripe.com/docs/connect/account-debits) may also create Charges.
   # Some legacy payment flows create Charges directly, which is not recommended for new integrations.
   class Charge < APIResource
-    class BillingDetails < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class BillingDetails < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -56,7 +56,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class FraudDetails < Stripe::StripeObject
+    class FraudDetails < ::Stripe::StripeObject
       # Assessments from Stripe. If set, the value is `fraudulent`.
       sig { returns(T.nilable(String)) }
       def stripe_report; end
@@ -70,8 +70,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Level3 < Stripe::StripeObject
-      class LineItem < Stripe::StripeObject
+    class Level3 < ::Stripe::StripeObject
+      class LineItem < ::Stripe::StripeObject
         # Attribute for field discount_amount
         sig { returns(T.nilable(Integer)) }
         def discount_amount; end
@@ -122,8 +122,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Outcome < Stripe::StripeObject
-      class Rule < Stripe::StripeObject
+    class Outcome < ::Stripe::StripeObject
+      class Rule < ::Stripe::StripeObject
         # The action taken on the payment.
         sig { returns(String) }
         def action; end
@@ -177,8 +177,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PaymentMethodDetails < Stripe::StripeObject
-      class AchCreditTransfer < Stripe::StripeObject
+    class PaymentMethodDetails < ::Stripe::StripeObject
+      class AchCreditTransfer < ::Stripe::StripeObject
         # Account number to transfer funds to.
         sig { returns(T.nilable(String)) }
         def account_number; end
@@ -198,7 +198,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AchDebit < Stripe::StripeObject
+      class AchDebit < ::Stripe::StripeObject
         # Type of entity that holds the account. This can be either `individual` or `company`.
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
@@ -224,7 +224,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AcssDebit < Stripe::StripeObject
+      class AcssDebit < ::Stripe::StripeObject
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_name; end
@@ -250,7 +250,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Affirm < Stripe::StripeObject
+      class Affirm < ::Stripe::StripeObject
         # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
@@ -267,7 +267,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AfterpayClearpay < Stripe::StripeObject
+      class AfterpayClearpay < ::Stripe::StripeObject
         # The Afterpay order ID associated with this payment intent.
         sig { returns(T.nilable(String)) }
         def order_id; end
@@ -281,7 +281,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Alipay < Stripe::StripeObject
+      class Alipay < ::Stripe::StripeObject
         # Uniquely identifies this particular Alipay account. You can use this attribute to check whether two Alipay accounts are the same.
         sig { returns(T.nilable(String)) }
         def buyer_id; end
@@ -298,8 +298,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Alma < Stripe::StripeObject
-        class Installments < Stripe::StripeObject
+      class Alma < ::Stripe::StripeObject
+        class Installments < ::Stripe::StripeObject
           # The number of installments.
           sig { returns(Integer) }
           def count; end
@@ -323,9 +323,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AmazonPay < Stripe::StripeObject
-        class Funding < Stripe::StripeObject
-          class Card < Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
+        class Funding < ::Stripe::StripeObject
+          class Card < ::Stripe::StripeObject
             # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             sig { returns(T.nilable(String)) }
             def brand; end
@@ -377,7 +377,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AuBecsDebit < Stripe::StripeObject
+      class AuBecsDebit < ::Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         sig { returns(T.nilable(String)) }
         def bsb_number; end
@@ -397,7 +397,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class BacsDebit < Stripe::StripeObject
+      class BacsDebit < ::Stripe::StripeObject
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -417,7 +417,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Bancontact < Stripe::StripeObject
+      class Bancontact < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_code; end
@@ -428,10 +428,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def bic; end
         # The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-        sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
         def generated_sepa_debit; end
         # The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-        sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Mandate))) }
         def generated_sepa_debit_mandate; end
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
@@ -451,7 +451,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Billie < Stripe::StripeObject
+      class Billie < ::Stripe::StripeObject
         # The Billie transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
@@ -462,7 +462,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Blik < Stripe::StripeObject
+      class Blik < ::Stripe::StripeObject
         # A unique and immutable identifier assigned by BLIK to every buyer.
         sig { returns(T.nilable(String)) }
         def buyer_id; end
@@ -473,7 +473,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Boleto < Stripe::StripeObject
+      class Boleto < ::Stripe::StripeObject
         # The tax ID of the customer (CPF for individuals consumers or CNPJ for businesses consumers)
         sig { returns(String) }
         def tax_id; end
@@ -484,8 +484,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Card < Stripe::StripeObject
-        class Checks < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class Checks < ::Stripe::StripeObject
           # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def address_line1_check; end
@@ -502,7 +502,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class ExtendedAuthorization < Stripe::StripeObject
+        class ExtendedAuthorization < ::Stripe::StripeObject
           # Indicates whether or not the capture window is extended beyond the standard authorization.
           sig { returns(String) }
           def status; end
@@ -513,7 +513,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class IncrementalAuthorization < Stripe::StripeObject
+        class IncrementalAuthorization < ::Stripe::StripeObject
           # Indicates whether or not the incremental authorization feature is supported.
           sig { returns(String) }
           def status; end
@@ -524,8 +524,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Installments < Stripe::StripeObject
-          class Plan < Stripe::StripeObject
+        class Installments < ::Stripe::StripeObject
+          class Plan < ::Stripe::StripeObject
             # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
             sig { returns(T.nilable(Integer)) }
             def count; end
@@ -553,7 +553,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Multicapture < Stripe::StripeObject
+        class Multicapture < ::Stripe::StripeObject
           # Indicates whether or not multiple captures are supported.
           sig { returns(String) }
           def status; end
@@ -564,7 +564,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class NetworkToken < Stripe::StripeObject
+        class NetworkToken < ::Stripe::StripeObject
           # Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
           sig { returns(T::Boolean) }
           def used; end
@@ -575,7 +575,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Overcapture < Stripe::StripeObject
+        class Overcapture < ::Stripe::StripeObject
           # The maximum amount that can be captured.
           sig { returns(Integer) }
           def maximum_amount_capturable; end
@@ -589,7 +589,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class ThreeDSecure < Stripe::StripeObject
+        class ThreeDSecure < ::Stripe::StripeObject
           # For authenticated transactions: how the customer was authenticated by
           # the issuing bank.
           sig { returns(T.nilable(String)) }
@@ -626,8 +626,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Wallet < Stripe::StripeObject
-          class AmexExpressCheckout < Stripe::StripeObject
+        class Wallet < ::Stripe::StripeObject
+          class AmexExpressCheckout < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -635,7 +635,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class ApplePay < Stripe::StripeObject
+          class ApplePay < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -643,7 +643,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class GooglePay < Stripe::StripeObject
+          class GooglePay < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -651,7 +651,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Link < Stripe::StripeObject
+          class Link < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -659,8 +659,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Masterpass < Stripe::StripeObject
-            class BillingAddress < Stripe::StripeObject
+          class Masterpass < ::Stripe::StripeObject
+            class BillingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -686,7 +686,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class ShippingAddress < Stripe::StripeObject
+            class ShippingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -734,7 +734,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class SamsungPay < Stripe::StripeObject
+          class SamsungPay < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -742,8 +742,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class VisaCheckout < Stripe::StripeObject
-            class BillingAddress < Stripe::StripeObject
+          class VisaCheckout < ::Stripe::StripeObject
+            class BillingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -769,7 +769,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class ShippingAddress < Stripe::StripeObject
+            class ShippingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -961,8 +961,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CardPresent < Stripe::StripeObject
-        class Offline < Stripe::StripeObject
+      class CardPresent < ::Stripe::StripeObject
+        class Offline < ::Stripe::StripeObject
           # Time at which the payment was collected while offline
           sig { returns(T.nilable(Integer)) }
           def stored_at; end
@@ -976,7 +976,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Receipt < Stripe::StripeObject
+        class Receipt < ::Stripe::StripeObject
           # The type of account being debited or credited
           sig { returns(T.nilable(String)) }
           def account_type; end
@@ -1011,7 +1011,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Wallet < Stripe::StripeObject
+        class Wallet < ::Stripe::StripeObject
           # The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
           sig { returns(String) }
           def type; end
@@ -1106,7 +1106,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Cashapp < Stripe::StripeObject
+      class Cashapp < ::Stripe::StripeObject
         # A unique and immutable identifier assigned by Cash App to every buyer.
         sig { returns(T.nilable(String)) }
         def buyer_id; end
@@ -1123,7 +1123,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Crypto < Stripe::StripeObject
+      class Crypto < ::Stripe::StripeObject
         # The wallet address of the customer.
         sig { returns(T.nilable(String)) }
         def buyer_address; end
@@ -1143,7 +1143,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CustomerBalance < Stripe::StripeObject
+      class CustomerBalance < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1151,7 +1151,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Eps < Stripe::StripeObject
+      class Eps < ::Stripe::StripeObject
         # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
         sig { returns(T.nilable(String)) }
         def bank; end
@@ -1167,7 +1167,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Fpx < Stripe::StripeObject
+      class Fpx < ::Stripe::StripeObject
         # Account holder type, if provided. Can be one of `individual` or `company`.
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
@@ -1184,7 +1184,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Giropay < Stripe::StripeObject
+      class Giropay < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_code; end
@@ -1206,7 +1206,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Grabpay < Stripe::StripeObject
+      class Grabpay < ::Stripe::StripeObject
         # Unique transaction id generated by GrabPay
         sig { returns(T.nilable(String)) }
         def transaction_id; end
@@ -1217,7 +1217,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Ideal < Stripe::StripeObject
+      class Ideal < ::Stripe::StripeObject
         # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         sig { returns(T.nilable(String)) }
         def bank; end
@@ -1225,10 +1225,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def bic; end
         # The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-        sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
         def generated_sepa_debit; end
         # The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-        sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Mandate))) }
         def generated_sepa_debit_mandate; end
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
@@ -1244,8 +1244,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class InteracPresent < Stripe::StripeObject
-        class Receipt < Stripe::StripeObject
+      class InteracPresent < ::Stripe::StripeObject
+        class Receipt < ::Stripe::StripeObject
           # The type of account being debited or credited
           sig { returns(T.nilable(String)) }
           def account_type; end
@@ -1343,7 +1343,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class KakaoPay < Stripe::StripeObject
+      class KakaoPay < ::Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         def buyer_id; end
@@ -1357,9 +1357,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Klarna < Stripe::StripeObject
-        class PayerDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
+        class PayerDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # The payer address country
             sig { returns(T.nilable(String)) }
             def country; end
@@ -1398,8 +1398,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Konbini < Stripe::StripeObject
-        class Store < Stripe::StripeObject
+      class Konbini < ::Stripe::StripeObject
+        class Store < ::Stripe::StripeObject
           # The name of the convenience store chain where the payment was completed.
           sig { returns(T.nilable(String)) }
           def chain; end
@@ -1420,7 +1420,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class KrCard < Stripe::StripeObject
+      class KrCard < ::Stripe::StripeObject
         # The local credit or debit card brand.
         sig { returns(T.nilable(String)) }
         def brand; end
@@ -1440,7 +1440,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Link < Stripe::StripeObject
+      class Link < ::Stripe::StripeObject
         # Two-letter ISO code representing the funding source country beneath the Link payment.
         # You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
@@ -1452,7 +1452,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class MbWay < Stripe::StripeObject
+      class MbWay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1460,8 +1460,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Mobilepay < Stripe::StripeObject
-        class Card < Stripe::StripeObject
+      class Mobilepay < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
           # Brand of the card used in the transaction
           sig { returns(T.nilable(String)) }
           def brand; end
@@ -1494,7 +1494,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Multibanco < Stripe::StripeObject
+      class Multibanco < ::Stripe::StripeObject
         # Entity number associated with this Multibanco payment.
         sig { returns(T.nilable(String)) }
         def entity; end
@@ -1508,7 +1508,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NaverPay < Stripe::StripeObject
+      class NaverPay < ::Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         def buyer_id; end
@@ -1522,7 +1522,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NzBankAccount < Stripe::StripeObject
+      class NzBankAccount < ::Stripe::StripeObject
         # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
         sig { returns(T.nilable(String)) }
         def account_holder_name; end
@@ -1548,7 +1548,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Oxxo < Stripe::StripeObject
+      class Oxxo < ::Stripe::StripeObject
         # OXXO reference number
         sig { returns(T.nilable(String)) }
         def number; end
@@ -1559,7 +1559,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class P24 < Stripe::StripeObject
+      class P24 < ::Stripe::StripeObject
         # The customer's bank. Can be one of `ing`, `citi_handlowy`, `tmobile_usbugi_bankowe`, `plus_bank`, `etransfer_pocztowy24`, `banki_spbdzielcze`, `bank_nowy_bfg_sa`, `getin_bank`, `velobank`, `blik`, `noble_pay`, `ideabank`, `envelobank`, `santander_przelew24`, `nest_przelew`, `mbank_mtransfer`, `inteligo`, `pbac_z_ipko`, `bnp_paribas`, `credit_agricole`, `toyota_bank`, `bank_pekao_sa`, `volkswagen_bank`, `bank_millennium`, `alior_bank`, or `boz`.
         sig { returns(T.nilable(String)) }
         def bank; end
@@ -1578,7 +1578,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PayByBank < Stripe::StripeObject
+      class PayByBank < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1586,7 +1586,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Payco < Stripe::StripeObject
+      class Payco < ::Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         def buyer_id; end
@@ -1600,7 +1600,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Paynow < Stripe::StripeObject
+      class Paynow < ::Stripe::StripeObject
         # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
@@ -1617,8 +1617,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Paypal < Stripe::StripeObject
-        class SellerProtection < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
+        class SellerProtection < ::Stripe::StripeObject
           # An array of conditions that are covered for the transaction, if applicable.
           sig { returns(T.nilable(T::Array[String])) }
           def dispute_categories; end
@@ -1659,7 +1659,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Pix < Stripe::StripeObject
+      class Pix < ::Stripe::StripeObject
         # Unique transaction id generated by BCB
         sig { returns(T.nilable(String)) }
         def bank_transaction_id; end
@@ -1670,7 +1670,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Promptpay < Stripe::StripeObject
+      class Promptpay < ::Stripe::StripeObject
         # Bill reference generated by PromptPay
         sig { returns(T.nilable(String)) }
         def reference; end
@@ -1681,9 +1681,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class RevolutPay < Stripe::StripeObject
-        class Funding < Stripe::StripeObject
-          class Card < Stripe::StripeObject
+      class RevolutPay < ::Stripe::StripeObject
+        class Funding < ::Stripe::StripeObject
+          class Card < ::Stripe::StripeObject
             # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             sig { returns(T.nilable(String)) }
             def brand; end
@@ -1735,7 +1735,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SamsungPay < Stripe::StripeObject
+      class SamsungPay < ::Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
         def buyer_id; end
@@ -1749,7 +1749,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Satispay < Stripe::StripeObject
+      class Satispay < ::Stripe::StripeObject
         # The Satispay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
@@ -1760,7 +1760,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SepaCreditTransfer < Stripe::StripeObject
+      class SepaCreditTransfer < ::Stripe::StripeObject
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_name; end
@@ -1777,7 +1777,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SepaDebit < Stripe::StripeObject
+      class SepaDebit < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_code; end
@@ -1803,7 +1803,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Sofort < Stripe::StripeObject
+      class Sofort < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         def bank_code; end
@@ -1817,10 +1817,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def country; end
         # The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-        sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
         def generated_sepa_debit; end
         # The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-        sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Mandate))) }
         def generated_sepa_debit_mandate; end
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
@@ -1840,7 +1840,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StripeAccount < Stripe::StripeObject
+      class StripeAccount < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1848,7 +1848,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Swish < Stripe::StripeObject
+      class Swish < ::Stripe::StripeObject
         # Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -1865,7 +1865,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Twint < Stripe::StripeObject
+      class Twint < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1873,7 +1873,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class UsBankAccount < Stripe::StripeObject
+      class UsBankAccount < ::Stripe::StripeObject
         # Account holder type: individual or company.
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
@@ -1890,7 +1890,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def last4; end
         # ID of the mandate used to make this payment.
-        sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Mandate))) }
         def mandate; end
         # Reference number to locate ACH payments with customer's bank.
         sig { returns(T.nilable(String)) }
@@ -1905,7 +1905,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Wechat < Stripe::StripeObject
+      class Wechat < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1913,7 +1913,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class WechatPay < Stripe::StripeObject
+      class WechatPay < ::Stripe::StripeObject
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
@@ -1933,7 +1933,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Zip < Stripe::StripeObject
+      class Zip < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -2178,7 +2178,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PresentmentDetails < Stripe::StripeObject
+    class PresentmentDetails < ::Stripe::StripeObject
       # Amount intended to be collected by this payment, denominated in `presentment_currency`.
       sig { returns(Integer) }
       def presentment_amount; end
@@ -2192,7 +2192,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class RadarOptions < Stripe::StripeObject
+    class RadarOptions < ::Stripe::StripeObject
       # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       sig { returns(T.nilable(String)) }
       def session; end
@@ -2203,8 +2203,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Shipping < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class Shipping < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -2252,12 +2252,12 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TransferData < Stripe::StripeObject
+    class TransferData < ::Stripe::StripeObject
       # The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
       sig { returns(T.nilable(Integer)) }
       def amount; end
       # ID of an existing, connected Stripe account to transfer funds to if `transfer_data` was specified in the charge request.
-      sig { returns(T.any(String, Stripe::Account)) }
+      sig { returns(T.any(String, ::Stripe::Account)) }
       def destination; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -2276,10 +2276,10 @@ module Stripe
     sig { returns(Integer) }
     def amount_refunded; end
     # ID of the Connect application that created the charge.
-    sig { returns(T.nilable(T.any(String, Stripe::Application))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
     # The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
-    sig { returns(T.nilable(T.any(String, Stripe::ApplicationFee))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::ApplicationFee))) }
     def application_fee; end
     # The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
     sig { returns(T.nilable(Integer)) }
@@ -2288,7 +2288,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def authorization_code; end
     # ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes).
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def balance_transaction; end
     # Attribute for field billing_details
     sig { returns(BillingDetails) }
@@ -2306,7 +2306,7 @@ module Stripe
     sig { returns(String) }
     def currency; end
     # ID of the customer this charge is for if one exists.
-    sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
@@ -2315,7 +2315,7 @@ module Stripe
     sig { returns(T::Boolean) }
     def disputed; end
     # ID of the balance transaction that describes the reversal of the balance on your account due to payment failure.
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def failure_balance_transaction; end
     # Error code explaining reason for charge failure if available (see [the errors section](https://stripe.com/docs/error-codes) for a list of codes).
     sig { returns(T.nilable(String)) }
@@ -2342,7 +2342,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
-    sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def on_behalf_of; end
     # Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details.
     sig { returns(T.nilable(Outcome)) }
@@ -2351,7 +2351,7 @@ module Stripe
     sig { returns(T::Boolean) }
     def paid; end
     # ID of the PaymentIntent associated with this charge, if one exists.
-    sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
     def payment_intent; end
     # ID of the payment method used in this charge.
     sig { returns(T.nilable(String)) }
@@ -2378,21 +2378,21 @@ module Stripe
     sig { returns(T::Boolean) }
     def refunded; end
     # A list of refunds that have been applied to the charge.
-    sig { returns(T.nilable(Stripe::ListObject)) }
+    sig { returns(T.nilable(::Stripe::ListObject)) }
     def refunds; end
     # ID of the review associated with this charge if one exists.
-    sig { returns(T.nilable(T.any(String, Stripe::Review))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Review))) }
     def review; end
     # Shipping information for the charge.
     sig { returns(T.nilable(Shipping)) }
     def shipping; end
     # This is a legacy field that will be removed in the future. It contains the Source, Card, or BankAccount object used for the charge. For details about the payment method used for this charge, refer to `payment_method` or `payment_method_details` instead.
     sig {
-      returns(T.nilable(T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source)))
+      returns(T.nilable(T.any(::Stripe::Account, ::Stripe::BankAccount, ::Stripe::Card, ::Stripe::Source)))
      }
     def source; end
     # The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
-    sig { returns(T.nilable(T.any(String, Stripe::Transfer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Transfer))) }
     def source_transfer; end
     # For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
     #
@@ -2406,7 +2406,7 @@ module Stripe
     sig { returns(String) }
     def status; end
     # ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter).
-    sig { returns(T.nilable(T.any(String, Stripe::Transfer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Transfer))) }
     def transfer; end
     # An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
     sig { returns(T.nilable(TransferData)) }
@@ -2420,7 +2420,7 @@ module Stripe
     #
     # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
     sig {
-      params(params: T.any(::Stripe::ChargeCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
+      params(params: T.any(::Stripe::ChargeCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }
     def capture(params = {}, opts = {}); end
 
@@ -2430,7 +2430,7 @@ module Stripe
     #
     # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
     sig {
-      params(charge: String, params: T.any(::Stripe::ChargeCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
+      params(charge: String, params: T.any(::Stripe::ChargeCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }
     def self.capture(charge, params = {}, opts = {}); end
 
@@ -2438,29 +2438,29 @@ module Stripe
     # to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
     # object used to request payment.
     sig {
-      params(params: T.any(::Stripe::ChargeCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
+      params(params: T.any(::Stripe::ChargeCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
     sig {
-      params(params: T.any(::Stripe::ChargeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::ChargeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     sig {
-      params(params: T.any(::Stripe::ChargeSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::ChargeSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def self.search(params = {}, opts = {}); end
 
     sig {
-      params(params: T.any(::Stripe::ChargeSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::ChargeSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def self.search_auto_paging_each(params = {}, opts = {}, &blk); end
 
     # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     sig {
-      params(charge: String, params: T.any(::Stripe::ChargeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
+      params(charge: String, params: T.any(::Stripe::ChargeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }
     def self.update(charge, params = {}, opts = {}); end
   end

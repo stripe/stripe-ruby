@@ -12,7 +12,7 @@ module Stripe
         "climate.supplier"
       end
 
-      class Location < Stripe::StripeObject
+      class Location < ::Stripe::StripeObject
         # The city where the supplier is located.
         attr_reader :city
         # Two-letter ISO code representing the country where the supplier is located.

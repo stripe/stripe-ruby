@@ -3,8 +3,8 @@
 
 module Stripe
   module Issuing
-    class CardUpdateParams < Stripe::RequestParams
-      class Pin < Stripe::RequestParams
+    class CardUpdateParams < ::Stripe::RequestParams
+      class Pin < ::Stripe::RequestParams
         # The card's desired new PIN, encrypted under Stripe's public key.
         attr_accessor :encrypted_number
 
@@ -13,8 +13,8 @@ module Stripe
         end
       end
 
-      class Shipping < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -45,7 +45,7 @@ module Stripe
           end
         end
 
-        class AddressValidation < Stripe::RequestParams
+        class AddressValidation < ::Stripe::RequestParams
           # The address validation capabilities to use.
           attr_accessor :mode
 
@@ -54,7 +54,7 @@ module Stripe
           end
         end
 
-        class Customs < Stripe::RequestParams
+        class Customs < ::Stripe::RequestParams
           # The Economic Operators Registration and Identification (EORI) number to use for Customs. Required for bulk shipments to Europe.
           attr_accessor :eori_number
 
@@ -100,8 +100,8 @@ module Stripe
         end
       end
 
-      class SpendingControls < Stripe::RequestParams
-        class SpendingLimit < Stripe::RequestParams
+      class SpendingControls < ::Stripe::RequestParams
+        class SpendingLimit < ::Stripe::RequestParams
           # Maximum amount allowed to spend per interval.
           attr_accessor :amount
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.

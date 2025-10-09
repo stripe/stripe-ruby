@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CustomerBalanceTransactionUpdateParams < Stripe::RequestParams
+  class CustomerBalanceTransactionUpdateParams < ::Stripe::RequestParams
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_accessor :description
     # Specifies which fields in the response should be expanded.

@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionItemCreateParams < Stripe::RequestParams
-    class BillingThresholds < Stripe::RequestParams
+  class SubscriptionItemCreateParams < ::Stripe::RequestParams
+    class BillingThresholds < ::Stripe::RequestParams
       # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
       attr_accessor :usage_gte
 
@@ -12,7 +12,7 @@ module Stripe
       end
     end
 
-    class Discount < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -27,8 +27,8 @@ module Stripe
       end
     end
 
-    class PriceData < Stripe::RequestParams
-      class Recurring < Stripe::RequestParams
+    class PriceData < ::Stripe::RequestParams
+      class Recurring < ::Stripe::RequestParams
         # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         attr_accessor :interval
         # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).

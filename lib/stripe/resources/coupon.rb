@@ -16,7 +16,7 @@ module Stripe
       "coupon"
     end
 
-    class AppliesTo < Stripe::StripeObject
+    class AppliesTo < ::Stripe::StripeObject
       # A list of product IDs this coupon applies to
       attr_reader :products
 
@@ -29,7 +29,7 @@ module Stripe
       end
     end
 
-    class CurrencyOptions < Stripe::StripeObject
+    class CurrencyOptions < ::Stripe::StripeObject
       # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
       attr_reader :amount_off
 

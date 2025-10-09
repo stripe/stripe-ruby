@@ -3,5 +3,5 @@
 
 # typed: true
 module Stripe
-  class PlanDeleteParams < Stripe::RequestParams; end
+  class PlanDeleteParams < ::Stripe::RequestParams; end
 end

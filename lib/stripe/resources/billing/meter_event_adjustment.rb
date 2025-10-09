@@ -12,7 +12,7 @@ module Stripe
         "billing.meter_event_adjustment"
       end
 
-      class Cancel < Stripe::StripeObject
+      class Cancel < ::Stripe::StripeObject
         # Unique identifier for the event.
         attr_reader :identifier
 

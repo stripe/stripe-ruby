@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class SubscriptionItemCreateParams < Stripe::RequestParams
-    class BillingThresholds < Stripe::RequestParams
+  class SubscriptionItemCreateParams < ::Stripe::RequestParams
+    class BillingThresholds < ::Stripe::RequestParams
       # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
       sig { returns(Integer) }
       def usage_gte; end
@@ -13,7 +13,7 @@ module Stripe
       sig { params(usage_gte: Integer).void }
       def initialize(usage_gte: nil); end
     end
-    class Discount < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       sig { returns(T.nilable(String)) }
       def coupon; end
@@ -34,8 +34,8 @@ module Stripe
        }
       def initialize(coupon: nil, discount: nil, promotion_code: nil); end
     end
-    class PriceData < Stripe::RequestParams
-      class Recurring < Stripe::RequestParams
+    class PriceData < ::Stripe::RequestParams
+      class Recurring < ::Stripe::RequestParams
         # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         sig { returns(String) }
         def interval; end

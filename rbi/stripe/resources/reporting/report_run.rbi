@@ -13,7 +13,7 @@ module Stripe
     # Note that certain report types can only be run based on your live-mode data (not test-mode
     # data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
     class ReportRun < APIResource
-      class Parameters < Stripe::StripeObject
+      class Parameters < ::Stripe::StripeObject
         # The set of output columns requested for inclusion in the report run.
         sig { returns(T.nilable(T::Array[String])) }
         def columns; end
@@ -69,7 +69,7 @@ module Stripe
       def report_type; end
       # The file object representing the result of the report run (populated when
       #  `status=succeeded`).
-      sig { returns(T.nilable(Stripe::File)) }
+      sig { returns(T.nilable(::Stripe::File)) }
       def result; end
       # Status of this report run. This will be `pending` when the run is initially created.
       #  When the run finishes, this will be set to `succeeded` and the `result` field will be populated.
@@ -82,13 +82,13 @@ module Stripe
       def succeeded_at; end
       # Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
       sig {
-        params(params: T.any(::Stripe::Reporting::ReportRunCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Reporting::ReportRun)
+        params(params: T.any(::Stripe::Reporting::ReportRunCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reporting::ReportRun)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of Report Runs, with the most recent appearing first.
       sig {
-        params(params: T.any(::Stripe::Reporting::ReportRunListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Reporting::ReportRunListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

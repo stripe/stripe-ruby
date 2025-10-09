@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class PriceListParams < Stripe::RequestParams
-    class Created < Stripe::RequestParams
+  class PriceListParams < ::Stripe::RequestParams
+    class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       sig { returns(T.nilable(Integer)) }
       def gt; end
@@ -30,7 +30,7 @@ module Stripe
        }
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
-    class Recurring < Stripe::RequestParams
+    class Recurring < ::Stripe::RequestParams
       # Filter by billing frequency. Either `day`, `week`, `month` or `year`.
       sig { returns(T.nilable(String)) }
       def interval; end

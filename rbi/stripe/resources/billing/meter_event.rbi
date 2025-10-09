@@ -29,7 +29,7 @@ module Stripe
       def timestamp; end
       # Creates a billing meter event.
       sig {
-        params(params: T.any(::Stripe::Billing::MeterEventCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::MeterEvent)
+        params(params: T.any(::Stripe::Billing::MeterEventCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::MeterEvent)
        }
       def self.create(params = {}, opts = {}); end
     end

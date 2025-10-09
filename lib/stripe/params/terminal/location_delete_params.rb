@@ -3,6 +3,6 @@
 
 module Stripe
   module Terminal
-    class LocationDeleteParams < Stripe::RequestParams; end
+    class LocationDeleteParams < ::Stripe::RequestParams; end
   end
 end

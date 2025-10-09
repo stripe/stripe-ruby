@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentIntentCaptureParams < Stripe::RequestParams
-    class TransferData < Stripe::RequestParams
+  class PaymentIntentCaptureParams < ::Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       attr_accessor :amount
 

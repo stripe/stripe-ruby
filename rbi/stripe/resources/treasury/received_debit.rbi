@@ -6,9 +6,9 @@ module Stripe
   module Treasury
     # ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
     class ReceivedDebit < APIResource
-      class InitiatingPaymentMethodDetails < Stripe::StripeObject
-        class BillingDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class InitiatingPaymentMethodDetails < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -50,7 +50,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class FinancialAccount < Stripe::StripeObject
+        class FinancialAccount < ::Stripe::StripeObject
           # The FinancialAccount ID.
           sig { returns(String) }
           def id; end
@@ -64,7 +64,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class UsBankAccount < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
           # Bank name.
           sig { returns(T.nilable(String)) }
           def bank_name; end
@@ -110,7 +110,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class LinkedFlows < Stripe::StripeObject
+      class LinkedFlows < ::Stripe::StripeObject
         # The DebitReversal created as a result of this ReceivedDebit being reversed.
         sig { returns(T.nilable(String)) }
         def debit_reversal; end
@@ -133,7 +133,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ReversalDetails < Stripe::StripeObject
+      class ReversalDetails < ::Stripe::StripeObject
         # Time before which a ReceivedDebit can be reversed.
         sig { returns(T.nilable(Integer)) }
         def deadline; end
@@ -193,11 +193,11 @@ module Stripe
       sig { returns(String) }
       def status; end
       # The Transaction associated with this object.
-      sig { returns(T.nilable(T.any(String, Stripe::Treasury::Transaction))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Treasury::Transaction))) }
       def transaction; end
       # Returns a list of ReceivedDebits.
       sig {
-        params(params: T.any(::Stripe::Treasury::ReceivedDebitListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Treasury::ReceivedDebitListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

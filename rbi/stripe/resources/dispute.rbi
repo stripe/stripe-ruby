@@ -9,11 +9,11 @@ module Stripe
   #
   # Related guide: [Disputes and fraud](https://stripe.com/docs/disputes)
   class Dispute < APIResource
-    class Evidence < Stripe::StripeObject
-      class EnhancedEvidence < Stripe::StripeObject
-        class VisaCompellingEvidence3 < Stripe::StripeObject
-          class DisputedTransaction < Stripe::StripeObject
-            class ShippingAddress < Stripe::StripeObject
+    class Evidence < ::Stripe::StripeObject
+      class EnhancedEvidence < ::Stripe::StripeObject
+        class VisaCompellingEvidence3 < ::Stripe::StripeObject
+          class DisputedTransaction < ::Stripe::StripeObject
+            class ShippingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -70,8 +70,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class PriorUndisputedTransaction < Stripe::StripeObject
-            class ShippingAddress < Stripe::StripeObject
+          class PriorUndisputedTransaction < ::Stripe::StripeObject
+            class ShippingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -144,7 +144,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class VisaCompliance < Stripe::StripeObject
+        class VisaCompliance < ::Stripe::StripeObject
           # A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
           sig { returns(T::Boolean) }
           def fee_acknowledged; end
@@ -178,7 +178,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def billing_address; end
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def cancellation_policy; end
       # An explanation of how and when the customer was shown your refund policy prior to purchase.
       sig { returns(T.nilable(String)) }
@@ -187,7 +187,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def cancellation_rebuttal; end
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any communication with the customer that you feel is relevant to your case. Examples include emails proving that the customer received the product or service, or demonstrating their use of or satisfaction with the product or service.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def customer_communication; end
       # The email address of the customer.
       sig { returns(T.nilable(String)) }
@@ -199,10 +199,10 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def customer_purchase_ip; end
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A relevant document or contract showing the customer's signature.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def customer_signature; end
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation for the prior charge that can uniquely identify the charge, such as a receipt, shipping label, work order, etc. This document should be paired with a similar document from the disputed payment that proves the two payments are separate.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def duplicate_charge_documentation; end
       # An explanation of the difference between the disputed charge versus the prior charge that appears to be a duplicate.
       sig { returns(T.nilable(String)) }
@@ -217,10 +217,10 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def product_description; end
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def receipt; end
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your refund policy, as shown to the customer.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def refund_policy; end
       # Documentation demonstrating that the customer was shown your refund policy prior to purchase.
       sig { returns(T.nilable(String)) }
@@ -232,7 +232,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def service_date; end
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a service was provided to the customer. This could include a copy of a signed contract, work order, or other form of written agreement.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def service_documentation; end
       # The address to which a physical product was shipped. You should try to include as complete address information as possible.
       sig { returns(T.nilable(String)) }
@@ -244,13 +244,13 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def shipping_date; end
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a product was shipped to the customer at the same address the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc. It should show the customer's full shipping address, if possible.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def shipping_documentation; end
       # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
       sig { returns(T.nilable(String)) }
       def shipping_tracking_number; end
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any additional evidence or statements.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def uncategorized_file; end
       # Any additional evidence or statements.
       sig { returns(T.nilable(String)) }
@@ -262,9 +262,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class EvidenceDetails < Stripe::StripeObject
-      class EnhancedEligibility < Stripe::StripeObject
-        class VisaCompellingEvidence3 < Stripe::StripeObject
+    class EvidenceDetails < ::Stripe::StripeObject
+      class EnhancedEligibility < ::Stripe::StripeObject
+        class VisaCompellingEvidence3 < ::Stripe::StripeObject
           # List of actions required to qualify dispute for Visa Compelling Evidence 3.0 evidence submission.
           sig { returns(T::Array[String]) }
           def required_actions; end
@@ -278,7 +278,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class VisaCompliance < Stripe::StripeObject
+        class VisaCompliance < ::Stripe::StripeObject
           # Visa compliance eligibility status.
           sig { returns(String) }
           def status; end
@@ -327,8 +327,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PaymentMethodDetails < Stripe::StripeObject
-      class AmazonPay < Stripe::StripeObject
+    class PaymentMethodDetails < ::Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
         # The AmazonPay dispute type, chargeback or claim
         sig { returns(T.nilable(String)) }
         def dispute_type; end
@@ -339,7 +339,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Card < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(String) }
         def brand; end
@@ -356,7 +356,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         # Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
         sig { returns(T.nilable(String)) }
         def chargeback_loss_reason_code; end
@@ -370,7 +370,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # The ID of the dispute in PayPal.
         sig { returns(T.nilable(String)) }
         def case_id; end
@@ -410,10 +410,10 @@ module Stripe
     sig { returns(Integer) }
     def amount; end
     # List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
-    sig { returns(T::Array[Stripe::BalanceTransaction]) }
+    sig { returns(T::Array[::Stripe::BalanceTransaction]) }
     def balance_transactions; end
     # ID of the charge that's disputed.
-    sig { returns(T.any(String, Stripe::Charge)) }
+    sig { returns(T.any(String, ::Stripe::Charge)) }
     def charge; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -449,7 +449,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # ID of the PaymentIntent that's disputed.
-    sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
     def payment_intent; end
     # Attribute for field payment_method_details
     sig { returns(T.nilable(PaymentMethodDetails)) }
@@ -464,7 +464,7 @@ module Stripe
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     sig {
-      params(params: T.any(::Stripe::DisputeCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Dispute)
+      params(params: T.any(::Stripe::DisputeCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Dispute)
      }
     def close(params = {}, opts = {}); end
 
@@ -472,13 +472,13 @@ module Stripe
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     sig {
-      params(dispute: String, params: T.any(::Stripe::DisputeCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Dispute)
+      params(dispute: String, params: T.any(::Stripe::DisputeCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Dispute)
      }
     def self.close(dispute, params = {}, opts = {}); end
 
     # Returns a list of your disputes.
     sig {
-      params(params: T.any(::Stripe::DisputeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::DisputeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
@@ -486,7 +486,7 @@ module Stripe
     #
     # Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://docs.stripe.com/docs/disputes/categories).
     sig {
-      params(dispute: String, params: T.any(::Stripe::DisputeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Dispute)
+      params(dispute: String, params: T.any(::Stripe::DisputeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Dispute)
      }
     def self.update(dispute, params = {}, opts = {}); end
   end

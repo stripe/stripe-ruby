@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionScheduleReleaseParams < Stripe::RequestParams
+  class SubscriptionScheduleReleaseParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # Keep any cancellation on the subscription that the schedule has set

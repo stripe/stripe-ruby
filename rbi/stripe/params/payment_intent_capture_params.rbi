@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class PaymentIntentCaptureParams < Stripe::RequestParams
-    class TransferData < Stripe::RequestParams
+  class PaymentIntentCaptureParams < ::Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       sig { returns(T.nilable(Integer)) }
       def amount; end

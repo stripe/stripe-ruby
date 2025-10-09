@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class MeterEventCreateParams < Stripe::RequestParams
+      class MeterEventCreateParams < ::Stripe::RequestParams
         # The name of the meter event. Corresponds with the `event_name` field on a meter.
         sig { returns(String) }
         def event_name; end

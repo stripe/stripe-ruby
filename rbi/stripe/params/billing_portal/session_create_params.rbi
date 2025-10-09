@@ -4,10 +4,10 @@
 # typed: true
 module Stripe
   module BillingPortal
-    class SessionCreateParams < Stripe::RequestParams
-      class FlowData < Stripe::RequestParams
-        class AfterCompletion < Stripe::RequestParams
-          class HostedConfirmation < Stripe::RequestParams
+    class SessionCreateParams < ::Stripe::RequestParams
+      class FlowData < ::Stripe::RequestParams
+        class AfterCompletion < ::Stripe::RequestParams
+          class HostedConfirmation < ::Stripe::RequestParams
             # A custom message to display to the customer after the flow is completed.
             sig { returns(T.nilable(String)) }
             def custom_message; end
@@ -16,7 +16,7 @@ module Stripe
             sig { params(custom_message: T.nilable(String)).void }
             def initialize(custom_message: nil); end
           end
-          class Redirect < Stripe::RequestParams
+          class Redirect < ::Stripe::RequestParams
             # The URL the customer will be redirected to after the flow is completed.
             sig { returns(String) }
             def return_url; end
@@ -53,9 +53,9 @@ module Stripe
            }
           def initialize(hosted_confirmation: nil, redirect: nil, type: nil); end
         end
-        class SubscriptionCancel < Stripe::RequestParams
-          class Retention < Stripe::RequestParams
-            class CouponOffer < Stripe::RequestParams
+        class SubscriptionCancel < ::Stripe::RequestParams
+          class Retention < ::Stripe::RequestParams
+            class CouponOffer < ::Stripe::RequestParams
               # The ID of the coupon to be offered.
               sig { returns(String) }
               def coupon; end
@@ -102,7 +102,7 @@ module Stripe
            }
           def initialize(retention: nil, subscription: nil); end
         end
-        class SubscriptionUpdate < Stripe::RequestParams
+        class SubscriptionUpdate < ::Stripe::RequestParams
           # The ID of the subscription to be updated.
           sig { returns(String) }
           def subscription; end
@@ -111,8 +111,8 @@ module Stripe
           sig { params(subscription: String).void }
           def initialize(subscription: nil); end
         end
-        class SubscriptionUpdateConfirm < Stripe::RequestParams
-          class Discount < Stripe::RequestParams
+        class SubscriptionUpdateConfirm < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
             # The ID of the coupon to apply to this subscription update.
             sig { returns(T.nilable(String)) }
             def coupon; end
@@ -126,7 +126,7 @@ module Stripe
             sig { params(coupon: T.nilable(String), promotion_code: T.nilable(String)).void }
             def initialize(coupon: nil, promotion_code: nil); end
           end
-          class Item < Stripe::RequestParams
+          class Item < ::Stripe::RequestParams
             # The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
             sig { returns(String) }
             def id; end

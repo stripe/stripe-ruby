@@ -2,5 +2,5 @@
 # frozen_string_literal: true
 
 module Stripe
-  class ApplePayDomainDeleteParams < Stripe::RequestParams; end
+  class ApplePayDomainDeleteParams < ::Stripe::RequestParams; end
 end

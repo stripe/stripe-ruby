@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class QuoteUpdateParams < Stripe::RequestParams
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+  class QuoteUpdateParams < ::Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         attr_accessor :account
         # Type of the account referenced in the request.
@@ -26,7 +26,7 @@ module Stripe
       end
     end
 
-    class Discount < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -41,8 +41,8 @@ module Stripe
       end
     end
 
-    class InvoiceSettings < Stripe::RequestParams
-      class Issuer < Stripe::RequestParams
+    class InvoiceSettings < ::Stripe::RequestParams
+      class Issuer < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         attr_accessor :account
         # Type of the account referenced in the request.
@@ -64,8 +64,8 @@ module Stripe
       end
     end
 
-    class LineItem < Stripe::RequestParams
-      class Discount < Stripe::RequestParams
+    class LineItem < ::Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -80,8 +80,8 @@ module Stripe
         end
       end
 
-      class PriceData < Stripe::RequestParams
-        class Recurring < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
+        class Recurring < ::Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
@@ -151,7 +151,7 @@ module Stripe
       end
     end
 
-    class SubscriptionData < Stripe::RequestParams
+    class SubscriptionData < ::Stripe::RequestParams
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_accessor :description
       # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
@@ -169,7 +169,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
       attr_accessor :amount
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination. There must be at least 1 line item with a recurring price to use this field.

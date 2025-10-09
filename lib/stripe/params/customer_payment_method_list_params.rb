@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CustomerPaymentMethodListParams < Stripe::RequestParams
+  class CustomerPaymentMethodListParams < ::Stripe::RequestParams
     # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
     attr_accessor :allow_redisplay
     # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

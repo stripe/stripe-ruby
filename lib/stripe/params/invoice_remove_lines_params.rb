@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class InvoiceRemoveLinesParams < Stripe::RequestParams
-    class Line < Stripe::RequestParams
+  class InvoiceRemoveLinesParams < ::Stripe::RequestParams
+    class Line < ::Stripe::RequestParams
       # Either `delete` or `unassign`. Deleted line items are permanently deleted. Unassigned line items can be reassigned to an invoice.
       attr_accessor :behavior
       # ID of an existing line item to remove from this invoice.

@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class TopupCreateParams < Stripe::RequestParams
+  class TopupCreateParams < ::Stripe::RequestParams
     # A positive integer representing how much to transfer.
     sig { returns(Integer) }
     def amount; end

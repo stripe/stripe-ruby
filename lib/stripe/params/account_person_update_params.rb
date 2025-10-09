@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class AccountPersonUpdateParams < Stripe::RequestParams
-    class AdditionalTosAcceptances < Stripe::RequestParams
-      class Account < Stripe::RequestParams
+  class AccountPersonUpdateParams < ::Stripe::RequestParams
+    class AdditionalTosAcceptances < ::Stripe::RequestParams
+      class Account < ::Stripe::RequestParams
         # The Unix timestamp marking when the account representative accepted the service agreement.
         attr_accessor :date
         # The IP address from which the account representative accepted the service agreement.
@@ -26,7 +26,7 @@ module Stripe
       end
     end
 
-    class Address < Stripe::RequestParams
+    class Address < ::Stripe::RequestParams
       # City, district, suburb, town, or village.
       attr_accessor :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -50,7 +50,7 @@ module Stripe
       end
     end
 
-    class AddressKana < Stripe::RequestParams
+    class AddressKana < ::Stripe::RequestParams
       # City or ward.
       attr_accessor :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -85,7 +85,7 @@ module Stripe
       end
     end
 
-    class AddressKanji < Stripe::RequestParams
+    class AddressKanji < ::Stripe::RequestParams
       # City or ward.
       attr_accessor :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -120,7 +120,7 @@ module Stripe
       end
     end
 
-    class Dob < Stripe::RequestParams
+    class Dob < ::Stripe::RequestParams
       # The day of birth, between 1 and 31.
       attr_accessor :day
       # The month of birth, between 1 and 12.
@@ -135,8 +135,8 @@ module Stripe
       end
     end
 
-    class Documents < Stripe::RequestParams
-      class CompanyAuthorization < Stripe::RequestParams
+    class Documents < ::Stripe::RequestParams
+      class CompanyAuthorization < ::Stripe::RequestParams
         # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
@@ -145,7 +145,7 @@ module Stripe
         end
       end
 
-      class Passport < Stripe::RequestParams
+      class Passport < ::Stripe::RequestParams
         # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
@@ -154,7 +154,7 @@ module Stripe
         end
       end
 
-      class Visa < Stripe::RequestParams
+      class Visa < ::Stripe::RequestParams
         # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
@@ -176,7 +176,7 @@ module Stripe
       end
     end
 
-    class RegisteredAddress < Stripe::RequestParams
+    class RegisteredAddress < ::Stripe::RequestParams
       # City, district, suburb, town, or village.
       attr_accessor :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -200,7 +200,7 @@ module Stripe
       end
     end
 
-    class Relationship < Stripe::RequestParams
+    class Relationship < ::Stripe::RequestParams
       # Whether the person is the authorizer of the account's representative.
       attr_accessor :authorizer
       # Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -239,8 +239,8 @@ module Stripe
       end
     end
 
-    class UsCfpbData < Stripe::RequestParams
-      class EthnicityDetails < Stripe::RequestParams
+    class UsCfpbData < ::Stripe::RequestParams
+      class EthnicityDetails < ::Stripe::RequestParams
         # The persons ethnicity
         attr_accessor :ethnicity
         # Please specify your origin, when other is selected.
@@ -252,7 +252,7 @@ module Stripe
         end
       end
 
-      class RaceDetails < Stripe::RequestParams
+      class RaceDetails < ::Stripe::RequestParams
         # The persons race.
         attr_accessor :race
         # Please specify your race, when other is selected.
@@ -277,8 +277,8 @@ module Stripe
       end
     end
 
-    class Verification < Stripe::RequestParams
-      class AdditionalDocument < Stripe::RequestParams
+    class Verification < ::Stripe::RequestParams
+      class AdditionalDocument < ::Stripe::RequestParams
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         attr_accessor :back
         # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -290,7 +290,7 @@ module Stripe
         end
       end
 
-      class Document < Stripe::RequestParams
+      class Document < ::Stripe::RequestParams
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         attr_accessor :back
         # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.

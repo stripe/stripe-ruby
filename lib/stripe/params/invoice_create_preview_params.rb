@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class InvoiceCreatePreviewParams < Stripe::RequestParams
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+  class InvoiceCreatePreviewParams < ::Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         attr_accessor :account
         # Type of the account referenced in the request.
@@ -26,8 +26,8 @@ module Stripe
       end
     end
 
-    class CustomerDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class CustomerDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -58,8 +58,8 @@ module Stripe
         end
       end
 
-      class Shipping < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -103,7 +103,7 @@ module Stripe
         end
       end
 
-      class Tax < Stripe::RequestParams
+      class Tax < ::Stripe::RequestParams
         # A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
         attr_accessor :ip_address
 
@@ -112,7 +112,7 @@ module Stripe
         end
       end
 
-      class TaxId < Stripe::RequestParams
+      class TaxId < ::Stripe::RequestParams
         # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         attr_accessor :type
         # Value of the tax ID.
@@ -143,7 +143,7 @@ module Stripe
       end
     end
 
-    class Discount < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -158,8 +158,8 @@ module Stripe
       end
     end
 
-    class InvoiceItem < Stripe::RequestParams
-      class Discount < Stripe::RequestParams
+    class InvoiceItem < ::Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -174,7 +174,7 @@ module Stripe
         end
       end
 
-      class Period < Stripe::RequestParams
+      class Period < ::Stripe::RequestParams
         # The end of the period, which must be greater than or equal to the start. This value is inclusive.
         attr_accessor :end
         # The start of the period. This value is inclusive.
@@ -186,7 +186,7 @@ module Stripe
         end
       end
 
-      class PriceData < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
         # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
@@ -282,7 +282,7 @@ module Stripe
       end
     end
 
-    class Issuer < Stripe::RequestParams
+    class Issuer < ::Stripe::RequestParams
       # The connected account being referenced when `type` is `account`.
       attr_accessor :account
       # Type of the account referenced in the request.
@@ -294,9 +294,9 @@ module Stripe
       end
     end
 
-    class ScheduleDetails < Stripe::RequestParams
-      class BillingMode < Stripe::RequestParams
-        class Flexible < Stripe::RequestParams
+    class ScheduleDetails < ::Stripe::RequestParams
+      class BillingMode < ::Stripe::RequestParams
+        class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
           attr_accessor :proration_discounts
 
@@ -315,9 +315,9 @@ module Stripe
         end
       end
 
-      class Phase < Stripe::RequestParams
-        class AddInvoiceItem < Stripe::RequestParams
-          class Discount < Stripe::RequestParams
+      class Phase < ::Stripe::RequestParams
+        class AddInvoiceItem < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
             # ID of the coupon to create a new discount for.
             attr_accessor :coupon
             # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -332,8 +332,8 @@ module Stripe
             end
           end
 
-          class Period < Stripe::RequestParams
-            class End < Stripe::RequestParams
+          class Period < ::Stripe::RequestParams
+            class End < ::Stripe::RequestParams
               # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
               attr_accessor :timestamp
               # Select how to calculate the end of the invoice item period.
@@ -345,7 +345,7 @@ module Stripe
               end
             end
 
-            class Start < Stripe::RequestParams
+            class Start < ::Stripe::RequestParams
               # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
               attr_accessor :timestamp
               # Select how to calculate the start of the invoice item period.
@@ -367,7 +367,7 @@ module Stripe
             end
           end
 
-          class PriceData < Stripe::RequestParams
+          class PriceData < ::Stripe::RequestParams
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
             # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
@@ -427,8 +427,8 @@ module Stripe
           end
         end
 
-        class AutomaticTax < Stripe::RequestParams
-          class Liability < Stripe::RequestParams
+        class AutomaticTax < ::Stripe::RequestParams
+          class Liability < ::Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
@@ -450,7 +450,7 @@ module Stripe
           end
         end
 
-        class BillingThresholds < Stripe::RequestParams
+        class BillingThresholds < ::Stripe::RequestParams
           # Monetary threshold that triggers the subscription to advance to a new billing period
           attr_accessor :amount_gte
           # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
@@ -462,7 +462,7 @@ module Stripe
           end
         end
 
-        class Discount < Stripe::RequestParams
+        class Discount < ::Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -477,7 +477,7 @@ module Stripe
           end
         end
 
-        class Duration < Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies phase duration. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The multiplier applied to the interval.
@@ -489,8 +489,8 @@ module Stripe
           end
         end
 
-        class InvoiceSettings < Stripe::RequestParams
-          class Issuer < Stripe::RequestParams
+        class InvoiceSettings < ::Stripe::RequestParams
+          class Issuer < ::Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
@@ -515,8 +515,8 @@ module Stripe
           end
         end
 
-        class Item < Stripe::RequestParams
-          class BillingThresholds < Stripe::RequestParams
+        class Item < ::Stripe::RequestParams
+          class BillingThresholds < ::Stripe::RequestParams
             # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
             attr_accessor :usage_gte
 
@@ -525,7 +525,7 @@ module Stripe
             end
           end
 
-          class Discount < Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
             # ID of the coupon to create a new discount for.
             attr_accessor :coupon
             # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -540,8 +540,8 @@ module Stripe
             end
           end
 
-          class PriceData < Stripe::RequestParams
-            class Recurring < Stripe::RequestParams
+          class PriceData < ::Stripe::RequestParams
+            class Recurring < ::Stripe::RequestParams
               # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
               attr_accessor :interval
               # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
@@ -619,7 +619,7 @@ module Stripe
           end
         end
 
-        class TransferData < Stripe::RequestParams
+        class TransferData < ::Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           attr_accessor :amount_percent
           # ID of an existing, connected Stripe account.
@@ -740,9 +740,9 @@ module Stripe
       end
     end
 
-    class SubscriptionDetails < Stripe::RequestParams
-      class BillingMode < Stripe::RequestParams
-        class Flexible < Stripe::RequestParams
+    class SubscriptionDetails < ::Stripe::RequestParams
+      class BillingMode < ::Stripe::RequestParams
+        class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
           attr_accessor :proration_discounts
 
@@ -761,8 +761,8 @@ module Stripe
         end
       end
 
-      class Item < Stripe::RequestParams
-        class BillingThresholds < Stripe::RequestParams
+      class Item < ::Stripe::RequestParams
+        class BillingThresholds < ::Stripe::RequestParams
           # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
           attr_accessor :usage_gte
 
@@ -771,7 +771,7 @@ module Stripe
           end
         end
 
-        class Discount < Stripe::RequestParams
+        class Discount < ::Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -786,8 +786,8 @@ module Stripe
           end
         end
 
-        class PriceData < Stripe::RequestParams
-          class Recurring < Stripe::RequestParams
+        class PriceData < ::Stripe::RequestParams
+          class Recurring < ::Stripe::RequestParams
             # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
             # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).

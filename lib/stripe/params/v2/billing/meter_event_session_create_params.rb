@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class MeterEventSessionCreateParams < Stripe::RequestParams; end
+      class MeterEventSessionCreateParams < ::Stripe::RequestParams; end
     end
   end
 end

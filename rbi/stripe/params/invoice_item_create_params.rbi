@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class InvoiceItemCreateParams < Stripe::RequestParams
-    class Discount < Stripe::RequestParams
+  class InvoiceItemCreateParams < ::Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       sig { returns(T.nilable(String)) }
       def coupon; end
@@ -25,7 +25,7 @@ module Stripe
        }
       def initialize(coupon: nil, discount: nil, promotion_code: nil); end
     end
-    class Period < Stripe::RequestParams
+    class Period < ::Stripe::RequestParams
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       sig { returns(Integer) }
       def end; end
@@ -39,7 +39,7 @@ module Stripe
       sig { params(end_: Integer, start: Integer).void }
       def initialize(end_: nil, start: nil); end
     end
-    class PriceData < Stripe::RequestParams
+    class PriceData < ::Stripe::RequestParams
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
@@ -76,7 +76,7 @@ module Stripe
         unit_amount_decimal: nil
       ); end
     end
-    class Pricing < Stripe::RequestParams
+    class Pricing < ::Stripe::RequestParams
       # The ID of the price object.
       sig { returns(T.nilable(String)) }
       def price; end

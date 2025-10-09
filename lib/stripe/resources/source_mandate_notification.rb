@@ -11,7 +11,7 @@ module Stripe
       "source_mandate_notification"
     end
 
-    class AcssDebit < Stripe::StripeObject
+    class AcssDebit < ::Stripe::StripeObject
       # The statement descriptor associate with the debit.
       attr_reader :statement_descriptor
 
@@ -24,7 +24,7 @@ module Stripe
       end
     end
 
-    class BacsDebit < Stripe::StripeObject
+    class BacsDebit < ::Stripe::StripeObject
       # Last 4 digits of the account number associated with the debit.
       attr_reader :last4
 
@@ -37,7 +37,7 @@ module Stripe
       end
     end
 
-    class SepaDebit < Stripe::StripeObject
+    class SepaDebit < ::Stripe::StripeObject
       # SEPA creditor ID.
       attr_reader :creditor_identifier
       # Last 4 digits of the account number associated with the debit.

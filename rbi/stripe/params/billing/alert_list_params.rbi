@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Billing
-    class AlertListParams < Stripe::RequestParams
+    class AlertListParams < ::Stripe::RequestParams
       # Filter results to only include this type of alert.
       sig { returns(T.nilable(String)) }
       def alert_type; end

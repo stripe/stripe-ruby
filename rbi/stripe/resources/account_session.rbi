@@ -11,9 +11,9 @@ module Stripe
   #
   # Related guide: [Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components)
   class AccountSession < APIResource
-    class Components < Stripe::StripeObject
-      class AccountManagement < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+    class Components < ::Stripe::StripeObject
+      class AccountManagement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           def disable_stripe_user_authentication; end
@@ -40,8 +40,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AccountOnboarding < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class AccountOnboarding < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           def disable_stripe_user_authentication; end
@@ -68,8 +68,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Balances < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class Balances < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           def disable_stripe_user_authentication; end
@@ -105,8 +105,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class DisputesList < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class DisputesList < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           sig { returns(T::Boolean) }
           def capture_payments; end
@@ -139,8 +139,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Documents < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class Documents < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -161,8 +161,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class FinancialAccount < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class FinancialAccount < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           def disable_stripe_user_authentication; end
@@ -195,8 +195,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class FinancialAccountTransactions < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class FinancialAccountTransactions < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow card spend dispute management features.
           sig { returns(T::Boolean) }
           def card_spend_dispute_management; end
@@ -220,8 +220,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class InstantPayoutsPromotion < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class InstantPayoutsPromotion < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           def disable_stripe_user_authentication; end
@@ -251,8 +251,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class IssuingCard < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class IssuingCard < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow card management features.
           sig { returns(T::Boolean) }
           def card_management; end
@@ -285,8 +285,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class IssuingCardsList < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class IssuingCardsList < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow card management features.
           sig { returns(T::Boolean) }
           def card_management; end
@@ -322,8 +322,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NotificationBanner < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class NotificationBanner < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           def disable_stripe_user_authentication; end
@@ -350,8 +350,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PaymentDetails < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PaymentDetails < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           sig { returns(T::Boolean) }
           def capture_payments; end
@@ -384,8 +384,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PaymentDisputes < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PaymentDisputes < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
           sig { returns(T::Boolean) }
           def destination_on_behalf_of_charge_management; end
@@ -415,8 +415,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Payments < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class Payments < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           sig { returns(T::Boolean) }
           def capture_payments; end
@@ -449,8 +449,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PayoutDetails < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PayoutDetails < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -471,8 +471,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Payouts < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class Payouts < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           sig { returns(T::Boolean) }
           def disable_stripe_user_authentication; end
@@ -508,8 +508,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PayoutsList < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PayoutsList < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -530,8 +530,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class TaxRegistrations < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class TaxRegistrations < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -552,8 +552,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class TaxSettings < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class TaxSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -682,7 +682,7 @@ module Stripe
     def object; end
     # Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
     sig {
-      params(params: T.any(::Stripe::AccountSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::AccountSession)
+      params(params: T.any(::Stripe::AccountSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountSession)
      }
     def self.create(params = {}, opts = {}); end
   end

@@ -3,5 +3,5 @@
 
 # typed: true
 module Stripe
-  class ApplePayDomainDeleteParams < Stripe::RequestParams; end
+  class ApplePayDomainDeleteParams < ::Stripe::RequestParams; end
 end

@@ -3,8 +3,8 @@
 
 module Stripe
   module BillingPortal
-    class ConfigurationUpdateParams < Stripe::RequestParams
-      class BusinessProfile < Stripe::RequestParams
+    class ConfigurationUpdateParams < ::Stripe::RequestParams
+      class BusinessProfile < ::Stripe::RequestParams
         # The messaging shown to customers in the portal.
         attr_accessor :headline
         # A link to the business’s publicly available privacy policy.
@@ -19,8 +19,8 @@ module Stripe
         end
       end
 
-      class Features < Stripe::RequestParams
-        class CustomerUpdate < Stripe::RequestParams
+      class Features < ::Stripe::RequestParams
+        class CustomerUpdate < ::Stripe::RequestParams
           # The types of customer updates that are supported. When empty, customers are not updateable.
           attr_accessor :allowed_updates
           # Whether the feature is enabled.
@@ -32,7 +32,7 @@ module Stripe
           end
         end
 
-        class InvoiceHistory < Stripe::RequestParams
+        class InvoiceHistory < ::Stripe::RequestParams
           # Whether the feature is enabled.
           attr_accessor :enabled
 
@@ -41,7 +41,7 @@ module Stripe
           end
         end
 
-        class PaymentMethodUpdate < Stripe::RequestParams
+        class PaymentMethodUpdate < ::Stripe::RequestParams
           # Whether the feature is enabled.
           attr_accessor :enabled
 
@@ -50,8 +50,8 @@ module Stripe
           end
         end
 
-        class SubscriptionCancel < Stripe::RequestParams
-          class CancellationReason < Stripe::RequestParams
+        class SubscriptionCancel < ::Stripe::RequestParams
+          class CancellationReason < ::Stripe::RequestParams
             # Whether the feature is enabled.
             attr_accessor :enabled
             # Which cancellation reasons will be given as options to the customer.
@@ -79,9 +79,9 @@ module Stripe
           end
         end
 
-        class SubscriptionUpdate < Stripe::RequestParams
-          class Product < Stripe::RequestParams
-            class AdjustableQuantity < Stripe::RequestParams
+        class SubscriptionUpdate < ::Stripe::RequestParams
+          class Product < ::Stripe::RequestParams
+            class AdjustableQuantity < ::Stripe::RequestParams
               # Set to true if the quantity can be adjusted to any non-negative integer.
               attr_accessor :enabled
               # The maximum quantity that can be set for the product.
@@ -109,8 +109,8 @@ module Stripe
             end
           end
 
-          class ScheduleAtPeriodEnd < Stripe::RequestParams
-            class Condition < Stripe::RequestParams
+          class ScheduleAtPeriodEnd < ::Stripe::RequestParams
+            class Condition < ::Stripe::RequestParams
               # The type of condition.
               attr_accessor :type
 
@@ -180,7 +180,7 @@ module Stripe
         end
       end
 
-      class LoginPage < Stripe::RequestParams
+      class LoginPage < ::Stripe::RequestParams
         # Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
         #
         # Set to `false` to deactivate the `login_page.url`.

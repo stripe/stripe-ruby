@@ -13,7 +13,7 @@ module Stripe
         "treasury.debit_reversal"
       end
 
-      class LinkedFlows < Stripe::StripeObject
+      class LinkedFlows < ::Stripe::StripeObject
         # Set if there is an Issuing dispute associated with the DebitReversal.
         attr_reader :issuing_dispute
 
@@ -26,7 +26,7 @@ module Stripe
         end
       end
 
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Timestamp describing when the DebitReversal changed status to `completed`.
         attr_reader :completed_at
 

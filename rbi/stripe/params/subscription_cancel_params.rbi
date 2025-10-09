@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class SubscriptionCancelParams < Stripe::RequestParams
-    class CancellationDetails < Stripe::RequestParams
+  class SubscriptionCancelParams < ::Stripe::RequestParams
+    class CancellationDetails < ::Stripe::RequestParams
       # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
       sig { returns(T.nilable(String)) }
       def comment; end

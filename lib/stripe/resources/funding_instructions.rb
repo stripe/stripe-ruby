@@ -13,10 +13,10 @@ module Stripe
       "funding_instructions"
     end
 
-    class BankTransfer < Stripe::StripeObject
-      class FinancialAddress < Stripe::StripeObject
-        class Aba < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+    class BankTransfer < ::Stripe::StripeObject
+      class FinancialAddress < ::Stripe::StripeObject
+        class Aba < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -39,7 +39,7 @@ module Stripe
             end
           end
 
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -88,8 +88,8 @@ module Stripe
           end
         end
 
-        class Iban < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class Iban < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -112,7 +112,7 @@ module Stripe
             end
           end
 
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -159,8 +159,8 @@ module Stripe
           end
         end
 
-        class SortCode < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class SortCode < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -183,7 +183,7 @@ module Stripe
             end
           end
 
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -228,8 +228,8 @@ module Stripe
           end
         end
 
-        class Spei < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class Spei < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -252,7 +252,7 @@ module Stripe
             end
           end
 
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -299,8 +299,8 @@ module Stripe
           end
         end
 
-        class Swift < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class Swift < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -323,7 +323,7 @@ module Stripe
             end
           end
 
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -372,8 +372,8 @@ module Stripe
           end
         end
 
-        class Zengin < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class Zengin < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -396,7 +396,7 @@ module Stripe
             end
           end
 
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

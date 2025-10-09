@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionUpdateParams < Stripe::RequestParams
-    class AddInvoiceItem < Stripe::RequestParams
-      class Discount < Stripe::RequestParams
+  class SubscriptionUpdateParams < ::Stripe::RequestParams
+    class AddInvoiceItem < ::Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -19,8 +19,8 @@ module Stripe
         end
       end
 
-      class Period < Stripe::RequestParams
-        class End < Stripe::RequestParams
+      class Period < ::Stripe::RequestParams
+        class End < ::Stripe::RequestParams
           # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
           attr_accessor :timestamp
           # Select how to calculate the end of the invoice item period.
@@ -32,7 +32,7 @@ module Stripe
           end
         end
 
-        class Start < Stripe::RequestParams
+        class Start < ::Stripe::RequestParams
           # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
           attr_accessor :timestamp
           # Select how to calculate the start of the invoice item period.
@@ -54,7 +54,7 @@ module Stripe
         end
       end
 
-      class PriceData < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
         # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
@@ -114,8 +114,8 @@ module Stripe
       end
     end
 
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         attr_accessor :account
         # Type of the account referenced in the request.
@@ -137,7 +137,7 @@ module Stripe
       end
     end
 
-    class BillingThresholds < Stripe::RequestParams
+    class BillingThresholds < ::Stripe::RequestParams
       # Monetary threshold that triggers the subscription to advance to a new billing period
       attr_accessor :amount_gte
       # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
@@ -149,7 +149,7 @@ module Stripe
       end
     end
 
-    class CancellationDetails < Stripe::RequestParams
+    class CancellationDetails < ::Stripe::RequestParams
       # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
       attr_accessor :comment
       # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
@@ -161,7 +161,7 @@ module Stripe
       end
     end
 
-    class Discount < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -176,8 +176,8 @@ module Stripe
       end
     end
 
-    class InvoiceSettings < Stripe::RequestParams
-      class Issuer < Stripe::RequestParams
+    class InvoiceSettings < ::Stripe::RequestParams
+      class Issuer < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         attr_accessor :account
         # Type of the account referenced in the request.
@@ -199,8 +199,8 @@ module Stripe
       end
     end
 
-    class Item < Stripe::RequestParams
-      class BillingThresholds < Stripe::RequestParams
+    class Item < ::Stripe::RequestParams
+      class BillingThresholds < ::Stripe::RequestParams
         # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         attr_accessor :usage_gte
 
@@ -209,7 +209,7 @@ module Stripe
         end
       end
 
-      class Discount < Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -224,8 +224,8 @@ module Stripe
         end
       end
 
-      class PriceData < Stripe::RequestParams
-        class Recurring < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
+        class Recurring < ::Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           attr_accessor :interval
           # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
@@ -315,7 +315,7 @@ module Stripe
       end
     end
 
-    class PauseCollection < Stripe::RequestParams
+    class PauseCollection < ::Stripe::RequestParams
       # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
       attr_accessor :behavior
       # The time after which the subscription will resume collecting payments.
@@ -327,10 +327,10 @@ module Stripe
       end
     end
 
-    class PaymentSettings < Stripe::RequestParams
-      class PaymentMethodOptions < Stripe::RequestParams
-        class AcssDebit < Stripe::RequestParams
-          class MandateOptions < Stripe::RequestParams
+    class PaymentSettings < ::Stripe::RequestParams
+      class PaymentMethodOptions < ::Stripe::RequestParams
+        class AcssDebit < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
             # Transaction type of the mandate.
             attr_accessor :transaction_type
 
@@ -349,7 +349,7 @@ module Stripe
           end
         end
 
-        class Bancontact < Stripe::RequestParams
+        class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_accessor :preferred_language
 
@@ -358,8 +358,8 @@ module Stripe
           end
         end
 
-        class Card < Stripe::RequestParams
-          class MandateOptions < Stripe::RequestParams
+        class Card < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments.
             attr_accessor :amount
             # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
@@ -387,9 +387,9 @@ module Stripe
           end
         end
 
-        class CustomerBalance < Stripe::RequestParams
-          class BankTransfer < Stripe::RequestParams
-            class EuBankTransfer < Stripe::RequestParams
+        class CustomerBalance < ::Stripe::RequestParams
+          class BankTransfer < ::Stripe::RequestParams
+            class EuBankTransfer < ::Stripe::RequestParams
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               attr_accessor :country
 
@@ -418,12 +418,12 @@ module Stripe
           end
         end
 
-        class Konbini < Stripe::RequestParams; end
-        class SepaDebit < Stripe::RequestParams; end
+        class Konbini < ::Stripe::RequestParams; end
+        class SepaDebit < ::Stripe::RequestParams; end
 
-        class UsBankAccount < Stripe::RequestParams
-          class FinancialConnections < Stripe::RequestParams
-            class Filters < Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
+          class FinancialConnections < ::Stripe::RequestParams
+            class Filters < ::Stripe::RequestParams
               # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
               attr_accessor :account_subcategories
 
@@ -505,7 +505,7 @@ module Stripe
       end
     end
 
-    class PendingInvoiceItemInterval < Stripe::RequestParams
+    class PendingInvoiceItemInterval < ::Stripe::RequestParams
       # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
       attr_accessor :interval
       # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
@@ -517,7 +517,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       attr_accessor :amount_percent
       # ID of an existing, connected Stripe account.
@@ -529,8 +529,8 @@ module Stripe
       end
     end
 
-    class TrialSettings < Stripe::RequestParams
-      class EndBehavior < Stripe::RequestParams
+    class TrialSettings < ::Stripe::RequestParams
+      class EndBehavior < ::Stripe::RequestParams
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_accessor :missing_payment_method
 

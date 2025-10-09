@@ -1,5 +1,25 @@
 # Changelog
 
+## 17.0.0 - 2025-10-09
+* [#1698](https://github.com/stripe/stripe-ruby/pull/1698) Remove expanded instance variables after a resource has been updated
+  - ⚠️ Removes dynamically added instance variables on subsequent non-expanded updates to a resource that had previously been expanded. For example,
+  ```ruby
+  # expand `payments` field on an invoice
+  invoice = Stripe::Invoice.retrieve(id: 'in_123', expand: ['payments'])
+  
+  # `pay` invoice without expanding `payments`, so that field would have stale data
+  # Use `expand` to keep `payments` like this: `invoice.pay(expand: ['payments'])`
+  invoice.pay
+  
+  # This is now nil instead of a stale Hash
+  invoice.payments
+  ```
+* [#1699](https://github.com/stripe/stripe-ruby/pull/1699) Improve event notification example
+* [#1693](https://github.com/stripe/stripe-ruby/pull/1693) Improve event notification example
+* [#1691](https://github.com/stripe/stripe-ruby/pull/1691) Remove manual promotion code test
+* [#1690](https://github.com/stripe/stripe-ruby/pull/1690) Update param in deprecation docs link
+* [#1687](https://github.com/stripe/stripe-ruby/pull/1687) Update CHANGELOG.md to point to right API version
+
 ## 16.1.0-beta.1 - 2025-09-30
 This release changes the pinned API version to `2025-09-30.preview`. It is built on top of SDK version 18.0.0 which contains breaking changes. Please review the [changelog for 16.0.0](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1600---2025-09-30) if upgrading from older SDK versions.
 * [#1671](https://github.com/stripe/stripe-ruby/pull/1671) Update generated code for beta

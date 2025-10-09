@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class PricingPlanCreateParams < Stripe::RequestParams
+      class PricingPlanCreateParams < ::Stripe::RequestParams
         # The currency of the PricingPlan.
         attr_accessor :currency
         # Description of pricing plan subscription.

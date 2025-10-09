@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundSetupIntentCancelParams < Stripe::RequestParams; end
+      class OutboundSetupIntentCancelParams < ::Stripe::RequestParams; end
     end
   end
 end

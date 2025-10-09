@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Payments
-      class OffSessionPaymentCaptureParams < Stripe::RequestParams
-        class TransferData < Stripe::RequestParams
+      class OffSessionPaymentCaptureParams < ::Stripe::RequestParams
+        class TransferData < ::Stripe::RequestParams
           # The amount transferred to the destination account. This transfer will occur
           # automatically after the payment succeeds. If no amount is specified, by default
           # the entire payment amount is transferred to the destination account. The amount

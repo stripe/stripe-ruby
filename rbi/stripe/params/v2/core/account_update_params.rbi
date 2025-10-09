@@ -5,13 +5,13 @@
 module Stripe
   module V2
     module Core
-      class AccountUpdateParams < Stripe::RequestParams
-        class Configuration < Stripe::RequestParams
-          class CardCreator < Stripe::RequestParams
-            class Capabilities < Stripe::RequestParams
-              class Commercial < Stripe::RequestParams
-                class Celtic < Stripe::RequestParams
-                  class ChargeCard < Stripe::RequestParams
+      class AccountUpdateParams < ::Stripe::RequestParams
+        class Configuration < ::Stripe::RequestParams
+          class CardCreator < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class Commercial < ::Stripe::RequestParams
+                class Celtic < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
                     def requested; end
@@ -20,7 +20,7 @@ module Stripe
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
-                  class SpendCard < Stripe::RequestParams
+                  class SpendCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
                     def requested; end
@@ -52,8 +52,8 @@ module Stripe
                    }
                   def initialize(charge_card: nil, spend_card: nil); end
                 end
-                class CrossRiverBank < Stripe::RequestParams
-                  class ChargeCard < Stripe::RequestParams
+                class CrossRiverBank < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
                     def requested; end
@@ -62,7 +62,7 @@ module Stripe
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
-                  class SpendCard < Stripe::RequestParams
+                  class SpendCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
                     def requested; end
@@ -94,8 +94,8 @@ module Stripe
                    }
                   def initialize(charge_card: nil, spend_card: nil); end
                 end
-                class Stripe < Stripe::RequestParams
-                  class ChargeCard < Stripe::RequestParams
+                class Stripe < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
                     def requested; end
@@ -104,7 +104,7 @@ module Stripe
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
-                  class PrepaidCard < Stripe::RequestParams
+                  class PrepaidCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     sig { returns(T.nilable(T::Boolean)) }
                     def requested; end
@@ -201,8 +201,8 @@ module Stripe
              }
             def initialize(applied: nil, capabilities: nil); end
           end
-          class Customer < Stripe::RequestParams
-            class AutomaticIndirectTax < Stripe::RequestParams
+          class Customer < ::Stripe::RequestParams
+            class AutomaticIndirectTax < ::Stripe::RequestParams
               # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
               sig { returns(T.nilable(String)) }
               def exempt; end
@@ -233,9 +233,9 @@ module Stripe
                 validate_location: nil
               ); end
             end
-            class Billing < Stripe::RequestParams
-              class Invoice < Stripe::RequestParams
-                class CustomField < Stripe::RequestParams
+            class Billing < ::Stripe::RequestParams
+              class Invoice < ::Stripe::RequestParams
+                class CustomField < ::Stripe::RequestParams
                   # The name of the custom field. This may be up to 40 characters.
                   sig { returns(String) }
                   def name; end
@@ -249,7 +249,7 @@ module Stripe
                   sig { params(name: String, value: String).void }
                   def initialize(name: nil, value: nil); end
                 end
-                class Rendering < Stripe::RequestParams
+                class Rendering < ::Stripe::RequestParams
                   # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
                   sig { returns(T.nilable(String)) }
                   def amount_tax_display; end
@@ -328,8 +328,8 @@ module Stripe
                }
               def initialize(default_payment_method: nil, invoice: nil); end
             end
-            class Capabilities < Stripe::RequestParams
-              class AutomaticIndirectTax < Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class AutomaticIndirectTax < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -352,8 +352,8 @@ module Stripe
                }
               def initialize(automatic_indirect_tax: nil); end
             end
-            class Shipping < Stripe::RequestParams
-              class Address < Stripe::RequestParams
+            class Shipping < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -478,8 +478,8 @@ module Stripe
               test_clock: nil
             ); end
           end
-          class Merchant < Stripe::RequestParams
-            class BacsDebitPayments < Stripe::RequestParams
+          class Merchant < ::Stripe::RequestParams
+            class BacsDebitPayments < ::Stripe::RequestParams
               # Display name for Bacs debit payments.
               sig { returns(T.nilable(String)) }
               def display_name; end
@@ -488,7 +488,7 @@ module Stripe
               sig { params(display_name: T.nilable(String)).void }
               def initialize(display_name: nil); end
             end
-            class Branding < Stripe::RequestParams
+            class Branding < ::Stripe::RequestParams
               # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def icon; end
@@ -514,8 +514,8 @@ module Stripe
                }
               def initialize(icon: nil, logo: nil, primary_color: nil, secondary_color: nil); end
             end
-            class Capabilities < Stripe::RequestParams
-              class AchDebitPayments < Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class AchDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -524,7 +524,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class AcssDebitPayments < Stripe::RequestParams
+              class AcssDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -533,7 +533,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class AffirmPayments < Stripe::RequestParams
+              class AffirmPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -542,7 +542,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class AfterpayClearpayPayments < Stripe::RequestParams
+              class AfterpayClearpayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -551,7 +551,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class AlmaPayments < Stripe::RequestParams
+              class AlmaPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -560,7 +560,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class AmazonPayPayments < Stripe::RequestParams
+              class AmazonPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -569,7 +569,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class AuBecsDebitPayments < Stripe::RequestParams
+              class AuBecsDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -578,7 +578,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class BacsDebitPayments < Stripe::RequestParams
+              class BacsDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -587,7 +587,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class BancontactPayments < Stripe::RequestParams
+              class BancontactPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -596,7 +596,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class BlikPayments < Stripe::RequestParams
+              class BlikPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -605,7 +605,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class BoletoPayments < Stripe::RequestParams
+              class BoletoPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -614,7 +614,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class CardPayments < Stripe::RequestParams
+              class CardPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -623,7 +623,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class CartesBancairesPayments < Stripe::RequestParams
+              class CartesBancairesPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -632,7 +632,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class CashappPayments < Stripe::RequestParams
+              class CashappPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -641,7 +641,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class EpsPayments < Stripe::RequestParams
+              class EpsPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -650,7 +650,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class FpxPayments < Stripe::RequestParams
+              class FpxPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -659,7 +659,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class GbBankTransferPayments < Stripe::RequestParams
+              class GbBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -668,7 +668,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class GrabpayPayments < Stripe::RequestParams
+              class GrabpayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -677,7 +677,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class IdealPayments < Stripe::RequestParams
+              class IdealPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -686,7 +686,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class JcbPayments < Stripe::RequestParams
+              class JcbPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -695,7 +695,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class JpBankTransferPayments < Stripe::RequestParams
+              class JpBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -704,7 +704,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class KakaoPayPayments < Stripe::RequestParams
+              class KakaoPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -713,7 +713,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class KlarnaPayments < Stripe::RequestParams
+              class KlarnaPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -722,7 +722,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class KonbiniPayments < Stripe::RequestParams
+              class KonbiniPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -731,7 +731,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class KrCardPayments < Stripe::RequestParams
+              class KrCardPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -740,7 +740,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class LinkPayments < Stripe::RequestParams
+              class LinkPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -749,7 +749,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class MobilepayPayments < Stripe::RequestParams
+              class MobilepayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -758,7 +758,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class MultibancoPayments < Stripe::RequestParams
+              class MultibancoPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -767,7 +767,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class MxBankTransferPayments < Stripe::RequestParams
+              class MxBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -776,7 +776,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class NaverPayPayments < Stripe::RequestParams
+              class NaverPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -785,7 +785,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class OxxoPayments < Stripe::RequestParams
+              class OxxoPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -794,7 +794,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class P24Payments < Stripe::RequestParams
+              class P24Payments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -803,7 +803,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class PayByBankPayments < Stripe::RequestParams
+              class PayByBankPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -812,7 +812,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class PaycoPayments < Stripe::RequestParams
+              class PaycoPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -821,7 +821,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class PaynowPayments < Stripe::RequestParams
+              class PaynowPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -830,7 +830,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class PromptpayPayments < Stripe::RequestParams
+              class PromptpayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -839,7 +839,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class RevolutPayPayments < Stripe::RequestParams
+              class RevolutPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -848,7 +848,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class SamsungPayPayments < Stripe::RequestParams
+              class SamsungPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -857,7 +857,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class SepaBankTransferPayments < Stripe::RequestParams
+              class SepaBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -866,7 +866,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class SepaDebitPayments < Stripe::RequestParams
+              class SepaDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -875,7 +875,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class SwishPayments < Stripe::RequestParams
+              class SwishPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -884,7 +884,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class TwintPayments < Stripe::RequestParams
+              class TwintPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -893,7 +893,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class UsBankTransferPayments < Stripe::RequestParams
+              class UsBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -902,7 +902,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class ZipPayments < Stripe::RequestParams
+              class ZipPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -1357,8 +1357,8 @@ module Stripe
                 zip_payments: nil
               ); end
             end
-            class CardPayments < Stripe::RequestParams
-              class DeclineOn < Stripe::RequestParams
+            class CardPayments < ::Stripe::RequestParams
+              class DeclineOn < ::Stripe::RequestParams
                 # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
                 sig { returns(T.nilable(T::Boolean)) }
                 def avs_failure; end
@@ -1388,7 +1388,7 @@ module Stripe
                }
               def initialize(decline_on: nil); end
             end
-            class StatementDescriptor < Stripe::RequestParams
+            class StatementDescriptor < ::Stripe::RequestParams
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               sig { returns(T.nilable(String)) }
               def descriptor; end
@@ -1402,8 +1402,8 @@ module Stripe
               sig { params(descriptor: T.nilable(String), prefix: T.nilable(String)).void }
               def initialize(descriptor: nil, prefix: nil); end
             end
-            class Support < Stripe::RequestParams
-              class Address < Stripe::RequestParams
+            class Support < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -1559,10 +1559,10 @@ module Stripe
               support: nil
             ); end
           end
-          class Recipient < Stripe::RequestParams
-            class Capabilities < Stripe::RequestParams
-              class BankAccounts < Stripe::RequestParams
-                class Local < Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class BankAccounts < ::Stripe::RequestParams
+                class Local < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1571,7 +1571,7 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
-                class Wire < Stripe::RequestParams
+                class Wire < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1603,7 +1603,7 @@ module Stripe
                  }
                 def initialize(local: nil, wire: nil); end
               end
-              class Cards < Stripe::RequestParams
+              class Cards < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -1612,7 +1612,7 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class CryptoWallets < Stripe::RequestParams
+              class CryptoWallets < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 sig { returns(T.nilable(T::Boolean)) }
                 def requested; end
@@ -1621,8 +1621,8 @@ module Stripe
                 sig { params(requested: T.nilable(T::Boolean)).void }
                 def initialize(requested: nil); end
               end
-              class StripeBalance < Stripe::RequestParams
-                class StripeTransfers < Stripe::RequestParams
+              class StripeBalance < ::Stripe::RequestParams
+                class StripeTransfers < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1717,10 +1717,10 @@ module Stripe
              }
             def initialize(applied: nil, capabilities: nil, default_outbound_destination: nil); end
           end
-          class Storer < Stripe::RequestParams
-            class Capabilities < Stripe::RequestParams
-              class FinancialAddresses < Stripe::RequestParams
-                class BankAccounts < Stripe::RequestParams
+          class Storer < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class FinancialAddresses < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1743,8 +1743,8 @@ module Stripe
                  }
                 def initialize(bank_accounts: nil); end
               end
-              class HoldsCurrencies < Stripe::RequestParams
-                class Gbp < Stripe::RequestParams
+              class HoldsCurrencies < ::Stripe::RequestParams
+                class Gbp < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1767,8 +1767,8 @@ module Stripe
                  }
                 def initialize(gbp: nil); end
               end
-              class InboundTransfers < Stripe::RequestParams
-                class BankAccounts < Stripe::RequestParams
+              class InboundTransfers < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1791,8 +1791,8 @@ module Stripe
                  }
                 def initialize(bank_accounts: nil); end
               end
-              class OutboundPayments < Stripe::RequestParams
-                class BankAccounts < Stripe::RequestParams
+              class OutboundPayments < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1801,7 +1801,7 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
-                class Cards < Stripe::RequestParams
+                class Cards < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1810,7 +1810,7 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
-                class FinancialAccounts < Stripe::RequestParams
+                class FinancialAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1851,8 +1851,8 @@ module Stripe
                  }
                 def initialize(bank_accounts: nil, cards: nil, financial_accounts: nil); end
               end
-              class OutboundTransfers < Stripe::RequestParams
-                class BankAccounts < Stripe::RequestParams
+              class OutboundTransfers < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -1861,7 +1861,7 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
-                class FinancialAccounts < Stripe::RequestParams
+                class FinancialAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   sig { returns(T.nilable(T::Boolean)) }
                   def requested; end
@@ -2014,8 +2014,8 @@ module Stripe
             storer: nil
           ); end
         end
-        class Defaults < Stripe::RequestParams
-          class Profile < Stripe::RequestParams
+        class Defaults < ::Stripe::RequestParams
+          class Profile < ::Stripe::RequestParams
             # The business's publicly-available website.
             sig { returns(T.nilable(String)) }
             def business_url; end
@@ -2036,7 +2036,7 @@ module Stripe
              }
             def initialize(business_url: nil, doing_business_as: nil, product_description: nil); end
           end
-          class Responsibilities < Stripe::RequestParams
+          class Responsibilities < ::Stripe::RequestParams
             # A value indicating the party responsible for collecting fees from this account.
             sig { returns(String) }
             def fees_collector; end
@@ -2079,9 +2079,9 @@ module Stripe
            }
           def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil); end
         end
-        class Identity < Stripe::RequestParams
-          class Attestations < Stripe::RequestParams
-            class DirectorshipDeclaration < Stripe::RequestParams
+        class Identity < ::Stripe::RequestParams
+          class Attestations < ::Stripe::RequestParams
+            class DirectorshipDeclaration < ::Stripe::RequestParams
               # The time marking when the director attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               sig { returns(T.nilable(String)) }
               def date; end
@@ -2102,7 +2102,7 @@ module Stripe
                }
               def initialize(date: nil, ip: nil, user_agent: nil); end
             end
-            class OwnershipDeclaration < Stripe::RequestParams
+            class OwnershipDeclaration < ::Stripe::RequestParams
               # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               sig { returns(T.nilable(String)) }
               def date; end
@@ -2123,7 +2123,7 @@ module Stripe
                }
               def initialize(date: nil, ip: nil, user_agent: nil); end
             end
-            class PersonsProvided < Stripe::RequestParams
+            class PersonsProvided < ::Stripe::RequestParams
               # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
               sig { returns(T.nilable(T::Boolean)) }
               def directors; end
@@ -2156,8 +2156,8 @@ module Stripe
                 ownership_exemption_reason: nil
               ); end
             end
-            class TermsOfService < Stripe::RequestParams
-              class Account < Stripe::RequestParams
+            class TermsOfService < ::Stripe::RequestParams
+              class Account < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
                 def date; end
@@ -2178,9 +2178,9 @@ module Stripe
                  }
                 def initialize(date: nil, ip: nil, user_agent: nil); end
               end
-              class CardCreator < Stripe::RequestParams
-                class Commercial < Stripe::RequestParams
-                  class AccountHolder < Stripe::RequestParams
+              class CardCreator < ::Stripe::RequestParams
+                class Commercial < ::Stripe::RequestParams
+                  class AccountHolder < ::Stripe::RequestParams
                     # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                     sig { returns(T.nilable(String)) }
                     def date; end
@@ -2201,8 +2201,8 @@ module Stripe
                      }
                     def initialize(date: nil, ip: nil, user_agent: nil); end
                   end
-                  class Celtic < Stripe::RequestParams
-                    class ApplePay < Stripe::RequestParams
+                  class Celtic < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
                       # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                       sig { returns(T.nilable(String)) }
                       def date; end
@@ -2223,8 +2223,8 @@ module Stripe
                        }
                       def initialize(date: nil, ip: nil, user_agent: nil); end
                     end
-                    class ChargeCard < Stripe::RequestParams
-                      class BankTerms < Stripe::RequestParams
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2245,7 +2245,7 @@ module Stripe
                          }
                         def initialize(date: nil, ip: nil, user_agent: nil); end
                       end
-                      class Platform < Stripe::RequestParams
+                      class Platform < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2289,8 +2289,8 @@ module Stripe
                        }
                       def initialize(bank_terms: nil, platform: nil); end
                     end
-                    class SpendCard < Stripe::RequestParams
-                      class BankTerms < Stripe::RequestParams
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2311,7 +2311,7 @@ module Stripe
                          }
                         def initialize(date: nil, ip: nil, user_agent: nil); end
                       end
-                      class FinancingDisclosures < Stripe::RequestParams
+                      class FinancingDisclosures < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2332,7 +2332,7 @@ module Stripe
                          }
                         def initialize(date: nil, ip: nil, user_agent: nil); end
                       end
-                      class Platform < Stripe::RequestParams
+                      class Platform < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2421,8 +2421,8 @@ module Stripe
                      }
                     def initialize(apple_pay: nil, charge_card: nil, spend_card: nil); end
                   end
-                  class CrossRiverBank < Stripe::RequestParams
-                    class ApplePay < Stripe::RequestParams
+                  class CrossRiverBank < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
                       # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                       sig { returns(T.nilable(String)) }
                       def date; end
@@ -2443,8 +2443,8 @@ module Stripe
                        }
                       def initialize(date: nil, ip: nil, user_agent: nil); end
                     end
-                    class ChargeCard < Stripe::RequestParams
-                      class BankTerms < Stripe::RequestParams
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2465,7 +2465,7 @@ module Stripe
                          }
                         def initialize(date: nil, ip: nil, user_agent: nil); end
                       end
-                      class FinancingDisclosures < Stripe::RequestParams
+                      class FinancingDisclosures < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2486,7 +2486,7 @@ module Stripe
                          }
                         def initialize(date: nil, ip: nil, user_agent: nil); end
                       end
-                      class Platform < Stripe::RequestParams
+                      class Platform < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2543,8 +2543,8 @@ module Stripe
                         platform: nil
                       ); end
                     end
-                    class SpendCard < Stripe::RequestParams
-                      class BankTerms < Stripe::RequestParams
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2565,7 +2565,7 @@ module Stripe
                          }
                         def initialize(date: nil, ip: nil, user_agent: nil); end
                       end
-                      class FinancingDisclosures < Stripe::RequestParams
+                      class FinancingDisclosures < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         sig { returns(T.nilable(String)) }
                         def date; end
@@ -2687,7 +2687,7 @@ module Stripe
                  }
                 def initialize(commercial: nil); end
               end
-              class Storer < Stripe::RequestParams
+              class Storer < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
                 def date; end
@@ -2786,8 +2786,8 @@ module Stripe
               terms_of_service: nil
             ); end
           end
-          class BusinessDetails < Stripe::RequestParams
-            class Address < Stripe::RequestParams
+          class BusinessDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -2836,12 +2836,12 @@ module Stripe
                 town: nil
               ); end
             end
-            class AnnualRevenue < Stripe::RequestParams
+            class AnnualRevenue < ::Stripe::RequestParams
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(Stripe::V2::Amount)) }
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
               def amount; end
               sig {
-                params(_amount: T.nilable(Stripe::V2::Amount)).returns(T.nilable(Stripe::V2::Amount))
+                params(_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
                }
               def amount=(_amount); end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -2850,12 +2850,12 @@ module Stripe
               sig { params(_fiscal_year_end: T.nilable(String)).returns(T.nilable(String)) }
               def fiscal_year_end=(_fiscal_year_end); end
               sig {
-                params(amount: T.nilable(Stripe::V2::Amount), fiscal_year_end: T.nilable(String)).void
+                params(amount: T.nilable(::Stripe::V2::Amount), fiscal_year_end: T.nilable(String)).void
                }
               def initialize(amount: nil, fiscal_year_end: nil); end
             end
-            class Documents < Stripe::RequestParams
-              class BankAccountOwnershipVerification < Stripe::RequestParams
+            class Documents < ::Stripe::RequestParams
+              class BankAccountOwnershipVerification < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2869,7 +2869,7 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class CompanyLicense < Stripe::RequestParams
+              class CompanyLicense < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2883,7 +2883,7 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class CompanyMemorandumOfAssociation < Stripe::RequestParams
+              class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2897,7 +2897,7 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class CompanyMinisterialDecree < Stripe::RequestParams
+              class CompanyMinisterialDecree < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2911,7 +2911,7 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class CompanyRegistrationVerification < Stripe::RequestParams
+              class CompanyRegistrationVerification < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2925,7 +2925,7 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class CompanyTaxIdVerification < Stripe::RequestParams
+              class CompanyTaxIdVerification < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2939,8 +2939,8 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class PrimaryVerification < Stripe::RequestParams
-                class FrontBack < Stripe::RequestParams
+              class PrimaryVerification < ::Stripe::RequestParams
+                class FrontBack < ::Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
@@ -2973,7 +2973,7 @@ module Stripe
                  }
                 def initialize(front_back: nil, type: nil); end
               end
-              class ProofOfAddress < Stripe::RequestParams
+              class ProofOfAddress < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2987,7 +2987,7 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class ProofOfRegistration < Stripe::RequestParams
+              class ProofOfRegistration < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -3001,7 +3001,7 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
+              class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -3123,7 +3123,7 @@ module Stripe
                 proof_of_ultimate_beneficial_ownership: nil
               ); end
             end
-            class IdNumber < Stripe::RequestParams
+            class IdNumber < ::Stripe::RequestParams
               # The registrar of the ID number (Only valid for DE ID number types).
               sig { returns(T.nilable(String)) }
               def registrar; end
@@ -3142,19 +3142,19 @@ module Stripe
               sig { params(registrar: T.nilable(String), type: String, value: String).void }
               def initialize(registrar: nil, type: nil, value: nil); end
             end
-            class MonthlyEstimatedRevenue < Stripe::RequestParams
+            class MonthlyEstimatedRevenue < ::Stripe::RequestParams
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(Stripe::V2::Amount)) }
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
               def amount; end
               sig {
-                params(_amount: T.nilable(Stripe::V2::Amount)).returns(T.nilable(Stripe::V2::Amount))
+                params(_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
                }
               def amount=(_amount); end
-              sig { params(amount: T.nilable(Stripe::V2::Amount)).void }
+              sig { params(amount: T.nilable(::Stripe::V2::Amount)).void }
               def initialize(amount: nil); end
             end
-            class ScriptAddresses < Stripe::RequestParams
-              class Kana < Stripe::RequestParams
+            class ScriptAddresses < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -3203,7 +3203,7 @@ module Stripe
                   town: nil
                 ); end
               end
-              class Kanji < Stripe::RequestParams
+              class Kanji < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -3275,8 +3275,8 @@ module Stripe
                }
               def initialize(kana: nil, kanji: nil); end
             end
-            class ScriptNames < Stripe::RequestParams
-              class Kana < Stripe::RequestParams
+            class ScriptNames < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
                 # Registered name of the business.
                 sig { returns(T.nilable(String)) }
                 def registered_name; end
@@ -3285,7 +3285,7 @@ module Stripe
                 sig { params(registered_name: T.nilable(String)).void }
                 def initialize(registered_name: nil); end
               end
-              class Kanji < Stripe::RequestParams
+              class Kanji < ::Stripe::RequestParams
                 # Registered name of the business.
                 sig { returns(T.nilable(String)) }
                 def registered_name; end
@@ -3417,8 +3417,8 @@ module Stripe
               structure: nil
             ); end
           end
-          class Individual < Stripe::RequestParams
-            class AdditionalAddress < Stripe::RequestParams
+          class Individual < ::Stripe::RequestParams
+            class AdditionalAddress < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -3473,7 +3473,7 @@ module Stripe
                 town: nil
               ); end
             end
-            class AdditionalName < Stripe::RequestParams
+            class AdditionalName < ::Stripe::RequestParams
               # The person's full name.
               sig { returns(T.nilable(String)) }
               def full_name; end
@@ -3499,7 +3499,7 @@ module Stripe
                }
               def initialize(full_name: nil, given_name: nil, purpose: nil, surname: nil); end
             end
-            class Address < Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -3548,7 +3548,7 @@ module Stripe
                 town: nil
               ); end
             end
-            class DateOfBirth < Stripe::RequestParams
+            class DateOfBirth < ::Stripe::RequestParams
               # The day of the birth.
               sig { returns(Integer) }
               def day; end
@@ -3567,8 +3567,8 @@ module Stripe
               sig { params(day: Integer, month: Integer, year: Integer).void }
               def initialize(day: nil, month: nil, year: nil); end
             end
-            class Documents < Stripe::RequestParams
-              class CompanyAuthorization < Stripe::RequestParams
+            class Documents < ::Stripe::RequestParams
+              class CompanyAuthorization < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -3582,7 +3582,7 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class Passport < Stripe::RequestParams
+              class Passport < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -3596,8 +3596,8 @@ module Stripe
                 sig { params(files: T::Array[String], type: String).void }
                 def initialize(files: nil, type: nil); end
               end
-              class PrimaryVerification < Stripe::RequestParams
-                class FrontBack < Stripe::RequestParams
+              class PrimaryVerification < ::Stripe::RequestParams
+                class FrontBack < ::Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
@@ -3630,8 +3630,8 @@ module Stripe
                  }
                 def initialize(front_back: nil, type: nil); end
               end
-              class SecondaryVerification < Stripe::RequestParams
-                class FrontBack < Stripe::RequestParams
+              class SecondaryVerification < ::Stripe::RequestParams
+                class FrontBack < ::Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
@@ -3664,7 +3664,7 @@ module Stripe
                  }
                 def initialize(front_back: nil, type: nil); end
               end
-              class Visa < Stripe::RequestParams
+              class Visa < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -3734,7 +3734,7 @@ module Stripe
                 visa: nil
               ); end
             end
-            class IdNumber < Stripe::RequestParams
+            class IdNumber < ::Stripe::RequestParams
               # The ID number type of an individual.
               sig { returns(String) }
               def type; end
@@ -3748,7 +3748,7 @@ module Stripe
               sig { params(type: String, value: String).void }
               def initialize(type: nil, value: nil); end
             end
-            class Relationship < Stripe::RequestParams
+            class Relationship < ::Stripe::RequestParams
               # Whether the person is a director of the account's identity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
               sig { returns(T.nilable(T::Boolean)) }
               def director; end
@@ -3785,8 +3785,8 @@ module Stripe
                 title: nil
               ); end
             end
-            class ScriptAddresses < Stripe::RequestParams
-              class Kana < Stripe::RequestParams
+            class ScriptAddresses < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -3835,7 +3835,7 @@ module Stripe
                   town: nil
                 ); end
               end
-              class Kanji < Stripe::RequestParams
+              class Kanji < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -3907,8 +3907,8 @@ module Stripe
                }
               def initialize(kana: nil, kanji: nil); end
             end
-            class ScriptNames < Stripe::RequestParams
-              class Kana < Stripe::RequestParams
+            class ScriptNames < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
                 # The person's first or given name.
                 sig { returns(T.nilable(String)) }
                 def given_name; end
@@ -3922,7 +3922,7 @@ module Stripe
                 sig { params(given_name: T.nilable(String), surname: T.nilable(String)).void }
                 def initialize(given_name: nil, surname: nil); end
               end
-              class Kanji < Stripe::RequestParams
+              class Kanji < ::Stripe::RequestParams
                 # The person's first or given name.
                 sig { returns(T.nilable(String)) }
                 def given_name; end

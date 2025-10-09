@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Billing
-    class MeterCreateParams < Stripe::RequestParams
-      class CustomerMapping < Stripe::RequestParams
+    class MeterCreateParams < ::Stripe::RequestParams
+      class CustomerMapping < ::Stripe::RequestParams
         # The key in the meter event payload to use for mapping the event to a customer.
         sig { returns(String) }
         def event_payload_key; end
@@ -19,7 +19,7 @@ module Stripe
         sig { params(event_payload_key: String, type: String).void }
         def initialize(event_payload_key: nil, type: nil); end
       end
-      class DefaultAggregation < Stripe::RequestParams
+      class DefaultAggregation < ::Stripe::RequestParams
         # Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value and `last` to take the last event's value in the window.
         sig { returns(String) }
         def formula; end
@@ -28,7 +28,7 @@ module Stripe
         sig { params(formula: String).void }
         def initialize(formula: nil); end
       end
-      class ValueSettings < Stripe::RequestParams
+      class ValueSettings < ::Stripe::RequestParams
         # The key in the usage event payload to use as the value for this meter. For example, if the event payload contains usage on a `bytes_used` field, then set the event_payload_key to "bytes_used".
         sig { returns(String) }
         def event_payload_key; end

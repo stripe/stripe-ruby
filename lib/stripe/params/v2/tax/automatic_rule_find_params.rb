@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Tax
-      class AutomaticRuleFindParams < Stripe::RequestParams
+      class AutomaticRuleFindParams < ::Stripe::RequestParams
         # The BillableItem ID to search by.
         attr_accessor :billable_item
 

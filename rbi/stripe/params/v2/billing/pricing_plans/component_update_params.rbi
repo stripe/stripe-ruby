@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       module PricingPlans
-        class ComponentUpdateParams < Stripe::RequestParams
+        class ComponentUpdateParams < ::Stripe::RequestParams
           # An identifier that can be used to find this component. Maximum length of 200 characters.
           sig { returns(T.nilable(String)) }
           def lookup_key; end

@@ -9,7 +9,7 @@ module Stripe
         "v2.core.account_person.created"
       end
 
-      class V2CoreAccountPersonCreatedEventData < Stripe::StripeObject
+      class V2CoreAccountPersonCreatedEventData < ::Stripe::StripeObject
         # The ID of the v2 account.
         attr_reader :account_id
 

@@ -9,7 +9,7 @@ module Stripe
         "v2.billing.rate_card_rate.created"
       end
 
-      class V2BillingRateCardRateCreatedEventData < Stripe::StripeObject
+      class V2BillingRateCardRateCreatedEventData < ::Stripe::StripeObject
         # The ID of the BillableItem which this Rate is associated with.
         attr_reader :billable_item
         # Timestamp of when the object was created.

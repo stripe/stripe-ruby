@@ -9,9 +9,9 @@ module Stripe
         "v2.core.health.authorization_rate_drop.resolved"
       end
 
-      class V2CoreHealthAuthorizationRateDropResolvedEventData < Stripe::StripeObject
-        class Impact < Stripe::StripeObject
-          class Dimension < Stripe::StripeObject
+      class V2CoreHealthAuthorizationRateDropResolvedEventData < ::Stripe::StripeObject
+        class Impact < ::Stripe::StripeObject
+          class Dimension < ::Stripe::StripeObject
             # The issuer dimension.
             attr_reader :issuer
             # The type of the dimension.

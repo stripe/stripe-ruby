@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class LicensedItemRetrieveParams < Stripe::RequestParams; end
+      class LicensedItemRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class RecipientVerificationRetrieveParams < Stripe::RequestParams; end
+      class RecipientVerificationRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

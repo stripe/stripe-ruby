@@ -7,8 +7,8 @@ module Stripe
     # Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
     # Stripe or the platform can control Features via the requested field.
     class FinancialAccountFeatures < APIResource
-      class CardIssuing < Stripe::StripeObject
-        class StatusDetail < Stripe::StripeObject
+      class CardIssuing < ::Stripe::StripeObject
+        class StatusDetail < ::Stripe::StripeObject
           # Represents the reason why the status is `pending` or `restricted`.
           sig { returns(String) }
           def code; end
@@ -41,8 +41,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class DepositInsurance < Stripe::StripeObject
-        class StatusDetail < Stripe::StripeObject
+      class DepositInsurance < ::Stripe::StripeObject
+        class StatusDetail < ::Stripe::StripeObject
           # Represents the reason why the status is `pending` or `restricted`.
           sig { returns(String) }
           def code; end
@@ -75,9 +75,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class FinancialAddresses < Stripe::StripeObject
-        class Aba < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+      class FinancialAddresses < ::Stripe::StripeObject
+        class Aba < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             def code; end
@@ -123,9 +123,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class InboundTransfers < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+      class InboundTransfers < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             def code; end
@@ -168,8 +168,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class IntraStripeFlows < Stripe::StripeObject
-        class StatusDetail < Stripe::StripeObject
+      class IntraStripeFlows < ::Stripe::StripeObject
+        class StatusDetail < ::Stripe::StripeObject
           # Represents the reason why the status is `pending` or `restricted`.
           sig { returns(String) }
           def code; end
@@ -202,9 +202,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class OutboundPayments < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+      class OutboundPayments < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             def code; end
@@ -237,8 +237,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class UsDomesticWire < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+        class UsDomesticWire < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             def code; end
@@ -284,9 +284,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class OutboundTransfers < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+      class OutboundTransfers < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             def code; end
@@ -319,8 +319,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class UsDomesticWire < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+        class UsDomesticWire < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             def code; end

@@ -8,7 +8,7 @@ module Stripe
   # Learn more about [Radar](https://docs.stripe.com/radar) and reviewing payments
   # [here](https://stripe.com/docs/radar/reviews).
   class Review < APIResource
-    class IpAddressLocation < Stripe::StripeObject
+    class IpAddressLocation < ::Stripe::StripeObject
       # The city where the payment originated.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -31,7 +31,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Session < Stripe::StripeObject
+    class Session < ::Stripe::StripeObject
       # The browser used in this browser session (e.g., `Chrome`).
       sig { returns(T.nilable(String)) }
       def browser; end
@@ -55,7 +55,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def billing_zip; end
     # The charge associated with this review.
-    sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
     def charge; end
     # The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, `canceled`, `payment_never_settled`, or `acknowledged`.
     sig { returns(T.nilable(String)) }
@@ -85,7 +85,7 @@ module Stripe
     sig { returns(String) }
     def opened_reason; end
     # The PaymentIntent ID associated with this review, if one exists.
-    sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
     def payment_intent; end
     # The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, `canceled`, `payment_never_settled`, or `acknowledged`.
     sig { returns(String) }
@@ -95,19 +95,19 @@ module Stripe
     def session; end
     # Approves a Review object, closing it and removing it from the list of reviews.
     sig {
-      params(params: T.any(::Stripe::ReviewApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Review)
+      params(params: T.any(::Stripe::ReviewApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Review)
      }
     def approve(params = {}, opts = {}); end
 
     # Approves a Review object, closing it and removing it from the list of reviews.
     sig {
-      params(review: String, params: T.any(::Stripe::ReviewApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Review)
+      params(review: String, params: T.any(::Stripe::ReviewApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Review)
      }
     def self.approve(review, params = {}, opts = {}); end
 
     # Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
     sig {
-      params(params: T.any(::Stripe::ReviewListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::ReviewListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

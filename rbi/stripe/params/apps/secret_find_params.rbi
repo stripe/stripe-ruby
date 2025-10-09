@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Apps
-    class SecretFindParams < Stripe::RequestParams
-      class Scope < Stripe::RequestParams
+    class SecretFindParams < ::Stripe::RequestParams
+      class Scope < ::Stripe::RequestParams
         # The secret scope type.
         sig { returns(String) }
         def type; end

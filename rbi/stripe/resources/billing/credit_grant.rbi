@@ -8,9 +8,9 @@ module Stripe
     #
     # Related guide: [Billing credits](https://docs.stripe.com/billing/subscriptions/usage-based/billing-credits)
     class CreditGrant < APIResource
-      class Amount < Stripe::StripeObject
-        class CustomPricingUnit < Stripe::StripeObject
-          class CustomPricingUnitDetails < Stripe::StripeObject
+      class Amount < ::Stripe::StripeObject
+        class CustomPricingUnit < ::Stripe::StripeObject
+          class CustomPricingUnitDetails < ::Stripe::StripeObject
             # Time at which the object was created. Measured in seconds since the Unix epoch.
             sig { returns(Integer) }
             def created; end
@@ -52,7 +52,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Monetary < Stripe::StripeObject
+        class Monetary < ::Stripe::StripeObject
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           def currency; end
@@ -82,9 +82,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ApplicabilityConfig < Stripe::StripeObject
-        class Scope < Stripe::StripeObject
-          class BillableItem < Stripe::StripeObject
+      class ApplicabilityConfig < ::Stripe::StripeObject
+        class Scope < ::Stripe::StripeObject
+          class BillableItem < ::Stripe::StripeObject
             # Unique identifier for the object.
             sig { returns(T.nilable(String)) }
             def id; end
@@ -95,7 +95,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Price < Stripe::StripeObject
+          class Price < ::Stripe::StripeObject
             # Unique identifier for the object.
             sig { returns(T.nilable(String)) }
             def id; end
@@ -145,7 +145,7 @@ module Stripe
       sig { returns(Integer) }
       def created; end
       # ID of the customer receiving the billing credits.
-      sig { returns(T.any(String, Stripe::Customer)) }
+      sig { returns(T.any(String, ::Stripe::Customer)) }
       def customer; end
       # ID of the account receiving the billing credits
       sig { returns(T.nilable(String)) }
@@ -175,7 +175,7 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       def priority; end
       # ID of the test clock this credit grant belongs to.
-      sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
       def test_clock; end
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -185,43 +185,43 @@ module Stripe
       def voided_at; end
       # Creates a credit grant.
       sig {
-        params(params: T.any(::Stripe::Billing::CreditGrantCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::CreditGrant)
+        params(params: T.any(::Stripe::Billing::CreditGrantCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::CreditGrant)
        }
       def self.create(params = {}, opts = {}); end
 
       # Expires a credit grant.
       sig {
-        params(params: T.any(::Stripe::Billing::CreditGrantExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::CreditGrant)
+        params(params: T.any(::Stripe::Billing::CreditGrantExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::CreditGrant)
        }
       def expire(params = {}, opts = {}); end
 
       # Expires a credit grant.
       sig {
-        params(id: String, params: T.any(::Stripe::Billing::CreditGrantExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::CreditGrant)
+        params(id: String, params: T.any(::Stripe::Billing::CreditGrantExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::CreditGrant)
        }
       def self.expire(id, params = {}, opts = {}); end
 
       # Retrieve a list of credit grants.
       sig {
-        params(params: T.any(::Stripe::Billing::CreditGrantListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Billing::CreditGrantListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Updates a credit grant.
       sig {
-        params(id: String, params: T.any(::Stripe::Billing::CreditGrantUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::CreditGrant)
+        params(id: String, params: T.any(::Stripe::Billing::CreditGrantUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::CreditGrant)
        }
       def self.update(id, params = {}, opts = {}); end
 
       # Voids a credit grant.
       sig {
-        params(params: T.any(::Stripe::Billing::CreditGrantVoidGrantParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::CreditGrant)
+        params(params: T.any(::Stripe::Billing::CreditGrantVoidGrantParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::CreditGrant)
        }
       def void_grant(params = {}, opts = {}); end
 
       # Voids a credit grant.
       sig {
-        params(id: String, params: T.any(::Stripe::Billing::CreditGrantVoidGrantParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::CreditGrant)
+        params(id: String, params: T.any(::Stripe::Billing::CreditGrantVoidGrantParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::CreditGrant)
        }
       def self.void_grant(id, params = {}, opts = {}); end
     end

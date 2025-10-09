@@ -11,7 +11,7 @@ module Stripe
           "v2.money_management.payout_method"
         end
 
-        class UsageStatus < Stripe::StripeObject
+        class UsageStatus < ::Stripe::StripeObject
           # Payments status - used when sending OutboundPayments (sending funds to recipients).
           attr_reader :payments
           # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
@@ -26,7 +26,7 @@ module Stripe
           end
         end
 
-        class BankAccount < Stripe::StripeObject
+        class BankAccount < ::Stripe::StripeObject
           # Whether this PayoutMethodBankAccount object was archived. PayoutMethodBankAccount objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodBankAccount objects
           # cannot be used as payout methods and will not appear in the payout method list.
@@ -55,7 +55,7 @@ module Stripe
           end
         end
 
-        class Card < Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
           # Whether the PayoutMethodCard object was archived. PayoutMethodCard objects can be archived through
           # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodCard objects
           # cannot be used as payout methods and will not appear in the payout method list.
@@ -76,7 +76,7 @@ module Stripe
           end
         end
 
-        class CryptoWallet < Stripe::StripeObject
+        class CryptoWallet < ::Stripe::StripeObject
           # Destination wallet address.
           attr_reader :address
           # Whether the crypto wallet was archived. Crypto wallets can be archived through the /archive API,

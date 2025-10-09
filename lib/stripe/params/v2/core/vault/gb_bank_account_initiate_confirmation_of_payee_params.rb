@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Core
       module Vault
-        class GbBankAccountInitiateConfirmationOfPayeeParams < Stripe::RequestParams
+        class GbBankAccountInitiateConfirmationOfPayeeParams < ::Stripe::RequestParams
           # The business type to be checked against. Legal entity information will be used if unspecified.
           attr_accessor :business_type
           # The name of the user to be checked against. Legal entity information will be used if unspecified.

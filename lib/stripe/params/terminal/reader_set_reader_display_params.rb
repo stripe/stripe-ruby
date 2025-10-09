@@ -3,9 +3,9 @@
 
 module Stripe
   module Terminal
-    class ReaderSetReaderDisplayParams < Stripe::RequestParams
-      class Cart < Stripe::RequestParams
-        class LineItem < Stripe::RequestParams
+    class ReaderSetReaderDisplayParams < ::Stripe::RequestParams
+      class Cart < ::Stripe::RequestParams
+        class LineItem < ::Stripe::RequestParams
           # The price of the item in cents.
           attr_accessor :amount
           # The description or name of the item.

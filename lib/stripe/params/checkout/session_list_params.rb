@@ -3,8 +3,8 @@
 
 module Stripe
   module Checkout
-    class SessionListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class SessionListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
         # Minimum value to filter by (inclusive)
@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      class CustomerDetails < Stripe::RequestParams
+      class CustomerDetails < ::Stripe::RequestParams
         # Customer's email address.
         attr_accessor :email
 

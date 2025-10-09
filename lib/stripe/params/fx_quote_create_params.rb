@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class FxQuoteCreateParams < Stripe::RequestParams
-    class Usage < Stripe::RequestParams
-      class Payment < Stripe::RequestParams
+  class FxQuoteCreateParams < ::Stripe::RequestParams
+    class Usage < ::Stripe::RequestParams
+      class Payment < ::Stripe::RequestParams
         # The Stripe account ID that the funds will be transferred to.
         #
         # This field should match the account ID that would be used in the PaymentIntent’s transfer_data[destination] field.
@@ -20,7 +20,7 @@ module Stripe
         end
       end
 
-      class Transfer < Stripe::RequestParams
+      class Transfer < ::Stripe::RequestParams
         # The Stripe account ID that the funds will be transferred to.
         #
         # This field should match the account ID that would be used in the Transfer’s destination field.

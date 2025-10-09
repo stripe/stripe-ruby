@@ -9,7 +9,7 @@ module Stripe
       "cash_balance"
     end
 
-    class Settings < Stripe::StripeObject
+    class Settings < ::Stripe::StripeObject
       # The configuration for how funds that land in the customer cash balance are reconciled.
       attr_reader :reconciliation_mode
       # A flag to indicate if reconciliation mode returned is the user's default or is specific to this customer cash balance

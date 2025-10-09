@@ -3,7 +3,7 @@
 
 module Stripe
   module Tax
-    class TransactionCreateFromCalculationParams < Stripe::RequestParams
+    class TransactionCreateFromCalculationParams < ::Stripe::RequestParams
       # Tax Calculation ID to be used as input when creating the transaction.
       attr_accessor :calculation
       # Specifies which fields in the response should be expanded.

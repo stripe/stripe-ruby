@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class CustomerSessionCreateParams < Stripe::RequestParams
-    class Components < Stripe::RequestParams
-      class BuyButton < Stripe::RequestParams
+  class CustomerSessionCreateParams < ::Stripe::RequestParams
+    class Components < ::Stripe::RequestParams
+      class BuyButton < ::Stripe::RequestParams
         # Whether the buy button is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -14,8 +14,8 @@ module Stripe
         sig { params(enabled: T::Boolean).void }
         def initialize(enabled: nil); end
       end
-      class PaymentElement < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class PaymentElement < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
           #
           # If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
@@ -89,7 +89,7 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
-      class PricingTable < Stripe::RequestParams
+      class PricingTable < ::Stripe::RequestParams
         # Whether the pricing table is enabled.
         sig { returns(T::Boolean) }
         def enabled; end

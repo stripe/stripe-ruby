@@ -6,9 +6,9 @@ module Stripe
   # PaymentMethodBalance objects represent balances available on a payment method.
   # You can use v1/payment_methods/:id/check_balance to check the balance of a payment method.
   class PaymentMethodBalance < APIResource
-    class Balance < Stripe::StripeObject
-      class FrMealVoucher < Stripe::StripeObject
-        class Available < Stripe::StripeObject
+    class Balance < ::Stripe::StripeObject
+      class FrMealVoucher < ::Stripe::StripeObject
+        class Available < ::Stripe::StripeObject
           # The amount of the balance.
           sig { returns(Integer) }
           def amount; end

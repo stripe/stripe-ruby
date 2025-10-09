@@ -8,7 +8,7 @@ module Stripe
       # A Metered Item represents a billable item whose pricing is based on usage, measured by a meter. You can use rate cards
       # to specify the pricing and create subscriptions to these items.
       class MeteredItem < APIResource
-        class MeterSegmentCondition < Stripe::StripeObject
+        class MeterSegmentCondition < ::Stripe::StripeObject
           # A Meter dimension.
           sig { returns(String) }
           def dimension; end
@@ -22,7 +22,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TaxDetails < Stripe::StripeObject
+        class TaxDetails < ::Stripe::StripeObject
           # Product tax code (PTC).
           sig { returns(String) }
           def tax_code; end

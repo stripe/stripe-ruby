@@ -3,7 +3,7 @@
 
 module Stripe
   module TestHelpers
-    class TestClockCreateParams < Stripe::RequestParams
+    class TestClockCreateParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The initial frozen time for this test clock.

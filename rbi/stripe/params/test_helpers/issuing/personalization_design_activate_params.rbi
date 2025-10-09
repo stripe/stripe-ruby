@@ -5,7 +5,7 @@
 module Stripe
   module TestHelpers
     module Issuing
-      class PersonalizationDesignActivateParams < Stripe::RequestParams
+      class PersonalizationDesignActivateParams < ::Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         def expand; end

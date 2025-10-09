@@ -11,7 +11,7 @@ module Stripe
           "v2.money_management.recipient_verification"
         end
 
-        class MatchResultDetails < Stripe::StripeObject
+        class MatchResultDetails < ::Stripe::StripeObject
           # The account name associated with the bank account as provided by the VoP provider, only present if there is a match or close match.
           attr_reader :matched_name
           # A message describing the match result.
@@ -28,7 +28,7 @@ module Stripe
           end
         end
 
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # Timestamp describing when a RecipientVerification changed status to `acknowledged`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           attr_reader :acknowledged_at

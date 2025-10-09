@@ -6,25 +6,25 @@ module Stripe
   class PaymentMethodDomainService < StripeService
     # Creates a payment method domain.
     sig {
-      params(params: T.any(::Stripe::PaymentMethodDomainCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
+      params(params: T.any(::Stripe::PaymentMethodDomainCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodDomain)
      }
     def create(params = {}, opts = {}); end
 
     # Lists the details of existing payment method domains.
     sig {
-      params(params: T.any(::Stripe::PaymentMethodDomainListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::PaymentMethodDomainListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list(params = {}, opts = {}); end
 
     # Retrieves the details of an existing payment method domain.
     sig {
-      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
+      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodDomain)
      }
     def retrieve(payment_method_domain, params = {}, opts = {}); end
 
     # Updates an existing payment method domain.
     sig {
-      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
+      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodDomain)
      }
     def update(payment_method_domain, params = {}, opts = {}); end
 
@@ -35,7 +35,7 @@ module Stripe
     #
     # Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
     sig {
-      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
+      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodDomain)
      }
     def validate(payment_method_domain, params = {}, opts = {}); end
   end

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class CustomPricingUnitRetrieveParams < Stripe::RequestParams; end
+      class CustomPricingUnitRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

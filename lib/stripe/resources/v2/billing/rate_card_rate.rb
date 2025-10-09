@@ -10,7 +10,7 @@ module Stripe
           "v2.billing.rate_card_rate"
         end
 
-        class CustomPricingUnitAmount < Stripe::StripeObject
+        class CustomPricingUnitAmount < ::Stripe::StripeObject
           # The Custom Pricing Unit object.
           attr_reader :custom_pricing_unit_details
           # The id of the custom pricing unit.
@@ -27,7 +27,7 @@ module Stripe
           end
         end
 
-        class Tier < Stripe::StripeObject
+        class Tier < ::Stripe::StripeObject
           # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
           attr_reader :flat_amount
           # Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
@@ -48,7 +48,7 @@ module Stripe
           end
         end
 
-        class TransformQuantity < Stripe::StripeObject
+        class TransformQuantity < ::Stripe::StripeObject
           # Divide usage by this number.
           attr_reader :divide_by
           # After division, round the result up or down.

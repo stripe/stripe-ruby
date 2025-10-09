@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class PricingPlanListParams < Stripe::RequestParams
+      class PricingPlanListParams < ::Stripe::RequestParams
         # Filter for active/inactive PricingPlans. Mutually exclusive with `lookup_keys`.
         attr_accessor :active
         # Optionally set the maximum number of results per page. Defaults to 20.

@@ -4,13 +4,13 @@
 module Stripe
   module V2
     module Core
-      class AccountCreateParams < Stripe::RequestParams
-        class Configuration < Stripe::RequestParams
-          class CardCreator < Stripe::RequestParams
-            class Capabilities < Stripe::RequestParams
-              class Commercial < Stripe::RequestParams
-                class Celtic < Stripe::RequestParams
-                  class ChargeCard < Stripe::RequestParams
+      class AccountCreateParams < ::Stripe::RequestParams
+        class Configuration < ::Stripe::RequestParams
+          class CardCreator < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class Commercial < ::Stripe::RequestParams
+                class Celtic < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
 
@@ -19,7 +19,7 @@ module Stripe
                     end
                   end
 
-                  class SpendCard < Stripe::RequestParams
+                  class SpendCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
 
@@ -38,8 +38,8 @@ module Stripe
                   end
                 end
 
-                class CrossRiverBank < Stripe::RequestParams
-                  class ChargeCard < Stripe::RequestParams
+                class CrossRiverBank < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
 
@@ -48,7 +48,7 @@ module Stripe
                     end
                   end
 
-                  class SpendCard < Stripe::RequestParams
+                  class SpendCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
 
@@ -67,8 +67,8 @@ module Stripe
                   end
                 end
 
-                class Stripe < Stripe::RequestParams
-                  class ChargeCard < Stripe::RequestParams
+                class Stripe < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
 
@@ -77,7 +77,7 @@ module Stripe
                     end
                   end
 
-                  class PrepaidCard < Stripe::RequestParams
+                  class PrepaidCard < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
 
@@ -123,8 +123,8 @@ module Stripe
             end
           end
 
-          class Customer < Stripe::RequestParams
-            class AutomaticIndirectTax < Stripe::RequestParams
+          class Customer < ::Stripe::RequestParams
+            class AutomaticIndirectTax < ::Stripe::RequestParams
               # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
               attr_accessor :exempt
               # A recent IP address of the customer used for tax reporting and tax location inference.
@@ -139,9 +139,9 @@ module Stripe
               end
             end
 
-            class Billing < Stripe::RequestParams
-              class Invoice < Stripe::RequestParams
-                class CustomField < Stripe::RequestParams
+            class Billing < ::Stripe::RequestParams
+              class Invoice < ::Stripe::RequestParams
+                class CustomField < ::Stripe::RequestParams
                   # The name of the custom field. This may be up to 40 characters.
                   attr_accessor :name
                   # The value of the custom field. This may be up to 140 characters. When updating, pass an empty string to remove previously-defined values.
@@ -153,7 +153,7 @@ module Stripe
                   end
                 end
 
-                class Rendering < Stripe::RequestParams
+                class Rendering < ::Stripe::RequestParams
                   # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
                   attr_accessor :amount_tax_display
                   # ID of the invoice rendering template to use for future invoices.
@@ -197,8 +197,8 @@ module Stripe
               end
             end
 
-            class Capabilities < Stripe::RequestParams
-              class AutomaticIndirectTax < Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class AutomaticIndirectTax < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -214,8 +214,8 @@ module Stripe
               end
             end
 
-            class Shipping < Stripe::RequestParams
-              class Address < Stripe::RequestParams
+            class Shipping < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -284,8 +284,8 @@ module Stripe
             end
           end
 
-          class Merchant < Stripe::RequestParams
-            class BacsDebitPayments < Stripe::RequestParams
+          class Merchant < ::Stripe::RequestParams
+            class BacsDebitPayments < ::Stripe::RequestParams
               # Display name for Bacs debit payments.
               attr_accessor :display_name
 
@@ -294,7 +294,7 @@ module Stripe
               end
             end
 
-            class Branding < Stripe::RequestParams
+            class Branding < ::Stripe::RequestParams
               # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
               attr_accessor :icon
               # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
@@ -312,8 +312,8 @@ module Stripe
               end
             end
 
-            class Capabilities < Stripe::RequestParams
-              class AchDebitPayments < Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class AchDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -322,7 +322,7 @@ module Stripe
                 end
               end
 
-              class AcssDebitPayments < Stripe::RequestParams
+              class AcssDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -331,7 +331,7 @@ module Stripe
                 end
               end
 
-              class AffirmPayments < Stripe::RequestParams
+              class AffirmPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -340,7 +340,7 @@ module Stripe
                 end
               end
 
-              class AfterpayClearpayPayments < Stripe::RequestParams
+              class AfterpayClearpayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -349,7 +349,7 @@ module Stripe
                 end
               end
 
-              class AlmaPayments < Stripe::RequestParams
+              class AlmaPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -358,7 +358,7 @@ module Stripe
                 end
               end
 
-              class AmazonPayPayments < Stripe::RequestParams
+              class AmazonPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -367,7 +367,7 @@ module Stripe
                 end
               end
 
-              class AuBecsDebitPayments < Stripe::RequestParams
+              class AuBecsDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -376,7 +376,7 @@ module Stripe
                 end
               end
 
-              class BacsDebitPayments < Stripe::RequestParams
+              class BacsDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -385,7 +385,7 @@ module Stripe
                 end
               end
 
-              class BancontactPayments < Stripe::RequestParams
+              class BancontactPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -394,7 +394,7 @@ module Stripe
                 end
               end
 
-              class BlikPayments < Stripe::RequestParams
+              class BlikPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -403,7 +403,7 @@ module Stripe
                 end
               end
 
-              class BoletoPayments < Stripe::RequestParams
+              class BoletoPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -412,7 +412,7 @@ module Stripe
                 end
               end
 
-              class CardPayments < Stripe::RequestParams
+              class CardPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -421,7 +421,7 @@ module Stripe
                 end
               end
 
-              class CartesBancairesPayments < Stripe::RequestParams
+              class CartesBancairesPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -430,7 +430,7 @@ module Stripe
                 end
               end
 
-              class CashappPayments < Stripe::RequestParams
+              class CashappPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -439,7 +439,7 @@ module Stripe
                 end
               end
 
-              class EpsPayments < Stripe::RequestParams
+              class EpsPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -448,7 +448,7 @@ module Stripe
                 end
               end
 
-              class FpxPayments < Stripe::RequestParams
+              class FpxPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -457,7 +457,7 @@ module Stripe
                 end
               end
 
-              class GbBankTransferPayments < Stripe::RequestParams
+              class GbBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -466,7 +466,7 @@ module Stripe
                 end
               end
 
-              class GrabpayPayments < Stripe::RequestParams
+              class GrabpayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -475,7 +475,7 @@ module Stripe
                 end
               end
 
-              class IdealPayments < Stripe::RequestParams
+              class IdealPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -484,7 +484,7 @@ module Stripe
                 end
               end
 
-              class JcbPayments < Stripe::RequestParams
+              class JcbPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -493,7 +493,7 @@ module Stripe
                 end
               end
 
-              class JpBankTransferPayments < Stripe::RequestParams
+              class JpBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -502,7 +502,7 @@ module Stripe
                 end
               end
 
-              class KakaoPayPayments < Stripe::RequestParams
+              class KakaoPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -511,7 +511,7 @@ module Stripe
                 end
               end
 
-              class KlarnaPayments < Stripe::RequestParams
+              class KlarnaPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -520,7 +520,7 @@ module Stripe
                 end
               end
 
-              class KonbiniPayments < Stripe::RequestParams
+              class KonbiniPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -529,7 +529,7 @@ module Stripe
                 end
               end
 
-              class KrCardPayments < Stripe::RequestParams
+              class KrCardPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -538,7 +538,7 @@ module Stripe
                 end
               end
 
-              class LinkPayments < Stripe::RequestParams
+              class LinkPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -547,7 +547,7 @@ module Stripe
                 end
               end
 
-              class MobilepayPayments < Stripe::RequestParams
+              class MobilepayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -556,7 +556,7 @@ module Stripe
                 end
               end
 
-              class MultibancoPayments < Stripe::RequestParams
+              class MultibancoPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -565,7 +565,7 @@ module Stripe
                 end
               end
 
-              class MxBankTransferPayments < Stripe::RequestParams
+              class MxBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -574,7 +574,7 @@ module Stripe
                 end
               end
 
-              class NaverPayPayments < Stripe::RequestParams
+              class NaverPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -583,7 +583,7 @@ module Stripe
                 end
               end
 
-              class OxxoPayments < Stripe::RequestParams
+              class OxxoPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -592,7 +592,7 @@ module Stripe
                 end
               end
 
-              class P24Payments < Stripe::RequestParams
+              class P24Payments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -601,7 +601,7 @@ module Stripe
                 end
               end
 
-              class PayByBankPayments < Stripe::RequestParams
+              class PayByBankPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -610,7 +610,7 @@ module Stripe
                 end
               end
 
-              class PaycoPayments < Stripe::RequestParams
+              class PaycoPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -619,7 +619,7 @@ module Stripe
                 end
               end
 
-              class PaynowPayments < Stripe::RequestParams
+              class PaynowPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -628,7 +628,7 @@ module Stripe
                 end
               end
 
-              class PromptpayPayments < Stripe::RequestParams
+              class PromptpayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -637,7 +637,7 @@ module Stripe
                 end
               end
 
-              class RevolutPayPayments < Stripe::RequestParams
+              class RevolutPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -646,7 +646,7 @@ module Stripe
                 end
               end
 
-              class SamsungPayPayments < Stripe::RequestParams
+              class SamsungPayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -655,7 +655,7 @@ module Stripe
                 end
               end
 
-              class SepaBankTransferPayments < Stripe::RequestParams
+              class SepaBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -664,7 +664,7 @@ module Stripe
                 end
               end
 
-              class SepaDebitPayments < Stripe::RequestParams
+              class SepaDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -673,7 +673,7 @@ module Stripe
                 end
               end
 
-              class SwishPayments < Stripe::RequestParams
+              class SwishPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -682,7 +682,7 @@ module Stripe
                 end
               end
 
-              class TwintPayments < Stripe::RequestParams
+              class TwintPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -691,7 +691,7 @@ module Stripe
                 end
               end
 
-              class UsBankTransferPayments < Stripe::RequestParams
+              class UsBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -700,7 +700,7 @@ module Stripe
                 end
               end
 
-              class ZipPayments < Stripe::RequestParams
+              class ZipPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -890,8 +890,8 @@ module Stripe
               end
             end
 
-            class CardPayments < Stripe::RequestParams
-              class DeclineOn < Stripe::RequestParams
+            class CardPayments < ::Stripe::RequestParams
+              class DeclineOn < ::Stripe::RequestParams
                 # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
                 attr_accessor :avs_failure
                 # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
@@ -910,7 +910,7 @@ module Stripe
               end
             end
 
-            class StatementDescriptor < Stripe::RequestParams
+            class StatementDescriptor < ::Stripe::RequestParams
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               attr_accessor :descriptor
               # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
@@ -922,8 +922,8 @@ module Stripe
               end
             end
 
-            class Support < Stripe::RequestParams
-              class Address < Stripe::RequestParams
+            class Support < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -1007,10 +1007,10 @@ module Stripe
             end
           end
 
-          class Recipient < Stripe::RequestParams
-            class Capabilities < Stripe::RequestParams
-              class BankAccounts < Stripe::RequestParams
-                class Local < Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class BankAccounts < ::Stripe::RequestParams
+                class Local < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1019,7 +1019,7 @@ module Stripe
                   end
                 end
 
-                class Wire < Stripe::RequestParams
+                class Wire < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1038,7 +1038,7 @@ module Stripe
                 end
               end
 
-              class Cards < Stripe::RequestParams
+              class Cards < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -1047,7 +1047,7 @@ module Stripe
                 end
               end
 
-              class CryptoWallets < Stripe::RequestParams
+              class CryptoWallets < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -1056,8 +1056,8 @@ module Stripe
                 end
               end
 
-              class StripeBalance < Stripe::RequestParams
-                class StripeTransfers < Stripe::RequestParams
+              class StripeBalance < ::Stripe::RequestParams
+                class StripeTransfers < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1101,10 +1101,10 @@ module Stripe
             end
           end
 
-          class Storer < Stripe::RequestParams
-            class Capabilities < Stripe::RequestParams
-              class FinancialAddresses < Stripe::RequestParams
-                class BankAccounts < Stripe::RequestParams
+          class Storer < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class FinancialAddresses < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1120,8 +1120,8 @@ module Stripe
                 end
               end
 
-              class HoldsCurrencies < Stripe::RequestParams
-                class Gbp < Stripe::RequestParams
+              class HoldsCurrencies < ::Stripe::RequestParams
+                class Gbp < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1137,8 +1137,8 @@ module Stripe
                 end
               end
 
-              class InboundTransfers < Stripe::RequestParams
-                class BankAccounts < Stripe::RequestParams
+              class InboundTransfers < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1154,8 +1154,8 @@ module Stripe
                 end
               end
 
-              class OutboundPayments < Stripe::RequestParams
-                class BankAccounts < Stripe::RequestParams
+              class OutboundPayments < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1164,7 +1164,7 @@ module Stripe
                   end
                 end
 
-                class Cards < Stripe::RequestParams
+                class Cards < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1173,7 +1173,7 @@ module Stripe
                   end
                 end
 
-                class FinancialAccounts < Stripe::RequestParams
+                class FinancialAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1195,8 +1195,8 @@ module Stripe
                 end
               end
 
-              class OutboundTransfers < Stripe::RequestParams
-                class BankAccounts < Stripe::RequestParams
+              class OutboundTransfers < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1205,7 +1205,7 @@ module Stripe
                   end
                 end
 
-                class FinancialAccounts < Stripe::RequestParams
+                class FinancialAccounts < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                   attr_accessor :requested
 
@@ -1281,8 +1281,8 @@ module Stripe
           end
         end
 
-        class Defaults < Stripe::RequestParams
-          class Profile < Stripe::RequestParams
+        class Defaults < ::Stripe::RequestParams
+          class Profile < ::Stripe::RequestParams
             # The business's publicly-available website.
             attr_accessor :business_url
             # The name which is used by the business.
@@ -1297,7 +1297,7 @@ module Stripe
             end
           end
 
-          class Responsibilities < Stripe::RequestParams
+          class Responsibilities < ::Stripe::RequestParams
             # A value indicating the party responsible for collecting fees from this account.
             attr_accessor :fees_collector
             # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
@@ -1325,9 +1325,9 @@ module Stripe
           end
         end
 
-        class Identity < Stripe::RequestParams
-          class Attestations < Stripe::RequestParams
-            class DirectorshipDeclaration < Stripe::RequestParams
+        class Identity < ::Stripe::RequestParams
+          class Attestations < ::Stripe::RequestParams
+            class DirectorshipDeclaration < ::Stripe::RequestParams
               # The time marking when the director attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               attr_accessor :date
               # The IP address from which the director attestation was made.
@@ -1342,7 +1342,7 @@ module Stripe
               end
             end
 
-            class OwnershipDeclaration < Stripe::RequestParams
+            class OwnershipDeclaration < ::Stripe::RequestParams
               # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               attr_accessor :date
               # The IP address from which the beneficial owner attestation was made.
@@ -1357,7 +1357,7 @@ module Stripe
               end
             end
 
-            class PersonsProvided < Stripe::RequestParams
+            class PersonsProvided < ::Stripe::RequestParams
               # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
               attr_accessor :directors
               # Whether the company’s executives have been provided. Set this Boolean to true after creating all the company’s executives with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
@@ -1380,8 +1380,8 @@ module Stripe
               end
             end
 
-            class TermsOfService < Stripe::RequestParams
-              class Account < Stripe::RequestParams
+            class TermsOfService < ::Stripe::RequestParams
+              class Account < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -1396,9 +1396,9 @@ module Stripe
                 end
               end
 
-              class CardCreator < Stripe::RequestParams
-                class Commercial < Stripe::RequestParams
-                  class AccountHolder < Stripe::RequestParams
+              class CardCreator < ::Stripe::RequestParams
+                class Commercial < ::Stripe::RequestParams
+                  class AccountHolder < ::Stripe::RequestParams
                     # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                     attr_accessor :date
                     # The IP address from which the Account's representative accepted the terms of service.
@@ -1413,8 +1413,8 @@ module Stripe
                     end
                   end
 
-                  class Celtic < Stripe::RequestParams
-                    class ApplePay < Stripe::RequestParams
+                  class Celtic < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
                       # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                       attr_accessor :date
                       # The IP address from which the Account's representative accepted the terms of service.
@@ -1429,8 +1429,8 @@ module Stripe
                       end
                     end
 
-                    class ChargeCard < Stripe::RequestParams
-                      class BankTerms < Stripe::RequestParams
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1445,7 +1445,7 @@ module Stripe
                         end
                       end
 
-                      class Platform < Stripe::RequestParams
+                      class Platform < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1470,8 +1470,8 @@ module Stripe
                       end
                     end
 
-                    class SpendCard < Stripe::RequestParams
-                      class BankTerms < Stripe::RequestParams
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1486,7 +1486,7 @@ module Stripe
                         end
                       end
 
-                      class FinancingDisclosures < Stripe::RequestParams
+                      class FinancingDisclosures < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1501,7 +1501,7 @@ module Stripe
                         end
                       end
 
-                      class Platform < Stripe::RequestParams
+                      class Platform < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1542,8 +1542,8 @@ module Stripe
                     end
                   end
 
-                  class CrossRiverBank < Stripe::RequestParams
-                    class ApplePay < Stripe::RequestParams
+                  class CrossRiverBank < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
                       # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                       attr_accessor :date
                       # The IP address from which the Account's representative accepted the terms of service.
@@ -1558,8 +1558,8 @@ module Stripe
                       end
                     end
 
-                    class ChargeCard < Stripe::RequestParams
-                      class BankTerms < Stripe::RequestParams
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1574,7 +1574,7 @@ module Stripe
                         end
                       end
 
-                      class FinancingDisclosures < Stripe::RequestParams
+                      class FinancingDisclosures < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1589,7 +1589,7 @@ module Stripe
                         end
                       end
 
-                      class Platform < Stripe::RequestParams
+                      class Platform < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1617,8 +1617,8 @@ module Stripe
                       end
                     end
 
-                    class SpendCard < Stripe::RequestParams
-                      class BankTerms < Stripe::RequestParams
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1633,7 +1633,7 @@ module Stripe
                         end
                       end
 
-                      class FinancingDisclosures < Stripe::RequestParams
+                      class FinancingDisclosures < ::Stripe::RequestParams
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_accessor :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -1691,7 +1691,7 @@ module Stripe
                 end
               end
 
-              class Storer < Stripe::RequestParams
+              class Storer < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -1740,8 +1740,8 @@ module Stripe
             end
           end
 
-          class BusinessDetails < Stripe::RequestParams
-            class Address < Stripe::RequestParams
+          class BusinessDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -1776,7 +1776,7 @@ module Stripe
               end
             end
 
-            class AnnualRevenue < Stripe::RequestParams
+            class AnnualRevenue < ::Stripe::RequestParams
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_accessor :amount
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -1788,8 +1788,8 @@ module Stripe
               end
             end
 
-            class Documents < Stripe::RequestParams
-              class BankAccountOwnershipVerification < Stripe::RequestParams
+            class Documents < ::Stripe::RequestParams
+              class BankAccountOwnershipVerification < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -1801,7 +1801,7 @@ module Stripe
                 end
               end
 
-              class CompanyLicense < Stripe::RequestParams
+              class CompanyLicense < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -1813,7 +1813,7 @@ module Stripe
                 end
               end
 
-              class CompanyMemorandumOfAssociation < Stripe::RequestParams
+              class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -1825,7 +1825,7 @@ module Stripe
                 end
               end
 
-              class CompanyMinisterialDecree < Stripe::RequestParams
+              class CompanyMinisterialDecree < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -1837,7 +1837,7 @@ module Stripe
                 end
               end
 
-              class CompanyRegistrationVerification < Stripe::RequestParams
+              class CompanyRegistrationVerification < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -1849,7 +1849,7 @@ module Stripe
                 end
               end
 
-              class CompanyTaxIdVerification < Stripe::RequestParams
+              class CompanyTaxIdVerification < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -1861,8 +1861,8 @@ module Stripe
                 end
               end
 
-              class PrimaryVerification < Stripe::RequestParams
-                class FrontBack < Stripe::RequestParams
+              class PrimaryVerification < ::Stripe::RequestParams
+                class FrontBack < ::Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -1884,7 +1884,7 @@ module Stripe
                 end
               end
 
-              class ProofOfAddress < Stripe::RequestParams
+              class ProofOfAddress < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -1896,7 +1896,7 @@ module Stripe
                 end
               end
 
-              class ProofOfRegistration < Stripe::RequestParams
+              class ProofOfRegistration < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -1908,7 +1908,7 @@ module Stripe
                 end
               end
 
-              class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
+              class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -1965,7 +1965,7 @@ module Stripe
               end
             end
 
-            class IdNumber < Stripe::RequestParams
+            class IdNumber < ::Stripe::RequestParams
               # The registrar of the ID number (Only valid for DE ID number types).
               attr_accessor :registrar
               # Open Enum. The ID number type of a business entity.
@@ -1980,7 +1980,7 @@ module Stripe
               end
             end
 
-            class MonthlyEstimatedRevenue < Stripe::RequestParams
+            class MonthlyEstimatedRevenue < ::Stripe::RequestParams
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_accessor :amount
 
@@ -1989,8 +1989,8 @@ module Stripe
               end
             end
 
-            class ScriptAddresses < Stripe::RequestParams
-              class Kana < Stripe::RequestParams
+            class ScriptAddresses < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -2025,7 +2025,7 @@ module Stripe
                 end
               end
 
-              class Kanji < Stripe::RequestParams
+              class Kanji < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -2070,8 +2070,8 @@ module Stripe
               end
             end
 
-            class ScriptNames < Stripe::RequestParams
-              class Kana < Stripe::RequestParams
+            class ScriptNames < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
                 # Registered name of the business.
                 attr_accessor :registered_name
 
@@ -2080,7 +2080,7 @@ module Stripe
                 end
               end
 
-              class Kanji < Stripe::RequestParams
+              class Kanji < ::Stripe::RequestParams
                 # Registered name of the business.
                 attr_accessor :registered_name
 
@@ -2148,8 +2148,8 @@ module Stripe
             end
           end
 
-          class Individual < Stripe::RequestParams
-            class AdditionalAddress < Stripe::RequestParams
+          class Individual < ::Stripe::RequestParams
+            class AdditionalAddress < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -2188,7 +2188,7 @@ module Stripe
               end
             end
 
-            class AdditionalName < Stripe::RequestParams
+            class AdditionalName < ::Stripe::RequestParams
               # The person's full name.
               attr_accessor :full_name
               # The person's first or given name.
@@ -2206,7 +2206,7 @@ module Stripe
               end
             end
 
-            class Address < Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -2241,7 +2241,7 @@ module Stripe
               end
             end
 
-            class DateOfBirth < Stripe::RequestParams
+            class DateOfBirth < ::Stripe::RequestParams
               # The day of birth.
               attr_accessor :day
               # The month of birth.
@@ -2256,8 +2256,8 @@ module Stripe
               end
             end
 
-            class Documents < Stripe::RequestParams
-              class CompanyAuthorization < Stripe::RequestParams
+            class Documents < ::Stripe::RequestParams
+              class CompanyAuthorization < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -2269,7 +2269,7 @@ module Stripe
                 end
               end
 
-              class Passport < Stripe::RequestParams
+              class Passport < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -2281,8 +2281,8 @@ module Stripe
                 end
               end
 
-              class PrimaryVerification < Stripe::RequestParams
-                class FrontBack < Stripe::RequestParams
+              class PrimaryVerification < ::Stripe::RequestParams
+                class FrontBack < ::Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -2304,8 +2304,8 @@ module Stripe
                 end
               end
 
-              class SecondaryVerification < Stripe::RequestParams
-                class FrontBack < Stripe::RequestParams
+              class SecondaryVerification < ::Stripe::RequestParams
+                class FrontBack < ::Stripe::RequestParams
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -2327,7 +2327,7 @@ module Stripe
                 end
               end
 
-              class Visa < Stripe::RequestParams
+              class Visa < ::Stripe::RequestParams
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
@@ -2364,7 +2364,7 @@ module Stripe
               end
             end
 
-            class IdNumber < Stripe::RequestParams
+            class IdNumber < ::Stripe::RequestParams
               # The ID number type of an individual.
               attr_accessor :type
               # The value of the ID number.
@@ -2376,7 +2376,7 @@ module Stripe
               end
             end
 
-            class Relationship < Stripe::RequestParams
+            class Relationship < ::Stripe::RequestParams
               # Whether the person is a director of the account's identity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
               attr_accessor :director
               # Whether the person has significant responsibility to control, manage, or direct the organization.
@@ -2403,8 +2403,8 @@ module Stripe
               end
             end
 
-            class ScriptAddresses < Stripe::RequestParams
-              class Kana < Stripe::RequestParams
+            class ScriptAddresses < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -2439,7 +2439,7 @@ module Stripe
                 end
               end
 
-              class Kanji < Stripe::RequestParams
+              class Kanji < ::Stripe::RequestParams
                 # City, district, suburb, town, or village.
                 attr_accessor :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -2484,8 +2484,8 @@ module Stripe
               end
             end
 
-            class ScriptNames < Stripe::RequestParams
-              class Kana < Stripe::RequestParams
+            class ScriptNames < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
                 # The person's first or given name.
                 attr_accessor :given_name
                 # The person's last or family name.
@@ -2497,7 +2497,7 @@ module Stripe
                 end
               end
 
-              class Kanji < Stripe::RequestParams
+              class Kanji < ::Stripe::RequestParams
                 # The person's first or given name.
                 attr_accessor :given_name
                 # The person's last or family name.

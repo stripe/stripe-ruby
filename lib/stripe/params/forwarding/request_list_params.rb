@@ -3,8 +3,8 @@
 
 module Stripe
   module Forwarding
-    class RequestListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class RequestListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Return results where the `created` field is greater than this value.
         attr_accessor :gt
         # Return results where the `created` field is greater than or equal to this value.

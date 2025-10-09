@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Issuing
-    class AuthorizationCreateParams < Stripe::RequestParams
-      class AmountDetails < Stripe::RequestParams
+    class AuthorizationCreateParams < ::Stripe::RequestParams
+      class AmountDetails < ::Stripe::RequestParams
         # The ATM withdrawal fee.
         sig { returns(T.nilable(Integer)) }
         def atm_fee; end
@@ -19,8 +19,8 @@ module Stripe
         sig { params(atm_fee: T.nilable(Integer), cashback_amount: T.nilable(Integer)).void }
         def initialize(atm_fee: nil, cashback_amount: nil); end
       end
-      class Fleet < Stripe::RequestParams
-        class CardholderPromptData < Stripe::RequestParams
+      class Fleet < ::Stripe::RequestParams
+        class CardholderPromptData < ::Stripe::RequestParams
           # Driver ID.
           sig { returns(T.nilable(String)) }
           def driver_id; end
@@ -57,8 +57,8 @@ module Stripe
             vehicle_number: nil
           ); end
         end
-        class ReportedBreakdown < Stripe::RequestParams
-          class Fuel < Stripe::RequestParams
+        class ReportedBreakdown < ::Stripe::RequestParams
+          class Fuel < ::Stripe::RequestParams
             # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
             sig { returns(T.nilable(String)) }
             def gross_amount_decimal; end
@@ -67,7 +67,7 @@ module Stripe
             sig { params(gross_amount_decimal: T.nilable(String)).void }
             def initialize(gross_amount_decimal: nil); end
           end
-          class NonFuel < Stripe::RequestParams
+          class NonFuel < ::Stripe::RequestParams
             # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
             sig { returns(T.nilable(String)) }
             def gross_amount_decimal; end
@@ -76,7 +76,7 @@ module Stripe
             sig { params(gross_amount_decimal: T.nilable(String)).void }
             def initialize(gross_amount_decimal: nil); end
           end
-          class Tax < Stripe::RequestParams
+          class Tax < ::Stripe::RequestParams
             # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
             sig { returns(T.nilable(String)) }
             def local_amount_decimal; end
@@ -158,7 +158,7 @@ module Stripe
           service_type: nil
         ); end
       end
-      class Fuel < Stripe::RequestParams
+      class Fuel < ::Stripe::RequestParams
         # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
         sig { returns(T.nilable(String)) }
         def industry_product_code; end
@@ -195,7 +195,7 @@ module Stripe
           unit_cost_decimal: nil
         ); end
       end
-      class MerchantData < Stripe::RequestParams
+      class MerchantData < ::Stripe::RequestParams
         # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
         sig { returns(T.nilable(String)) }
         def category; end
@@ -256,7 +256,7 @@ module Stripe
           url: nil
         ); end
       end
-      class NetworkData < Stripe::RequestParams
+      class NetworkData < ::Stripe::RequestParams
         # Identifier assigned to the acquirer by the card network.
         sig { returns(T.nilable(String)) }
         def acquiring_institution_id; end
@@ -265,8 +265,8 @@ module Stripe
         sig { params(acquiring_institution_id: T.nilable(String)).void }
         def initialize(acquiring_institution_id: nil); end
       end
-      class RiskAssessment < Stripe::RequestParams
-        class CardTestingRisk < Stripe::RequestParams
+      class RiskAssessment < ::Stripe::RequestParams
+        class CardTestingRisk < ::Stripe::RequestParams
           # The % of declines due to a card number not existing in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of card testing activity, meaning bad actors may be attempting different card number combinations to guess a correct one. Takes on values between 0 and 100.
           sig { returns(T.nilable(Integer)) }
           def invalid_account_number_decline_rate_past_hour; end
@@ -299,7 +299,7 @@ module Stripe
             risk_level: nil
           ); end
         end
-        class MerchantDisputeRisk < Stripe::RequestParams
+        class MerchantDisputeRisk < ::Stripe::RequestParams
           # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
           sig { returns(T.nilable(Integer)) }
           def dispute_rate; end
@@ -336,8 +336,8 @@ module Stripe
          }
         def initialize(card_testing_risk: nil, merchant_dispute_risk: nil); end
       end
-      class VerificationData < Stripe::RequestParams
-        class AuthenticationExemption < Stripe::RequestParams
+      class VerificationData < ::Stripe::RequestParams
+        class AuthenticationExemption < ::Stripe::RequestParams
           # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
           sig { returns(String) }
           def claimed_by; end
@@ -351,7 +351,7 @@ module Stripe
           sig { params(claimed_by: String, type: String).void }
           def initialize(claimed_by: nil, type: nil); end
         end
-        class ThreeDSecure < Stripe::RequestParams
+        class ThreeDSecure < ::Stripe::RequestParams
           # The outcome of the 3D Secure authentication request.
           sig { returns(String) }
           def result; end

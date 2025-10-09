@@ -10,7 +10,7 @@ module Stripe
           "v2.billing.license_fee_version"
         end
 
-        class Tier < Stripe::StripeObject
+        class Tier < ::Stripe::StripeObject
           # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
           attr_reader :flat_amount
           # Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
@@ -31,7 +31,7 @@ module Stripe
           end
         end
 
-        class TransformQuantity < Stripe::StripeObject
+        class TransformQuantity < ::Stripe::StripeObject
           # Divide usage by this number.
           attr_reader :divide_by
           # After division, round the result up or down.

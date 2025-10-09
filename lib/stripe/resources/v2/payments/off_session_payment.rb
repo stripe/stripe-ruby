@@ -11,9 +11,9 @@ module Stripe
           "v2.payments.off_session_payment"
         end
 
-        class AmountDetails < Stripe::StripeObject
-          class LineItem < Stripe::StripeObject
-            class Tax < Stripe::StripeObject
+        class AmountDetails < ::Stripe::StripeObject
+          class LineItem < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Total portion of the amount that is for tax.
               attr_reader :total_tax_amount
 
@@ -47,7 +47,7 @@ module Stripe
             end
           end
 
-          class Shipping < Stripe::StripeObject
+          class Shipping < ::Stripe::StripeObject
             # Portion of the amount that is for shipping.
             attr_reader :amount
             # The postal code that represents the shipping source.
@@ -64,7 +64,7 @@ module Stripe
             end
           end
 
-          class Tax < Stripe::StripeObject
+          class Tax < ::Stripe::StripeObject
             # Total portion of the amount that is for tax.
             attr_reader :total_tax_amount
 
@@ -94,7 +94,7 @@ module Stripe
           end
         end
 
-        class Capture < Stripe::StripeObject
+        class Capture < ::Stripe::StripeObject
           # The timestamp when this payment is no longer eligible to be captured.
           attr_reader :capture_before
           # The method to use to capture the payment.
@@ -109,7 +109,7 @@ module Stripe
           end
         end
 
-        class PaymentsOrchestration < Stripe::StripeObject
+        class PaymentsOrchestration < ::Stripe::StripeObject
           # True when you want to enable payments orchestration for this off-session payment. False otherwise.
           attr_reader :enabled
 
@@ -122,7 +122,7 @@ module Stripe
           end
         end
 
-        class RetryDetails < Stripe::StripeObject
+        class RetryDetails < ::Stripe::StripeObject
           # Number of authorization attempts so far.
           attr_reader :attempts
           # The pre-configured retry policy to use for the payment.
@@ -139,7 +139,7 @@ module Stripe
           end
         end
 
-        class TransferData < Stripe::StripeObject
+        class TransferData < ::Stripe::StripeObject
           # The amount transferred to the destination account. This transfer will occur
           # automatically after the payment succeeds. If no amount is specified, by default
           # the entire payment amount is transferred to the destination account. The amount

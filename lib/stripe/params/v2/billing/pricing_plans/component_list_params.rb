@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Billing
       module PricingPlans
-        class ComponentListParams < Stripe::RequestParams
+        class ComponentListParams < ::Stripe::RequestParams
           # Optionally set the maximum number of results per page. Defaults to 20.
           attr_accessor :limit
           # Filter by lookup keys. Mutually exclusive with `pricing_plan_version`.

@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   class PaymentIntentAmountDetailsLineItem < APIResource
-    class PaymentMethodOptions < Stripe::StripeObject
-      class Card < Stripe::StripeObject
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
         # Attribute for field commodity_code
         sig { returns(T.nilable(String)) }
         def commodity_code; end
@@ -16,7 +16,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CardPresent < Stripe::StripeObject
+      class CardPresent < ::Stripe::StripeObject
         # Attribute for field commodity_code
         sig { returns(T.nilable(String)) }
         def commodity_code; end
@@ -27,7 +27,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         # Attribute for field image_url
         sig { returns(T.nilable(String)) }
         def image_url; end
@@ -41,7 +41,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # Type of the line item.
         sig { returns(T.nilable(String)) }
         def category; end
@@ -77,7 +77,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Tax < Stripe::StripeObject
+    class Tax < ::Stripe::StripeObject
       # Total portion of the amount that is for tax.
       sig { returns(Integer) }
       def total_tax_amount; end

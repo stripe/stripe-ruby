@@ -11,7 +11,7 @@ module Stripe
           "v2.money_management.transaction"
         end
 
-        class BalanceImpact < Stripe::StripeObject
+        class BalanceImpact < ::Stripe::StripeObject
           # Impact to the available balance.
           attr_reader :available
           # Impact to the inbound_pending balance.
@@ -28,7 +28,7 @@ module Stripe
           end
         end
 
-        class Flow < Stripe::StripeObject
+        class Flow < ::Stripe::StripeObject
           # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
           attr_reader :type
           # If applicable, the ID of the Adjustment that created this Transaction.
@@ -57,7 +57,7 @@ module Stripe
           end
         end
 
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # The time at which the Transaction became posted. Only present if status == posted.
           attr_reader :posted_at
           # The time at which the Transaction became void. Only present if status == void.

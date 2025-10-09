@@ -9,7 +9,7 @@ module Stripe
         "v2.billing.rate_card_version.created"
       end
 
-      class V2BillingRateCardVersionCreatedEventData < Stripe::StripeObject
+      class V2BillingRateCardVersionCreatedEventData < ::Stripe::StripeObject
         # The ID of the RateCard that the RateCardVersion belongs to.
         attr_reader :rate_card_id
 

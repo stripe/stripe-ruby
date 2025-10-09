@@ -10,9 +10,9 @@ module Stripe
       "payment_method_balance"
     end
 
-    class Balance < Stripe::StripeObject
-      class FrMealVoucher < Stripe::StripeObject
-        class Available < Stripe::StripeObject
+    class Balance < ::Stripe::StripeObject
+      class FrMealVoucher < ::Stripe::StripeObject
+        class Available < ::Stripe::StripeObject
           # The amount of the balance.
           attr_reader :amount
           # The currency of the balance.

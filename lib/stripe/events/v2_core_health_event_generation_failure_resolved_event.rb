@@ -9,8 +9,8 @@ module Stripe
         "v2.core.health.event_generation_failure.resolved"
       end
 
-      class V2CoreHealthEventGenerationFailureResolvedEventData < Stripe::StripeObject
-        class Impact < Stripe::StripeObject
+      class V2CoreHealthEventGenerationFailureResolvedEventData < ::Stripe::StripeObject
+        class Impact < ::Stripe::StripeObject
           # The account id the event should have been generated for. Only present when the account is a connected account.
           attr_reader :account
           # The type of event that Stripe failed to generate.

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class InvoicePayParams < Stripe::RequestParams
+  class InvoicePayParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # In cases where the source used to pay the invoice has insufficient funds, passing `forgive=true` controls whether a charge should be attempted for the full amount available on the source, up to the amount to fully pay the invoice. This effectively forgives the difference between the amount available on the source and the amount due.

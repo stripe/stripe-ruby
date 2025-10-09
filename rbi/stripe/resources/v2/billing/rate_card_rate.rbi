@@ -6,9 +6,9 @@ module Stripe
   module V2
     module Billing
       class RateCardRate < APIResource
-        class CustomPricingUnitAmount < Stripe::StripeObject
+        class CustomPricingUnitAmount < ::Stripe::StripeObject
           # The Custom Pricing Unit object.
-          sig { returns(T.nilable(Stripe::V2::Billing::CustomPricingUnit)) }
+          sig { returns(T.nilable(::Stripe::V2::Billing::CustomPricingUnit)) }
           def custom_pricing_unit_details; end
           # The id of the custom pricing unit.
           sig { returns(String) }
@@ -23,7 +23,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Tier < Stripe::StripeObject
+        class Tier < ::Stripe::StripeObject
           # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
           sig { returns(T.nilable(String)) }
           def flat_amount; end
@@ -45,7 +45,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TransformQuantity < Stripe::StripeObject
+        class TransformQuantity < ::Stripe::StripeObject
           # Divide usage by this number.
           sig { returns(Integer) }
           def divide_by; end
@@ -73,7 +73,7 @@ module Stripe
         def metadata; end
         # A Metered Item represents a billable item whose pricing is based on usage, measured by a meter. You can use rate cards
         # to specify the pricing and create subscriptions to these items.
-        sig { returns(Stripe::V2::Billing::MeteredItem) }
+        sig { returns(::Stripe::V2::Billing::MeteredItem) }
         def metered_item; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }

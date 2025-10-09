@@ -6,10 +6,10 @@ module Stripe
   module Billing
     # A credit balance transaction is a resource representing a transaction (either a credit or a debit) against an existing credit grant.
     class CreditBalanceTransaction < APIResource
-      class Credit < Stripe::StripeObject
-        class Amount < Stripe::StripeObject
-          class CustomPricingUnit < Stripe::StripeObject
-            class CustomPricingUnitDetails < Stripe::StripeObject
+      class Credit < ::Stripe::StripeObject
+        class Amount < ::Stripe::StripeObject
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               sig { returns(Integer) }
               def created; end
@@ -51,7 +51,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Monetary < Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
             def currency; end
@@ -81,9 +81,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class CreditsApplicationInvoiceVoided < Stripe::StripeObject
+        class CreditsApplicationInvoiceVoided < ::Stripe::StripeObject
           # The invoice to which the reinstated billing credits were originally applied.
-          sig { returns(T.any(String, Stripe::Invoice)) }
+          sig { returns(T.any(String, ::Stripe::Invoice)) }
           def invoice; end
           # The invoice line item to which the reinstated billing credits were originally applied.
           sig { returns(String) }
@@ -114,10 +114,10 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Debit < Stripe::StripeObject
-        class Amount < Stripe::StripeObject
-          class CustomPricingUnit < Stripe::StripeObject
-            class CustomPricingUnitDetails < Stripe::StripeObject
+      class Debit < ::Stripe::StripeObject
+        class Amount < ::Stripe::StripeObject
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               sig { returns(Integer) }
               def created; end
@@ -159,7 +159,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Monetary < Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
             def currency; end
@@ -189,9 +189,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class CreditsApplied < Stripe::StripeObject
+        class CreditsApplied < ::Stripe::StripeObject
           # The invoice to which the billing credits were applied.
-          sig { returns(T.any(String, Stripe::Invoice)) }
+          sig { returns(T.any(String, ::Stripe::Invoice)) }
           def invoice; end
           # The invoice line item to which the billing credits were applied.
           sig { returns(String) }
@@ -226,7 +226,7 @@ module Stripe
       sig { returns(T.nilable(Credit)) }
       def credit; end
       # The credit grant associated with this credit balance transaction.
-      sig { returns(T.any(String, Stripe::Billing::CreditGrant)) }
+      sig { returns(T.any(String, ::Stripe::Billing::CreditGrant)) }
       def credit_grant; end
       # Debit details for this credit balance transaction. Only present if type is `debit`.
       sig { returns(T.nilable(Debit)) }
@@ -244,14 +244,14 @@ module Stripe
       sig { returns(String) }
       def object; end
       # ID of the test clock this credit balance transaction belongs to.
-      sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
       def test_clock; end
       # The type of credit balance transaction (credit or debit).
       sig { returns(T.nilable(String)) }
       def type; end
       # Retrieve a list of credit balance transactions.
       sig {
-        params(params: T.any(::Stripe::Billing::CreditBalanceTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Billing::CreditBalanceTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

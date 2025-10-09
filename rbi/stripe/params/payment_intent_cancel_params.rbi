@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentIntentCancelParams < Stripe::RequestParams
+  class PaymentIntentCancelParams < ::Stripe::RequestParams
     # Reason for canceling this PaymentIntent. Possible values are: `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`
     sig { returns(T.nilable(String)) }
     def cancellation_reason; end

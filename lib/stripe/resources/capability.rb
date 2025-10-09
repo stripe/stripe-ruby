@@ -13,8 +13,8 @@ module Stripe
       "capability"
     end
 
-    class FutureRequirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class FutureRequirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
@@ -29,7 +29,7 @@ module Stripe
         end
       end
 
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
@@ -71,8 +71,8 @@ module Stripe
       end
     end
 
-    class Requirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class Requirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
@@ -87,7 +87,7 @@ module Stripe
         end
       end
 
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.

@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module Billing
-      class MeteredItemUpdateParams < Stripe::RequestParams
-        class TaxDetails < Stripe::RequestParams
+      class MeteredItemUpdateParams < ::Stripe::RequestParams
+        class TaxDetails < ::Stripe::RequestParams
           # Product tax code (PTC).
           attr_accessor :tax_code
 

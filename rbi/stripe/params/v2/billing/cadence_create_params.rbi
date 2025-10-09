@@ -5,10 +5,10 @@
 module Stripe
   module V2
     module Billing
-      class CadenceCreateParams < Stripe::RequestParams
-        class BillingCycle < Stripe::RequestParams
-          class Day < Stripe::RequestParams
-            class Time < Stripe::RequestParams
+      class CadenceCreateParams < ::Stripe::RequestParams
+        class BillingCycle < ::Stripe::RequestParams
+          class Day < ::Stripe::RequestParams
+            class Time < ::Stripe::RequestParams
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -45,8 +45,8 @@ module Stripe
              }
             def initialize(time: nil); end
           end
-          class Month < Stripe::RequestParams
-            class Time < Stripe::RequestParams
+          class Month < ::Stripe::RequestParams
+            class Time < ::Stripe::RequestParams
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -99,8 +99,8 @@ module Stripe
              }
             def initialize(day_of_month: nil, month_of_year: nil, time: nil); end
           end
-          class Week < Stripe::RequestParams
-            class Time < Stripe::RequestParams
+          class Week < ::Stripe::RequestParams
+            class Time < ::Stripe::RequestParams
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -145,8 +145,8 @@ module Stripe
              }
             def initialize(day_of_week: nil, time: nil); end
           end
-          class Year < Stripe::RequestParams
-            class Time < Stripe::RequestParams
+          class Year < ::Stripe::RequestParams
+            class Time < ::Stripe::RequestParams
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -249,7 +249,7 @@ module Stripe
             year: nil
           ); end
         end
-        class Payer < Stripe::RequestParams
+        class Payer < ::Stripe::RequestParams
           # The ID of the Billing Profile object which determines how a bill will be paid.
           sig { returns(String) }
           def billing_profile; end
@@ -258,8 +258,8 @@ module Stripe
           sig { params(billing_profile: String).void }
           def initialize(billing_profile: nil); end
         end
-        class Settings < Stripe::RequestParams
-          class Bill < Stripe::RequestParams
+        class Settings < ::Stripe::RequestParams
+          class Bill < ::Stripe::RequestParams
             # The ID of the referenced settings object.
             sig { returns(String) }
             def id; end
@@ -274,7 +274,7 @@ module Stripe
             sig { params(id: String, version: T.nilable(String)).void }
             def initialize(id: nil, version: nil); end
           end
-          class Collection < Stripe::RequestParams
+          class Collection < ::Stripe::RequestParams
             # The ID of the referenced settings object.
             sig { returns(String) }
             def id; end

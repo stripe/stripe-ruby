@@ -13,7 +13,7 @@ module Stripe
       # Claimable sandboxes have 60 days to be claimed. After this expiration time has passed,
       # if the sandbox is not claimed, it will be deleted.
       class ClaimableSandbox < APIResource
-        class Prefill < Stripe::StripeObject
+        class Prefill < ::Stripe::StripeObject
           # Country in which the account holder resides, or in which the business is legally established.
           # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(String) }
@@ -32,8 +32,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SandboxDetails < Stripe::StripeObject
-          class ApiKeys < Stripe::StripeObject
+        class SandboxDetails < ::Stripe::StripeObject
+          class ApiKeys < ::Stripe::StripeObject
             # Used to communicate with [Stripe's MCP server](https://docs.stripe.com/mcp).
             # This allows LLM agents to securely operate on a Stripe account.
             sig { returns(T.nilable(String)) }

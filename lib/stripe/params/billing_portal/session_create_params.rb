@@ -3,10 +3,10 @@
 
 module Stripe
   module BillingPortal
-    class SessionCreateParams < Stripe::RequestParams
-      class FlowData < Stripe::RequestParams
-        class AfterCompletion < Stripe::RequestParams
-          class HostedConfirmation < Stripe::RequestParams
+    class SessionCreateParams < ::Stripe::RequestParams
+      class FlowData < ::Stripe::RequestParams
+        class AfterCompletion < ::Stripe::RequestParams
+          class HostedConfirmation < ::Stripe::RequestParams
             # A custom message to display to the customer after the flow is completed.
             attr_accessor :custom_message
 
@@ -15,7 +15,7 @@ module Stripe
             end
           end
 
-          class Redirect < Stripe::RequestParams
+          class Redirect < ::Stripe::RequestParams
             # The URL the customer will be redirected to after the flow is completed.
             attr_accessor :return_url
 
@@ -37,9 +37,9 @@ module Stripe
           end
         end
 
-        class SubscriptionCancel < Stripe::RequestParams
-          class Retention < Stripe::RequestParams
-            class CouponOffer < Stripe::RequestParams
+        class SubscriptionCancel < ::Stripe::RequestParams
+          class Retention < ::Stripe::RequestParams
+            class CouponOffer < ::Stripe::RequestParams
               # The ID of the coupon to be offered.
               attr_accessor :coupon
 
@@ -68,7 +68,7 @@ module Stripe
           end
         end
 
-        class SubscriptionUpdate < Stripe::RequestParams
+        class SubscriptionUpdate < ::Stripe::RequestParams
           # The ID of the subscription to be updated.
           attr_accessor :subscription
 
@@ -77,8 +77,8 @@ module Stripe
           end
         end
 
-        class SubscriptionUpdateConfirm < Stripe::RequestParams
-          class Discount < Stripe::RequestParams
+        class SubscriptionUpdateConfirm < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
             # The ID of the coupon to apply to this subscription update.
             attr_accessor :coupon
             # The ID of a promotion code to apply to this subscription update.
@@ -90,7 +90,7 @@ module Stripe
             end
           end
 
-          class Item < Stripe::RequestParams
+          class Item < ::Stripe::RequestParams
             # The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
             attr_accessor :id
             # The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).

@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderCollectInputsParams < Stripe::RequestParams
-      class Input < Stripe::RequestParams
-        class CustomText < Stripe::RequestParams
+    class ReaderCollectInputsParams < ::Stripe::RequestParams
+      class Input < ::Stripe::RequestParams
+        class CustomText < ::Stripe::RequestParams
           # The description which will be displayed when collecting this input
           sig { returns(T.nilable(String)) }
           def description; end
@@ -32,8 +32,8 @@ module Stripe
            }
           def initialize(description: nil, skip_button: nil, submit_button: nil, title: nil); end
         end
-        class Selection < Stripe::RequestParams
-          class Choice < Stripe::RequestParams
+        class Selection < ::Stripe::RequestParams
+          class Choice < ::Stripe::RequestParams
             # The unique identifier for this choice
             sig { returns(String) }
             def id; end
@@ -64,7 +64,7 @@ module Stripe
            }
           def initialize(choices: nil); end
         end
-        class Toggle < Stripe::RequestParams
+        class Toggle < ::Stripe::RequestParams
           # The default value of the toggle
           sig { returns(T.nilable(String)) }
           def default_value; end

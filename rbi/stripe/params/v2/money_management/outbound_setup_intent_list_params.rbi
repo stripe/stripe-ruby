@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundSetupIntentListParams < Stripe::RequestParams
+      class OutboundSetupIntentListParams < ::Stripe::RequestParams
         # The page size.
         sig { returns(T.nilable(Integer)) }
         def limit; end

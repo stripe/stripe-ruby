@@ -9,7 +9,7 @@ module Stripe
         "v2.billing.license_fee_version.created"
       end
 
-      class V2BillingLicenseFeeVersionCreatedEventData < Stripe::StripeObject
+      class V2BillingLicenseFeeVersionCreatedEventData < ::Stripe::StripeObject
         # The ID of the LicenseFee that the LicenseFeeVersion belongs to.
         attr_reader :license_fee_id
 

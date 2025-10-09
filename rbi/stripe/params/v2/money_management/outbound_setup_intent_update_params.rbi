@@ -5,9 +5,9 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundSetupIntentUpdateParams < Stripe::RequestParams
-        class PayoutMethodData < Stripe::RequestParams
-          class BankAccount < Stripe::RequestParams
+      class OutboundSetupIntentUpdateParams < ::Stripe::RequestParams
+        class PayoutMethodData < ::Stripe::RequestParams
+          class BankAccount < ::Stripe::RequestParams
             # The account number or IBAN of the bank account.
             sig { returns(String) }
             def account_number; end
@@ -50,7 +50,7 @@ module Stripe
               swift_code: nil
             ); end
           end
-          class Card < Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
             # The expiration month of the card.
             sig { returns(T.nilable(String)) }
             def exp_month; end

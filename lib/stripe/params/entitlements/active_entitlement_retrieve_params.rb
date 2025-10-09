@@ -3,7 +3,7 @@
 
 module Stripe
   module Entitlements
-    class ActiveEntitlementRetrieveParams < Stripe::RequestParams
+    class ActiveEntitlementRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

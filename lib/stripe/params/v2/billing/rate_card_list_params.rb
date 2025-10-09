@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class RateCardListParams < Stripe::RequestParams
+      class RateCardListParams < ::Stripe::RequestParams
         # Optionally filter to active/inactive RateCards.
         attr_accessor :active
         # Optionally set the maximum number of results per page. Defaults to 20.

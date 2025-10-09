@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Entitlements
-    class FeatureUpdateParams < Stripe::RequestParams
+    class FeatureUpdateParams < ::Stripe::RequestParams
       # Inactive features cannot be attached to new products and will not be returned from the features list endpoint.
       sig { returns(T.nilable(T::Boolean)) }
       def active; end

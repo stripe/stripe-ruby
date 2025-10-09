@@ -16,7 +16,7 @@ module Stripe
         "terminal.configuration"
       end
 
-      class BbposWisepad3 < Stripe::StripeObject
+      class BbposWisepad3 < ::Stripe::StripeObject
         # A File ID representing an image to display on the reader
         attr_reader :splashscreen
 
@@ -29,7 +29,7 @@ module Stripe
         end
       end
 
-      class BbposWiseposE < Stripe::StripeObject
+      class BbposWiseposE < ::Stripe::StripeObject
         # A File ID representing an image to display on the reader
         attr_reader :splashscreen
 
@@ -42,7 +42,7 @@ module Stripe
         end
       end
 
-      class Offline < Stripe::StripeObject
+      class Offline < ::Stripe::StripeObject
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         attr_reader :enabled
 
@@ -55,7 +55,7 @@ module Stripe
         end
       end
 
-      class ReaderSecurity < Stripe::StripeObject
+      class ReaderSecurity < ::Stripe::StripeObject
         # Passcode used to access a reader's admin menu.
         attr_reader :admin_menu_passcode
 
@@ -68,7 +68,7 @@ module Stripe
         end
       end
 
-      class RebootWindow < Stripe::StripeObject
+      class RebootWindow < ::Stripe::StripeObject
         # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
         attr_reader :end_hour
         # Integer between 0 to 23 that represents the start hour of the reboot time window.
@@ -83,7 +83,7 @@ module Stripe
         end
       end
 
-      class StripeS700 < Stripe::StripeObject
+      class StripeS700 < ::Stripe::StripeObject
         # A File ID representing an image to display on the reader
         attr_reader :splashscreen
 
@@ -96,8 +96,8 @@ module Stripe
         end
       end
 
-      class Tipping < Stripe::StripeObject
-        class Aed < Stripe::StripeObject
+      class Tipping < ::Stripe::StripeObject
+        class Aed < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -114,7 +114,7 @@ module Stripe
           end
         end
 
-        class Aud < Stripe::StripeObject
+        class Aud < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -131,7 +131,7 @@ module Stripe
           end
         end
 
-        class Bgn < Stripe::StripeObject
+        class Bgn < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -148,7 +148,7 @@ module Stripe
           end
         end
 
-        class Cad < Stripe::StripeObject
+        class Cad < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -165,7 +165,7 @@ module Stripe
           end
         end
 
-        class Chf < Stripe::StripeObject
+        class Chf < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -182,7 +182,7 @@ module Stripe
           end
         end
 
-        class Czk < Stripe::StripeObject
+        class Czk < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -199,7 +199,7 @@ module Stripe
           end
         end
 
-        class Dkk < Stripe::StripeObject
+        class Dkk < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -216,7 +216,7 @@ module Stripe
           end
         end
 
-        class Eur < Stripe::StripeObject
+        class Eur < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -233,7 +233,7 @@ module Stripe
           end
         end
 
-        class Gbp < Stripe::StripeObject
+        class Gbp < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -250,7 +250,7 @@ module Stripe
           end
         end
 
-        class Hkd < Stripe::StripeObject
+        class Hkd < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -267,7 +267,7 @@ module Stripe
           end
         end
 
-        class Huf < Stripe::StripeObject
+        class Huf < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -284,7 +284,7 @@ module Stripe
           end
         end
 
-        class Jpy < Stripe::StripeObject
+        class Jpy < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -301,7 +301,7 @@ module Stripe
           end
         end
 
-        class Mxn < Stripe::StripeObject
+        class Mxn < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -318,7 +318,7 @@ module Stripe
           end
         end
 
-        class Myr < Stripe::StripeObject
+        class Myr < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -335,7 +335,7 @@ module Stripe
           end
         end
 
-        class Nok < Stripe::StripeObject
+        class Nok < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -352,7 +352,7 @@ module Stripe
           end
         end
 
-        class Nzd < Stripe::StripeObject
+        class Nzd < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -369,7 +369,7 @@ module Stripe
           end
         end
 
-        class Pln < Stripe::StripeObject
+        class Pln < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -386,7 +386,7 @@ module Stripe
           end
         end
 
-        class Ron < Stripe::StripeObject
+        class Ron < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -403,7 +403,7 @@ module Stripe
           end
         end
 
-        class Sek < Stripe::StripeObject
+        class Sek < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -420,7 +420,7 @@ module Stripe
           end
         end
 
-        class Sgd < Stripe::StripeObject
+        class Sgd < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -437,7 +437,7 @@ module Stripe
           end
         end
 
-        class Usd < Stripe::StripeObject
+        class Usd < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
           # Percentages displayed when collecting a tip
@@ -527,7 +527,7 @@ module Stripe
         end
       end
 
-      class VerifoneP400 < Stripe::StripeObject
+      class VerifoneP400 < ::Stripe::StripeObject
         # A File ID representing an image to display on the reader
         attr_reader :splashscreen
 
@@ -540,8 +540,8 @@ module Stripe
         end
       end
 
-      class Wifi < Stripe::StripeObject
-        class EnterpriseEapPeap < Stripe::StripeObject
+      class Wifi < ::Stripe::StripeObject
+        class EnterpriseEapPeap < ::Stripe::StripeObject
           # A File ID representing a PEM file containing the server certificate
           attr_reader :ca_certificate_file
           # Password for connecting to the WiFi network
@@ -560,7 +560,7 @@ module Stripe
           end
         end
 
-        class EnterpriseEapTls < Stripe::StripeObject
+        class EnterpriseEapTls < ::Stripe::StripeObject
           # A File ID representing a PEM file containing the server certificate
           attr_reader :ca_certificate_file
           # A File ID representing a PEM file containing the client certificate
@@ -581,7 +581,7 @@ module Stripe
           end
         end
 
-        class PersonalPsk < Stripe::StripeObject
+        class PersonalPsk < ::Stripe::StripeObject
           # Password for connecting to the WiFi network
           attr_reader :password
           # Name of the WiFi network

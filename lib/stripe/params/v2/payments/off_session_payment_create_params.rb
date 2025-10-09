@@ -4,10 +4,10 @@
 module Stripe
   module V2
     module Payments
-      class OffSessionPaymentCreateParams < Stripe::RequestParams
-        class AmountDetails < Stripe::RequestParams
-          class LineItem < Stripe::RequestParams
-            class Tax < Stripe::RequestParams
+      class OffSessionPaymentCreateParams < ::Stripe::RequestParams
+        class AmountDetails < ::Stripe::RequestParams
+          class LineItem < ::Stripe::RequestParams
+            class Tax < ::Stripe::RequestParams
               # Total portion of the amount that is for tax.
               attr_accessor :total_tax_amount
 
@@ -45,7 +45,7 @@ module Stripe
             end
           end
 
-          class Shipping < Stripe::RequestParams
+          class Shipping < ::Stripe::RequestParams
             # Portion of the amount that is for shipping.
             attr_accessor :amount
             # The postal code that represents the shipping source.
@@ -60,7 +60,7 @@ module Stripe
             end
           end
 
-          class Tax < Stripe::RequestParams
+          class Tax < ::Stripe::RequestParams
             # Total portion of the amount that is for tax.
             attr_accessor :total_tax_amount
 
@@ -85,7 +85,7 @@ module Stripe
           end
         end
 
-        class Capture < Stripe::RequestParams
+        class Capture < ::Stripe::RequestParams
           # The method to use to capture the payment.
           attr_accessor :capture_method
 
@@ -94,8 +94,8 @@ module Stripe
           end
         end
 
-        class PaymentMethodOptions < Stripe::RequestParams
-          class Card < Stripe::RequestParams
+        class PaymentMethodOptions < ::Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
             # If you are making a Credential On File transaction with a previously saved card, you should pass the Network Transaction ID
             # from a prior initial authorization on Stripe (from a successful SetupIntent or a PaymentIntent with `setup_future_usage` set),
             # or one that you have obtained from another payment processor. This is a token from the network which uniquely identifies the transaction.
@@ -116,7 +116,7 @@ module Stripe
           end
         end
 
-        class PaymentsOrchestration < Stripe::RequestParams
+        class PaymentsOrchestration < ::Stripe::RequestParams
           # True when you want to enable payments orchestration for this off-session payment. False otherwise.
           attr_accessor :enabled
 
@@ -125,7 +125,7 @@ module Stripe
           end
         end
 
-        class RetryDetails < Stripe::RequestParams
+        class RetryDetails < ::Stripe::RequestParams
           # The pre-configured retry policy to use for the payment.
           attr_accessor :retry_policy
           # Indicates the strategy for how you want Stripe to retry the payment.
@@ -137,7 +137,7 @@ module Stripe
           end
         end
 
-        class TransferData < Stripe::RequestParams
+        class TransferData < ::Stripe::RequestParams
           # The amount transferred to the destination account. This transfer will occur
           # automatically after the payment succeeds. If no amount is specified, by default
           # the entire payment amount is transferred to the destination account. The amount

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class RateCardSubscriptionCancelParams < Stripe::RequestParams; end
+      class RateCardSubscriptionCancelParams < ::Stripe::RequestParams; end
     end
   end
 end

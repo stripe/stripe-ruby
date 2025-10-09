@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class PricingPlanCreateParams < Stripe::RequestParams
+      class PricingPlanCreateParams < ::Stripe::RequestParams
         # The currency of the PricingPlan.
         sig { returns(String) }
         def currency; end

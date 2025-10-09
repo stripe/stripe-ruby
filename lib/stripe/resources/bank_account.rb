@@ -19,8 +19,8 @@ module Stripe
       "bank_account"
     end
 
-    class FutureRequirements < Stripe::StripeObject
-      class Error < Stripe::StripeObject
+    class FutureRequirements < ::Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
@@ -54,8 +54,8 @@ module Stripe
       end
     end
 
-    class Requirements < Stripe::StripeObject
-      class Error < Stripe::StripeObject
+    class Requirements < ::Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.

@@ -2,12 +2,12 @@
 # frozen_string_literal: true
 
 module Stripe
-  class DisputeUpdateParams < Stripe::RequestParams
-    class Evidence < Stripe::RequestParams
-      class EnhancedEvidence < Stripe::RequestParams
-        class VisaCompellingEvidence3 < Stripe::RequestParams
-          class DisputedTransaction < Stripe::RequestParams
-            class ShippingAddress < Stripe::RequestParams
+  class DisputeUpdateParams < ::Stripe::RequestParams
+    class Evidence < ::Stripe::RequestParams
+      class EnhancedEvidence < ::Stripe::RequestParams
+        class VisaCompellingEvidence3 < ::Stripe::RequestParams
+          class DisputedTransaction < ::Stripe::RequestParams
+            class ShippingAddress < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -75,8 +75,8 @@ module Stripe
             end
           end
 
-          class PriorUndisputedTransaction < Stripe::RequestParams
-            class ShippingAddress < Stripe::RequestParams
+          class PriorUndisputedTransaction < ::Stripe::RequestParams
+            class ShippingAddress < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -154,7 +154,7 @@ module Stripe
           end
         end
 
-        class VisaCompliance < Stripe::RequestParams
+        class VisaCompliance < ::Stripe::RequestParams
           # A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
           attr_accessor :fee_acknowledged
 

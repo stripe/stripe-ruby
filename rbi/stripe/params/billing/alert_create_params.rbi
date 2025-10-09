@@ -4,13 +4,13 @@
 # typed: true
 module Stripe
   module Billing
-    class AlertCreateParams < Stripe::RequestParams
-      class CreditBalanceThreshold < Stripe::RequestParams
-        class Filter < Stripe::RequestParams
-          class CreditGrants < Stripe::RequestParams
-            class ApplicabilityConfig < Stripe::RequestParams
-              class Scope < Stripe::RequestParams
-                class BillableItem < Stripe::RequestParams
+    class AlertCreateParams < ::Stripe::RequestParams
+      class CreditBalanceThreshold < ::Stripe::RequestParams
+        class Filter < ::Stripe::RequestParams
+          class CreditGrants < ::Stripe::RequestParams
+            class ApplicabilityConfig < ::Stripe::RequestParams
+              class Scope < ::Stripe::RequestParams
+                class BillableItem < ::Stripe::RequestParams
                   # The billable item ID this credit grant should apply to.
                   sig { returns(String) }
                   def id; end
@@ -19,7 +19,7 @@ module Stripe
                   sig { params(id: String).void }
                   def initialize(id: nil); end
                 end
-                class Price < Stripe::RequestParams
+                class Price < ::Stripe::RequestParams
                   # The price ID this credit grant should apply to.
                   sig { returns(String) }
                   def id; end
@@ -108,8 +108,8 @@ module Stripe
            }
           def initialize(credit_grants: nil, customer: nil, type: nil); end
         end
-        class Lte < Stripe::RequestParams
-          class CustomPricingUnit < Stripe::RequestParams
+        class Lte < ::Stripe::RequestParams
+          class CustomPricingUnit < ::Stripe::RequestParams
             # The ID of the custom pricing unit.
             sig { returns(String) }
             def id; end
@@ -123,7 +123,7 @@ module Stripe
             sig { params(id: String, value: String).void }
             def initialize(id: nil, value: nil); end
           end
-          class Monetary < Stripe::RequestParams
+          class Monetary < ::Stripe::RequestParams
             # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
             sig { returns(String) }
             def currency; end
@@ -186,8 +186,8 @@ module Stripe
          }
         def initialize(filters: nil, lte: nil); end
       end
-      class UsageThreshold < Stripe::RequestParams
-        class Filter < Stripe::RequestParams
+      class UsageThreshold < ::Stripe::RequestParams
+        class Filter < ::Stripe::RequestParams
           # Limit the scope to this usage alert only to this customer.
           sig { returns(T.nilable(String)) }
           def customer; end

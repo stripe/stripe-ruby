@@ -17,7 +17,7 @@ module Stripe
           "v2.core.claimable_sandbox"
         end
 
-        class Prefill < Stripe::StripeObject
+        class Prefill < ::Stripe::StripeObject
           # Country in which the account holder resides, or in which the business is legally established.
           # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
@@ -36,8 +36,8 @@ module Stripe
           end
         end
 
-        class SandboxDetails < Stripe::StripeObject
-          class ApiKeys < Stripe::StripeObject
+        class SandboxDetails < ::Stripe::StripeObject
+          class ApiKeys < ::Stripe::StripeObject
             # Used to communicate with [Stripe's MCP server](https://docs.stripe.com/mcp).
             # This allows LLM agents to securely operate on a Stripe account.
             attr_reader :mcp

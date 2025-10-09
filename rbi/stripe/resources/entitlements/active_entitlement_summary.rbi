@@ -10,7 +10,7 @@ module Stripe
       sig { returns(String) }
       def customer; end
       # The list of entitlements this customer has.
-      sig { returns(Stripe::ListObject) }
+      sig { returns(::Stripe::ListObject) }
       def entitlements; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }

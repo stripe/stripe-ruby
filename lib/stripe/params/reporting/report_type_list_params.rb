@@ -3,7 +3,7 @@
 
 module Stripe
   module Reporting
-    class ReportTypeListParams < Stripe::RequestParams
+    class ReportTypeListParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

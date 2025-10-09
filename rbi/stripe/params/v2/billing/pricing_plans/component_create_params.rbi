@@ -6,8 +6,8 @@ module Stripe
   module V2
     module Billing
       module PricingPlans
-        class ComponentCreateParams < Stripe::RequestParams
-          class LicenseFee < Stripe::RequestParams
+        class ComponentCreateParams < ::Stripe::RequestParams
+          class LicenseFee < ::Stripe::RequestParams
             # The ID of the License Fee.
             sig { returns(String) }
             def id; end
@@ -21,7 +21,7 @@ module Stripe
             sig { params(id: String, version: T.nilable(String)).void }
             def initialize(id: nil, version: nil); end
           end
-          class RateCard < Stripe::RequestParams
+          class RateCard < ::Stripe::RequestParams
             # The ID of the Rate Card.
             sig { returns(String) }
             def id; end
@@ -35,7 +35,7 @@ module Stripe
             sig { params(id: String, version: T.nilable(String)).void }
             def initialize(id: nil, version: nil); end
           end
-          class ServiceAction < Stripe::RequestParams
+          class ServiceAction < ::Stripe::RequestParams
             # The ID of the service action.
             sig { returns(String) }
             def id; end

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Tax
-      class AutomaticRuleCreateParams < Stripe::RequestParams
+      class AutomaticRuleCreateParams < ::Stripe::RequestParams
         # The BillableItem ID to set automatic Tax configuration for.
         sig { returns(String) }
         def billable_item; end

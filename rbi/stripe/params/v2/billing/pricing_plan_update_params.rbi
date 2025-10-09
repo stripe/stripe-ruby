@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class PricingPlanUpdateParams < Stripe::RequestParams
+      class PricingPlanUpdateParams < ::Stripe::RequestParams
         # Whether the PricingPlan is active.
         sig { returns(T.nilable(T::Boolean)) }
         def active; end

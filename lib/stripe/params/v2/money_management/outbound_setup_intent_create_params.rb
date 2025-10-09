@@ -4,9 +4,9 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundSetupIntentCreateParams < Stripe::RequestParams
-        class PayoutMethodData < Stripe::RequestParams
-          class BankAccount < Stripe::RequestParams
+      class OutboundSetupIntentCreateParams < ::Stripe::RequestParams
+        class PayoutMethodData < ::Stripe::RequestParams
+          class BankAccount < ::Stripe::RequestParams
             # The account number or IBAN of the bank account.
             attr_accessor :account_number
             # Closed Enum. The type of the bank account (checking or savings).
@@ -37,7 +37,7 @@ module Stripe
             end
           end
 
-          class Card < Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
             # The expiration month of the card.
             attr_accessor :exp_month
             # The expiration year of the card.
@@ -52,7 +52,7 @@ module Stripe
             end
           end
 
-          class CryptoWallet < Stripe::RequestParams
+          class CryptoWallet < ::Stripe::RequestParams
             # Crypto wallet address.
             attr_accessor :address
             # Optional field, required if network supports memos (only "stellar" currently).

@@ -9,8 +9,8 @@ module Stripe
         "v2.core.health.fraud_rate.increased"
       end
 
-      class V2CoreHealthFraudRateIncreasedEventData < Stripe::StripeObject
-        class Impact < Stripe::StripeObject
+      class V2CoreHealthFraudRateIncreasedEventData < ::Stripe::StripeObject
+        class Impact < ::Stripe::StripeObject
           # Fraud attack type.
           attr_reader :attack_type
           # The number of impacted requests which are detected.

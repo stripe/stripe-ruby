@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderListParams < Stripe::RequestParams
+    class ReaderListParams < ::Stripe::RequestParams
       # Filters readers by device type
       sig { returns(T.nilable(String)) }
       def device_type; end

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class LicenseFeeListParams < Stripe::RequestParams
+      class LicenseFeeListParams < ::Stripe::RequestParams
         # Filter by licensed item.
         sig { returns(T.nilable(String)) }
         def licensed_item; end

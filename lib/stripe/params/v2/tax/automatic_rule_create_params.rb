@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Tax
-      class AutomaticRuleCreateParams < Stripe::RequestParams
+      class AutomaticRuleCreateParams < ::Stripe::RequestParams
         # The BillableItem ID to set automatic Tax configuration for.
         attr_accessor :billable_item
         # The TaxCode object to be used for automatic tax calculations.

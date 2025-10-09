@@ -4,10 +4,10 @@
 module Stripe
   module V2
     module Billing
-      class ServiceActionCreateParams < Stripe::RequestParams
-        class CreditGrant < Stripe::RequestParams
-          class Amount < Stripe::RequestParams
-            class CustomPricingUnit < Stripe::RequestParams
+      class ServiceActionCreateParams < ::Stripe::RequestParams
+        class CreditGrant < ::Stripe::RequestParams
+          class Amount < ::Stripe::RequestParams
+            class CustomPricingUnit < ::Stripe::RequestParams
               # The id of the custom pricing unit.
               attr_accessor :id
               # The value of the credit grant, decimal value represented as a string.
@@ -32,8 +32,8 @@ module Stripe
             end
           end
 
-          class ApplicabilityConfig < Stripe::RequestParams
-            class Scope < Stripe::RequestParams
+          class ApplicabilityConfig < ::Stripe::RequestParams
+            class Scope < ::Stripe::RequestParams
               # The billable items to apply the credit grant to.
               attr_accessor :billable_items
               # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
@@ -52,7 +52,7 @@ module Stripe
             end
           end
 
-          class ExpiryConfig < Stripe::RequestParams
+          class ExpiryConfig < ::Stripe::RequestParams
             # The type of the expiry configuration. We currently support `end_of_service_period`.
             attr_accessor :type
 
@@ -90,9 +90,9 @@ module Stripe
           end
         end
 
-        class CreditGrantPerTenant < Stripe::RequestParams
-          class Amount < Stripe::RequestParams
-            class CustomPricingUnit < Stripe::RequestParams
+        class CreditGrantPerTenant < ::Stripe::RequestParams
+          class Amount < ::Stripe::RequestParams
+            class CustomPricingUnit < ::Stripe::RequestParams
               # The id of the custom pricing unit.
               attr_accessor :id
               # The value of the credit grant, decimal value represented as a string.
@@ -117,8 +117,8 @@ module Stripe
             end
           end
 
-          class ApplicabilityConfig < Stripe::RequestParams
-            class Scope < Stripe::RequestParams
+          class ApplicabilityConfig < ::Stripe::RequestParams
+            class Scope < ::Stripe::RequestParams
               # The billable items to apply the credit grant to.
               attr_accessor :billable_items
               # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
@@ -137,7 +137,7 @@ module Stripe
             end
           end
 
-          class ExpiryConfig < Stripe::RequestParams
+          class ExpiryConfig < ::Stripe::RequestParams
             # The type of the expiry configuration. We currently support `end_of_service_period`.
             attr_accessor :type
 
@@ -146,10 +146,10 @@ module Stripe
             end
           end
 
-          class GrantCondition < Stripe::RequestParams
-            class MeterEventFirstPerPeriod < Stripe::RequestParams
-              class MeterSegmentCondition < Stripe::RequestParams
-                class Dimension < Stripe::RequestParams
+          class GrantCondition < ::Stripe::RequestParams
+            class MeterEventFirstPerPeriod < ::Stripe::RequestParams
+              class MeterSegmentCondition < ::Stripe::RequestParams
+                class Dimension < ::Stripe::RequestParams
                   # The payload key for the dimension.
                   attr_accessor :payload_key
                   # The value for the dimension.

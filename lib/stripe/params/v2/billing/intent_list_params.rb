@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class IntentListParams < Stripe::RequestParams
+      class IntentListParams < ::Stripe::RequestParams
         # Optionally set the maximum number of results per page. Defaults to 10.
         attr_accessor :limit
 

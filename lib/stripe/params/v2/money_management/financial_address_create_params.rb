@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAddressCreateParams < Stripe::RequestParams
-        class SepaBankAccount < Stripe::RequestParams
+      class FinancialAddressCreateParams < ::Stripe::RequestParams
+        class SepaBankAccount < ::Stripe::RequestParams
           # The originating country of the SEPA Bank account.
           attr_accessor :country
 

@@ -10,7 +10,7 @@ module Stripe
           "v2.billing.pricing_plan_subscription"
         end
 
-        class CollectionStatusTransitions < Stripe::StripeObject
+        class CollectionStatusTransitions < ::Stripe::StripeObject
           # When the collection status transitioned to awaiting customer action.
           attr_reader :awaiting_customer_action_at
           # When the collection status transitioned to current.
@@ -31,7 +31,7 @@ module Stripe
           end
         end
 
-        class ServicingStatusTransitions < Stripe::StripeObject
+        class ServicingStatusTransitions < ::Stripe::StripeObject
           # When the servicing status transitioned to activated.
           attr_reader :activated_at
           # When the servicing status transitioned to canceled.

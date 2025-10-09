@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Core
-      class ClaimableSandboxRetrieveParams < Stripe::RequestParams; end
+      class ClaimableSandboxRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

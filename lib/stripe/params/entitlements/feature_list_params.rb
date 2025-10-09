@@ -3,7 +3,7 @@
 
 module Stripe
   module Entitlements
-    class FeatureListParams < Stripe::RequestParams
+    class FeatureListParams < ::Stripe::RequestParams
       # If set, filter results to only include features with the given archive status.
       attr_accessor :archived
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

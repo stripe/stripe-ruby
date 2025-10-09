@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Billing
       module PricingPlans
-        class ComponentUpdateParams < Stripe::RequestParams
+        class ComponentUpdateParams < ::Stripe::RequestParams
           # An identifier that can be used to find this component. Maximum length of 200 characters.
           attr_accessor :lookup_key
           # Set of key-value pairs that you can attach to an object.

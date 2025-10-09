@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class ChargeCreateParams < Stripe::RequestParams
-    class Destination < Stripe::RequestParams
+  class ChargeCreateParams < ::Stripe::RequestParams
+    class Destination < ::Stripe::RequestParams
       # ID of an existing, connected Stripe account.
       sig { returns(String) }
       def account; end
@@ -18,7 +18,7 @@ module Stripe
       sig { params(account: String, amount: T.nilable(Integer)).void }
       def initialize(account: nil, amount: nil); end
     end
-    class RadarOptions < Stripe::RequestParams
+    class RadarOptions < ::Stripe::RequestParams
       # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       sig { returns(T.nilable(String)) }
       def session; end
@@ -27,8 +27,8 @@ module Stripe
       sig { params(session: T.nilable(String)).void }
       def initialize(session: nil); end
     end
-    class Shipping < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Shipping < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -103,7 +103,7 @@ module Stripe
        }
       def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil); end
     end
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
       sig { returns(T.nilable(Integer)) }
       def amount; end

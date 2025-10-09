@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class LicensedItemListParams < Stripe::RequestParams
+      class LicensedItemListParams < ::Stripe::RequestParams
         # Optionally set the maximum number of results per page. Defaults to 20.
         attr_accessor :limit
         # Filter by lookup keys.

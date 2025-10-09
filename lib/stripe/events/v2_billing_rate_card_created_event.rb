@@ -9,7 +9,7 @@ module Stripe
         "v2.billing.rate_card.created"
       end
 
-      class V2BillingRateCardCreatedEventData < Stripe::StripeObject
+      class V2BillingRateCardCreatedEventData < ::Stripe::StripeObject
         # Timestamp of when the object was created.
         attr_reader :created
 

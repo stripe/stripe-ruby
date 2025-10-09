@@ -5,8 +5,8 @@
 module Stripe
   module Billing
     module Analytics
-      class MeterUsageRetrieveParams < Stripe::RequestParams
-        class Meter < Stripe::RequestParams
+      class MeterUsageRetrieveParams < ::Stripe::RequestParams
+        class Meter < ::Stripe::RequestParams
           # Key-value pairs used to filter usage events by meter dimension values. If specified, usage will be filtered for matching usage events.
           sig { returns(T.nilable(T::Hash[String, String])) }
           def dimension_filters; end

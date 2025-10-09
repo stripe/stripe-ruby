@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Core
       module Vault
-        class UsBankAccountCreateParams < Stripe::RequestParams
+        class UsBankAccountCreateParams < ::Stripe::RequestParams
           # The account number of the bank account.
           attr_accessor :account_number
           # Closed Enum. The type of the bank account (checking or savings).

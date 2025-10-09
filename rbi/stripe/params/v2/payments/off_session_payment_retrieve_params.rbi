@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Payments
-      class OffSessionPaymentRetrieveParams < Stripe::RequestParams; end
+      class OffSessionPaymentRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

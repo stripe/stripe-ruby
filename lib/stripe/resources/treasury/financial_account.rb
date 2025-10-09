@@ -15,7 +15,7 @@ module Stripe
         "treasury.financial_account"
       end
 
-      class Balance < Stripe::StripeObject
+      class Balance < ::Stripe::StripeObject
         # Funds the user can spend right now.
         attr_reader :cash
         # Funds not spendable yet, but will become available at a later time.
@@ -32,8 +32,8 @@ module Stripe
         end
       end
 
-      class FinancialAddress < Stripe::StripeObject
-        class Aba < Stripe::StripeObject
+      class FinancialAddress < ::Stripe::StripeObject
+        class Aba < ::Stripe::StripeObject
           # The name of the person or business that owns the bank account.
           attr_reader :account_holder_name
           # The account number.
@@ -69,7 +69,7 @@ module Stripe
         end
       end
 
-      class PlatformRestrictions < Stripe::StripeObject
+      class PlatformRestrictions < ::Stripe::StripeObject
         # Restricts all inbound money movement.
         attr_reader :inbound_flows
         # Restricts all outbound money movement.
@@ -84,8 +84,8 @@ module Stripe
         end
       end
 
-      class StatusDetails < Stripe::StripeObject
-        class Closed < Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
+        class Closed < ::Stripe::StripeObject
           # The array that contains reasons for a FinancialAccount closure.
           attr_reader :reasons
 

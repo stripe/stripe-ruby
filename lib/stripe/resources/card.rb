@@ -17,7 +17,7 @@ module Stripe
       "card"
     end
 
-    class Networks < Stripe::StripeObject
+    class Networks < ::Stripe::StripeObject
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       attr_reader :preferred
 
@@ -30,7 +30,7 @@ module Stripe
       end
     end
 
-    class Benefits < Stripe::StripeObject
+    class Benefits < ::Stripe::StripeObject
       # Issuer of this benefit card
       attr_reader :issuer
       # Available benefit programs for this card

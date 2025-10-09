@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class CreditNoteListPreviewLineItemsParams < Stripe::RequestParams
-    class Line < Stripe::RequestParams
-      class TaxAmount < Stripe::RequestParams
+  class CreditNoteListPreviewLineItemsParams < ::Stripe::RequestParams
+    class Line < ::Stripe::RequestParams
+      class TaxAmount < ::Stripe::RequestParams
         # The amount, in cents (or local equivalent), of the tax.
         sig { returns(Integer) }
         def amount; end
@@ -90,8 +90,8 @@ module Stripe
         unit_amount_decimal: nil
       ); end
     end
-    class Refund < Stripe::RequestParams
-      class PaymentRecordRefund < Stripe::RequestParams
+    class Refund < ::Stripe::RequestParams
+      class PaymentRecordRefund < ::Stripe::RequestParams
         # The ID of the PaymentRecord with the refund to link to this credit note.
         sig { returns(String) }
         def payment_record; end
@@ -132,7 +132,7 @@ module Stripe
        }
       def initialize(amount_refunded: nil, payment_record_refund: nil, refund: nil, type: nil); end
     end
-    class ShippingCost < Stripe::RequestParams
+    class ShippingCost < ::Stripe::RequestParams
       # The ID of the shipping rate to use for this order.
       sig { returns(T.nilable(String)) }
       def shipping_rate; end

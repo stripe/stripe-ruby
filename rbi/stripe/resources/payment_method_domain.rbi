@@ -8,8 +8,8 @@ module Stripe
   #
   # Related guide: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
   class PaymentMethodDomain < APIResource
-    class AmazonPay < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class AmazonPay < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
@@ -33,8 +33,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class ApplePay < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class ApplePay < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
@@ -58,8 +58,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class GooglePay < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class GooglePay < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
@@ -83,8 +83,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Klarna < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class Klarna < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
@@ -108,8 +108,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Link < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class Link < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
@@ -133,8 +133,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Paypal < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class Paypal < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         sig { returns(String) }
         def error_message; end
@@ -196,19 +196,19 @@ module Stripe
     def paypal; end
     # Creates a payment method domain.
     sig {
-      params(params: T.any(::Stripe::PaymentMethodDomainCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
+      params(params: T.any(::Stripe::PaymentMethodDomainCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodDomain)
      }
     def self.create(params = {}, opts = {}); end
 
     # Lists the details of existing payment method domains.
     sig {
-      params(params: T.any(::Stripe::PaymentMethodDomainListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::PaymentMethodDomainListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates an existing payment method domain.
     sig {
-      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
+      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodDomain)
      }
     def self.update(payment_method_domain, params = {}, opts = {}); end
 
@@ -219,7 +219,7 @@ module Stripe
     #
     # Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
     sig {
-      params(params: T.any(::Stripe::PaymentMethodDomainValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
+      params(params: T.any(::Stripe::PaymentMethodDomainValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodDomain)
      }
     def validate(params = {}, opts = {}); end
 
@@ -230,7 +230,7 @@ module Stripe
     #
     # Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
     sig {
-      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
+      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomainValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodDomain)
      }
     def self.validate(payment_method_domain, params = {}, opts = {}); end
   end

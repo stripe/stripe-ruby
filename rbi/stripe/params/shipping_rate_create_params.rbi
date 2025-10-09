@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class ShippingRateCreateParams < Stripe::RequestParams
-    class DeliveryEstimate < Stripe::RequestParams
-      class Maximum < Stripe::RequestParams
+  class ShippingRateCreateParams < ::Stripe::RequestParams
+    class DeliveryEstimate < ::Stripe::RequestParams
+      class Maximum < ::Stripe::RequestParams
         # A unit of time.
         sig { returns(String) }
         def unit; end
@@ -19,7 +19,7 @@ module Stripe
         sig { params(unit: String, value: Integer).void }
         def initialize(unit: nil, value: nil); end
       end
-      class Minimum < Stripe::RequestParams
+      class Minimum < ::Stripe::RequestParams
         # A unit of time.
         sig { returns(String) }
         def unit; end
@@ -52,8 +52,8 @@ module Stripe
        }
       def initialize(maximum: nil, minimum: nil); end
     end
-    class FixedAmount < Stripe::RequestParams
-      class CurrencyOptions < Stripe::RequestParams
+    class FixedAmount < ::Stripe::RequestParams
+      class CurrencyOptions < ::Stripe::RequestParams
         # A non-negative integer in cents representing how much to charge.
         sig { returns(Integer) }
         def amount; end

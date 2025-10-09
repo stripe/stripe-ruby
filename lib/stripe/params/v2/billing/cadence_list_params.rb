@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module Billing
-      class CadenceListParams < Stripe::RequestParams
-        class Payer < Stripe::RequestParams
+      class CadenceListParams < ::Stripe::RequestParams
+        class Payer < ::Stripe::RequestParams
           # The ID of the Customer object. If provided, only cadences that specifically reference the provided customer ID will be returned.
           attr_accessor :customer
           # A string identifying the type of the payer. Currently the only supported value is `customer`.

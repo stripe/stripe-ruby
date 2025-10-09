@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class ShippingRateUpdateParams < Stripe::RequestParams
-    class FixedAmount < Stripe::RequestParams
-      class CurrencyOptions < Stripe::RequestParams
+  class ShippingRateUpdateParams < ::Stripe::RequestParams
+    class FixedAmount < ::Stripe::RequestParams
+      class CurrencyOptions < ::Stripe::RequestParams
         # A non-negative integer in cents representing how much to charge.
         sig { returns(T.nilable(Integer)) }
         def amount; end

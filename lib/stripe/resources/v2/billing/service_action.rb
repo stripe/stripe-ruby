@@ -10,9 +10,9 @@ module Stripe
           "v2.billing.service_action"
         end
 
-        class CreditGrant < Stripe::StripeObject
-          class Amount < Stripe::StripeObject
-            class CustomPricingUnit < Stripe::StripeObject
+        class CreditGrant < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            class CustomPricingUnit < ::Stripe::StripeObject
               # The Custom Pricing Unit object.
               attr_reader :custom_pricing_unit_details
               # The id of the custom pricing unit.
@@ -44,8 +44,8 @@ module Stripe
             end
           end
 
-          class ApplicabilityConfig < Stripe::StripeObject
-            class Scope < Stripe::StripeObject
+          class ApplicabilityConfig < ::Stripe::StripeObject
+            class Scope < ::Stripe::StripeObject
               # The billable items to apply the credit grant to.
               attr_reader :billable_items
               # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
@@ -71,7 +71,7 @@ module Stripe
             end
           end
 
-          class ExpiryConfig < Stripe::StripeObject
+          class ExpiryConfig < ::Stripe::StripeObject
             # The type of the expiry configuration. We currently support `end_of_service_period`.
             attr_reader :type
 
@@ -109,9 +109,9 @@ module Stripe
           end
         end
 
-        class CreditGrantPerTenant < Stripe::StripeObject
-          class Amount < Stripe::StripeObject
-            class CustomPricingUnit < Stripe::StripeObject
+        class CreditGrantPerTenant < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            class CustomPricingUnit < ::Stripe::StripeObject
               # The Custom Pricing Unit object.
               attr_reader :custom_pricing_unit_details
               # The id of the custom pricing unit.
@@ -143,8 +143,8 @@ module Stripe
             end
           end
 
-          class ApplicabilityConfig < Stripe::StripeObject
-            class Scope < Stripe::StripeObject
+          class ApplicabilityConfig < ::Stripe::StripeObject
+            class Scope < ::Stripe::StripeObject
               # The billable items to apply the credit grant to.
               attr_reader :billable_items
               # The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
@@ -170,7 +170,7 @@ module Stripe
             end
           end
 
-          class ExpiryConfig < Stripe::StripeObject
+          class ExpiryConfig < ::Stripe::StripeObject
             # The type of the expiry configuration. We currently support `end_of_service_period`.
             attr_reader :type
 

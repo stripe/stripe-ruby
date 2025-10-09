@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAccountListParams < Stripe::RequestParams
+      class FinancialAccountListParams < ::Stripe::RequestParams
         # The page limit.
         attr_accessor :limit
         # The status of the FinancialAccount to filter by. By default, closed FinancialAccounts are not returned.

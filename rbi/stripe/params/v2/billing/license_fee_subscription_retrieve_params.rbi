@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class LicenseFeeSubscriptionRetrieveParams < Stripe::RequestParams; end
+      class LicenseFeeSubscriptionRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

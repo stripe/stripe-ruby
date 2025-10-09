@@ -5,8 +5,8 @@ module Stripe
   module V2
     module Billing
       module PricingPlans
-        class ComponentCreateParams < Stripe::RequestParams
-          class LicenseFee < Stripe::RequestParams
+        class ComponentCreateParams < ::Stripe::RequestParams
+          class LicenseFee < ::Stripe::RequestParams
             # The ID of the License Fee.
             attr_accessor :id
             # The version of the LicenseFee. Defaults to 'latest', if not specified.
@@ -18,7 +18,7 @@ module Stripe
             end
           end
 
-          class RateCard < Stripe::RequestParams
+          class RateCard < ::Stripe::RequestParams
             # The ID of the Rate Card.
             attr_accessor :id
             # The version of the RateCard. Defaults to 'latest', if not specified.
@@ -30,7 +30,7 @@ module Stripe
             end
           end
 
-          class ServiceAction < Stripe::RequestParams
+          class ServiceAction < ::Stripe::RequestParams
             # The ID of the service action.
             attr_accessor :id
 

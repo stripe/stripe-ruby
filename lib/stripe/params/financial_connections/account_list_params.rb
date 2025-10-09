@@ -3,8 +3,8 @@
 
 module Stripe
   module FinancialConnections
-    class AccountListParams < Stripe::RequestParams
-      class AccountHolder < Stripe::RequestParams
+    class AccountListParams < ::Stripe::RequestParams
+      class AccountHolder < ::Stripe::RequestParams
         # The ID of the Stripe account whose accounts will be retrieved.
         attr_accessor :account
         # The ID of the Stripe customer whose accounts will be retrieved.

@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Billing
       module RateCards
-        class RateListParams < Stripe::RequestParams
+        class RateListParams < ::Stripe::RequestParams
           # Optionally set the maximum number of results per page. Defaults to 20.
           attr_accessor :limit
           # Optionally filter by a Metered Item.

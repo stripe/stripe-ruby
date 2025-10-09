@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class OrderListParams < Stripe::RequestParams
+  class OrderListParams < ::Stripe::RequestParams
     # Only return orders for the given customer.
     sig { returns(T.nilable(String)) }
     def customer; end

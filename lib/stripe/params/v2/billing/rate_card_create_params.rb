@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class RateCardCreateParams < Stripe::RequestParams
+      class RateCardCreateParams < ::Stripe::RequestParams
         # The currency of this RateCard.
         attr_accessor :currency
         # A customer-facing name for the RateCard.

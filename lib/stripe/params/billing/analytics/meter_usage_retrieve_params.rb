@@ -4,8 +4,8 @@
 module Stripe
   module Billing
     module Analytics
-      class MeterUsageRetrieveParams < Stripe::RequestParams
-        class Meter < Stripe::RequestParams
+      class MeterUsageRetrieveParams < ::Stripe::RequestParams
+        class Meter < ::Stripe::RequestParams
           # Key-value pairs used to filter usage events by meter dimension values. If specified, usage will be filtered for matching usage events.
           attr_accessor :dimension_filters
           # List of meter dimension keys to group by. If specified, usage events will be grouped by the given meter dimension key's values.

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class RateCardSubscriptionCreateParams < Stripe::RequestParams
+      class RateCardSubscriptionCreateParams < ::Stripe::RequestParams
         # The ID of the Billing Cadence.
         attr_accessor :billing_cadence
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.

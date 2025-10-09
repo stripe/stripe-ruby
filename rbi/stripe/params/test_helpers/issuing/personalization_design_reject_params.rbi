@@ -5,8 +5,8 @@
 module Stripe
   module TestHelpers
     module Issuing
-      class PersonalizationDesignRejectParams < Stripe::RequestParams
-        class RejectionReasons < Stripe::RequestParams
+      class PersonalizationDesignRejectParams < ::Stripe::RequestParams
+        class RejectionReasons < ::Stripe::RequestParams
           # The reason(s) the card logo was rejected.
           sig { returns(T.nilable(T::Array[String])) }
           def card_logo; end

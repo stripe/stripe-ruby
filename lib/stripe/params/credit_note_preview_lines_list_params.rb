@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CreditNotePreviewLinesListParams < Stripe::RequestParams
-    class Line < Stripe::RequestParams
-      class TaxAmount < Stripe::RequestParams
+  class CreditNotePreviewLinesListParams < ::Stripe::RequestParams
+    class Line < ::Stripe::RequestParams
+      class TaxAmount < ::Stripe::RequestParams
         # The amount, in cents (or local equivalent), of the tax.
         attr_accessor :amount
         # The id of the tax rate for this tax amount. The tax rate must have been automatically created by Stripe.
@@ -60,8 +60,8 @@ module Stripe
       end
     end
 
-    class Refund < Stripe::RequestParams
-      class PaymentRecordRefund < Stripe::RequestParams
+    class Refund < ::Stripe::RequestParams
+      class PaymentRecordRefund < ::Stripe::RequestParams
         # The ID of the PaymentRecord with the refund to link to this credit note.
         attr_accessor :payment_record
         # The PaymentRecord refund group to link to this credit note. For refunds processed off-Stripe, this will correspond to the `processor_details.custom.refund_reference` field provided when reporting the refund on the PaymentRecord.
@@ -89,7 +89,7 @@ module Stripe
       end
     end
 
-    class ShippingCost < Stripe::RequestParams
+    class ShippingCost < ::Stripe::RequestParams
       # The ID of the shipping rate to use for this order.
       attr_accessor :shipping_rate
 

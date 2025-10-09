@@ -8,7 +8,7 @@ module Stripe
     #
     # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     class InboundTransfer < APIResource
-      class FailureDetails < Stripe::StripeObject
+      class FailureDetails < ::Stripe::StripeObject
         # Reason for the failure.
         sig { returns(String) }
         def code; end
@@ -19,7 +19,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class LinkedFlows < Stripe::StripeObject
+      class LinkedFlows < ::Stripe::StripeObject
         # If funds for this flow were returned after the flow went to the `succeeded` state, this field contains a reference to the ReceivedDebit return.
         sig { returns(T.nilable(String)) }
         def received_debit; end
@@ -30,9 +30,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class OriginPaymentMethodDetails < Stripe::StripeObject
-        class BillingDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class OriginPaymentMethodDetails < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -74,7 +74,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class UsBankAccount < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
           # Account holder type: individual or company.
           sig { returns(T.nilable(String)) }
           def account_holder_type; end
@@ -91,7 +91,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def last4; end
           # ID of the mandate used to make this payment.
-          sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::Mandate))) }
           def mandate; end
           # The network rails used. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(String) }
@@ -122,7 +122,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Timestamp describing when an InboundTransfer changed status to `canceled`.
         sig { returns(T.nilable(Integer)) }
         def canceled_at; end
@@ -197,29 +197,29 @@ module Stripe
       sig { returns(StatusTransitions) }
       def status_transitions; end
       # The Transaction associated with this object.
-      sig { returns(T.nilable(T.any(String, Stripe::Treasury::Transaction))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Treasury::Transaction))) }
       def transaction; end
       # Cancels an InboundTransfer.
       sig {
-        params(params: T.any(::Stripe::Treasury::InboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::InboundTransfer)
+        params(params: T.any(::Stripe::Treasury::InboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::InboundTransfer)
        }
       def cancel(params = {}, opts = {}); end
 
       # Cancels an InboundTransfer.
       sig {
-        params(inbound_transfer: String, params: T.any(::Stripe::Treasury::InboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::InboundTransfer)
+        params(inbound_transfer: String, params: T.any(::Stripe::Treasury::InboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::InboundTransfer)
        }
       def self.cancel(inbound_transfer, params = {}, opts = {}); end
 
       # Creates an InboundTransfer.
       sig {
-        params(params: T.any(::Stripe::Treasury::InboundTransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::InboundTransfer)
+        params(params: T.any(::Stripe::Treasury::InboundTransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::InboundTransfer)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of InboundTransfers sent from the specified FinancialAccount.
       sig {
-        params(params: T.any(::Stripe::Treasury::InboundTransferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Treasury::InboundTransferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

@@ -7,8 +7,8 @@ module Stripe
     module MoneyManagement
       # Use ReceivedCredits API to retrieve information on when, where, and how funds are sent into your FinancialAccount.
       class ReceivedCredit < APIResource
-        class StatusDetails < Stripe::StripeObject
-          class Failed < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
             # Open Enum. The `failed` status reason.
             sig { returns(String) }
             def reason; end
@@ -19,7 +19,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Returned < Stripe::StripeObject
+          class Returned < ::Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             sig { returns(String) }
             def reason; end
@@ -43,7 +43,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # Timestamp describing when the ReceivedCredit was marked as `failed`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           sig { returns(T.nilable(String)) }
@@ -63,7 +63,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class BalanceTransfer < Stripe::StripeObject
+        class BalanceTransfer < ::Stripe::StripeObject
           # The ID of the account that owns the source object originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def from_account; end
@@ -86,8 +86,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class BankTransfer < Stripe::StripeObject
-          class GbBankAccount < Stripe::StripeObject
+        class BankTransfer < ::Stripe::StripeObject
+          class GbBankAccount < ::Stripe::StripeObject
             # The bank name the transfer was received from.
             sig { returns(T.nilable(String)) }
             def account_holder_name; end
@@ -110,7 +110,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class SepaBankAccount < Stripe::StripeObject
+          class SepaBankAccount < ::Stripe::StripeObject
             # The account holder name of the bank account the transfer was received from.
             sig { returns(T.nilable(String)) }
             def account_holder_name; end
@@ -136,7 +136,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class UsBankAccount < Stripe::StripeObject
+          class UsBankAccount < ::Stripe::StripeObject
             # The bank name the transfer was received from.
             sig { returns(T.nilable(String)) }
             def bank_name; end
@@ -186,7 +186,7 @@ module Stripe
           end
         end
         # The amount and currency of the ReceivedCredit.
-        sig { returns(Stripe::V2::Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # Time at which the ReceivedCredit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

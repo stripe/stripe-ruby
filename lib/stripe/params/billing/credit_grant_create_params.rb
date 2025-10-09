@@ -3,9 +3,9 @@
 
 module Stripe
   module Billing
-    class CreditGrantCreateParams < Stripe::RequestParams
-      class Amount < Stripe::RequestParams
-        class CustomPricingUnit < Stripe::RequestParams
+    class CreditGrantCreateParams < ::Stripe::RequestParams
+      class Amount < ::Stripe::RequestParams
+        class CustomPricingUnit < ::Stripe::RequestParams
           # The ID of the custom pricing unit.
           attr_accessor :id
           # A positive integer representing the amount of the credit grant.
@@ -17,7 +17,7 @@ module Stripe
           end
         end
 
-        class Monetary < Stripe::RequestParams
+        class Monetary < ::Stripe::RequestParams
           # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
           attr_accessor :currency
           # A positive integer representing the amount of the credit grant.
@@ -42,9 +42,9 @@ module Stripe
         end
       end
 
-      class ApplicabilityConfig < Stripe::RequestParams
-        class Scope < Stripe::RequestParams
-          class BillableItem < Stripe::RequestParams
+      class ApplicabilityConfig < ::Stripe::RequestParams
+        class Scope < ::Stripe::RequestParams
+          class BillableItem < ::Stripe::RequestParams
             # The billable item ID this credit grant should apply to.
             attr_accessor :id
 
@@ -53,7 +53,7 @@ module Stripe
             end
           end
 
-          class Price < Stripe::RequestParams
+          class Price < ::Stripe::RequestParams
             # The price ID this credit grant should apply to.
             attr_accessor :id
 

@@ -11,13 +11,13 @@ module Stripe
           "v2.core.account"
         end
 
-        class Configuration < Stripe::StripeObject
-          class CardCreator < Stripe::StripeObject
-            class Capabilities < Stripe::StripeObject
-              class Commercial < Stripe::StripeObject
-                class Celtic < Stripe::StripeObject
-                  class ChargeCard < Stripe::StripeObject
-                    class StatusDetail < Stripe::StripeObject
+        class Configuration < ::Stripe::StripeObject
+          class CardCreator < ::Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class Commercial < ::Stripe::StripeObject
+                class Celtic < ::Stripe::StripeObject
+                  class ChargeCard < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
                       attr_reader :code
                       # Machine-readable code explaining how to make the Capability active.
@@ -47,8 +47,8 @@ module Stripe
                     end
                   end
 
-                  class SpendCard < Stripe::StripeObject
-                    class StatusDetail < Stripe::StripeObject
+                  class SpendCard < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
                       attr_reader :code
                       # Machine-readable code explaining how to make the Capability active.
@@ -91,9 +91,9 @@ module Stripe
                   end
                 end
 
-                class CrossRiverBank < Stripe::StripeObject
-                  class ChargeCard < Stripe::StripeObject
-                    class StatusDetail < Stripe::StripeObject
+                class CrossRiverBank < ::Stripe::StripeObject
+                  class ChargeCard < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
                       attr_reader :code
                       # Machine-readable code explaining how to make the Capability active.
@@ -123,8 +123,8 @@ module Stripe
                     end
                   end
 
-                  class SpendCard < Stripe::StripeObject
-                    class StatusDetail < Stripe::StripeObject
+                  class SpendCard < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
                       attr_reader :code
                       # Machine-readable code explaining how to make the Capability active.
@@ -167,9 +167,9 @@ module Stripe
                   end
                 end
 
-                class Stripe < Stripe::StripeObject
-                  class ChargeCard < Stripe::StripeObject
-                    class StatusDetail < Stripe::StripeObject
+                class Stripe < ::Stripe::StripeObject
+                  class ChargeCard < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
                       attr_reader :code
                       # Machine-readable code explaining how to make the Capability active.
@@ -199,8 +199,8 @@ module Stripe
                     end
                   end
 
-                  class PrepaidCard < Stripe::StripeObject
-                    class StatusDetail < Stripe::StripeObject
+                  class PrepaidCard < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
                       attr_reader :code
                       # Machine-readable code explaining how to make the Capability active.
@@ -286,9 +286,9 @@ module Stripe
             end
           end
 
-          class Customer < Stripe::StripeObject
-            class AutomaticIndirectTax < Stripe::StripeObject
-              class Location < Stripe::StripeObject
+          class Customer < ::Stripe::StripeObject
+            class AutomaticIndirectTax < ::Stripe::StripeObject
+              class Location < ::Stripe::StripeObject
                 # The identified tax country of the customer.
                 attr_reader :country
                 # The identified tax state, county, province, or region of the customer.
@@ -320,9 +320,9 @@ module Stripe
               end
             end
 
-            class Billing < Stripe::StripeObject
-              class Invoice < Stripe::StripeObject
-                class CustomField < Stripe::StripeObject
+            class Billing < ::Stripe::StripeObject
+              class Invoice < ::Stripe::StripeObject
+                class CustomField < ::Stripe::StripeObject
                   # The name of the custom field. This may be up to 40 characters.
                   attr_reader :name
                   # The value of the custom field. This may be up to 140 characters. When updating, pass an empty string to remove previously-defined values.
@@ -337,7 +337,7 @@ module Stripe
                   end
                 end
 
-                class Rendering < Stripe::StripeObject
+                class Rendering < ::Stripe::StripeObject
                   # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
                   attr_reader :amount_tax_display
                   # ID of the invoice rendering template to use for future invoices.
@@ -384,9 +384,9 @@ module Stripe
               end
             end
 
-            class Capabilities < Stripe::StripeObject
-              class AutomaticIndirectTax < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class AutomaticIndirectTax < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -427,8 +427,8 @@ module Stripe
               end
             end
 
-            class Shipping < Stripe::StripeObject
-              class Address < Stripe::StripeObject
+            class Shipping < ::Stripe::StripeObject
+              class Address < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 attr_reader :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -492,8 +492,8 @@ module Stripe
             end
           end
 
-          class Merchant < Stripe::StripeObject
-            class BacsDebitPayments < Stripe::StripeObject
+          class Merchant < ::Stripe::StripeObject
+            class BacsDebitPayments < ::Stripe::StripeObject
               # Display name for Bacs debit payments.
               attr_reader :display_name
               # Service user number for Bacs debit payments.
@@ -508,7 +508,7 @@ module Stripe
               end
             end
 
-            class Branding < Stripe::StripeObject
+            class Branding < ::Stripe::StripeObject
               # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
               attr_reader :icon
               # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
@@ -527,9 +527,9 @@ module Stripe
               end
             end
 
-            class Capabilities < Stripe::StripeObject
-              class AchDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class AchDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -559,8 +559,8 @@ module Stripe
                 end
               end
 
-              class AcssDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AcssDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -590,8 +590,8 @@ module Stripe
                 end
               end
 
-              class AffirmPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AffirmPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -621,8 +621,8 @@ module Stripe
                 end
               end
 
-              class AfterpayClearpayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AfterpayClearpayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -652,8 +652,8 @@ module Stripe
                 end
               end
 
-              class AlmaPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AlmaPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -683,8 +683,8 @@ module Stripe
                 end
               end
 
-              class AmazonPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AmazonPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -714,8 +714,8 @@ module Stripe
                 end
               end
 
-              class AuBecsDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AuBecsDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -745,8 +745,8 @@ module Stripe
                 end
               end
 
-              class BacsDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class BacsDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -776,8 +776,8 @@ module Stripe
                 end
               end
 
-              class BancontactPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class BancontactPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -807,8 +807,8 @@ module Stripe
                 end
               end
 
-              class BlikPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class BlikPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -838,8 +838,8 @@ module Stripe
                 end
               end
 
-              class BoletoPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class BoletoPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -869,8 +869,8 @@ module Stripe
                 end
               end
 
-              class CardPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class CardPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -900,8 +900,8 @@ module Stripe
                 end
               end
 
-              class CartesBancairesPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class CartesBancairesPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -931,8 +931,8 @@ module Stripe
                 end
               end
 
-              class CashappPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class CashappPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -962,8 +962,8 @@ module Stripe
                 end
               end
 
-              class EpsPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class EpsPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -993,8 +993,8 @@ module Stripe
                 end
               end
 
-              class FpxPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class FpxPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1024,8 +1024,8 @@ module Stripe
                 end
               end
 
-              class GbBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class GbBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1055,8 +1055,8 @@ module Stripe
                 end
               end
 
-              class GrabpayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class GrabpayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1086,8 +1086,8 @@ module Stripe
                 end
               end
 
-              class IdealPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class IdealPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1117,8 +1117,8 @@ module Stripe
                 end
               end
 
-              class JcbPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class JcbPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1148,8 +1148,8 @@ module Stripe
                 end
               end
 
-              class JpBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class JpBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1179,8 +1179,8 @@ module Stripe
                 end
               end
 
-              class KakaoPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class KakaoPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1210,8 +1210,8 @@ module Stripe
                 end
               end
 
-              class KlarnaPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class KlarnaPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1241,8 +1241,8 @@ module Stripe
                 end
               end
 
-              class KonbiniPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class KonbiniPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1272,8 +1272,8 @@ module Stripe
                 end
               end
 
-              class KrCardPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class KrCardPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1303,8 +1303,8 @@ module Stripe
                 end
               end
 
-              class LinkPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class LinkPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1334,8 +1334,8 @@ module Stripe
                 end
               end
 
-              class MobilepayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class MobilepayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1365,8 +1365,8 @@ module Stripe
                 end
               end
 
-              class MultibancoPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class MultibancoPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1396,8 +1396,8 @@ module Stripe
                 end
               end
 
-              class MxBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class MxBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1427,8 +1427,8 @@ module Stripe
                 end
               end
 
-              class NaverPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class NaverPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1458,8 +1458,8 @@ module Stripe
                 end
               end
 
-              class OxxoPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class OxxoPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1489,8 +1489,8 @@ module Stripe
                 end
               end
 
-              class P24Payments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class P24Payments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1520,8 +1520,8 @@ module Stripe
                 end
               end
 
-              class PayByBankPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class PayByBankPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1551,8 +1551,8 @@ module Stripe
                 end
               end
 
-              class PaycoPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class PaycoPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1582,8 +1582,8 @@ module Stripe
                 end
               end
 
-              class PaynowPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class PaynowPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1613,8 +1613,8 @@ module Stripe
                 end
               end
 
-              class PromptpayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class PromptpayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1644,8 +1644,8 @@ module Stripe
                 end
               end
 
-              class RevolutPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class RevolutPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1675,8 +1675,8 @@ module Stripe
                 end
               end
 
-              class SamsungPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class SamsungPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1706,8 +1706,8 @@ module Stripe
                 end
               end
 
-              class SepaBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class SepaBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1737,8 +1737,8 @@ module Stripe
                 end
               end
 
-              class SepaDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class SepaDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1768,9 +1768,9 @@ module Stripe
                 end
               end
 
-              class StripeBalance < Stripe::StripeObject
-                class Payouts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class StripeBalance < ::Stripe::StripeObject
+                class Payouts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -1811,8 +1811,8 @@ module Stripe
                 end
               end
 
-              class SwishPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class SwishPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1842,8 +1842,8 @@ module Stripe
                 end
               end
 
-              class TwintPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class TwintPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1873,8 +1873,8 @@ module Stripe
                 end
               end
 
-              class UsBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class UsBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -1904,8 +1904,8 @@ module Stripe
                 end
               end
 
-              class ZipPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class ZipPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -2080,8 +2080,8 @@ module Stripe
               end
             end
 
-            class CardPayments < Stripe::StripeObject
-              class DeclineOn < Stripe::StripeObject
+            class CardPayments < ::Stripe::StripeObject
+              class DeclineOn < ::Stripe::StripeObject
                 # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
                 attr_reader :avs_failure
                 # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
@@ -2107,7 +2107,7 @@ module Stripe
               end
             end
 
-            class SepaDebitPayments < Stripe::StripeObject
+            class SepaDebitPayments < ::Stripe::StripeObject
               # Creditor ID for SEPA debit payments.
               attr_reader :creditor_id
 
@@ -2120,7 +2120,7 @@ module Stripe
               end
             end
 
-            class StatementDescriptor < Stripe::StripeObject
+            class StatementDescriptor < ::Stripe::StripeObject
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               attr_reader :descriptor
               # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
@@ -2135,8 +2135,8 @@ module Stripe
               end
             end
 
-            class Support < Stripe::StripeObject
-              class Address < Stripe::StripeObject
+            class Support < ::Stripe::StripeObject
+              class Address < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 attr_reader :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -2213,11 +2213,11 @@ module Stripe
             end
           end
 
-          class Recipient < Stripe::StripeObject
-            class Capabilities < Stripe::StripeObject
-              class BankAccounts < Stripe::StripeObject
-                class Local < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+          class Recipient < ::Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class BankAccounts < ::Stripe::StripeObject
+                class Local < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2247,8 +2247,8 @@ module Stripe
                   end
                 end
 
-                class Wire < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class Wire < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2291,8 +2291,8 @@ module Stripe
                 end
               end
 
-              class Cards < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class Cards < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -2322,8 +2322,8 @@ module Stripe
                 end
               end
 
-              class CryptoWallets < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class CryptoWallets < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
                   # Machine-readable code explaining how to make the Capability active.
@@ -2353,9 +2353,9 @@ module Stripe
                 end
               end
 
-              class StripeBalance < Stripe::StripeObject
-                class Payouts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class StripeBalance < ::Stripe::StripeObject
+                class Payouts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2385,8 +2385,8 @@ module Stripe
                   end
                 end
 
-                class StripeTransfers < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class StripeTransfers < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2451,7 +2451,7 @@ module Stripe
               end
             end
 
-            class DefaultOutboundDestination < Stripe::StripeObject
+            class DefaultOutboundDestination < ::Stripe::StripeObject
               # The payout method ID of the default outbound destination.
               attr_reader :id
               # Closed Enum. The payout method type of the default outbound destination.
@@ -2484,11 +2484,11 @@ module Stripe
             end
           end
 
-          class Storer < Stripe::StripeObject
-            class Capabilities < Stripe::StripeObject
-              class FinancialAddresses < Stripe::StripeObject
-                class BankAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+          class Storer < ::Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class FinancialAddresses < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2529,9 +2529,9 @@ module Stripe
                 end
               end
 
-              class HoldsCurrencies < Stripe::StripeObject
-                class Gbp < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class HoldsCurrencies < ::Stripe::StripeObject
+                class Gbp < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2572,9 +2572,9 @@ module Stripe
                 end
               end
 
-              class InboundTransfers < Stripe::StripeObject
-                class BankAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class InboundTransfers < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2615,9 +2615,9 @@ module Stripe
                 end
               end
 
-              class OutboundPayments < Stripe::StripeObject
-                class BankAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class OutboundPayments < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2647,8 +2647,8 @@ module Stripe
                   end
                 end
 
-                class Cards < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class Cards < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2678,8 +2678,8 @@ module Stripe
                   end
                 end
 
-                class FinancialAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class FinancialAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2728,9 +2728,9 @@ module Stripe
                 end
               end
 
-              class OutboundTransfers < Stripe::StripeObject
-                class BankAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class OutboundTransfers < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2760,8 +2760,8 @@ module Stripe
                   end
                 end
 
-                class FinancialAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class FinancialAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     attr_reader :code
                     # Machine-readable code explaining how to make the Capability active.
@@ -2870,8 +2870,8 @@ module Stripe
           end
         end
 
-        class Defaults < Stripe::StripeObject
-          class Profile < Stripe::StripeObject
+        class Defaults < ::Stripe::StripeObject
+          class Profile < ::Stripe::StripeObject
             # The business's publicly-available website.
             attr_reader :business_url
             # The company’s legal name.
@@ -2888,7 +2888,7 @@ module Stripe
             end
           end
 
-          class Responsibilities < Stripe::StripeObject
+          class Responsibilities < ::Stripe::StripeObject
             # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this Account.
             attr_reader :fees_collector
             # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
@@ -2920,9 +2920,9 @@ module Stripe
           end
         end
 
-        class Identity < Stripe::StripeObject
-          class Attestations < Stripe::StripeObject
-            class DirectorshipDeclaration < Stripe::StripeObject
+        class Identity < ::Stripe::StripeObject
+          class Attestations < ::Stripe::StripeObject
+            class DirectorshipDeclaration < ::Stripe::StripeObject
               # The time marking when the director attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               attr_reader :date
               # The IP address from which the director attestation was made.
@@ -2939,7 +2939,7 @@ module Stripe
               end
             end
 
-            class OwnershipDeclaration < Stripe::StripeObject
+            class OwnershipDeclaration < ::Stripe::StripeObject
               # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               attr_reader :date
               # The IP address from which the beneficial owner attestation was made.
@@ -2956,7 +2956,7 @@ module Stripe
               end
             end
 
-            class PersonsProvided < Stripe::StripeObject
+            class PersonsProvided < ::Stripe::StripeObject
               # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
               attr_reader :directors
               # Whether the company’s executives have been provided. Set this Boolean to true after creating all the company’s executives with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
@@ -2975,8 +2975,8 @@ module Stripe
               end
             end
 
-            class TermsOfService < Stripe::StripeObject
-              class Account < Stripe::StripeObject
+            class TermsOfService < ::Stripe::StripeObject
+              class Account < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_reader :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -2993,9 +2993,9 @@ module Stripe
                 end
               end
 
-              class CardCreator < Stripe::StripeObject
-                class Commercial < Stripe::StripeObject
-                  class AccountHolder < Stripe::StripeObject
+              class CardCreator < ::Stripe::StripeObject
+                class Commercial < ::Stripe::StripeObject
+                  class AccountHolder < ::Stripe::StripeObject
                     # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                     attr_reader :date
                     # The IP address from which the Account's representative accepted the terms of service.
@@ -3014,8 +3014,8 @@ module Stripe
                     end
                   end
 
-                  class Celtic < Stripe::StripeObject
-                    class ApplePay < Stripe::StripeObject
+                  class Celtic < ::Stripe::StripeObject
+                    class ApplePay < ::Stripe::StripeObject
                       # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                       attr_reader :date
                       # The IP address from which the Account's representative accepted the terms of service.
@@ -3034,8 +3034,8 @@ module Stripe
                       end
                     end
 
-                    class ChargeCard < Stripe::StripeObject
-                      class BankTerms < Stripe::StripeObject
+                    class ChargeCard < ::Stripe::StripeObject
+                      class BankTerms < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3054,7 +3054,7 @@ module Stripe
                         end
                       end
 
-                      class Platform < Stripe::StripeObject
+                      class Platform < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3086,8 +3086,8 @@ module Stripe
                       end
                     end
 
-                    class SpendCard < Stripe::StripeObject
-                      class BankTerms < Stripe::StripeObject
+                    class SpendCard < ::Stripe::StripeObject
+                      class BankTerms < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3106,7 +3106,7 @@ module Stripe
                         end
                       end
 
-                      class FinancingDisclosures < Stripe::StripeObject
+                      class FinancingDisclosures < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3125,7 +3125,7 @@ module Stripe
                         end
                       end
 
-                      class Platform < Stripe::StripeObject
+                      class Platform < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3182,8 +3182,8 @@ module Stripe
                     end
                   end
 
-                  class CrossRiverBank < Stripe::StripeObject
-                    class ApplePay < Stripe::StripeObject
+                  class CrossRiverBank < ::Stripe::StripeObject
+                    class ApplePay < ::Stripe::StripeObject
                       # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                       attr_reader :date
                       # The IP address from which the Account's representative accepted the terms of service.
@@ -3202,8 +3202,8 @@ module Stripe
                       end
                     end
 
-                    class ChargeCard < Stripe::StripeObject
-                      class BankTerms < Stripe::StripeObject
+                    class ChargeCard < ::Stripe::StripeObject
+                      class BankTerms < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3222,7 +3222,7 @@ module Stripe
                         end
                       end
 
-                      class FinancingDisclosures < Stripe::StripeObject
+                      class FinancingDisclosures < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3241,7 +3241,7 @@ module Stripe
                         end
                       end
 
-                      class Platform < Stripe::StripeObject
+                      class Platform < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3279,8 +3279,8 @@ module Stripe
                       end
                     end
 
-                    class SpendCard < Stripe::StripeObject
-                      class BankTerms < Stripe::StripeObject
+                    class SpendCard < ::Stripe::StripeObject
+                      class BankTerms < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3299,7 +3299,7 @@ module Stripe
                         end
                       end
 
-                      class FinancingDisclosures < Stripe::StripeObject
+                      class FinancingDisclosures < ::Stripe::StripeObject
                         # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                         attr_reader :date
                         # The IP address from which the Account's representative accepted the terms of service.
@@ -3383,7 +3383,7 @@ module Stripe
                 end
               end
 
-              class Storer < Stripe::StripeObject
+              class Storer < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_reader :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -3437,8 +3437,8 @@ module Stripe
             end
           end
 
-          class BusinessDetails < Stripe::StripeObject
-            class Address < Stripe::StripeObject
+          class BusinessDetails < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -3463,7 +3463,7 @@ module Stripe
               end
             end
 
-            class AnnualRevenue < Stripe::StripeObject
+            class AnnualRevenue < ::Stripe::StripeObject
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_reader :amount
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -3478,8 +3478,8 @@ module Stripe
               end
             end
 
-            class Documents < Stripe::StripeObject
-              class BankAccountOwnershipVerification < Stripe::StripeObject
+            class Documents < ::Stripe::StripeObject
+              class BankAccountOwnershipVerification < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3494,7 +3494,7 @@ module Stripe
                 end
               end
 
-              class CompanyLicense < Stripe::StripeObject
+              class CompanyLicense < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3509,7 +3509,7 @@ module Stripe
                 end
               end
 
-              class CompanyMemorandumOfAssociation < Stripe::StripeObject
+              class CompanyMemorandumOfAssociation < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3524,7 +3524,7 @@ module Stripe
                 end
               end
 
-              class CompanyMinisterialDecree < Stripe::StripeObject
+              class CompanyMinisterialDecree < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3539,7 +3539,7 @@ module Stripe
                 end
               end
 
-              class CompanyRegistrationVerification < Stripe::StripeObject
+              class CompanyRegistrationVerification < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3554,7 +3554,7 @@ module Stripe
                 end
               end
 
-              class CompanyTaxIdVerification < Stripe::StripeObject
+              class CompanyTaxIdVerification < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3569,8 +3569,8 @@ module Stripe
                 end
               end
 
-              class PrimaryVerification < Stripe::StripeObject
-                class FrontBack < Stripe::StripeObject
+              class PrimaryVerification < ::Stripe::StripeObject
+                class FrontBack < ::Stripe::StripeObject
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_reader :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -3598,7 +3598,7 @@ module Stripe
                 end
               end
 
-              class ProofOfAddress < Stripe::StripeObject
+              class ProofOfAddress < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3613,7 +3613,7 @@ module Stripe
                 end
               end
 
-              class ProofOfRegistration < Stripe::StripeObject
+              class ProofOfRegistration < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3628,7 +3628,7 @@ module Stripe
                 end
               end
 
-              class ProofOfUltimateBeneficialOwnership < Stripe::StripeObject
+              class ProofOfUltimateBeneficialOwnership < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3683,7 +3683,7 @@ module Stripe
               end
             end
 
-            class IdNumber < Stripe::StripeObject
+            class IdNumber < ::Stripe::StripeObject
               # The registrar of the ID number (Only valid for DE ID number types).
               attr_reader :registrar
               # Open Enum. The ID number type of a business entity.
@@ -3698,7 +3698,7 @@ module Stripe
               end
             end
 
-            class MonthlyEstimatedRevenue < Stripe::StripeObject
+            class MonthlyEstimatedRevenue < ::Stripe::StripeObject
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_reader :amount
 
@@ -3711,8 +3711,8 @@ module Stripe
               end
             end
 
-            class ScriptAddresses < Stripe::StripeObject
-              class Kana < Stripe::StripeObject
+            class ScriptAddresses < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 attr_reader :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -3737,7 +3737,7 @@ module Stripe
                 end
               end
 
-              class Kanji < Stripe::StripeObject
+              class Kanji < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 attr_reader :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -3775,8 +3775,8 @@ module Stripe
               end
             end
 
-            class ScriptNames < Stripe::StripeObject
-              class Kana < Stripe::StripeObject
+            class ScriptNames < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
                 # Registered name of the business.
                 attr_reader :registered_name
 
@@ -3789,7 +3789,7 @@ module Stripe
                 end
               end
 
-              class Kanji < Stripe::StripeObject
+              class Kanji < ::Stripe::StripeObject
                 # Registered name of the business.
                 attr_reader :registered_name
 
@@ -3854,8 +3854,8 @@ module Stripe
             end
           end
 
-          class Individual < Stripe::StripeObject
-            class AdditionalAddress < Stripe::StripeObject
+          class Individual < ::Stripe::StripeObject
+            class AdditionalAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -3882,7 +3882,7 @@ module Stripe
               end
             end
 
-            class AdditionalName < Stripe::StripeObject
+            class AdditionalName < ::Stripe::StripeObject
               # The individual's full name.
               attr_reader :full_name
               # The individual's first or given name.
@@ -3901,8 +3901,8 @@ module Stripe
               end
             end
 
-            class AdditionalTermsOfService < Stripe::StripeObject
-              class Account < Stripe::StripeObject
+            class AdditionalTermsOfService < ::Stripe::StripeObject
+              class Account < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_reader :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -3930,7 +3930,7 @@ module Stripe
               end
             end
 
-            class Address < Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -3955,7 +3955,7 @@ module Stripe
               end
             end
 
-            class DateOfBirth < Stripe::StripeObject
+            class DateOfBirth < ::Stripe::StripeObject
               # The day of birth, between 1 and 31.
               attr_reader :day
               # The month of birth, between 1 and 12.
@@ -3972,8 +3972,8 @@ module Stripe
               end
             end
 
-            class Documents < Stripe::StripeObject
-              class CompanyAuthorization < Stripe::StripeObject
+            class Documents < ::Stripe::StripeObject
+              class CompanyAuthorization < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -3988,7 +3988,7 @@ module Stripe
                 end
               end
 
-              class Passport < Stripe::StripeObject
+              class Passport < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -4003,8 +4003,8 @@ module Stripe
                 end
               end
 
-              class PrimaryVerification < Stripe::StripeObject
-                class FrontBack < Stripe::StripeObject
+              class PrimaryVerification < ::Stripe::StripeObject
+                class FrontBack < ::Stripe::StripeObject
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_reader :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -4032,8 +4032,8 @@ module Stripe
                 end
               end
 
-              class SecondaryVerification < Stripe::StripeObject
-                class FrontBack < Stripe::StripeObject
+              class SecondaryVerification < ::Stripe::StripeObject
+                class FrontBack < ::Stripe::StripeObject
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_reader :back
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -4061,7 +4061,7 @@ module Stripe
                 end
               end
 
-              class Visa < Stripe::StripeObject
+              class Visa < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
                 # The format of the document. Currently supports `files` only.
@@ -4101,7 +4101,7 @@ module Stripe
               end
             end
 
-            class IdNumber < Stripe::StripeObject
+            class IdNumber < ::Stripe::StripeObject
               # The ID number type of an individual.
               attr_reader :type
 
@@ -4114,7 +4114,7 @@ module Stripe
               end
             end
 
-            class Relationship < Stripe::StripeObject
+            class Relationship < ::Stripe::StripeObject
               # Whether the individual is an authorizer of the Account’s legal entity.
               attr_reader :authorizer
               # Whether the individual is a director of the Account’s legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -4141,8 +4141,8 @@ module Stripe
               end
             end
 
-            class ScriptAddresses < Stripe::StripeObject
-              class Kana < Stripe::StripeObject
+            class ScriptAddresses < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 attr_reader :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -4167,7 +4167,7 @@ module Stripe
                 end
               end
 
-              class Kanji < Stripe::StripeObject
+              class Kanji < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 attr_reader :city
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -4205,8 +4205,8 @@ module Stripe
               end
             end
 
-            class ScriptNames < Stripe::StripeObject
-              class Kana < Stripe::StripeObject
+            class ScriptNames < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
                 # The person's first or given name.
                 attr_reader :given_name
                 # The person's last or family name.
@@ -4221,7 +4221,7 @@ module Stripe
                 end
               end
 
-              class Kanji < Stripe::StripeObject
+              class Kanji < ::Stripe::StripeObject
                 # The person's first or given name.
                 attr_reader :given_name
                 # The person's last or family name.
@@ -4338,9 +4338,9 @@ module Stripe
           end
         end
 
-        class Requirements < Stripe::StripeObject
-          class Entry < Stripe::StripeObject
-            class Error < Stripe::StripeObject
+        class Requirements < ::Stripe::StripeObject
+          class Entry < ::Stripe::StripeObject
+            class Error < ::Stripe::StripeObject
               # Machine-readable code describing the error.
               attr_reader :code
               # Human-readable description of the error.
@@ -4355,9 +4355,9 @@ module Stripe
               end
             end
 
-            class Impact < Stripe::StripeObject
-              class RestrictsCapability < Stripe::StripeObject
-                class Deadline < Stripe::StripeObject
+            class Impact < ::Stripe::StripeObject
+              class RestrictsCapability < ::Stripe::StripeObject
+                class Deadline < ::Stripe::StripeObject
                   # The current status of the requirement's impact.
                   attr_reader :status
 
@@ -4396,7 +4396,7 @@ module Stripe
               end
             end
 
-            class MinimumDeadline < Stripe::StripeObject
+            class MinimumDeadline < ::Stripe::StripeObject
               # The current status of the requirement's impact.
               attr_reader :status
 
@@ -4409,7 +4409,7 @@ module Stripe
               end
             end
 
-            class Reference < Stripe::StripeObject
+            class Reference < ::Stripe::StripeObject
               # If `inquiry` is the type, the inquiry token.
               attr_reader :inquiry
               # If `resource` is the type, the resource token.
@@ -4426,7 +4426,7 @@ module Stripe
               end
             end
 
-            class RequestedReason < Stripe::StripeObject
+            class RequestedReason < ::Stripe::StripeObject
               # Machine-readable description of Stripe's reason for collecting the requirement.
               attr_reader :code
 
@@ -4468,8 +4468,8 @@ module Stripe
             end
           end
 
-          class Summary < Stripe::StripeObject
-            class MinimumDeadline < Stripe::StripeObject
+          class Summary < ::Stripe::StripeObject
+            class MinimumDeadline < ::Stripe::StripeObject
               # The current strictest status of all requirements on the Account.
               attr_reader :status
               # The soonest RFC3339 date & time UTC value a requirement can impact the Account.

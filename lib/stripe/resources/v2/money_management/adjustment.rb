@@ -11,7 +11,7 @@ module Stripe
           "v2.money_management.adjustment"
         end
 
-        class AdjustedFlow < Stripe::StripeObject
+        class AdjustedFlow < ::Stripe::StripeObject
           # Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
           attr_reader :type
           # If applicable, the ID of the Adjustment linked to this Adjustment.

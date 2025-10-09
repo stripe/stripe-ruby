@@ -7,7 +7,7 @@ module Stripe
     class FinancingSummaryService < StripeService
       # Retrieve the financing state for the account that was authenticated in the request.
       sig {
-        params(params: T.any(::Stripe::Capital::FinancingSummaryRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Capital::FinancingSummary)
+        params(params: T.any(::Stripe::Capital::FinancingSummaryRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Capital::FinancingSummary)
        }
       def retrieve(params = {}, opts = {}); end
     end

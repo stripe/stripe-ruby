@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class MeteredItemRetrieveParams < Stripe::RequestParams; end
+      class MeteredItemRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

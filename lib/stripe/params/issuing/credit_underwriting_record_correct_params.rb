@@ -3,8 +3,8 @@
 
 module Stripe
   module Issuing
-    class CreditUnderwritingRecordCorrectParams < Stripe::RequestParams
-      class Application < Stripe::RequestParams
+    class CreditUnderwritingRecordCorrectParams < ::Stripe::RequestParams
+      class Application < ::Stripe::RequestParams
         # The channel through which the applicant has submitted their application. Defaults to `online`.
         attr_accessor :application_method
         # Scope of demand made by the applicant.
@@ -19,7 +19,7 @@ module Stripe
         end
       end
 
-      class CreditUser < Stripe::RequestParams
+      class CreditUser < ::Stripe::RequestParams
         # Email of the applicant or accountholder.
         attr_accessor :email
         # Full name of the company or person.
@@ -31,8 +31,8 @@ module Stripe
         end
       end
 
-      class Decision < Stripe::RequestParams
-        class ApplicationRejected < Stripe::RequestParams
+      class Decision < ::Stripe::RequestParams
+        class ApplicationRejected < ::Stripe::RequestParams
           # Details about the `reasons.other` when present.
           attr_accessor :reason_other_explanation
           # List of reasons why the application was rejected, up to 4 reasons, in order of importance.
@@ -44,7 +44,7 @@ module Stripe
           end
         end
 
-        class CreditLimitApproved < Stripe::RequestParams
+        class CreditLimitApproved < ::Stripe::RequestParams
           # The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_accessor :amount
           # The currency of the credit approved, will default to the Account's Issuing currency.
@@ -56,7 +56,7 @@ module Stripe
           end
         end
 
-        class CreditLimitDecreased < Stripe::RequestParams
+        class CreditLimitDecreased < ::Stripe::RequestParams
           # The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_accessor :amount
           # The currency of the credit approved, will default to the Account's Issuing currency.
@@ -74,7 +74,7 @@ module Stripe
           end
         end
 
-        class CreditLineClosed < Stripe::RequestParams
+        class CreditLineClosed < ::Stripe::RequestParams
           # Details about the `reasons.other` when present.
           attr_accessor :reason_other_explanation
           # List of reasons why the credit line was closed, up to 4 reasons, in order of importance.
@@ -111,7 +111,7 @@ module Stripe
         end
       end
 
-      class UnderwritingException < Stripe::RequestParams
+      class UnderwritingException < ::Stripe::RequestParams
         # Written explanation for the exception.
         attr_accessor :explanation
         # The decision before the exception was applied.

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class MarginCreateParams < Stripe::RequestParams
+  class MarginCreateParams < ::Stripe::RequestParams
     # Whether the margin can be applied to invoices, invoice items, or invoice line items or not. Defaults to `true`.
     attr_accessor :active
     # Specifies which fields in the response should be expanded.

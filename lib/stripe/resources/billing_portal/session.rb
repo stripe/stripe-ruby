@@ -25,9 +25,9 @@ module Stripe
         "billing_portal.session"
       end
 
-      class Flow < Stripe::StripeObject
-        class AfterCompletion < Stripe::StripeObject
-          class HostedConfirmation < Stripe::StripeObject
+      class Flow < ::Stripe::StripeObject
+        class AfterCompletion < ::Stripe::StripeObject
+          class HostedConfirmation < ::Stripe::StripeObject
             # A custom message to display to the customer after the flow is completed.
             attr_reader :custom_message
 
@@ -40,7 +40,7 @@ module Stripe
             end
           end
 
-          class Redirect < Stripe::StripeObject
+          class Redirect < ::Stripe::StripeObject
             # The URL the customer will be redirected to after the flow is completed.
             attr_reader :return_url
 
@@ -68,9 +68,9 @@ module Stripe
           end
         end
 
-        class SubscriptionCancel < Stripe::StripeObject
-          class Retention < Stripe::StripeObject
-            class CouponOffer < Stripe::StripeObject
+        class SubscriptionCancel < ::Stripe::StripeObject
+          class Retention < ::Stripe::StripeObject
+            class CouponOffer < ::Stripe::StripeObject
               # The ID of the coupon to be offered.
               attr_reader :coupon
 
@@ -109,7 +109,7 @@ module Stripe
           end
         end
 
-        class SubscriptionUpdate < Stripe::StripeObject
+        class SubscriptionUpdate < ::Stripe::StripeObject
           # The ID of the subscription to be updated.
           attr_reader :subscription
 
@@ -122,8 +122,8 @@ module Stripe
           end
         end
 
-        class SubscriptionUpdateConfirm < Stripe::StripeObject
-          class Discount < Stripe::StripeObject
+        class SubscriptionUpdateConfirm < ::Stripe::StripeObject
+          class Discount < ::Stripe::StripeObject
             # The ID of the coupon to apply to this subscription update.
             attr_reader :coupon
             # The ID of a promotion code to apply to this subscription update.
@@ -138,7 +138,7 @@ module Stripe
             end
           end
 
-          class Item < Stripe::StripeObject
+          class Item < ::Stripe::StripeObject
             # The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
             attr_reader :id
             # The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).

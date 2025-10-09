@@ -4,7 +4,7 @@
 module Stripe
   module TestHelpers
     module Terminal
-      class ReaderSucceedInputCollectionParams < Stripe::RequestParams
+      class ReaderSucceedInputCollectionParams < ::Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # This parameter defines the skip behavior for input collection.

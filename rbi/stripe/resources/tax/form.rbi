@@ -8,7 +8,7 @@ module Stripe
     #
     # Related guide: [US tax reporting for Connect platforms](https://stripe.com/docs/connect/tax-reporting)
     class Form < APIResource
-      class AuSerr < Stripe::StripeObject
+      class AuSerr < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_end_date; end
@@ -22,7 +22,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CaMrdp < Stripe::StripeObject
+      class CaMrdp < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_end_date; end
@@ -36,7 +36,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class EuDac7 < Stripe::StripeObject
+      class EuDac7 < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_end_date; end
@@ -50,8 +50,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class FilingStatus < Stripe::StripeObject
-        class Jurisdiction < Stripe::StripeObject
+      class FilingStatus < ::Stripe::StripeObject
+        class Jurisdiction < ::Stripe::StripeObject
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(String) }
           def country; end
@@ -84,7 +84,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class GbMrdp < Stripe::StripeObject
+      class GbMrdp < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_end_date; end
@@ -98,7 +98,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NzMrdp < Stripe::StripeObject
+      class NzMrdp < ::Stripe::StripeObject
         # End date of the period represented by the information reported on the tax form.
         sig { returns(String) }
         def reporting_period_end_date; end
@@ -112,9 +112,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Payee < Stripe::StripeObject
+      class Payee < ::Stripe::StripeObject
         # The ID of the payee's Stripe account.
-        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
         def account; end
         # The external reference to this payee.
         sig { returns(T.nilable(String)) }
@@ -129,7 +129,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Us1099K < Stripe::StripeObject
+      class Us1099K < ::Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
         def reporting_year; end
@@ -140,7 +140,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Us1099Misc < Stripe::StripeObject
+      class Us1099Misc < ::Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
         def reporting_year; end
@@ -151,7 +151,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Us1099Nec < Stripe::StripeObject
+      class Us1099Nec < ::Stripe::StripeObject
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
         def reporting_year; end
@@ -169,7 +169,7 @@ module Stripe
       sig { returns(T.nilable(CaMrdp)) }
       def ca_mrdp; end
       # The form that corrects this form, if any.
-      sig { returns(T.nilable(T.any(String, Stripe::Tax::Form))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Tax::Form))) }
       def corrected_by; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -212,7 +212,7 @@ module Stripe
       def us_1099_nec; end
       # Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
       sig {
-        params(params: T.any(::Stripe::Tax::FormListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Tax::FormListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 

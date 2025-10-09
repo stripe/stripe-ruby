@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Billing
-      class PricingPlanSubscriptionListParams < Stripe::RequestParams
-        class Payer < Stripe::RequestParams
+      class PricingPlanSubscriptionListParams < ::Stripe::RequestParams
+        class Payer < ::Stripe::RequestParams
           # The ID of the Customer object. If provided, only Pricing Plan Subscriptions that are subscribed on the cadences with the specified payer will be returned.
           sig { returns(T.nilable(String)) }
           def customer; end

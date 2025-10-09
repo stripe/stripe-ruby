@@ -6,8 +6,8 @@ module Stripe
   module V2
     module Billing
       class BillSettingVersion < APIResource
-        class Calculation < Stripe::StripeObject
-          class Tax < Stripe::StripeObject
+        class Calculation < ::Stripe::StripeObject
+          class Tax < ::Stripe::StripeObject
             # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
             sig { returns(String) }
             def type; end
@@ -28,8 +28,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Invoice < Stripe::StripeObject
-          class TimeUntilDue < Stripe::StripeObject
+        class Invoice < ::Stripe::StripeObject
+          class TimeUntilDue < ::Stripe::StripeObject
             # The interval unit for the time until due.
             sig { returns(String) }
             def interval; end

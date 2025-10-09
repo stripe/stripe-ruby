@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class SourceDetachParams < Stripe::RequestParams
+  class SourceDetachParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end

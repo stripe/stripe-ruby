@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class CustomPricingUnitUpdateParams < Stripe::RequestParams
+      class CustomPricingUnitUpdateParams < ::Stripe::RequestParams
         # Whether the Custom Pricing Unit is active.
         sig { returns(T.nilable(T::Boolean)) }
         def active; end

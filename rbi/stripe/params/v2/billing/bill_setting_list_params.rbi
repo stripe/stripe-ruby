@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class BillSettingListParams < Stripe::RequestParams
+      class BillSettingListParams < ::Stripe::RequestParams
         # Optionally set the maximum number of results per page. Defaults to 20.
         sig { returns(T.nilable(Integer)) }
         def limit; end

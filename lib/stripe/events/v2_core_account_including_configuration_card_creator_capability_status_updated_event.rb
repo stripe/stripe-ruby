@@ -9,7 +9,7 @@ module Stripe
         "v2.core.account[configuration.card_creator].capability_status_updated"
       end
 
-      class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventData < Stripe::StripeObject
+      class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventData < ::Stripe::StripeObject
         # Open Enum. The capability which had its status updated.
         attr_reader :updated_capability
 

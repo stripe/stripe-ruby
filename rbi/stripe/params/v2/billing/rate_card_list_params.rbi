@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class RateCardListParams < Stripe::RequestParams
+      class RateCardListParams < ::Stripe::RequestParams
         # Optionally filter to active/inactive RateCards.
         sig { returns(T.nilable(T::Boolean)) }
         def active; end

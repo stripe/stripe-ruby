@@ -9,8 +9,8 @@ module Stripe
   #
   # See the [Standard onboarding](https://docs.stripe.com/connect/standard-accounts) or [Express onboarding](https://docs.stripe.com/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](https://docs.stripe.com/connect/handling-api-verification#person-information).
   class Person < APIResource
-    class AdditionalTosAcceptances < Stripe::StripeObject
-      class Account < Stripe::StripeObject
+    class AdditionalTosAcceptances < ::Stripe::StripeObject
+      class Account < ::Stripe::StripeObject
         # The Unix timestamp marking when the legal guardian accepted the service agreement.
         sig { returns(T.nilable(Integer)) }
         def date; end
@@ -37,7 +37,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Address < Stripe::StripeObject
+    class Address < ::Stripe::StripeObject
       # City, district, suburb, town, or village.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -63,7 +63,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class AddressKana < Stripe::StripeObject
+    class AddressKana < ::Stripe::StripeObject
       # City/Ward.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -92,7 +92,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class AddressKanji < Stripe::StripeObject
+    class AddressKanji < ::Stripe::StripeObject
       # City/Ward.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -121,7 +121,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Dob < Stripe::StripeObject
+    class Dob < ::Stripe::StripeObject
       # The day of birth, between 1 and 31.
       sig { returns(T.nilable(Integer)) }
       def day; end
@@ -138,8 +138,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class FutureRequirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class FutureRequirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
@@ -153,7 +153,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         sig { returns(String) }
         def code; end
@@ -195,7 +195,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class RegisteredAddress < Stripe::StripeObject
+    class RegisteredAddress < ::Stripe::StripeObject
       # City, district, suburb, town, or village.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -221,7 +221,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Relationship < Stripe::StripeObject
+    class Relationship < ::Stripe::StripeObject
       # Whether the person is the authorizer of the account's representative.
       sig { returns(T.nilable(T::Boolean)) }
       def authorizer; end
@@ -253,8 +253,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Requirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class Requirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
@@ -268,7 +268,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         sig { returns(String) }
         def code; end
@@ -310,8 +310,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class UsCfpbData < Stripe::StripeObject
-      class EthnicityDetails < Stripe::StripeObject
+    class UsCfpbData < ::Stripe::StripeObject
+      class EthnicityDetails < ::Stripe::StripeObject
         # The persons ethnicity
         sig { returns(T.nilable(T::Array[String])) }
         def ethnicity; end
@@ -325,7 +325,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class RaceDetails < Stripe::StripeObject
+      class RaceDetails < ::Stripe::StripeObject
         # The persons race.
         sig { returns(T.nilable(T::Array[String])) }
         def race; end
@@ -355,10 +355,10 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Verification < Stripe::StripeObject
-      class AdditionalDocument < Stripe::StripeObject
+    class Verification < ::Stripe::StripeObject
+      class AdditionalDocument < ::Stripe::StripeObject
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-        sig { returns(T.nilable(T.any(String, Stripe::File))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def back; end
         # A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
         sig { returns(T.nilable(String)) }
@@ -367,7 +367,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def details_code; end
         # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-        sig { returns(T.nilable(T.any(String, Stripe::File))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def front; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -376,9 +376,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Document < Stripe::StripeObject
+      class Document < ::Stripe::StripeObject
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-        sig { returns(T.nilable(T.any(String, Stripe::File))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def back; end
         # A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
         sig { returns(T.nilable(String)) }
@@ -387,7 +387,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def details_code; end
         # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-        sig { returns(T.nilable(T.any(String, Stripe::File))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def front; end
         def self.inner_class_types
           @inner_class_types = {}

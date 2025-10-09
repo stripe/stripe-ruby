@@ -14,7 +14,7 @@ module Stripe
         "issuing.credit_underwriting_record"
       end
 
-      class Application < Stripe::StripeObject
+      class Application < ::Stripe::StripeObject
         # The channel through which the applicant has submitted their application.
         attr_reader :application_method
         # Scope of demand made by the applicant.
@@ -31,7 +31,7 @@ module Stripe
         end
       end
 
-      class CreditUser < Stripe::StripeObject
+      class CreditUser < ::Stripe::StripeObject
         # Email of the applicant or accountholder.
         attr_reader :email
         # Full name of the company or person.
@@ -46,8 +46,8 @@ module Stripe
         end
       end
 
-      class Decision < Stripe::StripeObject
-        class ApplicationRejected < Stripe::StripeObject
+      class Decision < ::Stripe::StripeObject
+        class ApplicationRejected < ::Stripe::StripeObject
           # Details about the `reasons.other` when present.
           attr_reader :reason_other_explanation
           # List of reasons why the application was rejected up to 4 reasons, in order of importance.
@@ -62,7 +62,7 @@ module Stripe
           end
         end
 
-        class CreditLimitApproved < Stripe::StripeObject
+        class CreditLimitApproved < ::Stripe::StripeObject
           # Credit amount approved. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
           attr_reader :amount
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -77,7 +77,7 @@ module Stripe
           end
         end
 
-        class CreditLimitDecreased < Stripe::StripeObject
+        class CreditLimitDecreased < ::Stripe::StripeObject
           # Credit amount approved after decrease. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
           attr_reader :amount
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -96,7 +96,7 @@ module Stripe
           end
         end
 
-        class CreditLineClosed < Stripe::StripeObject
+        class CreditLineClosed < ::Stripe::StripeObject
           # Details about the `reasons.other` when present.
           attr_reader :reason_other_explanation
           # List of reasons why the existing account was closed, up to 4 reasons, in order of importance.
@@ -135,7 +135,7 @@ module Stripe
         end
       end
 
-      class UnderwritingException < Stripe::StripeObject
+      class UnderwritingException < ::Stripe::StripeObject
         # Written explanation for the exception.
         attr_reader :explanation
         # The decision before the exception was applied.

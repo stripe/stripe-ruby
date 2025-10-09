@@ -10,7 +10,7 @@ module Stripe
         #
         # ** raises NonZeroBalanceError
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::FinancialAccount)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::FinancialAccount)
          }
         def close(id, params = {}, opts = {}); end
 
@@ -19,19 +19,19 @@ module Stripe
         # ** raises AlreadyExistsError
         # ** raises FeatureNotEnabledError
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::FinancialAccount)
+          params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::FinancialAccount)
          }
         def create(params = {}, opts = {}); end
 
         # Lists FinancialAccounts in this compartment.
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
+          params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
         # Retrieves the details of an existing FinancialAccount.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::FinancialAccount)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::FinancialAccount)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

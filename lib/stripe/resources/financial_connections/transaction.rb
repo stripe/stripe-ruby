@@ -12,7 +12,7 @@ module Stripe
         "financial_connections.transaction"
       end
 
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Time at which this transaction posted. Measured in seconds since the Unix epoch.
         attr_reader :posted_at
         # Time at which this transaction was voided. Measured in seconds since the Unix epoch.

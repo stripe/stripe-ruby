@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      class EventDestinationDeleteParams < Stripe::RequestParams; end
+      class EventDestinationDeleteParams < ::Stripe::RequestParams; end
     end
   end
 end

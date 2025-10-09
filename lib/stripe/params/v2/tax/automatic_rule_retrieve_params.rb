@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Tax
-      class AutomaticRuleRetrieveParams < Stripe::RequestParams; end
+      class AutomaticRuleRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

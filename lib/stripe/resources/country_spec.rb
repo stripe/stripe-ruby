@@ -16,8 +16,8 @@ module Stripe
       "country_spec"
     end
 
-    class VerificationFields < Stripe::StripeObject
-      class Company < Stripe::StripeObject
+    class VerificationFields < ::Stripe::StripeObject
+      class Company < ::Stripe::StripeObject
         # Additional fields which are only required for some users.
         attr_reader :additional
         # Fields which every account must eventually provide.
@@ -32,7 +32,7 @@ module Stripe
         end
       end
 
-      class Individual < Stripe::StripeObject
+      class Individual < ::Stripe::StripeObject
         # Additional fields which are only required for some users.
         attr_reader :additional
         # Fields which every account must eventually provide.

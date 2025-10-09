@@ -12,7 +12,7 @@ module Stripe
           "v2.billing.metered_item"
         end
 
-        class MeterSegmentCondition < Stripe::StripeObject
+        class MeterSegmentCondition < ::Stripe::StripeObject
           # A Meter dimension.
           attr_reader :dimension
           # To count usage towards this metered item, the dimension must have this value.
@@ -27,7 +27,7 @@ module Stripe
           end
         end
 
-        class TaxDetails < Stripe::StripeObject
+        class TaxDetails < ::Stripe::StripeObject
           # Product tax code (PTC).
           attr_reader :tax_code
 

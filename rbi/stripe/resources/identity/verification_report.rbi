@@ -16,8 +16,8 @@ module Stripe
     #
     # Related guide: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
     class VerificationReport < APIResource
-      class Document < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class Document < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -43,7 +43,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Dob < Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           sig { returns(T.nilable(Integer)) }
           def day; end
@@ -60,7 +60,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Error < Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           sig { returns(T.nilable(String)) }
           def code; end
@@ -74,7 +74,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class ExpirationDate < Stripe::StripeObject
+        class ExpirationDate < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           sig { returns(T.nilable(Integer)) }
           def day; end
@@ -91,7 +91,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class IssuedDate < Stripe::StripeObject
+        class IssuedDate < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           sig { returns(T.nilable(Integer)) }
           def day; end
@@ -166,8 +166,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Email < Stripe::StripeObject
-        class Error < Stripe::StripeObject
+      class Email < ::Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           sig { returns(T.nilable(String)) }
           def code; end
@@ -197,8 +197,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class IdNumber < Stripe::StripeObject
-        class Dob < Stripe::StripeObject
+      class IdNumber < ::Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           sig { returns(T.nilable(Integer)) }
           def day; end
@@ -215,7 +215,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Error < Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           sig { returns(T.nilable(String)) }
           def code; end
@@ -257,8 +257,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Options < Stripe::StripeObject
-        class Document < Stripe::StripeObject
+      class Options < ::Stripe::StripeObject
+        class Document < ::Stripe::StripeObject
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           sig { returns(T.nilable(T::Array[String])) }
           def allowed_types; end
@@ -278,7 +278,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class IdNumber < Stripe::StripeObject
+        class IdNumber < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -299,8 +299,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Phone < Stripe::StripeObject
-        class Error < Stripe::StripeObject
+      class Phone < ::Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           sig { returns(T.nilable(String)) }
           def code; end
@@ -330,8 +330,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Selfie < Stripe::StripeObject
-        class Error < Stripe::StripeObject
+      class Selfie < ::Stripe::StripeObject
+        class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           sig { returns(T.nilable(String)) }
           def code; end
@@ -408,7 +408,7 @@ module Stripe
       def verification_session; end
       # List all verification reports.
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationReportListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Identity::VerificationReportListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

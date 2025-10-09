@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentIntentTriggerActionParams < Stripe::RequestParams
-    class ScanQrCode < Stripe::RequestParams
+  class PaymentIntentTriggerActionParams < ::Stripe::RequestParams
+    class ScanQrCode < ::Stripe::RequestParams
       # Whether the QR Code scan's payment should succeed or fail.
       attr_accessor :result
 

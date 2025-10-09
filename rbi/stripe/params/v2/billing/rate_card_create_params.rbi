@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class RateCardCreateParams < Stripe::RequestParams
+      class RateCardCreateParams < ::Stripe::RequestParams
         # The currency of this RateCard.
         sig { returns(String) }
         def currency; end

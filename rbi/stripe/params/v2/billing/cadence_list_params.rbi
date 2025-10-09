@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Billing
-      class CadenceListParams < Stripe::RequestParams
-        class Payer < Stripe::RequestParams
+      class CadenceListParams < ::Stripe::RequestParams
+        class Payer < ::Stripe::RequestParams
           # The ID of the Customer object. If provided, only cadences that specifically reference the provided customer ID will be returned.
           sig { returns(T.nilable(String)) }
           def customer; end

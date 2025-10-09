@@ -13,7 +13,7 @@ module Stripe
 
     nested_resource_class_methods :refund, operations: %i[create retrieve update list]
 
-    class FeeSource < Stripe::StripeObject
+    class FeeSource < ::Stripe::StripeObject
       # Charge ID that created this application fee.
       attr_reader :charge
       # Payout ID that created this application fee.

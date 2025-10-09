@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class AlertListParams < Stripe::RequestParams
+    class AlertListParams < ::Stripe::RequestParams
       # Filter results to only include this type of alert.
       attr_accessor :alert_type
       # Filter results to only include alerts for the given customer.

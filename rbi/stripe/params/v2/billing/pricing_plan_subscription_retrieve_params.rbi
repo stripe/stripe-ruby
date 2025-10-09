@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class PricingPlanSubscriptionRetrieveParams < Stripe::RequestParams; end
+      class PricingPlanSubscriptionRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

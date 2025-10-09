@@ -3,7 +3,7 @@
 
 module Stripe
   module FinancialConnections
-    class AccountRefreshParams < Stripe::RequestParams
+    class AccountRefreshParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The list of account features that you would like to refresh.

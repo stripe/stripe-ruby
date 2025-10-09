@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module TestHelpers
-      class MoneyManagementRecipientVerificationsParams < Stripe::RequestParams
+      class MoneyManagementRecipientVerificationsParams < ::Stripe::RequestParams
         # Expected match level of the RecipientVerification to be created: `match`, `close_match`, `no_match`, `unavailable`.
         attr_accessor :match_result
         # ID of the payout method.

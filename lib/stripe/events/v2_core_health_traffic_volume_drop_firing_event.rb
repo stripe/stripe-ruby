@@ -9,8 +9,8 @@ module Stripe
         "v2.core.health.traffic_volume_drop.firing"
       end
 
-      class V2CoreHealthTrafficVolumeDropFiringEventData < Stripe::StripeObject
-        class Impact < Stripe::StripeObject
+      class V2CoreHealthTrafficVolumeDropFiringEventData < ::Stripe::StripeObject
+        class Impact < ::Stripe::StripeObject
           # The total volume of payment requests within the latest observation time window.
           attr_reader :actual_traffic
           # The expected volume of payment requests within the latest observation time window.

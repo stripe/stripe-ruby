@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Tax
-      class AutomaticRuleDeactivateParams < Stripe::RequestParams; end
+      class AutomaticRuleDeactivateParams < ::Stripe::RequestParams; end
     end
   end
 end

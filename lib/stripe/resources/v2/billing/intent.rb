@@ -10,7 +10,7 @@ module Stripe
           "v2.billing.intent"
         end
 
-        class AmountDetails < Stripe::StripeObject
+        class AmountDetails < ::Stripe::StripeObject
           # Three-letter ISO currency code, in lowercase. Must be a supported currency.
           attr_reader :currency
           # Amount of discount applied.
@@ -33,7 +33,7 @@ module Stripe
           end
         end
 
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # Time at which the Billing Intent was canceled.
           attr_reader :canceled_at
           # Time at which the Billing Intent was committed.

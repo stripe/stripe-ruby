@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Radar
-    class ValueListCreateParams < Stripe::RequestParams
+    class ValueListCreateParams < ::Stripe::RequestParams
       # The name of the value list for use in rules.
       sig { returns(String) }
       def alias; end

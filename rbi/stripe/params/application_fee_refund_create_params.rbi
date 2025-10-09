@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class ApplicationFeeRefundCreateParams < Stripe::RequestParams
+  class ApplicationFeeRefundCreateParams < ::Stripe::RequestParams
     # A positive integer, in _cents (or local equivalent)_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
     sig { returns(T.nilable(Integer)) }
     def amount; end

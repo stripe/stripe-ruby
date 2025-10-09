@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class AccountNoticeUpdateParams < Stripe::RequestParams
-    class Email < Stripe::RequestParams
+  class AccountNoticeUpdateParams < ::Stripe::RequestParams
+    class Email < ::Stripe::RequestParams
       # Content of the email in plain text. The copy must match exactly the language that Stripe Compliance has approved for use.
       sig { returns(String) }
       def plain_text; end

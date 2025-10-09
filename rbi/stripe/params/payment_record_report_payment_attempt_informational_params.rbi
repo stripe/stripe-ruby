@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class PaymentRecordReportPaymentAttemptInformationalParams < Stripe::RequestParams
-    class CustomerDetails < Stripe::RequestParams
+  class PaymentRecordReportPaymentAttemptInformationalParams < ::Stripe::RequestParams
+    class CustomerDetails < ::Stripe::RequestParams
       # The customer who made the payment.
       sig { returns(T.nilable(String)) }
       def customer; end
@@ -30,8 +30,8 @@ module Stripe
        }
       def initialize(customer: nil, email: nil, name: nil, phone: nil); end
     end
-    class ShippingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class ShippingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end

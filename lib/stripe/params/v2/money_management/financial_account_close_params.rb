@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAccountCloseParams < Stripe::RequestParams
-        class ForwardingSettings < Stripe::RequestParams
+      class FinancialAccountCloseParams < ::Stripe::RequestParams
+        class ForwardingSettings < ::Stripe::RequestParams
           # The address to send forwarded payments to.
           attr_accessor :payment_method
           # The address to send forwarded payouts to.

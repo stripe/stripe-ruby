@@ -13,7 +13,7 @@ module Stripe
         "treasury.credit_reversal"
       end
 
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Timestamp describing when the CreditReversal changed status to `posted`
         attr_reader :posted_at
 

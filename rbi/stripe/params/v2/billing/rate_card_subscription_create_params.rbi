@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class RateCardSubscriptionCreateParams < Stripe::RequestParams
+      class RateCardSubscriptionCreateParams < ::Stripe::RequestParams
         # The ID of the Billing Cadence.
         sig { returns(String) }
         def billing_cadence; end

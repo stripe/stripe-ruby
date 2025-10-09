@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class WebhookEndpointRetrieveParams < Stripe::RequestParams
+  class WebhookEndpointRetrieveParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
 

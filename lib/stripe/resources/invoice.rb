@@ -49,7 +49,7 @@ module Stripe
 
     nested_resource_class_methods :line, operations: %i[list]
 
-    class AmountsDue < Stripe::StripeObject
+    class AmountsDue < ::Stripe::StripeObject
       # Incremental amount due for this payment in cents (or local equivalent).
       attr_reader :amount
       # The amount in cents (or local equivalent) that was paid for this payment.
@@ -76,8 +76,8 @@ module Stripe
       end
     end
 
-    class AutomaticTax < Stripe::StripeObject
-      class Liability < Stripe::StripeObject
+    class AutomaticTax < ::Stripe::StripeObject
+      class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
         # Type of the account referenced.
@@ -111,7 +111,7 @@ module Stripe
       end
     end
 
-    class ConfirmationSecret < Stripe::StripeObject
+    class ConfirmationSecret < ::Stripe::StripeObject
       # The client_secret of the payment that Stripe creates for the invoice after finalization.
       attr_reader :client_secret
       # The type of client_secret. Currently this is always payment_intent, referencing the default payment_intent that Stripe creates during invoice finalization
@@ -126,7 +126,7 @@ module Stripe
       end
     end
 
-    class CustomField < Stripe::StripeObject
+    class CustomField < ::Stripe::StripeObject
       # The name of the custom field.
       attr_reader :name
       # The value of the custom field.
@@ -141,7 +141,7 @@ module Stripe
       end
     end
 
-    class CustomerAddress < Stripe::StripeObject
+    class CustomerAddress < ::Stripe::StripeObject
       # City, district, suburb, town, or village.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -164,8 +164,8 @@ module Stripe
       end
     end
 
-    class CustomerShipping < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class CustomerShipping < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -207,7 +207,7 @@ module Stripe
       end
     end
 
-    class CustomerTaxId < Stripe::StripeObject
+    class CustomerTaxId < ::Stripe::StripeObject
       # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
       attr_reader :type
       # The value of the tax ID.
@@ -222,7 +222,7 @@ module Stripe
       end
     end
 
-    class FromInvoice < Stripe::StripeObject
+    class FromInvoice < ::Stripe::StripeObject
       # The relation between this invoice and the cloned invoice
       attr_reader :action
       # The invoice that was cloned.
@@ -237,7 +237,7 @@ module Stripe
       end
     end
 
-    class Issuer < Stripe::StripeObject
+    class Issuer < ::Stripe::StripeObject
       # The connected account being referenced when `type` is `account`.
       attr_reader :account
       # Type of the account referenced.
@@ -252,7 +252,7 @@ module Stripe
       end
     end
 
-    class LastFinalizationError < Stripe::StripeObject
+    class LastFinalizationError < ::Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
       attr_reader :advice_code
       # For card errors, the ID of the failed charge.
@@ -329,8 +329,8 @@ module Stripe
       end
     end
 
-    class Parent < Stripe::StripeObject
-      class BillingCadenceDetails < Stripe::StripeObject
+    class Parent < ::Stripe::StripeObject
+      class BillingCadenceDetails < ::Stripe::StripeObject
         # The billing cadence that generated this invoice
         attr_reader :billing_cadence
 
@@ -343,7 +343,7 @@ module Stripe
         end
       end
 
-      class QuoteDetails < Stripe::StripeObject
+      class QuoteDetails < ::Stripe::StripeObject
         # The quote that generated this invoice
         attr_reader :quote
 
@@ -356,8 +356,8 @@ module Stripe
         end
       end
 
-      class SubscriptionDetails < Stripe::StripeObject
-        class PauseCollection < Stripe::StripeObject
+      class SubscriptionDetails < ::Stripe::StripeObject
+        class PauseCollection < ::Stripe::StripeObject
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           attr_reader :behavior
           # The time after which the subscription will resume collecting payments.
@@ -411,10 +411,10 @@ module Stripe
       end
     end
 
-    class PaymentSettings < Stripe::StripeObject
-      class PaymentMethodOptions < Stripe::StripeObject
-        class AcssDebit < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject
+    class PaymentSettings < ::Stripe::StripeObject
+      class PaymentMethodOptions < ::Stripe::StripeObject
+        class AcssDebit < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
             # Transaction type of the mandate.
             attr_reader :transaction_type
 
@@ -440,7 +440,7 @@ module Stripe
           end
         end
 
-        class Bancontact < Stripe::StripeObject
+        class Bancontact < ::Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_reader :preferred_language
 
@@ -453,8 +453,8 @@ module Stripe
           end
         end
 
-        class Card < Stripe::StripeObject
-          class Installments < Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          class Installments < ::Stripe::StripeObject
             # Whether Installments are enabled for this Invoice.
             attr_reader :enabled
 
@@ -480,9 +480,9 @@ module Stripe
           end
         end
 
-        class CustomerBalance < Stripe::StripeObject
-          class BankTransfer < Stripe::StripeObject
-            class EuBankTransfer < Stripe::StripeObject
+        class CustomerBalance < ::Stripe::StripeObject
+          class BankTransfer < ::Stripe::StripeObject
+            class EuBankTransfer < ::Stripe::StripeObject
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               attr_reader :country
 
@@ -521,7 +521,7 @@ module Stripe
           end
         end
 
-        class IdBankTransfer < Stripe::StripeObject
+        class IdBankTransfer < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -531,7 +531,7 @@ module Stripe
           end
         end
 
-        class Konbini < Stripe::StripeObject
+        class Konbini < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -541,7 +541,7 @@ module Stripe
           end
         end
 
-        class Pix < Stripe::StripeObject
+        class Pix < ::Stripe::StripeObject
           # Determines if the amount includes the IOF tax.
           attr_reader :amount_includes_iof
 
@@ -554,7 +554,7 @@ module Stripe
           end
         end
 
-        class SepaDebit < Stripe::StripeObject
+        class SepaDebit < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -564,8 +564,8 @@ module Stripe
           end
         end
 
-        class Upi < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject
+        class Upi < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
             # Amount to be charged for future payments.
             attr_reader :amount
             # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
@@ -595,9 +595,9 @@ module Stripe
           end
         end
 
-        class UsBankAccount < Stripe::StripeObject
-          class FinancialConnections < Stripe::StripeObject
-            class Filters < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
+          class FinancialConnections < ::Stripe::StripeObject
+            class Filters < ::Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               attr_reader :account_subcategories
               # The institution to use to filter for possible accounts to link.
@@ -695,8 +695,8 @@ module Stripe
       end
     end
 
-    class Rendering < Stripe::StripeObject
-      class Pdf < Stripe::StripeObject
+    class Rendering < ::Stripe::StripeObject
+      class Pdf < ::Stripe::StripeObject
         # Page size of invoice pdf. Options include a4, letter, and auto. If set to auto, page size will be switched to a4 or letter based on customer locale.
         attr_reader :page_size
 
@@ -726,8 +726,8 @@ module Stripe
       end
     end
 
-    class ShippingCost < Stripe::StripeObject
-      class Tax < Stripe::StripeObject
+    class ShippingCost < ::Stripe::StripeObject
+      class Tax < ::Stripe::StripeObject
         # Amount of tax applied for this rate.
         attr_reader :amount
         # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -767,8 +767,8 @@ module Stripe
       end
     end
 
-    class ShippingDetails < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class ShippingDetails < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -810,7 +810,7 @@ module Stripe
       end
     end
 
-    class StatusTransitions < Stripe::StripeObject
+    class StatusTransitions < ::Stripe::StripeObject
       # The time that the invoice draft was finalized.
       attr_reader :finalized_at
       # The time that the invoice was marked uncollectible.
@@ -829,8 +829,8 @@ module Stripe
       end
     end
 
-    class ThresholdReason < Stripe::StripeObject
-      class ItemReason < Stripe::StripeObject
+    class ThresholdReason < ::Stripe::StripeObject
+      class ItemReason < ::Stripe::StripeObject
         # The IDs of the line items that triggered the threshold invoice.
         attr_reader :line_item_ids
         # The quantity threshold boundary that applied to the given line item.
@@ -858,7 +858,7 @@ module Stripe
       end
     end
 
-    class TotalDiscountAmount < Stripe::StripeObject
+    class TotalDiscountAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       attr_reader :amount
       # The discount that was applied to get this discount amount.
@@ -873,7 +873,7 @@ module Stripe
       end
     end
 
-    class TotalMarginAmount < Stripe::StripeObject
+    class TotalMarginAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the reduction in line item amount.
       attr_reader :amount
       # The margin that was applied to get this margin amount.
@@ -888,7 +888,7 @@ module Stripe
       end
     end
 
-    class TotalPretaxCreditAmount < Stripe::StripeObject
+    class TotalPretaxCreditAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       attr_reader :amount
       # The credit balance transaction that was applied to get this pretax credit amount.
@@ -909,8 +909,8 @@ module Stripe
       end
     end
 
-    class TotalTax < Stripe::StripeObject
-      class TaxRateDetails < Stripe::StripeObject
+    class TotalTax < ::Stripe::StripeObject
+      class TaxRateDetails < ::Stripe::StripeObject
         # Attribute for field tax_rate
         attr_reader :tax_rate
 

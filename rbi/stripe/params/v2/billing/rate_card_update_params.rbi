@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class RateCardUpdateParams < Stripe::RequestParams
+      class RateCardUpdateParams < ::Stripe::RequestParams
         # Sets whether the RateCard is active. Inactive RateCards cannot be used in new activations or have new rates added.
         sig { returns(T.nilable(T::Boolean)) }
         def active; end

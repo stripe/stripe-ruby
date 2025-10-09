@@ -2,5 +2,5 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CustomerTaxIdDeleteParams < Stripe::RequestParams; end
+  class CustomerTaxIdDeleteParams < ::Stripe::RequestParams; end
 end

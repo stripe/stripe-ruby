@@ -12,10 +12,10 @@ module Stripe
         "billing.credit_balance_transaction"
       end
 
-      class Credit < Stripe::StripeObject
-        class Amount < Stripe::StripeObject
-          class CustomPricingUnit < Stripe::StripeObject
-            class CustomPricingUnitDetails < Stripe::StripeObject
+      class Credit < ::Stripe::StripeObject
+        class Amount < ::Stripe::StripeObject
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               attr_reader :created
               # The name of the custom pricing unit.
@@ -53,7 +53,7 @@ module Stripe
             end
           end
 
-          class Monetary < Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
             # A positive integer representing the amount.
@@ -83,7 +83,7 @@ module Stripe
           end
         end
 
-        class CreditsApplicationInvoiceVoided < Stripe::StripeObject
+        class CreditsApplicationInvoiceVoided < ::Stripe::StripeObject
           # The invoice to which the reinstated billing credits were originally applied.
           attr_reader :invoice
           # The invoice line item to which the reinstated billing credits were originally applied.
@@ -116,10 +116,10 @@ module Stripe
         end
       end
 
-      class Debit < Stripe::StripeObject
-        class Amount < Stripe::StripeObject
-          class CustomPricingUnit < Stripe::StripeObject
-            class CustomPricingUnitDetails < Stripe::StripeObject
+      class Debit < ::Stripe::StripeObject
+        class Amount < ::Stripe::StripeObject
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               attr_reader :created
               # The name of the custom pricing unit.
@@ -157,7 +157,7 @@ module Stripe
             end
           end
 
-          class Monetary < Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
             # A positive integer representing the amount.
@@ -187,7 +187,7 @@ module Stripe
           end
         end
 
-        class CreditsApplied < Stripe::StripeObject
+        class CreditsApplied < ::Stripe::StripeObject
           # The invoice to which the billing credits were applied.
           attr_reader :invoice
           # The invoice line item to which the billing credits were applied.

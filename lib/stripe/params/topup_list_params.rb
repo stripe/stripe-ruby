@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class TopupListParams < Stripe::RequestParams
-    class Amount < Stripe::RequestParams
+  class TopupListParams < ::Stripe::RequestParams
+    class Amount < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)
@@ -21,7 +21,7 @@ module Stripe
       end
     end
 
-    class Created < Stripe::RequestParams
+    class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)

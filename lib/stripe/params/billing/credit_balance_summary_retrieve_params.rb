@@ -3,10 +3,10 @@
 
 module Stripe
   module Billing
-    class CreditBalanceSummaryRetrieveParams < Stripe::RequestParams
-      class Filter < Stripe::RequestParams
-        class ApplicabilityScope < Stripe::RequestParams
-          class BillableItem < Stripe::RequestParams
+    class CreditBalanceSummaryRetrieveParams < ::Stripe::RequestParams
+      class Filter < ::Stripe::RequestParams
+        class ApplicabilityScope < ::Stripe::RequestParams
+          class BillableItem < ::Stripe::RequestParams
             # The billable item ID this credit grant should apply to.
             attr_accessor :id
 
@@ -15,7 +15,7 @@ module Stripe
             end
           end
 
-          class Price < Stripe::RequestParams
+          class Price < ::Stripe::RequestParams
             # The price ID this credit grant should apply to.
             attr_accessor :id
 

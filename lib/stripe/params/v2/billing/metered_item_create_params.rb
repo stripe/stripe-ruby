@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module Billing
-      class MeteredItemCreateParams < Stripe::RequestParams
-        class MeterSegmentCondition < Stripe::RequestParams
+      class MeteredItemCreateParams < ::Stripe::RequestParams
+        class MeterSegmentCondition < ::Stripe::RequestParams
           # A Meter dimension.
           attr_accessor :dimension
           # To count usage towards this metered item, the dimension must have this value.
@@ -17,7 +17,7 @@ module Stripe
           end
         end
 
-        class TaxDetails < Stripe::RequestParams
+        class TaxDetails < ::Stripe::RequestParams
           # Product tax code (PTC).
           attr_accessor :tax_code
 

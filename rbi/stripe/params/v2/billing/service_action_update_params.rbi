@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Billing
-      class ServiceActionUpdateParams < Stripe::RequestParams
-        class CreditGrant < Stripe::RequestParams
+      class ServiceActionUpdateParams < ::Stripe::RequestParams
+        class CreditGrant < ::Stripe::RequestParams
           # A descriptive name shown in dashboard.
           sig { returns(T.nilable(String)) }
           def name; end
@@ -15,7 +15,7 @@ module Stripe
           sig { params(name: T.nilable(String)).void }
           def initialize(name: nil); end
         end
-        class CreditGrantPerTenant < Stripe::RequestParams
+        class CreditGrantPerTenant < ::Stripe::RequestParams
           # A descriptive name shown in dashboard.
           sig { returns(T.nilable(String)) }
           def name; end

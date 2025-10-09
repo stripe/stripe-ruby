@@ -10,8 +10,8 @@ module Stripe
           "v2.billing.bill_setting_version"
         end
 
-        class Calculation < Stripe::StripeObject
-          class Tax < Stripe::StripeObject
+        class Calculation < ::Stripe::StripeObject
+          class Tax < ::Stripe::StripeObject
             # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
             attr_reader :type
 
@@ -35,8 +35,8 @@ module Stripe
           end
         end
 
-        class Invoice < Stripe::StripeObject
-          class TimeUntilDue < Stripe::StripeObject
+        class Invoice < ::Stripe::StripeObject
+          class TimeUntilDue < ::Stripe::StripeObject
             # The interval unit for the time until due.
             attr_reader :interval
             # The number of interval units. For example, if interval=day and interval_count=30,

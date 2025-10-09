@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Treasury
-    class TransactionListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class TransactionListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
         def gt; end
@@ -31,8 +31,8 @@ module Stripe
          }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
-      class StatusTransitions < Stripe::RequestParams
-        class PostedAt < Stripe::RequestParams
+      class StatusTransitions < ::Stripe::RequestParams
+        class PostedAt < ::Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           sig { returns(T.nilable(Integer)) }
           def gt; end

@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class TaxRateCreateParams < Stripe::RequestParams
+  class TaxRateCreateParams < ::Stripe::RequestParams
     # Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
     sig { returns(T.nilable(T::Boolean)) }
     def active; end

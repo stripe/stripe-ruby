@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class LicenseFeeVersion < APIResource
-        class Tier < Stripe::StripeObject
+        class Tier < ::Stripe::StripeObject
           # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
           sig { returns(T.nilable(String)) }
           def flat_amount; end
@@ -28,7 +28,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TransformQuantity < Stripe::StripeObject
+        class TransformQuantity < ::Stripe::StripeObject
           # Divide usage by this number.
           sig { returns(Integer) }
           def divide_by; end

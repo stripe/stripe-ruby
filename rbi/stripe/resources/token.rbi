@@ -31,14 +31,14 @@ module Stripe
     # They can be bank accounts or debit cards as well, and are documented in the links above.
     #
     # Related guide: [Bank debits and transfers](/payments/bank-debits-transfers)
-    sig { returns(T.nilable(Stripe::BankAccount)) }
+    sig { returns(T.nilable(::Stripe::BankAccount)) }
     def bank_account; end
     # You can store multiple cards on a customer in order to charge the customer
     # later. You can also store multiple debit cards on a recipient in order to
     # transfer to those cards later.
     #
     # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
-    sig { returns(T.nilable(Stripe::Card)) }
+    sig { returns(T.nilable(::Stripe::Card)) }
     def card; end
     # IP address of the client that generates the token.
     sig { returns(T.nilable(String)) }
@@ -64,7 +64,7 @@ module Stripe
     # Creates a single-use token that represents a bank account's details.
     # You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://docs.stripe.com/api#accounts) where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
     sig {
-      params(params: T.any(::Stripe::TokenCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Token)
+      params(params: T.any(::Stripe::TokenCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Token)
      }
     def self.create(params = {}, opts = {}); end
   end

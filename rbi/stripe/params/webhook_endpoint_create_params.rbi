@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class WebhookEndpointCreateParams < Stripe::RequestParams
+  class WebhookEndpointCreateParams < ::Stripe::RequestParams
     # Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
     sig { returns(T.nilable(String)) }
     def api_version; end

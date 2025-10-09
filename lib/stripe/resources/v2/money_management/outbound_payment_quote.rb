@@ -11,7 +11,7 @@ module Stripe
           "v2.money_management.outbound_payment_quote"
         end
 
-        class DeliveryOptions < Stripe::StripeObject
+        class DeliveryOptions < ::Stripe::StripeObject
           # Open Enum. Method for bank account.
           attr_reader :bank_account
 
@@ -24,7 +24,7 @@ module Stripe
           end
         end
 
-        class EstimatedFee < Stripe::StripeObject
+        class EstimatedFee < ::Stripe::StripeObject
           # The fee amount for corresponding fee type.
           attr_reader :amount
           # The fee type.
@@ -39,7 +39,7 @@ module Stripe
           end
         end
 
-        class From < Stripe::StripeObject
+        class From < ::Stripe::StripeObject
           # The monetary amount debited from the sender, only set on responses.
           attr_reader :debited
           # The FinancialAccount that funds were pulled from.
@@ -54,8 +54,8 @@ module Stripe
           end
         end
 
-        class FxQuote < Stripe::StripeObject
-          class Rates < Stripe::StripeObject
+        class FxQuote < ::Stripe::StripeObject
+          class Rates < ::Stripe::StripeObject
             # The exchange rate going from_currency -> to_currency.
             attr_reader :exchange_rate
 
@@ -87,7 +87,7 @@ module Stripe
           end
         end
 
-        class To < Stripe::StripeObject
+        class To < ::Stripe::StripeObject
           # The monetary amount being credited to the destination.
           attr_reader :credited
           # The payout method which the OutboundPayment uses to send payout.

@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class Intent < APIResource
-        class AmountDetails < Stripe::StripeObject
+        class AmountDetails < ::Stripe::StripeObject
           # Three-letter ISO currency code, in lowercase. Must be a supported currency.
           sig { returns(String) }
           def currency; end
@@ -32,7 +32,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # Time at which the Billing Intent was canceled.
           sig { returns(T.nilable(String)) }
           def canceled_at; end

@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       module RateCards
-        class RateDeleteParams < Stripe::RequestParams; end
+        class RateDeleteParams < ::Stripe::RequestParams; end
       end
     end
   end

@@ -12,7 +12,7 @@ module Stripe
         "issuing.dispute_settlement_detail"
       end
 
-      class NetworkData < Stripe::StripeObject
+      class NetworkData < ::Stripe::StripeObject
         # The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
         attr_reader :processing_date
 

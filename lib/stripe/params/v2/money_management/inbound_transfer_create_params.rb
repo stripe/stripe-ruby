@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      class InboundTransferCreateParams < Stripe::RequestParams
-        class From < Stripe::RequestParams
+      class InboundTransferCreateParams < ::Stripe::RequestParams
+        class From < ::Stripe::RequestParams
           # An optional currency field used to specify which currency is debited from the Payment Method.
           # Since many Payment Methods support only one currency, this field is optional.
           attr_accessor :currency
@@ -18,7 +18,7 @@ module Stripe
           end
         end
 
-        class To < Stripe::RequestParams
+        class To < ::Stripe::RequestParams
           # The currency in which funds will land in.
           attr_accessor :currency
           # The FinancialAccount that funds will land in.

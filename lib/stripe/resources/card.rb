@@ -17,9 +17,24 @@ module Stripe
       "card"
     end
 
-    class Networks < Stripe::StripeObject
+    class Networks < ::Stripe::StripeObject
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       attr_reader :preferred
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Benefits < ::Stripe::StripeObject
+      # Issuer of this benefit card
+      attr_reader :issuer
+      # Available benefit programs for this card
+      attr_reader :programs
 
       def self.inner_class_types
         @inner_class_types = {}
@@ -101,6 +116,8 @@ module Stripe
     attr_reader :status
     # If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
     attr_reader :tokenization_method
+    # Attribute for field benefits
+    attr_reader :benefits
     # Always true for a deleted object
     attr_reader :deleted
 
@@ -154,7 +171,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { networks: Networks }
+      @inner_class_types = { networks: Networks, benefits: Benefits }
     end
 
     def self.field_remappings

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class IntentCommitParams < Stripe::RequestParams
+      class IntentCommitParams < ::Stripe::RequestParams
         # ID of the PaymentIntent associated with this commit.
         attr_accessor :payment_intent
 

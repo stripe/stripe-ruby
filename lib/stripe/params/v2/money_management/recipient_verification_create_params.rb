@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class RecipientVerificationCreateParams < Stripe::RequestParams
+      class RecipientVerificationCreateParams < ::Stripe::RequestParams
         # ID of the payout method.
         attr_accessor :payout_method
         # ID of the recipient account. Required if the recipient distinct from the sender. Leave empty if the recipient and sender are the same entity (i.e. for me-to-me payouts).

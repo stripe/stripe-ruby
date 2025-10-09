@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAddressRetrieveParams < Stripe::RequestParams
+      class FinancialAddressRetrieveParams < ::Stripe::RequestParams
         # Open Enum. A list of fields to reveal in the FinancialAddresses returned.
         sig { returns(T.nilable(T::Array[String])) }
         def include; end

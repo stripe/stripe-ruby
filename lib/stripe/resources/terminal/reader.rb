@@ -17,10 +17,10 @@ module Stripe
         "terminal.reader"
       end
 
-      class Action < Stripe::StripeObject
-        class CollectInputs < Stripe::StripeObject
-          class Input < Stripe::StripeObject
-            class CustomText < Stripe::StripeObject
+      class Action < ::Stripe::StripeObject
+        class CollectInputs < ::Stripe::StripeObject
+          class Input < ::Stripe::StripeObject
+            class CustomText < ::Stripe::StripeObject
               # Customize the default description for this input
               attr_reader :description
               # Customize the default label for this input's skip button
@@ -39,7 +39,7 @@ module Stripe
               end
             end
 
-            class Email < Stripe::StripeObject
+            class Email < ::Stripe::StripeObject
               # The collected email address
               attr_reader :value
 
@@ -52,7 +52,7 @@ module Stripe
               end
             end
 
-            class Numeric < Stripe::StripeObject
+            class Numeric < ::Stripe::StripeObject
               # The collected number
               attr_reader :value
 
@@ -65,7 +65,7 @@ module Stripe
               end
             end
 
-            class Phone < Stripe::StripeObject
+            class Phone < ::Stripe::StripeObject
               # The collected phone number
               attr_reader :value
 
@@ -78,8 +78,8 @@ module Stripe
               end
             end
 
-            class Selection < Stripe::StripeObject
-              class Choice < Stripe::StripeObject
+            class Selection < ::Stripe::StripeObject
+              class Choice < ::Stripe::StripeObject
                 # The id to be selected
                 attr_reader :id
                 # The button style for the choice
@@ -111,7 +111,7 @@ module Stripe
               end
             end
 
-            class Signature < Stripe::StripeObject
+            class Signature < ::Stripe::StripeObject
               # The File ID of a collected signature image
               attr_reader :value
 
@@ -124,7 +124,7 @@ module Stripe
               end
             end
 
-            class Text < Stripe::StripeObject
+            class Text < ::Stripe::StripeObject
               # The collected text value
               attr_reader :value
 
@@ -137,7 +137,7 @@ module Stripe
               end
             end
 
-            class Toggle < Stripe::StripeObject
+            class Toggle < ::Stripe::StripeObject
               # The toggle's default value
               attr_reader :default_value
               # The toggle's description text
@@ -209,9 +209,9 @@ module Stripe
           end
         end
 
-        class CollectPaymentMethod < Stripe::StripeObject
-          class CollectConfig < Stripe::StripeObject
-            class Tipping < Stripe::StripeObject
+        class CollectPaymentMethod < ::Stripe::StripeObject
+          class CollectConfig < ::Stripe::StripeObject
+            class Tipping < ::Stripe::StripeObject
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
 
@@ -260,8 +260,8 @@ module Stripe
           end
         end
 
-        class ConfirmPaymentIntent < Stripe::StripeObject
-          class ConfirmConfig < Stripe::StripeObject
+        class ConfirmPaymentIntent < ::Stripe::StripeObject
+          class ConfirmConfig < ::Stripe::StripeObject
             # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
             attr_reader :return_url
 
@@ -289,9 +289,9 @@ module Stripe
           end
         end
 
-        class ProcessPaymentIntent < Stripe::StripeObject
-          class ProcessConfig < Stripe::StripeObject
-            class Tipping < Stripe::StripeObject
+        class ProcessPaymentIntent < ::Stripe::StripeObject
+          class ProcessConfig < ::Stripe::StripeObject
+            class Tipping < ::Stripe::StripeObject
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
 
@@ -336,8 +336,8 @@ module Stripe
           end
         end
 
-        class ProcessSetupIntent < Stripe::StripeObject
-          class ProcessConfig < Stripe::StripeObject
+        class ProcessSetupIntent < ::Stripe::StripeObject
+          class ProcessConfig < ::Stripe::StripeObject
             # Enable customer-initiated cancellation when processing this SetupIntent.
             attr_reader :enable_customer_cancellation
 
@@ -365,8 +365,8 @@ module Stripe
           end
         end
 
-        class RefundPayment < Stripe::StripeObject
-          class RefundPaymentConfig < Stripe::StripeObject
+        class RefundPayment < ::Stripe::StripeObject
+          class RefundPaymentConfig < ::Stripe::StripeObject
             # Enable customer-initiated cancellation when refunding this payment.
             attr_reader :enable_customer_cancellation
 
@@ -408,9 +408,9 @@ module Stripe
           end
         end
 
-        class SetReaderDisplay < Stripe::StripeObject
-          class Cart < Stripe::StripeObject
-            class LineItem < Stripe::StripeObject
+        class SetReaderDisplay < ::Stripe::StripeObject
+          class Cart < ::Stripe::StripeObject
+            class LineItem < ::Stripe::StripeObject
               # The amount of the line item. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
               attr_reader :amount
               # Description of the line item.

@@ -3,8 +3,8 @@
 
 module Stripe
   module Billing
-    class MeterEventAdjustmentCreateParams < Stripe::RequestParams
-      class Cancel < Stripe::RequestParams
+    class MeterEventAdjustmentCreateParams < ::Stripe::RequestParams
+      class Cancel < ::Stripe::RequestParams
         # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
         attr_accessor :identifier
 

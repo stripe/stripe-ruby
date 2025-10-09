@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class RecipientVerificationCreateParams < Stripe::RequestParams
+      class RecipientVerificationCreateParams < ::Stripe::RequestParams
         # ID of the payout method.
         sig { returns(String) }
         def payout_method; end

@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       module Intents
-        class ActionListParams < Stripe::RequestParams
+        class ActionListParams < ::Stripe::RequestParams
           # Optionally set the maximum number of results per page. Defaults to 10.
           sig { returns(T.nilable(Integer)) }
           def limit; end

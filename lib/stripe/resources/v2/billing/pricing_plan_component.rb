@@ -10,7 +10,7 @@ module Stripe
           "v2.billing.pricing_plan_component"
         end
 
-        class LicenseFee < Stripe::StripeObject
+        class LicenseFee < ::Stripe::StripeObject
           # The ID of the License Fee.
           attr_reader :id
           # The version of the LicenseFee. Defaults to 'latest', if not specified.
@@ -25,7 +25,7 @@ module Stripe
           end
         end
 
-        class RateCard < Stripe::StripeObject
+        class RateCard < ::Stripe::StripeObject
           # The ID of the Rate Card.
           attr_reader :id
           # The version of the RateCard. Defaults to 'latest', if not specified.
@@ -40,7 +40,7 @@ module Stripe
           end
         end
 
-        class ServiceAction < Stripe::StripeObject
+        class ServiceAction < ::Stripe::StripeObject
           # The ID of the service action.
           attr_reader :id
 

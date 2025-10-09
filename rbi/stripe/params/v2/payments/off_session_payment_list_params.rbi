@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Payments
-      class OffSessionPaymentListParams < Stripe::RequestParams
+      class OffSessionPaymentListParams < ::Stripe::RequestParams
         # The page size limit. If not provided, the default is 20.
         sig { returns(T.nilable(Integer)) }
         def limit; end

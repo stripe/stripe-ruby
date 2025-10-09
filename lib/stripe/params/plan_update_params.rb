@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PlanUpdateParams < Stripe::RequestParams
+  class PlanUpdateParams < ::Stripe::RequestParams
     # Whether the plan is currently available for new subscriptions.
     attr_accessor :active
     # Specifies which fields in the response should be expanded.

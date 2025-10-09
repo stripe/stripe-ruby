@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Issuing
-    class CreditUnderwritingRecordReportDecisionParams < Stripe::RequestParams
-      class Decision < Stripe::RequestParams
-        class ApplicationRejected < Stripe::RequestParams
+    class CreditUnderwritingRecordReportDecisionParams < ::Stripe::RequestParams
+      class Decision < ::Stripe::RequestParams
+        class ApplicationRejected < ::Stripe::RequestParams
           # Details about the `reasons.other` when present.
           sig { returns(T.nilable(String)) }
           def reason_other_explanation; end
@@ -22,7 +22,7 @@ module Stripe
            }
           def initialize(reason_other_explanation: nil, reasons: nil); end
         end
-        class CreditLimitApproved < Stripe::RequestParams
+        class CreditLimitApproved < ::Stripe::RequestParams
           # The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
@@ -64,7 +64,7 @@ module Stripe
          }
         def initialize(application_rejected: nil, credit_limit_approved: nil, type: nil); end
       end
-      class UnderwritingException < Stripe::RequestParams
+      class UnderwritingException < ::Stripe::RequestParams
         # Written explanation for the exception.
         sig { returns(String) }
         def explanation; end

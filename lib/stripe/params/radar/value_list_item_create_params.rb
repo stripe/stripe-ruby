@@ -3,7 +3,7 @@
 
 module Stripe
   module Radar
-    class ValueListItemCreateParams < Stripe::RequestParams
+    class ValueListItemCreateParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The value of the item (whose type must match the type of the parent value list).

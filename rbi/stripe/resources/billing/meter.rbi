@@ -8,7 +8,7 @@ module Stripe
     #
     # Related guide: [Usage based billing](https://docs.stripe.com/billing/subscriptions/usage-based)
     class Meter < APIResource
-      class CustomerMapping < Stripe::StripeObject
+      class CustomerMapping < ::Stripe::StripeObject
         # The key in the meter event payload to use for mapping the event to a customer.
         sig { returns(String) }
         def event_payload_key; end
@@ -22,7 +22,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class DefaultAggregation < Stripe::StripeObject
+      class DefaultAggregation < ::Stripe::StripeObject
         # Specifies how events are aggregated.
         sig { returns(String) }
         def formula; end
@@ -33,7 +33,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # The time the meter was deactivated, if any. Measured in seconds since Unix epoch.
         sig { returns(T.nilable(Integer)) }
         def deactivated_at; end
@@ -44,7 +44,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ValueSettings < Stripe::StripeObject
+      class ValueSettings < ::Stripe::StripeObject
         # The key in the meter event payload to use as the value for this meter.
         sig { returns(String) }
         def event_payload_key; end
@@ -96,43 +96,43 @@ module Stripe
       def value_settings; end
       # Creates a billing meter.
       sig {
-        params(params: T.any(::Stripe::Billing::MeterCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Meter)
+        params(params: T.any(::Stripe::Billing::MeterCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Meter)
        }
       def self.create(params = {}, opts = {}); end
 
       # When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
       sig {
-        params(params: T.any(::Stripe::Billing::MeterDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Meter)
+        params(params: T.any(::Stripe::Billing::MeterDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Meter)
        }
       def deactivate(params = {}, opts = {}); end
 
       # When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
       sig {
-        params(id: String, params: T.any(::Stripe::Billing::MeterDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Meter)
+        params(id: String, params: T.any(::Stripe::Billing::MeterDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Meter)
        }
       def self.deactivate(id, params = {}, opts = {}); end
 
       # Retrieve a list of billing meters.
       sig {
-        params(params: T.any(::Stripe::Billing::MeterListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Billing::MeterListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
       sig {
-        params(params: T.any(::Stripe::Billing::MeterReactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Meter)
+        params(params: T.any(::Stripe::Billing::MeterReactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Meter)
        }
       def reactivate(params = {}, opts = {}); end
 
       # When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
       sig {
-        params(id: String, params: T.any(::Stripe::Billing::MeterReactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Meter)
+        params(id: String, params: T.any(::Stripe::Billing::MeterReactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Meter)
        }
       def self.reactivate(id, params = {}, opts = {}); end
 
       # Updates a billing meter.
       sig {
-        params(id: String, params: T.any(::Stripe::Billing::MeterUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Meter)
+        params(id: String, params: T.any(::Stripe::Billing::MeterUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Meter)
        }
       def self.update(id, params = {}, opts = {}); end
     end

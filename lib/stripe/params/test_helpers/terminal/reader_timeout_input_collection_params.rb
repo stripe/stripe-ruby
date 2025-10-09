@@ -4,7 +4,7 @@
 module Stripe
   module TestHelpers
     module Terminal
-      class ReaderTimeoutInputCollectionParams < Stripe::RequestParams
+      class ReaderTimeoutInputCollectionParams < ::Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
 

@@ -12,8 +12,8 @@ module Stripe
         "capital.financing_transaction"
       end
 
-      class Details < Stripe::StripeObject
-        class Transaction < Stripe::StripeObject
+      class Details < ::Stripe::StripeObject
+        class Transaction < ::Stripe::StripeObject
           # The linked payment ID.
           attr_reader :charge
           # The linked Treasury Financing Transaction ID.

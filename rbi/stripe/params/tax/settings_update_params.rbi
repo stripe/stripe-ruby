@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Tax
-    class SettingsUpdateParams < Stripe::RequestParams
-      class Defaults < Stripe::RequestParams
+    class SettingsUpdateParams < ::Stripe::RequestParams
+      class Defaults < ::Stripe::RequestParams
         # Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
         sig { returns(T.nilable(String)) }
         def tax_behavior; end
@@ -19,8 +19,8 @@ module Stripe
         sig { params(tax_behavior: T.nilable(String), tax_code: T.nilable(String)).void }
         def initialize(tax_behavior: nil, tax_code: nil); end
       end
-      class HeadOffice < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class HeadOffice < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end

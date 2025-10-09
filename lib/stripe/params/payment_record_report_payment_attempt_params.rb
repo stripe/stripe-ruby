@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentRecordReportPaymentAttemptParams < Stripe::RequestParams
-    class Failed < Stripe::RequestParams
+  class PaymentRecordReportPaymentAttemptParams < ::Stripe::RequestParams
+    class Failed < ::Stripe::RequestParams
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       attr_accessor :failed_at
 
@@ -12,7 +12,7 @@ module Stripe
       end
     end
 
-    class Guaranteed < Stripe::RequestParams
+    class Guaranteed < ::Stripe::RequestParams
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       attr_accessor :guaranteed_at
 
@@ -21,9 +21,9 @@ module Stripe
       end
     end
 
-    class PaymentMethodDetails < Stripe::RequestParams
-      class BillingDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+    class PaymentMethodDetails < ::Stripe::RequestParams
+      class BillingDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -70,7 +70,7 @@ module Stripe
         end
       end
 
-      class Custom < Stripe::RequestParams
+      class Custom < ::Stripe::RequestParams
         # Display name for the custom (user-defined) payment method type used to make this payment.
         attr_accessor :display_name
         # The custom payment method type associated with this payment.
@@ -98,8 +98,8 @@ module Stripe
       end
     end
 
-    class ShippingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class ShippingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

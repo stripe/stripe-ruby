@@ -9,8 +9,8 @@ module Stripe
         "v2.core.health.webhook_latency.resolved"
       end
 
-      class V2CoreHealthWebhookLatencyResolvedEventData < Stripe::StripeObject
-        class Impact < Stripe::StripeObject
+      class V2CoreHealthWebhookLatencyResolvedEventData < ::Stripe::StripeObject
+        class Impact < ::Stripe::StripeObject
           # The number of impacted requests.
           attr_reader :impacted_requests
 

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class IntentReserveParams < Stripe::RequestParams; end
+      class IntentReserveParams < ::Stripe::RequestParams; end
     end
   end
 end

@@ -3,9 +3,9 @@
 
 module Stripe
   module Issuing
-    class CreditUnderwritingRecordReportDecisionParams < Stripe::RequestParams
-      class Decision < Stripe::RequestParams
-        class ApplicationRejected < Stripe::RequestParams
+    class CreditUnderwritingRecordReportDecisionParams < ::Stripe::RequestParams
+      class Decision < ::Stripe::RequestParams
+        class ApplicationRejected < ::Stripe::RequestParams
           # Details about the `reasons.other` when present.
           attr_accessor :reason_other_explanation
           # List of reasons why the application was rejected, up to 4 reasons, in order of importance.
@@ -17,7 +17,7 @@ module Stripe
           end
         end
 
-        class CreditLimitApproved < Stripe::RequestParams
+        class CreditLimitApproved < ::Stripe::RequestParams
           # The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_accessor :amount
           # The currency of the credit approved, will default to the Account's Issuing currency.
@@ -42,7 +42,7 @@ module Stripe
         end
       end
 
-      class UnderwritingException < Stripe::RequestParams
+      class UnderwritingException < ::Stripe::RequestParams
         # Written explanation for the exception.
         attr_accessor :explanation
         # The decision before the exception was applied.

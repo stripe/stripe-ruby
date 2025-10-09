@@ -15,9 +15,9 @@ module Stripe
       "confirmation_token"
     end
 
-    class MandateData < Stripe::StripeObject
-      class CustomerAcceptance < Stripe::StripeObject
-        class Online < Stripe::StripeObject
+    class MandateData < ::Stripe::StripeObject
+      class CustomerAcceptance < ::Stripe::StripeObject
+        class Online < ::Stripe::StripeObject
           # The IP address from which the Mandate was accepted by the customer.
           attr_reader :ip_address
           # The user agent of the browser from which the Mandate was accepted by the customer.
@@ -56,10 +56,10 @@ module Stripe
       end
     end
 
-    class PaymentMethodOptions < Stripe::StripeObject
-      class Card < Stripe::StripeObject
-        class Installments < Stripe::StripeObject
-          class Plan < Stripe::StripeObject
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class Installments < ::Stripe::StripeObject
+          class Plan < ::Stripe::StripeObject
             # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
             attr_reader :count
             # For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
@@ -112,8 +112,8 @@ module Stripe
       end
     end
 
-    class PaymentMethodPreview < Stripe::StripeObject
-      class AcssDebit < Stripe::StripeObject
+    class PaymentMethodPreview < ::Stripe::StripeObject
+      class AcssDebit < ::Stripe::StripeObject
         # Account number of the bank account.
         attr_reader :account_number
         # Name of the bank associated with the bank account.
@@ -136,7 +136,7 @@ module Stripe
         end
       end
 
-      class Affirm < Stripe::StripeObject
+      class Affirm < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -146,7 +146,7 @@ module Stripe
         end
       end
 
-      class AfterpayClearpay < Stripe::StripeObject
+      class AfterpayClearpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -156,7 +156,7 @@ module Stripe
         end
       end
 
-      class Alipay < Stripe::StripeObject
+      class Alipay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -166,7 +166,7 @@ module Stripe
         end
       end
 
-      class Alma < Stripe::StripeObject
+      class Alma < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -176,7 +176,7 @@ module Stripe
         end
       end
 
-      class AmazonPay < Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -186,7 +186,7 @@ module Stripe
         end
       end
 
-      class AuBecsDebit < Stripe::StripeObject
+      class AuBecsDebit < ::Stripe::StripeObject
         # Six-digit number identifying bank and branch associated with this bank account.
         attr_reader :bsb_number
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -203,7 +203,7 @@ module Stripe
         end
       end
 
-      class BacsDebit < Stripe::StripeObject
+      class BacsDebit < ::Stripe::StripeObject
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
         attr_reader :fingerprint
         # Last four digits of the bank account number.
@@ -220,7 +220,7 @@ module Stripe
         end
       end
 
-      class Bancontact < Stripe::StripeObject
+      class Bancontact < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -230,7 +230,7 @@ module Stripe
         end
       end
 
-      class Billie < Stripe::StripeObject
+      class Billie < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -240,8 +240,8 @@ module Stripe
         end
       end
 
-      class BillingDetails < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class BillingDetails < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -283,7 +283,7 @@ module Stripe
         end
       end
 
-      class Blik < Stripe::StripeObject
+      class Blik < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -293,7 +293,7 @@ module Stripe
         end
       end
 
-      class Boleto < Stripe::StripeObject
+      class Boleto < ::Stripe::StripeObject
         # Uniquely identifies the customer tax id (CNPJ or CPF)
         attr_reader :tax_id
 
@@ -306,8 +306,23 @@ module Stripe
         end
       end
 
-      class Card < Stripe::StripeObject
-        class Checks < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class Benefits < ::Stripe::StripeObject
+          # Issuer of this benefit card
+          attr_reader :issuer
+          # Available benefit programs for this card
+          attr_reader :programs
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Checks < ::Stripe::StripeObject
           # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_line1_check
           # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -324,10 +339,10 @@ module Stripe
           end
         end
 
-        class GeneratedFrom < Stripe::StripeObject
-          class PaymentMethodDetails < Stripe::StripeObject
-            class CardPresent < Stripe::StripeObject
-              class Offline < Stripe::StripeObject
+        class GeneratedFrom < ::Stripe::StripeObject
+          class PaymentMethodDetails < ::Stripe::StripeObject
+            class CardPresent < ::Stripe::StripeObject
+              class Offline < ::Stripe::StripeObject
                 # Time at which the payment was collected while offline
                 attr_reader :stored_at
                 # The method used to process this payment method offline. Only deferred is allowed.
@@ -342,7 +357,7 @@ module Stripe
                 end
               end
 
-              class Receipt < Stripe::StripeObject
+              class Receipt < ::Stripe::StripeObject
                 # The type of account being debited or credited
                 attr_reader :account_type
                 # The Application Cryptogram, a unique value generated by the card to authenticate the transaction with issuers.
@@ -371,7 +386,7 @@ module Stripe
                 end
               end
 
-              class Wallet < Stripe::StripeObject
+              class Wallet < ::Stripe::StripeObject
                 # The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
                 attr_reader :type
 
@@ -473,7 +488,7 @@ module Stripe
           end
         end
 
-        class Networks < Stripe::StripeObject
+        class Networks < ::Stripe::StripeObject
           # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
           attr_reader :available
           # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
@@ -488,7 +503,7 @@ module Stripe
           end
         end
 
-        class ThreeDSecureUsage < Stripe::StripeObject
+        class ThreeDSecureUsage < ::Stripe::StripeObject
           # Whether 3D Secure is supported on this card.
           attr_reader :supported
 
@@ -501,8 +516,8 @@ module Stripe
           end
         end
 
-        class Wallet < Stripe::StripeObject
-          class AmexExpressCheckout < Stripe::StripeObject
+        class Wallet < ::Stripe::StripeObject
+          class AmexExpressCheckout < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -512,7 +527,7 @@ module Stripe
             end
           end
 
-          class ApplePay < Stripe::StripeObject
+          class ApplePay < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -522,7 +537,7 @@ module Stripe
             end
           end
 
-          class GooglePay < Stripe::StripeObject
+          class GooglePay < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -532,7 +547,7 @@ module Stripe
             end
           end
 
-          class Link < Stripe::StripeObject
+          class Link < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -542,8 +557,8 @@ module Stripe
             end
           end
 
-          class Masterpass < Stripe::StripeObject
-            class BillingAddress < Stripe::StripeObject
+          class Masterpass < ::Stripe::StripeObject
+            class BillingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -566,7 +581,7 @@ module Stripe
               end
             end
 
-            class ShippingAddress < Stripe::StripeObject
+            class ShippingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -609,7 +624,7 @@ module Stripe
             end
           end
 
-          class SamsungPay < Stripe::StripeObject
+          class SamsungPay < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -619,8 +634,8 @@ module Stripe
             end
           end
 
-          class VisaCheckout < Stripe::StripeObject
-            class BillingAddress < Stripe::StripeObject
+          class VisaCheckout < ::Stripe::StripeObject
+            class BillingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -643,7 +658,7 @@ module Stripe
               end
             end
 
-            class ShippingAddress < Stripe::StripeObject
+            class ShippingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -756,6 +771,8 @@ module Stripe
         attr_reader :three_d_secure_usage
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         attr_reader :wallet
+        # Attribute for field benefits
+        attr_reader :benefits
 
         def self.inner_class_types
           @inner_class_types = {
@@ -764,6 +781,7 @@ module Stripe
             networks: Networks,
             three_d_secure_usage: ThreeDSecureUsage,
             wallet: Wallet,
+            benefits: Benefits,
           }
         end
 
@@ -772,8 +790,8 @@ module Stripe
         end
       end
 
-      class CardPresent < Stripe::StripeObject
-        class Networks < Stripe::StripeObject
+      class CardPresent < ::Stripe::StripeObject
+        class Networks < ::Stripe::StripeObject
           # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
           attr_reader :available
           # The preferred network for the card.
@@ -788,7 +806,7 @@ module Stripe
           end
         end
 
-        class Offline < Stripe::StripeObject
+        class Offline < ::Stripe::StripeObject
           # Time at which the payment was collected while offline
           attr_reader :stored_at
           # The method used to process this payment method offline. Only deferred is allowed.
@@ -803,7 +821,7 @@ module Stripe
           end
         end
 
-        class Wallet < Stripe::StripeObject
+        class Wallet < ::Stripe::StripeObject
           # The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
           attr_reader :type
 
@@ -861,7 +879,7 @@ module Stripe
         end
       end
 
-      class Cashapp < Stripe::StripeObject
+      class Cashapp < ::Stripe::StripeObject
         # A unique and immutable identifier assigned by Cash App to every buyer.
         attr_reader :buyer_id
         # A public identifier for buyers using Cash App.
@@ -876,7 +894,7 @@ module Stripe
         end
       end
 
-      class Crypto < Stripe::StripeObject
+      class Crypto < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -886,7 +904,7 @@ module Stripe
         end
       end
 
-      class CustomerBalance < Stripe::StripeObject
+      class CustomerBalance < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -896,7 +914,7 @@ module Stripe
         end
       end
 
-      class Eps < Stripe::StripeObject
+      class Eps < ::Stripe::StripeObject
         # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
         attr_reader :bank
 
@@ -909,7 +927,7 @@ module Stripe
         end
       end
 
-      class Fpx < Stripe::StripeObject
+      class Fpx < ::Stripe::StripeObject
         # Account holder type, if provided. Can be one of `individual` or `company`.
         attr_reader :account_holder_type
         # The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
@@ -924,7 +942,7 @@ module Stripe
         end
       end
 
-      class Giropay < Stripe::StripeObject
+      class Giropay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -934,7 +952,7 @@ module Stripe
         end
       end
 
-      class Gopay < Stripe::StripeObject
+      class Gopay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -944,7 +962,7 @@ module Stripe
         end
       end
 
-      class Grabpay < Stripe::StripeObject
+      class Grabpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -954,7 +972,7 @@ module Stripe
         end
       end
 
-      class IdBankTransfer < Stripe::StripeObject
+      class IdBankTransfer < ::Stripe::StripeObject
         # Attribute for field bank
         attr_reader :bank
         # Attribute for field bank_code
@@ -973,7 +991,7 @@ module Stripe
         end
       end
 
-      class Ideal < Stripe::StripeObject
+      class Ideal < ::Stripe::StripeObject
         # The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         attr_reader :bank
         # The Bank Identifier Code of the customer's bank, if the bank was provided.
@@ -988,8 +1006,8 @@ module Stripe
         end
       end
 
-      class InteracPresent < Stripe::StripeObject
-        class Networks < Stripe::StripeObject
+      class InteracPresent < ::Stripe::StripeObject
+        class Networks < ::Stripe::StripeObject
           # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
           attr_reader :available
           # The preferred network for the card.
@@ -1043,7 +1061,7 @@ module Stripe
         end
       end
 
-      class KakaoPay < Stripe::StripeObject
+      class KakaoPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1053,8 +1071,8 @@ module Stripe
         end
       end
 
-      class Klarna < Stripe::StripeObject
-        class Dob < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # The day of birth, between 1 and 31.
           attr_reader :day
           # The month of birth, between 1 and 12.
@@ -1082,7 +1100,7 @@ module Stripe
         end
       end
 
-      class Konbini < Stripe::StripeObject
+      class Konbini < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1092,7 +1110,7 @@ module Stripe
         end
       end
 
-      class KrCard < Stripe::StripeObject
+      class KrCard < ::Stripe::StripeObject
         # The local credit or debit card brand.
         attr_reader :brand
         # The last four digits of the card. This may not be present for American Express cards.
@@ -1107,7 +1125,7 @@ module Stripe
         end
       end
 
-      class Link < Stripe::StripeObject
+      class Link < ::Stripe::StripeObject
         # Account owner's email address.
         attr_reader :email
         # [Deprecated] This is a legacy parameter that no longer has any function.
@@ -1122,7 +1140,7 @@ module Stripe
         end
       end
 
-      class MbWay < Stripe::StripeObject
+      class MbWay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1132,7 +1150,7 @@ module Stripe
         end
       end
 
-      class Mobilepay < Stripe::StripeObject
+      class Mobilepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1142,7 +1160,7 @@ module Stripe
         end
       end
 
-      class Multibanco < Stripe::StripeObject
+      class Multibanco < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1152,7 +1170,7 @@ module Stripe
         end
       end
 
-      class NaverPay < Stripe::StripeObject
+      class NaverPay < ::Stripe::StripeObject
         # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
         attr_reader :buyer_id
         # Whether to fund this transaction with Naver Pay points or a card.
@@ -1167,7 +1185,7 @@ module Stripe
         end
       end
 
-      class NzBankAccount < Stripe::StripeObject
+      class NzBankAccount < ::Stripe::StripeObject
         # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
         attr_reader :account_holder_name
         # The numeric code for the bank account's bank.
@@ -1190,7 +1208,7 @@ module Stripe
         end
       end
 
-      class Oxxo < Stripe::StripeObject
+      class Oxxo < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1200,7 +1218,7 @@ module Stripe
         end
       end
 
-      class P24 < Stripe::StripeObject
+      class P24 < ::Stripe::StripeObject
         # The customer's bank, if provided.
         attr_reader :bank
 
@@ -1213,7 +1231,7 @@ module Stripe
         end
       end
 
-      class PayByBank < Stripe::StripeObject
+      class PayByBank < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1223,7 +1241,7 @@ module Stripe
         end
       end
 
-      class Payco < Stripe::StripeObject
+      class Payco < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1233,7 +1251,7 @@ module Stripe
         end
       end
 
-      class Paynow < Stripe::StripeObject
+      class Paynow < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1243,7 +1261,7 @@ module Stripe
         end
       end
 
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :country
         # Uniquely identifies this particular PayPal account. You can use this attribute to check whether two PayPal accounts are the same.
@@ -1266,7 +1284,7 @@ module Stripe
         end
       end
 
-      class Paypay < Stripe::StripeObject
+      class Paypay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1276,7 +1294,7 @@ module Stripe
         end
       end
 
-      class Payto < Stripe::StripeObject
+      class Payto < ::Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         attr_reader :bsb_number
         # Last four digits of the bank account number.
@@ -1293,7 +1311,7 @@ module Stripe
         end
       end
 
-      class Pix < Stripe::StripeObject
+      class Pix < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1303,7 +1321,7 @@ module Stripe
         end
       end
 
-      class Promptpay < Stripe::StripeObject
+      class Promptpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1313,7 +1331,7 @@ module Stripe
         end
       end
 
-      class Qris < Stripe::StripeObject
+      class Qris < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1323,8 +1341,8 @@ module Stripe
         end
       end
 
-      class Rechnung < Stripe::StripeObject
-        class Dob < Stripe::StripeObject
+      class Rechnung < ::Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # The day of birth, between 1 and 31.
           attr_reader :day
           # The month of birth, between 1 and 12.
@@ -1352,7 +1370,7 @@ module Stripe
         end
       end
 
-      class RevolutPay < Stripe::StripeObject
+      class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1362,7 +1380,7 @@ module Stripe
         end
       end
 
-      class SamsungPay < Stripe::StripeObject
+      class SamsungPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1372,7 +1390,7 @@ module Stripe
         end
       end
 
-      class Satispay < Stripe::StripeObject
+      class Satispay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1382,8 +1400,8 @@ module Stripe
         end
       end
 
-      class SepaDebit < Stripe::StripeObject
-        class GeneratedFrom < Stripe::StripeObject
+      class SepaDebit < ::Stripe::StripeObject
+        class GeneratedFrom < ::Stripe::StripeObject
           # The ID of the Charge that generated this PaymentMethod, if any.
           attr_reader :charge
           # The ID of the SetupAttempt that generated this PaymentMethod, if any.
@@ -1419,7 +1437,7 @@ module Stripe
         end
       end
 
-      class Shopeepay < Stripe::StripeObject
+      class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1429,7 +1447,7 @@ module Stripe
         end
       end
 
-      class Sofort < Stripe::StripeObject
+      class Sofort < ::Stripe::StripeObject
         # Two-letter ISO code representing the country the bank account is located in.
         attr_reader :country
 
@@ -1442,7 +1460,7 @@ module Stripe
         end
       end
 
-      class StripeBalance < Stripe::StripeObject
+      class StripeBalance < ::Stripe::StripeObject
         # The connected account ID whose Stripe balance to use as the source of payment
         attr_reader :account
         # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
@@ -1457,7 +1475,7 @@ module Stripe
         end
       end
 
-      class Swish < Stripe::StripeObject
+      class Swish < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1467,7 +1485,7 @@ module Stripe
         end
       end
 
-      class Twint < Stripe::StripeObject
+      class Twint < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1477,8 +1495,8 @@ module Stripe
         end
       end
 
-      class UsBankAccount < Stripe::StripeObject
-        class Networks < Stripe::StripeObject
+      class UsBankAccount < ::Stripe::StripeObject
+        class Networks < ::Stripe::StripeObject
           # The preferred network.
           attr_reader :preferred
           # All supported networks.
@@ -1493,8 +1511,8 @@ module Stripe
           end
         end
 
-        class StatusDetails < Stripe::StripeObject
-          class Blocked < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Blocked < ::Stripe::StripeObject
             # The ACH network code that resulted in this block.
             attr_reader :network_code
             # The reason why this PaymentMethod's fingerprint has been blocked
@@ -1549,7 +1567,7 @@ module Stripe
         end
       end
 
-      class WechatPay < Stripe::StripeObject
+      class WechatPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1559,7 +1577,7 @@ module Stripe
         end
       end
 
-      class Zip < Stripe::StripeObject
+      class Zip < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1767,8 +1785,8 @@ module Stripe
       end
     end
 
-    class Shipping < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class Shipping < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

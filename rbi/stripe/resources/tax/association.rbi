@@ -6,8 +6,8 @@ module Stripe
   module Tax
     # A Tax Association exposes the Tax Transactions that Stripe attempted to create on your behalf based on the PaymentIntent input
     class Association < APIResource
-      class TaxTransactionAttempt < Stripe::StripeObject
-        class Committed < Stripe::StripeObject
+      class TaxTransactionAttempt < ::Stripe::StripeObject
+        class Committed < ::Stripe::StripeObject
           # The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
           sig { returns(String) }
           def transaction; end
@@ -18,7 +18,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Errored < Stripe::StripeObject
+        class Errored < ::Stripe::StripeObject
           # Details on why we couldn't commit the tax transaction.
           sig { returns(String) }
           def reason; end
@@ -65,7 +65,7 @@ module Stripe
       def tax_transaction_attempts; end
       # Finds a tax association object by PaymentIntent id.
       sig {
-        params(params: T.any(::Stripe::Tax::AssociationFindParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Tax::Association)
+        params(params: T.any(::Stripe::Tax::AssociationFindParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Association)
        }
       def self.find(params = {}, opts = {}); end
     end

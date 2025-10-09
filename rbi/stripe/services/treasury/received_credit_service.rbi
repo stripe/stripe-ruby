@@ -7,13 +7,13 @@ module Stripe
     class ReceivedCreditService < StripeService
       # Returns a list of ReceivedCredits.
       sig {
-        params(params: T.any(::Stripe::Treasury::ReceivedCreditListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Treasury::ReceivedCreditListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def list(params = {}, opts = {}); end
 
       # Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
       sig {
-        params(id: String, params: T.any(::Stripe::Treasury::ReceivedCreditRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::ReceivedCredit)
+        params(id: String, params: T.any(::Stripe::Treasury::ReceivedCreditRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::ReceivedCredit)
        }
       def retrieve(id, params = {}, opts = {}); end
     end

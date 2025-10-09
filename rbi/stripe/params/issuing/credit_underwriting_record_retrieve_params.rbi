@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Issuing
-    class CreditUnderwritingRecordRetrieveParams < Stripe::RequestParams
+    class CreditUnderwritingRecordRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end

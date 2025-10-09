@@ -3,7 +3,7 @@
 
 module Stripe
   module FinancialConnections
-    class InstitutionRetrieveParams < Stripe::RequestParams
+    class InstitutionRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

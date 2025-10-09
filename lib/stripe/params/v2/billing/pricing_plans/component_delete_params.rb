@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Billing
       module PricingPlans
-        class ComponentDeleteParams < Stripe::RequestParams; end
+        class ComponentDeleteParams < ::Stripe::RequestParams; end
       end
     end
   end

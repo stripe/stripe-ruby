@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module TestHelpers
-      class MoneyManagementRecipientVerificationsParams < Stripe::RequestParams
+      class MoneyManagementRecipientVerificationsParams < ::Stripe::RequestParams
         # Expected match level of the RecipientVerification to be created: `match`, `close_match`, `no_match`, `unavailable`.
         sig { returns(String) }
         def match_result; end

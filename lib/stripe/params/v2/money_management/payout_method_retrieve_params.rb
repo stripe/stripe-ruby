@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class PayoutMethodRetrieveParams < Stripe::RequestParams; end
+      class PayoutMethodRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

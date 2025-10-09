@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class CustomPricingUnitListParams < Stripe::RequestParams
+      class CustomPricingUnitListParams < ::Stripe::RequestParams
         # Filter for active/inactive custom pricing units. Mutually exclusive with `lookup_keys`.
         attr_accessor :active
         # Optionally set the maximum number of results per page. Defaults to 20.

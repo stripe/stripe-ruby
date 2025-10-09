@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Billing
-      class LicenseFeeCreateParams < Stripe::RequestParams
-        class Tier < Stripe::RequestParams
+      class LicenseFeeCreateParams < ::Stripe::RequestParams
+        class Tier < ::Stripe::RequestParams
           # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
           sig { returns(T.nilable(String)) }
           def flat_amount; end
@@ -39,7 +39,7 @@ module Stripe
             up_to_inf: nil
           ); end
         end
-        class TransformQuantity < Stripe::RequestParams
+        class TransformQuantity < ::Stripe::RequestParams
           # Divide usage by this number.
           sig { returns(Integer) }
           def divide_by; end

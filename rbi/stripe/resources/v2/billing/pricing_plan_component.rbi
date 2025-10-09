@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class PricingPlanComponent < APIResource
-        class LicenseFee < Stripe::StripeObject
+        class LicenseFee < ::Stripe::StripeObject
           # The ID of the License Fee.
           sig { returns(String) }
           def id; end
@@ -20,7 +20,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class RateCard < Stripe::StripeObject
+        class RateCard < ::Stripe::StripeObject
           # The ID of the Rate Card.
           sig { returns(String) }
           def id; end
@@ -34,7 +34,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class ServiceAction < Stripe::StripeObject
+        class ServiceAction < ::Stripe::StripeObject
           # The ID of the service action.
           sig { returns(String) }
           def id; end

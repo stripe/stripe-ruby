@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class IntentReleaseReservationParams < Stripe::RequestParams; end
+      class IntentReleaseReservationParams < ::Stripe::RequestParams; end
     end
   end
 end

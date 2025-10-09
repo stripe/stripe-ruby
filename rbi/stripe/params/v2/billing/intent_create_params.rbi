@@ -5,12 +5,12 @@
 module Stripe
   module V2
     module Billing
-      class IntentCreateParams < Stripe::RequestParams
-        class Action < Stripe::RequestParams
-          class Apply < Stripe::RequestParams
-            class InvoiceDiscountRule < Stripe::RequestParams
-              class PercentOff < Stripe::RequestParams
-                class MaximumApplications < Stripe::RequestParams
+      class IntentCreateParams < ::Stripe::RequestParams
+        class Action < ::Stripe::RequestParams
+          class Apply < ::Stripe::RequestParams
+            class InvoiceDiscountRule < ::Stripe::RequestParams
+              class PercentOff < ::Stripe::RequestParams
+                class MaximumApplications < ::Stripe::RequestParams
                   # The type of maximum applications configuration.
                   sig { returns(String) }
                   def type; end
@@ -81,8 +81,8 @@ module Stripe
              }
             def initialize(type: nil, invoice_discount_rule: nil); end
           end
-          class Deactivate < Stripe::RequestParams
-            class BillingDetails < Stripe::RequestParams
+          class Deactivate < ::Stripe::RequestParams
+            class BillingDetails < ::Stripe::RequestParams
               # This controls the proration adjustment for the partial servicing period.
               sig { returns(T.nilable(String)) }
               def proration_behavior; end
@@ -91,7 +91,7 @@ module Stripe
               sig { params(proration_behavior: T.nilable(String)).void }
               def initialize(proration_behavior: nil); end
             end
-            class EffectiveAt < Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
               sig { returns(T.nilable(String)) }
               def timestamp; end
@@ -105,7 +105,7 @@ module Stripe
               sig { params(timestamp: T.nilable(String), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
-            class PricingPlanSubscriptionDetails < Stripe::RequestParams
+            class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
               # ID of the pricing plan subscription to deactivate.
               sig { returns(String) }
               def pricing_plan_subscription; end
@@ -156,8 +156,8 @@ module Stripe
               type: nil
             ); end
           end
-          class Modify < Stripe::RequestParams
-            class BillingDetails < Stripe::RequestParams
+          class Modify < ::Stripe::RequestParams
+            class BillingDetails < ::Stripe::RequestParams
               # This controls the proration adjustment for the partial servicing period.
               sig { returns(T.nilable(String)) }
               def proration_behavior; end
@@ -166,7 +166,7 @@ module Stripe
               sig { params(proration_behavior: T.nilable(String)).void }
               def initialize(proration_behavior: nil); end
             end
-            class EffectiveAt < Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the modify action will take effect. Only present if type is timestamp.
               sig { returns(T.nilable(String)) }
               def timestamp; end
@@ -180,8 +180,8 @@ module Stripe
               sig { params(timestamp: T.nilable(String), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
-            class PricingPlanSubscriptionDetails < Stripe::RequestParams
-              class ComponentConfiguration < Stripe::RequestParams
+            class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
+              class ComponentConfiguration < ::Stripe::RequestParams
                 # Quantity of the component to be used.
                 sig { returns(T.nilable(Integer)) }
                 def quantity; end
@@ -280,7 +280,7 @@ module Stripe
               type: nil
             ); end
           end
-          class Remove < Stripe::RequestParams
+          class Remove < ::Stripe::RequestParams
             # Type of the remove action.
             sig { returns(String) }
             def type; end
@@ -294,8 +294,8 @@ module Stripe
             sig { params(type: String, invoice_discount_rule: T.nilable(String)).void }
             def initialize(type: nil, invoice_discount_rule: nil); end
           end
-          class Subscribe < Stripe::RequestParams
-            class BillingDetails < Stripe::RequestParams
+          class Subscribe < ::Stripe::RequestParams
+            class BillingDetails < ::Stripe::RequestParams
               # This controls the proration adjustment for the partial servicing period.
               sig { returns(T.nilable(String)) }
               def proration_behavior; end
@@ -304,7 +304,7 @@ module Stripe
               sig { params(proration_behavior: T.nilable(String)).void }
               def initialize(proration_behavior: nil); end
             end
-            class EffectiveAt < Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
               sig { returns(T.nilable(String)) }
               def timestamp; end
@@ -318,8 +318,8 @@ module Stripe
               sig { params(timestamp: T.nilable(String), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
-            class PricingPlanSubscriptionDetails < Stripe::RequestParams
-              class ComponentConfiguration < Stripe::RequestParams
+            class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
+              class ComponentConfiguration < ::Stripe::RequestParams
                 # Quantity of the component to be used.
                 sig { returns(T.nilable(Integer)) }
                 def quantity; end
@@ -378,8 +378,8 @@ module Stripe
                 pricing_plan_version: nil
               ); end
             end
-            class V1SubscriptionDetails < Stripe::RequestParams
-              class Item < Stripe::RequestParams
+            class V1SubscriptionDetails < ::Stripe::RequestParams
+              class Item < ::Stripe::RequestParams
                 # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
                 sig { returns(T.nilable(T::Hash[String, String])) }
                 def metadata; end

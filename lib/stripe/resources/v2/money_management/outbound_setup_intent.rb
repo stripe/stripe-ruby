@@ -11,8 +11,8 @@ module Stripe
           "v2.money_management.outbound_setup_intent"
         end
 
-        class NextAction < Stripe::StripeObject
-          class ConfirmationOfPayee < Stripe::StripeObject
+        class NextAction < ::Stripe::StripeObject
+          class ConfirmationOfPayee < ::Stripe::StripeObject
             # The type of the credential.
             attr_reader :object
             # The Confirmation of Payee status.

@@ -6,7 +6,7 @@ module Stripe
   module Climate
     # A supplier of carbon removal.
     class Supplier < APIResource
-      class Location < Stripe::StripeObject
+      class Location < ::Stripe::StripeObject
         # The city where the supplier is located.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -52,7 +52,7 @@ module Stripe
       def removal_pathway; end
       # Lists all available Climate supplier objects.
       sig {
-        params(params: T.any(::Stripe::Climate::SupplierListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Climate::SupplierListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionMigrateParams < Stripe::RequestParams
-    class BillingMode < Stripe::RequestParams
-      class Flexible < Stripe::RequestParams
+  class SubscriptionMigrateParams < ::Stripe::RequestParams
+    class BillingMode < ::Stripe::RequestParams
+      class Flexible < ::Stripe::RequestParams
         # Controls how invoices and invoice items display proration amounts and discount amounts.
         attr_accessor :proration_discounts
 

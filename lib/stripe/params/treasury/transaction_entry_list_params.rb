@@ -3,8 +3,8 @@
 
 module Stripe
   module Treasury
-    class TransactionEntryListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class TransactionEntryListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
         # Minimum value to filter by (inclusive)
@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      class EffectiveAt < Stripe::RequestParams
+      class EffectiveAt < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
         # Minimum value to filter by (inclusive)

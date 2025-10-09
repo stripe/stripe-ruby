@@ -9,8 +9,8 @@ module Stripe
         "v2.core.health.issuing_authorization_request_timeout.resolved"
       end
 
-      class V2CoreHealthIssuingAuthorizationRequestTimeoutResolvedEventData < Stripe::StripeObject
-        class Impact < Stripe::StripeObject
+      class V2CoreHealthIssuingAuthorizationRequestTimeoutResolvedEventData < ::Stripe::StripeObject
+        class Impact < ::Stripe::StripeObject
           # Estimated aggregated amount for the approved requests.
           attr_reader :approved_amount
           # The number of approved requests which are impacted.

@@ -5,9 +5,9 @@
 module Stripe
   module TestHelpers
     module Treasury
-      class OutboundPaymentUpdateParams < Stripe::RequestParams
-        class TrackingDetails < Stripe::RequestParams
-          class Ach < Stripe::RequestParams
+      class OutboundPaymentUpdateParams < ::Stripe::RequestParams
+        class TrackingDetails < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
             # ACH trace ID for funds sent over the `ach` network.
             sig { returns(String) }
             def trace_id; end
@@ -16,7 +16,7 @@ module Stripe
             sig { params(trace_id: String).void }
             def initialize(trace_id: nil); end
           end
-          class UsDomesticWire < Stripe::RequestParams
+          class UsDomesticWire < ::Stripe::RequestParams
             # CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
             sig { returns(T.nilable(String)) }
             def chips; end

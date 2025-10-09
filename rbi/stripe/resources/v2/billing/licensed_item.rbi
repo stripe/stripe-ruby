@@ -8,7 +8,7 @@ module Stripe
       # A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
       # to specify the pricing and create subscriptions to these items.
       class LicensedItem < APIResource
-        class TaxDetails < Stripe::StripeObject
+        class TaxDetails < ::Stripe::StripeObject
           # Product tax code (PTC).
           sig { returns(String) }
           def tax_code; end

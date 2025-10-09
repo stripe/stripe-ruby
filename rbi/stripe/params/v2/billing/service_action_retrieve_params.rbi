@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class ServiceActionRetrieveParams < Stripe::RequestParams; end
+      class ServiceActionRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

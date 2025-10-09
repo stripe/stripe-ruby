@@ -21,7 +21,7 @@ module Stripe
     #
     # Related guide: [Forward card details to third-party API endpoints](https://docs.stripe.com/payments/forwarding).
     class Request < APIResource
-      class RequestContext < Stripe::StripeObject
+      class RequestContext < ::Stripe::StripeObject
         # The time it took in milliseconds for the destination endpoint to respond.
         sig { returns(Integer) }
         def destination_duration; end
@@ -35,8 +35,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class RequestDetails < Stripe::StripeObject
-        class Header < Stripe::StripeObject
+      class RequestDetails < ::Stripe::StripeObject
+        class Header < ::Stripe::StripeObject
           # The header name.
           sig { returns(String) }
           def name; end
@@ -66,8 +66,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ResponseDetails < Stripe::StripeObject
-        class Header < Stripe::StripeObject
+      class ResponseDetails < ::Stripe::StripeObject
+        class Header < ::Stripe::StripeObject
           # The header name.
           sig { returns(String) }
           def name; end
@@ -132,13 +132,13 @@ module Stripe
       def url; end
       # Creates a ForwardingRequest object.
       sig {
-        params(params: T.any(::Stripe::Forwarding::RequestCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Forwarding::Request)
+        params(params: T.any(::Stripe::Forwarding::RequestCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Forwarding::Request)
        }
       def self.create(params = {}, opts = {}); end
 
       # Lists all ForwardingRequest objects.
       sig {
-        params(params: T.any(::Stripe::Forwarding::RequestListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Forwarding::RequestListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

@@ -6,8 +6,8 @@ module Stripe
   module V2
     module Billing
       module RateCards
-        class RateCreateParams < Stripe::RequestParams
-          class CustomPricingUnitAmount < Stripe::RequestParams
+        class RateCreateParams < ::Stripe::RequestParams
+          class CustomPricingUnitAmount < ::Stripe::RequestParams
             # The id of the custom pricing unit.
             sig { returns(String) }
             def id; end
@@ -21,7 +21,7 @@ module Stripe
             sig { params(id: String, value: String).void }
             def initialize(id: nil, value: nil); end
           end
-          class Tier < Stripe::RequestParams
+          class Tier < ::Stripe::RequestParams
             # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
             sig { returns(T.nilable(String)) }
             def flat_amount; end
@@ -54,7 +54,7 @@ module Stripe
               up_to_inf: nil
             ); end
           end
-          class TransformQuantity < Stripe::RequestParams
+          class TransformQuantity < ::Stripe::RequestParams
             # Divide usage by this number.
             sig { returns(Integer) }
             def divide_by; end

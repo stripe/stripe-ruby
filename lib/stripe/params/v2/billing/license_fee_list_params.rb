@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class LicenseFeeListParams < Stripe::RequestParams
+      class LicenseFeeListParams < ::Stripe::RequestParams
         # Filter by licensed item.
         attr_accessor :licensed_item
         # Optionally set the maximum number of results per page. Defaults to 20.

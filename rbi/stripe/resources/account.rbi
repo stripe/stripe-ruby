@@ -16,8 +16,8 @@ module Stripe
   # until you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions)
   # to start Connect Onboarding. Learn about the [differences between accounts](https://docs.stripe.com/connect/accounts).
   class Account < APIResource
-    class BusinessProfile < Stripe::StripeObject
-      class AnnualRevenue < Stripe::StripeObject
+    class BusinessProfile < ::Stripe::StripeObject
+      class AnnualRevenue < ::Stripe::StripeObject
         # A non-negative integer representing the amount in the [smallest currency unit](/currencies#zero-decimal).
         sig { returns(T.nilable(Integer)) }
         def amount; end
@@ -34,7 +34,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class MonthlyEstimatedRevenue < Stripe::StripeObject
+      class MonthlyEstimatedRevenue < ::Stripe::StripeObject
         # A non-negative integer representing how much to charge in the [smallest currency unit](/currencies#zero-decimal).
         sig { returns(Integer) }
         def amount; end
@@ -48,7 +48,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SupportAddress < Stripe::StripeObject
+      class SupportAddress < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -121,7 +121,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Capabilities < Stripe::StripeObject
+    class Capabilities < ::Stripe::StripeObject
       # The status of the Canadian pre-authorized debits payments capability of the account, or whether the account can directly process Canadian pre-authorized debits charges.
       sig { returns(T.nilable(String)) }
       def acss_debit_payments; end
@@ -351,8 +351,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Company < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class Company < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -378,7 +378,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AddressKana < Stripe::StripeObject
+      class AddressKana < ::Stripe::StripeObject
         # City/Ward.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -407,7 +407,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AddressKanji < Stripe::StripeObject
+      class AddressKanji < ::Stripe::StripeObject
         # City/Ward.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -436,7 +436,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class DirectorshipDeclaration < Stripe::StripeObject
+      class DirectorshipDeclaration < ::Stripe::StripeObject
         # The Unix timestamp marking when the directorship declaration attestation was made.
         sig { returns(T.nilable(Integer)) }
         def date; end
@@ -453,7 +453,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class OwnershipDeclaration < Stripe::StripeObject
+      class OwnershipDeclaration < ::Stripe::StripeObject
         # The Unix timestamp marking when the beneficial owner attestation was made.
         sig { returns(T.nilable(Integer)) }
         def date; end
@@ -470,7 +470,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class RegistrationDate < Stripe::StripeObject
+      class RegistrationDate < ::Stripe::StripeObject
         # The day of registration, between 1 and 31.
         sig { returns(T.nilable(Integer)) }
         def day; end
@@ -487,10 +487,10 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Verification < Stripe::StripeObject
-        class Document < Stripe::StripeObject
+      class Verification < ::Stripe::StripeObject
+        class Document < ::Stripe::StripeObject
           # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def back; end
           # A user-displayable string describing the verification state of this document.
           sig { returns(T.nilable(String)) }
@@ -499,7 +499,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def details_code; end
           # The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def front; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -596,8 +596,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Controller < Stripe::StripeObject
-      class Application < Stripe::StripeObject
+    class Controller < ::Stripe::StripeObject
+      class Application < ::Stripe::StripeObject
         # `true` if the Connect application is responsible for negative balances and should manage credit and fraud risk on the account.
         sig { returns(T::Boolean) }
         def loss_liable; end
@@ -614,7 +614,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Dashboard < Stripe::StripeObject
+      class Dashboard < ::Stripe::StripeObject
         # Whether this account has access to the full Stripe dashboard (`full`), to the Express dashboard (`express`), or to no dashboard (`none`).
         sig { returns(String) }
         def type; end
@@ -625,7 +625,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Fees < Stripe::StripeObject
+      class Fees < ::Stripe::StripeObject
         # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
         sig { returns(String) }
         def payer; end
@@ -636,7 +636,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Losses < Stripe::StripeObject
+      class Losses < ::Stripe::StripeObject
         # A value indicating who is liable when this account can't pay back negative balances from payments.
         sig { returns(String) }
         def payments; end
@@ -647,7 +647,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StripeDashboard < Stripe::StripeObject
+      class StripeDashboard < ::Stripe::StripeObject
         # A value indicating the Stripe dashboard this account has access to independent of the Connect application.
         sig { returns(String) }
         def type; end
@@ -695,8 +695,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class FutureRequirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class FutureRequirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
@@ -710,7 +710,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         sig { returns(String) }
         def code; end
@@ -758,7 +758,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Groups < Stripe::StripeObject
+    class Groups < ::Stripe::StripeObject
       # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
       sig { returns(T.nilable(String)) }
       def payments_pricing; end
@@ -769,8 +769,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Requirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class Requirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         sig { returns(T::Array[String]) }
         def alternative_fields_due; end
@@ -784,7 +784,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         sig { returns(String) }
         def code; end
@@ -832,8 +832,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class RiskControls < Stripe::StripeObject
-      class Charges < Stripe::StripeObject
+    class RiskControls < ::Stripe::StripeObject
+      class Charges < ::Stripe::StripeObject
         # Whether a pause of the risk control has been requested.
         sig { returns(T::Boolean) }
         def pause_requested; end
@@ -844,7 +844,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Payouts < Stripe::StripeObject
+      class Payouts < ::Stripe::StripeObject
         # Whether a pause of the risk control has been requested.
         sig { returns(T::Boolean) }
         def pause_requested; end
@@ -871,8 +871,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Settings < Stripe::StripeObject
-      class BacsDebitPayments < Stripe::StripeObject
+    class Settings < ::Stripe::StripeObject
+      class BacsDebitPayments < ::Stripe::StripeObject
         # The Bacs Direct Debit display name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. The fee appears 5 business days after requesting Bacs. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
         sig { returns(T.nilable(String)) }
         def display_name; end
@@ -886,7 +886,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class BankBcaOnboarding < Stripe::StripeObject
+      class BankBcaOnboarding < ::Stripe::StripeObject
         # Bank BCA business account holder name.
         sig { returns(T.nilable(String)) }
         def account_holder_name; end
@@ -900,12 +900,12 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Branding < Stripe::StripeObject
+      class Branding < ::Stripe::StripeObject
         # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px.
-        sig { returns(T.nilable(T.any(String, Stripe::File))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def icon; end
         # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px.
-        sig { returns(T.nilable(T.any(String, Stripe::File))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def logo; end
         # A CSS hex color value representing the primary branding color for this account
         sig { returns(T.nilable(String)) }
@@ -920,7 +920,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Capital < Stripe::StripeObject
+      class Capital < ::Stripe::StripeObject
         # Per-currency mapping of user-selected destination accounts used to pay out loans.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def payout_destination; end
@@ -934,8 +934,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CardIssuing < Stripe::StripeObject
-        class TosAcceptance < Stripe::StripeObject
+      class CardIssuing < ::Stripe::StripeObject
+        class TosAcceptance < ::Stripe::StripeObject
           # The Unix timestamp marking when the account representative accepted the service agreement.
           sig { returns(T.nilable(Integer)) }
           def date; end
@@ -962,8 +962,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CardPayments < Stripe::StripeObject
-        class DeclineOn < Stripe::StripeObject
+      class CardPayments < ::Stripe::StripeObject
+        class DeclineOn < ::Stripe::StripeObject
           # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
           sig { returns(T::Boolean) }
           def avs_failure; end
@@ -996,7 +996,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Dashboard < Stripe::StripeObject
+      class Dashboard < ::Stripe::StripeObject
         # The display name for this account. This is used on the Stripe Dashboard to differentiate between accounts.
         sig { returns(T.nilable(String)) }
         def display_name; end
@@ -1010,9 +1010,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Invoices < Stripe::StripeObject
+      class Invoices < ::Stripe::StripeObject
         # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
-        sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxId)])) }
+        sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
         def default_account_tax_ids; end
         # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         sig { returns(T.nilable(String)) }
@@ -1024,7 +1024,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Payments < Stripe::StripeObject
+      class Payments < ::Stripe::StripeObject
         # The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
         sig { returns(T.nilable(String)) }
         def statement_descriptor; end
@@ -1047,8 +1047,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Payouts < Stripe::StripeObject
-        class Schedule < Stripe::StripeObject
+      class Payouts < ::Stripe::StripeObject
+        class Schedule < ::Stripe::StripeObject
           # The number of days charges for the account will be held before being paid out.
           sig { returns(Integer) }
           def delay_days; end
@@ -1090,7 +1090,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SepaDebitPayments < Stripe::StripeObject
+      class SepaDebitPayments < ::Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
         sig { returns(T.nilable(String)) }
         def creditor_id; end
@@ -1101,7 +1101,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class TaxForms < Stripe::StripeObject
+      class TaxForms < ::Stripe::StripeObject
         # Whether the account opted out of receiving their tax forms by postal delivery.
         sig { returns(T::Boolean) }
         def consented_to_paperless_delivery; end
@@ -1112,8 +1112,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Treasury < Stripe::StripeObject
-        class TosAcceptance < Stripe::StripeObject
+      class Treasury < ::Stripe::StripeObject
+        class TosAcceptance < ::Stripe::StripeObject
           # The Unix timestamp marking when the account representative accepted the service agreement.
           sig { returns(T.nilable(Integer)) }
           def date; end
@@ -1200,7 +1200,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TosAcceptance < Stripe::StripeObject
+    class TosAcceptance < ::Stripe::StripeObject
       # The Unix timestamp marking when the account representative accepted their service agreement
       sig { returns(T.nilable(Integer)) }
       def date; end
@@ -1254,7 +1254,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def email; end
     # External accounts (bank accounts and debit cards) currently attached to this account. External accounts are only returned for requests where `controller[is_controller]` is true.
-    sig { returns(T.nilable(Stripe::ListObject)) }
+    sig { returns(T.nilable(::Stripe::ListObject)) }
     def external_accounts; end
     # Attribute for field future_requirements
     sig { returns(T.nilable(FutureRequirements)) }
@@ -1270,7 +1270,7 @@ module Stripe
     # A platform can only access a subset of data in a person for an account where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
     #
     # See the [Standard onboarding](/connect/standard-accounts) or [Express onboarding](/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](/connect/handling-api-verification#person-information).
-    sig { returns(T.nilable(Stripe::Person)) }
+    sig { returns(T.nilable(::Stripe::Person)) }
     def individual; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
@@ -1306,7 +1306,7 @@ module Stripe
     # creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
     # You can prefill any information on the account.
     sig {
-      params(params: T.any(::Stripe::AccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(params: T.any(::Stripe::AccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def self.create(params = {}, opts = {}); end
 
@@ -1318,7 +1318,7 @@ module Stripe
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(account: String, params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def self.delete(account, params = {}, opts = {}); end
 
@@ -1330,25 +1330,25 @@ module Stripe
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
     sig {
-      params(params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def delete(params = {}, opts = {}); end
 
     # Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
     sig {
-      params(params: T.any(::Stripe::AccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::AccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
     sig {
-      params(params: T.any(::Stripe::AccountPersonsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::AccountPersonsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def persons(params = {}, opts = {}); end
 
     # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountPersonsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(account: String, params: T.any(::Stripe::AccountPersonsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.persons(account, params = {}, opts = {}); end
 
@@ -1356,7 +1356,7 @@ module Stripe
     #
     # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
     sig {
-      params(params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def reject(params = {}, opts = {}); end
 
@@ -1364,7 +1364,7 @@ module Stripe
     #
     # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(account: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def self.reject(account, params = {}, opts = {}); end
 
@@ -1382,7 +1382,7 @@ module Stripe
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(account: String, params: T.any(::Stripe::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def self.update(account, params = {}, opts = {}); end
   end

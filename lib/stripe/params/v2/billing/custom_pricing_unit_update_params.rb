@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class CustomPricingUnitUpdateParams < Stripe::RequestParams
+      class CustomPricingUnitUpdateParams < ::Stripe::RequestParams
         # Whether the Custom Pricing Unit is active.
         attr_accessor :active
         # Description that customers will see in the invoice line item.

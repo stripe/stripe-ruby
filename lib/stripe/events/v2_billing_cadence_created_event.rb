@@ -9,7 +9,7 @@ module Stripe
         "v2.billing.cadence.created"
       end
 
-      class V2BillingCadenceCreatedEventData < Stripe::StripeObject
+      class V2BillingCadenceCreatedEventData < ::Stripe::StripeObject
         # Timestamp of when the object was created.
         attr_reader :created
 

@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class CustomerBalanceTransactionCreateParams < Stripe::RequestParams
+  class CustomerBalanceTransactionCreateParams < ::Stripe::RequestParams
     # The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance.
     sig { returns(Integer) }
     def amount; end

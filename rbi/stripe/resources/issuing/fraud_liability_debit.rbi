@@ -10,7 +10,7 @@ module Stripe
       sig { returns(Integer) }
       def amount; end
       # ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this debit.
-      sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
       def balance_transaction; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -32,7 +32,7 @@ module Stripe
       def object; end
       # Returns a list of Issuing FraudLiabilityDebit objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Issuing::FraudLiabilityDebitListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::FraudLiabilityDebitListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

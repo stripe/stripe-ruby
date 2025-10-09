@@ -9,8 +9,8 @@ module Stripe
         "v2.core.health.payment_method_error.resolved"
       end
 
-      class V2CoreHealthPaymentMethodErrorResolvedEventData < Stripe::StripeObject
-        class Impact < Stripe::StripeObject
+      class V2CoreHealthPaymentMethodErrorResolvedEventData < ::Stripe::StripeObject
+        class Impact < ::Stripe::StripeObject
           # The returned error code.
           attr_reader :error_code
           # The number of impacted requests.

@@ -7,7 +7,7 @@ module Stripe
     # A Climate product represents a type of carbon removal unit available for reservation.
     # You can retrieve it to see the current price and availability.
     class Product < APIResource
-      class CurrentPricesPerMetricTon < Stripe::StripeObject
+      class CurrentPricesPerMetricTon < ::Stripe::StripeObject
         # Fees for one metric ton of carbon removal in the currency's smallest unit.
         sig { returns(Integer) }
         def amount_fees; end
@@ -51,11 +51,11 @@ module Stripe
       sig { returns(String) }
       def object; end
       # The carbon removal suppliers that fulfill orders for this Climate product.
-      sig { returns(T::Array[Stripe::Climate::Supplier]) }
+      sig { returns(T::Array[::Stripe::Climate::Supplier]) }
       def suppliers; end
       # Lists all available Climate product objects.
       sig {
-        params(params: T.any(::Stripe::Climate::ProductListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Climate::ProductListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

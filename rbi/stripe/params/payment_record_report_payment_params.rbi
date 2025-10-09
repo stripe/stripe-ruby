@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class PaymentRecordReportPaymentParams < Stripe::RequestParams
-    class AmountRequested < Stripe::RequestParams
+  class PaymentRecordReportPaymentParams < ::Stripe::RequestParams
+    class AmountRequested < ::Stripe::RequestParams
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
@@ -18,7 +18,7 @@ module Stripe
       sig { params(currency: String, value: Integer).void }
       def initialize(currency: nil, value: nil); end
     end
-    class CustomerDetails < Stripe::RequestParams
+    class CustomerDetails < ::Stripe::RequestParams
       # The customer who made the payment.
       sig { returns(T.nilable(String)) }
       def customer; end
@@ -44,7 +44,7 @@ module Stripe
        }
       def initialize(customer: nil, email: nil, name: nil, phone: nil); end
     end
-    class Failed < Stripe::RequestParams
+    class Failed < ::Stripe::RequestParams
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def failed_at; end
@@ -53,7 +53,7 @@ module Stripe
       sig { params(failed_at: Integer).void }
       def initialize(failed_at: nil); end
     end
-    class Guaranteed < Stripe::RequestParams
+    class Guaranteed < ::Stripe::RequestParams
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def guaranteed_at; end
@@ -62,9 +62,9 @@ module Stripe
       sig { params(guaranteed_at: Integer).void }
       def initialize(guaranteed_at: nil); end
     end
-    class PaymentMethodDetails < Stripe::RequestParams
-      class BillingDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+    class PaymentMethodDetails < ::Stripe::RequestParams
+      class BillingDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -136,7 +136,7 @@ module Stripe
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
       end
-      class Custom < Stripe::RequestParams
+      class Custom < ::Stripe::RequestParams
         # Display name for the custom (user-defined) payment method type used to make this payment.
         sig { returns(T.nilable(String)) }
         def display_name; end
@@ -181,8 +181,8 @@ module Stripe
        }
       def initialize(billing_details: nil, custom: nil, payment_method: nil, type: nil); end
     end
-    class ProcessorDetails < Stripe::RequestParams
-      class Custom < Stripe::RequestParams
+    class ProcessorDetails < ::Stripe::RequestParams
+      class Custom < ::Stripe::RequestParams
         # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
         sig { returns(String) }
         def payment_reference; end
@@ -208,8 +208,8 @@ module Stripe
        }
       def initialize(custom: nil, type: nil); end
     end
-    class ShippingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class ShippingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end

@@ -3,9 +3,9 @@
 
 module Stripe
   module Issuing
-    class CardholderUpdateParams < Stripe::RequestParams
-      class Billing < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+    class CardholderUpdateParams < ::Stripe::RequestParams
+      class Billing < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -43,7 +43,7 @@ module Stripe
         end
       end
 
-      class Company < Stripe::RequestParams
+      class Company < ::Stripe::RequestParams
         # The entity's business ID number.
         attr_accessor :tax_id
 
@@ -52,9 +52,9 @@ module Stripe
         end
       end
 
-      class Individual < Stripe::RequestParams
-        class CardIssuing < Stripe::RequestParams
-          class UserTermsAcceptance < Stripe::RequestParams
+      class Individual < ::Stripe::RequestParams
+        class CardIssuing < ::Stripe::RequestParams
+          class UserTermsAcceptance < ::Stripe::RequestParams
             # The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
             attr_accessor :date
             # The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
@@ -76,7 +76,7 @@ module Stripe
           end
         end
 
-        class Dob < Stripe::RequestParams
+        class Dob < ::Stripe::RequestParams
           # The day of birth, between 1 and 31.
           attr_accessor :day
           # The month of birth, between 1 and 12.
@@ -91,8 +91,8 @@ module Stripe
           end
         end
 
-        class Verification < Stripe::RequestParams
-          class Document < Stripe::RequestParams
+        class Verification < ::Stripe::RequestParams
+          class Document < ::Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
             attr_accessor :back
             # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
@@ -136,8 +136,8 @@ module Stripe
         end
       end
 
-      class SpendingControls < Stripe::RequestParams
-        class SpendingLimit < Stripe::RequestParams
+      class SpendingControls < ::Stripe::RequestParams
+        class SpendingLimit < ::Stripe::RequestParams
           # Maximum amount allowed to spend per interval.
           attr_accessor :amount
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.

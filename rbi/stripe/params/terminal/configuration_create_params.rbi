@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Terminal
-    class ConfigurationCreateParams < Stripe::RequestParams
-      class BbposWisepad3 < Stripe::RequestParams
+    class ConfigurationCreateParams < ::Stripe::RequestParams
+      class BbposWisepad3 < ::Stripe::RequestParams
         # A File ID representing an image you would like displayed on the reader.
         sig { returns(T.nilable(String)) }
         def splashscreen; end
@@ -14,7 +14,7 @@ module Stripe
         sig { params(splashscreen: T.nilable(String)).void }
         def initialize(splashscreen: nil); end
       end
-      class BbposWiseposE < Stripe::RequestParams
+      class BbposWiseposE < ::Stripe::RequestParams
         # A File ID representing an image to display on the reader
         sig { returns(T.nilable(String)) }
         def splashscreen; end
@@ -23,7 +23,7 @@ module Stripe
         sig { params(splashscreen: T.nilable(String)).void }
         def initialize(splashscreen: nil); end
       end
-      class Offline < Stripe::RequestParams
+      class Offline < ::Stripe::RequestParams
         # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -32,7 +32,7 @@ module Stripe
         sig { params(enabled: T::Boolean).void }
         def initialize(enabled: nil); end
       end
-      class ReaderSecurity < Stripe::RequestParams
+      class ReaderSecurity < ::Stripe::RequestParams
         # Passcode used to access a reader's admin menu.
         sig { returns(T.nilable(String)) }
         def admin_menu_passcode; end
@@ -41,7 +41,7 @@ module Stripe
         sig { params(admin_menu_passcode: T.nilable(String)).void }
         def initialize(admin_menu_passcode: nil); end
       end
-      class RebootWindow < Stripe::RequestParams
+      class RebootWindow < ::Stripe::RequestParams
         # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
         sig { returns(Integer) }
         def end_hour; end
@@ -55,7 +55,7 @@ module Stripe
         sig { params(end_hour: Integer, start_hour: Integer).void }
         def initialize(end_hour: nil, start_hour: nil); end
       end
-      class StripeS700 < Stripe::RequestParams
+      class StripeS700 < ::Stripe::RequestParams
         # A File ID representing an image you would like displayed on the reader.
         sig { returns(T.nilable(String)) }
         def splashscreen; end
@@ -64,8 +64,8 @@ module Stripe
         sig { params(splashscreen: T.nilable(String)).void }
         def initialize(splashscreen: nil); end
       end
-      class Tipping < Stripe::RequestParams
-        class Aed < Stripe::RequestParams
+      class Tipping < ::Stripe::RequestParams
+        class Aed < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -90,7 +90,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Aud < Stripe::RequestParams
+        class Aud < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -115,7 +115,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Bgn < Stripe::RequestParams
+        class Bgn < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -140,7 +140,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Cad < Stripe::RequestParams
+        class Cad < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -165,7 +165,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Chf < Stripe::RequestParams
+        class Chf < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -190,7 +190,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Czk < Stripe::RequestParams
+        class Czk < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -215,7 +215,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Dkk < Stripe::RequestParams
+        class Dkk < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -240,7 +240,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Eur < Stripe::RequestParams
+        class Eur < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -265,7 +265,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Gbp < Stripe::RequestParams
+        class Gbp < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -290,7 +290,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Hkd < Stripe::RequestParams
+        class Hkd < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -315,7 +315,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Huf < Stripe::RequestParams
+        class Huf < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -340,7 +340,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Jpy < Stripe::RequestParams
+        class Jpy < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -365,7 +365,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Mxn < Stripe::RequestParams
+        class Mxn < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -390,7 +390,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Myr < Stripe::RequestParams
+        class Myr < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -415,7 +415,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Nok < Stripe::RequestParams
+        class Nok < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -440,7 +440,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Nzd < Stripe::RequestParams
+        class Nzd < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -465,7 +465,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Pln < Stripe::RequestParams
+        class Pln < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -490,7 +490,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Ron < Stripe::RequestParams
+        class Ron < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -515,7 +515,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Sek < Stripe::RequestParams
+        class Sek < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -540,7 +540,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Sgd < Stripe::RequestParams
+        class Sgd < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -565,7 +565,7 @@ module Stripe
            }
           def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil); end
         end
-        class Usd < Stripe::RequestParams
+        class Usd < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
           sig { returns(T.nilable(T::Array[Integer])) }
           def fixed_amounts; end
@@ -764,7 +764,7 @@ module Stripe
           usd: nil
         ); end
       end
-      class VerifoneP400 < Stripe::RequestParams
+      class VerifoneP400 < ::Stripe::RequestParams
         # A File ID representing an image you would like displayed on the reader.
         sig { returns(T.nilable(String)) }
         def splashscreen; end
@@ -773,8 +773,8 @@ module Stripe
         sig { params(splashscreen: T.nilable(String)).void }
         def initialize(splashscreen: nil); end
       end
-      class Wifi < Stripe::RequestParams
-        class EnterpriseEapPeap < Stripe::RequestParams
+      class Wifi < ::Stripe::RequestParams
+        class EnterpriseEapPeap < ::Stripe::RequestParams
           # A File ID representing a PEM file containing the server certificate
           sig { returns(T.nilable(String)) }
           def ca_certificate_file; end
@@ -800,7 +800,7 @@ module Stripe
            }
           def initialize(ca_certificate_file: nil, password: nil, ssid: nil, username: nil); end
         end
-        class EnterpriseEapTls < Stripe::RequestParams
+        class EnterpriseEapTls < ::Stripe::RequestParams
           # A File ID representing a PEM file containing the server certificate
           sig { returns(T.nilable(String)) }
           def ca_certificate_file; end
@@ -837,7 +837,7 @@ module Stripe
             ssid: nil
           ); end
         end
-        class PersonalPsk < Stripe::RequestParams
+        class PersonalPsk < ::Stripe::RequestParams
           # Password for connecting to the WiFi network
           sig { returns(String) }
           def password; end

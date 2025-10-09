@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class QuoteCreateParams < Stripe::RequestParams
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+  class QuoteCreateParams < ::Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
@@ -36,9 +36,9 @@ module Stripe
        }
       def initialize(enabled: nil, liability: nil); end
     end
-    class Discount < Stripe::RequestParams
-      class DiscountEnd < Stripe::RequestParams
-        class Duration < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
           def interval; end
@@ -101,7 +101,7 @@ module Stripe
        }
       def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
     end
-    class FromQuote < Stripe::RequestParams
+    class FromQuote < ::Stripe::RequestParams
       # Whether this quote is a revision of the previous quote.
       sig { returns(T.nilable(T::Boolean)) }
       def is_revision; end
@@ -115,8 +115,8 @@ module Stripe
       sig { params(is_revision: T.nilable(T::Boolean), quote: String).void }
       def initialize(is_revision: nil, quote: nil); end
     end
-    class InvoiceSettings < Stripe::RequestParams
-      class Issuer < Stripe::RequestParams
+    class InvoiceSettings < ::Stripe::RequestParams
+      class Issuer < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
@@ -147,10 +147,10 @@ module Stripe
        }
       def initialize(days_until_due: nil, issuer: nil); end
     end
-    class Line < Stripe::RequestParams
-      class Action < Stripe::RequestParams
-        class AddDiscount < Stripe::RequestParams
-          class DiscountEnd < Stripe::RequestParams
+    class Line < ::Stripe::RequestParams
+      class Action < ::Stripe::RequestParams
+        class AddDiscount < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
             # The type of calculation made to determine when the discount ends.
             sig { returns(String) }
             def type; end
@@ -197,10 +197,10 @@ module Stripe
             promotion_code: nil
           ); end
         end
-        class AddItem < Stripe::RequestParams
-          class Discount < Stripe::RequestParams
-            class DiscountEnd < Stripe::RequestParams
-              class Duration < Stripe::RequestParams
+        class AddItem < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 sig { returns(String) }
                 def interval; end
@@ -267,7 +267,7 @@ module Stripe
              }
             def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
           end
-          class Trial < Stripe::RequestParams
+          class Trial < ::Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             sig { returns(T.nilable(T::Array[String])) }
             def converts_to; end
@@ -333,7 +333,7 @@ module Stripe
             trial: nil
           ); end
         end
-        class RemoveDiscount < Stripe::RequestParams
+        class RemoveDiscount < ::Stripe::RequestParams
           # The coupon code to remove from the `discounts` array.
           sig { returns(T.nilable(String)) }
           def coupon; end
@@ -354,7 +354,7 @@ module Stripe
            }
           def initialize(coupon: nil, discount: nil, promotion_code: nil); end
         end
-        class RemoveItem < Stripe::RequestParams
+        class RemoveItem < ::Stripe::RequestParams
           # ID of a price to remove.
           sig { returns(String) }
           def price; end
@@ -363,7 +363,7 @@ module Stripe
           sig { params(price: String).void }
           def initialize(price: nil); end
         end
-        class SetDiscount < Stripe::RequestParams
+        class SetDiscount < ::Stripe::RequestParams
           # The coupon code to replace the `discounts` array with.
           sig { returns(T.nilable(String)) }
           def coupon; end
@@ -384,10 +384,10 @@ module Stripe
            }
           def initialize(coupon: nil, discount: nil, promotion_code: nil); end
         end
-        class SetItem < Stripe::RequestParams
-          class Discount < Stripe::RequestParams
-            class DiscountEnd < Stripe::RequestParams
-              class Duration < Stripe::RequestParams
+        class SetItem < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
                 # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 sig { returns(String) }
                 def interval; end
@@ -454,7 +454,7 @@ module Stripe
              }
             def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
           end
-          class Trial < Stripe::RequestParams
+          class Trial < ::Stripe::RequestParams
             # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
             sig { returns(T.nilable(T::Array[String])) }
             def converts_to; end
@@ -604,7 +604,7 @@ module Stripe
           type: nil
         ); end
       end
-      class AppliesTo < Stripe::RequestParams
+      class AppliesTo < ::Stripe::RequestParams
         # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         sig { returns(T.nilable(String)) }
         def new_reference; end
@@ -625,7 +625,7 @@ module Stripe
          }
         def initialize(new_reference: nil, subscription_schedule: nil, type: nil); end
       end
-      class CancelSubscriptionSchedule < Stripe::RequestParams
+      class CancelSubscriptionSchedule < ::Stripe::RequestParams
         # Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
         sig { returns(String) }
         def cancel_at; end
@@ -646,8 +646,8 @@ module Stripe
          }
         def initialize(cancel_at: nil, invoice_now: nil, prorate: nil); end
       end
-      class EndsAt < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
+      class EndsAt < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
           # The ID of a specific discount.
           sig { returns(String) }
           def discount; end
@@ -656,7 +656,7 @@ module Stripe
           sig { params(discount: String).void }
           def initialize(discount: nil); end
         end
-        class Duration < Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
           def interval; end
@@ -699,8 +699,8 @@ module Stripe
          }
         def initialize(discount_end: nil, duration: nil, timestamp: nil, type: nil); end
       end
-      class SetPauseCollection < Stripe::RequestParams
-        class Set < Stripe::RequestParams
+      class SetPauseCollection < ::Stripe::RequestParams
+        class Set < ::Stripe::RequestParams
           # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           sig { returns(String) }
           def behavior; end
@@ -726,8 +726,8 @@ module Stripe
          }
         def initialize(set: nil, type: nil); end
       end
-      class StartsAt < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
+      class StartsAt < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
           # The ID of a specific discount.
           sig { returns(String) }
           def discount; end
@@ -736,7 +736,7 @@ module Stripe
           sig { params(discount: String).void }
           def initialize(discount: nil); end
         end
-        class LineEndsAt < Stripe::RequestParams
+        class LineEndsAt < ::Stripe::RequestParams
           # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
           sig { returns(T.nilable(Integer)) }
           def index; end
@@ -774,8 +774,8 @@ module Stripe
          }
         def initialize(discount_end: nil, line_ends_at: nil, timestamp: nil, type: nil); end
       end
-      class TrialSettings < Stripe::RequestParams
-        class EndBehavior < Stripe::RequestParams
+      class TrialSettings < ::Stripe::RequestParams
+        class EndBehavior < ::Stripe::RequestParams
           # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
           sig { returns(T.nilable(String)) }
           def prorate_up_front; end
@@ -876,10 +876,10 @@ module Stripe
         trial_settings: nil
       ); end
     end
-    class LineItem < Stripe::RequestParams
-      class Discount < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
-          class Duration < Stripe::RequestParams
+    class LineItem < ::Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             sig { returns(String) }
             def interval; end
@@ -942,8 +942,8 @@ module Stripe
          }
         def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
       end
-      class PriceData < Stripe::RequestParams
-        class Recurring < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
+        class Recurring < ::Stripe::RequestParams
           # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
           def interval; end
@@ -1043,10 +1043,10 @@ module Stripe
         tax_rates: nil
       ); end
     end
-    class SubscriptionData < Stripe::RequestParams
-      class BillOnAcceptance < Stripe::RequestParams
-        class BillFrom < Stripe::RequestParams
-          class LineStartsAt < Stripe::RequestParams
+    class SubscriptionData < ::Stripe::RequestParams
+      class BillOnAcceptance < ::Stripe::RequestParams
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
             # The ID of a quote line.
             sig { returns(T.nilable(String)) }
             def id; end
@@ -1084,8 +1084,8 @@ module Stripe
            }
           def initialize(line_starts_at: nil, timestamp: nil, type: nil); end
         end
-        class BillUntil < Stripe::RequestParams
-          class Duration < Stripe::RequestParams
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             sig { returns(String) }
             def interval; end
@@ -1099,7 +1099,7 @@ module Stripe
             sig { params(interval: String, interval_count: Integer).void }
             def initialize(interval: nil, interval_count: nil); end
           end
-          class LineEndsAt < Stripe::RequestParams
+          class LineEndsAt < ::Stripe::RequestParams
             # The ID of a quote line.
             sig { returns(T.nilable(String)) }
             def id; end
@@ -1165,8 +1165,8 @@ module Stripe
          }
         def initialize(bill_from: nil, bill_until: nil); end
       end
-      class BillingMode < Stripe::RequestParams
-        class Flexible < Stripe::RequestParams
+      class BillingMode < ::Stripe::RequestParams
+        class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
           sig { returns(T.nilable(String)) }
           def proration_discounts; end
@@ -1192,7 +1192,7 @@ module Stripe
          }
         def initialize(flexible: nil, type: nil); end
       end
-      class Prebilling < Stripe::RequestParams
+      class Prebilling < ::Stripe::RequestParams
         # This is used to determine the number of billing cycles to prebill.
         sig { returns(Integer) }
         def iterations; end
@@ -1297,8 +1297,8 @@ module Stripe
         trial_period_days: nil
       ); end
     end
-    class SubscriptionDataOverride < Stripe::RequestParams
-      class AppliesTo < Stripe::RequestParams
+    class SubscriptionDataOverride < ::Stripe::RequestParams
+      class AppliesTo < ::Stripe::RequestParams
         # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         sig { returns(T.nilable(String)) }
         def new_reference; end
@@ -1319,9 +1319,9 @@ module Stripe
          }
         def initialize(new_reference: nil, subscription_schedule: nil, type: nil); end
       end
-      class BillOnAcceptance < Stripe::RequestParams
-        class BillFrom < Stripe::RequestParams
-          class LineStartsAt < Stripe::RequestParams
+      class BillOnAcceptance < ::Stripe::RequestParams
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
             # The ID of a quote line.
             sig { returns(T.nilable(String)) }
             def id; end
@@ -1359,8 +1359,8 @@ module Stripe
            }
           def initialize(line_starts_at: nil, timestamp: nil, type: nil); end
         end
-        class BillUntil < Stripe::RequestParams
-          class Duration < Stripe::RequestParams
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             sig { returns(String) }
             def interval; end
@@ -1374,7 +1374,7 @@ module Stripe
             sig { params(interval: String, interval_count: Integer).void }
             def initialize(interval: nil, interval_count: nil); end
           end
-          class LineEndsAt < Stripe::RequestParams
+          class LineEndsAt < ::Stripe::RequestParams
             # The ID of a quote line.
             sig { returns(T.nilable(String)) }
             def id; end
@@ -1502,7 +1502,7 @@ module Stripe
         proration_behavior: nil
       ); end
     end
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
       sig { returns(T.nilable(Integer)) }
       def amount; end

@@ -12,9 +12,9 @@ module Stripe
             "v2.core.vault.gb_bank_account"
           end
 
-          class ConfirmationOfPayee < Stripe::StripeObject
-            class Result < Stripe::StripeObject
-              class Matched < Stripe::StripeObject
+          class ConfirmationOfPayee < ::Stripe::StripeObject
+            class Result < ::Stripe::StripeObject
+              class Matched < ::Stripe::StripeObject
                 # The business type given by the bank for this account, in case of a MATCH or PARTIAL_MATCH.
                 # Closed enum.
                 attr_reader :business_type
@@ -30,7 +30,7 @@ module Stripe
                 end
               end
 
-              class Provided < Stripe::StripeObject
+              class Provided < ::Stripe::StripeObject
                 # The provided or Legal Entity business type to match against the CoP service. Closed enum.
                 attr_reader :business_type
                 # The provided or Legal Entity name to match against the CoP service.

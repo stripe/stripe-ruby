@@ -9,7 +9,7 @@ module Stripe
         "v2.billing.pricing_plan_component.updated"
       end
 
-      class V2BillingPricingPlanComponentUpdatedEventData < Stripe::StripeObject
+      class V2BillingPricingPlanComponentUpdatedEventData < ::Stripe::StripeObject
         # The ID of the PricingPlan that the PricingPlanComponent belongs to.
         attr_reader :pricing_plan_id
 

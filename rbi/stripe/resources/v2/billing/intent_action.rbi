@@ -6,10 +6,10 @@ module Stripe
   module V2
     module Billing
       class IntentAction < APIResource
-        class Apply < Stripe::StripeObject
-          class InvoiceDiscountRule < Stripe::StripeObject
-            class PercentOff < Stripe::StripeObject
-              class MaximumApplications < Stripe::StripeObject
+        class Apply < ::Stripe::StripeObject
+          class InvoiceDiscountRule < ::Stripe::StripeObject
+            class PercentOff < ::Stripe::StripeObject
+              class MaximumApplications < ::Stripe::StripeObject
                 # The type of maximum applications configuration.
                 sig { returns(String) }
                 def type; end
@@ -65,8 +65,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Deactivate < Stripe::StripeObject
-          class BillingDetails < Stripe::StripeObject
+        class Deactivate < ::Stripe::StripeObject
+          class BillingDetails < ::Stripe::StripeObject
             # This controls the proration adjustment for the partial servicing period.
             sig { returns(T.nilable(String)) }
             def proration_behavior; end
@@ -77,7 +77,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class EffectiveAt < Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
             def timestamp; end
@@ -91,7 +91,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class PricingPlanSubscriptionDetails < Stripe::StripeObject
+          class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
             # ID of the Pricing Plan Subscription to deactivate.
             sig { returns(String) }
             def pricing_plan_subscription; end
@@ -125,8 +125,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Modify < Stripe::StripeObject
-          class BillingDetails < Stripe::StripeObject
+        class Modify < ::Stripe::StripeObject
+          class BillingDetails < ::Stripe::StripeObject
             # This controls the proration adjustment for the partial servicing period.
             sig { returns(T.nilable(String)) }
             def proration_behavior; end
@@ -137,7 +137,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class EffectiveAt < Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the modify action will take effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
             def timestamp; end
@@ -151,8 +151,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class PricingPlanSubscriptionDetails < Stripe::StripeObject
-            class ComponentConfiguration < Stripe::StripeObject
+          class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+            class ComponentConfiguration < ::Stripe::StripeObject
               # Quantity of the component to be used.
               sig { returns(T.nilable(Integer)) }
               def quantity; end
@@ -211,7 +211,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Remove < Stripe::StripeObject
+        class Remove < ::Stripe::StripeObject
           # Type of the remove action.
           sig { returns(String) }
           def type; end
@@ -225,8 +225,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Subscribe < Stripe::StripeObject
-          class BillingDetails < Stripe::StripeObject
+        class Subscribe < ::Stripe::StripeObject
+          class BillingDetails < ::Stripe::StripeObject
             # This controls the proration adjustment for the partial servicing period.
             sig { returns(T.nilable(String)) }
             def proration_behavior; end
@@ -237,7 +237,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class EffectiveAt < Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
             sig { returns(T.nilable(String)) }
             def timestamp; end
@@ -251,8 +251,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class PricingPlanSubscriptionDetails < Stripe::StripeObject
-            class ComponentConfiguration < Stripe::StripeObject
+          class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+            class ComponentConfiguration < ::Stripe::StripeObject
               # Quantity of the component to be used.
               sig { returns(T.nilable(Integer)) }
               def quantity; end
@@ -291,8 +291,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class V1SubscriptionDetails < Stripe::StripeObject
-            class Item < Stripe::StripeObject
+          class V1SubscriptionDetails < ::Stripe::StripeObject
+            class Item < ::Stripe::StripeObject
               # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               sig { returns(T.nilable(T::Hash[String, String])) }
               def metadata; end

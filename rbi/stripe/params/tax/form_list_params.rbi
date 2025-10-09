@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Tax
-    class FormListParams < Stripe::RequestParams
-      class Payee < Stripe::RequestParams
+    class FormListParams < ::Stripe::RequestParams
+      class Payee < ::Stripe::RequestParams
         # The ID of the Stripe account whose forms will be retrieved.
         sig { returns(T.nilable(String)) }
         def account; end

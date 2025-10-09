@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class RateCardSubscription < APIResource
-        class CollectionStatusTransitions < Stripe::StripeObject
+        class CollectionStatusTransitions < ::Stripe::StripeObject
           # When the collection status transitioned to awaiting customer action.
           sig { returns(T.nilable(String)) }
           def awaiting_customer_action_at; end
@@ -29,7 +29,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class ServicingStatusTransitions < Stripe::StripeObject
+        class ServicingStatusTransitions < ::Stripe::StripeObject
           # When the servicing status transitioned to activated.
           sig { returns(T.nilable(String)) }
           def activated_at; end

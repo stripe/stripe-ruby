@@ -7,8 +7,8 @@ module Stripe
     module MoneyManagement
       # ReceivedDebit resource
       class ReceivedDebit < APIResource
-        class StatusDetails < Stripe::StripeObject
-          class Failed < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
             # Open Enum. The reason for the failure of the ReceivedDebit.
             sig { returns(String) }
             def reason; end
@@ -30,7 +30,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # The time when the ReceivedDebit was marked as `canceled`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           sig { returns(T.nilable(String)) }
@@ -50,8 +50,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class BankTransfer < Stripe::StripeObject
-          class UsBankAccount < Stripe::StripeObject
+        class BankTransfer < ::Stripe::StripeObject
+          class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             sig { returns(T.nilable(String)) }
             def bank_name; end
@@ -91,7 +91,7 @@ module Stripe
           end
         end
         # Amount and currency of the ReceivedDebit.
-        sig { returns(Stripe::V2::Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # The time at which the ReceivedDebit was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.

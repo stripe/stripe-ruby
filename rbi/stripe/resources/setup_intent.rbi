@@ -25,7 +25,7 @@ module Stripe
   #
   # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
   class SetupIntent < APIResource
-    class AutomaticPaymentMethods < Stripe::StripeObject
+    class AutomaticPaymentMethods < ::Stripe::StripeObject
       # Controls whether this SetupIntent will accept redirect-based payment methods.
       #
       # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
@@ -41,7 +41,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class LastSetupError < Stripe::StripeObject
+    class LastSetupError < ::Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
       sig { returns(T.nilable(String)) }
       def advice_code; end
@@ -80,14 +80,14 @@ module Stripe
       # authentication flows and ultimately creates at most one successful charge.
       #
       # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
-      sig { returns(T.nilable(Stripe::PaymentIntent)) }
+      sig { returns(T.nilable(::Stripe::PaymentIntent)) }
       def payment_intent; end
       # PaymentMethod objects represent your customer's payment instruments.
       # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
       # Customer objects to store instrument details for future payments.
       #
       # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
-      sig { returns(T.nilable(Stripe::PaymentMethod)) }
+      sig { returns(T.nilable(::Stripe::PaymentMethod)) }
       def payment_method; end
       # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
       sig { returns(T.nilable(String)) }
@@ -116,11 +116,11 @@ module Stripe
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
       #
       # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
-      sig { returns(T.nilable(Stripe::SetupIntent)) }
+      sig { returns(T.nilable(::Stripe::SetupIntent)) }
       def setup_intent; end
       # Attribute for field source
       sig {
-        returns(T.nilable(T.any(Stripe::Account, Stripe::BankAccount, Stripe::Card, Stripe::Source)))
+        returns(T.nilable(T.any(::Stripe::Account, ::Stripe::BankAccount, ::Stripe::Card, ::Stripe::Source)))
        }
       def source; end
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
@@ -133,9 +133,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class NextAction < Stripe::StripeObject
-      class CashappHandleRedirectOrDisplayQrCode < Stripe::StripeObject
-        class QrCode < Stripe::StripeObject
+    class NextAction < ::Stripe::StripeObject
+      class CashappHandleRedirectOrDisplayQrCode < ::Stripe::StripeObject
+        class QrCode < ::Stripe::StripeObject
           # The date (unix timestamp) when the QR code expires.
           sig { returns(Integer) }
           def expires_at; end
@@ -168,7 +168,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PixDisplayQrCode < Stripe::StripeObject
+      class PixDisplayQrCode < ::Stripe::StripeObject
         # The raw data string used to generate QR code, it should be used together with QR code library.
         sig { returns(T.nilable(String)) }
         def data; end
@@ -191,7 +191,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class RedirectToUrl < Stripe::StripeObject
+      class RedirectToUrl < ::Stripe::StripeObject
         # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
         sig { returns(T.nilable(String)) }
         def return_url; end
@@ -205,7 +205,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class VerifyWithMicrodeposits < Stripe::StripeObject
+      class VerifyWithMicrodeposits < ::Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land.
         sig { returns(Integer) }
         def arrival_date; end
@@ -252,7 +252,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PaymentMethodConfigurationDetails < Stripe::StripeObject
+    class PaymentMethodConfigurationDetails < ::Stripe::StripeObject
       # ID of the payment method configuration used.
       sig { returns(String) }
       def id; end
@@ -266,9 +266,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PaymentMethodOptions < Stripe::StripeObject
-      class AcssDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class AcssDebit < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # A URL for custom mandate text
           sig { returns(T.nilable(String)) }
           def custom_mandate_url; end
@@ -307,7 +307,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class AmazonPay < Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -315,8 +315,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class BacsDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class BacsDebit < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           sig { returns(T.nilable(String)) }
           def reference_prefix; end
@@ -337,8 +337,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Card < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Amount to be charged for future payments.
           sig { returns(Integer) }
           def amount; end
@@ -392,7 +392,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CardPresent < Stripe::StripeObject
+      class CardPresent < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -400,7 +400,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         # The currency of the setup intent. Three letter ISO currency code.
         sig { returns(T.nilable(String)) }
         def currency; end
@@ -414,7 +414,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Link < Stripe::StripeObject
+      class Link < ::Stripe::StripeObject
         # [Deprecated] This is a legacy parameter that no longer has any function.
         sig { returns(T.nilable(String)) }
         def persistent_token; end
@@ -425,7 +425,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
         sig { returns(T.nilable(String)) }
         def billing_agreement_id; end
@@ -442,8 +442,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Payto < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class Payto < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
           sig { returns(T.nilable(Integer)) }
           def amount; end
@@ -482,8 +482,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Pix < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class Pix < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Amount to be charged for future payments.
           sig { returns(T.nilable(Integer)) }
           def amount; end
@@ -525,8 +525,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SepaDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject
+      class SepaDebit < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
           sig { returns(T.nilable(String)) }
           def reference_prefix; end
@@ -547,9 +547,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class UsBankAccount < Stripe::StripeObject
-        class FinancialConnections < Stripe::StripeObject
-          class Filters < Stripe::StripeObject
+      class UsBankAccount < ::Stripe::StripeObject
+        class FinancialConnections < ::Stripe::StripeObject
+          class Filters < ::Stripe::StripeObject
             # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
             sig { returns(T.nilable(T::Array[String])) }
             def account_subcategories; end
@@ -563,7 +563,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class ManualEntry < Stripe::StripeObject
+          class ManualEntry < ::Stripe::StripeObject
             # Settings for configuring manual entry of account details.
             sig { returns(T.nilable(String)) }
             def mode; end
@@ -596,7 +596,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class MandateOptions < Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
           # Mandate collection method
           sig { returns(T.nilable(String)) }
           def collection_method; end
@@ -682,8 +682,41 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class SetupDetails < ::Stripe::StripeObject
+      class Benefit < ::Stripe::StripeObject
+        class FrMealVoucher < ::Stripe::StripeObject
+          # The 14-digit SIRET of the meal voucher acceptor.
+          sig { returns(T.nilable(String)) }
+          def siret; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field fr_meal_voucher
+        sig { returns(T.nilable(FrMealVoucher)) }
+        def fr_meal_voucher; end
+        def self.inner_class_types
+          @inner_class_types = {fr_meal_voucher: FrMealVoucher}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field benefit
+      sig { returns(T.nilable(Benefit)) }
+      def benefit; end
+      def self.inner_class_types
+        @inner_class_types = {benefit: Benefit}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # ID of the Connect application that created the SetupIntent.
-    sig { returns(T.nilable(T.any(String, Stripe::Application))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
@@ -707,7 +740,7 @@ module Stripe
     # ID of the Customer this SetupIntent belongs to, if one exists.
     #
     # If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
-    sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # ID of the Account this SetupIntent belongs to, if one exists.
     #
@@ -729,13 +762,13 @@ module Stripe
     sig { returns(T.nilable(LastSetupError)) }
     def last_setup_error; end
     # The most recent SetupAttempt for this SetupIntent.
-    sig { returns(T.nilable(T.any(String, Stripe::SetupAttempt))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::SetupAttempt))) }
     def latest_attempt; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     def livemode; end
     # ID of the multi use Mandate generated by the SetupIntent.
-    sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Mandate))) }
     def mandate; end
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
@@ -747,10 +780,10 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The account (if any) for which the setup is intended.
-    sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def on_behalf_of; end
     # ID of the payment method used with this SetupIntent. If the payment method is `card_present` and isn't a digital wallet, then the [generated_card](https://docs.stripe.com/api/setup_attempts/object#setup_attempt_object-payment_method_details-card_present-generated_card) associated with the `latest_attempt` is attached to the Customer instead.
-    sig { returns(T.nilable(T.any(String, Stripe::PaymentMethod))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
     def payment_method; end
     # Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this Setup Intent.
     sig { returns(T.nilable(PaymentMethodConfigurationDetails)) }
@@ -762,7 +795,7 @@ module Stripe
     sig { returns(T::Array[String]) }
     def payment_method_types; end
     # ID of the single_use Mandate generated by the SetupIntent.
-    sig { returns(T.nilable(T.any(String, Stripe::Mandate))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Mandate))) }
     def single_use_mandate; end
     # [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
     sig { returns(String) }
@@ -772,11 +805,14 @@ module Stripe
     # Use `on_session` if you intend to only reuse the payment method when the customer is in your checkout flow. Use `off_session` if your customer may or may not be in your checkout flow. If not provided, this value defaults to `off_session`.
     sig { returns(String) }
     def usage; end
+    # Attribute for field setup_details
+    sig { returns(T.nilable(SetupDetails)) }
+    def setup_details; end
     # You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
     #
     # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
     sig {
-      params(params: T.any(::Stripe::SetupIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
+      params(params: T.any(::Stripe::SetupIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
     def cancel(params = {}, opts = {}); end
 
@@ -784,7 +820,7 @@ module Stripe
     #
     # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
     sig {
-      params(intent: String, params: T.any(::Stripe::SetupIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
+      params(intent: String, params: T.any(::Stripe::SetupIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
     def self.cancel(intent, params = {}, opts = {}); end
 
@@ -803,7 +839,7 @@ module Stripe
     # requires_payment_method status or the canceled status if the
     # confirmation limit is reached.
     sig {
-      params(params: T.any(::Stripe::SetupIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
+      params(params: T.any(::Stripe::SetupIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
     def confirm(params = {}, opts = {}); end
 
@@ -822,7 +858,7 @@ module Stripe
     # requires_payment_method status or the canceled status if the
     # confirmation limit is reached.
     sig {
-      params(intent: String, params: T.any(::Stripe::SetupIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
+      params(intent: String, params: T.any(::Stripe::SetupIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
     def self.confirm(intent, params = {}, opts = {}); end
 
@@ -831,31 +867,31 @@ module Stripe
     # After you create the SetupIntent, attach a payment method and [confirm](https://docs.stripe.com/docs/api/setup_intents/confirm)
     # it to collect any required permissions to charge the payment method later.
     sig {
-      params(params: T.any(::Stripe::SetupIntentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
+      params(params: T.any(::Stripe::SetupIntentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of SetupIntents.
     sig {
-      params(params: T.any(::Stripe::SetupIntentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::SetupIntentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates a SetupIntent object.
     sig {
-      params(intent: String, params: T.any(::Stripe::SetupIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
+      params(intent: String, params: T.any(::Stripe::SetupIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
     def self.update(intent, params = {}, opts = {}); end
 
     # Verifies microdeposits on a SetupIntent object.
     sig {
-      params(params: T.any(::Stripe::SetupIntentVerifyMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
+      params(params: T.any(::Stripe::SetupIntentVerifyMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
     def verify_microdeposits(params = {}, opts = {}); end
 
     # Verifies microdeposits on a SetupIntent object.
     sig {
-      params(intent: String, params: T.any(::Stripe::SetupIntentVerifyMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
+      params(intent: String, params: T.any(::Stripe::SetupIntentVerifyMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
     def self.verify_microdeposits(intent, params = {}, opts = {}); end
   end

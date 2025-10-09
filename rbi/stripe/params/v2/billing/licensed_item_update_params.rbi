@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Billing
-      class LicensedItemUpdateParams < Stripe::RequestParams
-        class TaxDetails < Stripe::RequestParams
+      class LicensedItemUpdateParams < ::Stripe::RequestParams
+        class TaxDetails < ::Stripe::RequestParams
           # Product tax code (PTC).
           sig { returns(String) }
           def tax_code; end

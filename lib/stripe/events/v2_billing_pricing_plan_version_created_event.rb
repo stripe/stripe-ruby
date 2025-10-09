@@ -9,7 +9,7 @@ module Stripe
         "v2.billing.pricing_plan_version.created"
       end
 
-      class V2BillingPricingPlanVersionCreatedEventData < Stripe::StripeObject
+      class V2BillingPricingPlanVersionCreatedEventData < ::Stripe::StripeObject
         # The ID of the PricingPlan that the PricingPlanVersion belongs to.
         attr_reader :pricing_plan_id
 

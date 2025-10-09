@@ -3,7 +3,7 @@
 
 module Stripe
   module Issuing
-    class AuthorizationRespondParams < Stripe::RequestParams
+    class AuthorizationRespondParams < ::Stripe::RequestParams
       # Whether to simulate the user confirming that the transaction was legitimate (true) or telling Stripe that it was fraudulent (false).
       attr_accessor :confirmed
       # Specifies which fields in the response should be expanded.

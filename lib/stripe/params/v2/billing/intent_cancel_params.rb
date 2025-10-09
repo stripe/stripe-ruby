@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class IntentCancelParams < Stripe::RequestParams; end
+      class IntentCancelParams < ::Stripe::RequestParams; end
     end
   end
 end

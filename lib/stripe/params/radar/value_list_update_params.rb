@@ -3,7 +3,7 @@
 
 module Stripe
   module Radar
-    class ValueListUpdateParams < Stripe::RequestParams
+    class ValueListUpdateParams < ::Stripe::RequestParams
       # The name of the value list for use in rules.
       attr_accessor :alias
       # Specifies which fields in the response should be expanded.

@@ -3,15 +3,15 @@
 
 module Stripe
   module Events
-    # This event occurs when a bill setting is updated.
-    class V2BillingBillSettingUpdatedEvent < Stripe::V2::Core::Event
+    # Occurs when the status of an Account's card creator configuration capability is updated.
+    class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v2.billing.bill_setting.updated"
+        "v2.core.account[configuration.card_creator].capability_status_updated"
       end
 
-      class V2BillingBillSettingUpdatedEventData < Stripe::StripeObject
-        # Timestamp of when the object was updated.
-        attr_reader :updated
+      class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventData < ::Stripe::StripeObject
+        # Open Enum. The capability which had its status updated.
+        attr_reader :updated_capability
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -23,7 +23,9 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = { data: V2BillingBillSettingUpdatedEventData }
+        @inner_class_types = {
+          data: V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventData,
+        }
       end
       attr_reader :data, :related_object
 
@@ -38,15 +40,15 @@ module Stripe
       end
     end
 
-    # This event occurs when a bill setting is updated.
-    class V2BillingBillSettingUpdatedEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs when the status of an Account's card creator configuration capability is updated.
+    class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v2.billing.bill_setting.updated"
+        "v2.core.account[configuration.card_creator].capability_status_updated"
       end
 
       attr_reader :related_object
 
-      # Retrieves the BillSetting related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the Account related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

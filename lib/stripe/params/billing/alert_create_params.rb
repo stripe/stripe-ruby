@@ -3,13 +3,13 @@
 
 module Stripe
   module Billing
-    class AlertCreateParams < Stripe::RequestParams
-      class CreditBalanceThreshold < Stripe::RequestParams
-        class Filter < Stripe::RequestParams
-          class CreditGrants < Stripe::RequestParams
-            class ApplicabilityConfig < Stripe::RequestParams
-              class Scope < Stripe::RequestParams
-                class BillableItem < Stripe::RequestParams
+    class AlertCreateParams < ::Stripe::RequestParams
+      class CreditBalanceThreshold < ::Stripe::RequestParams
+        class Filter < ::Stripe::RequestParams
+          class CreditGrants < ::Stripe::RequestParams
+            class ApplicabilityConfig < ::Stripe::RequestParams
+              class Scope < ::Stripe::RequestParams
+                class BillableItem < ::Stripe::RequestParams
                   # The billable item ID this credit grant should apply to.
                   attr_accessor :id
 
@@ -18,7 +18,7 @@ module Stripe
                   end
                 end
 
-                class Price < Stripe::RequestParams
+                class Price < ::Stripe::RequestParams
                   # The price ID this credit grant should apply to.
                   attr_accessor :id
 
@@ -67,8 +67,8 @@ module Stripe
           end
         end
 
-        class Lte < Stripe::RequestParams
-          class CustomPricingUnit < Stripe::RequestParams
+        class Lte < ::Stripe::RequestParams
+          class CustomPricingUnit < ::Stripe::RequestParams
             # The ID of the custom pricing unit.
             attr_accessor :id
             # A positive decimal string representing the amount of the custom pricing unit threshold.
@@ -80,7 +80,7 @@ module Stripe
             end
           end
 
-          class Monetary < Stripe::RequestParams
+          class Monetary < ::Stripe::RequestParams
             # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
             attr_accessor :currency
             # An integer representing the amount of the threshold.
@@ -115,8 +115,8 @@ module Stripe
         end
       end
 
-      class UsageThreshold < Stripe::RequestParams
-        class Filter < Stripe::RequestParams
+      class UsageThreshold < ::Stripe::RequestParams
+        class Filter < ::Stripe::RequestParams
           # Limit the scope to this usage alert only to this customer.
           attr_accessor :customer
           # What type of filter is being applied to this usage alert.

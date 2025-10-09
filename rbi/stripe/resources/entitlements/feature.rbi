@@ -30,19 +30,19 @@ module Stripe
       def object; end
       # Creates a feature
       sig {
-        params(params: T.any(::Stripe::Entitlements::FeatureCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Entitlements::Feature)
+        params(params: T.any(::Stripe::Entitlements::FeatureCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Entitlements::Feature)
        }
       def self.create(params = {}, opts = {}); end
 
       # Retrieve a list of features
       sig {
-        params(params: T.any(::Stripe::Entitlements::FeatureListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Entitlements::FeatureListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Update a feature's metadata or permanently deactivate it.
       sig {
-        params(id: String, params: T.any(::Stripe::Entitlements::FeatureUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Entitlements::Feature)
+        params(id: String, params: T.any(::Stripe::Entitlements::FeatureUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Entitlements::Feature)
        }
       def self.update(id, params = {}, opts = {}); end
     end

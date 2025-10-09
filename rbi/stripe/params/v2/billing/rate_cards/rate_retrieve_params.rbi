@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       module RateCards
-        class RateRetrieveParams < Stripe::RequestParams; end
+        class RateRetrieveParams < ::Stripe::RequestParams; end
       end
     end
   end

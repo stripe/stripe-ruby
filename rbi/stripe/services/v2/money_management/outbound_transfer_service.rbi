@@ -11,7 +11,7 @@ module Stripe
         # ** raises AlreadyCanceledError
         # ** raises NotCancelableError
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundTransfer)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::OutboundTransfer)
          }
         def cancel(id, params = {}, opts = {}); end
 
@@ -20,19 +20,19 @@ module Stripe
         # ** raises InsufficientFundsError
         # ** raises FeatureNotEnabledError
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundTransfer)
+          params(params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::OutboundTransfer)
          }
         def create(params = {}, opts = {}); end
 
         # Returns a list of OutboundTransfers that match the provided filters.
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
+          params(params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
         # Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundPayment create or list response.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundTransfer)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::OutboundTransfer)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

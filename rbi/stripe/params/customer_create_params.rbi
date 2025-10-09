@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class CustomerCreateParams < Stripe::RequestParams
-    class Address < Stripe::RequestParams
+  class CustomerCreateParams < ::Stripe::RequestParams
+    class Address < ::Stripe::RequestParams
       # City, district, suburb, town, or village.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -47,8 +47,8 @@ module Stripe
         state: nil
       ); end
     end
-    class CashBalance < Stripe::RequestParams
-      class Settings < Stripe::RequestParams
+    class CashBalance < ::Stripe::RequestParams
+      class Settings < ::Stripe::RequestParams
         # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
         sig { returns(T.nilable(String)) }
         def reconciliation_mode; end
@@ -68,8 +68,8 @@ module Stripe
       sig { params(settings: T.nilable(CustomerCreateParams::CashBalance::Settings)).void }
       def initialize(settings: nil); end
     end
-    class InvoiceSettings < Stripe::RequestParams
-      class CustomField < Stripe::RequestParams
+    class InvoiceSettings < ::Stripe::RequestParams
+      class CustomField < ::Stripe::RequestParams
         # The name of the custom field. This may be up to 40 characters.
         sig { returns(String) }
         def name; end
@@ -83,7 +83,7 @@ module Stripe
         sig { params(name: String, value: String).void }
         def initialize(name: nil, value: nil); end
       end
-      class RenderingOptions < Stripe::RequestParams
+      class RenderingOptions < ::Stripe::RequestParams
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         sig { returns(T.nilable(T.any(String, String))) }
         def amount_tax_display; end
@@ -139,8 +139,8 @@ module Stripe
         rendering_options: nil
       ); end
     end
-    class Shipping < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Shipping < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -205,7 +205,7 @@ module Stripe
        }
       def initialize(address: nil, name: nil, phone: nil); end
     end
-    class Tax < Stripe::RequestParams
+    class Tax < ::Stripe::RequestParams
       # A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
       sig { returns(T.nilable(String)) }
       def ip_address; end
@@ -219,7 +219,7 @@ module Stripe
       sig { params(ip_address: T.nilable(String), validate_location: T.nilable(String)).void }
       def initialize(ip_address: nil, validate_location: nil); end
     end
-    class TaxIdDatum < Stripe::RequestParams
+    class TaxIdDatum < ::Stripe::RequestParams
       # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
       sig { returns(String) }
       def type; end

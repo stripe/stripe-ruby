@@ -9,8 +9,8 @@ module Stripe
         "v2.core.health.api_latency.resolved"
       end
 
-      class V2CoreHealthApiLatencyResolvedEventData < Stripe::StripeObject
-        class Impact < Stripe::StripeObject
+      class V2CoreHealthApiLatencyResolvedEventData < ::Stripe::StripeObject
+        class Impact < ::Stripe::StripeObject
           # The canonical path.
           attr_reader :canonical_path
           # The HTTP method.

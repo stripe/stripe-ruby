@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentIntentCancelParams < Stripe::RequestParams
+  class PaymentIntentCancelParams < ::Stripe::RequestParams
     # Reason for canceling this PaymentIntent. Possible values are: `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`
     attr_accessor :cancellation_reason
     # Specifies which fields in the response should be expanded.

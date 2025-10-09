@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class SetupIntentRetrieveParams < Stripe::RequestParams
+  class SetupIntentRetrieveParams < ::Stripe::RequestParams
     # The client secret of the SetupIntent. We require this string if you use a publishable key to retrieve the SetupIntent.
     sig { returns(T.nilable(String)) }
     def client_secret; end

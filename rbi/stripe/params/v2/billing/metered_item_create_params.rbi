@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Billing
-      class MeteredItemCreateParams < Stripe::RequestParams
-        class MeterSegmentCondition < Stripe::RequestParams
+      class MeteredItemCreateParams < ::Stripe::RequestParams
+        class MeterSegmentCondition < ::Stripe::RequestParams
           # A Meter dimension.
           sig { returns(String) }
           def dimension; end
@@ -20,7 +20,7 @@ module Stripe
           sig { params(dimension: String, value: String).void }
           def initialize(dimension: nil, value: nil); end
         end
-        class TaxDetails < Stripe::RequestParams
+        class TaxDetails < ::Stripe::RequestParams
           # Product tax code (PTC).
           sig { returns(String) }
           def tax_code; end

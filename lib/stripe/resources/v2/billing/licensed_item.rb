@@ -12,7 +12,7 @@ module Stripe
           "v2.billing.licensed_item"
         end
 
-        class TaxDetails < Stripe::StripeObject
+        class TaxDetails < ::Stripe::StripeObject
           # Product tax code (PTC).
           attr_reader :tax_code
 

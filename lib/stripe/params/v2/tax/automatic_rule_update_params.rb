@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Tax
-      class AutomaticRuleUpdateParams < Stripe::RequestParams
+      class AutomaticRuleUpdateParams < ::Stripe::RequestParams
         # The TaxCode object to be used for automatic tax calculations.
         attr_accessor :tax_code
 

@@ -4,12 +4,12 @@
 module Stripe
   module V2
     module Billing
-      class IntentCreateParams < Stripe::RequestParams
-        class Action < Stripe::RequestParams
-          class Apply < Stripe::RequestParams
-            class InvoiceDiscountRule < Stripe::RequestParams
-              class PercentOff < Stripe::RequestParams
-                class MaximumApplications < Stripe::RequestParams
+      class IntentCreateParams < ::Stripe::RequestParams
+        class Action < ::Stripe::RequestParams
+          class Apply < ::Stripe::RequestParams
+            class InvoiceDiscountRule < ::Stripe::RequestParams
+              class PercentOff < ::Stripe::RequestParams
+                class MaximumApplications < ::Stripe::RequestParams
                   # The type of maximum applications configuration.
                   attr_accessor :type
 
@@ -51,8 +51,8 @@ module Stripe
             end
           end
 
-          class Deactivate < Stripe::RequestParams
-            class BillingDetails < Stripe::RequestParams
+          class Deactivate < ::Stripe::RequestParams
+            class BillingDetails < ::Stripe::RequestParams
               # This controls the proration adjustment for the partial servicing period.
               attr_accessor :proration_behavior
 
@@ -61,7 +61,7 @@ module Stripe
               end
             end
 
-            class EffectiveAt < Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
               attr_accessor :timestamp
               # When the deactivate action will take effect.
@@ -73,7 +73,7 @@ module Stripe
               end
             end
 
-            class PricingPlanSubscriptionDetails < Stripe::RequestParams
+            class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
               # ID of the pricing plan subscription to deactivate.
               attr_accessor :pricing_plan_subscription
 
@@ -103,8 +103,8 @@ module Stripe
             end
           end
 
-          class Modify < Stripe::RequestParams
-            class BillingDetails < Stripe::RequestParams
+          class Modify < ::Stripe::RequestParams
+            class BillingDetails < ::Stripe::RequestParams
               # This controls the proration adjustment for the partial servicing period.
               attr_accessor :proration_behavior
 
@@ -113,7 +113,7 @@ module Stripe
               end
             end
 
-            class EffectiveAt < Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the modify action will take effect. Only present if type is timestamp.
               attr_accessor :timestamp
               # When the modify action will take effect.
@@ -125,8 +125,8 @@ module Stripe
               end
             end
 
-            class PricingPlanSubscriptionDetails < Stripe::RequestParams
-              class ComponentConfiguration < Stripe::RequestParams
+            class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
+              class ComponentConfiguration < ::Stripe::RequestParams
                 # Quantity of the component to be used.
                 attr_accessor :quantity
                 # Lookup key for the pricing plan component.
@@ -183,7 +183,7 @@ module Stripe
             end
           end
 
-          class Remove < Stripe::RequestParams
+          class Remove < ::Stripe::RequestParams
             # Type of the remove action.
             attr_accessor :type
             # The ID of the discount rule to remove for future invoices.
@@ -195,8 +195,8 @@ module Stripe
             end
           end
 
-          class Subscribe < Stripe::RequestParams
-            class BillingDetails < Stripe::RequestParams
+          class Subscribe < ::Stripe::RequestParams
+            class BillingDetails < ::Stripe::RequestParams
               # This controls the proration adjustment for the partial servicing period.
               attr_accessor :proration_behavior
 
@@ -205,7 +205,7 @@ module Stripe
               end
             end
 
-            class EffectiveAt < Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
               # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
               attr_accessor :timestamp
               # When the subscribe action will take effect.
@@ -217,8 +217,8 @@ module Stripe
               end
             end
 
-            class PricingPlanSubscriptionDetails < Stripe::RequestParams
-              class ComponentConfiguration < Stripe::RequestParams
+            class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
+              class ComponentConfiguration < ::Stripe::RequestParams
                 # Quantity of the component to be used.
                 attr_accessor :quantity
                 # Lookup key for the pricing plan component.
@@ -254,8 +254,8 @@ module Stripe
               end
             end
 
-            class V1SubscriptionDetails < Stripe::RequestParams
-              class Item < Stripe::RequestParams
+            class V1SubscriptionDetails < ::Stripe::RequestParams
+              class Item < ::Stripe::RequestParams
                 # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
                 attr_accessor :metadata
                 # The ID of the price object.

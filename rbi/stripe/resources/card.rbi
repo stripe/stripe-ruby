@@ -9,7 +9,7 @@ module Stripe
   #
   # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
   class Card < APIResource
-    class Networks < Stripe::StripeObject
+    class Networks < ::Stripe::StripeObject
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       sig { returns(T.nilable(String)) }
       def preferred; end
@@ -20,8 +20,22 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Benefits < ::Stripe::StripeObject
+      # Issuer of this benefit card
+      sig { returns(T.nilable(String)) }
+      def issuer; end
+      # Available benefit programs for this card
+      sig { returns(T.nilable(T::Array[String])) }
+      def programs; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Attribute for field account
-    sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def account; end
     # City/District/Suburb/Town/Village.
     sig { returns(T.nilable(String)) }
@@ -66,7 +80,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def currency; end
     # The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead.
-    sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`. A result of unchecked indicates that CVC was provided but hasn't been checked yet. Checks are typically performed when attaching a card to a Customer object, or when creating a charge. For more details, see [Check if a card is valid without a charge](https://support.stripe.com/questions/check-if-a-card-is-valid-without-a-charge).
     sig { returns(T.nilable(String)) }
@@ -127,6 +141,9 @@ module Stripe
     # If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
     sig { returns(T.nilable(String)) }
     def tokenization_method; end
+    # Attribute for field benefits
+    sig { returns(T.nilable(Benefits)) }
+    def benefits; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

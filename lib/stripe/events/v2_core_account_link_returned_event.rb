@@ -9,7 +9,7 @@ module Stripe
         "v2.core.account_link.returned"
       end
 
-      class V2CoreAccountLinkReturnedEventData < Stripe::StripeObject
+      class V2CoreAccountLinkReturnedEventData < ::Stripe::StripeObject
         # Open Enum. The use case type of the account link that has been completed.
         attr_reader :use_case
         # The ID of the v2 account.

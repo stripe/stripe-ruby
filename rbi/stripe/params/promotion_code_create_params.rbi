@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class PromotionCodeCreateParams < Stripe::RequestParams
-    class Promotion < Stripe::RequestParams
+  class PromotionCodeCreateParams < ::Stripe::RequestParams
+    class Promotion < ::Stripe::RequestParams
       # If promotion `type` is `coupon`, the coupon for this promotion code.
       sig { returns(T.nilable(String)) }
       def coupon; end
@@ -18,8 +18,8 @@ module Stripe
       sig { params(coupon: T.nilable(String), type: String).void }
       def initialize(coupon: nil, type: nil); end
     end
-    class Restrictions < Stripe::RequestParams
-      class CurrencyOptions < Stripe::RequestParams
+    class Restrictions < ::Stripe::RequestParams
+      class CurrencyOptions < ::Stripe::RequestParams
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
         sig { returns(T.nilable(Integer)) }
         def minimum_amount; end

@@ -8,7 +8,7 @@ module Stripe
     #
     # [Follow the guide](https://stripe.com/docs/issuing/credit/report-credit-decisions-and-manage-aans) to learn about your requirements as a platform.
     class CreditUnderwritingRecord < APIResource
-      class Application < Stripe::StripeObject
+      class Application < ::Stripe::StripeObject
         # The channel through which the applicant has submitted their application.
         sig { returns(String) }
         def application_method; end
@@ -25,7 +25,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class CreditUser < Stripe::StripeObject
+      class CreditUser < ::Stripe::StripeObject
         # Email of the applicant or accountholder.
         sig { returns(String) }
         def email; end
@@ -39,8 +39,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Decision < Stripe::StripeObject
-        class ApplicationRejected < Stripe::StripeObject
+      class Decision < ::Stripe::StripeObject
+        class ApplicationRejected < ::Stripe::StripeObject
           # Details about the `reasons.other` when present.
           sig { returns(T.nilable(String)) }
           def reason_other_explanation; end
@@ -54,7 +54,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class CreditLimitApproved < Stripe::StripeObject
+        class CreditLimitApproved < ::Stripe::StripeObject
           # Credit amount approved. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
           sig { returns(Integer) }
           def amount; end
@@ -68,7 +68,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class CreditLimitDecreased < Stripe::StripeObject
+        class CreditLimitDecreased < ::Stripe::StripeObject
           # Credit amount approved after decrease. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
           sig { returns(Integer) }
           def amount; end
@@ -88,7 +88,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class CreditLineClosed < Stripe::StripeObject
+        class CreditLineClosed < ::Stripe::StripeObject
           # Details about the `reasons.other` when present.
           sig { returns(T.nilable(String)) }
           def reason_other_explanation; end
@@ -129,7 +129,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class UnderwritingException < Stripe::StripeObject
+      class UnderwritingException < ::Stripe::StripeObject
         # Written explanation for the exception.
         sig { returns(String) }
         def explanation; end
@@ -184,43 +184,43 @@ module Stripe
       def underwriting_exception; end
       # Update a CreditUnderwritingRecord object to correct mistakes.
       sig {
-        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::CreditUnderwritingRecord)
+        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
       def correct(params = {}, opts = {}); end
 
       # Update a CreditUnderwritingRecord object to correct mistakes.
       sig {
-        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::CreditUnderwritingRecord)
+        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
       def self.correct(credit_underwriting_record, params = {}, opts = {}); end
 
       # Creates a CreditUnderwritingRecord object with information about a credit application submission.
       sig {
-        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::CreditUnderwritingRecord)
+        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCreateFromApplicationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
       def self.create_from_application(params = {}, opts = {}); end
 
       # Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.
       sig {
-        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::CreditUnderwritingRecord)
+        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCreateFromProactiveReviewParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
       def self.create_from_proactive_review(params = {}, opts = {}); end
 
       # Retrieves a list of CreditUnderwritingRecord objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Update a CreditUnderwritingRecord object from a decision made on a credit application.
       sig {
-        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportDecisionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::CreditUnderwritingRecord)
+        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportDecisionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
       def report_decision(params = {}, opts = {}); end
 
       # Update a CreditUnderwritingRecord object from a decision made on a credit application.
       sig {
-        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportDecisionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::CreditUnderwritingRecord)
+        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportDecisionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
       def self.report_decision(credit_underwriting_record, params = {}, opts = {}); end
     end

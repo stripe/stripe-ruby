@@ -5,8 +5,8 @@ module Stripe
   module V2
     module Billing
       module RateCards
-        class RateCreateParams < Stripe::RequestParams
-          class CustomPricingUnitAmount < Stripe::RequestParams
+        class RateCreateParams < ::Stripe::RequestParams
+          class CustomPricingUnitAmount < ::Stripe::RequestParams
             # The id of the custom pricing unit.
             attr_accessor :id
             # The unit value for the custom pricing unit, as a string.
@@ -18,7 +18,7 @@ module Stripe
             end
           end
 
-          class Tier < Stripe::RequestParams
+          class Tier < ::Stripe::RequestParams
             # Price for the entire tier, represented as a decimal string in minor currency units with at most 12 decimal places.
             attr_accessor :flat_amount
             # Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
@@ -38,7 +38,7 @@ module Stripe
             end
           end
 
-          class TransformQuantity < Stripe::RequestParams
+          class TransformQuantity < ::Stripe::RequestParams
             # Divide usage by this number.
             attr_accessor :divide_by
             # After division, round the result up or down.

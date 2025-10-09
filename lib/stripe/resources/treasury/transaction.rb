@@ -12,7 +12,7 @@ module Stripe
         "treasury.transaction"
       end
 
-      class BalanceImpact < Stripe::StripeObject
+      class BalanceImpact < ::Stripe::StripeObject
         # The change made to funds the user can spend right now.
         attr_reader :cash
         # The change made to funds that are not spendable yet, but will become available at a later time.
@@ -29,7 +29,7 @@ module Stripe
         end
       end
 
-      class FlowDetails < Stripe::StripeObject
+      class FlowDetails < ::Stripe::StripeObject
         # You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
         attr_reader :credit_reversal
         # You can reverse some [ReceivedDebits](https://stripe.com/docs/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
@@ -72,7 +72,7 @@ module Stripe
         end
       end
 
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Timestamp describing when the Transaction changed status to `posted`.
         attr_reader :posted_at
         # Timestamp describing when the Transaction changed status to `void`.

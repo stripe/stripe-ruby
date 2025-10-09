@@ -6,10 +6,10 @@ module Stripe
   module Billing
     # Indicates the billing credit balance for billing credits granted to a customer.
     class CreditBalanceSummary < SingletonAPIResource
-      class Balance < Stripe::StripeObject
-        class AvailableBalance < Stripe::StripeObject
-          class CustomPricingUnit < Stripe::StripeObject
-            class CustomPricingUnitDetails < Stripe::StripeObject
+      class Balance < ::Stripe::StripeObject
+        class AvailableBalance < ::Stripe::StripeObject
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               sig { returns(Integer) }
               def created; end
@@ -51,7 +51,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Monetary < Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
             def currency; end
@@ -81,9 +81,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class LedgerBalance < Stripe::StripeObject
-          class CustomPricingUnit < Stripe::StripeObject
-            class CustomPricingUnitDetails < Stripe::StripeObject
+        class LedgerBalance < ::Stripe::StripeObject
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
               # Time at which the object was created. Measured in seconds since the Unix epoch.
               sig { returns(Integer) }
               def created; end
@@ -125,7 +125,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Monetary < Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
             def currency; end
@@ -172,7 +172,7 @@ module Stripe
       sig { returns(T::Array[Balance]) }
       def balances; end
       # The customer the balance is for.
-      sig { returns(T.any(String, Stripe::Customer)) }
+      sig { returns(T.any(String, ::Stripe::Customer)) }
       def customer; end
       # The account the balance is for.
       sig { returns(T.nilable(String)) }

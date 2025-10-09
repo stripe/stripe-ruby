@@ -6,11 +6,11 @@ module Stripe
   module V2
     module Billing
       class ServiceAction < APIResource
-        class CreditGrant < Stripe::StripeObject
-          class Amount < Stripe::StripeObject
-            class CustomPricingUnit < Stripe::StripeObject
+        class CreditGrant < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            class CustomPricingUnit < ::Stripe::StripeObject
               # The Custom Pricing Unit object.
-              sig { returns(T.nilable(Stripe::V2::Billing::CustomPricingUnit)) }
+              sig { returns(T.nilable(::Stripe::V2::Billing::CustomPricingUnit)) }
               def custom_pricing_unit_details; end
               # The id of the custom pricing unit.
               sig { returns(String) }
@@ -32,7 +32,7 @@ module Stripe
             sig { returns(T.nilable(CustomPricingUnit)) }
             def custom_pricing_unit; end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
-            sig { returns(T.nilable(Stripe::V2::Amount)) }
+            sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
             def self.inner_class_types
               @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
@@ -41,8 +41,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class ApplicabilityConfig < Stripe::StripeObject
-            class Scope < Stripe::StripeObject
+          class ApplicabilityConfig < ::Stripe::StripeObject
+            class Scope < ::Stripe::StripeObject
               # The billable items to apply the credit grant to.
               sig { returns(T.nilable(T::Array[String])) }
               def billable_items; end
@@ -66,7 +66,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class ExpiryConfig < Stripe::StripeObject
+          class ExpiryConfig < ::Stripe::StripeObject
             # The type of the expiry configuration. We currently support `end_of_service_period`.
             sig { returns(String) }
             def type; end
@@ -106,11 +106,11 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class CreditGrantPerTenant < Stripe::StripeObject
-          class Amount < Stripe::StripeObject
-            class CustomPricingUnit < Stripe::StripeObject
+        class CreditGrantPerTenant < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            class CustomPricingUnit < ::Stripe::StripeObject
               # The Custom Pricing Unit object.
-              sig { returns(T.nilable(Stripe::V2::Billing::CustomPricingUnit)) }
+              sig { returns(T.nilable(::Stripe::V2::Billing::CustomPricingUnit)) }
               def custom_pricing_unit_details; end
               # The id of the custom pricing unit.
               sig { returns(String) }
@@ -132,7 +132,7 @@ module Stripe
             sig { returns(T.nilable(CustomPricingUnit)) }
             def custom_pricing_unit; end
             # The monetary amount of the credit grant. Required if `type` is `monetary`.
-            sig { returns(T.nilable(Stripe::V2::Amount)) }
+            sig { returns(T.nilable(::Stripe::V2::Amount)) }
             def monetary; end
             def self.inner_class_types
               @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
@@ -141,8 +141,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class ApplicabilityConfig < Stripe::StripeObject
-            class Scope < Stripe::StripeObject
+          class ApplicabilityConfig < ::Stripe::StripeObject
+            class Scope < ::Stripe::StripeObject
               # The billable items to apply the credit grant to.
               sig { returns(T.nilable(T::Array[String])) }
               def billable_items; end
@@ -166,7 +166,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class ExpiryConfig < Stripe::StripeObject
+          class ExpiryConfig < ::Stripe::StripeObject
             # The type of the expiry configuration. We currently support `end_of_service_period`.
             sig { returns(String) }
             def type; end

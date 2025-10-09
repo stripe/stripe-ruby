@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       module PricingPlans
-        class ComponentRetrieveParams < Stripe::RequestParams; end
+        class ComponentRetrieveParams < ::Stripe::RequestParams; end
       end
     end
   end

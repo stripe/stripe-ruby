@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class CustomPricingUnitListParams < Stripe::RequestParams
+      class CustomPricingUnitListParams < ::Stripe::RequestParams
         # Filter for active/inactive custom pricing units. Mutually exclusive with `lookup_keys`.
         sig { returns(T.nilable(T::Boolean)) }
         def active; end

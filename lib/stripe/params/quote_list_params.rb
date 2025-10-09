@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class QuoteListParams < Stripe::RequestParams
+  class QuoteListParams < ::Stripe::RequestParams
     # The ID of the customer whose quotes will be retrieved.
     attr_accessor :customer
     # The ID of the account whose quotes will be retrieved.

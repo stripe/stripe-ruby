@@ -13,7 +13,7 @@ module Stripe
           #
           # ** raises ControlledByDashboardError
           sig {
-            params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Vault::UsBankAccount)
+            params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
           def archive(id, params = {}, opts = {}); end
 
@@ -23,13 +23,13 @@ module Stripe
           # ** raises InvalidPaymentMethodError
           # ** raises QuotaExceededError
           sig {
-            params(params: T.any(::Stripe::V2::Core::Vault::UsBankAccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Vault::UsBankAccount)
+            params(params: T.any(::Stripe::V2::Core::Vault::UsBankAccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
           def create(params = {}, opts = {}); end
 
           # Retrieve a USBankAccount object.
           sig {
-            params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Vault::UsBankAccount)
+            params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
           def retrieve(id, params = {}, opts = {}); end
 
@@ -39,7 +39,7 @@ module Stripe
           # ** raises InvalidPaymentMethodError
           # ** raises QuotaExceededError
           sig {
-            params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Vault::UsBankAccount)
+            params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
           def update(id, params = {}, opts = {}); end
         end

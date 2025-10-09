@@ -13,7 +13,7 @@ module Stripe
       "line_item"
     end
 
-    class DiscountAmount < Stripe::StripeObject
+    class DiscountAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       attr_reader :amount
       # The discount that was applied to get this discount amount.
@@ -28,7 +28,7 @@ module Stripe
       end
     end
 
-    class MarginAmount < Stripe::StripeObject
+    class MarginAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the reduction in line item amount.
       attr_reader :amount
       # The margin that was applied to get this margin amount.
@@ -43,10 +43,10 @@ module Stripe
       end
     end
 
-    class Parent < Stripe::StripeObject
-      class InvoiceItemDetails < Stripe::StripeObject
-        class ProrationDetails < Stripe::StripeObject
-          class CreditedItems < Stripe::StripeObject
+    class Parent < ::Stripe::StripeObject
+      class InvoiceItemDetails < ::Stripe::StripeObject
+        class ProrationDetails < ::Stripe::StripeObject
+          class CreditedItems < ::Stripe::StripeObject
             # Invoice containing the credited invoice line items
             attr_reader :invoice
             # Credited invoice line items
@@ -89,7 +89,7 @@ module Stripe
         end
       end
 
-      class LicenseFeeSubscriptionDetails < Stripe::StripeObject
+      class LicenseFeeSubscriptionDetails < ::Stripe::StripeObject
         # The invoice item that generated this line item
         attr_reader :invoice_item
         # The license fee subscription that generated this line item
@@ -110,7 +110,7 @@ module Stripe
         end
       end
 
-      class RateCardSubscriptionDetails < Stripe::StripeObject
+      class RateCardSubscriptionDetails < ::Stripe::StripeObject
         # The invoice item that generated this line item
         attr_reader :invoice_item
         # The pricing plan subscription that manages the rate card subscription
@@ -131,9 +131,9 @@ module Stripe
         end
       end
 
-      class SubscriptionItemDetails < Stripe::StripeObject
-        class ProrationDetails < Stripe::StripeObject
-          class CreditedItems < Stripe::StripeObject
+      class SubscriptionItemDetails < ::Stripe::StripeObject
+        class ProrationDetails < ::Stripe::StripeObject
+          class CreditedItems < ::Stripe::StripeObject
             # Invoice containing the credited invoice line items
             attr_reader :invoice
             # Credited invoice line items
@@ -202,7 +202,7 @@ module Stripe
       end
     end
 
-    class Period < Stripe::StripeObject
+    class Period < ::Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       attr_reader :end
       # The start of the period. This value is inclusive.
@@ -217,7 +217,7 @@ module Stripe
       end
     end
 
-    class PretaxCreditAmount < Stripe::StripeObject
+    class PretaxCreditAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       attr_reader :amount
       # The credit balance transaction that was applied to get this pretax credit amount.
@@ -238,8 +238,8 @@ module Stripe
       end
     end
 
-    class Pricing < Stripe::StripeObject
-      class LicenseFeeDetails < Stripe::StripeObject
+    class Pricing < ::Stripe::StripeObject
+      class LicenseFeeDetails < ::Stripe::StripeObject
         # The ID of the license fee this item is associated with
         attr_reader :license_fee
         # The version of the license fee this item is associated with
@@ -256,7 +256,7 @@ module Stripe
         end
       end
 
-      class PriceDetails < Stripe::StripeObject
+      class PriceDetails < ::Stripe::StripeObject
         # The ID of the price this item is associated with.
         attr_reader :price
         # The ID of the product this item is associated with.
@@ -271,7 +271,7 @@ module Stripe
         end
       end
 
-      class RateCardRateDetails < Stripe::StripeObject
+      class RateCardRateDetails < ::Stripe::StripeObject
         # The ID of billable item this item is associated with
         attr_reader :metered_item
         # The ID of the rate card this item is associated with
@@ -311,7 +311,7 @@ module Stripe
       end
     end
 
-    class TaxCalculationReference < Stripe::StripeObject
+    class TaxCalculationReference < ::Stripe::StripeObject
       # The calculation identifier for tax calculation response.
       attr_reader :calculation_id
       # The calculation identifier for tax calculation response line item.
@@ -326,8 +326,8 @@ module Stripe
       end
     end
 
-    class Tax < Stripe::StripeObject
-      class TaxRateDetails < Stripe::StripeObject
+    class Tax < ::Stripe::StripeObject
+      class TaxRateDetails < ::Stripe::StripeObject
         # Attribute for field tax_rate
         attr_reader :tax_rate
 

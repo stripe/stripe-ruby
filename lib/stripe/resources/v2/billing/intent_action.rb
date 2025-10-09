@@ -10,10 +10,10 @@ module Stripe
           "v2.billing.intent_action"
         end
 
-        class Apply < Stripe::StripeObject
-          class InvoiceDiscountRule < Stripe::StripeObject
-            class PercentOff < Stripe::StripeObject
-              class MaximumApplications < Stripe::StripeObject
+        class Apply < ::Stripe::StripeObject
+          class InvoiceDiscountRule < ::Stripe::StripeObject
+            class PercentOff < ::Stripe::StripeObject
+              class MaximumApplications < ::Stripe::StripeObject
                 # The type of maximum applications configuration.
                 attr_reader :type
 
@@ -69,8 +69,8 @@ module Stripe
           end
         end
 
-        class Deactivate < Stripe::StripeObject
-          class BillingDetails < Stripe::StripeObject
+        class Deactivate < ::Stripe::StripeObject
+          class BillingDetails < ::Stripe::StripeObject
             # This controls the proration adjustment for the partial servicing period.
             attr_reader :proration_behavior
 
@@ -83,7 +83,7 @@ module Stripe
             end
           end
 
-          class EffectiveAt < Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
             attr_reader :timestamp
             # When the deactivate action will take effect.
@@ -98,7 +98,7 @@ module Stripe
             end
           end
 
-          class PricingPlanSubscriptionDetails < Stripe::StripeObject
+          class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
             # ID of the Pricing Plan Subscription to deactivate.
             attr_reader :pricing_plan_subscription
 
@@ -132,8 +132,8 @@ module Stripe
           end
         end
 
-        class Modify < Stripe::StripeObject
-          class BillingDetails < Stripe::StripeObject
+        class Modify < ::Stripe::StripeObject
+          class BillingDetails < ::Stripe::StripeObject
             # This controls the proration adjustment for the partial servicing period.
             attr_reader :proration_behavior
 
@@ -146,7 +146,7 @@ module Stripe
             end
           end
 
-          class EffectiveAt < Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the modify action will take effect. Only present if type is timestamp.
             attr_reader :timestamp
             # When the modify action will take effect.
@@ -161,8 +161,8 @@ module Stripe
             end
           end
 
-          class PricingPlanSubscriptionDetails < Stripe::StripeObject
-            class ComponentConfiguration < Stripe::StripeObject
+          class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+            class ComponentConfiguration < ::Stripe::StripeObject
               # Quantity of the component to be used.
               attr_reader :quantity
               # Lookup key for the pricing plan component.
@@ -217,7 +217,7 @@ module Stripe
           end
         end
 
-        class Remove < Stripe::StripeObject
+        class Remove < ::Stripe::StripeObject
           # Type of the remove action.
           attr_reader :type
           # The ID of the discount rule to remove for future invoices.
@@ -232,8 +232,8 @@ module Stripe
           end
         end
 
-        class Subscribe < Stripe::StripeObject
-          class BillingDetails < Stripe::StripeObject
+        class Subscribe < ::Stripe::StripeObject
+          class BillingDetails < ::Stripe::StripeObject
             # This controls the proration adjustment for the partial servicing period.
             attr_reader :proration_behavior
 
@@ -246,7 +246,7 @@ module Stripe
             end
           end
 
-          class EffectiveAt < Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
             # The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
             attr_reader :timestamp
             # When the subscribe action will take effect.
@@ -261,8 +261,8 @@ module Stripe
             end
           end
 
-          class PricingPlanSubscriptionDetails < Stripe::StripeObject
-            class ComponentConfiguration < Stripe::StripeObject
+          class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+            class ComponentConfiguration < ::Stripe::StripeObject
               # Quantity of the component to be used.
               attr_reader :quantity
               # Lookup key for the pricing plan component.
@@ -298,8 +298,8 @@ module Stripe
             end
           end
 
-          class V1SubscriptionDetails < Stripe::StripeObject
-            class Item < Stripe::StripeObject
+          class V1SubscriptionDetails < ::Stripe::StripeObject
+            class Item < ::Stripe::StripeObject
               # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
               attr_reader :metadata
               # The ID of the price object.

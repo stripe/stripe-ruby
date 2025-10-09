@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class PricingPlanListParams < Stripe::RequestParams
+      class PricingPlanListParams < ::Stripe::RequestParams
         # Filter for active/inactive PricingPlans. Mutually exclusive with `lookup_keys`.
         sig { returns(T.nilable(T::Boolean)) }
         def active; end

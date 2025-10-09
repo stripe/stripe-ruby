@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module TestHelpers
-      class FinancialAddressCreditParams < Stripe::RequestParams
+      class FinancialAddressCreditParams < ::Stripe::RequestParams
         # Object containing the amount value and currency to credit.
         attr_accessor :amount
         # Open Enum. The network to use in simulating the funds flow. This will be the reflected in the resulting ReceivedCredit.

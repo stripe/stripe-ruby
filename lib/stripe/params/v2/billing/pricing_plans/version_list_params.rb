@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Billing
       module PricingPlans
-        class VersionListParams < Stripe::RequestParams
+        class VersionListParams < ::Stripe::RequestParams
           # Optionally set the maximum number of results per page. Defaults to 20.
           attr_accessor :limit
 

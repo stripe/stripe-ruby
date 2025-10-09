@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Billing
       module Intents
-        class ActionRetrieveParams < Stripe::RequestParams; end
+        class ActionRetrieveParams < ::Stripe::RequestParams; end
       end
     end
   end

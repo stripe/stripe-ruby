@@ -5,9 +5,9 @@
 module Stripe
   module V2
     module Billing
-      class BillSettingUpdateParams < Stripe::RequestParams
-        class Calculation < Stripe::RequestParams
-          class Tax < Stripe::RequestParams
+      class BillSettingUpdateParams < ::Stripe::RequestParams
+        class Calculation < ::Stripe::RequestParams
+          class Tax < ::Stripe::RequestParams
             # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
             sig { returns(String) }
             def type; end
@@ -28,8 +28,8 @@ module Stripe
            }
           def initialize(tax: nil); end
         end
-        class Invoice < Stripe::RequestParams
-          class TimeUntilDue < Stripe::RequestParams
+        class Invoice < ::Stripe::RequestParams
+          class TimeUntilDue < ::Stripe::RequestParams
             # The interval unit for the time until due.
             sig { returns(String) }
             def interval; end

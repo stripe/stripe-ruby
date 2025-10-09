@@ -6,7 +6,7 @@ module Stripe
   module V2
     class FinancialAddressGeneratedMicrodeposits < APIResource
       # The amounts of the microdeposits that were generated.
-      sig { returns(T::Array[Stripe::V2::Amount]) }
+      sig { returns(T::Array[::Stripe::V2::Amount]) }
       def amounts; end
       # String representing the object's type. Objects of the same type share the same value of the object field.
       sig { returns(String) }

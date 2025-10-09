@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module Core
-      class ClaimableSandboxCreateParams < Stripe::RequestParams
-        class Prefill < Stripe::RequestParams
+      class ClaimableSandboxCreateParams < ::Stripe::RequestParams
+        class Prefill < ::Stripe::RequestParams
           # Country in which the account holder resides, or in which the business is legally established.
           # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country

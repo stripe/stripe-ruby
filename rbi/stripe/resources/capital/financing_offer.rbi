@@ -7,7 +7,7 @@ module Stripe
     # This is an object representing an offer of financing from
     # Stripe Capital to a Connect subaccount.
     class FinancingOffer < APIResource
-      class AcceptedTerms < Stripe::StripeObject
+      class AcceptedTerms < ::Stripe::StripeObject
         # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         sig { returns(Integer) }
         def advance_amount; end
@@ -31,7 +31,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class OfferedTerms < Stripe::StripeObject
+      class OfferedTerms < ::Stripe::StripeObject
         # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         sig { returns(Integer) }
         def advance_amount; end
@@ -115,21 +115,21 @@ module Stripe
       def type; end
       # Retrieves the financing offers available for Connected accounts that belong to your platform.
       sig {
-        params(params: T.any(::Stripe::Capital::FinancingOfferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Capital::FinancingOfferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Acknowledges that platform has received and delivered the financing_offer to
       # the intended merchant recipient.
       sig {
-        params(params: T.any(::Stripe::Capital::FinancingOfferMarkDeliveredParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Capital::FinancingOffer)
+        params(params: T.any(::Stripe::Capital::FinancingOfferMarkDeliveredParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Capital::FinancingOffer)
        }
       def mark_delivered(params = {}, opts = {}); end
 
       # Acknowledges that platform has received and delivered the financing_offer to
       # the intended merchant recipient.
       sig {
-        params(financing_offer: String, params: T.any(::Stripe::Capital::FinancingOfferMarkDeliveredParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Capital::FinancingOffer)
+        params(financing_offer: String, params: T.any(::Stripe::Capital::FinancingOfferMarkDeliveredParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Capital::FinancingOffer)
        }
       def self.mark_delivered(financing_offer, params = {}, opts = {}); end
     end

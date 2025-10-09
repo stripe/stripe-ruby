@@ -7,7 +7,7 @@ module Stripe
     module MoneyManagement
       # RecipientVerification represents a verification of recipient you intend to send funds to.
       class RecipientVerification < APIResource
-        class MatchResultDetails < Stripe::StripeObject
+        class MatchResultDetails < ::Stripe::StripeObject
           # The account name associated with the bank account as provided by the VoP provider, only present if there is a match or close match.
           sig { returns(T.nilable(String)) }
           def matched_name; end
@@ -24,7 +24,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusTransitions < Stripe::StripeObject
+        class StatusTransitions < ::Stripe::StripeObject
           # Timestamp describing when a RecipientVerification changed status to `acknowledged`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
           sig { returns(T.nilable(String)) }

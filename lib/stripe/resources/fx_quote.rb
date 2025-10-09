@@ -17,8 +17,8 @@ module Stripe
       "fx_quote"
     end
 
-    class Rates < Stripe::StripeObject
-      class RateDetails < Stripe::StripeObject
+    class Rates < ::Stripe::StripeObject
+      class RateDetails < ::Stripe::StripeObject
         # The rate for the currency pair.
         attr_reader :base_rate
         # The fee for locking the conversion rates.
@@ -52,8 +52,8 @@ module Stripe
       end
     end
 
-    class Usage < Stripe::StripeObject
-      class Payment < Stripe::StripeObject
+    class Usage < ::Stripe::StripeObject
+      class Payment < ::Stripe::StripeObject
         # The Stripe account ID that the funds will be transferred to.
         #
         # This field should match the account ID that would be used in the PaymentIntent’s transfer_data[destination] field.
@@ -72,7 +72,7 @@ module Stripe
         end
       end
 
-      class Transfer < Stripe::StripeObject
+      class Transfer < ::Stripe::StripeObject
         # The Stripe account ID that the funds will be transferred to.
         #
         # This field should match the account ID that would be used in the Transfer’s destination field.

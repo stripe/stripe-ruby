@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class PaymentLinkUpdateParams < Stripe::RequestParams
-    class AfterCompletion < Stripe::RequestParams
-      class HostedConfirmation < Stripe::RequestParams
+  class PaymentLinkUpdateParams < ::Stripe::RequestParams
+    class AfterCompletion < ::Stripe::RequestParams
+      class HostedConfirmation < ::Stripe::RequestParams
         # A custom message to display to the customer after the purchase is complete.
         sig { returns(T.nilable(String)) }
         def custom_message; end
@@ -14,7 +14,7 @@ module Stripe
         sig { params(custom_message: T.nilable(String)).void }
         def initialize(custom_message: nil); end
       end
-      class Redirect < Stripe::RequestParams
+      class Redirect < ::Stripe::RequestParams
         # The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
         sig { returns(String) }
         def url; end
@@ -47,8 +47,8 @@ module Stripe
        }
       def initialize(hosted_confirmation: nil, redirect: nil, type: nil); end
     end
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
@@ -81,9 +81,9 @@ module Stripe
        }
       def initialize(enabled: nil, liability: nil); end
     end
-    class CustomField < Stripe::RequestParams
-      class Dropdown < Stripe::RequestParams
-        class Option < Stripe::RequestParams
+    class CustomField < ::Stripe::RequestParams
+      class Dropdown < ::Stripe::RequestParams
+        class Option < ::Stripe::RequestParams
           # The label for the option, displayed to the customer. Up to 100 characters.
           sig { returns(String) }
           def label; end
@@ -114,7 +114,7 @@ module Stripe
          }
         def initialize(default_value: nil, options: nil); end
       end
-      class Label < Stripe::RequestParams
+      class Label < ::Stripe::RequestParams
         # Custom text for the label, displayed to the customer. Up to 50 characters.
         sig { returns(String) }
         def custom; end
@@ -128,7 +128,7 @@ module Stripe
         sig { params(custom: String, type: String).void }
         def initialize(custom: nil, type: nil); end
       end
-      class Numeric < Stripe::RequestParams
+      class Numeric < ::Stripe::RequestParams
         # The value that will pre-fill the field on the payment page.
         sig { returns(T.nilable(String)) }
         def default_value; end
@@ -149,7 +149,7 @@ module Stripe
          }
         def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
       end
-      class Text < Stripe::RequestParams
+      class Text < ::Stripe::RequestParams
         # The value that will pre-fill the field on the payment page.
         sig { returns(T.nilable(String)) }
         def default_value; end
@@ -226,8 +226,8 @@ module Stripe
         type: nil
       ); end
     end
-    class CustomText < Stripe::RequestParams
-      class AfterSubmit < Stripe::RequestParams
+    class CustomText < ::Stripe::RequestParams
+      class AfterSubmit < ::Stripe::RequestParams
         # Text may be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
@@ -236,7 +236,7 @@ module Stripe
         sig { params(message: String).void }
         def initialize(message: nil); end
       end
-      class ShippingAddress < Stripe::RequestParams
+      class ShippingAddress < ::Stripe::RequestParams
         # Text may be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
@@ -245,7 +245,7 @@ module Stripe
         sig { params(message: String).void }
         def initialize(message: nil); end
       end
-      class Submit < Stripe::RequestParams
+      class Submit < ::Stripe::RequestParams
         # Text may be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
@@ -254,7 +254,7 @@ module Stripe
         sig { params(message: String).void }
         def initialize(message: nil); end
       end
-      class TermsOfServiceAcceptance < Stripe::RequestParams
+      class TermsOfServiceAcceptance < ::Stripe::RequestParams
         # Text may be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
@@ -305,9 +305,9 @@ module Stripe
         terms_of_service_acceptance: nil
       ); end
     end
-    class InvoiceCreation < Stripe::RequestParams
-      class InvoiceData < Stripe::RequestParams
-        class CustomField < Stripe::RequestParams
+    class InvoiceCreation < ::Stripe::RequestParams
+      class InvoiceData < ::Stripe::RequestParams
+        class CustomField < ::Stripe::RequestParams
           # The name of the custom field. This may be up to 40 characters.
           sig { returns(String) }
           def name; end
@@ -321,7 +321,7 @@ module Stripe
           sig { params(name: String, value: String).void }
           def initialize(name: nil, value: nil); end
         end
-        class Issuer < Stripe::RequestParams
+        class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
           def account; end
@@ -335,7 +335,7 @@ module Stripe
           sig { params(account: T.nilable(String), type: String).void }
           def initialize(account: nil, type: nil); end
         end
-        class RenderingOptions < Stripe::RequestParams
+        class RenderingOptions < ::Stripe::RequestParams
           # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
           sig { returns(T.nilable(T.any(String, String))) }
           def amount_tax_display; end
@@ -432,8 +432,8 @@ module Stripe
        }
       def initialize(enabled: nil, invoice_data: nil); end
     end
-    class LineItem < Stripe::RequestParams
-      class AdjustableQuantity < Stripe::RequestParams
+    class LineItem < ::Stripe::RequestParams
+      class AdjustableQuantity < ::Stripe::RequestParams
         # Set to true if the quantity can be adjusted to any non-negative Integer.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -476,7 +476,7 @@ module Stripe
        }
       def initialize(adjustable_quantity: nil, id: nil, quantity: nil); end
     end
-    class PaymentIntentData < Stripe::RequestParams
+    class PaymentIntentData < ::Stripe::RequestParams
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
       def description; end
@@ -517,7 +517,7 @@ module Stripe
         transfer_group: nil
       ); end
     end
-    class PhoneNumberCollection < Stripe::RequestParams
+    class PhoneNumberCollection < ::Stripe::RequestParams
       # Set to `true` to enable phone number collection.
       sig { returns(T::Boolean) }
       def enabled; end
@@ -526,8 +526,8 @@ module Stripe
       sig { params(enabled: T::Boolean).void }
       def initialize(enabled: nil); end
     end
-    class Restrictions < Stripe::RequestParams
-      class CompletedSessions < Stripe::RequestParams
+    class Restrictions < ::Stripe::RequestParams
+      class CompletedSessions < ::Stripe::RequestParams
         # The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
         sig { returns(Integer) }
         def limit; end
@@ -548,7 +548,7 @@ module Stripe
        }
       def initialize(completed_sessions: nil); end
     end
-    class ShippingAddressCollection < Stripe::RequestParams
+    class ShippingAddressCollection < ::Stripe::RequestParams
       # An array of two-letter ISO country codes representing which countries Checkout should provide as options for
       # shipping locations.
       sig { returns(T::Array[String]) }
@@ -558,9 +558,9 @@ module Stripe
       sig { params(allowed_countries: T::Array[String]).void }
       def initialize(allowed_countries: nil); end
     end
-    class SubscriptionData < Stripe::RequestParams
-      class InvoiceSettings < Stripe::RequestParams
-        class Issuer < Stripe::RequestParams
+    class SubscriptionData < ::Stripe::RequestParams
+      class InvoiceSettings < ::Stripe::RequestParams
+        class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
           def account; end
@@ -588,8 +588,8 @@ module Stripe
          }
         def initialize(issuer: nil); end
       end
-      class TrialSettings < Stripe::RequestParams
-        class EndBehavior < Stripe::RequestParams
+      class TrialSettings < ::Stripe::RequestParams
+        class EndBehavior < ::Stripe::RequestParams
           # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
           sig { returns(String) }
           def missing_payment_method; end
@@ -650,7 +650,7 @@ module Stripe
         trial_settings: nil
       ); end
     end
-    class TaxIdCollection < Stripe::RequestParams
+    class TaxIdCollection < ::Stripe::RequestParams
       # Enable tax ID collection during checkout. Defaults to `false`.
       sig { returns(T::Boolean) }
       def enabled; end

@@ -6,8 +6,8 @@ module Stripe
   module Issuing
     # You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
     class Card < APIResource
-      class Shipping < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class Shipping < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -33,8 +33,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class AddressValidation < Stripe::StripeObject
-          class NormalizedAddress < Stripe::StripeObject
+        class AddressValidation < ::Stripe::StripeObject
+          class NormalizedAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -76,7 +76,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Customs < Stripe::StripeObject
+        class Customs < ::Stripe::StripeObject
           # A registration number used for customs in Europe. See [https://www.gov.uk/eori](https://www.gov.uk/eori) for the UK and [https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en](https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en) for the EU.
           sig { returns(T.nilable(String)) }
           def eori_number; end
@@ -137,8 +137,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SpendingControls < Stripe::StripeObject
-        class SpendingLimit < Stripe::StripeObject
+      class SpendingControls < ::Stripe::StripeObject
+        class SpendingLimit < ::Stripe::StripeObject
           # Maximum amount allowed to spend per interval. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
@@ -180,8 +180,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Wallets < Stripe::StripeObject
-        class ApplePay < Stripe::StripeObject
+      class Wallets < ::Stripe::StripeObject
+        class ApplePay < ::Stripe::StripeObject
           # Apple Pay Eligibility
           sig { returns(T::Boolean) }
           def eligible; end
@@ -195,7 +195,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class GooglePay < Stripe::StripeObject
+        class GooglePay < ::Stripe::StripeObject
           # Google Pay Eligibility
           sig { returns(T::Boolean) }
           def eligible; end
@@ -234,7 +234,7 @@ module Stripe
       # An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
       #
       # Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
-      sig { returns(Stripe::Issuing::Cardholder) }
+      sig { returns(::Stripe::Issuing::Cardholder) }
       def cardholder; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -273,13 +273,13 @@ module Stripe
       sig { returns(String) }
       def object; end
       # The personalization design object belonging to this card.
-      sig { returns(T.nilable(T.any(String, Stripe::Issuing::PersonalizationDesign))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesign))) }
       def personalization_design; end
       # The latest card that replaces this card, if any.
-      sig { returns(T.nilable(T.any(String, Stripe::Issuing::Card))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Card))) }
       def replaced_by; end
       # The card this card replaces, if any.
-      sig { returns(T.nilable(T.any(String, Stripe::Issuing::Card))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Card))) }
       def replacement_for; end
       # The reason why the previous card needed to be replaced.
       sig { returns(T.nilable(String)) }
@@ -304,19 +304,19 @@ module Stripe
       def wallets; end
       # Creates an Issuing Card object.
       sig {
-        params(params: T.any(::Stripe::Issuing::CardCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Card)
+        params(params: T.any(::Stripe::Issuing::CardCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Card)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Issuing::CardListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::CardListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(card: String, params: T.any(::Stripe::Issuing::CardUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Card)
+        params(card: String, params: T.any(::Stripe::Issuing::CardUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Card)
        }
       def self.update(card, params = {}, opts = {}); end
     end

@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Climate
-    class OrderCreateParams < Stripe::RequestParams
-      class Beneficiary < Stripe::RequestParams
+    class OrderCreateParams < ::Stripe::RequestParams
+      class Beneficiary < ::Stripe::RequestParams
         # Publicly displayable name for the end beneficiary of carbon removal.
         sig { returns(String) }
         def public_name; end

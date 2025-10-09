@@ -14,8 +14,8 @@ module Stripe
       "shipping_rate"
     end
 
-    class DeliveryEstimate < Stripe::StripeObject
-      class Maximum < Stripe::StripeObject
+    class DeliveryEstimate < ::Stripe::StripeObject
+      class Maximum < ::Stripe::StripeObject
         # A unit of time.
         attr_reader :unit
         # Must be greater than 0.
@@ -30,7 +30,7 @@ module Stripe
         end
       end
 
-      class Minimum < Stripe::StripeObject
+      class Minimum < ::Stripe::StripeObject
         # A unit of time.
         attr_reader :unit
         # Must be greater than 0.
@@ -58,8 +58,8 @@ module Stripe
       end
     end
 
-    class FixedAmount < Stripe::StripeObject
-      class CurrencyOptions < Stripe::StripeObject
+    class FixedAmount < ::Stripe::StripeObject
+      class CurrencyOptions < ::Stripe::StripeObject
         # A non-negative integer in cents representing how much to charge.
         attr_reader :amount
         # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.

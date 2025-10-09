@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module FinancialConnections
-    class TransactionListParams < Stripe::RequestParams
-      class TransactedAt < Stripe::RequestParams
+    class TransactionListParams < ::Stripe::RequestParams
+      class TransactedAt < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
         def gt; end
@@ -31,7 +31,7 @@ module Stripe
          }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
-      class TransactionRefresh < Stripe::RequestParams
+      class TransactionRefresh < ::Stripe::RequestParams
         # Return results where the transactions were created or updated by a refresh that took place after this refresh (non-inclusive).
         sig { returns(String) }
         def after; end

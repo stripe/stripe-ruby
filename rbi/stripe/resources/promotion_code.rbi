@@ -9,9 +9,9 @@ module Stripe
   # If you enable promotion codes in your [customer portal configuration](https://stripe.com/docs/customer-management/configure-portal), then customers can redeem a code themselves when updating a subscription in the portal.
   # Customers can also view the currently active promotion codes and coupons on each of their subscriptions in the portal.
   class PromotionCode < APIResource
-    class Promotion < Stripe::StripeObject
+    class Promotion < ::Stripe::StripeObject
       # If promotion `type` is `coupon`, the coupon for this promotion.
-      sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Coupon))) }
       def coupon; end
       # The type of promotion.
       sig { returns(String) }
@@ -23,8 +23,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Restrictions < Stripe::StripeObject
-      class CurrencyOptions < Stripe::StripeObject
+    class Restrictions < ::Stripe::StripeObject
+      class CurrencyOptions < ::Stripe::StripeObject
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
         sig { returns(Integer) }
         def minimum_amount; end
@@ -64,7 +64,7 @@ module Stripe
     sig { returns(Integer) }
     def created; end
     # The customer that this promotion code can be used by.
-    sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # Date at which the promotion code can no longer be redeemed.
     sig { returns(T.nilable(Integer)) }
@@ -95,19 +95,19 @@ module Stripe
     def times_redeemed; end
     # A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
     sig {
-      params(params: T.any(::Stripe::PromotionCodeCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PromotionCode)
+      params(params: T.any(::Stripe::PromotionCodeCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PromotionCode)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of your promotion codes.
     sig {
-      params(params: T.any(::Stripe::PromotionCodeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::PromotionCodeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
     sig {
-      params(promotion_code: String, params: T.any(::Stripe::PromotionCodeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PromotionCode)
+      params(promotion_code: String, params: T.any(::Stripe::PromotionCodeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PromotionCode)
      }
     def self.update(promotion_code, params = {}, opts = {}); end
   end

@@ -3,7 +3,7 @@
 
 module Stripe
   module FinancialConnections
-    class AccountUnsubscribeParams < Stripe::RequestParams
+    class AccountUnsubscribeParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The list of account features from which you would like to unsubscribe.

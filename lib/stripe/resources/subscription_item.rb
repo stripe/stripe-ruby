@@ -15,7 +15,7 @@ module Stripe
       "subscription_item"
     end
 
-    class BillingThresholds < Stripe::StripeObject
+    class BillingThresholds < ::Stripe::StripeObject
       # Usage threshold that triggers the subscription to create an invoice
       attr_reader :usage_gte
 

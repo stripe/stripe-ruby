@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentMethodListParams < Stripe::RequestParams
+  class PaymentMethodListParams < ::Stripe::RequestParams
     # The ID of the customer whose PaymentMethods will be retrieved.
     sig { returns(T.nilable(String)) }
     def customer; end

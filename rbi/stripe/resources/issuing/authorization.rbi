@@ -10,7 +10,7 @@ module Stripe
     #
     # Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
     class Authorization < APIResource
-      class AmountDetails < Stripe::StripeObject
+      class AmountDetails < ::Stripe::StripeObject
         # The fee charged by the ATM for the cash withdrawal.
         sig { returns(T.nilable(Integer)) }
         def atm_fee; end
@@ -24,8 +24,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Fleet < Stripe::StripeObject
-        class CardholderPromptData < Stripe::StripeObject
+      class Fleet < ::Stripe::StripeObject
+        class CardholderPromptData < ::Stripe::StripeObject
           # [Deprecated] An alphanumeric ID, though typical point of sales only support numeric entry. The card program can be configured to prompt for a vehicle ID, driver ID, or generic ID.
           sig { returns(T.nilable(String)) }
           def alphanumeric_id; end
@@ -51,8 +51,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class ReportedBreakdown < Stripe::StripeObject
-          class Fuel < Stripe::StripeObject
+        class ReportedBreakdown < ::Stripe::StripeObject
+          class Fuel < ::Stripe::StripeObject
             # Gross fuel amount that should equal Fuel Quantity multiplied by Fuel Unit Cost, inclusive of taxes.
             sig { returns(T.nilable(String)) }
             def gross_amount_decimal; end
@@ -63,7 +63,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class NonFuel < Stripe::StripeObject
+          class NonFuel < ::Stripe::StripeObject
             # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
             sig { returns(T.nilable(String)) }
             def gross_amount_decimal; end
@@ -74,7 +74,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Tax < Stripe::StripeObject
+          class Tax < ::Stripe::StripeObject
             # Amount of state or provincial Sales Tax included in the transaction amount. `null` if not reported by merchant or not subject to tax.
             sig { returns(T.nilable(String)) }
             def local_amount_decimal; end
@@ -126,7 +126,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class FraudChallenge < Stripe::StripeObject
+      class FraudChallenge < ::Stripe::StripeObject
         # The method by which the fraud challenge was delivered to the cardholder.
         sig { returns(String) }
         def channel; end
@@ -143,7 +143,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Fuel < Stripe::StripeObject
+      class Fuel < ::Stripe::StripeObject
         # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
         sig { returns(T.nilable(String)) }
         def industry_product_code; end
@@ -166,7 +166,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class MerchantData < Stripe::StripeObject
+      class MerchantData < ::Stripe::StripeObject
         # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
         sig { returns(String) }
         def category; end
@@ -207,7 +207,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NetworkData < Stripe::StripeObject
+      class NetworkData < ::Stripe::StripeObject
         # Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be `null`.
         sig { returns(T.nilable(String)) }
         def acquiring_institution_id; end
@@ -224,8 +224,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PendingRequest < Stripe::StripeObject
-        class AmountDetails < Stripe::StripeObject
+      class PendingRequest < ::Stripe::StripeObject
+        class AmountDetails < ::Stripe::StripeObject
           # The fee charged by the ATM for the cash withdrawal.
           sig { returns(T.nilable(Integer)) }
           def atm_fee; end
@@ -267,8 +267,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class RequestHistory < Stripe::StripeObject
-        class AmountDetails < Stripe::StripeObject
+      class RequestHistory < ::Stripe::StripeObject
+        class AmountDetails < ::Stripe::StripeObject
           # The fee charged by the ATM for the cash withdrawal.
           sig { returns(T.nilable(Integer)) }
           def atm_fee; end
@@ -325,7 +325,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Treasury < Stripe::StripeObject
+      class Treasury < ::Stripe::StripeObject
         # The array of [ReceivedCredits](https://stripe.com/docs/api/treasury/received_credits) associated with this authorization
         sig { returns(T::Array[String]) }
         def received_credits; end
@@ -342,8 +342,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class VerificationData < Stripe::StripeObject
-        class AuthenticationExemption < Stripe::StripeObject
+      class VerificationData < ::Stripe::StripeObject
+        class AuthenticationExemption < ::Stripe::StripeObject
           # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
           sig { returns(String) }
           def claimed_by; end
@@ -357,7 +357,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class ThreeDSecure < Stripe::StripeObject
+        class ThreeDSecure < ::Stripe::StripeObject
           # The outcome of the 3D Secure authentication request.
           sig { returns(String) }
           def result; end
@@ -412,13 +412,13 @@ module Stripe
       sig { returns(String) }
       def authorization_method; end
       # List of balance transactions associated with this authorization.
-      sig { returns(T::Array[Stripe::BalanceTransaction]) }
+      sig { returns(T::Array[::Stripe::BalanceTransaction]) }
       def balance_transactions; end
       # You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
-      sig { returns(Stripe::Issuing::Card) }
+      sig { returns(::Stripe::Issuing::Card) }
       def card; end
       # The cardholder to whom this authorization belongs.
-      sig { returns(T.nilable(T.any(String, Stripe::Issuing::Cardholder))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Cardholder))) }
       def cardholder; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -469,10 +469,10 @@ module Stripe
       sig { returns(String) }
       def status; end
       # [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
-      sig { returns(T.nilable(T.any(String, Stripe::Issuing::Token))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Token))) }
       def token; end
       # List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization.
-      sig { returns(T::Array[Stripe::Issuing::Transaction]) }
+      sig { returns(T::Array[::Stripe::Issuing::Transaction]) }
       def transactions; end
       # [Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts).
       sig { returns(T.nilable(Treasury)) }
@@ -489,40 +489,40 @@ module Stripe
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       sig {
-        params(params: T.any(::Stripe::Issuing::AuthorizationApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Authorization)
+        params(params: T.any(::Stripe::Issuing::AuthorizationApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Authorization)
        }
       def approve(params = {}, opts = {}); end
 
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       sig {
-        params(authorization: String, params: T.any(::Stripe::Issuing::AuthorizationApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Authorization)
+        params(authorization: String, params: T.any(::Stripe::Issuing::AuthorizationApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Authorization)
        }
       def self.approve(authorization, params = {}, opts = {}); end
 
       # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       sig {
-        params(params: T.any(::Stripe::Issuing::AuthorizationDeclineParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Authorization)
+        params(params: T.any(::Stripe::Issuing::AuthorizationDeclineParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Authorization)
        }
       def decline(params = {}, opts = {}); end
 
       # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       sig {
-        params(authorization: String, params: T.any(::Stripe::Issuing::AuthorizationDeclineParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Authorization)
+        params(authorization: String, params: T.any(::Stripe::Issuing::AuthorizationDeclineParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Authorization)
        }
       def self.decline(authorization, params = {}, opts = {}); end
 
       # Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Issuing::AuthorizationListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::AuthorizationListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(authorization: String, params: T.any(::Stripe::Issuing::AuthorizationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Authorization)
+        params(authorization: String, params: T.any(::Stripe::Issuing::AuthorizationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Authorization)
        }
       def self.update(authorization, params = {}, opts = {}); end
     end

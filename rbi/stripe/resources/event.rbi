@@ -22,7 +22,7 @@ module Stripe
   # You can access events through the [Retrieve Event API](https://docs.stripe.com/api/events#retrieve_event)
   # for 30 days.
   class Event < APIResource
-    class Data < Stripe::StripeObject
+    class Data < ::Stripe::StripeObject
       # Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
       sig { returns(T::Hash[String, T.untyped]) }
       def object; end
@@ -36,7 +36,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Request < Stripe::StripeObject
+    class Request < ::Stripe::StripeObject
       # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
       sig { returns(T.nilable(String)) }
       def id; end
@@ -85,7 +85,7 @@ module Stripe
     def type; end
     # List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
     sig {
-      params(params: T.any(::Stripe::EventListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::EventListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

@@ -10,7 +10,7 @@ module Stripe
           "v2.billing.meter_event_adjustment"
         end
 
-        class Cancel < Stripe::StripeObject
+        class Cancel < ::Stripe::StripeObject
           # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
           attr_reader :identifier
 

@@ -13,8 +13,8 @@ module Stripe
         "issuing.token"
       end
 
-      class NetworkData < Stripe::StripeObject
-        class Device < Stripe::StripeObject
+      class NetworkData < ::Stripe::StripeObject
+        class Device < ::Stripe::StripeObject
           # An obfuscated ID derived from the device ID.
           attr_reader :device_fingerprint
           # The IP address of the device at provisioning time.
@@ -37,7 +37,7 @@ module Stripe
           end
         end
 
-        class Mastercard < Stripe::StripeObject
+        class Mastercard < ::Stripe::StripeObject
           # A unique reference ID from MasterCard to represent the card account number.
           attr_reader :card_reference_id
           # The network-unique identifier for the token.
@@ -56,7 +56,7 @@ module Stripe
           end
         end
 
-        class Visa < Stripe::StripeObject
+        class Visa < ::Stripe::StripeObject
           # A unique reference ID from Visa to represent the card account number.
           attr_reader :card_reference_id
           # The network-unique identifier for the token.
@@ -75,8 +75,8 @@ module Stripe
           end
         end
 
-        class WalletProvider < Stripe::StripeObject
-          class CardholderAddress < Stripe::StripeObject
+        class WalletProvider < ::Stripe::StripeObject
+          class CardholderAddress < ::Stripe::StripeObject
             # The street address of the cardholder tokenizing the card.
             attr_reader :line1
             # The postal code of the cardholder tokenizing the card.

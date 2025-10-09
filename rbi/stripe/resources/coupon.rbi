@@ -7,7 +7,7 @@ module Stripe
   # might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
   # [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
   class Coupon < APIResource
-    class AppliesTo < Stripe::StripeObject
+    class AppliesTo < ::Stripe::StripeObject
       # A list of product IDs this coupon applies to
       sig { returns(T::Array[String]) }
       def products; end
@@ -18,7 +18,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class CurrencyOptions < Stripe::StripeObject
+    class CurrencyOptions < ::Stripe::StripeObject
       # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
       sig { returns(Integer) }
       def amount_off; end
@@ -87,31 +87,31 @@ module Stripe
     #
     # A coupon has either a percent_off or an amount_off and currency. If you set an amount_off, that amount will be subtracted from any invoice's subtotal. For example, an invoice with a subtotal of 100 will have a final total of 0 if a coupon with an amount_off of 200 is applied to it and an invoice with a subtotal of 300 will have a final total of 100 if a coupon with an amount_off of 200 is applied to it.
     sig {
-      params(params: T.any(::Stripe::CouponCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Coupon)
+      params(params: T.any(::Stripe::CouponCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
      }
     def self.create(params = {}, opts = {}); end
 
     # You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
     sig {
-      params(coupon: String, params: T.any(::Stripe::CouponDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Coupon)
+      params(coupon: String, params: T.any(::Stripe::CouponDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
      }
     def self.delete(coupon, params = {}, opts = {}); end
 
     # You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
     sig {
-      params(params: T.any(::Stripe::CouponDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Coupon)
+      params(params: T.any(::Stripe::CouponDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
      }
     def delete(params = {}, opts = {}); end
 
     # Returns a list of your coupons.
     sig {
-      params(params: T.any(::Stripe::CouponListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::CouponListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
     sig {
-      params(coupon: String, params: T.any(::Stripe::CouponUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Coupon)
+      params(coupon: String, params: T.any(::Stripe::CouponUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
      }
     def self.update(coupon, params = {}, opts = {}); end
   end

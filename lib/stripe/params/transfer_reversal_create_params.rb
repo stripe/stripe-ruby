@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class TransferReversalCreateParams < Stripe::RequestParams
+  class TransferReversalCreateParams < ::Stripe::RequestParams
     # A positive integer in cents (or local equivalent) representing how much of this transfer to reverse. Can only reverse up to the unreversed amount remaining of the transfer. Partial transfer reversals are only allowed for transfers to Stripe Accounts. Defaults to the entire transfer amount.
     attr_accessor :amount
     # An arbitrary string which you can attach to a reversal object. This will be unset if you POST an empty value.

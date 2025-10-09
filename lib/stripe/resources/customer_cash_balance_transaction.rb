@@ -12,7 +12,7 @@ module Stripe
       "customer_cash_balance_transaction"
     end
 
-    class AdjustedForOverdraft < Stripe::StripeObject
+    class AdjustedForOverdraft < ::Stripe::StripeObject
       # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
       attr_reader :balance_transaction
       # The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
@@ -27,7 +27,7 @@ module Stripe
       end
     end
 
-    class AppliedToPayment < Stripe::StripeObject
+    class AppliedToPayment < ::Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to.
       attr_reader :payment_intent
 
@@ -40,9 +40,9 @@ module Stripe
       end
     end
 
-    class Funded < Stripe::StripeObject
-      class BankTransfer < Stripe::StripeObject
-        class EuBankTransfer < Stripe::StripeObject
+    class Funded < ::Stripe::StripeObject
+      class BankTransfer < ::Stripe::StripeObject
+        class EuBankTransfer < ::Stripe::StripeObject
           # The BIC of the bank of the sender of the funding.
           attr_reader :bic
           # The last 4 digits of the IBAN of the sender of the funding.
@@ -59,7 +59,7 @@ module Stripe
           end
         end
 
-        class GbBankTransfer < Stripe::StripeObject
+        class GbBankTransfer < ::Stripe::StripeObject
           # The last 4 digits of the account number of the sender of the funding.
           attr_reader :account_number_last4
           # The full name of the sender, as supplied by the sending bank.
@@ -76,7 +76,7 @@ module Stripe
           end
         end
 
-        class JpBankTransfer < Stripe::StripeObject
+        class JpBankTransfer < ::Stripe::StripeObject
           # The name of the bank of the sender of the funding.
           attr_reader :sender_bank
           # The name of the bank branch of the sender of the funding.
@@ -93,7 +93,7 @@ module Stripe
           end
         end
 
-        class UsBankTransfer < Stripe::StripeObject
+        class UsBankTransfer < ::Stripe::StripeObject
           # The banking network used for this funding.
           attr_reader :network
           # The full name of the sender, as supplied by the sending bank.
@@ -145,7 +145,7 @@ module Stripe
       end
     end
 
-    class RefundedFromPayment < Stripe::StripeObject
+    class RefundedFromPayment < ::Stripe::StripeObject
       # The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
       attr_reader :refund
 
@@ -158,7 +158,7 @@ module Stripe
       end
     end
 
-    class TransferredToBalance < Stripe::StripeObject
+    class TransferredToBalance < ::Stripe::StripeObject
       # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
       attr_reader :balance_transaction
 
@@ -171,7 +171,7 @@ module Stripe
       end
     end
 
-    class UnappliedFromPayment < Stripe::StripeObject
+    class UnappliedFromPayment < ::Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
       attr_reader :payment_intent
 

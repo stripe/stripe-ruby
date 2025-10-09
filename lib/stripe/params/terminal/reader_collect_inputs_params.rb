@@ -3,9 +3,9 @@
 
 module Stripe
   module Terminal
-    class ReaderCollectInputsParams < Stripe::RequestParams
-      class Input < Stripe::RequestParams
-        class CustomText < Stripe::RequestParams
+    class ReaderCollectInputsParams < ::Stripe::RequestParams
+      class Input < ::Stripe::RequestParams
+        class CustomText < ::Stripe::RequestParams
           # The description which will be displayed when collecting this input
           attr_accessor :description
           # The skip button text
@@ -23,8 +23,8 @@ module Stripe
           end
         end
 
-        class Selection < Stripe::RequestParams
-          class Choice < Stripe::RequestParams
+        class Selection < ::Stripe::RequestParams
+          class Choice < ::Stripe::RequestParams
             # The unique identifier for this choice
             attr_accessor :id
             # The style of the button which will be shown for this choice
@@ -46,7 +46,7 @@ module Stripe
           end
         end
 
-        class Toggle < Stripe::RequestParams
+        class Toggle < ::Stripe::RequestParams
           # The default value of the toggle
           attr_accessor :default_value
           # The description which will be displayed for the toggle

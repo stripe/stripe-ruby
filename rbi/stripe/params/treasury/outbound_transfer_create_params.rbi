@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Treasury
-    class OutboundTransferCreateParams < Stripe::RequestParams
-      class DestinationPaymentMethodData < Stripe::RequestParams
+    class OutboundTransferCreateParams < ::Stripe::RequestParams
+      class DestinationPaymentMethodData < ::Stripe::RequestParams
         # Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
         sig { returns(T.nilable(String)) }
         def financial_account; end
@@ -19,8 +19,8 @@ module Stripe
         sig { params(financial_account: T.nilable(String), type: String).void }
         def initialize(financial_account: nil, type: nil); end
       end
-      class DestinationPaymentMethodOptions < Stripe::RequestParams
-        class UsBankAccount < Stripe::RequestParams
+      class DestinationPaymentMethodOptions < ::Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
           # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(T.nilable(String)) }
           def network; end

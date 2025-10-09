@@ -9,7 +9,7 @@ module Stripe
   #
   # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
   class Card < APIResource
-    class Networks < Stripe::StripeObject
+    class Networks < ::Stripe::StripeObject
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       sig { returns(T.nilable(String)) }
       def preferred; end
@@ -21,7 +21,7 @@ module Stripe
       end
     end
     # Attribute for field account
-    sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def account; end
     # City/District/Suburb/Town/Village.
     sig { returns(T.nilable(String)) }
@@ -63,7 +63,7 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def currency; end
     # The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead.
-    sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`. A result of unchecked indicates that CVC was provided but hasn't been checked yet. Checks are typically performed when attaching a card to a Customer object, or when creating a charge. For more details, see [Check if a card is valid without a charge](https://support.stripe.com/questions/check-if-a-card-is-valid-without-a-charge).
     sig { returns(T.nilable(String)) }

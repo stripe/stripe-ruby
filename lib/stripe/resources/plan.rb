@@ -21,7 +21,7 @@ module Stripe
       "plan"
     end
 
-    class Tier < Stripe::StripeObject
+    class Tier < ::Stripe::StripeObject
       # Price for the entire tier.
       attr_reader :flat_amount
       # Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
@@ -42,7 +42,7 @@ module Stripe
       end
     end
 
-    class TransformUsage < Stripe::StripeObject
+    class TransformUsage < ::Stripe::StripeObject
       # Divide usage by this number.
       attr_reader :divide_by
       # After division, either round the result `up` or `down`.

@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  class AccountSessionCreateParams < Stripe::RequestParams
-    class Components < Stripe::RequestParams
-      class AccountManagement < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+  class AccountSessionCreateParams < ::Stripe::RequestParams
+    class Components < ::Stripe::RequestParams
+      class AccountManagement < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_accessor :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -27,8 +27,8 @@ module Stripe
         end
       end
 
-      class AccountOnboarding < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class AccountOnboarding < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_accessor :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -50,8 +50,8 @@ module Stripe
         end
       end
 
-      class Balances < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class Balances < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_accessor :disable_stripe_user_authentication
           # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
@@ -88,8 +88,8 @@ module Stripe
         end
       end
 
-      class DisputesList < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class DisputesList < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           attr_accessor :capture_payments
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
@@ -122,8 +122,8 @@ module Stripe
         end
       end
 
-      class Documents < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class Documents < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
         # An empty list, because this embedded component has no features.
@@ -135,8 +135,8 @@ module Stripe
         end
       end
 
-      class FinancialAccount < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class FinancialAccount < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_accessor :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -169,8 +169,8 @@ module Stripe
         end
       end
 
-      class FinancialAccountTransactions < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class FinancialAccountTransactions < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow card spend dispute management features.
           attr_accessor :card_spend_dispute_management
 
@@ -189,8 +189,8 @@ module Stripe
         end
       end
 
-      class InstantPayoutsPromotion < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class InstantPayoutsPromotion < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_accessor :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -219,8 +219,8 @@ module Stripe
         end
       end
 
-      class IssuingCard < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class IssuingCard < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow card management features.
           attr_accessor :card_management
           # Whether to allow card spend dispute management features.
@@ -253,8 +253,8 @@ module Stripe
         end
       end
 
-      class IssuingCardsList < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class IssuingCardsList < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow card management features.
           attr_accessor :card_management
           # Whether to allow card spend dispute management features.
@@ -291,8 +291,8 @@ module Stripe
         end
       end
 
-      class NotificationBanner < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class NotificationBanner < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_accessor :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -314,8 +314,8 @@ module Stripe
         end
       end
 
-      class PaymentDetails < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class PaymentDetails < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           attr_accessor :capture_payments
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
@@ -348,8 +348,8 @@ module Stripe
         end
       end
 
-      class PaymentDisputes < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class PaymentDisputes < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
           attr_accessor :destination_on_behalf_of_charge_management
           # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
@@ -378,8 +378,8 @@ module Stripe
         end
       end
 
-      class Payments < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class Payments < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           attr_accessor :capture_payments
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
@@ -412,8 +412,8 @@ module Stripe
         end
       end
 
-      class PayoutDetails < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class PayoutDetails < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
         # An empty list, because this embedded component has no features.
@@ -425,8 +425,8 @@ module Stripe
         end
       end
 
-      class Payouts < Stripe::RequestParams
-        class Features < Stripe::RequestParams
+      class Payouts < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_accessor :disable_stripe_user_authentication
           # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
@@ -463,8 +463,8 @@ module Stripe
         end
       end
 
-      class PayoutsList < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class PayoutsList < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
         # An empty list, because this embedded component has no features.
@@ -476,8 +476,8 @@ module Stripe
         end
       end
 
-      class TaxRegistrations < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class TaxRegistrations < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
         # An empty list, because this embedded component has no features.
@@ -489,8 +489,8 @@ module Stripe
         end
       end
 
-      class TaxSettings < Stripe::RequestParams
-        class Features < Stripe::RequestParams; end
+      class TaxSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
         # An empty list, because this embedded component has no features.

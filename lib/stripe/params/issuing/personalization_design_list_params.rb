@@ -3,8 +3,8 @@
 
 module Stripe
   module Issuing
-    class PersonalizationDesignListParams < Stripe::RequestParams
-      class Preferences < Stripe::RequestParams
+    class PersonalizationDesignListParams < ::Stripe::RequestParams
+      class Preferences < ::Stripe::RequestParams
         # Only return the personalization design that's set as the default. A connected account uses the Connect platform's default design if no personalization design is set as the default.
         attr_accessor :is_default
         # Only return the personalization design that is set as the Connect platform's default. This parameter is only applicable to connected accounts.

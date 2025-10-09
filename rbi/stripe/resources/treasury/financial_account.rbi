@@ -7,7 +7,7 @@ module Stripe
     # Stripe Treasury provides users with a container for money called a FinancialAccount that is separate from their Payments balance.
     # FinancialAccounts serve as the source and destination of Treasury's money movement APIs.
     class FinancialAccount < APIResource
-      class Balance < Stripe::StripeObject
+      class Balance < ::Stripe::StripeObject
         # Funds the user can spend right now.
         sig { returns(T::Hash[String, Integer]) }
         def cash; end
@@ -24,8 +24,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class FinancialAddress < Stripe::StripeObject
-        class Aba < Stripe::StripeObject
+      class FinancialAddress < ::Stripe::StripeObject
+        class Aba < ::Stripe::StripeObject
           # The name of the person or business that owns the bank account.
           sig { returns(String) }
           def account_holder_name; end
@@ -64,7 +64,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PlatformRestrictions < Stripe::StripeObject
+      class PlatformRestrictions < ::Stripe::StripeObject
         # Restricts all inbound money movement.
         sig { returns(T.nilable(String)) }
         def inbound_flows; end
@@ -78,8 +78,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StatusDetails < Stripe::StripeObject
-        class Closed < Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
+        class Closed < ::Stripe::StripeObject
           # The array that contains reasons for a FinancialAccount closure.
           sig { returns(T::Array[String]) }
           def reasons; end
@@ -114,7 +114,7 @@ module Stripe
       def created; end
       # Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
       # Stripe or the platform can control Features via the requested field.
-      sig { returns(T.nilable(Stripe::Treasury::FinancialAccountFeatures)) }
+      sig { returns(T.nilable(::Stripe::Treasury::FinancialAccountFeatures)) }
       def features; end
       # The set of credentials that resolve to a FinancialAccount.
       sig { returns(T::Array[FinancialAddress]) }
@@ -157,55 +157,55 @@ module Stripe
       def supported_currencies; end
       # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
       sig {
-        params(params: T.any(::Stripe::Treasury::FinancialAccountCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccount)
+        params(params: T.any(::Stripe::Treasury::FinancialAccountCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccount)
        }
       def close(params = {}, opts = {}); end
 
       # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
       sig {
-        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccount)
+        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccount)
        }
       def self.close(financial_account, params = {}, opts = {}); end
 
       # Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
       sig {
-        params(params: T.any(::Stripe::Treasury::FinancialAccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccount)
+        params(params: T.any(::Stripe::Treasury::FinancialAccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccount)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of FinancialAccounts.
       sig {
-        params(params: T.any(::Stripe::Treasury::FinancialAccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Treasury::FinancialAccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Retrieves Features information associated with the FinancialAccount.
       sig {
-        params(params: T.any(::Stripe::Treasury::FinancialAccountRetrieveFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccountFeatures)
+        params(params: T.any(::Stripe::Treasury::FinancialAccountRetrieveFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccountFeatures)
        }
       def retrieve_features(params = {}, opts = {}); end
 
       # Retrieves Features information associated with the FinancialAccount.
       sig {
-        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountRetrieveFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccountFeatures)
+        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountRetrieveFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccountFeatures)
        }
       def self.retrieve_features(financial_account, params = {}, opts = {}); end
 
       # Updates the details of a FinancialAccount.
       sig {
-        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccount)
+        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccount)
        }
       def self.update(financial_account, params = {}, opts = {}); end
 
       # Updates the Features associated with a FinancialAccount.
       sig {
-        params(params: T.any(::Stripe::Treasury::FinancialAccountUpdateFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccountFeatures)
+        params(params: T.any(::Stripe::Treasury::FinancialAccountUpdateFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccountFeatures)
        }
       def update_features(params = {}, opts = {}); end
 
       # Updates the Features associated with a FinancialAccount.
       sig {
-        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountUpdateFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccountFeatures)
+        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountUpdateFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccountFeatures)
        }
       def self.update_features(financial_account, params = {}, opts = {}); end
     end

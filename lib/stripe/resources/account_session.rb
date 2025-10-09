@@ -17,9 +17,9 @@ module Stripe
       "account_session"
     end
 
-    class Components < Stripe::StripeObject
-      class AccountManagement < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+    class Components < ::Stripe::StripeObject
+      class AccountManagement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_reader :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -47,8 +47,8 @@ module Stripe
         end
       end
 
-      class AccountOnboarding < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class AccountOnboarding < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_reader :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -76,8 +76,8 @@ module Stripe
         end
       end
 
-      class Balances < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class Balances < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_reader :disable_stripe_user_authentication
           # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
@@ -111,8 +111,8 @@ module Stripe
         end
       end
 
-      class DisputesList < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class DisputesList < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           attr_reader :capture_payments
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
@@ -144,8 +144,8 @@ module Stripe
         end
       end
 
-      class Documents < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class Documents < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -168,8 +168,8 @@ module Stripe
         end
       end
 
-      class FinancialAccount < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class FinancialAccount < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_reader :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -201,8 +201,8 @@ module Stripe
         end
       end
 
-      class FinancialAccountTransactions < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class FinancialAccountTransactions < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow card spend dispute management features.
           attr_reader :card_spend_dispute_management
 
@@ -228,8 +228,8 @@ module Stripe
         end
       end
 
-      class InstantPayoutsPromotion < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class InstantPayoutsPromotion < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_reader :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -259,8 +259,8 @@ module Stripe
         end
       end
 
-      class IssuingCard < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class IssuingCard < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow card management features.
           attr_reader :card_management
           # Whether to allow card spend dispute management features.
@@ -292,8 +292,8 @@ module Stripe
         end
       end
 
-      class IssuingCardsList < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class IssuingCardsList < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow card management features.
           attr_reader :card_management
           # Whether to allow card spend dispute management features.
@@ -327,8 +327,8 @@ module Stripe
         end
       end
 
-      class NotificationBanner < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class NotificationBanner < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_reader :disable_stripe_user_authentication
           # Whether external account collection is enabled. This feature can only be `false` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
@@ -356,8 +356,8 @@ module Stripe
         end
       end
 
-      class PaymentDetails < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PaymentDetails < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           attr_reader :capture_payments
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
@@ -389,8 +389,8 @@ module Stripe
         end
       end
 
-      class PaymentDisputes < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PaymentDisputes < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
           attr_reader :destination_on_behalf_of_charge_management
           # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
@@ -420,8 +420,8 @@ module Stripe
         end
       end
 
-      class Payments < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class Payments < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           attr_reader :capture_payments
           # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
@@ -453,8 +453,8 @@ module Stripe
         end
       end
 
-      class PayoutDetails < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PayoutDetails < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -477,8 +477,8 @@ module Stripe
         end
       end
 
-      class Payouts < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class Payouts < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
           attr_reader :disable_stripe_user_authentication
           # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
@@ -512,8 +512,8 @@ module Stripe
         end
       end
 
-      class PayoutsList < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PayoutsList < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -536,8 +536,8 @@ module Stripe
         end
       end
 
-      class TaxRegistrations < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class TaxRegistrations < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -560,8 +560,8 @@ module Stripe
         end
       end
 
-      class TaxSettings < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class TaxSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end

@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class InvoiceListParams < Stripe::RequestParams
-    class Created < Stripe::RequestParams
+  class InvoiceListParams < ::Stripe::RequestParams
+    class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)
@@ -21,7 +21,7 @@ module Stripe
       end
     end
 
-    class DueDate < Stripe::RequestParams
+    class DueDate < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)

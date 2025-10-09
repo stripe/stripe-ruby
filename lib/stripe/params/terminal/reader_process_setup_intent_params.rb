@@ -3,8 +3,8 @@
 
 module Stripe
   module Terminal
-    class ReaderProcessSetupIntentParams < Stripe::RequestParams
-      class ProcessConfig < Stripe::RequestParams
+    class ReaderProcessSetupIntentParams < ::Stripe::RequestParams
+      class ProcessConfig < ::Stripe::RequestParams
         # Enables cancel button on transaction screens.
         attr_accessor :enable_customer_cancellation
 

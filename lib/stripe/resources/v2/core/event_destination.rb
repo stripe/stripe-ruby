@@ -11,8 +11,8 @@ module Stripe
           "v2.core.event_destination"
         end
 
-        class StatusDetails < Stripe::StripeObject
-          class Disabled < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Disabled < ::Stripe::StripeObject
             # Reason event destination has been disabled.
             attr_reader :reason
 
@@ -36,7 +36,7 @@ module Stripe
           end
         end
 
-        class AmazonEventbridge < Stripe::StripeObject
+        class AmazonEventbridge < ::Stripe::StripeObject
           # The AWS account ID.
           attr_reader :aws_account_id
           # The ARN of the AWS event source.
@@ -53,7 +53,7 @@ module Stripe
           end
         end
 
-        class WebhookEndpoint < Stripe::StripeObject
+        class WebhookEndpoint < ::Stripe::StripeObject
           # The signing secret of the webhook endpoint, only includable on creation.
           attr_reader :signing_secret
           # The URL of the webhook endpoint, includable.

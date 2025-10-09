@@ -8,10 +8,10 @@ module Stripe
     #
     # Related guide: [Issuing disputes](https://stripe.com/docs/issuing/purchases/disputes)
     class Dispute < APIResource
-      class Evidence < Stripe::StripeObject
-        class Canceled < Stripe::StripeObject
+      class Evidence < ::Stripe::StripeObject
+        class Canceled < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def additional_documentation; end
           # Date when order was canceled.
           sig { returns(T.nilable(Integer)) }
@@ -47,18 +47,18 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Duplicate < Stripe::StripeObject
+        class Duplicate < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def additional_documentation; end
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def card_statement; end
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def cash_receipt; end
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def check_image; end
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
@@ -73,9 +73,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Fraudulent < Stripe::StripeObject
+        class Fraudulent < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def additional_documentation; end
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
@@ -87,9 +87,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class MerchandiseNotAsDescribed < Stripe::StripeObject
+        class MerchandiseNotAsDescribed < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def additional_documentation; end
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
@@ -113,9 +113,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class NoValidAuthorization < Stripe::StripeObject
+        class NoValidAuthorization < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def additional_documentation; end
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
@@ -127,9 +127,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class NotReceived < Stripe::StripeObject
+        class NotReceived < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def additional_documentation; end
           # Date when the cardholder expected to receive the product.
           sig { returns(T.nilable(Integer)) }
@@ -150,9 +150,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Other < Stripe::StripeObject
+        class Other < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def additional_documentation; end
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
@@ -170,9 +170,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class ServiceNotAsDescribed < Stripe::StripeObject
+        class ServiceNotAsDescribed < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-          sig { returns(T.nilable(T.any(String, Stripe::File))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def additional_documentation; end
           # Date when order was canceled.
           sig { returns(T.nilable(Integer)) }
@@ -236,7 +236,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Treasury < Stripe::StripeObject
+      class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://stripe.com/docs/api/treasury/debit_reversals) representing this Issuing dispute
         sig { returns(T.nilable(String)) }
         def debit_reversal; end
@@ -254,7 +254,7 @@ module Stripe
       sig { returns(Integer) }
       def amount; end
       # List of balance transactions associated with the dispute.
-      sig { returns(T.nilable(T::Array[Stripe::BalanceTransaction])) }
+      sig { returns(T.nilable(T::Array[::Stripe::BalanceTransaction])) }
       def balance_transactions; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -284,38 +284,38 @@ module Stripe
       sig { returns(String) }
       def status; end
       # The transaction being disputed.
-      sig { returns(T.any(String, Stripe::Issuing::Transaction)) }
+      sig { returns(T.any(String, ::Stripe::Issuing::Transaction)) }
       def transaction; end
       # [Treasury](https://stripe.com/docs/api/treasury) details related to this dispute if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
       sig { returns(T.nilable(Treasury)) }
       def treasury; end
       # Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.
       sig {
-        params(params: T.any(::Stripe::Issuing::DisputeCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Dispute)
+        params(params: T.any(::Stripe::Issuing::DisputeCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Issuing::DisputeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::DisputeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
       sig {
-        params(params: T.any(::Stripe::Issuing::DisputeSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Dispute)
+        params(params: T.any(::Stripe::Issuing::DisputeSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
        }
       def submit(params = {}, opts = {}); end
 
       # Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
       sig {
-        params(dispute: String, params: T.any(::Stripe::Issuing::DisputeSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Dispute)
+        params(dispute: String, params: T.any(::Stripe::Issuing::DisputeSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
        }
       def self.submit(dispute, params = {}, opts = {}); end
 
       # Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
       sig {
-        params(dispute: String, params: T.any(::Stripe::Issuing::DisputeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Dispute)
+        params(dispute: String, params: T.any(::Stripe::Issuing::DisputeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
        }
       def self.update(dispute, params = {}, opts = {}); end
     end

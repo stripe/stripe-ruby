@@ -14,8 +14,8 @@ module Stripe
       "quote"
     end
 
-    class AutomaticTax < Stripe::StripeObject
-      class Liability < Stripe::StripeObject
+    class AutomaticTax < ::Stripe::StripeObject
+      class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
         # Type of the account referenced.
@@ -47,11 +47,11 @@ module Stripe
       end
     end
 
-    class Computed < Stripe::StripeObject
-      class Recurring < Stripe::StripeObject
-        class TotalDetails < Stripe::StripeObject
-          class Breakdown < Stripe::StripeObject
-            class Discount < Stripe::StripeObject
+    class Computed < ::Stripe::StripeObject
+      class Recurring < ::Stripe::StripeObject
+        class TotalDetails < ::Stripe::StripeObject
+          class Breakdown < ::Stripe::StripeObject
+            class Discount < ::Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
               # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
@@ -69,7 +69,7 @@ module Stripe
               end
             end
 
-            class Tax < Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Amount of tax applied for this rate.
               attr_reader :amount
               # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -139,10 +139,10 @@ module Stripe
         end
       end
 
-      class Upfront < Stripe::StripeObject
-        class TotalDetails < Stripe::StripeObject
-          class Breakdown < Stripe::StripeObject
-            class Discount < Stripe::StripeObject
+      class Upfront < ::Stripe::StripeObject
+        class TotalDetails < ::Stripe::StripeObject
+          class Breakdown < ::Stripe::StripeObject
+            class Discount < ::Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
               # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
@@ -160,7 +160,7 @@ module Stripe
               end
             end
 
-            class Tax < Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Amount of tax applied for this rate.
               attr_reader :amount
               # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -241,7 +241,7 @@ module Stripe
       end
     end
 
-    class FromQuote < Stripe::StripeObject
+    class FromQuote < ::Stripe::StripeObject
       # Whether this quote is a revision of a different quote.
       attr_reader :is_revision
       # The quote that was cloned.
@@ -256,8 +256,8 @@ module Stripe
       end
     end
 
-    class InvoiceSettings < Stripe::StripeObject
-      class Issuer < Stripe::StripeObject
+    class InvoiceSettings < ::Stripe::StripeObject
+      class Issuer < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
         # Type of the account referenced.
@@ -285,7 +285,7 @@ module Stripe
       end
     end
 
-    class StatusTransitions < Stripe::StripeObject
+    class StatusTransitions < ::Stripe::StripeObject
       # The time that the quote was accepted. Measured in seconds since Unix epoch.
       attr_reader :accepted_at
       # The time that the quote was canceled. Measured in seconds since Unix epoch.
@@ -302,9 +302,9 @@ module Stripe
       end
     end
 
-    class SubscriptionData < Stripe::StripeObject
-      class BillingMode < Stripe::StripeObject
-        class Flexible < Stripe::StripeObject
+    class SubscriptionData < ::Stripe::StripeObject
+      class BillingMode < ::Stripe::StripeObject
+        class Flexible < ::Stripe::StripeObject
           # Controls how invoices and invoice items display proration amounts and discount amounts.
           attr_reader :proration_discounts
 
@@ -349,9 +349,9 @@ module Stripe
       end
     end
 
-    class TotalDetails < Stripe::StripeObject
-      class Breakdown < Stripe::StripeObject
-        class Discount < Stripe::StripeObject
+    class TotalDetails < ::Stripe::StripeObject
+      class Breakdown < ::Stripe::StripeObject
+        class Discount < ::Stripe::StripeObject
           # The amount discounted.
           attr_reader :amount
           # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
@@ -369,7 +369,7 @@ module Stripe
           end
         end
 
-        class Tax < Stripe::StripeObject
+        class Tax < ::Stripe::StripeObject
           # Amount of tax applied for this rate.
           attr_reader :amount
           # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -420,7 +420,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::StripeObject
+    class TransferData < ::Stripe::StripeObject
       # The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
       attr_reader :amount
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount will be transferred to the destination.

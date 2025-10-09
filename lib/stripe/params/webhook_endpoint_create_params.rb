@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class WebhookEndpointCreateParams < Stripe::RequestParams
+  class WebhookEndpointCreateParams < ::Stripe::RequestParams
     # Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
     attr_accessor :api_version
     # Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`.

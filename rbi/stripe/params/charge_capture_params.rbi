@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class ChargeCaptureParams < Stripe::RequestParams
-    class TransferData < Stripe::RequestParams
+  class ChargeCaptureParams < ::Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
       sig { returns(T.nilable(Integer)) }
       def amount; end

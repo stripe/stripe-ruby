@@ -8,12 +8,12 @@ module Stripe
   # represent when funds are moved into or out of this balance. This includes funding by the customer, allocation
   # to payments, and refunds to the customer.
   class CustomerCashBalanceTransaction < APIResource
-    class AdjustedForOverdraft < Stripe::StripeObject
+    class AdjustedForOverdraft < ::Stripe::StripeObject
       # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
-      sig { returns(T.any(String, Stripe::BalanceTransaction)) }
+      sig { returns(T.any(String, ::Stripe::BalanceTransaction)) }
       def balance_transaction; end
       # The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
-      sig { returns(T.any(String, Stripe::CustomerCashBalanceTransaction)) }
+      sig { returns(T.any(String, ::Stripe::CustomerCashBalanceTransaction)) }
       def linked_transaction; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -22,9 +22,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class AppliedToPayment < Stripe::StripeObject
+    class AppliedToPayment < ::Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to.
-      sig { returns(T.any(String, Stripe::PaymentIntent)) }
+      sig { returns(T.any(String, ::Stripe::PaymentIntent)) }
       def payment_intent; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -33,9 +33,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Funded < Stripe::StripeObject
-      class BankTransfer < Stripe::StripeObject
-        class EuBankTransfer < Stripe::StripeObject
+    class Funded < ::Stripe::StripeObject
+      class BankTransfer < ::Stripe::StripeObject
+        class EuBankTransfer < ::Stripe::StripeObject
           # The BIC of the bank of the sender of the funding.
           sig { returns(T.nilable(String)) }
           def bic; end
@@ -52,7 +52,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class GbBankTransfer < Stripe::StripeObject
+        class GbBankTransfer < ::Stripe::StripeObject
           # The last 4 digits of the account number of the sender of the funding.
           sig { returns(T.nilable(String)) }
           def account_number_last4; end
@@ -69,7 +69,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class JpBankTransfer < Stripe::StripeObject
+        class JpBankTransfer < ::Stripe::StripeObject
           # The name of the bank of the sender of the funding.
           sig { returns(T.nilable(String)) }
           def sender_bank; end
@@ -86,7 +86,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class UsBankTransfer < Stripe::StripeObject
+        class UsBankTransfer < ::Stripe::StripeObject
           # The banking network used for this funding.
           sig { returns(T.nilable(String)) }
           def network; end
@@ -140,9 +140,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class RefundedFromPayment < Stripe::StripeObject
+    class RefundedFromPayment < ::Stripe::StripeObject
       # The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
-      sig { returns(T.any(String, Stripe::Refund)) }
+      sig { returns(T.any(String, ::Stripe::Refund)) }
       def refund; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -151,9 +151,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TransferredToBalance < Stripe::StripeObject
+    class TransferredToBalance < ::Stripe::StripeObject
       # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
-      sig { returns(T.any(String, Stripe::BalanceTransaction)) }
+      sig { returns(T.any(String, ::Stripe::BalanceTransaction)) }
       def balance_transaction; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -162,9 +162,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class UnappliedFromPayment < Stripe::StripeObject
+    class UnappliedFromPayment < ::Stripe::StripeObject
       # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
-      sig { returns(T.any(String, Stripe::PaymentIntent)) }
+      sig { returns(T.any(String, ::Stripe::PaymentIntent)) }
       def payment_intent; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -186,7 +186,7 @@ module Stripe
     sig { returns(String) }
     def currency; end
     # The customer whose available cash balance changed as a result of this transaction.
-    sig { returns(T.any(String, Stripe::Customer)) }
+    sig { returns(T.any(String, ::Stripe::Customer)) }
     def customer; end
     # The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     sig { returns(Integer) }

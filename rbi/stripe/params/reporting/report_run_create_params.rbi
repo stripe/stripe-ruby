@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Reporting
-    class ReportRunCreateParams < Stripe::RequestParams
-      class Parameters < Stripe::RequestParams
+    class ReportRunCreateParams < ::Stripe::RequestParams
+      class Parameters < ::Stripe::RequestParams
         # The set of report columns to include in the report output. If omitted, the Report Type is run with its default column set.
         sig { returns(T.nilable(T::Array[String])) }
         def columns; end

@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Treasury
-    class FinancialAccountCloseParams < Stripe::RequestParams
-      class ForwardingSettings < Stripe::RequestParams
+    class FinancialAccountCloseParams < ::Stripe::RequestParams
+      class ForwardingSettings < ::Stripe::RequestParams
         # The financial_account id
         sig { returns(T.nilable(String)) }
         def financial_account; end

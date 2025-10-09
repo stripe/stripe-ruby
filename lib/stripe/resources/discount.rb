@@ -12,7 +12,7 @@ module Stripe
       "discount"
     end
 
-    class Source < Stripe::StripeObject
+    class Source < ::Stripe::StripeObject
       # The coupon that was redeemed to create this discount.
       attr_reader :coupon
       # The source type of the discount.

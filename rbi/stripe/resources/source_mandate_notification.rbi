@@ -7,7 +7,7 @@ module Stripe
   # a source mandate must be sent to the payer. They will trigger a webhook or
   # deliver an email to the customer.
   class SourceMandateNotification < APIResource
-    class AcssDebit < Stripe::StripeObject
+    class AcssDebit < ::Stripe::StripeObject
       # The statement descriptor associate with the debit.
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
@@ -18,7 +18,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class BacsDebit < Stripe::StripeObject
+    class BacsDebit < ::Stripe::StripeObject
       # Last 4 digits of the account number associated with the debit.
       sig { returns(T.nilable(String)) }
       def last4; end
@@ -29,7 +29,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class SepaDebit < Stripe::StripeObject
+    class SepaDebit < ::Stripe::StripeObject
       # SEPA creditor ID.
       sig { returns(T.nilable(String)) }
       def creditor_identifier; end
@@ -83,7 +83,7 @@ module Stripe
     # This newer API provides access to our latest features and payment method types.
     #
     # Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
-    sig { returns(Stripe::Source) }
+    sig { returns(::Stripe::Source) }
     def source; end
     # The status of the mandate notification. Valid statuses are `pending` or `submitted`.
     sig { returns(String) }

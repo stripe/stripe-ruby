@@ -3,7 +3,7 @@
 
 module Stripe
   module Issuing
-    class AuthorizationApproveParams < Stripe::RequestParams
+    class AuthorizationApproveParams < ::Stripe::RequestParams
       # If the authorization's `pending_request.is_amount_controllable` property is `true`, you may provide this value to control how much to hold for the authorization. Must be positive (use [`decline`](https://stripe.com/docs/api/issuing/authorizations/decline) to decline an authorization request).
       attr_accessor :amount
       # Specifies which fields in the response should be expanded.

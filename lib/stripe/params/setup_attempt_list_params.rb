@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SetupAttemptListParams < Stripe::RequestParams
-    class Created < Stripe::RequestParams
+  class SetupAttemptListParams < ::Stripe::RequestParams
+    class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)

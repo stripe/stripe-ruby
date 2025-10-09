@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  class SubscriptionScheduleUpdateParams < Stripe::RequestParams
-    class DefaultSettings < Stripe::RequestParams
-      class AutomaticTax < Stripe::RequestParams
-        class Liability < Stripe::RequestParams
+  class SubscriptionScheduleUpdateParams < ::Stripe::RequestParams
+    class DefaultSettings < ::Stripe::RequestParams
+      class AutomaticTax < ::Stripe::RequestParams
+        class Liability < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
           def account; end
@@ -39,7 +39,7 @@ module Stripe
          }
         def initialize(enabled: nil, liability: nil); end
       end
-      class BillingThresholds < Stripe::RequestParams
+      class BillingThresholds < ::Stripe::RequestParams
         # Monetary threshold that triggers the subscription to advance to a new billing period
         sig { returns(T.nilable(Integer)) }
         def amount_gte; end
@@ -57,8 +57,8 @@ module Stripe
          }
         def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil); end
       end
-      class InvoiceSettings < Stripe::RequestParams
-        class Issuer < Stripe::RequestParams
+      class InvoiceSettings < ::Stripe::RequestParams
+        class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
           def account; end
@@ -98,7 +98,7 @@ module Stripe
          }
         def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
       end
-      class TransferData < Stripe::RequestParams
+      class TransferData < ::Stripe::RequestParams
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         sig { returns(T.nilable(Float)) }
         def amount_percent; end
@@ -190,9 +190,9 @@ module Stripe
         transfer_data: nil
       ); end
     end
-    class Phase < Stripe::RequestParams
-      class AddInvoiceItem < Stripe::RequestParams
-        class Discount < Stripe::RequestParams
+    class Phase < ::Stripe::RequestParams
+      class AddInvoiceItem < ::Stripe::RequestParams
+        class Discount < ::Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(String)) }
           def coupon; end
@@ -213,8 +213,8 @@ module Stripe
            }
           def initialize(coupon: nil, discount: nil, promotion_code: nil); end
         end
-        class Period < Stripe::RequestParams
-          class End < Stripe::RequestParams
+        class Period < ::Stripe::RequestParams
+          class End < ::Stripe::RequestParams
             # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
             sig { returns(T.nilable(Integer)) }
             def timestamp; end
@@ -228,7 +228,7 @@ module Stripe
             sig { params(timestamp: T.nilable(Integer), type: String).void }
             def initialize(timestamp: nil, type: nil); end
           end
-          class Start < Stripe::RequestParams
+          class Start < ::Stripe::RequestParams
             # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
             sig { returns(T.nilable(Integer)) }
             def timestamp; end
@@ -261,7 +261,7 @@ module Stripe
            }
           def initialize(end_: nil, start: nil); end
         end
-        class PriceData < Stripe::RequestParams
+        class PriceData < ::Stripe::RequestParams
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           def currency; end
@@ -360,8 +360,8 @@ module Stripe
           tax_rates: nil
         ); end
       end
-      class AutomaticTax < Stripe::RequestParams
-        class Liability < Stripe::RequestParams
+      class AutomaticTax < ::Stripe::RequestParams
+        class Liability < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
           def account; end
@@ -392,7 +392,7 @@ module Stripe
          }
         def initialize(enabled: nil, liability: nil); end
       end
-      class BillingThresholds < Stripe::RequestParams
+      class BillingThresholds < ::Stripe::RequestParams
         # Monetary threshold that triggers the subscription to advance to a new billing period
         sig { returns(T.nilable(Integer)) }
         def amount_gte; end
@@ -410,7 +410,7 @@ module Stripe
          }
         def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil); end
       end
-      class Discount < Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
         def coupon; end
@@ -431,7 +431,7 @@ module Stripe
          }
         def initialize(coupon: nil, discount: nil, promotion_code: nil); end
       end
-      class Duration < Stripe::RequestParams
+      class Duration < ::Stripe::RequestParams
         # Specifies phase duration. Either `day`, `week`, `month` or `year`.
         sig { returns(String) }
         def interval; end
@@ -445,8 +445,8 @@ module Stripe
         sig { params(interval: String, interval_count: T.nilable(Integer)).void }
         def initialize(interval: nil, interval_count: nil); end
       end
-      class InvoiceSettings < Stripe::RequestParams
-        class Issuer < Stripe::RequestParams
+      class InvoiceSettings < ::Stripe::RequestParams
+        class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
           def account; end
@@ -484,8 +484,8 @@ module Stripe
          }
         def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
       end
-      class Item < Stripe::RequestParams
-        class BillingThresholds < Stripe::RequestParams
+      class Item < ::Stripe::RequestParams
+        class BillingThresholds < ::Stripe::RequestParams
           # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
           sig { returns(Integer) }
           def usage_gte; end
@@ -494,7 +494,7 @@ module Stripe
           sig { params(usage_gte: Integer).void }
           def initialize(usage_gte: nil); end
         end
-        class Discount < Stripe::RequestParams
+        class Discount < ::Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(String)) }
           def coupon; end
@@ -515,8 +515,8 @@ module Stripe
            }
           def initialize(coupon: nil, discount: nil, promotion_code: nil); end
         end
-        class PriceData < Stripe::RequestParams
-          class Recurring < Stripe::RequestParams
+        class PriceData < ::Stripe::RequestParams
+          class Recurring < ::Stripe::RequestParams
             # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
             sig { returns(String) }
             def interval; end
@@ -642,7 +642,7 @@ module Stripe
           tax_rates: nil
         ); end
       end
-      class TransferData < Stripe::RequestParams
+      class TransferData < ::Stripe::RequestParams
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         sig { returns(T.nilable(Float)) }
         def amount_percent; end

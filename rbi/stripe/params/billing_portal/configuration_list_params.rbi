@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module BillingPortal
-    class ConfigurationListParams < Stripe::RequestParams
+    class ConfigurationListParams < ::Stripe::RequestParams
       # Only return configurations that are active or inactive (e.g., pass `true` to only list active configurations).
       sig { returns(T.nilable(T::Boolean)) }
       def active; end

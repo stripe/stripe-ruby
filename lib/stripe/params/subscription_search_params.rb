@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionSearchParams < Stripe::RequestParams
+  class SubscriptionSearchParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.

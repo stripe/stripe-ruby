@@ -3,9 +3,9 @@
 
 module Stripe
   module Identity
-    class VerificationSessionCreateParams < Stripe::RequestParams
-      class Options < Stripe::RequestParams
-        class Document < Stripe::RequestParams
+    class VerificationSessionCreateParams < ::Stripe::RequestParams
+      class Options < ::Stripe::RequestParams
+        class Document < ::Stripe::RequestParams
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           attr_accessor :allowed_types
           # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
@@ -35,7 +35,7 @@ module Stripe
         end
       end
 
-      class ProvidedDetails < Stripe::RequestParams
+      class ProvidedDetails < ::Stripe::RequestParams
         # Email of user being verified
         attr_accessor :email
         # Phone number of user being verified
@@ -47,7 +47,7 @@ module Stripe
         end
       end
 
-      class RelatedPerson < Stripe::RequestParams
+      class RelatedPerson < ::Stripe::RequestParams
         # A token representing a connected account. If provided, the person parameter is also required and must be associated with the account.
         attr_accessor :account
         # A token referencing a Person resource that this verification is being used to verify.

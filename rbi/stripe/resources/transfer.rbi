@@ -21,7 +21,7 @@ module Stripe
     sig { returns(Integer) }
     def amount_reversed; end
     # Balance transaction that describes the impact of this transfer on your account balance.
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def balance_transaction; end
     # Time that this record of the transfer was first created.
     sig { returns(Integer) }
@@ -33,10 +33,10 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def description; end
     # ID of the Stripe account the transfer was sent to.
-    sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def destination; end
     # If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
-    sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
     def destination_payment; end
     # Unique identifier for the object.
     sig { returns(String) }
@@ -51,13 +51,13 @@ module Stripe
     sig { returns(String) }
     def object; end
     # A list of reversals that have been applied to the transfer.
-    sig { returns(Stripe::ListObject) }
+    sig { returns(::Stripe::ListObject) }
     def reversals; end
     # Whether the transfer has been fully reversed. If the transfer is only partially reversed, this attribute will still be false.
     sig { returns(T::Boolean) }
     def reversed; end
     # ID of the charge that was used to fund the transfer. If null, the transfer was funded from the available balance.
-    sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
     def source_transaction; end
     # The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`.
     sig { returns(T.nilable(String)) }
@@ -67,13 +67,13 @@ module Stripe
     def transfer_group; end
     # To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
     sig {
-      params(params: T.any(::Stripe::TransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Transfer)
+      params(params: T.any(::Stripe::TransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Transfer)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
     sig {
-      params(params: T.any(::Stripe::TransferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::TransferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
@@ -81,7 +81,7 @@ module Stripe
     #
     # This request accepts only metadata as an argument.
     sig {
-      params(transfer: String, params: T.any(::Stripe::TransferUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Transfer)
+      params(transfer: String, params: T.any(::Stripe::TransferUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Transfer)
      }
     def self.update(transfer, params = {}, opts = {}); end
   end

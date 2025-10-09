@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module FinancialConnections
-    class SessionCreateParams < Stripe::RequestParams
-      class AccountHolder < Stripe::RequestParams
+    class SessionCreateParams < ::Stripe::RequestParams
+      class AccountHolder < ::Stripe::RequestParams
         # The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
@@ -24,7 +24,7 @@ module Stripe
         sig { params(account: T.nilable(String), customer: T.nilable(String), type: String).void }
         def initialize(account: nil, customer: nil, type: nil); end
       end
-      class Filters < Stripe::RequestParams
+      class Filters < ::Stripe::RequestParams
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
         sig { returns(T.nilable(T::Array[String])) }
         def account_subcategories; end

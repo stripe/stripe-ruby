@@ -12,9 +12,9 @@ module Stripe
         "treasury.received_credit"
       end
 
-      class InitiatingPaymentMethodDetails < Stripe::StripeObject
-        class BillingDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class InitiatingPaymentMethodDetails < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -52,7 +52,7 @@ module Stripe
           end
         end
 
-        class FinancialAccount < Stripe::StripeObject
+        class FinancialAccount < ::Stripe::StripeObject
           # The FinancialAccount ID.
           attr_reader :id
           # The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
@@ -67,7 +67,7 @@ module Stripe
           end
         end
 
-        class UsBankAccount < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
           # Bank name.
           attr_reader :bank_name
           # The last four digits of the bank account number.
@@ -109,8 +109,8 @@ module Stripe
         end
       end
 
-      class LinkedFlows < Stripe::StripeObject
-        class SourceFlowDetails < Stripe::StripeObject
+      class LinkedFlows < ::Stripe::StripeObject
+        class SourceFlowDetails < ::Stripe::StripeObject
           # You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
           attr_reader :credit_reversal
           # Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
@@ -167,7 +167,7 @@ module Stripe
         end
       end
 
-      class ReversalDetails < Stripe::StripeObject
+      class ReversalDetails < ::Stripe::StripeObject
         # Time before which a ReceivedCredit can be reversed.
         attr_reader :deadline
         # Set if a ReceivedCredit cannot be reversed.

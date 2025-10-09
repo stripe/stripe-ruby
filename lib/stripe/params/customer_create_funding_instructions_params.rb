@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CustomerCreateFundingInstructionsParams < Stripe::RequestParams
-    class BankTransfer < Stripe::RequestParams
-      class EuBankTransfer < Stripe::RequestParams
+  class CustomerCreateFundingInstructionsParams < ::Stripe::RequestParams
+    class BankTransfer < ::Stripe::RequestParams
+      class EuBankTransfer < ::Stripe::RequestParams
         # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
         attr_accessor :country
 

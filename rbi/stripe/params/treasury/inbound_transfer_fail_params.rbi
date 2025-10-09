@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Treasury
-    class InboundTransferFailParams < Stripe::RequestParams
-      class FailureDetails < Stripe::RequestParams
+    class InboundTransferFailParams < ::Stripe::RequestParams
+      class FailureDetails < ::Stripe::RequestParams
         # Reason for the failure.
         sig { returns(T.nilable(String)) }
         def code; end

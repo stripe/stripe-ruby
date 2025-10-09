@@ -5,8 +5,8 @@
 module Stripe
   module TestHelpers
     module Treasury
-      class OutboundTransferReturnOutboundTransferParams < Stripe::RequestParams
-        class ReturnedDetails < Stripe::RequestParams
+      class OutboundTransferReturnOutboundTransferParams < ::Stripe::RequestParams
+        class ReturnedDetails < ::Stripe::RequestParams
           # Reason for the return.
           sig { returns(T.nilable(String)) }
           def code; end

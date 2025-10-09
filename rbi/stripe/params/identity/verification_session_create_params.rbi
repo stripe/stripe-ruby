@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Identity
-    class VerificationSessionCreateParams < Stripe::RequestParams
-      class Options < Stripe::RequestParams
-        class Document < Stripe::RequestParams
+    class VerificationSessionCreateParams < ::Stripe::RequestParams
+      class Options < ::Stripe::RequestParams
+        class Document < ::Stripe::RequestParams
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           sig { returns(T.nilable(T::Array[String])) }
           def allowed_types; end
@@ -57,7 +57,7 @@ module Stripe
          }
         def initialize(document: nil); end
       end
-      class ProvidedDetails < Stripe::RequestParams
+      class ProvidedDetails < ::Stripe::RequestParams
         # Email of user being verified
         sig { returns(T.nilable(String)) }
         def email; end
@@ -71,7 +71,7 @@ module Stripe
         sig { params(email: T.nilable(String), phone: T.nilable(String)).void }
         def initialize(email: nil, phone: nil); end
       end
-      class RelatedPerson < Stripe::RequestParams
+      class RelatedPerson < ::Stripe::RequestParams
         # A token representing a connected account. If provided, the person parameter is also required and must be associated with the account.
         sig { returns(String) }
         def account; end

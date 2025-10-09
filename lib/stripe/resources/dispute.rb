@@ -16,11 +16,11 @@ module Stripe
       "dispute"
     end
 
-    class Evidence < Stripe::StripeObject
-      class EnhancedEvidence < Stripe::StripeObject
-        class VisaCompellingEvidence3 < Stripe::StripeObject
-          class DisputedTransaction < Stripe::StripeObject
-            class ShippingAddress < Stripe::StripeObject
+    class Evidence < ::Stripe::StripeObject
+      class EnhancedEvidence < ::Stripe::StripeObject
+        class VisaCompellingEvidence3 < ::Stripe::StripeObject
+          class DisputedTransaction < ::Stripe::StripeObject
+            class ShippingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -68,8 +68,8 @@ module Stripe
             end
           end
 
-          class PriorUndisputedTransaction < Stripe::StripeObject
-            class ShippingAddress < Stripe::StripeObject
+          class PriorUndisputedTransaction < ::Stripe::StripeObject
+            class ShippingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -133,7 +133,7 @@ module Stripe
           end
         end
 
-        class VisaCompliance < Stripe::StripeObject
+        class VisaCompliance < ::Stripe::StripeObject
           # A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
           attr_reader :fee_acknowledged
 
@@ -227,9 +227,9 @@ module Stripe
       end
     end
 
-    class EvidenceDetails < Stripe::StripeObject
-      class EnhancedEligibility < Stripe::StripeObject
-        class VisaCompellingEvidence3 < Stripe::StripeObject
+    class EvidenceDetails < ::Stripe::StripeObject
+      class EnhancedEligibility < ::Stripe::StripeObject
+        class VisaCompellingEvidence3 < ::Stripe::StripeObject
           # List of actions required to qualify dispute for Visa Compelling Evidence 3.0 evidence submission.
           attr_reader :required_actions
           # Visa Compelling Evidence 3.0 eligibility status.
@@ -244,7 +244,7 @@ module Stripe
           end
         end
 
-        class VisaCompliance < Stripe::StripeObject
+        class VisaCompliance < ::Stripe::StripeObject
           # Visa compliance eligibility status.
           attr_reader :status
 
@@ -292,8 +292,8 @@ module Stripe
       end
     end
 
-    class PaymentMethodDetails < Stripe::StripeObject
-      class AmazonPay < Stripe::StripeObject
+    class PaymentMethodDetails < ::Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
         # The AmazonPay dispute type, chargeback or claim
         attr_reader :dispute_type
 
@@ -306,7 +306,7 @@ module Stripe
         end
       end
 
-      class Card < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # The type of dispute opened. Different case types may have varying fees and financial impact.
@@ -323,7 +323,7 @@ module Stripe
         end
       end
 
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         # Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
         attr_reader :chargeback_loss_reason_code
         # The reason for the dispute as defined by Klarna
@@ -338,7 +338,7 @@ module Stripe
         end
       end
 
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # The ID of the dispute in PayPal.
         attr_reader :case_id
         # The reason for the dispute as defined by PayPal

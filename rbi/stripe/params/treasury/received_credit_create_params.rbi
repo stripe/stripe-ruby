@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Treasury
-    class ReceivedCreditCreateParams < Stripe::RequestParams
-      class InitiatingPaymentMethodDetails < Stripe::RequestParams
-        class UsBankAccount < Stripe::RequestParams
+    class ReceivedCreditCreateParams < ::Stripe::RequestParams
+      class InitiatingPaymentMethodDetails < ::Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
           # The bank account holder's name.
           sig { returns(T.nilable(String)) }
           def account_holder_name; end

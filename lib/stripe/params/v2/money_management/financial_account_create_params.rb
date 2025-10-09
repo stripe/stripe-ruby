@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAccountCreateParams < Stripe::RequestParams
-        class Storage < Stripe::RequestParams
+      class FinancialAccountCreateParams < ::Stripe::RequestParams
+        class Storage < ::Stripe::RequestParams
           # The currencies that this FinancialAccount can hold.
           attr_accessor :holds_currencies
 

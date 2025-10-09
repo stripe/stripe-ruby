@@ -18,8 +18,8 @@ module Stripe
     nested_resource_class_methods :preview_invoice, operations: %i[list]
     nested_resource_class_methods :preview_subscription_schedule, operations: %i[list]
 
-    class AutomaticTax < Stripe::StripeObject
-      class Liability < Stripe::StripeObject
+    class AutomaticTax < ::Stripe::StripeObject
+      class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
         # Type of the account referenced.
@@ -51,9 +51,9 @@ module Stripe
       end
     end
 
-    class Computed < Stripe::StripeObject
-      class LastReestimationDetails < Stripe::StripeObject
-        class Failed < Stripe::StripeObject
+    class Computed < ::Stripe::StripeObject
+      class LastReestimationDetails < ::Stripe::StripeObject
+        class Failed < ::Stripe::StripeObject
           # The failure `code` is more granular than the `reason` provided and may correspond to a Stripe error code. For automation errors, this field is one of: `reverse_api_failure`, `reverse_api_deadline_exceeeded`, or `reverse_api_response_validation_error`, which are Stripe error codes and map to the error `message` field.
           attr_reader :failure_code
           # Information derived from the `failure_code` or a freeform message that explains the error as a human-readable English string. For example, "margin ID is not a valid ID".
@@ -83,10 +83,10 @@ module Stripe
         end
       end
 
-      class Recurring < Stripe::StripeObject
-        class TotalDetails < Stripe::StripeObject
-          class Breakdown < Stripe::StripeObject
-            class Discount < Stripe::StripeObject
+      class Recurring < ::Stripe::StripeObject
+        class TotalDetails < ::Stripe::StripeObject
+          class Breakdown < ::Stripe::StripeObject
+            class Discount < ::Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
               # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
@@ -104,7 +104,7 @@ module Stripe
               end
             end
 
-            class Tax < Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Amount of tax applied for this rate.
               attr_reader :amount
               # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -174,10 +174,10 @@ module Stripe
         end
       end
 
-      class Upfront < Stripe::StripeObject
-        class TotalDetails < Stripe::StripeObject
-          class Breakdown < Stripe::StripeObject
-            class Discount < Stripe::StripeObject
+      class Upfront < ::Stripe::StripeObject
+        class TotalDetails < ::Stripe::StripeObject
+          class Breakdown < ::Stripe::StripeObject
+            class Discount < ::Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
               # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
@@ -195,7 +195,7 @@ module Stripe
               end
             end
 
-            class Tax < Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Amount of tax applied for this rate.
               attr_reader :amount
               # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -284,7 +284,7 @@ module Stripe
       end
     end
 
-    class FromQuote < Stripe::StripeObject
+    class FromQuote < ::Stripe::StripeObject
       # Whether this quote is a revision of a different quote.
       attr_reader :is_revision
       # The quote that was cloned.
@@ -299,8 +299,8 @@ module Stripe
       end
     end
 
-    class InvoiceSettings < Stripe::StripeObject
-      class Issuer < Stripe::StripeObject
+    class InvoiceSettings < ::Stripe::StripeObject
+      class Issuer < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
         # Type of the account referenced.
@@ -328,8 +328,8 @@ module Stripe
       end
     end
 
-    class StatusDetails < Stripe::StripeObject
-      class Canceled < Stripe::StripeObject
+    class StatusDetails < ::Stripe::StripeObject
+      class Canceled < ::Stripe::StripeObject
         # The reason this quote was marked as canceled.
         attr_reader :reason
         # Time at which the quote was marked as canceled. Measured in seconds since the Unix epoch.
@@ -344,9 +344,9 @@ module Stripe
         end
       end
 
-      class Stale < Stripe::StripeObject
-        class LastReason < Stripe::StripeObject
-          class LinesInvalid < Stripe::StripeObject
+      class Stale < ::Stripe::StripeObject
+        class LastReason < ::Stripe::StripeObject
+          class LinesInvalid < ::Stripe::StripeObject
             # The timestamp at which the lines were marked as invalid.
             attr_reader :invalid_at
             # The list of lines that became invalid at the given timestamp.
@@ -361,7 +361,7 @@ module Stripe
             end
           end
 
-          class SubscriptionChanged < Stripe::StripeObject
+          class SubscriptionChanged < ::Stripe::StripeObject
             # The subscription's state before the quote was marked as stale.
             attr_reader :previous_subscription
 
@@ -374,7 +374,7 @@ module Stripe
             end
           end
 
-          class SubscriptionScheduleChanged < Stripe::StripeObject
+          class SubscriptionScheduleChanged < ::Stripe::StripeObject
             # The subscription schedule's state before the quote was marked as stale.
             attr_reader :previous_subscription_schedule
 
@@ -450,7 +450,7 @@ module Stripe
       end
     end
 
-    class StatusTransitions < Stripe::StripeObject
+    class StatusTransitions < ::Stripe::StripeObject
       # The time that the quote was accepted. Measured in seconds since Unix epoch.
       attr_reader :accepted_at
       # The time that the quote was canceled. Measured in seconds since Unix epoch.
@@ -467,10 +467,10 @@ module Stripe
       end
     end
 
-    class SubscriptionData < Stripe::StripeObject
-      class BillOnAcceptance < Stripe::StripeObject
-        class BillFrom < Stripe::StripeObject
-          class LineStartsAt < Stripe::StripeObject
+    class SubscriptionData < ::Stripe::StripeObject
+      class BillOnAcceptance < ::Stripe::StripeObject
+        class BillFrom < ::Stripe::StripeObject
+          class LineStartsAt < ::Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
 
@@ -500,8 +500,8 @@ module Stripe
           end
         end
 
-        class BillUntil < Stripe::StripeObject
-          class Duration < Stripe::StripeObject
+        class BillUntil < ::Stripe::StripeObject
+          class Duration < ::Stripe::StripeObject
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_reader :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -516,7 +516,7 @@ module Stripe
             end
           end
 
-          class LineEndsAt < Stripe::StripeObject
+          class LineEndsAt < ::Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
 
@@ -561,8 +561,8 @@ module Stripe
         end
       end
 
-      class BillingMode < Stripe::StripeObject
-        class Flexible < Stripe::StripeObject
+      class BillingMode < ::Stripe::StripeObject
+        class Flexible < ::Stripe::StripeObject
           # Controls how invoices and invoice items display proration amounts and discount amounts.
           attr_reader :proration_discounts
 
@@ -588,7 +588,7 @@ module Stripe
         end
       end
 
-      class Prebilling < Stripe::StripeObject
+      class Prebilling < ::Stripe::StripeObject
         # Attribute for field iterations
         attr_reader :iterations
 
@@ -638,8 +638,8 @@ module Stripe
       end
     end
 
-    class SubscriptionDataOverride < Stripe::StripeObject
-      class AppliesTo < Stripe::StripeObject
+    class SubscriptionDataOverride < ::Stripe::StripeObject
+      class AppliesTo < ::Stripe::StripeObject
         # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         attr_reader :new_reference
         # The ID of the schedule the line applies to.
@@ -656,9 +656,9 @@ module Stripe
         end
       end
 
-      class BillOnAcceptance < Stripe::StripeObject
-        class BillFrom < Stripe::StripeObject
-          class LineStartsAt < Stripe::StripeObject
+      class BillOnAcceptance < ::Stripe::StripeObject
+        class BillFrom < ::Stripe::StripeObject
+          class LineStartsAt < ::Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
 
@@ -688,8 +688,8 @@ module Stripe
           end
         end
 
-        class BillUntil < Stripe::StripeObject
-          class Duration < Stripe::StripeObject
+        class BillUntil < ::Stripe::StripeObject
+          class Duration < ::Stripe::StripeObject
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_reader :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -704,7 +704,7 @@ module Stripe
             end
           end
 
-          class LineEndsAt < Stripe::StripeObject
+          class LineEndsAt < ::Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
 
@@ -772,8 +772,8 @@ module Stripe
       end
     end
 
-    class SubscriptionSchedule < Stripe::StripeObject
-      class AppliesTo < Stripe::StripeObject
+    class SubscriptionSchedule < ::Stripe::StripeObject
+      class AppliesTo < ::Stripe::StripeObject
         # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         attr_reader :new_reference
         # The ID of the schedule the line applies to.
@@ -803,9 +803,9 @@ module Stripe
       end
     end
 
-    class TotalDetails < Stripe::StripeObject
-      class Breakdown < Stripe::StripeObject
-        class Discount < Stripe::StripeObject
+    class TotalDetails < ::Stripe::StripeObject
+      class Breakdown < ::Stripe::StripeObject
+        class Discount < ::Stripe::StripeObject
           # The amount discounted.
           attr_reader :amount
           # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
@@ -823,7 +823,7 @@ module Stripe
           end
         end
 
-        class Tax < Stripe::StripeObject
+        class Tax < ::Stripe::StripeObject
           # Amount of tax applied for this rate.
           attr_reader :amount
           # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -874,7 +874,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::StripeObject
+    class TransferData < ::Stripe::StripeObject
       # The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
       attr_reader :amount
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount will be transferred to the destination.

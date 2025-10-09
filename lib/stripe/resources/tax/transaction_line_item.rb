@@ -9,7 +9,7 @@ module Stripe
         "tax.transaction_line_item"
       end
 
-      class Reversal < Stripe::StripeObject
+      class Reversal < ::Stripe::StripeObject
         # The `id` of the line item to reverse in the original transaction.
         attr_reader :original_line_item
 

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      class AccountListParams < Stripe::RequestParams
+      class AccountListParams < ::Stripe::RequestParams
         # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
         attr_accessor :applied_configurations
         # The upper limit on the number of accounts returned by the List Account request.

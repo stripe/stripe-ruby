@@ -6,7 +6,7 @@ module Stripe
   module Terminal
     # Returns data collected by Terminal readers. This data is only stored for 24 hours.
     class ReaderCollectedData < APIResource
-      class Magstripe < Stripe::StripeObject
+      class Magstripe < ::Stripe::StripeObject
         # The raw magstripe data collected by the reader.
         sig { returns(T.nilable(String)) }
         def data; end

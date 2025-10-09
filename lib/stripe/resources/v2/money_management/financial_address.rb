@@ -11,8 +11,8 @@ module Stripe
           "v2.money_management.financial_address"
         end
 
-        class Credentials < Stripe::StripeObject
-          class GbBankAccount < Stripe::StripeObject
+        class Credentials < ::Stripe::StripeObject
+          class GbBankAccount < ::Stripe::StripeObject
             # The account holder name to be used during bank transference.
             attr_reader :account_holder_name
             # The account number of the UK Bank Account.
@@ -32,7 +32,7 @@ module Stripe
             end
           end
 
-          class SepaBankAccount < Stripe::StripeObject
+          class SepaBankAccount < ::Stripe::StripeObject
             # The account holder name to be used during bank transfers.
             attr_reader :account_holder_name
             # The name of the Bank.
@@ -56,7 +56,7 @@ module Stripe
             end
           end
 
-          class UsBankAccount < Stripe::StripeObject
+          class UsBankAccount < ::Stripe::StripeObject
             # The account number of the US Bank Account.
             attr_reader :account_number
             # The name of the Bank.

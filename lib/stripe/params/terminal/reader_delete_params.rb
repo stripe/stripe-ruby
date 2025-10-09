@@ -3,6 +3,6 @@
 
 module Stripe
   module Terminal
-    class ReaderDeleteParams < Stripe::RequestParams; end
+    class ReaderDeleteParams < ::Stripe::RequestParams; end
   end
 end

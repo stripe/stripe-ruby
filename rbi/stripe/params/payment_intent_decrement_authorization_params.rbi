@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  class PaymentIntentDecrementAuthorizationParams < Stripe::RequestParams
-    class Hooks < Stripe::RequestParams
-      class Inputs < Stripe::RequestParams
-        class Tax < Stripe::RequestParams
+  class PaymentIntentDecrementAuthorizationParams < ::Stripe::RequestParams
+    class Hooks < ::Stripe::RequestParams
+      class Inputs < ::Stripe::RequestParams
+        class Tax < ::Stripe::RequestParams
           # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
           sig { returns(String) }
           def calculation; end
@@ -39,7 +39,7 @@ module Stripe
        }
       def initialize(inputs: nil); end
     end
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       sig { returns(T.nilable(Integer)) }
       def amount; end

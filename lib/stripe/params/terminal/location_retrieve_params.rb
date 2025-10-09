@@ -3,7 +3,7 @@
 
 module Stripe
   module Terminal
-    class LocationRetrieveParams < Stripe::RequestParams
+    class LocationRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

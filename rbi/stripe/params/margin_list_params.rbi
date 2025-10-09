@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class MarginListParams < Stripe::RequestParams
+  class MarginListParams < ::Stripe::RequestParams
     # Only return margins that are active or inactive. For example, pass `true` to only list active margins.
     sig { returns(T.nilable(T::Boolean)) }
     def active; end

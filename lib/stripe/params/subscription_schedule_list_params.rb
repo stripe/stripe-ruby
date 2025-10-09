@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionScheduleListParams < Stripe::RequestParams
-    class CanceledAt < Stripe::RequestParams
+  class SubscriptionScheduleListParams < ::Stripe::RequestParams
+    class CanceledAt < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)
@@ -21,7 +21,7 @@ module Stripe
       end
     end
 
-    class CompletedAt < Stripe::RequestParams
+    class CompletedAt < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)
@@ -39,7 +39,7 @@ module Stripe
       end
     end
 
-    class Created < Stripe::RequestParams
+    class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)
@@ -57,7 +57,7 @@ module Stripe
       end
     end
 
-    class ReleasedAt < Stripe::RequestParams
+    class ReleasedAt < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       attr_accessor :gt
       # Minimum value to filter by (inclusive)

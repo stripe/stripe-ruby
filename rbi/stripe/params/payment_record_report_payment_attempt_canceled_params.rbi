@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentRecordReportPaymentAttemptCanceledParams < Stripe::RequestParams
+  class PaymentRecordReportPaymentAttemptCanceledParams < ::Stripe::RequestParams
     # When the reported payment was canceled. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def canceled_at; end

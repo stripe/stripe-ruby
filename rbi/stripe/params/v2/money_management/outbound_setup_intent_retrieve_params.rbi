@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundSetupIntentRetrieveParams < Stripe::RequestParams; end
+      class OutboundSetupIntentRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

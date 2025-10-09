@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class InvoicePaymentListParams < Stripe::RequestParams
-    class Payment < Stripe::RequestParams
+  class InvoicePaymentListParams < ::Stripe::RequestParams
+    class Payment < ::Stripe::RequestParams
       # Only return invoice payments associated by this payment intent ID.
       sig { returns(T.nilable(String)) }
       def payment_intent; end

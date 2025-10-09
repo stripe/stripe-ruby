@@ -4,9 +4,9 @@
 module Stripe
   module V2
     module Billing
-      class BillSettingUpdateParams < Stripe::RequestParams
-        class Calculation < Stripe::RequestParams
-          class Tax < Stripe::RequestParams
+      class BillSettingUpdateParams < ::Stripe::RequestParams
+        class Calculation < ::Stripe::RequestParams
+          class Tax < ::Stripe::RequestParams
             # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
             attr_accessor :type
 
@@ -22,8 +22,8 @@ module Stripe
           end
         end
 
-        class Invoice < Stripe::RequestParams
-          class TimeUntilDue < Stripe::RequestParams
+        class Invoice < ::Stripe::RequestParams
+          class TimeUntilDue < ::Stripe::RequestParams
             # The interval unit for the time until due.
             attr_accessor :interval
             # The number of interval units. For example, if interval=day and interval_count=30,

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Core
-      class AccountCloseParams < Stripe::RequestParams
+      class AccountCloseParams < ::Stripe::RequestParams
         # Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
         sig { returns(T.nilable(T::Array[String])) }
         def applied_configurations; end

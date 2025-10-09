@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class InvoiceAttachPaymentParams < Stripe::RequestParams
-    class PaymentRecordData < Stripe::RequestParams
+  class InvoiceAttachPaymentParams < ::Stripe::RequestParams
+    class PaymentRecordData < ::Stripe::RequestParams
       # The amount that was paid out of band.
       sig { returns(Integer) }
       def amount; end

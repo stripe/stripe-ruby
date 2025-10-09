@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAccountRetrieveParams < Stripe::RequestParams; end
+      class FinancialAccountRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

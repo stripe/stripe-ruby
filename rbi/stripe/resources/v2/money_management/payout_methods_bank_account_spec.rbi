@@ -7,9 +7,9 @@ module Stripe
     module MoneyManagement
       # The PayoutMethodsBankAccountSpec object.
       class PayoutMethodsBankAccountSpec < SingletonAPIResource
-        class Countries < Stripe::StripeObject
-          class Field < Stripe::StripeObject
-            class LocalNameHuman < Stripe::StripeObject
+        class Countries < ::Stripe::StripeObject
+          class Field < ::Stripe::StripeObject
+            class LocalNameHuman < ::Stripe::StripeObject
               # The default content of the localizable string.
               sig { returns(String) }
               def content; end

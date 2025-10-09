@@ -42,7 +42,7 @@ module Stripe
       def version; end
       # Returns a full list of Report Types.
       sig {
-        params(params: T.any(::Stripe::Reporting::ReportTypeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Reporting::ReportTypeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

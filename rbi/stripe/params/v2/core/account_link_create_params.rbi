@@ -5,10 +5,10 @@
 module Stripe
   module V2
     module Core
-      class AccountLinkCreateParams < Stripe::RequestParams
-        class UseCase < Stripe::RequestParams
-          class AccountOnboarding < Stripe::RequestParams
-            class CollectionOptions < Stripe::RequestParams
+      class AccountLinkCreateParams < ::Stripe::RequestParams
+        class UseCase < ::Stripe::RequestParams
+          class AccountOnboarding < ::Stripe::RequestParams
+            class CollectionOptions < ::Stripe::RequestParams
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
               sig { returns(T.nilable(String)) }
               def fields; end
@@ -56,8 +56,8 @@ module Stripe
               return_url: nil
             ); end
           end
-          class AccountUpdate < Stripe::RequestParams
-            class CollectionOptions < Stripe::RequestParams
+          class AccountUpdate < ::Stripe::RequestParams
+            class CollectionOptions < ::Stripe::RequestParams
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
               sig { returns(T.nilable(String)) }
               def fields; end

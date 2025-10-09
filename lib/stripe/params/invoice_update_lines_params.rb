@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
-  class InvoiceUpdateLinesParams < Stripe::RequestParams
-    class Line < Stripe::RequestParams
-      class Discount < Stripe::RequestParams
-        class DiscountEnd < Stripe::RequestParams
-          class Duration < Stripe::RequestParams
+  class InvoiceUpdateLinesParams < ::Stripe::RequestParams
+    class Line < ::Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -47,7 +47,7 @@ module Stripe
         end
       end
 
-      class Period < Stripe::RequestParams
+      class Period < ::Stripe::RequestParams
         # The end of the period, which must be greater than or equal to the start. This value is inclusive.
         attr_accessor :end
         # The start of the period. This value is inclusive.
@@ -59,8 +59,8 @@ module Stripe
         end
       end
 
-      class PriceData < Stripe::RequestParams
-        class ProductData < Stripe::RequestParams
+      class PriceData < ::Stripe::RequestParams
+        class ProductData < ::Stripe::RequestParams
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           attr_accessor :description
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -120,7 +120,7 @@ module Stripe
         end
       end
 
-      class Pricing < Stripe::RequestParams
+      class Pricing < ::Stripe::RequestParams
         # The ID of the price object.
         attr_accessor :price
 
@@ -129,8 +129,8 @@ module Stripe
         end
       end
 
-      class TaxAmount < Stripe::RequestParams
-        class TaxRateData < Stripe::RequestParams
+      class TaxAmount < ::Stripe::RequestParams
+        class TaxRateData < ::Stripe::RequestParams
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
           # An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.

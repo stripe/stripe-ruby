@@ -6,8 +6,8 @@ module Stripe
   module Capital
     # This is an object representing the details of a transaction on a Capital financing object.
     class FinancingTransaction < APIResource
-      class Details < Stripe::StripeObject
-        class Transaction < Stripe::StripeObject
+      class Details < ::Stripe::StripeObject
+        class Transaction < ::Stripe::StripeObject
           # The linked payment ID.
           sig { returns(T.nilable(String)) }
           def charge; end
@@ -88,7 +88,7 @@ module Stripe
       # Returns a list of financing transactions. The transactions are returned in sorted order,
       # with the most recent transactions appearing first.
       sig {
-        params(params: T.any(::Stripe::Capital::FinancingTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Capital::FinancingTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

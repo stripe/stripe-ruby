@@ -16,8 +16,8 @@ module Stripe
       "customer_session"
     end
 
-    class Components < Stripe::StripeObject
-      class BuyButton < Stripe::StripeObject
+    class Components < ::Stripe::StripeObject
+      class BuyButton < ::Stripe::StripeObject
         # Whether the buy button is enabled.
         attr_reader :enabled
 
@@ -30,8 +30,8 @@ module Stripe
         end
       end
 
-      class PaymentElement < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PaymentElement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
           #
           # If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
@@ -75,7 +75,7 @@ module Stripe
         end
       end
 
-      class PricingTable < Stripe::StripeObject
+      class PricingTable < ::Stripe::StripeObject
         # Whether the pricing table is enabled.
         attr_reader :enabled
 

@@ -12,7 +12,7 @@ module Stripe
       "source_transaction"
     end
 
-    class AchCreditTransfer < Stripe::StripeObject
+    class AchCreditTransfer < ::Stripe::StripeObject
       # Customer data associated with the transfer.
       attr_reader :customer_data
       # Bank account fingerprint associated with the transfer.
@@ -31,7 +31,7 @@ module Stripe
       end
     end
 
-    class ChfCreditTransfer < Stripe::StripeObject
+    class ChfCreditTransfer < ::Stripe::StripeObject
       # Reference associated with the transfer.
       attr_reader :reference
       # Sender's country address.
@@ -52,7 +52,7 @@ module Stripe
       end
     end
 
-    class GbpCreditTransfer < Stripe::StripeObject
+    class GbpCreditTransfer < ::Stripe::StripeObject
       # Bank account fingerprint associated with the Stripe owned bank account receiving the transfer.
       attr_reader :fingerprint
       # The credit transfer rails the sender used to push this transfer. The possible rails are: Faster Payments, BACS, CHAPS, and wire transfers. Currently only Faster Payments is supported.
@@ -77,7 +77,7 @@ module Stripe
       end
     end
 
-    class PaperCheck < Stripe::StripeObject
+    class PaperCheck < ::Stripe::StripeObject
       # Time at which the deposited funds will be available for use. Measured in seconds since the Unix epoch.
       attr_reader :available_at
       # Comma-separated list of invoice IDs associated with the paper check.
@@ -92,7 +92,7 @@ module Stripe
       end
     end
 
-    class SepaCreditTransfer < Stripe::StripeObject
+    class SepaCreditTransfer < ::Stripe::StripeObject
       # Reference associated with the transfer.
       attr_reader :reference
       # Sender's bank account IBAN.

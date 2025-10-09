@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class PayoutMethodUnarchiveParams < Stripe::RequestParams; end
+      class PayoutMethodUnarchiveParams < ::Stripe::RequestParams; end
     end
   end
 end

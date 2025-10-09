@@ -3,7 +3,7 @@
 
 module Stripe
   module Entitlements
-    class FeatureCreateParams < Stripe::RequestParams
+    class FeatureCreateParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # A unique key you provide as your own system identifier. This may be up to 80 characters.

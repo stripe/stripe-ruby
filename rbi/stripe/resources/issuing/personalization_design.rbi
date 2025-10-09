@@ -6,7 +6,7 @@ module Stripe
   module Issuing
     # A Personalization Design is a logical grouping of a Physical Bundle, card logo, and carrier text that represents a product line.
     class PersonalizationDesign < APIResource
-      class CarrierText < Stripe::StripeObject
+      class CarrierText < ::Stripe::StripeObject
         # The footer body text of the carrier letter.
         sig { returns(T.nilable(String)) }
         def footer_body; end
@@ -26,7 +26,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Preferences < Stripe::StripeObject
+      class Preferences < ::Stripe::StripeObject
         # Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
         sig { returns(T::Boolean) }
         def is_default; end
@@ -40,7 +40,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class RejectionReasons < Stripe::StripeObject
+      class RejectionReasons < ::Stripe::StripeObject
         # The reason(s) the card logo was rejected.
         sig { returns(T.nilable(T::Array[String])) }
         def card_logo; end
@@ -55,7 +55,7 @@ module Stripe
         end
       end
       # The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
-      sig { returns(T.nilable(T.any(String, Stripe::File))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
       def card_logo; end
       # Hash containing carrier text, for use with physical bundles that support carrier text.
       sig { returns(T.nilable(CarrierText)) }
@@ -82,7 +82,7 @@ module Stripe
       sig { returns(String) }
       def object; end
       # The physical bundle object belonging to this personalization design.
-      sig { returns(T.any(String, Stripe::Issuing::PhysicalBundle)) }
+      sig { returns(T.any(String, ::Stripe::Issuing::PhysicalBundle)) }
       def physical_bundle; end
       # Attribute for field preferences
       sig { returns(Preferences) }
@@ -95,19 +95,19 @@ module Stripe
       def status; end
       # Creates a personalization design object.
       sig {
-        params(params: T.any(::Stripe::Issuing::PersonalizationDesignCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::PersonalizationDesign)
+        params(params: T.any(::Stripe::Issuing::PersonalizationDesignCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Issuing::PersonalizationDesignListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::PersonalizationDesignListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Updates a card personalization object.
       sig {
-        params(personalization_design: String, params: T.any(::Stripe::Issuing::PersonalizationDesignUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::PersonalizationDesign)
+        params(personalization_design: String, params: T.any(::Stripe::Issuing::PersonalizationDesignUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
        }
       def self.update(personalization_design, params = {}, opts = {}); end
     end

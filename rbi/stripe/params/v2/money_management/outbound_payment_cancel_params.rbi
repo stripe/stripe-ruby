@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundPaymentCancelParams < Stripe::RequestParams; end
+      class OutboundPaymentCancelParams < ::Stripe::RequestParams; end
     end
   end
 end

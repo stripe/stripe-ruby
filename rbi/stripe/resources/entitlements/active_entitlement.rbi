@@ -7,7 +7,7 @@ module Stripe
     # An active entitlement describes access to a feature for a customer.
     class ActiveEntitlement < APIResource
       # The [Feature](https://stripe.com/docs/api/entitlements/feature) that the customer is entitled to.
-      sig { returns(T.any(String, Stripe::Entitlements::Feature)) }
+      sig { returns(T.any(String, ::Stripe::Entitlements::Feature)) }
       def feature; end
       # Unique identifier for the object.
       sig { returns(String) }
@@ -23,7 +23,7 @@ module Stripe
       def object; end
       # Retrieve a list of active entitlements for a customer
       sig {
-        params(params: T.any(::Stripe::Entitlements::ActiveEntitlementListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Entitlements::ActiveEntitlementListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

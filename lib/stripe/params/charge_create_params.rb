@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class ChargeCreateParams < Stripe::RequestParams
-    class Destination < Stripe::RequestParams
+  class ChargeCreateParams < ::Stripe::RequestParams
+    class Destination < ::Stripe::RequestParams
       # ID of an existing, connected Stripe account.
       attr_accessor :account
       # The amount to transfer to the destination account without creating an `Application Fee` object. Cannot be combined with the `application_fee` parameter. Must be less than or equal to the charge amount.
@@ -15,7 +15,7 @@ module Stripe
       end
     end
 
-    class RadarOptions < Stripe::RequestParams
+    class RadarOptions < ::Stripe::RequestParams
       # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       attr_accessor :session
 
@@ -24,8 +24,8 @@ module Stripe
       end
     end
 
-    class Shipping < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Shipping < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -75,7 +75,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
       attr_accessor :amount
       # ID of an existing, connected Stripe account.

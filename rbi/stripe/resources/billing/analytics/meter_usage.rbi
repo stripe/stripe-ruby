@@ -17,7 +17,7 @@ module Stripe
         sig { returns(Integer) }
         def refreshed_at; end
         # Attribute for field rows
-        sig { returns(Stripe::ListObject) }
+        sig { returns(::Stripe::ListObject) }
         def rows; end
       end
     end

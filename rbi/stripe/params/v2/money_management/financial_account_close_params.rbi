@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAccountCloseParams < Stripe::RequestParams
-        class ForwardingSettings < Stripe::RequestParams
+      class FinancialAccountCloseParams < ::Stripe::RequestParams
+        class ForwardingSettings < ::Stripe::RequestParams
           # The address to send forwarded payments to.
           sig { returns(T.nilable(String)) }
           def payment_method; end

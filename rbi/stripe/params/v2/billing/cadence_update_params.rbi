@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Billing
-      class CadenceUpdateParams < Stripe::RequestParams
-        class Payer < Stripe::RequestParams
+      class CadenceUpdateParams < ::Stripe::RequestParams
+        class Payer < ::Stripe::RequestParams
           # The ID of the Billing Profile object which determines how a bill will be paid.
           sig { returns(T.nilable(String)) }
           def billing_profile; end
@@ -15,8 +15,8 @@ module Stripe
           sig { params(billing_profile: T.nilable(String)).void }
           def initialize(billing_profile: nil); end
         end
-        class Settings < Stripe::RequestParams
-          class Bill < Stripe::RequestParams
+        class Settings < ::Stripe::RequestParams
+          class Bill < ::Stripe::RequestParams
             # The ID of the referenced settings object.
             sig { returns(String) }
             def id; end
@@ -33,7 +33,7 @@ module Stripe
             sig { params(id: String, version: T.nilable(String)).void }
             def initialize(id: nil, version: nil); end
           end
-          class Collection < Stripe::RequestParams
+          class Collection < ::Stripe::RequestParams
             # The ID of the referenced settings object.
             sig { returns(String) }
             def id; end

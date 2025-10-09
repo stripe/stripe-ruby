@@ -3,7 +3,7 @@
 
 module Stripe
   module TestHelpers
-    class CustomerFundCashBalanceParams < Stripe::RequestParams
+    class CustomerFundCashBalanceParams < ::Stripe::RequestParams
       # Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to fund $1.00 or 100 to fund ¥100, a zero-decimal currency).
       attr_accessor :amount
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

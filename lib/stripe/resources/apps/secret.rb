@@ -21,7 +21,7 @@ module Stripe
         "apps.secret"
       end
 
-      class Scope < Stripe::StripeObject
+      class Scope < ::Stripe::StripeObject
         # The secret scope type.
         attr_reader :type
         # The user ID, if type is set to "user"

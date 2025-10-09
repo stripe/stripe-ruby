@@ -14,7 +14,7 @@ module Stripe
       "account_notice"
     end
 
-    class Email < Stripe::StripeObject
+    class Email < ::Stripe::StripeObject
       # Content of the email in plain text. The copy must match exactly the language that Stripe Compliance has approved for use.
       attr_reader :plain_text
       # Email address of the recipient.
@@ -31,7 +31,7 @@ module Stripe
       end
     end
 
-    class LinkedObjects < Stripe::StripeObject
+    class LinkedObjects < ::Stripe::StripeObject
       # Associated [Capability](https://stripe.com/docs/api/capabilities)
       attr_reader :capability
       # Associated [Credit Underwriting Record](https://stripe.com/docs/api/issuing/credit_underwriting_record)

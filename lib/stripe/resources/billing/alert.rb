@@ -13,8 +13,8 @@ module Stripe
         "billing.alert"
       end
 
-      class UsageThreshold < Stripe::StripeObject
-        class Filter < Stripe::StripeObject
+      class UsageThreshold < ::Stripe::StripeObject
+        class Filter < ::Stripe::StripeObject
           # Limit the scope of the alert to this customer ID
           attr_reader :customer
           # Attribute for field type

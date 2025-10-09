@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class CreditGrantUpdateParams < Stripe::RequestParams
+    class CreditGrantUpdateParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.

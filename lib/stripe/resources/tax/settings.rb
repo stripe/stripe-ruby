@@ -14,7 +14,7 @@ module Stripe
         "tax.settings"
       end
 
-      class Defaults < Stripe::StripeObject
+      class Defaults < ::Stripe::StripeObject
         # The tax calculation provider this account uses. Defaults to `stripe` when not using a [third-party provider](/tax/third-party-apps).
         attr_reader :provider
         # Default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) used to specify whether the price is considered inclusive of taxes or exclusive of taxes. If the item's price has a tax behavior set, it will take precedence over the default tax behavior.
@@ -31,8 +31,8 @@ module Stripe
         end
       end
 
-      class HeadOffice < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class HeadOffice < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -66,8 +66,8 @@ module Stripe
         end
       end
 
-      class StatusDetails < Stripe::StripeObject
-        class Active < Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
+        class Active < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -77,7 +77,7 @@ module Stripe
           end
         end
 
-        class Pending < Stripe::StripeObject
+        class Pending < ::Stripe::StripeObject
           # The list of missing fields that are required to perform calculations. It includes the entry `head_office` when the status is `pending`. It is recommended to set the optional values even if they aren't listed as required for calculating taxes. Calculations can fail if missing fields aren't explicitly provided on every call.
           attr_reader :missing_fields
 

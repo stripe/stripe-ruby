@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentLinkListParams < Stripe::RequestParams
+  class PaymentLinkListParams < ::Stripe::RequestParams
     # Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links).
     sig { returns(T.nilable(T::Boolean)) }
     def active; end

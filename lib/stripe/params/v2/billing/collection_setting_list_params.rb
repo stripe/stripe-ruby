@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class CollectionSettingListParams < Stripe::RequestParams
+      class CollectionSettingListParams < ::Stripe::RequestParams
         # Optionally set the maximum number of results per page. Defaults to 20.
         attr_accessor :limit
         # Only return the settings with these lookup_keys, if any exist.

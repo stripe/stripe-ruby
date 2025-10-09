@@ -22,7 +22,7 @@ module Stripe
     def url; end
     # Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.
     sig {
-      params(params: T.any(::Stripe::AccountLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::AccountLink)
+      params(params: T.any(::Stripe::AccountLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountLink)
      }
     def self.create(params = {}, opts = {}); end
   end

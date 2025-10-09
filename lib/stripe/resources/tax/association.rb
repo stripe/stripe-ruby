@@ -10,8 +10,8 @@ module Stripe
         "tax.association"
       end
 
-      class TaxTransactionAttempt < Stripe::StripeObject
-        class Committed < Stripe::StripeObject
+      class TaxTransactionAttempt < ::Stripe::StripeObject
+        class Committed < ::Stripe::StripeObject
           # The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
           attr_reader :transaction
 
@@ -24,7 +24,7 @@ module Stripe
           end
         end
 
-        class Errored < Stripe::StripeObject
+        class Errored < ::Stripe::StripeObject
           # Details on why we couldn't commit the tax transaction.
           attr_reader :reason
 

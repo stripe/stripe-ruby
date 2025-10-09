@@ -6,8 +6,8 @@ module Stripe
   module FinancialConnections
     # An institution represents a financial institution to which an end user can connect using the Financial Connections authentication flow.
     class Institution < APIResource
-      class Features < Stripe::StripeObject
-        class Balances < Stripe::StripeObject
+      class Features < ::Stripe::StripeObject
+        class Balances < ::Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
           def supported; end
@@ -18,7 +18,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Ownership < Stripe::StripeObject
+        class Ownership < ::Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
           def supported; end
@@ -29,7 +29,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class PaymentMethod < Stripe::StripeObject
+        class PaymentMethod < ::Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
           def supported; end
@@ -40,7 +40,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Transactions < Stripe::StripeObject
+        class Transactions < ::Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           sig { returns(T::Boolean) }
           def supported; end
@@ -104,7 +104,7 @@ module Stripe
       def url; end
       # Returns a list of Financial Connections Institution objects.
       sig {
-        params(params: T.any(::Stripe::FinancialConnections::InstitutionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::FinancialConnections::InstitutionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

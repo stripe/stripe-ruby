@@ -24,7 +24,7 @@ module Stripe
     sig { returns(String) }
     def id; end
     # A list of [file links](https://stripe.com/docs/api#file_links) that point at this file.
-    sig { returns(T.nilable(Stripe::ListObject)) }
+    sig { returns(T.nilable(::Stripe::ListObject)) }
     def links; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
@@ -48,13 +48,13 @@ module Stripe
     #
     # All of Stripe's officially supported Client libraries support sending multipart/form-data.
     sig {
-      params(params: T.any(::Stripe::FileCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::File)
+      params(params: T.any(::Stripe::FileCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::File)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
     sig {
-      params(params: T.any(::Stripe::FileListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::FileListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

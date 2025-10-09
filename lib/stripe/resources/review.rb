@@ -14,7 +14,7 @@ module Stripe
       "review"
     end
 
-    class IpAddressLocation < Stripe::StripeObject
+    class IpAddressLocation < ::Stripe::StripeObject
       # The city where the payment originated.
       attr_reader :city
       # Two-letter ISO code representing the country where the payment originated.
@@ -35,7 +35,7 @@ module Stripe
       end
     end
 
-    class Session < Stripe::StripeObject
+    class Session < ::Stripe::StripeObject
       # The browser used in this browser session (e.g., `Chrome`).
       attr_reader :browser
       # Information about the device used for the browser session (e.g., `Samsung SM-G930T`).

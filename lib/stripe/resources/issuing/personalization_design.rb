@@ -14,7 +14,7 @@ module Stripe
         "issuing.personalization_design"
       end
 
-      class CarrierText < Stripe::StripeObject
+      class CarrierText < ::Stripe::StripeObject
         # The footer body text of the carrier letter.
         attr_reader :footer_body
         # The footer title text of the carrier letter.
@@ -33,7 +33,7 @@ module Stripe
         end
       end
 
-      class Preferences < Stripe::StripeObject
+      class Preferences < ::Stripe::StripeObject
         # Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
         attr_reader :is_default
         # Whether this personalization design is used to create cards when one is not specified and a default for this connected account does not exist.
@@ -48,7 +48,7 @@ module Stripe
         end
       end
 
-      class RejectionReasons < Stripe::StripeObject
+      class RejectionReasons < ::Stripe::StripeObject
         # The reason(s) the card logo was rejected.
         attr_reader :card_logo
         # The reason(s) the carrier text was rejected.

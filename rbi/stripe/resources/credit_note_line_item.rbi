@@ -5,12 +5,12 @@
 module Stripe
   # The credit note line item object
   class CreditNoteLineItem < StripeObject
-    class DiscountAmount < Stripe::StripeObject
+    class DiscountAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       sig { returns(Integer) }
       def amount; end
       # The discount that was applied to get this discount amount.
-      sig { returns(T.any(String, Stripe::Discount)) }
+      sig { returns(T.any(String, ::Stripe::Discount)) }
       def discount; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -19,15 +19,15 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PretaxCreditAmount < Stripe::StripeObject
+    class PretaxCreditAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       sig { returns(Integer) }
       def amount; end
       # The credit balance transaction that was applied to get this pretax credit amount.
-      sig { returns(T.nilable(T.any(String, Stripe::Billing::CreditBalanceTransaction))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Billing::CreditBalanceTransaction))) }
       def credit_balance_transaction; end
       # The discount that was applied to get this pretax credit amount.
-      sig { returns(T.nilable(T.any(String, Stripe::Discount))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Discount))) }
       def discount; end
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
@@ -39,7 +39,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TaxCalculationReference < Stripe::StripeObject
+    class TaxCalculationReference < ::Stripe::StripeObject
       # The calculation identifier for tax calculation response.
       sig { returns(T.nilable(String)) }
       def calculation_id; end
@@ -53,8 +53,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Tax < Stripe::StripeObject
-      class TaxRateDetails < Stripe::StripeObject
+    class Tax < ::Stripe::StripeObject
+      class TaxRateDetails < ::Stripe::StripeObject
         # Attribute for field tax_rate
         sig { returns(String) }
         def tax_rate; end
@@ -124,7 +124,7 @@ module Stripe
     sig { returns(T.nilable(TaxCalculationReference)) }
     def tax_calculation_reference; end
     # The tax rates which apply to the line item.
-    sig { returns(T::Array[Stripe::TaxRate]) }
+    sig { returns(T::Array[::Stripe::TaxRate]) }
     def tax_rates; end
     # The tax information of the line item.
     sig { returns(T.nilable(T::Array[Tax])) }

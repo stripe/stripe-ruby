@@ -3,7 +3,7 @@
 
 module Stripe
   module Tax
-    class AssociationFindParams < Stripe::RequestParams
+    class AssociationFindParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Valid [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) id

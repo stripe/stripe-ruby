@@ -2,5 +2,5 @@
 # frozen_string_literal: true
 
 module Stripe
-  class WebhookEndpointDeleteParams < Stripe::RequestParams; end
+  class WebhookEndpointDeleteParams < ::Stripe::RequestParams; end
 end

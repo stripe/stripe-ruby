@@ -3,8 +3,8 @@
 
 module Stripe
   module Treasury
-    class FinancialAccountCloseParams < Stripe::RequestParams
-      class ForwardingSettings < Stripe::RequestParams
+    class FinancialAccountCloseParams < ::Stripe::RequestParams
+      class ForwardingSettings < ::Stripe::RequestParams
         # The financial_account id
         attr_accessor :financial_account
         # The payment_method or bank account id. This needs to be a verified bank account.

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class ProfileCreateParams < Stripe::RequestParams
+      class ProfileCreateParams < ::Stripe::RequestParams
         # The ID of the customer object.
         attr_accessor :customer
         # The ID of the payment method object.

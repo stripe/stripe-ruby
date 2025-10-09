@@ -9,8 +9,8 @@ module Stripe
   #
   # Related guide: [Payment Links API](https://stripe.com/docs/payment-links)
   class PaymentLink < APIResource
-    class AfterCompletion < Stripe::StripeObject
-      class HostedConfirmation < Stripe::StripeObject
+    class AfterCompletion < ::Stripe::StripeObject
+      class HostedConfirmation < ::Stripe::StripeObject
         # The custom message that is displayed to the customer after the purchase is complete.
         sig { returns(T.nilable(String)) }
         def custom_message; end
@@ -21,7 +21,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Redirect < Stripe::StripeObject
+      class Redirect < ::Stripe::StripeObject
         # The URL the customer will be redirected to after the purchase is complete.
         sig { returns(String) }
         def url; end
@@ -48,10 +48,10 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class AutomaticTax < Stripe::StripeObject
-      class Liability < Stripe::StripeObject
+    class AutomaticTax < ::Stripe::StripeObject
+      class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
-        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
         def account; end
         # Type of the account referenced.
         sig { returns(String) }
@@ -76,8 +76,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class ConsentCollection < Stripe::StripeObject
-      class PaymentMethodReuseAgreement < Stripe::StripeObject
+    class ConsentCollection < ::Stripe::StripeObject
+      class PaymentMethodReuseAgreement < ::Stripe::StripeObject
         # Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's defaults will be used.
         #
         # When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
@@ -106,9 +106,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class CustomField < Stripe::StripeObject
-      class Dropdown < Stripe::StripeObject
-        class Option < Stripe::StripeObject
+    class CustomField < ::Stripe::StripeObject
+      class Dropdown < ::Stripe::StripeObject
+        class Option < ::Stripe::StripeObject
           # The label for the option, displayed to the customer. Up to 100 characters.
           sig { returns(String) }
           def label; end
@@ -135,7 +135,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Label < Stripe::StripeObject
+      class Label < ::Stripe::StripeObject
         # Custom text for the label, displayed to the customer. Up to 50 characters.
         sig { returns(T.nilable(String)) }
         def custom; end
@@ -149,7 +149,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Numeric < Stripe::StripeObject
+      class Numeric < ::Stripe::StripeObject
         # The value that will pre-fill the field on the payment page.
         sig { returns(T.nilable(String)) }
         def default_value; end
@@ -166,7 +166,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Text < Stripe::StripeObject
+      class Text < ::Stripe::StripeObject
         # The value that will pre-fill the field on the payment page.
         sig { returns(T.nilable(String)) }
         def default_value; end
@@ -211,8 +211,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class CustomText < Stripe::StripeObject
-      class AfterSubmit < Stripe::StripeObject
+    class CustomText < ::Stripe::StripeObject
+      class AfterSubmit < ::Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
@@ -223,7 +223,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ShippingAddress < Stripe::StripeObject
+      class ShippingAddress < ::Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
@@ -234,7 +234,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Submit < Stripe::StripeObject
+      class Submit < ::Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
@@ -245,7 +245,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class TermsOfServiceAcceptance < Stripe::StripeObject
+      class TermsOfServiceAcceptance < ::Stripe::StripeObject
         # Text may be up to 1200 characters in length.
         sig { returns(String) }
         def message; end
@@ -280,9 +280,9 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class InvoiceCreation < Stripe::StripeObject
-      class InvoiceData < Stripe::StripeObject
-        class CustomField < Stripe::StripeObject
+    class InvoiceCreation < ::Stripe::StripeObject
+      class InvoiceData < ::Stripe::StripeObject
+        class CustomField < ::Stripe::StripeObject
           # The name of the custom field.
           sig { returns(String) }
           def name; end
@@ -296,9 +296,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Issuer < Stripe::StripeObject
+        class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -310,7 +310,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class RenderingOptions < Stripe::StripeObject
+        class RenderingOptions < ::Stripe::StripeObject
           # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
           sig { returns(T.nilable(String)) }
           def amount_tax_display; end
@@ -325,7 +325,7 @@ module Stripe
           end
         end
         # The account tax IDs associated with the invoice.
-        sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxId)])) }
+        sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
         def account_tax_ids; end
         # A list of up to 4 custom fields to be displayed on the invoice.
         sig { returns(T.nilable(T::Array[CustomField])) }
@@ -369,8 +369,50 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class OptionalItem < Stripe::StripeObject
-      class AdjustableQuantity < Stripe::StripeObject
+    class NameCollection < ::Stripe::StripeObject
+      class Business < ::Stripe::StripeObject
+        # Indicates whether business name collection is enabled for the payment link.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Whether the customer is required to complete the field before checking out. Defaults to `false`.
+        sig { returns(T::Boolean) }
+        def optional; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Individual < ::Stripe::StripeObject
+        # Indicates whether individual name collection is enabled for the payment link.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Whether the customer is required to complete the field before checking out. Defaults to `false`.
+        sig { returns(T::Boolean) }
+        def optional; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field business
+      sig { returns(T.nilable(Business)) }
+      def business; end
+      # Attribute for field individual
+      sig { returns(T.nilable(Individual)) }
+      def individual; end
+      def self.inner_class_types
+        @inner_class_types = {business: Business, individual: Individual}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class OptionalItem < ::Stripe::StripeObject
+      class AdjustableQuantity < ::Stripe::StripeObject
         # Set to true if the quantity can be adjusted to any non-negative integer.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -403,7 +445,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PaymentIntentData < Stripe::StripeObject
+    class PaymentIntentData < ::Stripe::StripeObject
       # Indicates when the funds will be captured from the customer's account.
       sig { returns(T.nilable(String)) }
       def capture_method; end
@@ -432,7 +474,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class PhoneNumberCollection < Stripe::StripeObject
+    class PhoneNumberCollection < ::Stripe::StripeObject
       # If `true`, a phone number will be collected during checkout.
       sig { returns(T::Boolean) }
       def enabled; end
@@ -443,8 +485,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Restrictions < Stripe::StripeObject
-      class CompletedSessions < Stripe::StripeObject
+    class Restrictions < ::Stripe::StripeObject
+      class CompletedSessions < ::Stripe::StripeObject
         # The current number of checkout sessions that have been completed on the payment link which count towards the `completed_sessions` restriction to be met.
         sig { returns(Integer) }
         def count; end
@@ -468,7 +510,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class ShippingAddressCollection < Stripe::StripeObject
+    class ShippingAddressCollection < ::Stripe::StripeObject
       # An array of two-letter ISO country codes representing which countries Checkout should provide as options for shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
       sig { returns(T::Array[String]) }
       def allowed_countries; end
@@ -479,12 +521,12 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class ShippingOption < Stripe::StripeObject
+    class ShippingOption < ::Stripe::StripeObject
       # A non-negative integer in cents representing how much to charge.
       sig { returns(Integer) }
       def shipping_amount; end
       # The ID of the Shipping Rate to use for this shipping option.
-      sig { returns(T.any(String, Stripe::ShippingRate)) }
+      sig { returns(T.any(String, ::Stripe::ShippingRate)) }
       def shipping_rate; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -493,11 +535,11 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class SubscriptionData < Stripe::StripeObject
-      class InvoiceSettings < Stripe::StripeObject
-        class Issuer < Stripe::StripeObject
+    class SubscriptionData < ::Stripe::StripeObject
+      class InvoiceSettings < ::Stripe::StripeObject
+        class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
-          sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
           def account; end
           # Type of the account referenced.
           sig { returns(String) }
@@ -519,8 +561,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class TrialSettings < Stripe::StripeObject
-        class EndBehavior < Stripe::StripeObject
+      class TrialSettings < ::Stripe::StripeObject
+        class EndBehavior < ::Stripe::StripeObject
           # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
           sig { returns(String) }
           def missing_payment_method; end
@@ -563,7 +605,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TaxIdCollection < Stripe::StripeObject
+    class TaxIdCollection < ::Stripe::StripeObject
       # Indicates whether tax ID collection is enabled for the session.
       sig { returns(T::Boolean) }
       def enabled; end
@@ -577,12 +619,12 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class TransferData < Stripe::StripeObject
+    class TransferData < ::Stripe::StripeObject
       # The amount in cents (or local equivalent) that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       sig { returns(T.nilable(Integer)) }
       def amount; end
       # The connected account receiving the transfer.
-      sig { returns(T.any(String, Stripe::Account)) }
+      sig { returns(T.any(String, ::Stripe::Account)) }
       def destination; end
       def self.inner_class_types
         @inner_class_types = {}
@@ -601,7 +643,7 @@ module Stripe
     sig { returns(T::Boolean) }
     def allow_promotion_codes; end
     # The ID of the Connect application that created the Payment Link.
-    sig { returns(T.nilable(T.any(String, Stripe::Application))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
     # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account.
     sig { returns(T.nilable(Integer)) }
@@ -640,7 +682,7 @@ module Stripe
     sig { returns(T.nilable(InvoiceCreation)) }
     def invoice_creation; end
     # The line items representing what is being sold.
-    sig { returns(T.nilable(Stripe::ListObject)) }
+    sig { returns(T.nilable(::Stripe::ListObject)) }
     def line_items; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
@@ -648,11 +690,14 @@ module Stripe
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
+    # Attribute for field name_collection
+    sig { returns(T.nilable(NameCollection)) }
+    def name_collection; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
     # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
-    sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def on_behalf_of; end
     # The optional items presented to the customer at checkout.
     sig { returns(T.nilable(T::Array[OptionalItem])) }
@@ -695,31 +740,31 @@ module Stripe
     def url; end
     # Creates a payment link.
     sig {
-      params(params: T.any(::Stripe::PaymentLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentLink)
+      params(params: T.any(::Stripe::PaymentLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLink)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of your payment links.
     sig {
-      params(params: T.any(::Stripe::PaymentLinkListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::PaymentLinkListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     sig {
-      params(params: T.any(::Stripe::PaymentLinkListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::PaymentLinkListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list_line_items(params = {}, opts = {}); end
 
     # When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     sig {
-      params(payment_link: String, params: T.any(::Stripe::PaymentLinkListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(payment_link: String, params: T.any(::Stripe::PaymentLinkListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list_line_items(payment_link, params = {}, opts = {}); end
 
     # Updates a payment link.
     sig {
-      params(payment_link: String, params: T.any(::Stripe::PaymentLinkUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentLink)
+      params(payment_link: String, params: T.any(::Stripe::PaymentLinkUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLink)
      }
     def self.update(payment_link, params = {}, opts = {}); end
   end

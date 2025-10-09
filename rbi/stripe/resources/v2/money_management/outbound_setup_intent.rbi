@@ -7,8 +7,8 @@ module Stripe
     module MoneyManagement
       # Use the OutboundSetupIntent API to create and setup usable payout methods.
       class OutboundSetupIntent < APIResource
-        class NextAction < Stripe::StripeObject
-          class ConfirmationOfPayee < Stripe::StripeObject
+        class NextAction < ::Stripe::StripeObject
+          class ConfirmationOfPayee < ::Stripe::StripeObject
             # The type of the credential.
             sig { returns(String) }
             def object; end
@@ -48,7 +48,7 @@ module Stripe
         sig { returns(String) }
         def object; end
         # Use the PayoutMethods API to list and interact with PayoutMethod objects.
-        sig { returns(Stripe::V2::MoneyManagement::PayoutMethod) }
+        sig { returns(::Stripe::V2::MoneyManagement::PayoutMethod) }
         def payout_method; end
         # Closed Enum. Status of the outbound setup intent.
         sig { returns(String) }

@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Core
-      class EventDestinationCreateParams < Stripe::RequestParams
-        class AmazonEventbridge < Stripe::RequestParams
+      class EventDestinationCreateParams < ::Stripe::RequestParams
+        class AmazonEventbridge < ::Stripe::RequestParams
           # The AWS account ID.
           sig { returns(String) }
           def aws_account_id; end
@@ -20,7 +20,7 @@ module Stripe
           sig { params(aws_account_id: String, aws_region: String).void }
           def initialize(aws_account_id: nil, aws_region: nil); end
         end
-        class WebhookEndpoint < Stripe::RequestParams
+        class WebhookEndpoint < ::Stripe::RequestParams
           # The URL of the webhook endpoint.
           sig { returns(String) }
           def url; end

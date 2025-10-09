@@ -9,13 +9,13 @@ module Stripe
         class VersionService < StripeService
           # List all CollectionSettingVersions by CollectionSetting ID.
           sig {
-            params(collection_setting_id: String, params: T.any(::Stripe::V2::Billing::CollectionSettings::VersionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
+            params(collection_setting_id: String, params: T.any(::Stripe::V2::Billing::CollectionSettings::VersionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
            }
           def list(collection_setting_id, params = {}, opts = {}); end
 
           # Retrieve a CollectionSetting Version by ID.
           sig {
-            params(collection_setting_id: String, id: String, params: T.any(::Stripe::V2::Billing::CollectionSettings::VersionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Billing::CollectionSettingVersion)
+            params(collection_setting_id: String, id: String, params: T.any(::Stripe::V2::Billing::CollectionSettings::VersionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::CollectionSettingVersion)
            }
           def retrieve(collection_setting_id, id, params = {}, opts = {}); end
         end

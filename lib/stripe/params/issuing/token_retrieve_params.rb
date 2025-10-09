@@ -3,7 +3,7 @@
 
 module Stripe
   module Issuing
-    class TokenRetrieveParams < Stripe::RequestParams
+    class TokenRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

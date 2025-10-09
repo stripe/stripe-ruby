@@ -3,6 +3,6 @@
 
 module Stripe
   module TestHelpers
-    class TestClockDeleteParams < Stripe::RequestParams; end
+    class TestClockDeleteParams < ::Stripe::RequestParams; end
   end
 end

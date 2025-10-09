@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderRefundPaymentParams < Stripe::RequestParams
-      class RefundPaymentConfig < Stripe::RequestParams
+    class ReaderRefundPaymentParams < ::Stripe::RequestParams
+      class RefundPaymentConfig < ::Stripe::RequestParams
         # Enables cancel button on transaction screens.
         sig { returns(T.nilable(T::Boolean)) }
         def enable_customer_cancellation; end
@@ -48,7 +48,7 @@ module Stripe
       def refund_application_fee; end
       sig { params(_refund_application_fee: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def refund_application_fee=(_refund_application_fee); end
-      # Configuration overrides
+      # Configuration overrides for this refund, such as customer cancellation settings.
       sig { returns(T.nilable(Terminal::ReaderRefundPaymentParams::RefundPaymentConfig)) }
       def refund_payment_config; end
       sig {

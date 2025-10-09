@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Privacy
-    class RedactionJobCreateParams < Stripe::RequestParams
-      class Objects < Stripe::RequestParams
+    class RedactionJobCreateParams < ::Stripe::RequestParams
+      class Objects < ::Stripe::RequestParams
         # Attribute for param field charges
         sig { returns(T.nilable(T::Array[String])) }
         def charges; end

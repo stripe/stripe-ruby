@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class AccountListParams < Stripe::RequestParams
-    class Created < Stripe::RequestParams
+  class AccountListParams < ::Stripe::RequestParams
+    class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       sig { returns(T.nilable(Integer)) }
       def gt; end

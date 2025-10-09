@@ -3,9 +3,9 @@
 
 module Stripe
   module Treasury
-    class ReceivedDebitCreateParams < Stripe::RequestParams
-      class InitiatingPaymentMethodDetails < Stripe::RequestParams
-        class UsBankAccount < Stripe::RequestParams
+    class ReceivedDebitCreateParams < ::Stripe::RequestParams
+      class InitiatingPaymentMethodDetails < ::Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
           # The bank account holder's name.
           attr_accessor :account_holder_name
           # The bank account number.
@@ -30,8 +30,8 @@ module Stripe
         end
       end
 
-      class NetworkDetails < Stripe::RequestParams
-        class Ach < Stripe::RequestParams
+      class NetworkDetails < ::Stripe::RequestParams
+        class Ach < ::Stripe::RequestParams
           # Addenda record data associated with this ReceivedDebit.
           attr_accessor :addenda
 

@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  class InvoiceLineItemUpdateParams < Stripe::RequestParams
-    class Discount < Stripe::RequestParams
-      class DiscountEnd < Stripe::RequestParams
-        class Duration < Stripe::RequestParams
+  class InvoiceLineItemUpdateParams < ::Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
           # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
           sig { returns(String) }
           def interval; end
@@ -69,7 +69,7 @@ module Stripe
        }
       def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
     end
-    class Period < Stripe::RequestParams
+    class Period < ::Stripe::RequestParams
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       sig { returns(Integer) }
       def end; end
@@ -83,8 +83,8 @@ module Stripe
       sig { params(end_: Integer, start: Integer).void }
       def initialize(end_: nil, start: nil); end
     end
-    class PriceData < Stripe::RequestParams
-      class ProductData < Stripe::RequestParams
+    class PriceData < ::Stripe::RequestParams
+      class ProductData < ::Stripe::RequestParams
         # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
         sig { returns(T.nilable(String)) }
         def description; end
@@ -173,7 +173,7 @@ module Stripe
         unit_amount_decimal: nil
       ); end
     end
-    class Pricing < Stripe::RequestParams
+    class Pricing < ::Stripe::RequestParams
       # The ID of the price object.
       sig { returns(T.nilable(String)) }
       def price; end
@@ -182,8 +182,8 @@ module Stripe
       sig { params(price: T.nilable(String)).void }
       def initialize(price: nil); end
     end
-    class TaxAmount < Stripe::RequestParams
-      class TaxRateData < Stripe::RequestParams
+    class TaxAmount < ::Stripe::RequestParams
+      class TaxRateData < ::Stripe::RequestParams
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(T.nilable(String)) }
         def country; end

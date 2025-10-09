@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PromotionCodeRetrieveParams < Stripe::RequestParams
+  class PromotionCodeRetrieveParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
 

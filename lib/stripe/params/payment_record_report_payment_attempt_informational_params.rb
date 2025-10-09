@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentRecordReportPaymentAttemptInformationalParams < Stripe::RequestParams
-    class CustomerDetails < Stripe::RequestParams
+  class PaymentRecordReportPaymentAttemptInformationalParams < ::Stripe::RequestParams
+    class CustomerDetails < ::Stripe::RequestParams
       # The customer who made the payment.
       attr_accessor :customer
       # The customer's phone number.
@@ -21,8 +21,8 @@ module Stripe
       end
     end
 
-    class ShippingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class ShippingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

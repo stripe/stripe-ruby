@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      class PayoutMethodListParams < Stripe::RequestParams
-        class UsageStatus < Stripe::RequestParams
+      class PayoutMethodListParams < ::Stripe::RequestParams
+        class UsageStatus < ::Stripe::RequestParams
           # List of payments status to filter by.
           attr_accessor :payments
           # List of transfers status to filter by.

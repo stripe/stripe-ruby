@@ -3,5 +3,5 @@
 
 # typed: true
 module Stripe
-  class ExternalAccountDeleteParams < Stripe::RequestParams; end
+  class ExternalAccountDeleteParams < ::Stripe::RequestParams; end
 end

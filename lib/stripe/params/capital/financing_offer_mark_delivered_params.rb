@@ -3,7 +3,7 @@
 
 module Stripe
   module Capital
-    class FinancingOfferMarkDeliveredParams < Stripe::RequestParams
+    class FinancingOfferMarkDeliveredParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

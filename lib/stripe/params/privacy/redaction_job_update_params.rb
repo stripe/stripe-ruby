@@ -3,7 +3,7 @@
 
 module Stripe
   module Privacy
-    class RedactionJobUpdateParams < Stripe::RequestParams
+    class RedactionJobUpdateParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Determines the validation behavior of the job. Default is `error`.

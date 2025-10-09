@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  class BalanceSettingsUpdateParams < Stripe::RequestParams
-    class Payments < Stripe::RequestParams
-      class Payouts < Stripe::RequestParams
-        class Schedule < Stripe::RequestParams
+  class BalanceSettingsUpdateParams < ::Stripe::RequestParams
+    class Payments < ::Stripe::RequestParams
+      class Payouts < ::Stripe::RequestParams
+        class Schedule < ::Stripe::RequestParams
           # How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
           sig { returns(T.nilable(String)) }
           def interval; end
@@ -59,7 +59,7 @@ module Stripe
           statement_descriptor: nil
         ); end
       end
-      class SettlementTiming < Stripe::RequestParams
+      class SettlementTiming < ::Stripe::RequestParams
         # Change `delay_days` for this account, which determines the number of days charge funds are held before becoming available. The maximum value is 31. Passing an empty string to `delay_days_override` will return `delay_days` to the default, which is the lowest available value for the account. [Learn more about controlling delay days](/connect/manage-payout-schedule).
         sig { returns(T.nilable(T.any(String, Integer))) }
         def delay_days_override; end

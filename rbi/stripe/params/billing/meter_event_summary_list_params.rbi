@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Billing
-    class MeterEventSummaryListParams < Stripe::RequestParams
+    class MeterEventSummaryListParams < ::Stripe::RequestParams
       # The customer for which to fetch event summaries.
       sig { returns(String) }
       def customer; end

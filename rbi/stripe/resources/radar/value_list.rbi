@@ -24,7 +24,7 @@ module Stripe
       sig { returns(String) }
       def item_type; end
       # List of items contained within this value list.
-      sig { returns(Stripe::ListObject) }
+      sig { returns(::Stripe::ListObject) }
       def list_items; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
@@ -43,31 +43,31 @@ module Stripe
       def deleted; end
       # Creates a new ValueList object, which can then be referenced in rules.
       sig {
-        params(params: T.any(::Stripe::Radar::ValueListCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueList)
+        params(params: T.any(::Stripe::Radar::ValueListCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::ValueList)
        }
       def self.create(params = {}, opts = {}); end
 
       # Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
       sig {
-        params(value_list: String, params: T.any(::Stripe::Radar::ValueListDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueList)
+        params(value_list: String, params: T.any(::Stripe::Radar::ValueListDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::ValueList)
        }
       def self.delete(value_list, params = {}, opts = {}); end
 
       # Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
       sig {
-        params(params: T.any(::Stripe::Radar::ValueListDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueList)
+        params(params: T.any(::Stripe::Radar::ValueListDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::ValueList)
        }
       def delete(params = {}, opts = {}); end
 
       # Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
-        params(params: T.any(::Stripe::Radar::ValueListListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Radar::ValueListListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
       sig {
-        params(value_list: String, params: T.any(::Stripe::Radar::ValueListUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueList)
+        params(value_list: String, params: T.any(::Stripe::Radar::ValueListUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::ValueList)
        }
       def self.update(value_list, params = {}, opts = {}); end
     end

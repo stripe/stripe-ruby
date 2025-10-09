@@ -16,8 +16,8 @@ module Stripe
         "issuing.dispute"
       end
 
-      class Evidence < Stripe::StripeObject
-        class Canceled < Stripe::StripeObject
+      class Evidence < ::Stripe::StripeObject
+        class Canceled < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_reader :additional_documentation
           # Date when order was canceled.
@@ -48,7 +48,7 @@ module Stripe
           end
         end
 
-        class Duplicate < Stripe::StripeObject
+        class Duplicate < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_reader :additional_documentation
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
@@ -71,7 +71,7 @@ module Stripe
           end
         end
 
-        class Fraudulent < Stripe::StripeObject
+        class Fraudulent < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_reader :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
@@ -86,7 +86,7 @@ module Stripe
           end
         end
 
-        class MerchandiseNotAsDescribed < Stripe::StripeObject
+        class MerchandiseNotAsDescribed < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_reader :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
@@ -109,7 +109,7 @@ module Stripe
           end
         end
 
-        class NoValidAuthorization < Stripe::StripeObject
+        class NoValidAuthorization < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_reader :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
@@ -124,7 +124,7 @@ module Stripe
           end
         end
 
-        class NotReceived < Stripe::StripeObject
+        class NotReceived < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_reader :additional_documentation
           # Date when the cardholder expected to receive the product.
@@ -145,7 +145,7 @@ module Stripe
           end
         end
 
-        class Other < Stripe::StripeObject
+        class Other < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_reader :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
@@ -164,7 +164,7 @@ module Stripe
           end
         end
 
-        class ServiceNotAsDescribed < Stripe::StripeObject
+        class ServiceNotAsDescribed < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_reader :additional_documentation
           # Date when order was canceled.
@@ -221,7 +221,7 @@ module Stripe
         end
       end
 
-      class Treasury < Stripe::StripeObject
+      class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://stripe.com/docs/api/treasury/debit_reversals) representing this Issuing dispute
         attr_reader :debit_reversal
         # The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) that is being disputed.

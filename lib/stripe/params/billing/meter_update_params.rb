@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class MeterUpdateParams < Stripe::RequestParams
+    class MeterUpdateParams < ::Stripe::RequestParams
       # The meter’s name. Not visible to the customer.
       attr_accessor :display_name
       # Specifies which fields in the response should be expanded.

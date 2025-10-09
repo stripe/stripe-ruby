@@ -16,8 +16,8 @@ module Stripe
         "test_helpers.test_clock"
       end
 
-      class StatusDetails < Stripe::StripeObject
-        class Advancing < Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
+        class Advancing < ::Stripe::StripeObject
           # The `frozen_time` that the Test Clock is advancing towards.
           attr_reader :target_frozen_time
 

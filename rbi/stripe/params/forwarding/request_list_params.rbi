@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Forwarding
-    class RequestListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class RequestListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Return results where the `created` field is greater than this value.
         sig { returns(T.nilable(Integer)) }
         def gt; end

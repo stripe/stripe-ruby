@@ -12,7 +12,7 @@ module Stripe
         "issuing.physical_bundle"
       end
 
-      class Features < Stripe::StripeObject
+      class Features < ::Stripe::StripeObject
         # The policy for how to use card logo images in a card design with this physical bundle.
         attr_reader :card_logo
         # The policy for how to use carrier letter text in a card design with this physical bundle.

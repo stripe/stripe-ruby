@@ -16,8 +16,8 @@ module Stripe
         "billing.credit_grant"
       end
 
-      class Amount < Stripe::StripeObject
-        class Monetary < Stripe::StripeObject
+      class Amount < ::Stripe::StripeObject
+        class Monetary < ::Stripe::StripeObject
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_reader :currency
           # A positive integer representing the amount.
@@ -45,9 +45,9 @@ module Stripe
         end
       end
 
-      class ApplicabilityConfig < Stripe::StripeObject
-        class Scope < Stripe::StripeObject
-          class Price < Stripe::StripeObject
+      class ApplicabilityConfig < ::Stripe::StripeObject
+        class Scope < ::Stripe::StripeObject
+          class Price < ::Stripe::StripeObject
             # Unique identifier for the object.
             attr_reader :id
 

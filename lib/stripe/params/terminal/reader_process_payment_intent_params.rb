@@ -3,9 +3,9 @@
 
 module Stripe
   module Terminal
-    class ReaderProcessPaymentIntentParams < Stripe::RequestParams
-      class ProcessConfig < Stripe::RequestParams
-        class Tipping < Stripe::RequestParams
+    class ReaderProcessPaymentIntentParams < ::Stripe::RequestParams
+      class ProcessConfig < ::Stripe::RequestParams
+        class Tipping < ::Stripe::RequestParams
           # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
           attr_accessor :amount_eligible
 
@@ -40,9 +40,9 @@ module Stripe
       end
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # PaymentIntent ID
+      # The ID of the PaymentIntent to process on the reader.
       attr_accessor :payment_intent
-      # Configuration overrides
+      # Configuration overrides for this transaction, such as tipping and customer cancellation settings.
       attr_accessor :process_config
 
       def initialize(expand: nil, payment_intent: nil, process_config: nil)

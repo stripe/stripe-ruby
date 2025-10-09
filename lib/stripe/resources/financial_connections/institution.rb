@@ -12,8 +12,8 @@ module Stripe
         "financial_connections.institution"
       end
 
-      class Features < Stripe::StripeObject
-        class Balances < Stripe::StripeObject
+      class Features < ::Stripe::StripeObject
+        class Balances < ::Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           attr_reader :supported
 
@@ -26,7 +26,7 @@ module Stripe
           end
         end
 
-        class Ownership < Stripe::StripeObject
+        class Ownership < ::Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           attr_reader :supported
 
@@ -39,7 +39,7 @@ module Stripe
           end
         end
 
-        class PaymentMethod < Stripe::StripeObject
+        class PaymentMethod < ::Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           attr_reader :supported
 
@@ -52,7 +52,7 @@ module Stripe
           end
         end
 
-        class Transactions < Stripe::StripeObject
+        class Transactions < ::Stripe::StripeObject
           # Whether the given feature is supported by this institution.
           attr_reader :supported
 

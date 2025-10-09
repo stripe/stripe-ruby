@@ -7,7 +7,7 @@ module Stripe
     class FormService < StripeService
       # Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
       sig {
-        params(params: T.any(::Stripe::Tax::FormListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Tax::FormListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def list(params = {}, opts = {}); end
 
@@ -19,7 +19,7 @@ module Stripe
 
       # Retrieves the details of a tax form that has previously been created. Supply the unique tax form ID that was returned from your previous request, and Stripe will return the corresponding tax form information.
       sig {
-        params(id: String, params: T.any(::Stripe::Tax::FormRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Tax::Form)
+        params(id: String, params: T.any(::Stripe::Tax::FormRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Form)
        }
       def retrieve(id, params = {}, opts = {}); end
     end

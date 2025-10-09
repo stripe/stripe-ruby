@@ -15,7 +15,7 @@ module Stripe
       "subscription_item"
     end
 
-    class BillingThresholds < Stripe::StripeObject
+    class BillingThresholds < ::Stripe::StripeObject
       # Usage threshold that triggers the subscription to create an invoice
       attr_reader :usage_gte
 
@@ -28,7 +28,7 @@ module Stripe
       end
     end
 
-    class Trial < Stripe::StripeObject
+    class Trial < ::Stripe::StripeObject
       # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
       attr_reader :converts_to
       # Determines the type of trial for this item.

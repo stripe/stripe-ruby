@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Tax
-    class CalculationCreateParams < Stripe::RequestParams
-      class CustomerDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+    class CalculationCreateParams < ::Stripe::RequestParams
+      class CustomerDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -49,7 +49,7 @@ module Stripe
             state: nil
           ); end
         end
-        class TaxId < Stripe::RequestParams
+        class TaxId < ::Stripe::RequestParams
           # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
           sig { returns(String) }
           def type; end
@@ -103,7 +103,7 @@ module Stripe
           taxability_override: nil
         ); end
       end
-      class LineItem < Stripe::RequestParams
+      class LineItem < ::Stripe::RequestParams
         # A positive integer representing the line item's total price in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         # If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         sig { returns(Integer) }
@@ -155,8 +155,8 @@ module Stripe
           tax_code: nil
         ); end
       end
-      class ShipFromDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class ShipFromDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -209,7 +209,7 @@ module Stripe
         sig { params(address: Tax::CalculationCreateParams::ShipFromDetails::Address).void }
         def initialize(address: nil); end
       end
-      class ShippingCost < Stripe::RequestParams
+      class ShippingCost < ::Stripe::RequestParams
         # A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         sig { returns(T.nilable(Integer)) }
         def amount; end

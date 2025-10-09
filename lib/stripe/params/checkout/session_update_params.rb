@@ -3,9 +3,9 @@
 
 module Stripe
   module Checkout
-    class SessionUpdateParams < Stripe::RequestParams
-      class AutomaticTax < Stripe::RequestParams
-        class Liability < Stripe::RequestParams
+    class SessionUpdateParams < ::Stripe::RequestParams
+      class AutomaticTax < ::Stripe::RequestParams
+        class Liability < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
           # Type of the account referenced in the request.
@@ -24,9 +24,9 @@ module Stripe
         end
       end
 
-      class CollectedInformation < Stripe::RequestParams
-        class ShippingDetails < Stripe::RequestParams
-          class Address < Stripe::RequestParams
+      class CollectedInformation < ::Stripe::RequestParams
+        class ShippingDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -74,8 +74,8 @@ module Stripe
         end
       end
 
-      class Discount < Stripe::RequestParams
-        class CouponData < Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
+        class CouponData < ::Stripe::RequestParams
           # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
           attr_accessor :amount_off
           # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
@@ -116,9 +116,9 @@ module Stripe
         end
       end
 
-      class InvoiceCreation < Stripe::RequestParams
-        class InvoiceData < Stripe::RequestParams
-          class Issuer < Stripe::RequestParams
+      class InvoiceCreation < ::Stripe::RequestParams
+        class InvoiceData < ::Stripe::RequestParams
+          class Issuer < ::Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.
@@ -144,8 +144,8 @@ module Stripe
         end
       end
 
-      class LineItem < Stripe::RequestParams
-        class AdjustableQuantity < Stripe::RequestParams
+      class LineItem < ::Stripe::RequestParams
+        class AdjustableQuantity < ::Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any positive integer. Setting to false will remove any previously specified constraints on quantity.
           attr_accessor :enabled
           # The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
@@ -160,8 +160,8 @@ module Stripe
           end
         end
 
-        class PriceData < Stripe::RequestParams
-          class ProductData < Stripe::RequestParams
+        class PriceData < ::Stripe::RequestParams
+          class ProductData < ::Stripe::RequestParams
             # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
             attr_accessor :description
             # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -192,7 +192,7 @@ module Stripe
             end
           end
 
-          class Recurring < Stripe::RequestParams
+          class Recurring < ::Stripe::RequestParams
             # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
             # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
@@ -270,10 +270,10 @@ module Stripe
         end
       end
 
-      class ShippingOption < Stripe::RequestParams
-        class ShippingRateData < Stripe::RequestParams
-          class DeliveryEstimate < Stripe::RequestParams
-            class Maximum < Stripe::RequestParams
+      class ShippingOption < ::Stripe::RequestParams
+        class ShippingRateData < ::Stripe::RequestParams
+          class DeliveryEstimate < ::Stripe::RequestParams
+            class Maximum < ::Stripe::RequestParams
               # A unit of time.
               attr_accessor :unit
               # Must be greater than 0.
@@ -285,7 +285,7 @@ module Stripe
               end
             end
 
-            class Minimum < Stripe::RequestParams
+            class Minimum < ::Stripe::RequestParams
               # A unit of time.
               attr_accessor :unit
               # Must be greater than 0.
@@ -307,8 +307,8 @@ module Stripe
             end
           end
 
-          class FixedAmount < Stripe::RequestParams
-            class CurrencyOptions < Stripe::RequestParams
+          class FixedAmount < ::Stripe::RequestParams
+            class CurrencyOptions < ::Stripe::RequestParams
               # A non-negative integer in cents representing how much to charge.
               attr_accessor :amount
               # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -376,9 +376,9 @@ module Stripe
         end
       end
 
-      class SubscriptionData < Stripe::RequestParams
-        class InvoiceSettings < Stripe::RequestParams
-          class Issuer < Stripe::RequestParams
+      class SubscriptionData < ::Stripe::RequestParams
+        class InvoiceSettings < ::Stripe::RequestParams
+          class Issuer < ::Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
             # Type of the account referenced in the request.

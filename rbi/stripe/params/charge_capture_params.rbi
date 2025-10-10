@@ -1010,6 +1010,11 @@ module Stripe
         params(_car_rental: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::CarRental))
        }
       def car_rental=(_car_rental); end
+      # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+      sig { returns(T.nilable(String)) }
+      def customer_reference; end
+      sig { params(_customer_reference: T.nilable(String)).returns(T.nilable(String)) }
+      def customer_reference=(_customer_reference); end
       # Event details for this PaymentIntent
       sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails)) }
       def event_details; end
@@ -1031,6 +1036,11 @@ module Stripe
         params(_lodging: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging)).returns(T.nilable(ChargeCaptureParams::PaymentDetails::Lodging))
        }
       def lodging=(_lodging); end
+      # A unique value assigned by the business to identify the transaction.
+      sig { returns(T.nilable(String)) }
+      def order_reference; end
+      sig { params(_order_reference: T.nilable(String)).returns(T.nilable(String)) }
+      def order_reference=(_order_reference); end
       # Subscription details for this PaymentIntent
       sig { returns(T.nilable(ChargeCaptureParams::PaymentDetails::Subscription)) }
       def subscription; end
@@ -1039,13 +1049,15 @@ module Stripe
        }
       def subscription=(_subscription); end
       sig {
-        params(car_rental: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental), event_details: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails), flight: T.nilable(ChargeCaptureParams::PaymentDetails::Flight), lodging: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging), subscription: T.nilable(ChargeCaptureParams::PaymentDetails::Subscription)).void
+        params(car_rental: T.nilable(ChargeCaptureParams::PaymentDetails::CarRental), customer_reference: T.nilable(String), event_details: T.nilable(ChargeCaptureParams::PaymentDetails::EventDetails), flight: T.nilable(ChargeCaptureParams::PaymentDetails::Flight), lodging: T.nilable(ChargeCaptureParams::PaymentDetails::Lodging), order_reference: T.nilable(String), subscription: T.nilable(ChargeCaptureParams::PaymentDetails::Subscription)).void
        }
       def initialize(
         car_rental: nil,
+        customer_reference: nil,
         event_details: nil,
         flight: nil,
         lodging: nil,
+        order_reference: nil,
         subscription: nil
       ); end
     end

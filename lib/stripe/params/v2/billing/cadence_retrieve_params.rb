@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class CadenceRetrieveParams < Stripe::RequestParams
+      class CadenceRetrieveParams < ::Stripe::RequestParams
         # Additional resource to include in the response.
         attr_accessor :include
 

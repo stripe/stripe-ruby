@@ -7,15 +7,15 @@ module Stripe
     module MoneyManagement
       # TransactionEntries represent individual money movements across different states within a Transaction.
       class TransactionEntry < APIResource
-        class BalanceImpact < Stripe::StripeObject
+        class BalanceImpact < ::Stripe::StripeObject
           # Impact to the available balance.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def available; end
           # Impact to the inbound_pending balance.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def inbound_pending; end
           # Impact to the outbound_pending balance.
-          sig { returns(Stripe::V2::Amount) }
+          sig { returns(::Stripe::V2::Amount) }
           def outbound_pending; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -24,8 +24,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TransactionDetails < Stripe::StripeObject
-          class Flow < Stripe::StripeObject
+        class TransactionDetails < ::Stripe::StripeObject
+          class Flow < ::Stripe::StripeObject
             # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
             sig { returns(String) }
             def type; end

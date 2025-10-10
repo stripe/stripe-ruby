@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Core
       module Accounts
-        class PersonListParams < Stripe::RequestParams
+        class PersonListParams < ::Stripe::RequestParams
           # The upper limit on the number of accounts returned by the List Account request.
           attr_accessor :limit
 

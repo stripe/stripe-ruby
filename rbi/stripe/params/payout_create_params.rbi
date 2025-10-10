@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PayoutCreateParams < Stripe::RequestParams
+  class PayoutCreateParams < ::Stripe::RequestParams
     # A positive integer in cents representing how much to payout.
     sig { returns(Integer) }
     def amount; end

@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Checkout
-    class SessionUpdateParams < Stripe::RequestParams
-      class AutomaticTax < Stripe::RequestParams
-        class Liability < Stripe::RequestParams
+    class SessionUpdateParams < ::Stripe::RequestParams
+      class AutomaticTax < ::Stripe::RequestParams
+        class Liability < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
           def account; end
@@ -32,9 +32,9 @@ module Stripe
          }
         def initialize(liability: nil); end
       end
-      class CollectedInformation < Stripe::RequestParams
-        class ShippingDetails < Stripe::RequestParams
-          class Address < Stripe::RequestParams
+      class CollectedInformation < ::Stripe::RequestParams
+        class ShippingDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -110,8 +110,8 @@ module Stripe
          }
         def initialize(shipping_details: nil); end
       end
-      class Discount < Stripe::RequestParams
-        class CouponData < Stripe::RequestParams
+      class Discount < ::Stripe::RequestParams
+        class CouponData < ::Stripe::RequestParams
           # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
           sig { returns(T.nilable(Integer)) }
           def amount_off; end
@@ -173,9 +173,9 @@ module Stripe
          }
         def initialize(coupon: nil, coupon_data: nil); end
       end
-      class InvoiceCreation < Stripe::RequestParams
-        class InvoiceData < Stripe::RequestParams
-          class Issuer < Stripe::RequestParams
+      class InvoiceCreation < ::Stripe::RequestParams
+        class InvoiceData < ::Stripe::RequestParams
+          class Issuer < ::Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
             def account; end
@@ -215,8 +215,8 @@ module Stripe
          }
         def initialize(invoice_data: nil); end
       end
-      class LineItem < Stripe::RequestParams
-        class AdjustableQuantity < Stripe::RequestParams
+      class LineItem < ::Stripe::RequestParams
+        class AdjustableQuantity < ::Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any positive integer. Setting to false will remove any previously specified constraints on quantity.
           sig { returns(T::Boolean) }
           def enabled; end
@@ -237,8 +237,8 @@ module Stripe
            }
           def initialize(enabled: nil, maximum: nil, minimum: nil); end
         end
-        class PriceData < Stripe::RequestParams
-          class ProductData < Stripe::RequestParams
+        class PriceData < ::Stripe::RequestParams
+          class ProductData < ::Stripe::RequestParams
             # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
             sig { returns(T.nilable(String)) }
             def description; end
@@ -285,7 +285,7 @@ module Stripe
               unit_label: nil
             ); end
           end
-          class Recurring < Stripe::RequestParams
+          class Recurring < ::Stripe::RequestParams
             # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
             sig { returns(String) }
             def interval; end
@@ -409,10 +409,10 @@ module Stripe
           tax_rates: nil
         ); end
       end
-      class ShippingOption < Stripe::RequestParams
-        class ShippingRateData < Stripe::RequestParams
-          class DeliveryEstimate < Stripe::RequestParams
-            class Maximum < Stripe::RequestParams
+      class ShippingOption < ::Stripe::RequestParams
+        class ShippingRateData < ::Stripe::RequestParams
+          class DeliveryEstimate < ::Stripe::RequestParams
+            class Maximum < ::Stripe::RequestParams
               # A unit of time.
               sig { returns(String) }
               def unit; end
@@ -426,7 +426,7 @@ module Stripe
               sig { params(unit: String, value: Integer).void }
               def initialize(unit: nil, value: nil); end
             end
-            class Minimum < Stripe::RequestParams
+            class Minimum < ::Stripe::RequestParams
               # A unit of time.
               sig { returns(String) }
               def unit; end
@@ -463,8 +463,8 @@ module Stripe
              }
             def initialize(maximum: nil, minimum: nil); end
           end
-          class FixedAmount < Stripe::RequestParams
-            class CurrencyOptions < Stripe::RequestParams
+          class FixedAmount < ::Stripe::RequestParams
+            class CurrencyOptions < ::Stripe::RequestParams
               # A non-negative integer in cents representing how much to charge.
               sig { returns(Integer) }
               def amount; end
@@ -577,9 +577,9 @@ module Stripe
          }
         def initialize(shipping_rate: nil, shipping_rate_data: nil); end
       end
-      class SubscriptionData < Stripe::RequestParams
-        class InvoiceSettings < Stripe::RequestParams
-          class Issuer < Stripe::RequestParams
+      class SubscriptionData < ::Stripe::RequestParams
+        class InvoiceSettings < ::Stripe::RequestParams
+          class Issuer < ::Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             sig { returns(T.nilable(String)) }
             def account; end

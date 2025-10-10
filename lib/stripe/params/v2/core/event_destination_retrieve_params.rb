@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      class EventDestinationRetrieveParams < Stripe::RequestParams
+      class EventDestinationRetrieveParams < ::Stripe::RequestParams
         # Additional fields to include in the response.
         attr_accessor :include
 

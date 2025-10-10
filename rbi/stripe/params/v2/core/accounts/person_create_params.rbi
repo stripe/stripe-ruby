@@ -6,8 +6,8 @@ module Stripe
   module V2
     module Core
       module Accounts
-        class PersonCreateParams < Stripe::RequestParams
-          class AdditionalAddress < Stripe::RequestParams
+        class PersonCreateParams < ::Stripe::RequestParams
+          class AdditionalAddress < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -62,7 +62,7 @@ module Stripe
               town: nil
             ); end
           end
-          class AdditionalName < Stripe::RequestParams
+          class AdditionalName < ::Stripe::RequestParams
             # The person's full name.
             sig { returns(T.nilable(String)) }
             def full_name; end
@@ -88,8 +88,8 @@ module Stripe
              }
             def initialize(full_name: nil, given_name: nil, purpose: nil, surname: nil); end
           end
-          class AdditionalTermsOfService < Stripe::RequestParams
-            class Account < Stripe::RequestParams
+          class AdditionalTermsOfService < ::Stripe::RequestParams
+            class Account < ::Stripe::RequestParams
               # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               sig { returns(String) }
               def date; end
@@ -122,7 +122,7 @@ module Stripe
              }
             def initialize(account: nil); end
           end
-          class Address < Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -171,7 +171,7 @@ module Stripe
               town: nil
             ); end
           end
-          class DateOfBirth < Stripe::RequestParams
+          class DateOfBirth < ::Stripe::RequestParams
             # The day of birth.
             sig { returns(Integer) }
             def day; end
@@ -190,8 +190,8 @@ module Stripe
             sig { params(day: Integer, month: Integer, year: Integer).void }
             def initialize(day: nil, month: nil, year: nil); end
           end
-          class Documents < Stripe::RequestParams
-            class CompanyAuthorization < Stripe::RequestParams
+          class Documents < ::Stripe::RequestParams
+            class CompanyAuthorization < ::Stripe::RequestParams
               # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
               sig { returns(T::Array[String]) }
               def files; end
@@ -205,7 +205,7 @@ module Stripe
               sig { params(files: T::Array[String], type: String).void }
               def initialize(files: nil, type: nil); end
             end
-            class Passport < Stripe::RequestParams
+            class Passport < ::Stripe::RequestParams
               # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
               sig { returns(T::Array[String]) }
               def files; end
@@ -219,8 +219,8 @@ module Stripe
               sig { params(files: T::Array[String], type: String).void }
               def initialize(files: nil, type: nil); end
             end
-            class PrimaryVerification < Stripe::RequestParams
-              class FrontBack < Stripe::RequestParams
+            class PrimaryVerification < ::Stripe::RequestParams
+              class FrontBack < ::Stripe::RequestParams
                 # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 sig { returns(T.nilable(String)) }
                 def back; end
@@ -253,8 +253,8 @@ module Stripe
                }
               def initialize(front_back: nil, type: nil); end
             end
-            class SecondaryVerification < Stripe::RequestParams
-              class FrontBack < Stripe::RequestParams
+            class SecondaryVerification < ::Stripe::RequestParams
+              class FrontBack < ::Stripe::RequestParams
                 # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 sig { returns(T.nilable(String)) }
                 def back; end
@@ -287,7 +287,7 @@ module Stripe
                }
               def initialize(front_back: nil, type: nil); end
             end
-            class Visa < Stripe::RequestParams
+            class Visa < ::Stripe::RequestParams
               # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
               sig { returns(T::Array[String]) }
               def files; end
@@ -353,7 +353,7 @@ module Stripe
               visa: nil
             ); end
           end
-          class IdNumber < Stripe::RequestParams
+          class IdNumber < ::Stripe::RequestParams
             # The ID number type of an individual.
             sig { returns(String) }
             def type; end
@@ -367,7 +367,7 @@ module Stripe
             sig { params(type: String, value: String).void }
             def initialize(type: nil, value: nil); end
           end
-          class Relationship < Stripe::RequestParams
+          class Relationship < ::Stripe::RequestParams
             # Whether the individual is an authorizer of the Account’s legal entity.
             sig { returns(T.nilable(T::Boolean)) }
             def authorizer; end
@@ -422,8 +422,8 @@ module Stripe
               title: nil
             ); end
           end
-          class ScriptAddresses < Stripe::RequestParams
-            class Kana < Stripe::RequestParams
+          class ScriptAddresses < ::Stripe::RequestParams
+            class Kana < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -472,7 +472,7 @@ module Stripe
                 town: nil
               ); end
             end
-            class Kanji < Stripe::RequestParams
+            class Kanji < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -544,8 +544,8 @@ module Stripe
              }
             def initialize(kana: nil, kanji: nil); end
           end
-          class ScriptNames < Stripe::RequestParams
-            class Kana < Stripe::RequestParams
+          class ScriptNames < ::Stripe::RequestParams
+            class Kana < ::Stripe::RequestParams
               # The person's first or given name.
               sig { returns(T.nilable(String)) }
               def given_name; end
@@ -559,7 +559,7 @@ module Stripe
               sig { params(given_name: T.nilable(String), surname: T.nilable(String)).void }
               def initialize(given_name: nil, surname: nil); end
             end
-            class Kanji < Stripe::RequestParams
+            class Kanji < ::Stripe::RequestParams
               # The person's first or given name.
               sig { returns(T.nilable(String)) }
               def given_name; end

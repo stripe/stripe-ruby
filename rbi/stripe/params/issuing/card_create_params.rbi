@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Issuing
-    class CardCreateParams < Stripe::RequestParams
-      class Pin < Stripe::RequestParams
+    class CardCreateParams < ::Stripe::RequestParams
+      class Pin < ::Stripe::RequestParams
         # The card's desired new PIN, encrypted under Stripe's public key.
         sig { returns(T.nilable(String)) }
         def encrypted_number; end
@@ -14,8 +14,8 @@ module Stripe
         sig { params(encrypted_number: T.nilable(String)).void }
         def initialize(encrypted_number: nil); end
       end
-      class Shipping < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(String) }
           def city; end
@@ -58,7 +58,7 @@ module Stripe
             state: nil
           ); end
         end
-        class AddressValidation < Stripe::RequestParams
+        class AddressValidation < ::Stripe::RequestParams
           # The address validation capabilities to use.
           sig { returns(String) }
           def mode; end
@@ -67,7 +67,7 @@ module Stripe
           sig { params(mode: String).void }
           def initialize(mode: nil); end
         end
-        class Customs < Stripe::RequestParams
+        class Customs < ::Stripe::RequestParams
           # The Economic Operators Registration and Identification (EORI) number to use for Customs. Required for bulk shipments to Europe.
           sig { returns(T.nilable(String)) }
           def eori_number; end
@@ -136,8 +136,8 @@ module Stripe
           type: nil
         ); end
       end
-      class SpendingControls < Stripe::RequestParams
-        class SpendingLimit < Stripe::RequestParams
+      class SpendingControls < ::Stripe::RequestParams
+        class SpendingLimit < ::Stripe::RequestParams
           # Maximum amount allowed to spend per interval.
           sig { returns(Integer) }
           def amount; end

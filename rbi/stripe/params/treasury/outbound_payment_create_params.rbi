@@ -4,10 +4,10 @@
 # typed: true
 module Stripe
   module Treasury
-    class OutboundPaymentCreateParams < Stripe::RequestParams
-      class DestinationPaymentMethodData < Stripe::RequestParams
-        class BillingDetails < Stripe::RequestParams
-          class Address < Stripe::RequestParams
+    class OutboundPaymentCreateParams < ::Stripe::RequestParams
+      class DestinationPaymentMethodData < ::Stripe::RequestParams
+        class BillingDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -79,7 +79,7 @@ module Stripe
            }
           def initialize(address: nil, email: nil, name: nil, phone: nil); end
         end
-        class UsBankAccount < Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
           # Account holder type: individual or company.
           sig { returns(T.nilable(String)) }
           def account_holder_type; end
@@ -164,8 +164,8 @@ module Stripe
           us_bank_account: nil
         ); end
       end
-      class DestinationPaymentMethodOptions < Stripe::RequestParams
-        class UsBankAccount < Stripe::RequestParams
+      class DestinationPaymentMethodOptions < ::Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
           # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(T.nilable(String)) }
           def network; end
@@ -188,7 +188,7 @@ module Stripe
          }
         def initialize(us_bank_account: nil); end
       end
-      class EndUserDetails < Stripe::RequestParams
+      class EndUserDetails < ::Stripe::RequestParams
         # IP address of the user initiating the OutboundPayment. Must be supplied if `present` is set to `true`.
         sig { returns(T.nilable(String)) }
         def ip_address; end

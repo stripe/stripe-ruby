@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module Core
-      class EventDestinationUpdateParams < Stripe::RequestParams
-        class WebhookEndpoint < Stripe::RequestParams
+      class EventDestinationUpdateParams < ::Stripe::RequestParams
+        class WebhookEndpoint < ::Stripe::RequestParams
           # The URL of the webhook endpoint.
           sig { returns(String) }
           def url; end

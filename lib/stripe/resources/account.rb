@@ -34,8 +34,8 @@ module Stripe
     nested_resource_class_methods :login_link, operations: %i[create]
     nested_resource_class_methods :person, operations: %i[create retrieve update delete list]
 
-    class BusinessProfile < Stripe::StripeObject
-      class AnnualRevenue < Stripe::StripeObject
+    class BusinessProfile < ::Stripe::StripeObject
+      class AnnualRevenue < ::Stripe::StripeObject
         # A non-negative integer representing the amount in the [smallest currency unit](/currencies#zero-decimal).
         attr_reader :amount
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -52,7 +52,7 @@ module Stripe
         end
       end
 
-      class MonthlyEstimatedRevenue < Stripe::StripeObject
+      class MonthlyEstimatedRevenue < ::Stripe::StripeObject
         # A non-negative integer representing how much to charge in the [smallest currency unit](/currencies#zero-decimal).
         attr_reader :amount
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -67,7 +67,7 @@ module Stripe
         end
       end
 
-      class SupportAddress < Stripe::StripeObject
+      class SupportAddress < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -127,7 +127,7 @@ module Stripe
       end
     end
 
-    class Capabilities < Stripe::StripeObject
+    class Capabilities < ::Stripe::StripeObject
       # The status of the Canadian pre-authorized debits payments capability of the account, or whether the account can directly process Canadian pre-authorized debits charges.
       attr_reader :acss_debit_payments
       # The status of the Affirm capability of the account, or whether the account can directly process Affirm charges.
@@ -286,8 +286,8 @@ module Stripe
       end
     end
 
-    class Company < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class Company < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -310,7 +310,7 @@ module Stripe
         end
       end
 
-      class AddressKana < Stripe::StripeObject
+      class AddressKana < ::Stripe::StripeObject
         # City/Ward.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -335,7 +335,7 @@ module Stripe
         end
       end
 
-      class AddressKanji < Stripe::StripeObject
+      class AddressKanji < ::Stripe::StripeObject
         # City/Ward.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -360,7 +360,7 @@ module Stripe
         end
       end
 
-      class DirectorshipDeclaration < Stripe::StripeObject
+      class DirectorshipDeclaration < ::Stripe::StripeObject
         # The Unix timestamp marking when the directorship declaration attestation was made.
         attr_reader :date
         # The IP address from which the directorship declaration attestation was made.
@@ -377,7 +377,7 @@ module Stripe
         end
       end
 
-      class OwnershipDeclaration < Stripe::StripeObject
+      class OwnershipDeclaration < ::Stripe::StripeObject
         # The Unix timestamp marking when the beneficial owner attestation was made.
         attr_reader :date
         # The IP address from which the beneficial owner attestation was made.
@@ -394,7 +394,7 @@ module Stripe
         end
       end
 
-      class RegistrationDate < Stripe::StripeObject
+      class RegistrationDate < ::Stripe::StripeObject
         # The day of registration, between 1 and 31.
         attr_reader :day
         # The month of registration, between 1 and 12.
@@ -411,8 +411,25 @@ module Stripe
         end
       end
 
-      class Verification < Stripe::StripeObject
-        class Document < Stripe::StripeObject
+      class RepresentativeDeclaration < ::Stripe::StripeObject
+        # The Unix timestamp marking when the representative declaration attestation was made.
+        attr_reader :date
+        # The IP address from which the representative declaration attestation was made.
+        attr_reader :ip
+        # The user-agent string from the browser where the representative declaration attestation was made.
+        attr_reader :user_agent
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Verification < ::Stripe::StripeObject
+        class Document < ::Stripe::StripeObject
           # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :back
           # A user-displayable string describing the verification state of this document.
@@ -473,6 +490,8 @@ module Stripe
       attr_reader :phone
       # Attribute for field registration_date
       attr_reader :registration_date
+      # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+      attr_reader :representative_declaration
       # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
       attr_reader :structure
       # Whether the company's business ID number was provided.
@@ -492,6 +511,7 @@ module Stripe
           directorship_declaration: DirectorshipDeclaration,
           ownership_declaration: OwnershipDeclaration,
           registration_date: RegistrationDate,
+          representative_declaration: RepresentativeDeclaration,
           verification: Verification,
         }
       end
@@ -501,8 +521,8 @@ module Stripe
       end
     end
 
-    class Controller < Stripe::StripeObject
-      class Application < Stripe::StripeObject
+    class Controller < ::Stripe::StripeObject
+      class Application < ::Stripe::StripeObject
         # `true` if the Connect application is responsible for negative balances and should manage credit and fraud risk on the account.
         attr_reader :loss_liable
         # `true` if the Connect application is responsible for onboarding the account.
@@ -519,7 +539,7 @@ module Stripe
         end
       end
 
-      class Dashboard < Stripe::StripeObject
+      class Dashboard < ::Stripe::StripeObject
         # Whether this account has access to the full Stripe dashboard (`full`), to the Express dashboard (`express`), or to no dashboard (`none`).
         attr_reader :type
 
@@ -532,7 +552,7 @@ module Stripe
         end
       end
 
-      class Fees < Stripe::StripeObject
+      class Fees < ::Stripe::StripeObject
         # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
         attr_reader :payer
 
@@ -545,7 +565,7 @@ module Stripe
         end
       end
 
-      class Losses < Stripe::StripeObject
+      class Losses < ::Stripe::StripeObject
         # A value indicating who is liable when this account can't pay back negative balances from payments.
         attr_reader :payments
 
@@ -558,7 +578,7 @@ module Stripe
         end
       end
 
-      class StripeDashboard < Stripe::StripeObject
+      class StripeDashboard < ::Stripe::StripeObject
         # A value indicating the Stripe dashboard this account has access to independent of the Connect application.
         attr_reader :type
 
@@ -602,8 +622,8 @@ module Stripe
       end
     end
 
-    class FutureRequirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class FutureRequirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
@@ -618,7 +638,7 @@ module Stripe
         end
       end
 
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
@@ -660,7 +680,7 @@ module Stripe
       end
     end
 
-    class Groups < Stripe::StripeObject
+    class Groups < ::Stripe::StripeObject
       # The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
       attr_reader :payments_pricing
 
@@ -673,8 +693,8 @@ module Stripe
       end
     end
 
-    class Requirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
+    class Requirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to satisfy all fields in `original_fields_due`.
         attr_reader :alternative_fields_due
         # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
@@ -689,7 +709,7 @@ module Stripe
         end
       end
 
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
@@ -731,8 +751,8 @@ module Stripe
       end
     end
 
-    class RiskControls < Stripe::StripeObject
-      class Charges < Stripe::StripeObject
+    class RiskControls < ::Stripe::StripeObject
+      class Charges < ::Stripe::StripeObject
         # Whether a pause of the risk control has been requested.
         attr_reader :pause_requested
 
@@ -745,7 +765,7 @@ module Stripe
         end
       end
 
-      class Payouts < Stripe::StripeObject
+      class Payouts < ::Stripe::StripeObject
         # Whether a pause of the risk control has been requested.
         attr_reader :pause_requested
 
@@ -773,8 +793,8 @@ module Stripe
       end
     end
 
-    class Settings < Stripe::StripeObject
-      class BacsDebitPayments < Stripe::StripeObject
+    class Settings < ::Stripe::StripeObject
+      class BacsDebitPayments < ::Stripe::StripeObject
         # The Bacs Direct Debit display name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. The fee appears 5 business days after requesting Bacs. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
         attr_reader :display_name
         # The Bacs Direct Debit Service user number for this account. For payments made with Bacs Direct Debit, this number is a unique identifier of the account with our banking partners.
@@ -789,7 +809,7 @@ module Stripe
         end
       end
 
-      class BankBcaOnboarding < Stripe::StripeObject
+      class BankBcaOnboarding < ::Stripe::StripeObject
         # Bank BCA business account holder name.
         attr_reader :account_holder_name
         # Bank BCA business account number.
@@ -804,7 +824,7 @@ module Stripe
         end
       end
 
-      class Branding < Stripe::StripeObject
+      class Branding < ::Stripe::StripeObject
         # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px.
         attr_reader :icon
         # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px.
@@ -823,7 +843,7 @@ module Stripe
         end
       end
 
-      class Capital < Stripe::StripeObject
+      class Capital < ::Stripe::StripeObject
         # Per-currency mapping of user-selected destination accounts used to pay out loans.
         attr_reader :payout_destination
         # Per-currency mapping of all destination accounts eligible to receive loan payouts.
@@ -838,8 +858,8 @@ module Stripe
         end
       end
 
-      class CardIssuing < Stripe::StripeObject
-        class TosAcceptance < Stripe::StripeObject
+      class CardIssuing < ::Stripe::StripeObject
+        class TosAcceptance < ::Stripe::StripeObject
           # The Unix timestamp marking when the account representative accepted the service agreement.
           attr_reader :date
           # The IP address from which the account representative accepted the service agreement.
@@ -867,8 +887,8 @@ module Stripe
         end
       end
 
-      class CardPayments < Stripe::StripeObject
-        class DeclineOn < Stripe::StripeObject
+      class CardPayments < ::Stripe::StripeObject
+        class DeclineOn < ::Stripe::StripeObject
           # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
           attr_reader :avs_failure
           # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
@@ -900,7 +920,7 @@ module Stripe
         end
       end
 
-      class Dashboard < Stripe::StripeObject
+      class Dashboard < ::Stripe::StripeObject
         # The display name for this account. This is used on the Stripe Dashboard to differentiate between accounts.
         attr_reader :display_name
         # The timezone used in the Stripe Dashboard for this account. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones).
@@ -915,7 +935,7 @@ module Stripe
         end
       end
 
-      class Invoices < Stripe::StripeObject
+      class Invoices < ::Stripe::StripeObject
         # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
         attr_reader :default_account_tax_ids
         # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
@@ -930,7 +950,7 @@ module Stripe
         end
       end
 
-      class Payments < Stripe::StripeObject
+      class Payments < ::Stripe::StripeObject
         # The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
         attr_reader :statement_descriptor
         # The Kana variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
@@ -951,8 +971,8 @@ module Stripe
         end
       end
 
-      class Payouts < Stripe::StripeObject
-        class Schedule < Stripe::StripeObject
+      class Payouts < ::Stripe::StripeObject
+        class Schedule < ::Stripe::StripeObject
           # The number of days charges for the account will be held before being paid out.
           attr_reader :delay_days
           # How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
@@ -990,7 +1010,7 @@ module Stripe
         end
       end
 
-      class SepaDebitPayments < Stripe::StripeObject
+      class SepaDebitPayments < ::Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
         attr_reader :creditor_id
 
@@ -1003,7 +1023,7 @@ module Stripe
         end
       end
 
-      class TaxForms < Stripe::StripeObject
+      class TaxForms < ::Stripe::StripeObject
         # Whether the account opted out of receiving their tax forms by postal delivery.
         attr_reader :consented_to_paperless_delivery
 
@@ -1016,8 +1036,8 @@ module Stripe
         end
       end
 
-      class Treasury < Stripe::StripeObject
-        class TosAcceptance < Stripe::StripeObject
+      class Treasury < ::Stripe::StripeObject
+        class TosAcceptance < ::Stripe::StripeObject
           # The Unix timestamp marking when the account representative accepted the service agreement.
           attr_reader :date
           # The IP address from which the account representative accepted the service agreement.
@@ -1094,7 +1114,7 @@ module Stripe
       end
     end
 
-    class TosAcceptance < Stripe::StripeObject
+    class TosAcceptance < ::Stripe::StripeObject
       # The Unix timestamp marking when the account representative accepted their service agreement
       attr_reader :date
       # The IP address from which the account representative accepted their service agreement

@@ -11,7 +11,7 @@ module Stripe
           "v2.core.account_person"
         end
 
-        class AdditionalAddress < Stripe::StripeObject
+        class AdditionalAddress < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -38,7 +38,7 @@ module Stripe
           end
         end
 
-        class AdditionalName < Stripe::StripeObject
+        class AdditionalName < ::Stripe::StripeObject
           # The individual's full name.
           attr_reader :full_name
           # The individual's first or given name.
@@ -57,8 +57,8 @@ module Stripe
           end
         end
 
-        class AdditionalTermsOfService < Stripe::StripeObject
-          class Account < Stripe::StripeObject
+        class AdditionalTermsOfService < ::Stripe::StripeObject
+          class Account < ::Stripe::StripeObject
             # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
             attr_reader :date
             # The IP address from which the Account's representative accepted the terms of service.
@@ -86,7 +86,7 @@ module Stripe
           end
         end
 
-        class Address < Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -111,7 +111,7 @@ module Stripe
           end
         end
 
-        class DateOfBirth < Stripe::StripeObject
+        class DateOfBirth < ::Stripe::StripeObject
           # The day of birth, between 1 and 31.
           attr_reader :day
           # The month of birth, between 1 and 12.
@@ -128,8 +128,8 @@ module Stripe
           end
         end
 
-        class Documents < Stripe::StripeObject
-          class CompanyAuthorization < Stripe::StripeObject
+        class Documents < ::Stripe::StripeObject
+          class CompanyAuthorization < ::Stripe::StripeObject
             # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
             attr_reader :files
             # The format of the document. Currently supports `files` only.
@@ -144,7 +144,7 @@ module Stripe
             end
           end
 
-          class Passport < Stripe::StripeObject
+          class Passport < ::Stripe::StripeObject
             # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
             attr_reader :files
             # The format of the document. Currently supports `files` only.
@@ -159,8 +159,8 @@ module Stripe
             end
           end
 
-          class PrimaryVerification < Stripe::StripeObject
-            class FrontBack < Stripe::StripeObject
+          class PrimaryVerification < ::Stripe::StripeObject
+            class FrontBack < ::Stripe::StripeObject
               # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_reader :back
               # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -188,8 +188,8 @@ module Stripe
             end
           end
 
-          class SecondaryVerification < Stripe::StripeObject
-            class FrontBack < Stripe::StripeObject
+          class SecondaryVerification < ::Stripe::StripeObject
+            class FrontBack < ::Stripe::StripeObject
               # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_reader :back
               # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -217,7 +217,7 @@ module Stripe
             end
           end
 
-          class Visa < Stripe::StripeObject
+          class Visa < ::Stripe::StripeObject
             # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
             attr_reader :files
             # The format of the document. Currently supports `files` only.
@@ -257,7 +257,7 @@ module Stripe
           end
         end
 
-        class IdNumber < Stripe::StripeObject
+        class IdNumber < ::Stripe::StripeObject
           # The ID number type of an individual.
           attr_reader :type
 
@@ -270,7 +270,7 @@ module Stripe
           end
         end
 
-        class Relationship < Stripe::StripeObject
+        class Relationship < ::Stripe::StripeObject
           # Whether the individual is an authorizer of the Account’s legal entity.
           attr_reader :authorizer
           # Whether the individual is a director of the Account’s legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -297,8 +297,8 @@ module Stripe
           end
         end
 
-        class ScriptAddresses < Stripe::StripeObject
-          class Kana < Stripe::StripeObject
+        class ScriptAddresses < ::Stripe::StripeObject
+          class Kana < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -323,7 +323,7 @@ module Stripe
             end
           end
 
-          class Kanji < Stripe::StripeObject
+          class Kanji < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -361,8 +361,8 @@ module Stripe
           end
         end
 
-        class ScriptNames < Stripe::StripeObject
-          class Kana < Stripe::StripeObject
+        class ScriptNames < ::Stripe::StripeObject
+          class Kana < ::Stripe::StripeObject
             # The person's first or given name.
             attr_reader :given_name
             # The person's last or family name.
@@ -377,7 +377,7 @@ module Stripe
             end
           end
 
-          class Kanji < Stripe::StripeObject
+          class Kanji < ::Stripe::StripeObject
             # The person's first or given name.
             attr_reader :given_name
             # The person's last or family name.

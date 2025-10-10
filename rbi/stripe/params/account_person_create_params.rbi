@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class AccountPersonCreateParams < Stripe::RequestParams
-    class AdditionalTosAcceptances < Stripe::RequestParams
-      class Account < Stripe::RequestParams
+  class AccountPersonCreateParams < ::Stripe::RequestParams
+    class AdditionalTosAcceptances < ::Stripe::RequestParams
+      class Account < ::Stripe::RequestParams
         # The Unix timestamp marking when the account representative accepted the service agreement.
         sig { returns(T.nilable(Integer)) }
         def date; end
@@ -38,7 +38,7 @@ module Stripe
        }
       def initialize(account: nil); end
     end
-    class Address < Stripe::RequestParams
+    class Address < ::Stripe::RequestParams
       # City, district, suburb, town, or village.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -81,7 +81,7 @@ module Stripe
         state: nil
       ); end
     end
-    class AddressKana < Stripe::RequestParams
+    class AddressKana < ::Stripe::RequestParams
       # City or ward.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -130,7 +130,7 @@ module Stripe
         town: nil
       ); end
     end
-    class AddressKanji < Stripe::RequestParams
+    class AddressKanji < ::Stripe::RequestParams
       # City or ward.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -179,7 +179,7 @@ module Stripe
         town: nil
       ); end
     end
-    class Dob < Stripe::RequestParams
+    class Dob < ::Stripe::RequestParams
       # The day of birth, between 1 and 31.
       sig { returns(Integer) }
       def day; end
@@ -198,8 +198,8 @@ module Stripe
       sig { params(day: Integer, month: Integer, year: Integer).void }
       def initialize(day: nil, month: nil, year: nil); end
     end
-    class Documents < Stripe::RequestParams
-      class CompanyAuthorization < Stripe::RequestParams
+    class Documents < ::Stripe::RequestParams
+      class CompanyAuthorization < ::Stripe::RequestParams
         # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
@@ -208,7 +208,7 @@ module Stripe
         sig { params(files: T.nilable(T::Array[String])).void }
         def initialize(files: nil); end
       end
-      class Passport < Stripe::RequestParams
+      class Passport < ::Stripe::RequestParams
         # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
@@ -217,7 +217,7 @@ module Stripe
         sig { params(files: T.nilable(T::Array[String])).void }
         def initialize(files: nil); end
       end
-      class Visa < Stripe::RequestParams
+      class Visa < ::Stripe::RequestParams
         # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
@@ -252,7 +252,7 @@ module Stripe
        }
       def initialize(company_authorization: nil, passport: nil, visa: nil); end
     end
-    class RegisteredAddress < Stripe::RequestParams
+    class RegisteredAddress < ::Stripe::RequestParams
       # City, district, suburb, town, or village.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -295,7 +295,7 @@ module Stripe
         state: nil
       ); end
     end
-    class Relationship < Stripe::RequestParams
+    class Relationship < ::Stripe::RequestParams
       # Whether the person is the authorizer of the account's representative.
       sig { returns(T.nilable(T::Boolean)) }
       def authorizer; end
@@ -352,8 +352,8 @@ module Stripe
         title: nil
       ); end
     end
-    class UsCfpbData < Stripe::RequestParams
-      class EthnicityDetails < Stripe::RequestParams
+    class UsCfpbData < ::Stripe::RequestParams
+      class EthnicityDetails < ::Stripe::RequestParams
         # The persons ethnicity
         sig { returns(T.nilable(T::Array[String])) }
         def ethnicity; end
@@ -369,7 +369,7 @@ module Stripe
          }
         def initialize(ethnicity: nil, ethnicity_other: nil); end
       end
-      class RaceDetails < Stripe::RequestParams
+      class RaceDetails < ::Stripe::RequestParams
         # The persons race.
         sig { returns(T.nilable(T::Array[String])) }
         def race; end
@@ -407,8 +407,8 @@ module Stripe
        }
       def initialize(ethnicity_details: nil, race_details: nil, self_identified_gender: nil); end
     end
-    class Verification < Stripe::RequestParams
-      class AdditionalDocument < Stripe::RequestParams
+    class Verification < ::Stripe::RequestParams
+      class AdditionalDocument < ::Stripe::RequestParams
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         sig { returns(T.nilable(String)) }
         def back; end
@@ -422,7 +422,7 @@ module Stripe
         sig { params(back: T.nilable(String), front: T.nilable(String)).void }
         def initialize(back: nil, front: nil); end
       end
-      class Document < Stripe::RequestParams
+      class Document < ::Stripe::RequestParams
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         sig { returns(T.nilable(String)) }
         def back; end

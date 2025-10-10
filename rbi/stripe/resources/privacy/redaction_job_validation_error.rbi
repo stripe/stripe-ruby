@@ -8,7 +8,7 @@ module Stripe
     # errors that affect the ability to redact a specific object in a
     # redaction job.
     class RedactionJobValidationError < APIResource
-      class ErroringObject < Stripe::StripeObject
+      class ErroringObject < ::Stripe::StripeObject
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end

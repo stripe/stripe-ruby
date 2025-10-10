@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentIntentRetrieveParams < Stripe::RequestParams
+  class PaymentIntentRetrieveParams < ::Stripe::RequestParams
     # The client secret of the PaymentIntent. We require it if you use a publishable key to retrieve the source.
     sig { returns(T.nilable(String)) }
     def client_secret; end

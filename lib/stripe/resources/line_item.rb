@@ -9,7 +9,7 @@ module Stripe
       "item"
     end
 
-    class AdjustableQuantity < Stripe::StripeObject
+    class AdjustableQuantity < ::Stripe::StripeObject
       # Attribute for field enabled
       attr_reader :enabled
       # Attribute for field maximum
@@ -26,7 +26,7 @@ module Stripe
       end
     end
 
-    class Discount < Stripe::StripeObject
+    class Discount < ::Stripe::StripeObject
       # The amount discounted.
       attr_reader :amount
       # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
@@ -44,7 +44,7 @@ module Stripe
       end
     end
 
-    class Display < Stripe::StripeObject
+    class Display < ::Stripe::StripeObject
       # Attribute for field description
       attr_reader :description
       # Attribute for field images
@@ -61,7 +61,7 @@ module Stripe
       end
     end
 
-    class TaxCalculationReference < Stripe::StripeObject
+    class TaxCalculationReference < ::Stripe::StripeObject
       # The calculation identifier for tax calculation response.
       attr_reader :calculation_id
       # The calculation identifier for tax calculation response line item.
@@ -76,7 +76,7 @@ module Stripe
       end
     end
 
-    class Tax < Stripe::StripeObject
+    class Tax < ::Stripe::StripeObject
       # Amount of tax applied for this rate.
       attr_reader :amount
       # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.

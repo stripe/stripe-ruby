@@ -8,8 +8,8 @@ module Stripe
     # objects at a frozen time in the past or future, and advance to a specific future time to observe webhooks and state changes. After the clock advances,
     # you can either validate the current state of your scenario (and test your assumptions), change the current state of your scenario (and test more complex scenarios), or keep advancing forward in time.
     class TestClock < APIResource
-      class StatusDetails < Stripe::StripeObject
-        class Advancing < Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
+        class Advancing < ::Stripe::StripeObject
           # The `frozen_time` that the Test Clock is advancing towards.
           sig { returns(Integer) }
           def target_frozen_time; end
@@ -62,37 +62,37 @@ module Stripe
       def deleted; end
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       sig {
-        params(params: T.any(::Stripe::TestHelpers::TestClockAdvanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TestHelpers::TestClock)
+        params(params: T.any(::Stripe::TestHelpers::TestClockAdvanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)
        }
       def advance(params = {}, opts = {}); end
 
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       sig {
-        params(test_clock: String, params: T.any(::Stripe::TestHelpers::TestClockAdvanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TestHelpers::TestClock)
+        params(test_clock: String, params: T.any(::Stripe::TestHelpers::TestClockAdvanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)
        }
       def self.advance(test_clock, params = {}, opts = {}); end
 
       # Creates a new test clock that can be attached to new customers and quotes.
       sig {
-        params(params: T.any(::Stripe::TestHelpers::TestClockCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TestHelpers::TestClock)
+        params(params: T.any(::Stripe::TestHelpers::TestClockCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)
        }
       def self.create(params = {}, opts = {}); end
 
       # Deletes a test clock.
       sig {
-        params(test_clock: String, params: T.any(::Stripe::TestHelpers::TestClockDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TestHelpers::TestClock)
+        params(test_clock: String, params: T.any(::Stripe::TestHelpers::TestClockDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)
        }
       def self.delete(test_clock, params = {}, opts = {}); end
 
       # Deletes a test clock.
       sig {
-        params(params: T.any(::Stripe::TestHelpers::TestClockDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TestHelpers::TestClock)
+        params(params: T.any(::Stripe::TestHelpers::TestClockDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)
        }
       def delete(params = {}, opts = {}); end
 
       # Returns a list of your test clocks.
       sig {
-        params(params: T.any(::Stripe::TestHelpers::TestClockListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::TestHelpers::TestClockListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

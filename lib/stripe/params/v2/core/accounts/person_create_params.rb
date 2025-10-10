@@ -5,8 +5,8 @@ module Stripe
   module V2
     module Core
       module Accounts
-        class PersonCreateParams < Stripe::RequestParams
-          class AdditionalAddress < Stripe::RequestParams
+        class PersonCreateParams < ::Stripe::RequestParams
+          class AdditionalAddress < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -45,7 +45,7 @@ module Stripe
             end
           end
 
-          class AdditionalName < Stripe::RequestParams
+          class AdditionalName < ::Stripe::RequestParams
             # The person's full name.
             attr_accessor :full_name
             # The person's first or given name.
@@ -63,8 +63,8 @@ module Stripe
             end
           end
 
-          class AdditionalTermsOfService < Stripe::RequestParams
-            class Account < Stripe::RequestParams
+          class AdditionalTermsOfService < ::Stripe::RequestParams
+            class Account < ::Stripe::RequestParams
               # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               attr_accessor :date
               # The IP address from which the Account's representative accepted the terms of service.
@@ -86,7 +86,7 @@ module Stripe
             end
           end
 
-          class Address < Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -121,7 +121,7 @@ module Stripe
             end
           end
 
-          class DateOfBirth < Stripe::RequestParams
+          class DateOfBirth < ::Stripe::RequestParams
             # The day of birth.
             attr_accessor :day
             # The month of birth.
@@ -136,8 +136,8 @@ module Stripe
             end
           end
 
-          class Documents < Stripe::RequestParams
-            class CompanyAuthorization < Stripe::RequestParams
+          class Documents < ::Stripe::RequestParams
+            class CompanyAuthorization < ::Stripe::RequestParams
               # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
               attr_accessor :files
               # The format of the document. Currently supports `files` only.
@@ -149,7 +149,7 @@ module Stripe
               end
             end
 
-            class Passport < Stripe::RequestParams
+            class Passport < ::Stripe::RequestParams
               # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
               attr_accessor :files
               # The format of the document. Currently supports `files` only.
@@ -161,8 +161,8 @@ module Stripe
               end
             end
 
-            class PrimaryVerification < Stripe::RequestParams
-              class FrontBack < Stripe::RequestParams
+            class PrimaryVerification < ::Stripe::RequestParams
+              class FrontBack < ::Stripe::RequestParams
                 # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 attr_accessor :back
                 # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -184,8 +184,8 @@ module Stripe
               end
             end
 
-            class SecondaryVerification < Stripe::RequestParams
-              class FrontBack < Stripe::RequestParams
+            class SecondaryVerification < ::Stripe::RequestParams
+              class FrontBack < ::Stripe::RequestParams
                 # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 attr_accessor :back
                 # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -207,7 +207,7 @@ module Stripe
               end
             end
 
-            class Visa < Stripe::RequestParams
+            class Visa < ::Stripe::RequestParams
               # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
               attr_accessor :files
               # The format of the document. Currently supports `files` only.
@@ -244,7 +244,7 @@ module Stripe
             end
           end
 
-          class IdNumber < Stripe::RequestParams
+          class IdNumber < ::Stripe::RequestParams
             # The ID number type of an individual.
             attr_accessor :type
             # The value of the ID number.
@@ -256,7 +256,7 @@ module Stripe
             end
           end
 
-          class Relationship < Stripe::RequestParams
+          class Relationship < ::Stripe::RequestParams
             # Whether the individual is an authorizer of the Account’s legal entity.
             attr_accessor :authorizer
             # Indicates whether the person is a director of the associated legal entity.
@@ -295,8 +295,8 @@ module Stripe
             end
           end
 
-          class ScriptAddresses < Stripe::RequestParams
-            class Kana < Stripe::RequestParams
+          class ScriptAddresses < ::Stripe::RequestParams
+            class Kana < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -331,7 +331,7 @@ module Stripe
               end
             end
 
-            class Kanji < Stripe::RequestParams
+            class Kanji < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -376,8 +376,8 @@ module Stripe
             end
           end
 
-          class ScriptNames < Stripe::RequestParams
-            class Kana < Stripe::RequestParams
+          class ScriptNames < ::Stripe::RequestParams
+            class Kana < ::Stripe::RequestParams
               # The person's first or given name.
               attr_accessor :given_name
               # The person's last or family name.
@@ -389,7 +389,7 @@ module Stripe
               end
             end
 
-            class Kanji < Stripe::RequestParams
+            class Kanji < ::Stripe::RequestParams
               # The person's first or given name.
               attr_accessor :given_name
               # The person's last or family name.

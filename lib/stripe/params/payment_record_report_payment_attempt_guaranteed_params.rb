@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentRecordReportPaymentAttemptGuaranteedParams < Stripe::RequestParams
+  class PaymentRecordReportPaymentAttemptGuaranteedParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.

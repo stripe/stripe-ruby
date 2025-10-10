@@ -5,8 +5,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      class InboundTransferCreateParams < Stripe::RequestParams
-        class From < Stripe::RequestParams
+      class InboundTransferCreateParams < ::Stripe::RequestParams
+        class From < ::Stripe::RequestParams
           # An optional currency field used to specify which currency is debited from the Payment Method.
           # Since many Payment Methods support only one currency, this field is optional.
           sig { returns(T.nilable(String)) }
@@ -21,7 +21,7 @@ module Stripe
           sig { params(currency: T.nilable(String), payment_method: String).void }
           def initialize(currency: nil, payment_method: nil); end
         end
-        class To < Stripe::RequestParams
+        class To < ::Stripe::RequestParams
           # The currency in which funds will land in.
           sig { returns(String) }
           def currency; end
@@ -36,9 +36,9 @@ module Stripe
           def initialize(currency: nil, financial_account: nil); end
         end
         # The amount, in specified currency, by which the FinancialAccount balance will increase due to the InboundTransfer.
-        sig { returns(Stripe::V2::Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
-        sig { params(_amount: Stripe::V2::Amount).returns(Stripe::V2::Amount) }
+        sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
         def amount=(_amount); end
         # An optional, freeform description field intended to store metadata.
         sig { returns(T.nilable(String)) }
@@ -60,7 +60,7 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: Stripe::V2::Amount, description: T.nilable(String), from: V2::MoneyManagement::InboundTransferCreateParams::From, to: V2::MoneyManagement::InboundTransferCreateParams::To).void
+          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: V2::MoneyManagement::InboundTransferCreateParams::From, to: V2::MoneyManagement::InboundTransferCreateParams::To).void
          }
         def initialize(amount: nil, description: nil, from: nil, to: nil); end
       end

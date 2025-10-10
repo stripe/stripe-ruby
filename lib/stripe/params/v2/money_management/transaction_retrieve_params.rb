@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class TransactionRetrieveParams < Stripe::RequestParams; end
+      class TransactionRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

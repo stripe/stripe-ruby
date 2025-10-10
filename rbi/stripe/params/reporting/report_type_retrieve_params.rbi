@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Reporting
-    class ReportTypeRetrieveParams < Stripe::RequestParams
+    class ReportTypeRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end

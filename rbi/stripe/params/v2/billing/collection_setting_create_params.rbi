@@ -5,9 +5,9 @@
 module Stripe
   module V2
     module Billing
-      class CollectionSettingCreateParams < Stripe::RequestParams
-        class EmailDelivery < Stripe::RequestParams
-          class PaymentDue < Stripe::RequestParams
+      class CollectionSettingCreateParams < ::Stripe::RequestParams
+        class EmailDelivery < ::Stripe::RequestParams
+          class PaymentDue < ::Stripe::RequestParams
             # If true an email for the invoice would be generated and sent out.
             sig { returns(T::Boolean) }
             def enabled; end
@@ -35,9 +35,9 @@ module Stripe
            }
           def initialize(payment_due: nil); end
         end
-        class PaymentMethodOptions < Stripe::RequestParams
-          class AcssDebit < Stripe::RequestParams
-            class MandateOptions < Stripe::RequestParams
+        class PaymentMethodOptions < ::Stripe::RequestParams
+          class AcssDebit < ::Stripe::RequestParams
+            class MandateOptions < ::Stripe::RequestParams
               # Transaction type of the mandate.
               sig { returns(T.nilable(String)) }
               def transaction_type; end
@@ -65,7 +65,7 @@ module Stripe
              }
             def initialize(mandate_options: nil, verification_method: nil); end
           end
-          class Bancontact < Stripe::RequestParams
+          class Bancontact < ::Stripe::RequestParams
             # Preferred language of the Bancontact authorization page that the customer is redirected to.
             sig { returns(T.nilable(String)) }
             def preferred_language; end
@@ -74,8 +74,8 @@ module Stripe
             sig { params(preferred_language: T.nilable(String)).void }
             def initialize(preferred_language: nil); end
           end
-          class Card < Stripe::RequestParams
-            class MandateOptions < Stripe::RequestParams
+          class Card < ::Stripe::RequestParams
+            class MandateOptions < ::Stripe::RequestParams
               # Amount to be charged for future payments.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -123,9 +123,9 @@ module Stripe
              }
             def initialize(mandate_options: nil, network: nil, request_three_d_secure: nil); end
           end
-          class CustomerBalance < Stripe::RequestParams
-            class BankTransfer < Stripe::RequestParams
-              class EuBankTransfer < Stripe::RequestParams
+          class CustomerBalance < ::Stripe::RequestParams
+            class BankTransfer < ::Stripe::RequestParams
+              class EuBankTransfer < ::Stripe::RequestParams
                 # The desired country code of the bank account information.
                 sig { returns(String) }
                 def country; end
@@ -172,9 +172,9 @@ module Stripe
              }
             def initialize(bank_transfer: nil, funding_type: nil); end
           end
-          class UsBankAccount < Stripe::RequestParams
-            class FinancialConnections < Stripe::RequestParams
-              class Filters < Stripe::RequestParams
+          class UsBankAccount < ::Stripe::RequestParams
+            class FinancialConnections < ::Stripe::RequestParams
+              class Filters < ::Stripe::RequestParams
                 # The account subcategories to use to filter for selectable accounts.
                 sig { returns(T.nilable(T::Array[String])) }
                 def account_subcategories; end

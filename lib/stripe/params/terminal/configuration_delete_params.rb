@@ -3,6 +3,6 @@
 
 module Stripe
   module Terminal
-    class ConfigurationDeleteParams < Stripe::RequestParams; end
+    class ConfigurationDeleteParams < ::Stripe::RequestParams; end
   end
 end

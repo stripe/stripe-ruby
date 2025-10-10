@@ -8,7 +8,7 @@ module Stripe
     #
     # Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
     sig {
-      params(params: T.any(::Stripe::BalanceTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::BalanceTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list(params = {}, opts = {}); end
 
@@ -16,7 +16,7 @@ module Stripe
     #
     # Note that this endpoint previously used the path /v1/balance/history/:id.
     sig {
-      params(id: String, params: T.any(::Stripe::BalanceTransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::BalanceTransaction)
+      params(id: String, params: T.any(::Stripe::BalanceTransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::BalanceTransaction)
      }
     def retrieve(id, params = {}, opts = {}); end
   end

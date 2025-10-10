@@ -16,8 +16,8 @@ module Stripe
       "payment_method_domain"
     end
 
-    class AmazonPay < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class AmazonPay < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
 
@@ -43,8 +43,8 @@ module Stripe
       end
     end
 
-    class ApplePay < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class ApplePay < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
 
@@ -70,8 +70,8 @@ module Stripe
       end
     end
 
-    class GooglePay < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class GooglePay < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
 
@@ -97,8 +97,8 @@ module Stripe
       end
     end
 
-    class Klarna < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class Klarna < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
 
@@ -124,8 +124,8 @@ module Stripe
       end
     end
 
-    class Link < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class Link < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
 
@@ -151,8 +151,8 @@ module Stripe
       end
     end
 
-    class Paypal < Stripe::StripeObject
-      class StatusDetails < Stripe::StripeObject
+    class Paypal < ::Stripe::StripeObject
+      class StatusDetails < ::Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
         attr_reader :error_message
 

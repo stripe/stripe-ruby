@@ -11,9 +11,9 @@ module Stripe
       "balance_settings"
     end
 
-    class Payments < Stripe::StripeObject
-      class Payouts < Stripe::StripeObject
-        class Schedule < Stripe::StripeObject
+    class Payments < ::Stripe::StripeObject
+      class Payouts < ::Stripe::StripeObject
+        class Schedule < ::Stripe::StripeObject
           # How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
           attr_reader :interval
           # The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
@@ -47,7 +47,7 @@ module Stripe
         end
       end
 
-      class SettlementTiming < Stripe::StripeObject
+      class SettlementTiming < ::Stripe::StripeObject
         # The number of days charge funds are held before becoming available.
         attr_reader :delay_days
         # The number of days charge funds are held before becoming available. If present, overrides the default, or minimum available, for the account.

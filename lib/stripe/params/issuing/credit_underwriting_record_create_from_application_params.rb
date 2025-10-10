@@ -3,8 +3,8 @@
 
 module Stripe
   module Issuing
-    class CreditUnderwritingRecordCreateFromApplicationParams < Stripe::RequestParams
-      class Application < Stripe::RequestParams
+    class CreditUnderwritingRecordCreateFromApplicationParams < ::Stripe::RequestParams
+      class Application < ::Stripe::RequestParams
         # The channel through which the applicant has submitted their application. Defaults to `online`.
         attr_accessor :application_method
         # Scope of demand made by the applicant.
@@ -19,7 +19,7 @@ module Stripe
         end
       end
 
-      class CreditUser < Stripe::RequestParams
+      class CreditUser < ::Stripe::RequestParams
         # Email of the applicant or accountholder.
         attr_accessor :email
         # Full name of the company or person.

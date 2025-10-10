@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionCancelParams < Stripe::RequestParams
-    class CancellationDetails < Stripe::RequestParams
+  class SubscriptionCancelParams < ::Stripe::RequestParams
+    class CancellationDetails < ::Stripe::RequestParams
       # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
       attr_accessor :comment
       # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.

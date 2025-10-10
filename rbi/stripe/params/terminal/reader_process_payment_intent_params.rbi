@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderProcessPaymentIntentParams < Stripe::RequestParams
-      class ProcessConfig < Stripe::RequestParams
-        class Tipping < Stripe::RequestParams
+    class ReaderProcessPaymentIntentParams < ::Stripe::RequestParams
+      class ProcessConfig < ::Stripe::RequestParams
+        class Tipping < ::Stripe::RequestParams
           # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
           sig { returns(T.nilable(Integer)) }
           def amount_eligible; end
@@ -62,12 +62,12 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # PaymentIntent ID
+      # The ID of the PaymentIntent to process on the reader.
       sig { returns(String) }
       def payment_intent; end
       sig { params(_payment_intent: String).returns(String) }
       def payment_intent=(_payment_intent); end
-      # Configuration overrides
+      # Configuration overrides for this transaction, such as tipping and customer cancellation settings.
       sig { returns(T.nilable(Terminal::ReaderProcessPaymentIntentParams::ProcessConfig)) }
       def process_config; end
       sig {

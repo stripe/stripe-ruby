@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentRecordReportPaymentAttemptFailedParams < Stripe::RequestParams
+  class PaymentRecordReportPaymentAttemptFailedParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # When the reported payment failed. Measured in seconds since the Unix epoch.

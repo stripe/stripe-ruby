@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PlanCreateParams < Stripe::RequestParams
-    class Product < Stripe::RequestParams
+  class PlanCreateParams < ::Stripe::RequestParams
+    class Product < ::Stripe::RequestParams
       # Whether the product is currently available for purchase. Defaults to `true`.
       attr_accessor :active
       # The identifier for the product. Must be unique. If not provided, an identifier will be randomly generated.
@@ -40,7 +40,7 @@ module Stripe
       end
     end
 
-    class Tier < Stripe::RequestParams
+    class Tier < ::Stripe::RequestParams
       # The flat billing amount for an entire tier, regardless of the number of units in the tier.
       attr_accessor :flat_amount
       # Same as `flat_amount`, but accepts a decimal value representing an integer in the minor units of the currency. Only one of `flat_amount` and `flat_amount_decimal` can be set.
@@ -67,7 +67,7 @@ module Stripe
       end
     end
 
-    class TransformUsage < Stripe::RequestParams
+    class TransformUsage < ::Stripe::RequestParams
       # Divide usage by this number.
       attr_accessor :divide_by
       # After division, either round the result `up` or `down`.

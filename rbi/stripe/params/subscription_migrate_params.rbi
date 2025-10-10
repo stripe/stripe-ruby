@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class SubscriptionMigrateParams < Stripe::RequestParams
-    class BillingMode < Stripe::RequestParams
-      class Flexible < Stripe::RequestParams
+  class SubscriptionMigrateParams < ::Stripe::RequestParams
+    class BillingMode < ::Stripe::RequestParams
+      class Flexible < ::Stripe::RequestParams
         # Controls how invoices and invoice items display proration amounts and discount amounts.
         sig { returns(T.nilable(String)) }
         def proration_discounts; end

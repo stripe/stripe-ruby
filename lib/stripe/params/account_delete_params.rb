@@ -2,5 +2,5 @@
 # frozen_string_literal: true
 
 module Stripe
-  class AccountDeleteParams < Stripe::RequestParams; end
+  class AccountDeleteParams < ::Stripe::RequestParams; end
 end

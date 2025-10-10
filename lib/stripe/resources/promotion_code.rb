@@ -17,7 +17,7 @@ module Stripe
       "promotion_code"
     end
 
-    class Promotion < Stripe::StripeObject
+    class Promotion < ::Stripe::StripeObject
       # If promotion `type` is `coupon`, the coupon for this promotion.
       attr_reader :coupon
       # The type of promotion.
@@ -32,8 +32,8 @@ module Stripe
       end
     end
 
-    class Restrictions < Stripe::StripeObject
-      class CurrencyOptions < Stripe::StripeObject
+    class Restrictions < ::Stripe::StripeObject
+      class CurrencyOptions < ::Stripe::StripeObject
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
         attr_reader :minimum_amount
 

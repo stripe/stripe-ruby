@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderCollectPaymentMethodParams < Stripe::RequestParams
-      class CollectConfig < Stripe::RequestParams
-        class Tipping < Stripe::RequestParams
+    class ReaderCollectPaymentMethodParams < ::Stripe::RequestParams
+      class CollectConfig < ::Stripe::RequestParams
+        class Tipping < ::Stripe::RequestParams
           # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
           sig { returns(T.nilable(Integer)) }
           def amount_eligible; end
@@ -51,7 +51,7 @@ module Stripe
           tipping: nil
         ); end
       end
-      # Configuration overrides.
+      # Configuration overrides for this collection, such as tipping, surcharging, and customer cancellation settings.
       sig { returns(T.nilable(Terminal::ReaderCollectPaymentMethodParams::CollectConfig)) }
       def collect_config; end
       sig {
@@ -63,7 +63,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # PaymentIntent ID.
+      # The ID of the PaymentIntent to collect a payment method for.
       sig { returns(String) }
       def payment_intent; end
       sig { params(_payment_intent: String).returns(String) }

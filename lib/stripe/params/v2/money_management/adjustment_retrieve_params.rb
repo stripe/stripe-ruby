@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class AdjustmentRetrieveParams < Stripe::RequestParams; end
+      class AdjustmentRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

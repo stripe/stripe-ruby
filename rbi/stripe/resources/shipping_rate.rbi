@@ -6,8 +6,8 @@ module Stripe
   # Shipping rates describe the price of shipping presented to your customers and
   # applied to a purchase. For more information, see [Charge for shipping](https://stripe.com/docs/payments/during-payment/charge-shipping).
   class ShippingRate < APIResource
-    class DeliveryEstimate < Stripe::StripeObject
-      class Maximum < Stripe::StripeObject
+    class DeliveryEstimate < ::Stripe::StripeObject
+      class Maximum < ::Stripe::StripeObject
         # A unit of time.
         sig { returns(String) }
         def unit; end
@@ -21,7 +21,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Minimum < Stripe::StripeObject
+      class Minimum < ::Stripe::StripeObject
         # A unit of time.
         sig { returns(String) }
         def unit; end
@@ -48,8 +48,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class FixedAmount < Stripe::StripeObject
-      class CurrencyOptions < Stripe::StripeObject
+    class FixedAmount < ::Stripe::StripeObject
+      class CurrencyOptions < ::Stripe::StripeObject
         # A non-negative integer in cents representing how much to charge.
         sig { returns(Integer) }
         def amount; end
@@ -110,26 +110,26 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def tax_behavior; end
     # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
-    sig { returns(T.nilable(T.any(String, Stripe::TaxCode))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::TaxCode))) }
     def tax_code; end
     # The type of calculation to use on the shipping rate.
     sig { returns(String) }
     def type; end
     # Creates a new shipping rate object.
     sig {
-      params(params: T.any(::Stripe::ShippingRateCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ShippingRate)
+      params(params: T.any(::Stripe::ShippingRateCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ShippingRate)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of your shipping rates.
     sig {
-      params(params: T.any(::Stripe::ShippingRateListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::ShippingRateListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates an existing shipping rate object.
     sig {
-      params(shipping_rate_token: String, params: T.any(::Stripe::ShippingRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ShippingRate)
+      params(shipping_rate_token: String, params: T.any(::Stripe::ShippingRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ShippingRate)
      }
     def self.update(shipping_rate_token, params = {}, opts = {}); end
   end

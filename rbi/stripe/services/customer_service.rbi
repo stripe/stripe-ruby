@@ -13,31 +13,31 @@ module Stripe
     attr_reader :tax_ids
     # Creates a new customer object.
     sig {
-      params(params: T.any(::Stripe::CustomerCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(params: T.any(::Stripe::CustomerCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
     def create(params = {}, opts = {}); end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(customer: String, params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
     def delete(customer, params = {}, opts = {}); end
 
     # Removes the currently applied discount on a customer.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Discount)
+      params(customer: String, params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
      }
     def delete_discount(customer, params = {}, opts = {}); end
 
     # Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
     sig {
-      params(params: T.any(::Stripe::CustomerListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::CustomerListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list(params = {}, opts = {}); end
 
     # Retrieves a Customer object.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(customer: String, params: T.any(::Stripe::CustomerRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
     def retrieve(customer, params = {}, opts = {}); end
 
@@ -46,7 +46,7 @@ module Stripe
     # conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
     # to an hour behind during outages. Search functionality is not available to merchants in India.
     sig {
-      params(params: T.any(::Stripe::CustomerSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::CustomerSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SearchResultObject)
      }
     def search(params = {}, opts = {}); end
 
@@ -54,7 +54,7 @@ module Stripe
     #
     # This request accepts mostly the same arguments as the customer creation call.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(customer: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
     def update(customer, params = {}, opts = {}); end
   end

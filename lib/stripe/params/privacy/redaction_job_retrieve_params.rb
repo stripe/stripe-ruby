@@ -3,7 +3,7 @@
 
 module Stripe
   module Privacy
-    class RedactionJobRetrieveParams < Stripe::RequestParams
+    class RedactionJobRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundTransferCreateParams < Stripe::RequestParams
-        class DeliveryOptions < Stripe::RequestParams
+      class OutboundTransferCreateParams < ::Stripe::RequestParams
+        class DeliveryOptions < ::Stripe::RequestParams
           # Open Enum. Method for bank account.
           attr_accessor :bank_account
 
@@ -14,7 +14,7 @@ module Stripe
           end
         end
 
-        class From < Stripe::RequestParams
+        class From < ::Stripe::RequestParams
           # Describes the FinancialAmount's currency drawn from.
           attr_accessor :currency
           # The FinancialAccount that funds were pulled from.
@@ -26,7 +26,7 @@ module Stripe
           end
         end
 
-        class To < Stripe::RequestParams
+        class To < ::Stripe::RequestParams
           # Describes the currency to send to the recipient.
           # If included, this currency must match a currency supported by the destination.
           # Can be omitted in the following cases:

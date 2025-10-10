@@ -13,7 +13,7 @@ module Stripe
         "climate.product"
       end
 
-      class CurrentPricesPerMetricTon < Stripe::StripeObject
+      class CurrentPricesPerMetricTon < ::Stripe::StripeObject
         # Fees for one metric ton of carbon removal in the currency's smallest unit.
         attr_reader :amount_fees
         # Subtotal for one metric ton of carbon removal (excluding fees) in the currency's smallest unit.

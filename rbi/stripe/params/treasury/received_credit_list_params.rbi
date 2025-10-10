@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Treasury
-    class ReceivedCreditListParams < Stripe::RequestParams
-      class LinkedFlows < Stripe::RequestParams
+    class ReceivedCreditListParams < ::Stripe::RequestParams
+      class LinkedFlows < ::Stripe::RequestParams
         # The source flow type.
         sig { returns(String) }
         def source_flow_type; end

@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   class ApplicationFee < APIResource
-    class FeeSource < Stripe::StripeObject
+    class FeeSource < ::Stripe::StripeObject
       # Charge ID that created this application fee.
       sig { returns(T.nilable(String)) }
       def charge; end
@@ -22,7 +22,7 @@ module Stripe
       end
     end
     # ID of the Stripe account this fee was taken from.
-    sig { returns(T.any(String, Stripe::Account)) }
+    sig { returns(T.any(String, ::Stripe::Account)) }
     def account; end
     # Amount earned, in cents (or local equivalent).
     sig { returns(Integer) }
@@ -31,13 +31,13 @@ module Stripe
     sig { returns(Integer) }
     def amount_refunded; end
     # ID of the Connect application that earned the fee.
-    sig { returns(T.any(String, Stripe::Application)) }
+    sig { returns(T.any(String, ::Stripe::Application)) }
     def application; end
     # Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds).
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def balance_transaction; end
     # ID of the charge that the application fee was taken from.
-    sig { returns(T.any(String, Stripe::Charge)) }
+    sig { returns(T.any(String, ::Stripe::Charge)) }
     def charge; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -58,17 +58,17 @@ module Stripe
     sig { returns(String) }
     def object; end
     # ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter.
-    sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
     def originating_transaction; end
     # Whether the fee has been fully refunded. If the fee is only partially refunded, this attribute will still be false.
     sig { returns(T::Boolean) }
     def refunded; end
     # A list of refunds that have been applied to the fee.
-    sig { returns(Stripe::ListObject) }
+    sig { returns(::Stripe::ListObject) }
     def refunds; end
     # Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
     sig {
-      params(params: T.any(::Stripe::ApplicationFeeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::ApplicationFeeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

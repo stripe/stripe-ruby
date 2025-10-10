@@ -8,7 +8,7 @@ module Stripe
   #
   # Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
   class BalanceTransaction < APIResource
-    class FeeDetail < Stripe::StripeObject
+    class FeeDetail < ::Stripe::StripeObject
       # Amount of the fee, in cents.
       sig { returns(Integer) }
       def amount; end
@@ -72,7 +72,7 @@ module Stripe
     def reporting_category; end
     # This transaction relates to the Stripe object.
     sig {
-      returns(T.nilable(T.any(String, T.any(Stripe::ApplicationFee, Stripe::Charge, Stripe::ConnectCollectionTransfer, Stripe::CustomerCashBalanceTransaction, Stripe::Dispute, Stripe::ApplicationFeeRefund, Stripe::Issuing::Authorization, Stripe::Issuing::Dispute, Stripe::Issuing::Transaction, Stripe::Payout, Stripe::Refund, Stripe::ReserveTransaction, Stripe::TaxDeductedAtSource, Stripe::Topup, Stripe::Transfer, Stripe::Reversal))))
+      returns(T.nilable(T.any(String, T.any(::Stripe::ApplicationFee, ::Stripe::Charge, ::Stripe::ConnectCollectionTransfer, ::Stripe::CustomerCashBalanceTransaction, ::Stripe::Dispute, ::Stripe::ApplicationFeeRefund, ::Stripe::Issuing::Authorization, ::Stripe::Issuing::Dispute, ::Stripe::Issuing::Transaction, ::Stripe::Payout, ::Stripe::Refund, ::Stripe::ReserveTransaction, ::Stripe::TaxDeductedAtSource, ::Stripe::Topup, ::Stripe::Transfer, ::Stripe::Reversal))))
      }
     def source; end
     # The transaction's net funds status in the Stripe balance, which are either `available` or `pending`.
@@ -85,7 +85,7 @@ module Stripe
     #
     # Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
     sig {
-      params(params: T.any(::Stripe::BalanceTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::BalanceTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

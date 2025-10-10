@@ -11,9 +11,9 @@ module Stripe
           "v2.money_management.payout_methods_bank_account_spec"
         end
 
-        class Countries < Stripe::StripeObject
-          class Field < Stripe::StripeObject
-            class LocalNameHuman < Stripe::StripeObject
+        class Countries < ::Stripe::StripeObject
+          class Field < ::Stripe::StripeObject
+            class LocalNameHuman < ::Stripe::StripeObject
               # The default content of the localizable string.
               attr_reader :content
               # A unique key representing the instance of this localizable string.

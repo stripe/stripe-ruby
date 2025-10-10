@@ -3,7 +3,7 @@
 
 module Stripe
   module TestHelpers
-    class TestClockRetrieveParams < Stripe::RequestParams
+    class TestClockRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

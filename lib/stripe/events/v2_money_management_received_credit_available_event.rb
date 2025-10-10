@@ -9,7 +9,7 @@ module Stripe
         "v2.money_management.received_credit.available"
       end
 
-      class V2MoneyManagementReceivedCreditAvailableEventData < Stripe::StripeObject
+      class V2MoneyManagementReceivedCreditAvailableEventData < ::Stripe::StripeObject
         # The transaction ID of the received credit.
         attr_reader :transaction_id
 

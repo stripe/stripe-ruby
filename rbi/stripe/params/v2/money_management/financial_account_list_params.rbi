@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAccountListParams < Stripe::RequestParams
+      class FinancialAccountListParams < ::Stripe::RequestParams
         # The page limit.
         sig { returns(T.nilable(Integer)) }
         def limit; end

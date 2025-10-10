@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentMethodDomainListParams < Stripe::RequestParams
+  class PaymentMethodDomainListParams < ::Stripe::RequestParams
     # The domain name that this payment method domain object represents.
     sig { returns(T.nilable(String)) }
     def domain_name; end

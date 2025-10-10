@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class AccountRejectParams < Stripe::RequestParams
+  class AccountRejectParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # The reason for rejecting the account. Can be `fraud`, `terms_of_service`, or `other`.

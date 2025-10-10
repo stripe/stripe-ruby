@@ -15,7 +15,7 @@ module Stripe
     # creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
     # You can prefill any information on the account.
     sig {
-      params(params: T.any(::Stripe::AccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(params: T.any(::Stripe::AccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def create(params = {}, opts = {}); end
 
@@ -27,13 +27,13 @@ module Stripe
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(account: String, params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def delete(account, params = {}, opts = {}); end
 
     # Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
     sig {
-      params(params: T.any(::Stripe::AccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::AccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list(params = {}, opts = {}); end
 
@@ -41,19 +41,19 @@ module Stripe
     #
     # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(account: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def reject(account, params = {}, opts = {}); end
 
     # Retrieves the details of an account.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(account: String, params: T.any(::Stripe::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def retrieve(account, params = {}, opts = {}); end
 
     # Retrieves the details of an account.
     sig {
-      params(params: T.any(::Stripe::AccountRetrieveCurrentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(params: T.any(::Stripe::AccountRetrieveCurrentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def retrieve_current(params = {}, opts = {}); end
 
@@ -71,7 +71,7 @@ module Stripe
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(account: String, params: T.any(::Stripe::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def update(account, params = {}, opts = {}); end
   end

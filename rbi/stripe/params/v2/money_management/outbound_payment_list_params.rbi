@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class OutboundPaymentListParams < Stripe::RequestParams
+      class OutboundPaymentListParams < ::Stripe::RequestParams
         # Filter for objects created at the specified timestamp.
         # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
         sig { returns(T.nilable(String)) }

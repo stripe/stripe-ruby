@@ -17,7 +17,7 @@ module Stripe
       "order"
     end
 
-    class AutomaticTax < Stripe::StripeObject
+    class AutomaticTax < ::Stripe::StripeObject
       # Whether Stripe automatically computes tax on this Order.
       attr_reader :enabled
       # The status of the most recent automated tax calculation for this Order.
@@ -32,8 +32,8 @@ module Stripe
       end
     end
 
-    class BillingDetails < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class BillingDetails < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -73,9 +73,9 @@ module Stripe
       end
     end
 
-    class Payment < Stripe::StripeObject
-      class Settings < Stripe::StripeObject
-        class AutomaticPaymentMethods < Stripe::StripeObject
+    class Payment < ::Stripe::StripeObject
+      class Settings < ::Stripe::StripeObject
+        class AutomaticPaymentMethods < ::Stripe::StripeObject
           # Whether this Order has been opted into managing payment method types via the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
           attr_reader :enabled
 
@@ -88,9 +88,9 @@ module Stripe
           end
         end
 
-        class PaymentMethodOptions < Stripe::StripeObject
-          class AcssDebit < Stripe::StripeObject
-            class MandateOptions < Stripe::StripeObject
+        class PaymentMethodOptions < ::Stripe::StripeObject
+          class AcssDebit < ::Stripe::StripeObject
+            class MandateOptions < ::Stripe::StripeObject
               # A URL for custom mandate text
               attr_reader :custom_mandate_url
               # Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
@@ -132,7 +132,7 @@ module Stripe
             end
           end
 
-          class AfterpayClearpay < Stripe::StripeObject
+          class AfterpayClearpay < ::Stripe::StripeObject
             # Controls when the funds will be captured from the customer's account.
             attr_reader :capture_method
             # Order identifier shown to the user in Afterpay's online portal. We recommend using a value that helps you answer any questions a customer might have about the payment. The identifier is limited to 128 characters and may contain only letters, digits, underscores, backslashes and dashes.
@@ -155,7 +155,7 @@ module Stripe
             end
           end
 
-          class Alipay < Stripe::StripeObject
+          class Alipay < ::Stripe::StripeObject
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -174,7 +174,7 @@ module Stripe
             end
           end
 
-          class Bancontact < Stripe::StripeObject
+          class Bancontact < ::Stripe::StripeObject
             # Preferred language of the Bancontact authorization page that the customer is redirected to.
             attr_reader :preferred_language
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -195,7 +195,7 @@ module Stripe
             end
           end
 
-          class Card < Stripe::StripeObject
+          class Card < ::Stripe::StripeObject
             # Controls when the funds will be captured from the customer's account.
             attr_reader :capture_method
             # Indicates that you intend to make future payments with the payment method.
@@ -216,9 +216,9 @@ module Stripe
             end
           end
 
-          class CustomerBalance < Stripe::StripeObject
-            class BankTransfer < Stripe::StripeObject
-              class EuBankTransfer < Stripe::StripeObject
+          class CustomerBalance < ::Stripe::StripeObject
+            class BankTransfer < ::Stripe::StripeObject
+              class EuBankTransfer < ::Stripe::StripeObject
                 # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
                 attr_reader :country
 
@@ -269,7 +269,7 @@ module Stripe
             end
           end
 
-          class Ideal < Stripe::StripeObject
+          class Ideal < ::Stripe::StripeObject
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -288,7 +288,7 @@ module Stripe
             end
           end
 
-          class Klarna < Stripe::StripeObject
+          class Klarna < ::Stripe::StripeObject
             # Controls when the funds will be captured from the customer's account.
             attr_reader :capture_method
             # Preferred locale of the Klarna checkout page that the customer is redirected to.
@@ -311,7 +311,7 @@ module Stripe
             end
           end
 
-          class Link < Stripe::StripeObject
+          class Link < ::Stripe::StripeObject
             # Controls when the funds will be captured from the customer's account.
             attr_reader :capture_method
             # [Deprecated] This is a legacy parameter that no longer has any function.
@@ -334,7 +334,7 @@ module Stripe
             end
           end
 
-          class Oxxo < Stripe::StripeObject
+          class Oxxo < ::Stripe::StripeObject
             # The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
             attr_reader :expires_after_days
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -355,7 +355,7 @@ module Stripe
             end
           end
 
-          class P24 < Stripe::StripeObject
+          class P24 < ::Stripe::StripeObject
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -374,9 +374,9 @@ module Stripe
             end
           end
 
-          class Paypal < Stripe::StripeObject
-            class LineItem < Stripe::StripeObject
-              class Tax < Stripe::StripeObject
+          class Paypal < ::Stripe::StripeObject
+            class LineItem < ::Stripe::StripeObject
+              class Tax < ::Stripe::StripeObject
                 # The tax for a single unit of the line item in minor units. Cannot be a negative number.
                 attr_reader :amount
                 # The tax behavior for the line item.
@@ -445,8 +445,8 @@ module Stripe
             end
           end
 
-          class SepaDebit < Stripe::StripeObject
-            class MandateOptions < Stripe::StripeObject
+          class SepaDebit < ::Stripe::StripeObject
+            class MandateOptions < ::Stripe::StripeObject
               # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
               attr_reader :reference_prefix
 
@@ -480,7 +480,7 @@ module Stripe
             end
           end
 
-          class Sofort < Stripe::StripeObject
+          class Sofort < ::Stripe::StripeObject
             # Preferred language of the SOFORT authorization page that the customer is redirected to.
             attr_reader :preferred_language
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -501,7 +501,7 @@ module Stripe
             end
           end
 
-          class WechatPay < Stripe::StripeObject
+          class WechatPay < ::Stripe::StripeObject
             # The app ID registered with WeChat Pay. Only required when client is ios or android.
             attr_reader :app_id
             # The client type that the end customer will pay from
@@ -579,7 +579,7 @@ module Stripe
           end
         end
 
-        class TransferData < Stripe::StripeObject
+        class TransferData < ::Stripe::StripeObject
           # The amount that will be transferred automatically when the order is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
           attr_reader :amount
           # ID of the Connected account receiving the transfer.
@@ -638,8 +638,8 @@ module Stripe
       end
     end
 
-    class ShippingCost < Stripe::StripeObject
-      class Tax < Stripe::StripeObject
+    class ShippingCost < ::Stripe::StripeObject
+      class Tax < ::Stripe::StripeObject
         # Amount of tax applied for this rate.
         attr_reader :amount
         # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -679,8 +679,8 @@ module Stripe
       end
     end
 
-    class ShippingDetails < Stripe::StripeObject
-      class Address < Stripe::StripeObject
+    class ShippingDetails < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -718,8 +718,8 @@ module Stripe
       end
     end
 
-    class TaxDetails < Stripe::StripeObject
-      class TaxId < Stripe::StripeObject
+    class TaxDetails < ::Stripe::StripeObject
+      class TaxId < ::Stripe::StripeObject
         # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
         attr_reader :type
         # The value of the tax ID.
@@ -747,9 +747,9 @@ module Stripe
       end
     end
 
-    class TotalDetails < Stripe::StripeObject
-      class Breakdown < Stripe::StripeObject
-        class Discount < Stripe::StripeObject
+    class TotalDetails < ::Stripe::StripeObject
+      class Breakdown < ::Stripe::StripeObject
+        class Discount < ::Stripe::StripeObject
           # The amount discounted.
           attr_reader :amount
           # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
@@ -767,7 +767,7 @@ module Stripe
           end
         end
 
-        class Tax < Stripe::StripeObject
+        class Tax < ::Stripe::StripeObject
           # Amount of tax applied for this rate.
           attr_reader :amount
           # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.

@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PaymentRecordReportPaymentParams < Stripe::RequestParams
-    class AmountRequested < Stripe::RequestParams
+  class PaymentRecordReportPaymentParams < ::Stripe::RequestParams
+    class AmountRequested < ::Stripe::RequestParams
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :currency
       # A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
@@ -15,7 +15,7 @@ module Stripe
       end
     end
 
-    class CustomerDetails < Stripe::RequestParams
+    class CustomerDetails < ::Stripe::RequestParams
       # The customer who made the payment.
       attr_accessor :customer
       # The customer's phone number.
@@ -33,7 +33,7 @@ module Stripe
       end
     end
 
-    class Failed < Stripe::RequestParams
+    class Failed < ::Stripe::RequestParams
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       attr_accessor :failed_at
 
@@ -42,7 +42,7 @@ module Stripe
       end
     end
 
-    class Guaranteed < Stripe::RequestParams
+    class Guaranteed < ::Stripe::RequestParams
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       attr_accessor :guaranteed_at
 
@@ -51,9 +51,9 @@ module Stripe
       end
     end
 
-    class PaymentMethodDetails < Stripe::RequestParams
-      class BillingDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+    class PaymentMethodDetails < ::Stripe::RequestParams
+      class BillingDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -100,7 +100,7 @@ module Stripe
         end
       end
 
-      class Custom < Stripe::RequestParams
+      class Custom < ::Stripe::RequestParams
         # Display name for the custom (user-defined) payment method type used to make this payment.
         attr_accessor :display_name
         # The custom payment method type associated with this payment.
@@ -128,8 +128,8 @@ module Stripe
       end
     end
 
-    class ProcessorDetails < Stripe::RequestParams
-      class Custom < Stripe::RequestParams
+    class ProcessorDetails < ::Stripe::RequestParams
+      class Custom < ::Stripe::RequestParams
         # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
         attr_accessor :payment_reference
 
@@ -148,8 +148,8 @@ module Stripe
       end
     end
 
-    class ShippingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class ShippingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

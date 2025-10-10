@@ -10,8 +10,8 @@ module Stripe
   # [Customer Session with the Pricing Table](https://docs.stripe.com/payments/checkout/pricing-table#customer-session),
   # [Customer Session with the Buy Button](https://docs.stripe.com/payment-links/buy-button#pass-an-existing-customer).
   class CustomerSession < APIResource
-    class Components < Stripe::StripeObject
-      class BuyButton < Stripe::StripeObject
+    class Components < ::Stripe::StripeObject
+      class BuyButton < ::Stripe::StripeObject
         # Whether the buy button is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -22,8 +22,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PaymentElement < Stripe::StripeObject
-        class Features < Stripe::StripeObject
+      class PaymentElement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
           #
           # If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
@@ -70,7 +70,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class PricingTable < Stripe::StripeObject
+      class PricingTable < ::Stripe::StripeObject
         # Whether the pricing table is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -113,7 +113,7 @@ module Stripe
     sig { returns(Integer) }
     def created; end
     # The Customer the Customer Session was created for.
-    sig { returns(T.any(String, Stripe::Customer)) }
+    sig { returns(T.any(String, ::Stripe::Customer)) }
     def customer; end
     # The Account that the Customer Session was created for.
     sig { returns(T.nilable(String)) }
@@ -129,7 +129,7 @@ module Stripe
     def object; end
     # Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
     sig {
-      params(params: T.any(::Stripe::CustomerSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CustomerSession)
+      params(params: T.any(::Stripe::CustomerSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerSession)
      }
     def self.create(params = {}, opts = {}); end
   end

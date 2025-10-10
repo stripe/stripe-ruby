@@ -6,7 +6,7 @@ module Stripe
   module Billing
     class AlertTriggered < APIResource
       # A billing alert is a resource that notifies you when a certain usage threshold on a meter is crossed. For example, you might create a billing alert to notify you when a certain user made 100 API requests.
-      sig { returns(Stripe::Billing::Alert) }
+      sig { returns(::Stripe::Billing::Alert) }
       def alert; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }

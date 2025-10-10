@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Entitlements
-    class FeatureRetrieveParams < Stripe::RequestParams
+    class FeatureRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end

@@ -4,10 +4,10 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderSetReaderDisplayParams < Stripe::RequestParams
-      class Cart < Stripe::RequestParams
-        class LineItem < Stripe::RequestParams
-          # The price of the item in cents.
+    class ReaderSetReaderDisplayParams < ::Stripe::RequestParams
+      class Cart < ::Stripe::RequestParams
+        class LineItem < ::Stripe::RequestParams
+          # The price of the item in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           sig { returns(Integer) }
           def amount; end
           sig { params(_amount: Integer).returns(Integer) }
@@ -30,19 +30,19 @@ module Stripe
         def currency; end
         sig { params(_currency: String).returns(String) }
         def currency=(_currency); end
-        # Array of line items that were purchased.
+        # Array of line items to display.
         sig { returns(T::Array[Terminal::ReaderSetReaderDisplayParams::Cart::LineItem]) }
         def line_items; end
         sig {
           params(_line_items: T::Array[Terminal::ReaderSetReaderDisplayParams::Cart::LineItem]).returns(T::Array[Terminal::ReaderSetReaderDisplayParams::Cart::LineItem])
          }
         def line_items=(_line_items); end
-        # The amount of tax in cents.
+        # The amount of tax in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         sig { returns(T.nilable(Integer)) }
         def tax; end
         sig { params(_tax: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def tax=(_tax); end
-        # Total balance of cart due in cents.
+        # Total balance of cart due in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         sig { returns(Integer) }
         def total; end
         sig { params(_total: Integer).returns(Integer) }
@@ -52,7 +52,7 @@ module Stripe
          }
         def initialize(currency: nil, line_items: nil, tax: nil, total: nil); end
       end
-      # Cart
+      # Cart details to display on the reader screen, including line items, amounts, and currency.
       sig { returns(T.nilable(Terminal::ReaderSetReaderDisplayParams::Cart)) }
       def cart; end
       sig {
@@ -64,7 +64,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # Type
+      # Type of information to display. Only `cart` is currently supported.
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }

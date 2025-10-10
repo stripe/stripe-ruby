@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class CreditBalanceTransactionRetrieveParams < Stripe::RequestParams
+    class CreditBalanceTransactionRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

@@ -8,7 +8,6 @@ module Stripe
         Events::V1BillingMeterErrorReportTriggeredEvent.lookup_type =>
         Events::V1BillingMeterErrorReportTriggeredEvent,
         Events::V1BillingMeterNoMeterFoundEvent.lookup_type => Events::V1BillingMeterNoMeterFoundEvent,
-        Events::V2BillingBillSettingUpdatedEvent.lookup_type => Events::V2BillingBillSettingUpdatedEvent,
         Events::V2CoreAccountClosedEvent.lookup_type => Events::V2CoreAccountClosedEvent,
         Events::V2CoreAccountCreatedEvent.lookup_type => Events::V2CoreAccountCreatedEvent,
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>
@@ -134,8 +133,6 @@ module Stripe
         Events::V1BillingMeterErrorReportTriggeredEventNotification,
         Events::V1BillingMeterNoMeterFoundEventNotification.lookup_type =>
         Events::V1BillingMeterNoMeterFoundEventNotification,
-        Events::V2BillingBillSettingUpdatedEventNotification.lookup_type =>
-        Events::V2BillingBillSettingUpdatedEventNotification,
         Events::V2CoreAccountClosedEventNotification.lookup_type =>
         Events::V2CoreAccountClosedEventNotification,
         Events::V2CoreAccountCreatedEventNotification.lookup_type =>

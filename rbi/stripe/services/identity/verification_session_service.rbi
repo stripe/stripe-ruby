@@ -9,7 +9,7 @@ module Stripe
       #
       # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def cancel(session, params = {}, opts = {}); end
 
@@ -21,13 +21,13 @@ module Stripe
       #
       # Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(params: T.any(::Stripe::Identity::VerificationSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def create(params = {}, opts = {}); end
 
       # Returns a list of VerificationSessions
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSessionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Identity::VerificationSessionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def list(params = {}, opts = {}); end
 
@@ -51,7 +51,7 @@ module Stripe
       #
       # [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def redact(session, params = {}, opts = {}); end
 
@@ -60,7 +60,7 @@ module Stripe
       # When the session status is requires_input, you can use this method to retrieve a valid
       # client_secret or url to allow re-submission.
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def retrieve(session, params = {}, opts = {}); end
 
@@ -69,7 +69,7 @@ module Stripe
       # When the session status is requires_input, you can use this method to update the
       # verification check and options.
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def update(session, params = {}, opts = {}); end
     end

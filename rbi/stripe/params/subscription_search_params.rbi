@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class SubscriptionSearchParams < Stripe::RequestParams
+  class SubscriptionSearchParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end

@@ -17,9 +17,9 @@ module Stripe
         "treasury.outbound_transfer"
       end
 
-      class DestinationPaymentMethodDetails < Stripe::StripeObject
-        class BillingDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class DestinationPaymentMethodDetails < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -57,7 +57,7 @@ module Stripe
           end
         end
 
-        class FinancialAccount < Stripe::StripeObject
+        class FinancialAccount < ::Stripe::StripeObject
           # Token of the FinancialAccount.
           attr_reader :id
           # The rails used to send funds.
@@ -72,7 +72,7 @@ module Stripe
           end
         end
 
-        class UsBankAccount < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
           # Account holder type: individual or company.
           attr_reader :account_holder_type
           # Account type: checkings or savings. Defaults to checking if omitted.
@@ -120,8 +120,8 @@ module Stripe
         end
       end
 
-      class NetworkDetails < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
+      class NetworkDetails < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
           # ACH Addenda record
           attr_reader :addenda
 
@@ -147,7 +147,7 @@ module Stripe
         end
       end
 
-      class ReturnedDetails < Stripe::StripeObject
+      class ReturnedDetails < ::Stripe::StripeObject
         # Reason for the return.
         attr_reader :code
         # The Transaction associated with this object.
@@ -162,7 +162,7 @@ module Stripe
         end
       end
 
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Timestamp describing when an OutboundTransfer changed status to `canceled`
         attr_reader :canceled_at
         # Timestamp describing when an OutboundTransfer changed status to `failed`
@@ -181,8 +181,8 @@ module Stripe
         end
       end
 
-      class TrackingDetails < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
+      class TrackingDetails < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
           # ACH trace ID of the OutboundTransfer for transfers sent over the `ach` network.
           attr_reader :trace_id
 
@@ -195,7 +195,7 @@ module Stripe
           end
         end
 
-        class UsDomesticWire < Stripe::StripeObject
+        class UsDomesticWire < ::Stripe::StripeObject
           # CHIPS System Sequence Number (SSN) of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
           attr_reader :chips
           # IMAD of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.

@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Climate
-    class SupplierRetrieveParams < Stripe::RequestParams
+    class SupplierRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end

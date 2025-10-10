@@ -4,6 +4,6 @@
 # typed: true
 module Stripe
   module Radar
-    class ValueListItemDeleteParams < Stripe::RequestParams; end
+    class ValueListItemDeleteParams < ::Stripe::RequestParams; end
   end
 end

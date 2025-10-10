@@ -5,7 +5,7 @@
 module Stripe
   module TestHelpers
     module Treasury
-      class OutboundPaymentPostParams < Stripe::RequestParams
+      class OutboundPaymentPostParams < ::Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         def expand; end

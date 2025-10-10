@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module FinancialConnections
-    class AccountListParams < Stripe::RequestParams
-      class AccountHolder < Stripe::RequestParams
+    class AccountListParams < ::Stripe::RequestParams
+      class AccountHolder < ::Stripe::RequestParams
         # The ID of the Stripe account whose accounts will be retrieved.
         sig { returns(T.nilable(String)) }
         def account; end

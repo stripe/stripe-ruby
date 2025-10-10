@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class CollectionSettingRetrieveParams < Stripe::RequestParams; end
+      class CollectionSettingRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

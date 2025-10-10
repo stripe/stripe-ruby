@@ -3,9 +3,9 @@
 
 module Stripe
   module Forwarding
-    class RequestCreateParams < Stripe::RequestParams
-      class Request < Stripe::RequestParams
-        class Header < Stripe::RequestParams
+    class RequestCreateParams < ::Stripe::RequestParams
+      class Request < ::Stripe::RequestParams
+        class Header < ::Stripe::RequestParams
           # The header name.
           attr_accessor :name
           # The header value.

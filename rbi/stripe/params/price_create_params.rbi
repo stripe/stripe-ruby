@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class PriceCreateParams < Stripe::RequestParams
-    class CurrencyOptions < Stripe::RequestParams
-      class CustomUnitAmount < Stripe::RequestParams
+  class PriceCreateParams < ::Stripe::RequestParams
+    class CurrencyOptions < ::Stripe::RequestParams
+      class CustomUnitAmount < ::Stripe::RequestParams
         # Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
         sig { returns(T::Boolean) }
         def enabled; end
@@ -31,7 +31,7 @@ module Stripe
          }
         def initialize(enabled: nil, maximum: nil, minimum: nil, preset: nil); end
       end
-      class Tier < Stripe::RequestParams
+      class Tier < ::Stripe::RequestParams
         # The flat billing amount for an entire tier, regardless of the number of units in the tier.
         sig { returns(T.nilable(Integer)) }
         def flat_amount; end
@@ -108,7 +108,7 @@ module Stripe
         unit_amount_decimal: nil
       ); end
     end
-    class CustomUnitAmount < Stripe::RequestParams
+    class CustomUnitAmount < ::Stripe::RequestParams
       # Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
       sig { returns(T::Boolean) }
       def enabled; end
@@ -134,7 +134,7 @@ module Stripe
        }
       def initialize(enabled: nil, maximum: nil, minimum: nil, preset: nil); end
     end
-    class ProductData < Stripe::RequestParams
+    class ProductData < ::Stripe::RequestParams
       # Whether the product is currently available for purchase. Defaults to `true`.
       sig { returns(T.nilable(T::Boolean)) }
       def active; end
@@ -187,7 +187,7 @@ module Stripe
         unit_label: nil
       ); end
     end
-    class Recurring < Stripe::RequestParams
+    class Recurring < ::Stripe::RequestParams
       # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
       sig { returns(String) }
       def interval; end
@@ -224,7 +224,7 @@ module Stripe
         usage_type: nil
       ); end
     end
-    class Tier < Stripe::RequestParams
+    class Tier < ::Stripe::RequestParams
       # The flat billing amount for an entire tier, regardless of the number of units in the tier.
       sig { returns(T.nilable(Integer)) }
       def flat_amount; end
@@ -261,7 +261,7 @@ module Stripe
         up_to: nil
       ); end
     end
-    class TransformQuantity < Stripe::RequestParams
+    class TransformQuantity < ::Stripe::RequestParams
       # Divide usage by this number.
       sig { returns(Integer) }
       def divide_by; end

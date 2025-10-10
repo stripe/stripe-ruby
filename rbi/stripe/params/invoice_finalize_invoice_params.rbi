@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class InvoiceFinalizeInvoiceParams < Stripe::RequestParams
+  class InvoiceFinalizeInvoiceParams < ::Stripe::RequestParams
     # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
     sig { returns(T.nilable(T::Boolean)) }
     def auto_advance; end

@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class QuoteListParams < Stripe::RequestParams
+  class QuoteListParams < ::Stripe::RequestParams
     # The ID of the customer whose quotes will be retrieved.
     sig { returns(T.nilable(String)) }
     def customer; end

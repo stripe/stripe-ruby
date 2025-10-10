@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class CreditGrantListParams < Stripe::RequestParams
+    class CreditGrantListParams < ::Stripe::RequestParams
       # Only return credit grants for this customer.
       attr_accessor :customer
       # Only return credit grants for this account.

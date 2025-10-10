@@ -6,8 +6,8 @@ module Stripe
   module Terminal
     # Returns redirect links used for onboarding onto Tap to Pay on iPhone.
     class OnboardingLink < APIResource
-      class LinkOptions < Stripe::StripeObject
-        class AppleTermsAndConditions < Stripe::StripeObject
+      class LinkOptions < ::Stripe::StripeObject
+        class AppleTermsAndConditions < ::Stripe::StripeObject
           # Whether the link should also support users relinking their Apple account.
           sig { returns(T.nilable(T::Boolean)) }
           def allow_relinking; end
@@ -48,7 +48,7 @@ module Stripe
       def redirect_url; end
       # Creates a new OnboardingLink object that contains a redirect_url used for onboarding onto Tap to Pay on iPhone.
       sig {
-        params(params: T.any(::Stripe::Terminal::OnboardingLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::OnboardingLink)
+        params(params: T.any(::Stripe::Terminal::OnboardingLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::OnboardingLink)
        }
       def self.create(params = {}, opts = {}); end
     end

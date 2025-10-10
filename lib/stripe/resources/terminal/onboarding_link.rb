@@ -12,8 +12,8 @@ module Stripe
         "terminal.onboarding_link"
       end
 
-      class LinkOptions < Stripe::StripeObject
-        class AppleTermsAndConditions < Stripe::StripeObject
+      class LinkOptions < ::Stripe::StripeObject
+        class AppleTermsAndConditions < ::Stripe::StripeObject
           # Whether the link should also support users relinking their Apple account.
           attr_reader :allow_relinking
           # The business name of the merchant accepting Apple's Terms and Conditions.

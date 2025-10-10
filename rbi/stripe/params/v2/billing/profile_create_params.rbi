@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      class ProfileCreateParams < Stripe::RequestParams
+      class ProfileCreateParams < ::Stripe::RequestParams
         # The ID of the customer object.
         sig { returns(String) }
         def customer; end

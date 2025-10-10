@@ -15,7 +15,7 @@ module Stripe
         "scheduled_query_run"
       end
 
-      class Error < Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # Information about the run failure.
         attr_reader :message
 

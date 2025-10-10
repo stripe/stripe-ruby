@@ -3,7 +3,7 @@
 
 module Stripe
   module FinancialConnections
-    class SessionRetrieveParams < Stripe::RequestParams
+    class SessionRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

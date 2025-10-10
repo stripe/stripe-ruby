@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Capital
-    class FinancingTransactionListParams < Stripe::RequestParams
+    class FinancingTransactionListParams < ::Stripe::RequestParams
       # For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
       sig { returns(T.nilable(String)) }
       def charge; end

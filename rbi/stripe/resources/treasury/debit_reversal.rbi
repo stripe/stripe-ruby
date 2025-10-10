@@ -6,7 +6,7 @@ module Stripe
   module Treasury
     # You can reverse some [ReceivedDebits](https://stripe.com/docs/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
     class DebitReversal < APIResource
-      class LinkedFlows < Stripe::StripeObject
+      class LinkedFlows < ::Stripe::StripeObject
         # Set if there is an Issuing dispute associated with the DebitReversal.
         sig { returns(T.nilable(String)) }
         def issuing_dispute; end
@@ -17,7 +17,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Timestamp describing when the DebitReversal changed status to `completed`.
         sig { returns(T.nilable(Integer)) }
         def completed_at; end
@@ -71,17 +71,17 @@ module Stripe
       sig { returns(StatusTransitions) }
       def status_transitions; end
       # The Transaction associated with this object.
-      sig { returns(T.nilable(T.any(String, Stripe::Treasury::Transaction))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Treasury::Transaction))) }
       def transaction; end
       # Reverses a ReceivedDebit and creates a DebitReversal object.
       sig {
-        params(params: T.any(::Stripe::Treasury::DebitReversalCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::DebitReversal)
+        params(params: T.any(::Stripe::Treasury::DebitReversalCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::DebitReversal)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of DebitReversals.
       sig {
-        params(params: T.any(::Stripe::Treasury::DebitReversalListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Treasury::DebitReversalListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

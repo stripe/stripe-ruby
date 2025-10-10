@@ -163,7 +163,7 @@ module Stripe
         connection.verify_mode = OpenSSL::SSL::VERIFY_PEER
         connection.cert_store = config.ca_store
       else
-        connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        connection.verify_mode = OpenSSL::SSL::VERIFY_PEER
         warn_ssl_verify_none
       end
 

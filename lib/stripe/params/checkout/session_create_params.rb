@@ -1749,6 +1749,21 @@ module Stripe
           end
         end
 
+        class Twint < ::Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class UsBankAccount < ::Stripe::RequestParams
           class FinancialConnections < ::Stripe::RequestParams
             # The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
@@ -1893,6 +1908,8 @@ module Stripe
         attr_accessor :sofort
         # contains details about the Swish payment method options.
         attr_accessor :swish
+        # contains details about the TWINT payment method options.
+        attr_accessor :twint
         # contains details about the Us Bank Account payment method options.
         attr_accessor :us_bank_account
         # contains details about the WeChat Pay payment method options.
@@ -1941,6 +1958,7 @@ module Stripe
           sepa_debit: nil,
           sofort: nil,
           swish: nil,
+          twint: nil,
           us_bank_account: nil,
           wechat_pay: nil
         )
@@ -1986,6 +2004,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @sofort = sofort
           @swish = swish
+          @twint = twint
           @us_bank_account = us_bank_account
           @wechat_pay = wechat_pay
         end

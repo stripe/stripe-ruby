@@ -21,6 +21,8 @@ module Stripe
           @lte = lte
         end
       end
+      # Only return VerificationReports that were blocked by this BlocklistEntry id.
+      attr_accessor :blocked_by_entry
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       attr_accessor :client_reference_id
       # Only return VerificationReports that were created during the given date interval.
@@ -39,6 +41,7 @@ module Stripe
       attr_accessor :verification_session
 
       def initialize(
+        blocked_by_entry: nil,
         client_reference_id: nil,
         created: nil,
         ending_before: nil,
@@ -48,6 +51,7 @@ module Stripe
         type: nil,
         verification_session: nil
       )
+        @blocked_by_entry = blocked_by_entry
         @client_reference_id = client_reference_id
         @created = created
         @ending_before = ending_before

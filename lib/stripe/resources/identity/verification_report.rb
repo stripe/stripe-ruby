@@ -141,6 +141,8 @@ module Stripe
         attr_reader :unparsed_place_of_birth
         # Sex as it appears in the document.
         attr_reader :unparsed_sex
+        # If document was not verified due to extracted data being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        attr_reader :blocked_by_entry
 
         def self.inner_class_types
           @inner_class_types = {
@@ -341,6 +343,8 @@ module Stripe
         attr_reader :selfie
         # Status of this `selfie` check.
         attr_reader :status
+        # If selfie was not verified due to being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        attr_reader :blocked_by_entry
 
         def self.inner_class_types
           @inner_class_types = { error: Error }

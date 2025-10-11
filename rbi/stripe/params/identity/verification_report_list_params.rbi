@@ -31,6 +31,11 @@ module Stripe
          }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
+      # Only return VerificationReports that were blocked by this BlocklistEntry id.
+      sig { returns(T.nilable(String)) }
+      def blocked_by_entry; end
+      sig { params(_blocked_by_entry: T.nilable(String)).returns(T.nilable(String)) }
+      def blocked_by_entry=(_blocked_by_entry); end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       sig { returns(T.nilable(String)) }
       def client_reference_id; end
@@ -74,9 +79,10 @@ module Stripe
       sig { params(_verification_session: T.nilable(String)).returns(T.nilable(String)) }
       def verification_session=(_verification_session); end
       sig {
-        params(client_reference_id: T.nilable(String), created: T.nilable(T.any(Identity::VerificationReportListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String), verification_session: T.nilable(String)).void
+        params(blocked_by_entry: T.nilable(String), client_reference_id: T.nilable(String), created: T.nilable(T.any(Identity::VerificationReportListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String), verification_session: T.nilable(String)).void
        }
       def initialize(
+        blocked_by_entry: nil,
         client_reference_id: nil,
         created: nil,
         ending_before: nil,

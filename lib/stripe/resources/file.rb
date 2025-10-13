@@ -6,7 +6,7 @@ module Stripe
   # files with the [create file](https://stripe.com/docs/api#create_file) request
   # (for example, when uploading dispute evidence). Stripe also
   # creates files independently (for example, the results of a [Sigma scheduled
-  # query](https://stripe.com/docs/api#scheduled_queries)).
+  # query](https://docs.stripe.com/api#scheduled_queries)).
   #
   # Related guide: [File upload guide](https://stripe.com/docs/file-upload)
   class File < APIResource
@@ -16,6 +16,53 @@ module Stripe
     OBJECT_NAME = "file"
     def self.object_name
       "file"
+    end
+
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # The file expires and isn't available at this time in epoch seconds.
+    attr_reader :expires_at
+    # The suitable name for saving the file to a filesystem.
+    attr_reader :filename
+    # Unique identifier for the object.
+    attr_reader :id
+    # A list of [file links](https://stripe.com/docs/api#file_links) that point at this file.
+    attr_reader :links
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
+    attr_reader :purpose
+    # The size of the file object in bytes.
+    attr_reader :size
+    # A suitable title for the document.
+    attr_reader :title
+    # The returned file type (for example, `csv`, `pdf`, `jpg`, or `png`).
+    attr_reader :type
+    # Use your live secret API key to download the file from this URL.
+    attr_reader :url
+
+    # To upload a file to Stripe, you need to send a request of type multipart/form-data. Include the file you want to upload in the request, and the parameters for creating a file.
+    #
+    # All of Stripe's officially supported Client libraries support sending multipart/form-data.
+    def self.create(params = {}, opts = {})
+      if params[:file] && !params[:file].is_a?(String) && !params[:file].respond_to?(:read)
+        raise ArgumentError, "file must respond to `#read`"
+      end
+
+      opts = { content_type: MultipartEncoder::MULTIPART_FORM_DATA }.merge(Util.normalize_opts(opts))
+
+      request_stripe_object(
+        method: :post,
+        path: "/v1/files",
+        params: params,
+        opts: opts,
+        base_address: :files
+      )
+    end
+
+    # Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/files", params: params, opts: opts)
     end
 
     # This resource can have two different object names. In latter API
@@ -31,22 +78,12 @@ module Stripe
       "/v1/files"
     end
 
-    def self.create(params = {}, opts = {})
-      if params[:file] && !params[:file].is_a?(String) && !params[:file].respond_to?(:read)
-        raise ArgumentError, "file must respond to `#read`"
-      end
-
-      config = opts[:client]&.config || Stripe.config
-      opts = {
-        api_base: config.uploads_base,
-        content_type: MultipartEncoder::MULTIPART_FORM_DATA,
-      }.merge(Util.normalize_opts(opts))
-      super
+    def self.inner_class_types
+      @inner_class_types = {}
     end
 
-    # Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/files", params: filters, opts: opts)
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

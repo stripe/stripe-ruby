@@ -4,20 +4,21 @@ module Stripe
   module APIOperations
     module Request
       module ClassMethods
-        def execute_resource_request(method, url,
+        def execute_resource_request(method, url, base_address = :api,
                                      params = {}, opts = {}, usage = [])
           execute_resource_request_internal(
-            :execute_request, method, url, params, opts, usage
+            :execute_request, method, url, base_address, params, opts, usage
           )
         end
 
-        def execute_resource_request_stream(method, url,
+        def execute_resource_request_stream(method, url, base_address = :api,
                                             params = {}, opts = {}, usage = [],
                                             &read_body_chunk_block)
           execute_resource_request_internal(
             :execute_request_stream,
             method,
             url,
+            base_address,
             params,
             opts,
             usage,
@@ -25,72 +26,30 @@ module Stripe
           )
         end
 
-        private def request_stripe_object(method:, path:, params:, opts: {}, usage: [])
-          resp, opts = execute_resource_request(method, path, params, opts, usage)
-          Util.convert_to_stripe_object_with_params(resp.data, params, opts)
+        private def request_stripe_object(method:, path:, base_address: :api, params: {}, opts: {}, usage: [])
+          execute_resource_request(method, path, base_address, params, opts, usage)
         end
 
         private def execute_resource_request_internal(client_request_method_sym,
-                                                      method, url,
+                                                      method, url, base_address,
                                                       params, opts, usage,
                                                       &read_body_chunk_block)
+          params = params.to_h if params.is_a?(Stripe::RequestParams)
           params ||= {}
 
           error_on_invalid_params(params)
           warn_on_opts_in_params(params)
 
           opts = Util.normalize_opts(opts)
-          error_on_non_string_user_opts(opts)
+          req_opts = RequestOptions.extract_opts_from_hash(opts)
 
-          opts[:client] ||= StripeClient.active_client
-
-          headers = opts.clone
-          api_key = headers.delete(:api_key)
-          api_base = headers.delete(:api_base)
-          client = headers.delete(:client)
-          # Assume all remaining opts must be headers
-
-          resp, opts[:api_key] = client.send(
+          APIRequestor.active_requestor.send(
             client_request_method_sym,
             method, url,
-            api_base: api_base, api_key: api_key,
-            headers: headers, params: params, usage: usage,
+            base_address,
+            params: params, opts: req_opts, usage: usage,
             &read_body_chunk_block
           )
-
-          # Hash#select returns an array before 1.9
-          opts_to_persist = {}
-          opts.each do |k, v|
-            opts_to_persist[k] = v if Util::OPTS_PERSISTABLE.include?(k)
-          end
-
-          [resp, opts_to_persist]
-        end
-
-        # TODO: (major)
-        # This method used to be called `request`, but it's such a short name
-        # that it eventually conflicted with the name of a field on an API
-        # resource (specifically, `Event#request`), so it was renamed to
-        # something more unique.
-        #
-        # The former name had been around for just about forever though, and
-        # although all internal uses have been renamed, I've left this alias in
-        # place for backwards compatibility. Consider removing it on the next
-        # major.
-        alias request execute_resource_request
-
-        private def error_on_non_string_user_opts(opts)
-          Util::OPTS_USER_SPECIFIED.each do |opt|
-            next unless opts.key?(opt)
-
-            val = opts[opt]
-            next if val.nil?
-            next if val.is_a?(String)
-
-            raise ArgumentError,
-                  "request option '#{opt}' should be a string value " \
-                  "(was a #{val.class})"
-          end
         end
 
         private def error_on_invalid_params(params)
@@ -102,7 +61,7 @@ module Stripe
         end
 
         private def warn_on_opts_in_params(params)
-          Util::OPTS_USER_SPECIFIED.each do |opt|
+          RequestOptions::OPTS_USER_SPECIFIED.each do |opt|
             warn("WARNING: '#{opt}' should be in opts instead of params.") if params.key?(opt)
           end
         end
@@ -112,28 +71,24 @@ module Stripe
         base.extend(ClassMethods)
       end
 
-      protected def execute_resource_request(method, url,
+      protected def execute_resource_request(method, url, base_address = :api,
                                              params = {}, opts = {}, usage = [])
         opts = @opts.merge(Util.normalize_opts(opts))
-        self.class.execute_resource_request(method, url, params, opts, usage)
+        self.class.execute_resource_request(method, url, base_address, params, opts, usage)
       end
 
-      protected def execute_resource_request_stream(method, url,
-                                                    params = {}, opts = {},
+      protected def execute_resource_request_stream(method, url, base_address = :api,
+                                                    params = {}, opts = {}, usage = [],
                                                     &read_body_chunk_block)
         opts = @opts.merge(Util.normalize_opts(opts))
         self.class.execute_resource_request_stream(
-          method, url, params, opts, &read_body_chunk_block
+          method, url, base_address, params, opts, usage, &read_body_chunk_block
         )
       end
 
-      private def request_stripe_object(method:, path:, params:, opts: {}, usage: [])
-        resp, opts = execute_resource_request(method, path, params, opts, usage)
-        Util.convert_to_stripe_object_with_params(resp.data, params, opts)
+      private def request_stripe_object(method:, path:, params:, base_address: :api, opts: {}, usage: [])
+        execute_resource_request(method, path, base_address, params, opts, usage)
       end
-
-      # See notes on `alias` above.
-      alias request execute_resource_request
     end
   end
 end

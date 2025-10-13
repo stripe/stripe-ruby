@@ -18,7 +18,7 @@ module Stripe
       # doesn't GC symbols. It also decreases the likelihood that we receive a
       # bad payload that fails to parse and throws an exception.
       data = JSON.parse(payload, symbolize_names: true)
-      Event.construct_from(data)
+      Event.construct_from(data, {}, nil, :v1, APIRequestor.active_requestor)
     end
 
     module Signature

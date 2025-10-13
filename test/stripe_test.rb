@@ -4,23 +4,21 @@ require File.expand_path("test_helper", __dir__)
 
 class StripeTest < Test::Unit::TestCase
   should "allow app_info to be configured" do
-    begin
-      old = Stripe.app_info
-      Stripe.set_app_info(
-        "MyAwesomePlugin",
-        partner_id: "partner_1234",
-        url: "https://myawesomeplugin.info",
-        version: "1.2.34"
-      )
-      assert_equal({
-        name: "MyAwesomePlugin",
-        partner_id: "partner_1234",
-        url: "https://myawesomeplugin.info",
-        version: "1.2.34",
-      }, Stripe.app_info)
-    ensure
-      Stripe.app_info = old
-    end
+    old = Stripe.app_info
+    Stripe.set_app_info(
+      "MyAwesomePlugin",
+      partner_id: "partner_1234",
+      url: "https://myawesomeplugin.info",
+      version: "1.2.34"
+    )
+    assert_equal({
+      name: "MyAwesomePlugin",
+      partner_id: "partner_1234",
+      url: "https://myawesomeplugin.info",
+      version: "1.2.34",
+    }, Stripe.app_info)
+  ensure
+    Stripe.app_info = old
   end
 
   context "forwardable configurations" do
@@ -30,7 +28,7 @@ class StripeTest < Test::Unit::TestCase
       end
 
       should "return the max_network_retry_delay" do
-        assert_equal 2, Stripe.max_network_retry_delay
+        assert_equal 5, Stripe.max_network_retry_delay
       end
 
       should "return the initial_network_retry_delay" do
@@ -39,7 +37,7 @@ class StripeTest < Test::Unit::TestCase
     end
 
     should "allow ca_bundle_path to be configured" do
-      Stripe::StripeClient.expects(:clear_all_connection_managers)
+      Stripe::APIRequestor.expects(:clear_all_connection_managers)
       Stripe.ca_bundle_path = "/path/to/ca/bundle"
       assert_equal "/path/to/ca/bundle", Stripe.ca_bundle_path
     end
@@ -78,14 +76,12 @@ class StripeTest < Test::Unit::TestCase
     end
 
     should "allow enable_telemetry to be configured" do
-      begin
-        old = Stripe.enable_telemetry?
+      old = Stripe.enable_telemetry?
 
-        Stripe.enable_telemetry = false
-        assert_equal false, Stripe.enable_telemetry?
-      ensure
-        Stripe.enable_telemetry = old
-      end
+      Stripe.enable_telemetry = false
+      assert_equal false, Stripe.enable_telemetry?
+    ensure
+      Stripe.enable_telemetry = old
     end
 
     should "allow log_level to be configured" do
@@ -104,6 +100,11 @@ class StripeTest < Test::Unit::TestCase
       assert_equal "http://proxy", Stripe.proxy
     end
 
+    should "allow api_version to be configured" do
+      Stripe.api_version = "2018-02-28"
+      assert_equal "2018-02-28", Stripe.api_version
+    end
+
     should "allow uploads_base to be configured" do
       Stripe.uploads_base = "https://other.stripe.com"
       assert_equal "https://other.stripe.com", Stripe.uploads_base
@@ -114,14 +115,14 @@ class StripeTest < Test::Unit::TestCase
       assert_equal "https://other.stripe.com", Stripe.api_base
     end
 
-    should "allow api_version to be configured" do
-      Stripe.api_version = "2018-02-28"
-      assert_equal "2018-02-28", Stripe.api_version
-    end
-
     should "allow connect_base to be configured" do
       Stripe.connect_base = "https://other.stripe.com"
       assert_equal "https://other.stripe.com", Stripe.connect_base
+    end
+
+    should "allow meter_events_base to be configured" do
+      Stripe.meter_events_base = "https://other.stripe.com"
+      assert_equal "https://other.stripe.com", Stripe.meter_events_base
     end
 
     should "allow verify_ssl_certs to be configured" do

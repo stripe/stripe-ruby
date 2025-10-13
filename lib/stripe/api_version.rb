@@ -3,6 +3,7 @@
 
 module Stripe
   module ApiVersion
-    CURRENT = "2023-10-16"
+    CURRENT = "2025-09-30.clover"
+    CURRENT_MAJOR = "clover"
   end
 end

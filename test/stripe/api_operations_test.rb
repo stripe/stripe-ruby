@@ -48,10 +48,10 @@ module Stripe
         old_stderr = $stderr
         $stderr = StringIO.new
         begin
-          stub_request(:post, "#{Stripe.api_base}/v1/customers/search?query=foo:bar")
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/search?query=foo:bar")
             .to_return(body: JSON.generate(object: "customer"))
 
-          client = StripeClient.new
+          client = APIRequestor.new("sk_test_123")
           client.request { Customer._search("/v1/customers/search", query: "foo:bar") }
 
           message = "NOTE: Stripe::Customer._search is deprecated; use request_stripe_object " \
@@ -86,6 +86,21 @@ module Stripe
         stub_request(:get, "#{Stripe.api_base}/v1/mainresources/id/nesteds/nested_id")
           .to_return(body: JSON.generate(id: "nested_id", object: "nested", foo: "bar"))
         nested_resource = MainResource.retrieve_nested("id", "nested_id")
+        assert_equal "bar", nested_resource.foo
+      end
+
+      should "define a retrieve method with both opts and params" do
+        stub_request(:get, "#{Stripe.api_base}/v1/mainresources/id/nesteds/nested_id?expand[]=reverse")
+          .with(headers: { "Stripe-Account" => "acct_123" })
+          .to_return(body: JSON.generate(id: "nested_id", object: "nested", foo: "bar"))
+        nested_resource = MainResource.retrieve_nested("id", "nested_id", { expand: ["reverse"] }, { stripe_account: "acct_123" })
+        assert_equal "bar", nested_resource.foo
+      end
+
+      should "define a retrieve method with params and explicitly empty opts" do
+        stub_request(:get, "#{Stripe.api_base}/v1/mainresources/id/nesteds/nested_id?expand[]=reverse")
+          .to_return(body: JSON.generate(id: "nested_id", object: "nested", foo: "bar"))
+        nested_resource = MainResource.retrieve_nested("id", "nested_id", { expand: ["reverse"] }, {})
         assert_equal "bar", nested_resource.foo
       end
 

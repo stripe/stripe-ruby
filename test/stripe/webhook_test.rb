@@ -10,24 +10,6 @@ module Stripe
         "object": "event"
       }
     PAYLOAD
-    SECRET = "whsec_test_secret"
-
-    def generate_header(opts = {})
-      opts[:timestamp] ||= Time.now
-      opts[:payload] ||= EVENT_PAYLOAD
-      opts[:secret] ||= SECRET
-      opts[:scheme] ||= Stripe::Webhook::Signature::EXPECTED_SCHEME
-      opts[:signature] ||= Stripe::Webhook::Signature.compute_signature(
-        opts[:timestamp],
-        opts[:payload],
-        opts[:secret]
-      )
-      Stripe::Webhook::Signature.generate_header(
-        opts[:timestamp],
-        opts[:signature],
-        scheme: opts[:scheme]
-      )
-    end
 
     context ".compute_signature" do
       should "compute a signature which can then be verified" do
@@ -35,10 +17,10 @@ module Stripe
         signature = Stripe::Webhook::Signature.compute_signature(
           timestamp,
           EVENT_PAYLOAD,
-          SECRET
+          Test::WebhookHelpers::SECRET
         )
-        header = generate_header(timestamp: timestamp, signature: signature)
-        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, SECRET))
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, timestamp: timestamp, signature: signature)
+        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET))
       end
     end
 
@@ -48,7 +30,7 @@ module Stripe
         signature = Stripe::Webhook::Signature.compute_signature(
           timestamp,
           EVENT_PAYLOAD,
-          SECRET
+          Test::WebhookHelpers::SECRET
         )
         scheme = "v1"
         header = Stripe::Webhook::Signature.generate_header(
@@ -62,24 +44,44 @@ module Stripe
 
     context ".construct_event" do
       should "return an Event instance from a valid JSON payload and valid signature header" do
-        header = generate_header
-        event = Stripe::Webhook.construct_event(EVENT_PAYLOAD, header, SECRET)
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD)
+        event = Stripe::Webhook.construct_event(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
         assert event.is_a?(Stripe::Event)
       end
 
       should "raise a JSON::ParserError from an invalid JSON payload" do
         assert_raises JSON::ParserError do
           payload = "this is not valid JSON"
-          header = generate_header(payload: payload)
-          Stripe::Webhook.construct_event(payload, header, SECRET)
+          header = Test::WebhookHelpers.generate_header(payload: payload)
+          Stripe::Webhook.construct_event(payload, header, Test::WebhookHelpers::SECRET)
         end
       end
 
       should "raise a SignatureVerificationError from a valid JSON payload and an invalid signature header" do
         header = "bad_header"
         assert_raises Stripe::SignatureVerificationError do
-          Stripe::Webhook.construct_event(EVENT_PAYLOAD, header, SECRET)
+          Stripe::Webhook.construct_event(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
         end
+      end
+
+      should "can call refresh on Event data object" do
+        payload = {
+          id: "evt_123",
+          object: "event",
+          data: {
+            object: {
+              id: "cus_123",
+              object: "customer",
+            },
+          },
+        }.to_json
+
+        header = Test::WebhookHelpers.generate_header(payload: payload)
+        event = Stripe::Webhook.construct_event(payload, header, Test::WebhookHelpers::SECRET)
+        assert event.is_a?(Stripe::Event)
+
+        event.data.object.refresh
+        assert_equal("cus_123", event.data.object.id)
       end
     end
 
@@ -93,7 +95,7 @@ module Stripe
       end
 
       should "raise a SignatureVerificationError when there are no signatures with the expected scheme" do
-        header = generate_header(scheme: "v0")
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, scheme: "v0")
         e = assert_raises(Stripe::SignatureVerificationError) do
           Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, "secret")
         end
@@ -101,7 +103,7 @@ module Stripe
       end
 
       should "raise a SignatureVerificationError when there are no valid signatures for the payload" do
-        header = generate_header(signature: "bad_signature")
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, signature: "bad_signature")
         e = assert_raises(Stripe::SignatureVerificationError) do
           Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, "secret")
         end
@@ -109,26 +111,26 @@ module Stripe
       end
 
       should "raise a SignatureVerificationError when the timestamp is not within the tolerance" do
-        header = generate_header(timestamp: Time.now - 15)
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, timestamp: Time.now - 15)
         e = assert_raises(Stripe::SignatureVerificationError) do
-          Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, SECRET, tolerance: 10)
+          Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET, tolerance: 10)
         end
         assert_match("Timestamp outside the tolerance zone", e.message)
       end
 
       should "return true when the header contains a valid signature and the timestamp is within the tolerance" do
-        header = generate_header
-        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, SECRET, tolerance: 10))
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD)
+        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET, tolerance: 10))
       end
 
       should "return true when the header contains at least one valid signature" do
-        header = generate_header + ",v1=bad_signature"
-        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, SECRET, tolerance: 10))
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD) + ",v1=bad_signature"
+        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET, tolerance: 10))
       end
 
       should "return true when the header contains a valid signature and the timestamp is off but no tolerance is provided" do
-        header = generate_header(timestamp: Time.at(12_345))
-        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, SECRET))
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, timestamp: Time.at(12_345))
+        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET))
       end
     end
   end

@@ -61,7 +61,7 @@ module Stripe
         # it's not good to test methods with `#send` like this, but I've done
         # it in the interest of trying to keep `.deep_copy` as internal as
         # possible
-        copy_values = Stripe::StripeObject.send(:deep_copy, values)
+        copy_values = Stripe::StripeObject.send(:deep_copy, values, api_mode: :v1)
 
         # we can't compare the hashes directly because they have embedded
         # objects which are different from each other
@@ -95,12 +95,12 @@ module Stripe
       should "not copy a client" do
         opts = {
           api_key: "apikey",
-          client: StripeClient.active_client,
+          client: APIRequestor.active_requestor,
         }
         values = { id: 1, name: "Stripe" }
 
         obj = Stripe::StripeObject.construct_from(values, opts)
-        copy_obj = Stripe::StripeObject.send(:deep_copy, obj)
+        copy_obj = Stripe::StripeObject.send(:deep_copy, obj, api_mode: :v1)
 
         assert_equal values, copy_obj.instance_variable_get(:@values)
         assert_equal opts.reject { |k, _v| k == :client },
@@ -111,7 +111,7 @@ module Stripe
         class TestObject < Stripe::StripeObject; end # rubocop:todo Lint/ConstantDefinitionInBlock
 
         obj = TestObject.construct_from(id: 1)
-        copy_obj = obj.class.send(:deep_copy, obj)
+        copy_obj = obj.class.send(:deep_copy, obj, api_mode: :v1)
 
         assert_equal obj.class, copy_obj.class
       end
@@ -159,21 +159,19 @@ module Stripe
 
     context "#to_hash" do
       should "skip calling to_hash on nil" do
-        begin
-          module NilWithToHash
-            def to_hash
-              raise "Can't call to_hash on nil"
-            end
+        module NilWithToHash
+          def to_hash
+            raise "Can't call to_hash on nil"
           end
-          ::NilClass.include NilWithToHash
-
-          hash_with_nil = { id: 3, foo: nil }
-          obj = StripeObject.construct_from(hash_with_nil)
-          expected_hash = { id: 3, foo: nil }
-          assert_equal expected_hash, obj.to_hash
-        ensure
-          ::NilClass.send(:undef_method, :to_hash)
         end
+        ::NilClass.include NilWithToHash
+
+        hash_with_nil = { id: 3, foo: nil }
+        obj = StripeObject.construct_from(hash_with_nil)
+        expected_hash = { id: 3, foo: nil }
+        assert_equal expected_hash, obj.to_hash
+      ensure
+        ::NilClass.send(:undef_method, :to_hash)
       end
 
       should "recursively call to_hash on its values" do
@@ -236,6 +234,13 @@ module Stripe
       assert_equal false, obj.send(:metaclass).method_defined?(:foo)
       obj.update_attributes({ foo: "bar" })
       assert_equal true, obj.send(:metaclass).method_defined?(:foo)
+    end
+
+    should "nonstandard keys in response hashes work" do
+      stub_request(:post, "#{Stripe.api_base}/v1/customers")
+        .to_return(body: JSON.generate(object: "customer", email: "test@example.com", metadata: { "this-is?a.test" => "foo" }))
+      c = Stripe::Customer.create({ email: "test@example.com", metadata: { "this-is?a.test" => "foo" } })
+      assert_equal "foo", c.metadata["this-is?a.test"]
     end
 
     should "pass opts down to children when initializing" do
@@ -476,7 +481,7 @@ module Stripe
       obj = Stripe::StripeObject.construct_from(
         { id: 1, name: "Stripe" },
         api_key: "apikey",
-        client: StripeClient.active_client
+        client: APIRequestor.active_requestor
       )
       m = Marshal.load(Marshal.dump(obj))
       assert_equal 1, m.id
@@ -505,6 +510,280 @@ module Stripe
 
       # Value still accessible with hash syntax
       assert_equal "something", obj.metadata[:class]
+    end
+
+    context "#last_response" do
+      should "return raw response in last_response of object" do
+        obj = Stripe::StripeObject.construct_from({}, {}, { foo: "bar" })
+        assert_equal({ foo: "bar" }, obj.last_response)
+      end
+    end
+
+    context "requestor" do
+      should "make requests on the object returned from services" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
+          .to_return(body: JSON.generate(object: "v2.core.event"))
+
+        client = Stripe::StripeClient.new("fake_key")
+
+        evt = client.v2.core.events.retrieve("evt_123")
+
+        assert_not_nil evt.instance_variable_get(:@requestor)
+
+        obj = evt.instance_variable_get(:@requestor).execute_request(:get, "/v2/core/events/evt_123", :api)
+        assert_equal "fake_key", obj.instance_variable_get(:@opts)[:api_key]
+      end
+
+      should "use the same options" do
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acc_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "account"))
+
+        client = Stripe::StripeClient.new("sk_test_fake_key", stripe_account: "foo")
+
+        acc = client.v1.accounts.retrieve("acc_123")
+        assert_equal "foo", req.headers["Stripe-Account"]
+
+        obj = acc.instance_variable_get(:@requestor).execute_request(:get, "/v1/accounts/acc_123", :api)
+
+        assert_equal "sk_test_fake_key", obj.instance_variable_get(:@opts)[:api_key]
+        assert_equal "foo", req.headers["Stripe-Account"]
+      end
+
+      should "carry through later request options" do
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acc_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "account"))
+
+        client = Stripe::StripeClient.new("sk_test_fake_key")
+
+        acc = client.v1.accounts.retrieve("acc_123", {})
+
+        new_acc = acc.send(:_request, method: :get, path: "/v1/accounts/acc_123", opts: { stripe_account: "foo" }, base_address: :api)
+        assert_equal "foo", req.headers["Stripe-Account"]
+
+        new_acc.send(:_request, method: :get, path: "/v1/accounts/acc_123", base_address: :api)
+        assert_equal "foo", req.headers["Stripe-Account"]
+      end
+
+      should "use the same options for v2" do
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "v2.core.event"))
+
+        client = Stripe::StripeClient.new("sk_test_123", stripe_account: "foo")
+
+        evt = client.v2.core.events.retrieve("evt_123")
+        assert_equal "foo", req.headers["Stripe-Account"]
+
+        evt.instance_variable_get(:@requestor).execute_request(:get, "/v2/core/events/evt_123", :api)
+        assert_equal "foo", req.headers["Stripe-Account"]
+      end
+    end
+
+    context "inner class type deserialization" do
+      should "deserialize inner types to their correct classes" do
+        # Test data with inner types
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "business_profile" => {
+            "name" => "Test Business",
+            "annual_revenue" => {
+              "amount" => 1_000_000,
+              "currency" => "usd",
+              "fiscal_year_end" => "2023-12-31",
+            },
+            "monthly_estimated_revenue" => {
+              "amount" => 100_000,
+              "currency" => "usd",
+            },
+            "support_address" => {
+              "city" => "San Francisco",
+              "country" => "US",
+              "line1" => "123 Test St",
+              "postal_code" => "94102",
+              "state" => "CA",
+            },
+          },
+          "company" => {
+            "name" => "Test Company",
+            "address" => {
+              "city" => "San Francisco",
+              "country" => "US",
+              "line1" => "456 Company Ave",
+              "postal_code" => "94103",
+              "state" => "CA",
+            },
+            "verification" => {
+              "document" => {
+                "back" => "file_back_123",
+                "front" => "file_front_123",
+                "details" => "Document verified",
+                "details_code" => "document_valid",
+              },
+            },
+          },
+        }
+
+        # Convert the test data to a Stripe object
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+
+        # Verify the main account object
+        assert account.is_a?(Stripe::Account)
+        assert_equal "acct_test123", account.id
+
+        # Verify business_profile inner types
+        assert account.business_profile.is_a?(Stripe::Account::BusinessProfile)
+        assert_equal "Test Business", account.business_profile.name
+
+        # Verify annual_revenue inner type
+        annual_revenue = account.business_profile.annual_revenue
+        assert annual_revenue.is_a?(Stripe::Account::BusinessProfile::AnnualRevenue)
+        assert_equal 1_000_000, annual_revenue.amount
+        assert_equal "usd", annual_revenue.currency
+        assert_equal "2023-12-31", annual_revenue.fiscal_year_end
+
+        # Verify monthly_estimated_revenue inner type
+        monthly_revenue = account.business_profile.monthly_estimated_revenue
+        assert monthly_revenue.is_a?(Stripe::Account::BusinessProfile::MonthlyEstimatedRevenue)
+        assert_equal 100_000, monthly_revenue.amount
+        assert_equal "usd", monthly_revenue.currency
+
+        # Verify support_address inner type
+        support_address = account.business_profile.support_address
+        assert support_address.is_a?(Stripe::Account::BusinessProfile::SupportAddress)
+        assert_equal "San Francisco", support_address.city
+        assert_equal "US", support_address.country
+        assert_equal "123 Test St", support_address.line1
+
+        # Verify company inner types
+        assert account.company.is_a?(Stripe::Account::Company)
+        assert_equal "Test Company", account.company.name
+
+        # Verify company address inner type
+        company_address = account.company.address
+        assert company_address.is_a?(Stripe::Account::Company::Address)
+        assert_equal "San Francisco", company_address.city
+        assert_equal "US", company_address.country
+
+        # Verify company verification document inner type
+        verification = account.company.verification
+        assert verification.is_a?(Stripe::Account::Company::Verification)
+        document = verification.document
+        assert document.is_a?(Stripe::Account::Company::Verification::Document)
+        assert_equal "file_back_123", document.back
+        assert_equal "file_front_123", document.front
+        assert_equal "Document verified", document.details
+      end
+
+      should "handle nil inner class types gracefully" do
+        # Test that the system gracefully handles when inner_class_types returns nil
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "business_profile" => {
+            "name" => "Test Business",
+          },
+        }
+
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+        assert account.is_a?(Stripe::Account)
+        assert account.business_profile.is_a?(Stripe::Account::BusinessProfile)
+        assert_nil account.company
+      end
+
+      should "handle empty inner class types gracefully" do
+        # Test that the system gracefully handles when inner_class_types returns empty hash
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "metadata" => {
+            "key1" => "value1",
+            "key2" => "value2",
+          },
+        }
+
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+        assert account.is_a?(Stripe::Account)
+        # metadata should be a generic StripeObject since it doesn't have inner_class_types defined
+        assert account.metadata.is_a?(Stripe::StripeObject)
+      end
+
+      should "handle nested inner types correctly" do
+        # Test that nested inner types are handled correctly
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "settings" => {
+            "bacs_debit_payments" => {
+              "display_name" => "Test Business",
+              "service_user_number" => "123456789",
+            },
+          },
+        }
+
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+        assert account.is_a?(Stripe::Account)
+        assert account.settings.is_a?(Stripe::Account::Settings)
+        assert account.settings.bacs_debit_payments.is_a?(Stripe::Account::Settings::BacsDebitPayments)
+        assert_equal "Test Business", account.settings.bacs_debit_payments.display_name
+        assert_equal "123456789", account.settings.bacs_debit_payments.service_user_number
+      end
+
+      should "preserve existing functionality for non-inner types" do
+        # Test that regular fields still work as expected
+        test_data = {
+          "id" => "acct_test123",
+          "object" => "account",
+          "business_type" => "individual",
+          "charges_enabled" => true,
+          "country" => "US",
+        }
+
+        account = Stripe::Util.convert_to_stripe_object(test_data)
+        assert account.is_a?(Stripe::Account)
+        assert_equal "acct_test123", account.id
+        assert_equal "account", account.object
+        assert_equal "individual", account.business_type
+        assert_equal true, account.charges_enabled
+        assert_equal "US", account.country
+      end
+
+      should "work correctly with retrieve operation" do
+        # Test that inner class types work with retrieve
+        account = Stripe::Account.retrieve("acct_test123")
+        assert account.is_a?(Stripe::Account)
+
+        # If the account has business_profile, it should be the correct class
+        if account.respond_to?(:business_profile) && account.business_profile
+          assert account.business_profile.is_a?(Stripe::Account::BusinessProfile)
+        end
+
+        # If the account has company, it should be the correct class
+        assert account.company.is_a?(Stripe::Account::Company) if account.respond_to?(:company) && account.company
+      end
+
+      should "work correctly with refresh operation" do
+        # Test that inner class types work with refresh
+        account = Stripe::Account.retrieve("acct_test123")
+        assert account.is_a?(Stripe::Account)
+
+        # Refresh the account
+        account.refresh
+        assert account.is_a?(Stripe::Account)
+
+        # If the account has business_profile, it should still be the correct class after refresh
+        if account.respond_to?(:business_profile) && account.business_profile
+          assert account.business_profile.is_a?(Stripe::Account::BusinessProfile)
+        end
+
+        # If the account has company, it should still be the correct class after refresh
+        assert account.company.is_a?(Stripe::Account::Company) if account.respond_to?(:company) && account.company
+      end
     end
   end
 end

@@ -84,5 +84,41 @@ module Stripe
         assert reversals.data.is_a?(Array)
       end
     end
+
+    should "retrieve a reversal with expand" do
+      reversal = Stripe::Transfer.retrieve_reversal(
+        "tr_123",
+        "trr_123",
+        { expand: %w[transfer] },
+        {}
+      )
+      assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_123/reversals/trr_123?expand%5B%5D=transfer"
+      assert reversal.is_a?(Stripe::Reversal)
+    end
+
+    should "be retrievable with opts and params" do
+      transfer_reversal = Stripe::Transfer.retrieve_reversal("tr_123",
+                                                             "trr_123",
+                                                             { expand: ["available"] },
+                                                             { stripe_account: "acct_123" })
+      assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_123/reversals/trr_123?expand[]=available" do |req|
+        assert_equal("acct_123", req.headers["Stripe-Account"])
+        true
+      end
+      assert transfer_reversal.is_a?(Stripe::Reversal)
+    end
+    should "be retrievable with params and an explicitly empty opts" do
+      transfer_reversal = Stripe::Transfer.retrieve_reversal(
+        "tr_123",
+        "trr_123",
+        { expand: ["available"] },
+        {}
+      )
+      assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_123/reversals/trr_123?expand[]=available" do |req|
+        assert_nil(req.headers["Stripe-Account"])
+        true
+      end
+      assert transfer_reversal.is_a?(Stripe::Reversal)
+    end
   end
 end

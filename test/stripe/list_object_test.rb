@@ -14,6 +14,13 @@ module Stripe
       assert_equal 1, list.count
     end
 
+    should "be able to refresh objects in list" do
+      list = Stripe::Customer.list
+      assert_not_nil list.first.instance_variable_get(:@requestor)
+      cus = list.first.refresh
+      assert cus.is_a?(Stripe::Customer)
+    end
+
     should "provide #each" do
       arr = [
         { id: 1 },
@@ -105,6 +112,28 @@ module Stripe
         .with(query: { ending_before: "3", limit: "3" })
         .to_return(body: JSON.generate(data: [{ id: 1 }, { id: 2 }], has_more: false, url: "/things",
                                        object: "list"))
+
+      assert_equal expected, list.auto_paging_each.to_a
+    end
+
+    should "forward api key through #auto_paging_iter" do
+      arr = [
+        { id: "ch_001" },
+        { id: "ch_002" },
+      ]
+      expected = Util.convert_to_stripe_object(arr, {})
+
+      stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        .with(headers: { "Authorization" => "Bearer sk_test_iter_forwards_options" })
+        .to_return(body: JSON.generate(data: [{ id: "ch_001" }], has_more: true, url: "/v1/charges",
+                                       object: "list"))
+      stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        .with(headers: { "Authorization" => "Bearer sk_test_iter_forwards_options" })
+        .with(query: { starting_after: "ch_001" })
+        .to_return(body: JSON.generate(data: [{ id: "ch_002" }], has_more: false, url: "/v1/charges",
+                                       object: "list"))
+
+      list = Stripe::Charge.list({}, { api_key: "sk_test_iter_forwards_options" })
 
       assert_equal expected, list.auto_paging_each.to_a
     end

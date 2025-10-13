@@ -174,6 +174,18 @@ module Stripe
           ch = Stripe::Charge.retrieve("ch_123", "sk_test_local")
           ch.refunds.create
         end
+
+        should "use the per-object credential when making subsequent requests on the object" do
+          stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
+            .with(headers: { "Authorization" => "Bearer sk_test_local", "Stripe-Account" => "acct_12345" })
+            .to_return(body: JSON.generate(customer_fixture))
+          stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123")
+            .with(headers: { "Authorization" => "Bearer sk_test_local", "Stripe-Account" => "acct_12345" })
+            .to_return(body: "{}")
+
+          cus = Stripe::Customer.retrieve("cus_123", { api_key: "sk_test_local", stripe_account: "acct_12345" })
+          cus.delete
+        end
       end
     end
 
@@ -409,6 +421,23 @@ module Stripe
           .to_return(body: JSON.generate(customer_fixture))
         c.description = "FOO"
         c.save
+      end
+
+      should "pass custom headers to execute_request_initialize_from and don't carry through" do
+        req1 = nil
+        req2 = nil
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with { |request| req1 = request }
+          .to_return(body: JSON.generate(customer_fixture))
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with { |request| req2 = request }
+          .to_return(body: JSON.generate(object: "customer"))
+
+        c = Stripe::Customer.retrieve("cus_123", { "A-Header": "foo" })
+        assert_equal "foo", req1.headers["A-Header"]
+
+        c.delete
+        assert_nil req2.headers["A-Header"]
       end
 
       should "add key to nested objects on save" do
@@ -879,6 +908,48 @@ module Stripe
         settings.result = "hello"
         settings.save
         assert_requested :post, "#{Stripe.api_base}/v1/test/singleton", times: 1
+      end
+    end
+
+    context "v2 resources" do
+      should "raise an NotImplementedError on resource_url" do
+        assert_raises NotImplementedError do
+          Stripe::V2::Core::Event.resource_url
+        end
+      end
+
+      should "raise an NotImplementedError on retrieve" do
+        assert_raises NotImplementedError do
+          Stripe::V2::Core::Event.retrieve("acct_123")
+        end
+      end
+
+      should "raise an NotImplementedError on refresh" do
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session")
+          .to_return(body: JSON.generate(object: "v2.billing.meter_event_session"))
+
+        client = Stripe::StripeClient.new("sk_test_123")
+        session = client.v2.billing.meter_event_session.create
+        assert_raises NotImplementedError do
+          session.refresh
+        end
+      end
+    end
+
+    class CustomStripeObject < APIResource
+      def self.resource_url
+        "/v1/custom_stripe_object"
+      end
+    end
+
+    context "custom class extending APIResource" do
+      should "return StripeObject instance when calling retrieve" do
+        stub_request(:get, "#{Stripe.api_base}/v1/custom_stripe_object/id")
+          .to_return(body: JSON.generate({ id: "id", object: "custom_stripe_object", result: "hello" }))
+
+        custom_stripe_object = CustomStripeObject.retrieve("id")
+        assert_instance_of CustomStripeObject, custom_stripe_object
+        assert_equal "hello", custom_stripe_object.result
       end
     end
 

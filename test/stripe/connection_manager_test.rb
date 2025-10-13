@@ -69,6 +69,7 @@ module Stripe
 
           assert_equal true, conn.use_ssl?
           assert_equal OpenSSL::SSL::VERIFY_PEER, conn.verify_mode
+          # TODO: What should this be?
           assert_equal Stripe.ca_store, conn.cert_store
         ensure
           Stripe.proxy = old_proxy
@@ -79,7 +80,7 @@ module Stripe
         end
       end
 
-      context "when a StripeClient has different configurations" do
+      context "when an APIRequestor has different configurations" do
         should "correctly initialize a connection" do
           old_proxy = Stripe.proxy
 
@@ -87,13 +88,13 @@ module Stripe
           old_read_timeout = Stripe.read_timeout
 
           begin
-            client = StripeClient.new(
+            config = StripeConfiguration.new.reverse_duplicate_merge({
               proxy: "http://other:pass@localhost:8080",
               open_timeout: 400,
               read_timeout: 500,
-              verify_ssl_certs: true
-            )
-            conn = Stripe::ConnectionManager.new(client.config)
+              verify_ssl_certs: true,
+            })
+            conn = Stripe::ConnectionManager.new(config)
                                             .connection_for("https://stripe.com")
 
             # Host/port
@@ -112,7 +113,7 @@ module Stripe
 
             assert_equal true, conn.use_ssl?
             assert_equal OpenSSL::SSL::VERIFY_PEER, conn.verify_mode
-            assert_equal Stripe.ca_store, conn.cert_store
+            assert_equal config.ca_store, conn.cert_store
           ensure
             Stripe.proxy = old_proxy
 

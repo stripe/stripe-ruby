@@ -20,7 +20,7 @@ module Stripe
     # that there isn't a next page in order to replicate the behavior of the API
     # when it attempts to return a page beyond the last.
     def self.empty_search_result(opts = {})
-      SearchResultObject.construct_from({ data: [] }, opts)
+      SearchResultObject.construct_from({ data: [] }, opts, :v1)
     end
 
     def initialize(*args)

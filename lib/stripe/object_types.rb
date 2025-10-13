@@ -80,6 +80,7 @@ module Stripe
         Forwarding::Request.object_name => Forwarding::Request,
         FundingInstructions.object_name => FundingInstructions,
         FxQuote.object_name => FxQuote,
+        Identity::BlocklistEntry.object_name => Identity::BlocklistEntry,
         Identity::VerificationReport.object_name => Identity::VerificationReport,
         Identity::VerificationSession.object_name => Identity::VerificationSession,
         Invoice.object_name => Invoice,

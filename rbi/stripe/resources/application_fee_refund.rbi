@@ -13,7 +13,7 @@ module Stripe
     sig { returns(Integer) }
     def amount; end
     # Balance transaction that describes the impact on your account balance.
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def balance_transaction; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -22,7 +22,7 @@ module Stripe
     sig { returns(String) }
     def currency; end
     # ID of the application fee that was refunded.
-    sig { returns(T.any(String, Stripe::ApplicationFee)) }
+    sig { returns(T.any(String, ::Stripe::ApplicationFee)) }
     def fee; end
     # Unique identifier for the object.
     sig { returns(String) }

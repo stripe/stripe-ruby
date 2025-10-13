@@ -3,8 +3,8 @@
 
 module Stripe
   module Terminal
-    class ReaderRefundPaymentParams < Stripe::RequestParams
-      class RefundPaymentConfig < Stripe::RequestParams
+    class ReaderRefundPaymentParams < ::Stripe::RequestParams
+      class RefundPaymentConfig < ::Stripe::RequestParams
         # Enables cancel button on transaction screens.
         attr_accessor :enable_customer_cancellation
 

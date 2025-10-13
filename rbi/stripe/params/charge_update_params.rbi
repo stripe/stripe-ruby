@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class ChargeUpdateParams < Stripe::RequestParams
-    class FraudDetails < Stripe::RequestParams
+  class ChargeUpdateParams < ::Stripe::RequestParams
+    class FraudDetails < ::Stripe::RequestParams
       # Either `safe` or `fraudulent`.
       sig { returns(T.any(String, String)) }
       def user_report; end
@@ -13,8 +13,8 @@ module Stripe
       sig { params(user_report: T.any(String, String)).void }
       def initialize(user_report: nil); end
     end
-    class Shipping < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Shipping < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end

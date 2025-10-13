@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    class CreditBalanceTransactionListParams < Stripe::RequestParams
+    class CreditBalanceTransactionListParams < ::Stripe::RequestParams
       # The credit grant for which to fetch credit balance transactions.
       attr_accessor :credit_grant
       # The customer for which to fetch credit balance transactions.

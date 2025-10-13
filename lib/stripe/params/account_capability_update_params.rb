@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class AccountCapabilityUpdateParams < Stripe::RequestParams
+  class AccountCapabilityUpdateParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # To request a new capability for an account, pass true. There can be a delay before the requested capability becomes active. If the capability has any activation requirements, the response includes them in the `requirements` arrays.

@@ -6,9 +6,9 @@ module Stripe
   module Billing
     # Indicates the billing credit balance for billing credits granted to a customer.
     class CreditBalanceSummary < SingletonAPIResource
-      class Balance < Stripe::StripeObject
-        class AvailableBalance < Stripe::StripeObject
-          class Monetary < Stripe::StripeObject
+      class Balance < ::Stripe::StripeObject
+        class AvailableBalance < ::Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
             def currency; end
@@ -35,8 +35,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class LedgerBalance < Stripe::StripeObject
-          class Monetary < Stripe::StripeObject
+        class LedgerBalance < ::Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
             def currency; end
@@ -80,7 +80,7 @@ module Stripe
       sig { returns(T::Array[Balance]) }
       def balances; end
       # The customer the balance is for.
-      sig { returns(T.any(String, Stripe::Customer)) }
+      sig { returns(T.any(String, ::Stripe::Customer)) }
       def customer; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }

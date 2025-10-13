@@ -20,7 +20,7 @@ module Stripe
         "reporting.report_run"
       end
 
-      class Parameters < Stripe::StripeObject
+      class Parameters < ::Stripe::StripeObject
         # The set of output columns requested for inclusion in the report run.
         attr_reader :columns
         # Connected account ID by which to filter the report run.

@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Radar
-    class ValueListItemCreateParams < Stripe::RequestParams
+    class ValueListItemCreateParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end

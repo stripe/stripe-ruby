@@ -3,10 +3,10 @@
 
 module Stripe
   module Checkout
-    class SessionUpdateParams < Stripe::RequestParams
-      class CollectedInformation < Stripe::RequestParams
-        class ShippingDetails < Stripe::RequestParams
-          class Address < Stripe::RequestParams
+    class SessionUpdateParams < ::Stripe::RequestParams
+      class CollectedInformation < ::Stripe::RequestParams
+        class ShippingDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -54,10 +54,10 @@ module Stripe
         end
       end
 
-      class ShippingOption < Stripe::RequestParams
-        class ShippingRateData < Stripe::RequestParams
-          class DeliveryEstimate < Stripe::RequestParams
-            class Maximum < Stripe::RequestParams
+      class ShippingOption < ::Stripe::RequestParams
+        class ShippingRateData < ::Stripe::RequestParams
+          class DeliveryEstimate < ::Stripe::RequestParams
+            class Maximum < ::Stripe::RequestParams
               # A unit of time.
               attr_accessor :unit
               # Must be greater than 0.
@@ -69,7 +69,7 @@ module Stripe
               end
             end
 
-            class Minimum < Stripe::RequestParams
+            class Minimum < ::Stripe::RequestParams
               # A unit of time.
               attr_accessor :unit
               # Must be greater than 0.
@@ -91,8 +91,8 @@ module Stripe
             end
           end
 
-          class FixedAmount < Stripe::RequestParams
-            class CurrencyOptions < Stripe::RequestParams
+          class FixedAmount < ::Stripe::RequestParams
+            class CurrencyOptions < ::Stripe::RequestParams
               # A non-negative integer in cents representing how much to charge.
               attr_accessor :amount
               # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.

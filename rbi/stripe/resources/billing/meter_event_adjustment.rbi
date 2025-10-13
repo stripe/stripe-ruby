@@ -6,7 +6,7 @@ module Stripe
   module Billing
     # A billing meter event adjustment is a resource that allows you to cancel a meter event. For example, you might create a billing meter event adjustment to cancel a meter event that was created in error or attached to the wrong customer.
     class MeterEventAdjustment < APIResource
-      class Cancel < Stripe::StripeObject
+      class Cancel < ::Stripe::StripeObject
         # Unique identifier for the event.
         sig { returns(T.nilable(String)) }
         def identifier; end
@@ -37,7 +37,7 @@ module Stripe
       def type; end
       # Creates a billing meter event adjustment.
       sig {
-        params(params: T.any(::Stripe::Billing::MeterEventAdjustmentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::MeterEventAdjustment)
+        params(params: T.any(::Stripe::Billing::MeterEventAdjustmentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::MeterEventAdjustment)
        }
       def self.create(params = {}, opts = {}); end
     end

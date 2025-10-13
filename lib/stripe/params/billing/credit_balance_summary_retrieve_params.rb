@@ -3,10 +3,10 @@
 
 module Stripe
   module Billing
-    class CreditBalanceSummaryRetrieveParams < Stripe::RequestParams
-      class Filter < Stripe::RequestParams
-        class ApplicabilityScope < Stripe::RequestParams
-          class Price < Stripe::RequestParams
+    class CreditBalanceSummaryRetrieveParams < ::Stripe::RequestParams
+      class Filter < ::Stripe::RequestParams
+        class ApplicabilityScope < ::Stripe::RequestParams
+          class Price < ::Stripe::RequestParams
             # The price ID this credit grant should apply to.
             attr_accessor :id
 

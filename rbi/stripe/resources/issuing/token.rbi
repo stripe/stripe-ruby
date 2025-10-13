@@ -6,8 +6,8 @@ module Stripe
   module Issuing
     # An issuing token object is created when an issued card is added to a digital wallet. As a [card issuer](https://stripe.com/docs/issuing), you can [view and manage these tokens](https://stripe.com/docs/issuing/controls/token-management) through Stripe.
     class Token < APIResource
-      class NetworkData < Stripe::StripeObject
-        class Device < Stripe::StripeObject
+      class NetworkData < ::Stripe::StripeObject
+        class Device < ::Stripe::StripeObject
           # An obfuscated ID derived from the device ID.
           sig { returns(T.nilable(String)) }
           def device_fingerprint; end
@@ -33,7 +33,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Mastercard < Stripe::StripeObject
+        class Mastercard < ::Stripe::StripeObject
           # A unique reference ID from MasterCard to represent the card account number.
           sig { returns(T.nilable(String)) }
           def card_reference_id; end
@@ -53,7 +53,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Visa < Stripe::StripeObject
+        class Visa < ::Stripe::StripeObject
           # A unique reference ID from Visa to represent the card account number.
           sig { returns(String) }
           def card_reference_id; end
@@ -73,8 +73,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class WalletProvider < Stripe::StripeObject
-          class CardholderAddress < Stripe::StripeObject
+        class WalletProvider < ::Stripe::StripeObject
+          class CardholderAddress < ::Stripe::StripeObject
             # The street address of the cardholder tokenizing the card.
             sig { returns(String) }
             def line1; end
@@ -153,7 +153,7 @@ module Stripe
         end
       end
       # Card associated with this token.
-      sig { returns(T.any(String, Stripe::Issuing::Card)) }
+      sig { returns(T.any(String, ::Stripe::Issuing::Card)) }
       def card; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -190,13 +190,13 @@ module Stripe
       def wallet_provider; end
       # Lists all Issuing Token objects for a given card.
       sig {
-        params(params: T.any(::Stripe::Issuing::TokenListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Issuing::TokenListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
       # Attempts to update the specified Issuing Token object to the status specified.
       sig {
-        params(token: String, params: T.any(::Stripe::Issuing::TokenUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Token)
+        params(token: String, params: T.any(::Stripe::Issuing::TokenUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Token)
        }
       def self.update(token, params = {}, opts = {}); end
     end

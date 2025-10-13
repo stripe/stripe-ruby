@@ -7,8 +7,8 @@ module Stripe
     module Core
       # Set up an event destination to receive events from Stripe across multiple destination types, including [webhook endpoints](https://docs.stripe.com/webhooks) and [Amazon EventBridge](https://docs.stripe.com/event-destinations/eventbridge). Event destinations support receiving [thin events](https://docs.stripe.com/api/v2/events) and [snapshot events](https://docs.stripe.com/api/events).
       class EventDestination < APIResource
-        class StatusDetails < Stripe::StripeObject
-          class Disabled < Stripe::StripeObject
+        class StatusDetails < ::Stripe::StripeObject
+          class Disabled < ::Stripe::StripeObject
             # Reason event destination has been disabled.
             sig { returns(String) }
             def reason; end
@@ -29,7 +29,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class AmazonEventbridge < Stripe::StripeObject
+        class AmazonEventbridge < ::Stripe::StripeObject
           # The AWS account ID.
           sig { returns(String) }
           def aws_account_id; end
@@ -46,7 +46,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class WebhookEndpoint < Stripe::StripeObject
+        class WebhookEndpoint < ::Stripe::StripeObject
           # The signing secret of the webhook endpoint, only includable on creation.
           sig { returns(T.nilable(String)) }
           def signing_secret; end

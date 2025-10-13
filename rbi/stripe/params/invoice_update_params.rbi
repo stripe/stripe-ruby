@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class InvoiceUpdateParams < Stripe::RequestParams
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+  class InvoiceUpdateParams < ::Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
         def account; end
@@ -36,7 +36,7 @@ module Stripe
        }
       def initialize(enabled: nil, liability: nil); end
     end
-    class CustomField < Stripe::RequestParams
+    class CustomField < ::Stripe::RequestParams
       # The name of the custom field. This may be up to 40 characters.
       sig { returns(String) }
       def name; end
@@ -50,7 +50,7 @@ module Stripe
       sig { params(name: String, value: String).void }
       def initialize(name: nil, value: nil); end
     end
-    class Discount < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       sig { returns(T.nilable(String)) }
       def coupon; end
@@ -71,7 +71,7 @@ module Stripe
        }
       def initialize(coupon: nil, discount: nil, promotion_code: nil); end
     end
-    class Issuer < Stripe::RequestParams
+    class Issuer < ::Stripe::RequestParams
       # The connected account being referenced when `type` is `account`.
       sig { returns(T.nilable(String)) }
       def account; end
@@ -85,10 +85,10 @@ module Stripe
       sig { params(account: T.nilable(String), type: String).void }
       def initialize(account: nil, type: nil); end
     end
-    class PaymentSettings < Stripe::RequestParams
-      class PaymentMethodOptions < Stripe::RequestParams
-        class AcssDebit < Stripe::RequestParams
-          class MandateOptions < Stripe::RequestParams
+    class PaymentSettings < ::Stripe::RequestParams
+      class PaymentMethodOptions < ::Stripe::RequestParams
+        class AcssDebit < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
             # Transaction type of the mandate.
             sig { returns(T.nilable(String)) }
             def transaction_type; end
@@ -116,7 +116,7 @@ module Stripe
            }
           def initialize(mandate_options: nil, verification_method: nil); end
         end
-        class Bancontact < Stripe::RequestParams
+        class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(T.nilable(String)) }
           def preferred_language; end
@@ -125,9 +125,9 @@ module Stripe
           sig { params(preferred_language: T.nilable(String)).void }
           def initialize(preferred_language: nil); end
         end
-        class Card < Stripe::RequestParams
-          class Installments < Stripe::RequestParams
-            class Plan < Stripe::RequestParams
+        class Card < ::Stripe::RequestParams
+          class Installments < ::Stripe::RequestParams
+            class Plan < ::Stripe::RequestParams
               # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
               sig { returns(T.nilable(Integer)) }
               def count; end
@@ -190,9 +190,9 @@ module Stripe
            }
           def initialize(installments: nil, request_three_d_secure: nil); end
         end
-        class CustomerBalance < Stripe::RequestParams
-          class BankTransfer < Stripe::RequestParams
-            class EuBankTransfer < Stripe::RequestParams
+        class CustomerBalance < ::Stripe::RequestParams
+          class BankTransfer < ::Stripe::RequestParams
+            class EuBankTransfer < ::Stripe::RequestParams
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               sig { returns(String) }
               def country; end
@@ -239,11 +239,11 @@ module Stripe
            }
           def initialize(bank_transfer: nil, funding_type: nil); end
         end
-        class Konbini < Stripe::RequestParams; end
-        class SepaDebit < Stripe::RequestParams; end
-        class UsBankAccount < Stripe::RequestParams
-          class FinancialConnections < Stripe::RequestParams
-            class Filters < Stripe::RequestParams
+        class Konbini < ::Stripe::RequestParams; end
+        class SepaDebit < ::Stripe::RequestParams; end
+        class UsBankAccount < ::Stripe::RequestParams
+          class FinancialConnections < ::Stripe::RequestParams
+            class Filters < ::Stripe::RequestParams
               # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
               sig { returns(T.nilable(T::Array[String])) }
               def account_subcategories; end
@@ -405,8 +405,8 @@ module Stripe
         payment_method_types: nil
       ); end
     end
-    class Rendering < Stripe::RequestParams
-      class Pdf < Stripe::RequestParams
+    class Rendering < ::Stripe::RequestParams
+      class Pdf < ::Stripe::RequestParams
         # Page size for invoice PDF. Can be set to `a4`, `letter`, or `auto`.
         #  If set to `auto`, invoice PDF page size defaults to `a4` for customers with
         #  Japanese locale and `letter` for customers with other locales.
@@ -448,10 +448,10 @@ module Stripe
        }
       def initialize(amount_tax_display: nil, pdf: nil, template: nil, template_version: nil); end
     end
-    class ShippingCost < Stripe::RequestParams
-      class ShippingRateData < Stripe::RequestParams
-        class DeliveryEstimate < Stripe::RequestParams
-          class Maximum < Stripe::RequestParams
+    class ShippingCost < ::Stripe::RequestParams
+      class ShippingRateData < ::Stripe::RequestParams
+        class DeliveryEstimate < ::Stripe::RequestParams
+          class Maximum < ::Stripe::RequestParams
             # A unit of time.
             sig { returns(String) }
             def unit; end
@@ -465,7 +465,7 @@ module Stripe
             sig { params(unit: String, value: Integer).void }
             def initialize(unit: nil, value: nil); end
           end
-          class Minimum < Stripe::RequestParams
+          class Minimum < ::Stripe::RequestParams
             # A unit of time.
             sig { returns(String) }
             def unit; end
@@ -502,8 +502,8 @@ module Stripe
            }
           def initialize(maximum: nil, minimum: nil); end
         end
-        class FixedAmount < Stripe::RequestParams
-          class CurrencyOptions < Stripe::RequestParams
+        class FixedAmount < ::Stripe::RequestParams
+          class CurrencyOptions < ::Stripe::RequestParams
             # A non-negative integer in cents representing how much to charge.
             sig { returns(Integer) }
             def amount; end
@@ -614,8 +614,8 @@ module Stripe
        }
       def initialize(shipping_rate: nil, shipping_rate_data: nil); end
     end
-    class ShippingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class ShippingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -680,7 +680,7 @@ module Stripe
        }
       def initialize(address: nil, name: nil, phone: nil); end
     end
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred.
       sig { returns(T.nilable(Integer)) }
       def amount; end

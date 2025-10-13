@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class FileLinkCreateParams < Stripe::RequestParams
+  class FileLinkCreateParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # The link isn't usable after this future timestamp.

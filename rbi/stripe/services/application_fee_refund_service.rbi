@@ -14,19 +14,19 @@ module Stripe
     # This method will raise an error when called on an already-refunded application fee,
     # or when trying to refund more money than is left on an application fee.
     sig {
-      params(id: String, params: T.any(::Stripe::ApplicationFeeRefundCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ApplicationFeeRefund)
+      params(id: String, params: T.any(::Stripe::ApplicationFeeRefundCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplicationFeeRefund)
      }
     def create(id, params = {}, opts = {}); end
 
     # You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
     sig {
-      params(id: String, params: T.any(::Stripe::ApplicationFeeRefundListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::ApplicationFeeRefundListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list(id, params = {}, opts = {}); end
 
     # By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
     sig {
-      params(fee: String, id: String, params: T.any(::Stripe::ApplicationFeeRefundRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ApplicationFeeRefund)
+      params(fee: String, id: String, params: T.any(::Stripe::ApplicationFeeRefundRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplicationFeeRefund)
      }
     def retrieve(fee, id, params = {}, opts = {}); end
 
@@ -34,7 +34,7 @@ module Stripe
     #
     # This request only accepts metadata as an argument.
     sig {
-      params(fee: String, id: String, params: T.any(::Stripe::ApplicationFeeRefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ApplicationFeeRefund)
+      params(fee: String, id: String, params: T.any(::Stripe::ApplicationFeeRefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplicationFeeRefund)
      }
     def update(fee, id, params = {}, opts = {}); end
   end

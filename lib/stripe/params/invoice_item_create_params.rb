@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class InvoiceItemCreateParams < Stripe::RequestParams
-    class Discount < Stripe::RequestParams
+  class InvoiceItemCreateParams < ::Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -18,7 +18,7 @@ module Stripe
       end
     end
 
-    class Period < Stripe::RequestParams
+    class Period < ::Stripe::RequestParams
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       attr_accessor :end
       # The start of the period. This value is inclusive.
@@ -30,7 +30,7 @@ module Stripe
       end
     end
 
-    class PriceData < Stripe::RequestParams
+    class PriceData < ::Stripe::RequestParams
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :currency
       # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
@@ -57,7 +57,7 @@ module Stripe
       end
     end
 
-    class Pricing < Stripe::RequestParams
+    class Pricing < ::Stripe::RequestParams
       # The ID of the price object.
       attr_accessor :price
 

@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class InvoiceCreateParams < Stripe::RequestParams
-    class AutomaticTax < Stripe::RequestParams
-      class Liability < Stripe::RequestParams
+  class InvoiceCreateParams < ::Stripe::RequestParams
+    class AutomaticTax < ::Stripe::RequestParams
+      class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         attr_accessor :account
         # Type of the account referenced in the request.
@@ -26,7 +26,7 @@ module Stripe
       end
     end
 
-    class CustomField < Stripe::RequestParams
+    class CustomField < ::Stripe::RequestParams
       # The name of the custom field. This may be up to 40 characters.
       attr_accessor :name
       # The value of the custom field. This may be up to 140 characters.
@@ -38,7 +38,7 @@ module Stripe
       end
     end
 
-    class Discount < Stripe::RequestParams
+    class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
@@ -53,7 +53,7 @@ module Stripe
       end
     end
 
-    class FromInvoice < Stripe::RequestParams
+    class FromInvoice < ::Stripe::RequestParams
       # The relation between the new invoice and the original invoice. Currently, only 'revision' is permitted
       attr_accessor :action
       # The `id` of the invoice that will be cloned.
@@ -65,7 +65,7 @@ module Stripe
       end
     end
 
-    class Issuer < Stripe::RequestParams
+    class Issuer < ::Stripe::RequestParams
       # The connected account being referenced when `type` is `account`.
       attr_accessor :account
       # Type of the account referenced in the request.
@@ -77,10 +77,10 @@ module Stripe
       end
     end
 
-    class PaymentSettings < Stripe::RequestParams
-      class PaymentMethodOptions < Stripe::RequestParams
-        class AcssDebit < Stripe::RequestParams
-          class MandateOptions < Stripe::RequestParams
+    class PaymentSettings < ::Stripe::RequestParams
+      class PaymentMethodOptions < ::Stripe::RequestParams
+        class AcssDebit < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
             # Transaction type of the mandate.
             attr_accessor :transaction_type
 
@@ -99,7 +99,7 @@ module Stripe
           end
         end
 
-        class Bancontact < Stripe::RequestParams
+        class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_accessor :preferred_language
 
@@ -108,9 +108,9 @@ module Stripe
           end
         end
 
-        class Card < Stripe::RequestParams
-          class Installments < Stripe::RequestParams
-            class Plan < Stripe::RequestParams
+        class Card < ::Stripe::RequestParams
+          class Installments < ::Stripe::RequestParams
+            class Plan < ::Stripe::RequestParams
               # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
               attr_accessor :count
               # For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
@@ -149,9 +149,9 @@ module Stripe
           end
         end
 
-        class CustomerBalance < Stripe::RequestParams
-          class BankTransfer < Stripe::RequestParams
-            class EuBankTransfer < Stripe::RequestParams
+        class CustomerBalance < ::Stripe::RequestParams
+          class BankTransfer < ::Stripe::RequestParams
+            class EuBankTransfer < ::Stripe::RequestParams
               # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               attr_accessor :country
 
@@ -180,12 +180,12 @@ module Stripe
           end
         end
 
-        class Konbini < Stripe::RequestParams; end
-        class SepaDebit < Stripe::RequestParams; end
+        class Konbini < ::Stripe::RequestParams; end
+        class SepaDebit < ::Stripe::RequestParams; end
 
-        class UsBankAccount < Stripe::RequestParams
-          class FinancialConnections < Stripe::RequestParams
-            class Filters < Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
+          class FinancialConnections < ::Stripe::RequestParams
+            class Filters < ::Stripe::RequestParams
               # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
               attr_accessor :account_subcategories
 
@@ -263,8 +263,8 @@ module Stripe
       end
     end
 
-    class Rendering < Stripe::RequestParams
-      class Pdf < Stripe::RequestParams
+    class Rendering < ::Stripe::RequestParams
+      class Pdf < ::Stripe::RequestParams
         # Page size for invoice PDF. Can be set to `a4`, `letter`, or `auto`.
         #  If set to `auto`, invoice PDF page size defaults to `a4` for customers with
         #  Japanese locale and `letter` for customers with other locales.
@@ -291,10 +291,10 @@ module Stripe
       end
     end
 
-    class ShippingCost < Stripe::RequestParams
-      class ShippingRateData < Stripe::RequestParams
-        class DeliveryEstimate < Stripe::RequestParams
-          class Maximum < Stripe::RequestParams
+    class ShippingCost < ::Stripe::RequestParams
+      class ShippingRateData < ::Stripe::RequestParams
+        class DeliveryEstimate < ::Stripe::RequestParams
+          class Maximum < ::Stripe::RequestParams
             # A unit of time.
             attr_accessor :unit
             # Must be greater than 0.
@@ -306,7 +306,7 @@ module Stripe
             end
           end
 
-          class Minimum < Stripe::RequestParams
+          class Minimum < ::Stripe::RequestParams
             # A unit of time.
             attr_accessor :unit
             # Must be greater than 0.
@@ -328,8 +328,8 @@ module Stripe
           end
         end
 
-        class FixedAmount < Stripe::RequestParams
-          class CurrencyOptions < Stripe::RequestParams
+        class FixedAmount < ::Stripe::RequestParams
+          class CurrencyOptions < ::Stripe::RequestParams
             # A non-negative integer in cents representing how much to charge.
             attr_accessor :amount
             # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -397,8 +397,8 @@ module Stripe
       end
     end
 
-    class ShippingDetails < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class ShippingDetails < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -442,7 +442,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred.
       attr_accessor :amount
       # ID of an existing, connected Stripe account.

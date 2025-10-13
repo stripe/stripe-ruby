@@ -16,7 +16,7 @@ module Stripe
     #
     # Related guide: [The Verification Sessions API](https://stripe.com/docs/identity/verification-sessions)
     class VerificationSession < APIResource
-      class LastError < Stripe::StripeObject
+      class LastError < ::Stripe::StripeObject
         # A short machine-readable string giving the reason for the verification or user-session failure.
         sig { returns(T.nilable(String)) }
         def code; end
@@ -30,8 +30,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Options < Stripe::StripeObject
-        class Document < Stripe::StripeObject
+      class Options < ::Stripe::StripeObject
+        class Document < ::Stripe::StripeObject
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           sig { returns(T.nilable(T::Array[String])) }
           def allowed_types; end
@@ -51,7 +51,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Email < Stripe::StripeObject
+        class Email < ::Stripe::StripeObject
           # Request one time password verification of `provided_details.email`.
           sig { returns(T.nilable(T::Boolean)) }
           def require_verification; end
@@ -62,7 +62,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class IdNumber < Stripe::StripeObject
+        class IdNumber < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -70,7 +70,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Matching < Stripe::StripeObject
+        class Matching < ::Stripe::StripeObject
           # Strictness of the DOB matching policy to apply.
           sig { returns(T.nilable(String)) }
           def dob; end
@@ -84,7 +84,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Phone < Stripe::StripeObject
+        class Phone < ::Stripe::StripeObject
           # Request one time password verification of `provided_details.phone`.
           sig { returns(T.nilable(T::Boolean)) }
           def require_verification; end
@@ -123,7 +123,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class ProvidedDetails < Stripe::StripeObject
+      class ProvidedDetails < ::Stripe::StripeObject
         # Email of user being verified
         sig { returns(T.nilable(String)) }
         def email; end
@@ -137,7 +137,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Redaction < Stripe::StripeObject
+      class Redaction < ::Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         sig { returns(String) }
         def status; end
@@ -148,7 +148,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class RelatedPerson < Stripe::StripeObject
+      class RelatedPerson < ::Stripe::StripeObject
         # Token referencing the associated Account of the related Person resource.
         sig { returns(String) }
         def account; end
@@ -162,8 +162,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class VerifiedOutputs < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class VerifiedOutputs < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -189,7 +189,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Dob < Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           sig { returns(T.nilable(Integer)) }
           def day; end
@@ -262,7 +262,7 @@ module Stripe
       sig { returns(T.nilable(LastError)) }
       def last_error; end
       # ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://stripe.com/docs/identity/verification-sessions#results)
-      sig { returns(T.nilable(T.any(String, Stripe::Identity::VerificationReport))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationReport))) }
       def last_verification_report; end
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
@@ -307,7 +307,7 @@ module Stripe
       #
       # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def cancel(params = {}, opts = {}); end
 
@@ -315,7 +315,7 @@ module Stripe
       #
       # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def self.cancel(session, params = {}, opts = {}); end
 
@@ -327,13 +327,13 @@ module Stripe
       #
       # Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(params: T.any(::Stripe::Identity::VerificationSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of VerificationSessions
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSessionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Identity::VerificationSessionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
@@ -357,7 +357,7 @@ module Stripe
       #
       # [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def redact(params = {}, opts = {}); end
 
@@ -381,7 +381,7 @@ module Stripe
       #
       # [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def self.redact(session, params = {}, opts = {}); end
 
@@ -390,7 +390,7 @@ module Stripe
       # When the session status is requires_input, you can use this method to update the
       # verification check and options.
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def self.update(session, params = {}, opts = {}); end
     end

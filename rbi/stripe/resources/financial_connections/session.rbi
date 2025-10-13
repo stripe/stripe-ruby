@@ -6,12 +6,12 @@ module Stripe
   module FinancialConnections
     # A Financial Connections Session is the secure way to programmatically launch the client-side Stripe.js modal that lets your users link their accounts.
     class Session < APIResource
-      class AccountHolder < Stripe::StripeObject
+      class AccountHolder < ::Stripe::StripeObject
         # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
-        sig { returns(T.nilable(T.any(String, Stripe::Account))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
         def account; end
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
-        sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
         def customer; end
         # Type of account holder that this account belongs to.
         sig { returns(String) }
@@ -23,7 +23,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Filters < Stripe::StripeObject
+      class Filters < ::Stripe::StripeObject
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
         sig { returns(T.nilable(T::Array[String])) }
         def account_subcategories; end
@@ -41,7 +41,7 @@ module Stripe
       sig { returns(T.nilable(AccountHolder)) }
       def account_holder; end
       # The accounts that were collected as part of this Session.
-      sig { returns(Stripe::ListObject) }
+      sig { returns(::Stripe::ListObject) }
       def accounts; end
       # A value that will be passed to the client to launch the authentication flow.
       sig { returns(String) }
@@ -69,7 +69,7 @@ module Stripe
       def return_url; end
       # To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
       sig {
-        params(params: T.any(::Stripe::FinancialConnections::SessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FinancialConnections::Session)
+        params(params: T.any(::Stripe::FinancialConnections::SessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Session)
        }
       def self.create(params = {}, opts = {}); end
     end

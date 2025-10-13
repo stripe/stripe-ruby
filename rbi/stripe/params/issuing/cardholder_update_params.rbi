@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Issuing
-    class CardholderUpdateParams < Stripe::RequestParams
-      class Billing < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+    class CardholderUpdateParams < ::Stripe::RequestParams
+      class Billing < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(String) }
           def city; end
@@ -59,7 +59,7 @@ module Stripe
         sig { params(address: Issuing::CardholderUpdateParams::Billing::Address).void }
         def initialize(address: nil); end
       end
-      class Company < Stripe::RequestParams
+      class Company < ::Stripe::RequestParams
         # The entity's business ID number.
         sig { returns(T.nilable(String)) }
         def tax_id; end
@@ -68,9 +68,9 @@ module Stripe
         sig { params(tax_id: T.nilable(String)).void }
         def initialize(tax_id: nil); end
       end
-      class Individual < Stripe::RequestParams
-        class CardIssuing < Stripe::RequestParams
-          class UserTermsAcceptance < Stripe::RequestParams
+      class Individual < ::Stripe::RequestParams
+        class CardIssuing < ::Stripe::RequestParams
+          class UserTermsAcceptance < ::Stripe::RequestParams
             # The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
             sig { returns(T.nilable(Integer)) }
             def date; end
@@ -105,7 +105,7 @@ module Stripe
            }
           def initialize(user_terms_acceptance: nil); end
         end
-        class Dob < Stripe::RequestParams
+        class Dob < ::Stripe::RequestParams
           # The day of birth, between 1 and 31.
           sig { returns(Integer) }
           def day; end
@@ -124,8 +124,8 @@ module Stripe
           sig { params(day: Integer, month: Integer, year: Integer).void }
           def initialize(day: nil, month: nil, year: nil); end
         end
-        class Verification < Stripe::RequestParams
-          class Document < Stripe::RequestParams
+        class Verification < ::Stripe::RequestParams
+          class Document < ::Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
             sig { returns(T.nilable(String)) }
             def back; end
@@ -195,8 +195,8 @@ module Stripe
           verification: nil
         ); end
       end
-      class SpendingControls < Stripe::RequestParams
-        class SpendingLimit < Stripe::RequestParams
+      class SpendingControls < ::Stripe::RequestParams
+        class SpendingLimit < ::Stripe::RequestParams
           # Maximum amount allowed to spend per interval.
           sig { returns(Integer) }
           def amount; end

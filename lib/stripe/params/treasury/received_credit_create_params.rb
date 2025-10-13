@@ -3,9 +3,9 @@
 
 module Stripe
   module Treasury
-    class ReceivedCreditCreateParams < Stripe::RequestParams
-      class InitiatingPaymentMethodDetails < Stripe::RequestParams
-        class UsBankAccount < Stripe::RequestParams
+    class ReceivedCreditCreateParams < ::Stripe::RequestParams
+      class InitiatingPaymentMethodDetails < ::Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
           # The bank account holder's name.
           attr_accessor :account_holder_name
           # The bank account number.

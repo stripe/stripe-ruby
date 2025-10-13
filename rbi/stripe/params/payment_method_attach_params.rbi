@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentMethodAttachParams < Stripe::RequestParams
+  class PaymentMethodAttachParams < ::Stripe::RequestParams
     # The ID of the customer to which to attach the PaymentMethod.
     sig { returns(String) }
     def customer; end

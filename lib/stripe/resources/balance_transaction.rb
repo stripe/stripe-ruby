@@ -14,7 +14,7 @@ module Stripe
       "balance_transaction"
     end
 
-    class FeeDetail < Stripe::StripeObject
+    class FeeDetail < ::Stripe::StripeObject
       # Amount of the fee, in cents.
       attr_reader :amount
       # ID of the Connect application that earned the fee.

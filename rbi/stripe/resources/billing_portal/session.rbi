@@ -19,9 +19,9 @@ module Stripe
     #
     # Related guide: [Customer management](https://docs.stripe.com/customer-management)
     class Session < APIResource
-      class Flow < Stripe::StripeObject
-        class AfterCompletion < Stripe::StripeObject
-          class HostedConfirmation < Stripe::StripeObject
+      class Flow < ::Stripe::StripeObject
+        class AfterCompletion < ::Stripe::StripeObject
+          class HostedConfirmation < ::Stripe::StripeObject
             # A custom message to display to the customer after the flow is completed.
             sig { returns(T.nilable(String)) }
             def custom_message; end
@@ -32,7 +32,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Redirect < Stripe::StripeObject
+          class Redirect < ::Stripe::StripeObject
             # The URL the customer will be redirected to after the flow is completed.
             sig { returns(String) }
             def return_url; end
@@ -59,9 +59,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SubscriptionCancel < Stripe::StripeObject
-          class Retention < Stripe::StripeObject
-            class CouponOffer < Stripe::StripeObject
+        class SubscriptionCancel < ::Stripe::StripeObject
+          class Retention < ::Stripe::StripeObject
+            class CouponOffer < ::Stripe::StripeObject
               # The ID of the coupon to be offered.
               sig { returns(String) }
               def coupon; end
@@ -98,7 +98,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SubscriptionUpdate < Stripe::StripeObject
+        class SubscriptionUpdate < ::Stripe::StripeObject
           # The ID of the subscription to be updated.
           sig { returns(String) }
           def subscription; end
@@ -109,8 +109,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SubscriptionUpdateConfirm < Stripe::StripeObject
-          class Discount < Stripe::StripeObject
+        class SubscriptionUpdateConfirm < ::Stripe::StripeObject
+          class Discount < ::Stripe::StripeObject
             # The ID of the coupon to apply to this subscription update.
             sig { returns(T.nilable(String)) }
             def coupon; end
@@ -124,7 +124,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Item < Stripe::StripeObject
+          class Item < ::Stripe::StripeObject
             # The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
             sig { returns(T.nilable(String)) }
             def id; end
@@ -185,7 +185,7 @@ module Stripe
         end
       end
       # The configuration used by this session, describing the features available.
-      sig { returns(T.any(String, Stripe::BillingPortal::Configuration)) }
+      sig { returns(T.any(String, ::Stripe::BillingPortal::Configuration)) }
       def configuration; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
@@ -219,7 +219,7 @@ module Stripe
       def url; end
       # Creates a session of the customer portal.
       sig {
-        params(params: T.any(::Stripe::BillingPortal::SessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::BillingPortal::Session)
+        params(params: T.any(::Stripe::BillingPortal::SessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::BillingPortal::Session)
        }
       def self.create(params = {}, opts = {}); end
     end

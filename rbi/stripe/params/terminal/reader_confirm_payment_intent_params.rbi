@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Terminal
-    class ReaderConfirmPaymentIntentParams < Stripe::RequestParams
-      class ConfirmConfig < Stripe::RequestParams
+    class ReaderConfirmPaymentIntentParams < ::Stripe::RequestParams
+      class ConfirmConfig < ::Stripe::RequestParams
         # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         sig { returns(T.nilable(String)) }
         def return_url; end

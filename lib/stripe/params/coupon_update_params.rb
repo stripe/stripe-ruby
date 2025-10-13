@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CouponUpdateParams < Stripe::RequestParams
-    class CurrencyOptions < Stripe::RequestParams
+  class CouponUpdateParams < ::Stripe::RequestParams
+    class CurrencyOptions < ::Stripe::RequestParams
       # A positive integer representing the amount to subtract from an invoice total.
       attr_accessor :amount_off
 

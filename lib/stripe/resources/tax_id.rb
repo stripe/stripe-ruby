@@ -16,7 +16,7 @@ module Stripe
       "tax_id"
     end
 
-    class Owner < Stripe::StripeObject
+    class Owner < ::Stripe::StripeObject
       # The account being referenced when `type` is `account`.
       attr_reader :account
       # The Connect Application being referenced when `type` is `application`.
@@ -35,7 +35,7 @@ module Stripe
       end
     end
 
-    class Verification < Stripe::StripeObject
+    class Verification < ::Stripe::StripeObject
       # Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
       attr_reader :status
       # Verified address.

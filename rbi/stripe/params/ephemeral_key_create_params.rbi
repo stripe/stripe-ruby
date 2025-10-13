@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class EphemeralKeyCreateParams < Stripe::RequestParams
+  class EphemeralKeyCreateParams < ::Stripe::RequestParams
     # The ID of the Customer you'd like to modify using the resulting ephemeral key.
     sig { returns(T.nilable(String)) }
     def customer; end

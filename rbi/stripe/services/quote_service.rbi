@@ -8,31 +8,31 @@ module Stripe
     attr_reader :line_items
     # Accepts the specified quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteAcceptParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::QuoteAcceptParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def accept(quote, params = {}, opts = {}); end
 
     # Cancels the quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::QuoteCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def cancel(quote, params = {}, opts = {}); end
 
     # A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
     sig {
-      params(params: T.any(::Stripe::QuoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(params: T.any(::Stripe::QuoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def create(params = {}, opts = {}); end
 
     # Finalizes the quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteFinalizeQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::QuoteFinalizeQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def finalize_quote(quote, params = {}, opts = {}); end
 
     # Returns a list of your quotes.
     sig {
-      params(params: T.any(::Stripe::QuoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::QuoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list(params = {}, opts = {}); end
 
@@ -44,13 +44,13 @@ module Stripe
 
     # Retrieves the quote with the given ID.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::QuoteRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def retrieve(quote, params = {}, opts = {}); end
 
     # A quote models prices and services for a customer.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::QuoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
     def update(quote, params = {}, opts = {}); end
   end

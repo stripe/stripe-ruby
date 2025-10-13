@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Core
-      class EventDestinationPingParams < Stripe::RequestParams; end
+      class EventDestinationPingParams < ::Stripe::RequestParams; end
     end
   end
 end

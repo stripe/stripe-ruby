@@ -14,8 +14,8 @@ module Stripe
       "setup_attempt"
     end
 
-    class PaymentMethodDetails < Stripe::StripeObject
-      class AcssDebit < Stripe::StripeObject
+    class PaymentMethodDetails < ::Stripe::StripeObject
+      class AcssDebit < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -25,7 +25,7 @@ module Stripe
         end
       end
 
-      class AmazonPay < Stripe::StripeObject
+      class AmazonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -35,7 +35,7 @@ module Stripe
         end
       end
 
-      class AuBecsDebit < Stripe::StripeObject
+      class AuBecsDebit < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -45,7 +45,7 @@ module Stripe
         end
       end
 
-      class BacsDebit < Stripe::StripeObject
+      class BacsDebit < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -55,7 +55,7 @@ module Stripe
         end
       end
 
-      class Bancontact < Stripe::StripeObject
+      class Bancontact < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         attr_reader :bank_code
         # Name of the bank associated with the bank account.
@@ -84,7 +84,7 @@ module Stripe
         end
       end
 
-      class Boleto < Stripe::StripeObject
+      class Boleto < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -94,8 +94,8 @@ module Stripe
         end
       end
 
-      class Card < Stripe::StripeObject
-        class Checks < Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class Checks < ::Stripe::StripeObject
           # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_line1_check
           # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -112,7 +112,7 @@ module Stripe
           end
         end
 
-        class ThreeDSecure < Stripe::StripeObject
+        class ThreeDSecure < ::Stripe::StripeObject
           # For authenticated transactions: how the customer was authenticated by
           # the issuing bank.
           attr_reader :authentication_flow
@@ -139,8 +139,8 @@ module Stripe
           end
         end
 
-        class Wallet < Stripe::StripeObject
-          class ApplePay < Stripe::StripeObject
+        class Wallet < ::Stripe::StripeObject
+          class ApplePay < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -150,7 +150,7 @@ module Stripe
             end
           end
 
-          class GooglePay < Stripe::StripeObject
+          class GooglePay < ::Stripe::StripeObject
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -214,8 +214,8 @@ module Stripe
         end
       end
 
-      class CardPresent < Stripe::StripeObject
-        class Offline < Stripe::StripeObject
+      class CardPresent < ::Stripe::StripeObject
+        class Offline < ::Stripe::StripeObject
           # Time at which the payment was collected while offline
           attr_reader :stored_at
           # The method used to process this payment method offline. Only deferred is allowed.
@@ -243,7 +243,7 @@ module Stripe
         end
       end
 
-      class Cashapp < Stripe::StripeObject
+      class Cashapp < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -253,7 +253,7 @@ module Stripe
         end
       end
 
-      class Ideal < Stripe::StripeObject
+      class Ideal < ::Stripe::StripeObject
         # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         attr_reader :bank
         # The Bank Identifier Code of the customer's bank.
@@ -277,7 +277,7 @@ module Stripe
         end
       end
 
-      class KakaoPay < Stripe::StripeObject
+      class KakaoPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -287,7 +287,7 @@ module Stripe
         end
       end
 
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -297,7 +297,7 @@ module Stripe
         end
       end
 
-      class KrCard < Stripe::StripeObject
+      class KrCard < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -307,7 +307,7 @@ module Stripe
         end
       end
 
-      class Link < Stripe::StripeObject
+      class Link < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -317,7 +317,7 @@ module Stripe
         end
       end
 
-      class NaverPay < Stripe::StripeObject
+      class NaverPay < ::Stripe::StripeObject
         # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
         attr_reader :buyer_id
 
@@ -330,7 +330,7 @@ module Stripe
         end
       end
 
-      class NzBankAccount < Stripe::StripeObject
+      class NzBankAccount < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -340,7 +340,7 @@ module Stripe
         end
       end
 
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -350,7 +350,7 @@ module Stripe
         end
       end
 
-      class RevolutPay < Stripe::StripeObject
+      class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -360,7 +360,7 @@ module Stripe
         end
       end
 
-      class SepaDebit < Stripe::StripeObject
+      class SepaDebit < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -370,7 +370,7 @@ module Stripe
         end
       end
 
-      class Sofort < Stripe::StripeObject
+      class Sofort < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         attr_reader :bank_code
         # Name of the bank associated with the bank account.
@@ -399,7 +399,7 @@ module Stripe
         end
       end
 
-      class UsBankAccount < Stripe::StripeObject
+      class UsBankAccount < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -484,7 +484,7 @@ module Stripe
       end
     end
 
-    class SetupError < Stripe::StripeObject
+    class SetupError < ::Stripe::StripeObject
       # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
       attr_reader :advice_code
       # For card errors, the ID of the failed charge.

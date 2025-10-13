@@ -12,8 +12,8 @@ module Stripe
   #
   # Related guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
   class InvoiceItem < APIResource
-    class Parent < Stripe::StripeObject
-      class SubscriptionDetails < Stripe::StripeObject
+    class Parent < ::Stripe::StripeObject
+      class SubscriptionDetails < ::Stripe::StripeObject
         # The subscription that generated this invoice item
         sig { returns(String) }
         def subscription; end
@@ -40,7 +40,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Period < Stripe::StripeObject
+    class Period < ::Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       sig { returns(Integer) }
       def end; end
@@ -54,8 +54,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Pricing < Stripe::StripeObject
-      class PriceDetails < Stripe::StripeObject
+    class Pricing < ::Stripe::StripeObject
+      class PriceDetails < ::Stripe::StripeObject
         # The ID of the price this item is associated with.
         sig { returns(String) }
         def price; end
@@ -85,13 +85,13 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class ProrationDetails < Stripe::StripeObject
-      class DiscountAmount < Stripe::StripeObject
+    class ProrationDetails < ::Stripe::StripeObject
+      class DiscountAmount < ::Stripe::StripeObject
         # The amount, in cents (or local equivalent), of the discount.
         sig { returns(Integer) }
         def amount; end
         # The discount that was applied to get this discount amount.
-        sig { returns(T.any(String, Stripe::Discount)) }
+        sig { returns(T.any(String, ::Stripe::Discount)) }
         def discount; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -117,7 +117,7 @@ module Stripe
     sig { returns(String) }
     def currency; end
     # The ID of the customer who will be billed when this invoice item is billed.
-    sig { returns(T.any(String, Stripe::Customer)) }
+    sig { returns(T.any(String, ::Stripe::Customer)) }
     def customer; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
@@ -129,13 +129,13 @@ module Stripe
     sig { returns(T::Boolean) }
     def discountable; end
     # The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
-    sig { returns(T.nilable(T::Array[T.any(String, Stripe::Discount)])) }
+    sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Discount)])) }
     def discounts; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
     # The ID of the invoice this invoice item belongs to.
-    sig { returns(T.nilable(T.any(String, Stripe::Invoice))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def invoice; end
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
@@ -168,41 +168,41 @@ module Stripe
     sig { returns(Integer) }
     def quantity; end
     # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
-    sig { returns(T.nilable(T::Array[Stripe::TaxRate])) }
+    sig { returns(T.nilable(T::Array[::Stripe::TaxRate])) }
     def tax_rates; end
     # ID of the test clock this invoice item belongs to.
-    sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
     # Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
     sig {
-      params(params: T.any(::Stripe::InvoiceItemCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::InvoiceItem)
+      params(params: T.any(::Stripe::InvoiceItemCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)
      }
     def self.create(params = {}, opts = {}); end
 
     # Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
     sig {
-      params(invoiceitem: String, params: T.any(::Stripe::InvoiceItemDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::InvoiceItem)
+      params(invoiceitem: String, params: T.any(::Stripe::InvoiceItemDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)
      }
     def self.delete(invoiceitem, params = {}, opts = {}); end
 
     # Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
     sig {
-      params(params: T.any(::Stripe::InvoiceItemDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::InvoiceItem)
+      params(params: T.any(::Stripe::InvoiceItemDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)
      }
     def delete(params = {}, opts = {}); end
 
     # Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
     sig {
-      params(params: T.any(::Stripe::InvoiceItemListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::InvoiceItemListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
     sig {
-      params(invoiceitem: String, params: T.any(::Stripe::InvoiceItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::InvoiceItem)
+      params(invoiceitem: String, params: T.any(::Stripe::InvoiceItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)
      }
     def self.update(invoiceitem, params = {}, opts = {}); end
   end

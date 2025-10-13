@@ -3,8 +3,8 @@
 
 module Stripe
   module Terminal
-    class ReaderPresentPaymentMethodParams < Stripe::RequestParams
-      class Card < Stripe::RequestParams
+    class ReaderPresentPaymentMethodParams < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
         # Card security code.
         attr_accessor :cvc
         # Two-digit number representing the card's expiration month.
@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      class CardPresent < Stripe::RequestParams
+      class CardPresent < ::Stripe::RequestParams
         # The card number, as a string without any separators.
         attr_accessor :number
 
@@ -31,7 +31,7 @@ module Stripe
         end
       end
 
-      class InteracPresent < Stripe::RequestParams
+      class InteracPresent < ::Stripe::RequestParams
         # Card Number
         attr_accessor :number
 

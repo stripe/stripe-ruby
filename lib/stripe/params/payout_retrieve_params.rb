@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PayoutRetrieveParams < Stripe::RequestParams
+  class PayoutRetrieveParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
 

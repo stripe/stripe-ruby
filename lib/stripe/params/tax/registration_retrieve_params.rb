@@ -3,7 +3,7 @@
 
 module Stripe
   module Tax
-    class RegistrationRetrieveParams < Stripe::RequestParams
+    class RegistrationRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

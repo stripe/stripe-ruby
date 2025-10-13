@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class ApplePayDomainCreateParams < Stripe::RequestParams
+  class ApplePayDomainCreateParams < ::Stripe::RequestParams
     # Attribute for param field domain_name
     sig { returns(String) }
     def domain_name; end

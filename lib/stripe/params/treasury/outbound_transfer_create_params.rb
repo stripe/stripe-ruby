@@ -3,8 +3,8 @@
 
 module Stripe
   module Treasury
-    class OutboundTransferCreateParams < Stripe::RequestParams
-      class DestinationPaymentMethodData < Stripe::RequestParams
+    class OutboundTransferCreateParams < ::Stripe::RequestParams
+      class DestinationPaymentMethodData < ::Stripe::RequestParams
         # Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
         attr_accessor :financial_account
         # The type of the destination.
@@ -16,8 +16,8 @@ module Stripe
         end
       end
 
-      class DestinationPaymentMethodOptions < Stripe::RequestParams
-        class UsBankAccount < Stripe::RequestParams
+      class DestinationPaymentMethodOptions < ::Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
           # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           attr_accessor :network
 

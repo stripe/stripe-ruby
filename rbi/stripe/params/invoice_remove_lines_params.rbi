@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class InvoiceRemoveLinesParams < Stripe::RequestParams
-    class Line < Stripe::RequestParams
+  class InvoiceRemoveLinesParams < ::Stripe::RequestParams
+    class Line < ::Stripe::RequestParams
       # Either `delete` or `unassign`. Deleted line items are permanently deleted. Unassigned line items can be reassigned to an invoice.
       sig { returns(String) }
       def behavior; end

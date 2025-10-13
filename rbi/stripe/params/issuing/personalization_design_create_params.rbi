@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Issuing
-    class PersonalizationDesignCreateParams < Stripe::RequestParams
-      class CarrierText < Stripe::RequestParams
+    class PersonalizationDesignCreateParams < ::Stripe::RequestParams
+      class CarrierText < ::Stripe::RequestParams
         # The footer body text of the carrier letter.
         sig { returns(T.nilable(String)) }
         def footer_body; end
@@ -36,7 +36,7 @@ module Stripe
           header_title: nil
         ); end
       end
-      class Preferences < Stripe::RequestParams
+      class Preferences < ::Stripe::RequestParams
         # Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
         sig { returns(T::Boolean) }
         def is_default; end

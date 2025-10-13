@@ -3,7 +3,7 @@
 
 module Stripe
   module Forwarding
-    class RequestRetrieveParams < Stripe::RequestParams
+    class RequestRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

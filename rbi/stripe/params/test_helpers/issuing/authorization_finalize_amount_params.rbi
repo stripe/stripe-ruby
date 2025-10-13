@@ -5,9 +5,9 @@
 module Stripe
   module TestHelpers
     module Issuing
-      class AuthorizationFinalizeAmountParams < Stripe::RequestParams
-        class Fleet < Stripe::RequestParams
-          class CardholderPromptData < Stripe::RequestParams
+      class AuthorizationFinalizeAmountParams < ::Stripe::RequestParams
+        class Fleet < ::Stripe::RequestParams
+          class CardholderPromptData < ::Stripe::RequestParams
             # Driver ID.
             sig { returns(T.nilable(String)) }
             def driver_id; end
@@ -44,8 +44,8 @@ module Stripe
               vehicle_number: nil
             ); end
           end
-          class ReportedBreakdown < Stripe::RequestParams
-            class Fuel < Stripe::RequestParams
+          class ReportedBreakdown < ::Stripe::RequestParams
+            class Fuel < ::Stripe::RequestParams
               # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(String)) }
               def gross_amount_decimal; end
@@ -54,7 +54,7 @@ module Stripe
               sig { params(gross_amount_decimal: T.nilable(String)).void }
               def initialize(gross_amount_decimal: nil); end
             end
-            class NonFuel < Stripe::RequestParams
+            class NonFuel < ::Stripe::RequestParams
               # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
               sig { returns(T.nilable(String)) }
               def gross_amount_decimal; end
@@ -63,7 +63,7 @@ module Stripe
               sig { params(gross_amount_decimal: T.nilable(String)).void }
               def initialize(gross_amount_decimal: nil); end
             end
-            class Tax < Stripe::RequestParams
+            class Tax < ::Stripe::RequestParams
               # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
               sig { returns(T.nilable(String)) }
               def local_amount_decimal; end
@@ -149,7 +149,7 @@ module Stripe
             service_type: nil
           ); end
         end
-        class Fuel < Stripe::RequestParams
+        class Fuel < ::Stripe::RequestParams
           # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
           sig { returns(T.nilable(String)) }
           def industry_product_code; end

@@ -3,7 +3,7 @@
 
 module Stripe
   module Treasury
-    class OutboundPaymentCancelParams < Stripe::RequestParams
+    class OutboundPaymentCancelParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

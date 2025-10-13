@@ -28,7 +28,7 @@ module Stripe
       "event"
     end
 
-    class Data < Stripe::StripeObject
+    class Data < ::Stripe::StripeObject
       # Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
       attr_reader :object
       # Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
@@ -43,7 +43,7 @@ module Stripe
       end
     end
 
-    class Request < Stripe::StripeObject
+    class Request < ::Stripe::StripeObject
       # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
       attr_reader :id
       # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.

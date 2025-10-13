@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class CouponCreateParams < Stripe::RequestParams
-    class AppliesTo < Stripe::RequestParams
+  class CouponCreateParams < ::Stripe::RequestParams
+    class AppliesTo < ::Stripe::RequestParams
       # An array of Product IDs that this Coupon will apply to.
       sig { returns(T.nilable(T::Array[String])) }
       def products; end
@@ -13,7 +13,7 @@ module Stripe
       sig { params(products: T.nilable(T::Array[String])).void }
       def initialize(products: nil); end
     end
-    class CurrencyOptions < Stripe::RequestParams
+    class CurrencyOptions < ::Stripe::RequestParams
       # A positive integer representing the amount to subtract from an invoice total.
       sig { returns(Integer) }
       def amount_off; end

@@ -19,8 +19,8 @@ module Stripe
       "price"
     end
 
-    class CurrencyOptions < Stripe::StripeObject
-      class CustomUnitAmount < Stripe::StripeObject
+    class CurrencyOptions < ::Stripe::StripeObject
+      class CustomUnitAmount < ::Stripe::StripeObject
         # The maximum unit amount the customer can specify for this item.
         attr_reader :maximum
         # The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
@@ -37,7 +37,7 @@ module Stripe
         end
       end
 
-      class Tier < Stripe::StripeObject
+      class Tier < ::Stripe::StripeObject
         # Price for the entire tier.
         attr_reader :flat_amount
         # Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
@@ -77,7 +77,7 @@ module Stripe
       end
     end
 
-    class CustomUnitAmount < Stripe::StripeObject
+    class CustomUnitAmount < ::Stripe::StripeObject
       # The maximum unit amount the customer can specify for this item.
       attr_reader :maximum
       # The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
@@ -94,7 +94,7 @@ module Stripe
       end
     end
 
-    class Recurring < Stripe::StripeObject
+    class Recurring < ::Stripe::StripeObject
       # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
       attr_reader :interval
       # The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months.
@@ -115,7 +115,7 @@ module Stripe
       end
     end
 
-    class Tier < Stripe::StripeObject
+    class Tier < ::Stripe::StripeObject
       # Price for the entire tier.
       attr_reader :flat_amount
       # Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
@@ -136,7 +136,7 @@ module Stripe
       end
     end
 
-    class TransformQuantity < Stripe::StripeObject
+    class TransformQuantity < ::Stripe::StripeObject
       # Divide usage by this number.
       attr_reader :divide_by
       # After division, either round the result `up` or `down`.

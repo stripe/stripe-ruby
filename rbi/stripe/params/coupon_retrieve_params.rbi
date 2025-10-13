@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class CouponRetrieveParams < Stripe::RequestParams
+  class CouponRetrieveParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end

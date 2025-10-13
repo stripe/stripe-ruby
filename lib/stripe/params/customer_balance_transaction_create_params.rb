@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CustomerBalanceTransactionCreateParams < Stripe::RequestParams
+  class CustomerBalanceTransactionCreateParams < ::Stripe::RequestParams
     # The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance.
     attr_accessor :amount
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value.

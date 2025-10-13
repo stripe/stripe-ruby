@@ -15,7 +15,7 @@ module Stripe
         "climate.order"
       end
 
-      class Beneficiary < Stripe::StripeObject
+      class Beneficiary < ::Stripe::StripeObject
         # Publicly displayable name for the end beneficiary of carbon removal.
         attr_reader :public_name
 
@@ -28,8 +28,8 @@ module Stripe
         end
       end
 
-      class DeliveryDetail < Stripe::StripeObject
-        class Location < Stripe::StripeObject
+      class DeliveryDetail < ::Stripe::StripeObject
+        class Location < ::Stripe::StripeObject
           # The city where the supplier is located.
           attr_reader :city
           # Two-letter ISO code representing the country where the supplier is located.

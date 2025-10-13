@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class CustomerPaymentSourceVerifyParams < Stripe::RequestParams
+  class CustomerPaymentSourceVerifyParams < ::Stripe::RequestParams
     # Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
     sig { returns(T.nilable(T::Array[Integer])) }
     def amounts; end

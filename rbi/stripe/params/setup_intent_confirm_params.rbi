@@ -3,11 +3,11 @@
 
 # typed: true
 module Stripe
-  class SetupIntentConfirmParams < Stripe::RequestParams
-    class MandateData < Stripe::RequestParams
-      class CustomerAcceptance < Stripe::RequestParams
-        class Offline < Stripe::RequestParams; end
-        class Online < Stripe::RequestParams
+  class SetupIntentConfirmParams < ::Stripe::RequestParams
+    class MandateData < ::Stripe::RequestParams
+      class CustomerAcceptance < ::Stripe::RequestParams
+        class Offline < ::Stripe::RequestParams; end
+        class Online < ::Stripe::RequestParams
           # The IP address from which the Mandate was accepted by the customer.
           sig { returns(T.nilable(String)) }
           def ip_address; end
@@ -66,8 +66,8 @@ module Stripe
        }
       def initialize(customer_acceptance: nil); end
     end
-    class PaymentMethodData < Stripe::RequestParams
-      class AcssDebit < Stripe::RequestParams
+    class PaymentMethodData < ::Stripe::RequestParams
+      class AcssDebit < ::Stripe::RequestParams
         # Customer's bank account number.
         sig { returns(String) }
         def account_number; end
@@ -88,12 +88,12 @@ module Stripe
          }
         def initialize(account_number: nil, institution_number: nil, transit_number: nil); end
       end
-      class Affirm < Stripe::RequestParams; end
-      class AfterpayClearpay < Stripe::RequestParams; end
-      class Alipay < Stripe::RequestParams; end
-      class Alma < Stripe::RequestParams; end
-      class AmazonPay < Stripe::RequestParams; end
-      class AuBecsDebit < Stripe::RequestParams
+      class Affirm < ::Stripe::RequestParams; end
+      class AfterpayClearpay < ::Stripe::RequestParams; end
+      class Alipay < ::Stripe::RequestParams; end
+      class Alma < ::Stripe::RequestParams; end
+      class AmazonPay < ::Stripe::RequestParams; end
+      class AuBecsDebit < ::Stripe::RequestParams
         # The account number for the bank account.
         sig { returns(String) }
         def account_number; end
@@ -107,7 +107,7 @@ module Stripe
         sig { params(account_number: String, bsb_number: String).void }
         def initialize(account_number: nil, bsb_number: nil); end
       end
-      class BacsDebit < Stripe::RequestParams
+      class BacsDebit < ::Stripe::RequestParams
         # Account number of the bank account that the funds will be debited from.
         sig { returns(T.nilable(String)) }
         def account_number; end
@@ -121,10 +121,10 @@ module Stripe
         sig { params(account_number: T.nilable(String), sort_code: T.nilable(String)).void }
         def initialize(account_number: nil, sort_code: nil); end
       end
-      class Bancontact < Stripe::RequestParams; end
-      class Billie < Stripe::RequestParams; end
-      class BillingDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Bancontact < ::Stripe::RequestParams; end
+      class Billie < ::Stripe::RequestParams; end
+      class BillingDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -201,8 +201,8 @@ module Stripe
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
       end
-      class Blik < Stripe::RequestParams; end
-      class Boleto < Stripe::RequestParams
+      class Blik < ::Stripe::RequestParams; end
+      class Boleto < ::Stripe::RequestParams
         # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
         sig { returns(String) }
         def tax_id; end
@@ -211,10 +211,10 @@ module Stripe
         sig { params(tax_id: String).void }
         def initialize(tax_id: nil); end
       end
-      class Cashapp < Stripe::RequestParams; end
-      class Crypto < Stripe::RequestParams; end
-      class CustomerBalance < Stripe::RequestParams; end
-      class Eps < Stripe::RequestParams
+      class Cashapp < ::Stripe::RequestParams; end
+      class Crypto < ::Stripe::RequestParams; end
+      class CustomerBalance < ::Stripe::RequestParams; end
+      class Eps < ::Stripe::RequestParams
         # The customer's bank.
         sig { returns(T.nilable(String)) }
         def bank; end
@@ -223,7 +223,7 @@ module Stripe
         sig { params(bank: T.nilable(String)).void }
         def initialize(bank: nil); end
       end
-      class Fpx < Stripe::RequestParams
+      class Fpx < ::Stripe::RequestParams
         # Account holder type for FPX transaction
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
@@ -237,9 +237,9 @@ module Stripe
         sig { params(account_holder_type: T.nilable(String), bank: String).void }
         def initialize(account_holder_type: nil, bank: nil); end
       end
-      class Giropay < Stripe::RequestParams; end
-      class Grabpay < Stripe::RequestParams; end
-      class Ideal < Stripe::RequestParams
+      class Giropay < ::Stripe::RequestParams; end
+      class Grabpay < ::Stripe::RequestParams; end
+      class Ideal < ::Stripe::RequestParams
         # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         sig { returns(T.nilable(String)) }
         def bank; end
@@ -248,10 +248,10 @@ module Stripe
         sig { params(bank: T.nilable(String)).void }
         def initialize(bank: nil); end
       end
-      class InteracPresent < Stripe::RequestParams; end
-      class KakaoPay < Stripe::RequestParams; end
-      class Klarna < Stripe::RequestParams
-        class Dob < Stripe::RequestParams
+      class InteracPresent < ::Stripe::RequestParams; end
+      class KakaoPay < ::Stripe::RequestParams; end
+      class Klarna < ::Stripe::RequestParams
+        class Dob < ::Stripe::RequestParams
           # The day of birth, between 1 and 31.
           sig { returns(Integer) }
           def day; end
@@ -282,13 +282,13 @@ module Stripe
          }
         def initialize(dob: nil); end
       end
-      class Konbini < Stripe::RequestParams; end
-      class KrCard < Stripe::RequestParams; end
-      class Link < Stripe::RequestParams; end
-      class MbWay < Stripe::RequestParams; end
-      class Mobilepay < Stripe::RequestParams; end
-      class Multibanco < Stripe::RequestParams; end
-      class NaverPay < Stripe::RequestParams
+      class Konbini < ::Stripe::RequestParams; end
+      class KrCard < ::Stripe::RequestParams; end
+      class Link < ::Stripe::RequestParams; end
+      class MbWay < ::Stripe::RequestParams; end
+      class Mobilepay < ::Stripe::RequestParams; end
+      class Multibanco < ::Stripe::RequestParams; end
+      class NaverPay < ::Stripe::RequestParams
         # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         sig { returns(T.nilable(String)) }
         def funding; end
@@ -297,7 +297,7 @@ module Stripe
         sig { params(funding: T.nilable(String)).void }
         def initialize(funding: nil); end
       end
-      class NzBankAccount < Stripe::RequestParams
+      class NzBankAccount < ::Stripe::RequestParams
         # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
         sig { returns(T.nilable(String)) }
         def account_holder_name; end
@@ -340,8 +340,8 @@ module Stripe
           suffix: nil
         ); end
       end
-      class Oxxo < Stripe::RequestParams; end
-      class P24 < Stripe::RequestParams
+      class Oxxo < ::Stripe::RequestParams; end
+      class P24 < ::Stripe::RequestParams
         # The customer's bank.
         sig { returns(T.nilable(String)) }
         def bank; end
@@ -350,13 +350,13 @@ module Stripe
         sig { params(bank: T.nilable(String)).void }
         def initialize(bank: nil); end
       end
-      class PayByBank < Stripe::RequestParams; end
-      class Payco < Stripe::RequestParams; end
-      class Paynow < Stripe::RequestParams; end
-      class Paypal < Stripe::RequestParams; end
-      class Pix < Stripe::RequestParams; end
-      class Promptpay < Stripe::RequestParams; end
-      class RadarOptions < Stripe::RequestParams
+      class PayByBank < ::Stripe::RequestParams; end
+      class Payco < ::Stripe::RequestParams; end
+      class Paynow < ::Stripe::RequestParams; end
+      class Paypal < ::Stripe::RequestParams; end
+      class Pix < ::Stripe::RequestParams; end
+      class Promptpay < ::Stripe::RequestParams; end
+      class RadarOptions < ::Stripe::RequestParams
         # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         sig { returns(T.nilable(String)) }
         def session; end
@@ -365,10 +365,10 @@ module Stripe
         sig { params(session: T.nilable(String)).void }
         def initialize(session: nil); end
       end
-      class RevolutPay < Stripe::RequestParams; end
-      class SamsungPay < Stripe::RequestParams; end
-      class Satispay < Stripe::RequestParams; end
-      class SepaDebit < Stripe::RequestParams
+      class RevolutPay < ::Stripe::RequestParams; end
+      class SamsungPay < ::Stripe::RequestParams; end
+      class Satispay < ::Stripe::RequestParams; end
+      class SepaDebit < ::Stripe::RequestParams
         # IBAN of the bank account.
         sig { returns(String) }
         def iban; end
@@ -377,7 +377,7 @@ module Stripe
         sig { params(iban: String).void }
         def initialize(iban: nil); end
       end
-      class Sofort < Stripe::RequestParams
+      class Sofort < ::Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(String) }
         def country; end
@@ -386,9 +386,9 @@ module Stripe
         sig { params(country: String).void }
         def initialize(country: nil); end
       end
-      class Swish < Stripe::RequestParams; end
-      class Twint < Stripe::RequestParams; end
-      class UsBankAccount < Stripe::RequestParams
+      class Swish < ::Stripe::RequestParams; end
+      class Twint < ::Stripe::RequestParams; end
+      class UsBankAccount < ::Stripe::RequestParams
         # Account holder type: individual or company.
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
@@ -425,8 +425,8 @@ module Stripe
           routing_number: nil
         ); end
       end
-      class WechatPay < Stripe::RequestParams; end
-      class Zip < Stripe::RequestParams; end
+      class WechatPay < ::Stripe::RequestParams; end
+      class Zip < ::Stripe::RequestParams; end
       # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
       sig { returns(T.nilable(SetupIntentConfirmParams::PaymentMethodData::AcssDebit)) }
       def acss_debit; end
@@ -861,9 +861,9 @@ module Stripe
         zip: nil
       ); end
     end
-    class PaymentMethodOptions < Stripe::RequestParams
-      class AcssDebit < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class AcssDebit < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # A URL for custom mandate text to render during confirmation step.
           # The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
           # or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
@@ -928,9 +928,9 @@ module Stripe
          }
         def initialize(currency: nil, mandate_options: nil, verification_method: nil); end
       end
-      class AmazonPay < Stripe::RequestParams; end
-      class BacsDebit < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+      class AmazonPay < ::Stripe::RequestParams; end
+      class BacsDebit < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           sig { returns(T.nilable(String)) }
           def reference_prefix; end
@@ -953,8 +953,8 @@ module Stripe
          }
         def initialize(mandate_options: nil); end
       end
-      class Card < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # Amount to be charged for future payments.
           sig { returns(Integer) }
           def amount; end
@@ -1023,9 +1023,9 @@ module Stripe
             supported_types: nil
           ); end
         end
-        class ThreeDSecure < Stripe::RequestParams
-          class NetworkOptions < Stripe::RequestParams
-            class CartesBancaires < Stripe::RequestParams
+        class ThreeDSecure < ::Stripe::RequestParams
+          class NetworkOptions < ::Stripe::RequestParams
+            class CartesBancaires < ::Stripe::RequestParams
               # The cryptogram calculation algorithm used by the card Issuer's ACS
               # to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
               # messageExtension: CB-AVALGO
@@ -1177,9 +1177,9 @@ module Stripe
           three_d_secure: nil
         ); end
       end
-      class CardPresent < Stripe::RequestParams; end
-      class Klarna < Stripe::RequestParams
-        class OnDemand < Stripe::RequestParams
+      class CardPresent < ::Stripe::RequestParams; end
+      class Klarna < ::Stripe::RequestParams
+        class OnDemand < ::Stripe::RequestParams
           # Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
           sig { returns(T.nilable(Integer)) }
           def average_amount; end
@@ -1216,8 +1216,8 @@ module Stripe
             purchase_interval_count: nil
           ); end
         end
-        class Subscription < Stripe::RequestParams
-          class NextBilling < Stripe::RequestParams
+        class Subscription < ::Stripe::RequestParams
+          class NextBilling < ::Stripe::RequestParams
             # The amount of the next charge for the subscription.
             sig { returns(Integer) }
             def amount; end
@@ -1307,7 +1307,7 @@ module Stripe
           subscriptions: nil
         ); end
       end
-      class Link < Stripe::RequestParams
+      class Link < ::Stripe::RequestParams
         # [Deprecated] This is a legacy parameter that no longer has any function.
         sig { returns(T.nilable(String)) }
         def persistent_token; end
@@ -1316,7 +1316,7 @@ module Stripe
         sig { params(persistent_token: T.nilable(String)).void }
         def initialize(persistent_token: nil); end
       end
-      class Paypal < Stripe::RequestParams
+      class Paypal < ::Stripe::RequestParams
         # The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
         sig { returns(T.nilable(String)) }
         def billing_agreement_id; end
@@ -1325,8 +1325,8 @@ module Stripe
         sig { params(billing_agreement_id: T.nilable(String)).void }
         def initialize(billing_agreement_id: nil); end
       end
-      class SepaDebit < Stripe::RequestParams
-        class MandateOptions < Stripe::RequestParams
+      class SepaDebit < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
           sig { returns(T.nilable(String)) }
           def reference_prefix; end
@@ -1349,9 +1349,9 @@ module Stripe
          }
         def initialize(mandate_options: nil); end
       end
-      class UsBankAccount < Stripe::RequestParams
-        class FinancialConnections < Stripe::RequestParams
-          class Filters < Stripe::RequestParams
+      class UsBankAccount < ::Stripe::RequestParams
+        class FinancialConnections < ::Stripe::RequestParams
+          class Filters < ::Stripe::RequestParams
             # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
             sig { returns(T.nilable(T::Array[String])) }
             def account_subcategories; end
@@ -1395,7 +1395,7 @@ module Stripe
            }
           def initialize(filters: nil, permissions: nil, prefetch: nil, return_url: nil); end
         end
-        class MandateOptions < Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
           # The method used to collect offline mandate customer acceptance.
           sig { returns(T.nilable(String)) }
           def collection_method; end
@@ -1404,7 +1404,7 @@ module Stripe
           sig { params(collection_method: T.nilable(String)).void }
           def initialize(collection_method: nil); end
         end
-        class Networks < Stripe::RequestParams
+        class Networks < ::Stripe::RequestParams
           # Triggers validations to run across the selected networks
           sig { returns(T.nilable(T::Array[String])) }
           def requested; end

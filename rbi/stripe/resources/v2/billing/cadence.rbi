@@ -6,9 +6,9 @@ module Stripe
   module V2
     module Billing
       class Cadence < APIResource
-        class BillingCycle < Stripe::StripeObject
-          class Day < Stripe::StripeObject
-            class Time < Stripe::StripeObject
+        class BillingCycle < ::Stripe::StripeObject
+          class Day < ::Stripe::StripeObject
+            class Time < ::Stripe::StripeObject
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -39,8 +39,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Month < Stripe::StripeObject
-            class Time < Stripe::StripeObject
+          class Month < ::Stripe::StripeObject
+            class Time < ::Stripe::StripeObject
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -80,8 +80,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Week < Stripe::StripeObject
-            class Time < Stripe::StripeObject
+          class Week < ::Stripe::StripeObject
+            class Time < ::Stripe::StripeObject
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -116,8 +116,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Year < Stripe::StripeObject
-            class Time < Stripe::StripeObject
+          class Year < ::Stripe::StripeObject
+            class Time < ::Stripe::StripeObject
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -181,7 +181,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Payer < Stripe::StripeObject
+        class Payer < ::Stripe::StripeObject
           # The ID of the Billing Profile object which determines how a bill will be paid.
           sig { returns(String) }
           def billing_profile; end
@@ -198,8 +198,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Settings < Stripe::StripeObject
-          class Bill < Stripe::StripeObject
+        class Settings < ::Stripe::StripeObject
+          class Bill < ::Stripe::StripeObject
             # The ID of the referenced settings object.
             sig { returns(String) }
             def id; end
@@ -213,7 +213,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Collection < Stripe::StripeObject
+          class Collection < ::Stripe::StripeObject
             # The ID of the referenced settings object.
             sig { returns(String) }
             def id; end
@@ -240,10 +240,10 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SettingsData < Stripe::StripeObject
-          class Bill < Stripe::StripeObject
-            class Calculation < Stripe::StripeObject
-              class Tax < Stripe::StripeObject
+        class SettingsData < ::Stripe::StripeObject
+          class Bill < ::Stripe::StripeObject
+            class Calculation < ::Stripe::StripeObject
+              class Tax < ::Stripe::StripeObject
                 # Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
                 sig { returns(String) }
                 def type; end
@@ -264,8 +264,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Invoice < Stripe::StripeObject
-              class TimeUntilDue < Stripe::StripeObject
+            class Invoice < ::Stripe::StripeObject
+              class TimeUntilDue < ::Stripe::StripeObject
                 # The interval unit for the time until due.
                 sig { returns(String) }
                 def interval; end
@@ -306,9 +306,9 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Collection < Stripe::StripeObject
-            class EmailDelivery < Stripe::StripeObject
-              class PaymentDue < Stripe::StripeObject
+          class Collection < ::Stripe::StripeObject
+            class EmailDelivery < ::Stripe::StripeObject
+              class PaymentDue < ::Stripe::StripeObject
                 # If true an email for the invoice would be generated and sent out.
                 sig { returns(T::Boolean) }
                 def enabled; end
@@ -332,9 +332,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class PaymentMethodOptions < Stripe::StripeObject
-              class AcssDebit < Stripe::StripeObject
-                class MandateOptions < Stripe::StripeObject
+            class PaymentMethodOptions < ::Stripe::StripeObject
+              class AcssDebit < ::Stripe::StripeObject
+                class MandateOptions < ::Stripe::StripeObject
                   # Transaction type of the mandate.
                   sig { returns(T.nilable(String)) }
                   def transaction_type; end
@@ -358,7 +358,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Bancontact < Stripe::StripeObject
+              class Bancontact < ::Stripe::StripeObject
                 # Preferred language of the Bancontact authorization page that the customer is redirected to.
                 sig { returns(T.nilable(String)) }
                 def preferred_language; end
@@ -369,8 +369,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Card < Stripe::StripeObject
-                class MandateOptions < Stripe::StripeObject
+              class Card < ::Stripe::StripeObject
+                class MandateOptions < ::Stripe::StripeObject
                   # Amount to be charged for future payments.
                   sig { returns(T.nilable(Integer)) }
                   def amount; end
@@ -406,9 +406,9 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class CustomerBalance < Stripe::StripeObject
-                class BankTransfer < Stripe::StripeObject
-                  class EuBankTransfer < Stripe::StripeObject
+              class CustomerBalance < ::Stripe::StripeObject
+                class BankTransfer < ::Stripe::StripeObject
+                  class EuBankTransfer < ::Stripe::StripeObject
                     # The desired country code of the bank account information.
                     sig { returns(String) }
                     def country; end
@@ -445,9 +445,9 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class UsBankAccount < Stripe::StripeObject
-                class FinancialConnections < Stripe::StripeObject
-                  class Filters < Stripe::StripeObject
+              class UsBankAccount < ::Stripe::StripeObject
+                class FinancialConnections < ::Stripe::StripeObject
+                  class Filters < ::Stripe::StripeObject
                     # The account subcategories to use to filter for selectable accounts.
                     sig { returns(T::Array[String]) }
                     def account_subcategories; end

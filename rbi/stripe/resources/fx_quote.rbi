@@ -10,8 +10,8 @@ module Stripe
   #
   # [View the docs](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api)
   class FxQuote < APIResource
-    class Rates < Stripe::StripeObject
-      class RateDetails < Stripe::StripeObject
+    class Rates < ::Stripe::StripeObject
+      class RateDetails < ::Stripe::StripeObject
         # The rate for the currency pair.
         sig { returns(Float) }
         def base_rate; end
@@ -47,8 +47,8 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Usage < Stripe::StripeObject
-      class Payment < Stripe::StripeObject
+    class Usage < ::Stripe::StripeObject
+      class Payment < ::Stripe::StripeObject
         # The Stripe account ID that the funds will be transferred to.
         #
         # This field should match the account ID that would be used in the PaymentIntent’s transfer_data[destination] field.
@@ -66,7 +66,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Transfer < Stripe::StripeObject
+      class Transfer < ::Stripe::StripeObject
         # The Stripe account ID that the funds will be transferred to.
         #
         # This field should match the account ID that would be used in the Transfer’s destination field.
@@ -130,13 +130,13 @@ module Stripe
     def usage; end
     # Creates an FX Quote object
     sig {
-      params(params: T.any(::Stripe::FxQuoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FxQuote)
+      params(params: T.any(::Stripe::FxQuoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FxQuote)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
     sig {
-      params(params: T.any(::Stripe::FxQuoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::FxQuoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

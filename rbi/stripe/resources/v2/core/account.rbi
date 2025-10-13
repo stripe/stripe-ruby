@@ -7,10 +7,10 @@ module Stripe
     module Core
       # A V2 Account is a representation of a company or individual that a Stripe user does business with. Accounts contain the contact details, Legal Entity information, and configuration required to enable the Account for use across Stripe products.
       class Account < APIResource
-        class Configuration < Stripe::StripeObject
-          class Customer < Stripe::StripeObject
-            class AutomaticIndirectTax < Stripe::StripeObject
-              class Location < Stripe::StripeObject
+        class Configuration < ::Stripe::StripeObject
+          class Customer < ::Stripe::StripeObject
+            class AutomaticIndirectTax < ::Stripe::StripeObject
+              class Location < ::Stripe::StripeObject
                 # The identified tax country of the customer.
                 sig { returns(T.nilable(String)) }
                 def country; end
@@ -43,9 +43,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Billing < Stripe::StripeObject
-              class Invoice < Stripe::StripeObject
-                class CustomField < Stripe::StripeObject
+            class Billing < ::Stripe::StripeObject
+              class Invoice < ::Stripe::StripeObject
+                class CustomField < ::Stripe::StripeObject
                   # The name of the custom field. This may be up to 40 characters.
                   sig { returns(String) }
                   def name; end
@@ -59,7 +59,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                class Rendering < Stripe::StripeObject
+                class Rendering < ::Stripe::StripeObject
                   # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
                   sig { returns(T.nilable(String)) }
                   def amount_tax_display; end
@@ -108,9 +108,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Capabilities < Stripe::StripeObject
-              class AutomaticIndirectTax < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class AutomaticIndirectTax < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -150,8 +150,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Shipping < Stripe::StripeObject
-              class Address < Stripe::StripeObject
+            class Shipping < ::Stripe::StripeObject
+              class Address < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -223,8 +223,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Merchant < Stripe::StripeObject
-            class BacsDebitPayments < Stripe::StripeObject
+          class Merchant < ::Stripe::StripeObject
+            class BacsDebitPayments < ::Stripe::StripeObject
               # Display name for Bacs debit payments.
               sig { returns(T.nilable(String)) }
               def display_name; end
@@ -238,7 +238,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Branding < Stripe::StripeObject
+            class Branding < ::Stripe::StripeObject
               # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def icon; end
@@ -258,9 +258,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Capabilities < Stripe::StripeObject
-              class AchDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class AchDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -290,8 +290,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class AcssDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AcssDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -321,8 +321,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class AffirmPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AffirmPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -352,8 +352,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class AfterpayClearpayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AfterpayClearpayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -383,8 +383,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class AlmaPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AlmaPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -414,8 +414,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class AmazonPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AmazonPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -445,8 +445,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class AuBecsDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class AuBecsDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -476,8 +476,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class BacsDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class BacsDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -507,8 +507,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class BancontactPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class BancontactPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -538,8 +538,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class BlikPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class BlikPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -569,8 +569,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class BoletoPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class BoletoPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -600,8 +600,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class CardPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class CardPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -631,8 +631,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class CartesBancairesPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class CartesBancairesPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -662,8 +662,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class CashappPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class CashappPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -693,8 +693,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class EpsPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class EpsPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -724,8 +724,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class FpxPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class FpxPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -755,8 +755,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class GbBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class GbBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -786,8 +786,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class GrabpayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class GrabpayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -817,8 +817,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class IdealPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class IdealPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -848,8 +848,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class JcbPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class JcbPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -879,8 +879,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class JpBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class JpBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -910,8 +910,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class KakaoPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class KakaoPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -941,8 +941,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class KlarnaPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class KlarnaPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -972,8 +972,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class KonbiniPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class KonbiniPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1003,8 +1003,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class KrCardPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class KrCardPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1034,8 +1034,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class LinkPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class LinkPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1065,8 +1065,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class MobilepayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class MobilepayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1096,8 +1096,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class MultibancoPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class MultibancoPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1127,8 +1127,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class MxBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class MxBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1158,8 +1158,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class NaverPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class NaverPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1189,8 +1189,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class OxxoPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class OxxoPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1220,8 +1220,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class P24Payments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class P24Payments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1251,8 +1251,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class PayByBankPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class PayByBankPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1282,8 +1282,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class PaycoPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class PaycoPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1313,8 +1313,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class PaynowPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class PaynowPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1344,8 +1344,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class PromptpayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class PromptpayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1375,8 +1375,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class RevolutPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class RevolutPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1406,8 +1406,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class SamsungPayPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class SamsungPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1437,8 +1437,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class SepaBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class SepaBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1468,8 +1468,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class SepaDebitPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class SepaDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1499,9 +1499,9 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class StripeBalance < Stripe::StripeObject
-                class Payouts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class StripeBalance < ::Stripe::StripeObject
+                class Payouts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -1541,8 +1541,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class SwishPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class SwishPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1572,8 +1572,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class TwintPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class TwintPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1603,8 +1603,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class UsBankTransferPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class UsBankTransferPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1634,8 +1634,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class ZipPayments < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class ZipPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -1853,8 +1853,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class CardPayments < Stripe::StripeObject
-              class DeclineOn < Stripe::StripeObject
+            class CardPayments < ::Stripe::StripeObject
+              class DeclineOn < ::Stripe::StripeObject
                 # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
                 sig { returns(T.nilable(T::Boolean)) }
                 def avs_failure; end
@@ -1878,7 +1878,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class SepaDebitPayments < Stripe::StripeObject
+            class SepaDebitPayments < ::Stripe::StripeObject
               # Creditor ID for SEPA debit payments.
               sig { returns(T.nilable(String)) }
               def creditor_id; end
@@ -1889,7 +1889,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class StatementDescriptor < Stripe::StripeObject
+            class StatementDescriptor < ::Stripe::StripeObject
               # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
               sig { returns(T.nilable(String)) }
               def descriptor; end
@@ -1903,8 +1903,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Support < Stripe::StripeObject
-              class Address < Stripe::StripeObject
+            class Support < ::Stripe::StripeObject
+              class Address < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -1994,11 +1994,11 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Recipient < Stripe::StripeObject
-            class Capabilities < Stripe::StripeObject
-              class BankAccounts < Stripe::StripeObject
-                class Local < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+          class Recipient < ::Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class BankAccounts < ::Stripe::StripeObject
+                class Local < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2028,8 +2028,8 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                class Wire < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class Wire < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2072,8 +2072,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Cards < Stripe::StripeObject
-                class StatusDetail < Stripe::StripeObject
+              class Cards < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
                   def code; end
@@ -2103,9 +2103,9 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class StripeBalance < Stripe::StripeObject
-                class Payouts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class StripeBalance < ::Stripe::StripeObject
+                class Payouts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2135,8 +2135,8 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                class StripeTransfers < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class StripeTransfers < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2199,7 +2199,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class DefaultOutboundDestination < Stripe::StripeObject
+            class DefaultOutboundDestination < ::Stripe::StripeObject
               # The payout method ID of the default outbound destination.
               sig { returns(String) }
               def id; end
@@ -2232,11 +2232,11 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Storer < Stripe::StripeObject
-            class Capabilities < Stripe::StripeObject
-              class FinancialAddresses < Stripe::StripeObject
-                class BankAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+          class Storer < ::Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class FinancialAddresses < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2276,9 +2276,9 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class HoldsCurrencies < Stripe::StripeObject
-                class Gbp < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class HoldsCurrencies < ::Stripe::StripeObject
+                class Gbp < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2318,9 +2318,9 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class InboundTransfers < Stripe::StripeObject
-                class BankAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class InboundTransfers < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2360,9 +2360,9 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class OutboundPayments < Stripe::StripeObject
-                class BankAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class OutboundPayments < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2392,8 +2392,8 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                class Cards < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class Cards < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2423,8 +2423,8 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                class FinancialAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class FinancialAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2474,9 +2474,9 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class OutboundTransfers < Stripe::StripeObject
-                class BankAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+              class OutboundTransfers < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2506,8 +2506,8 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                class FinancialAccounts < Stripe::StripeObject
-                  class StatusDetail < Stripe::StripeObject
+                class FinancialAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
                     sig { returns(String) }
                     def code; end
@@ -2618,8 +2618,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Defaults < Stripe::StripeObject
-          class Profile < Stripe::StripeObject
+        class Defaults < ::Stripe::StripeObject
+          class Profile < ::Stripe::StripeObject
             # The business's publicly-available website.
             sig { returns(T.nilable(String)) }
             def business_url; end
@@ -2636,7 +2636,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Responsibilities < Stripe::StripeObject
+          class Responsibilities < ::Stripe::StripeObject
             # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this Account.
             sig { returns(String) }
             def fees_collector; end
@@ -2669,9 +2669,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Identity < Stripe::StripeObject
-          class Attestations < Stripe::StripeObject
-            class DirectorshipDeclaration < Stripe::StripeObject
+        class Identity < ::Stripe::StripeObject
+          class Attestations < ::Stripe::StripeObject
+            class DirectorshipDeclaration < ::Stripe::StripeObject
               # The time marking when the director attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               sig { returns(T.nilable(String)) }
               def date; end
@@ -2688,7 +2688,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class OwnershipDeclaration < Stripe::StripeObject
+            class OwnershipDeclaration < ::Stripe::StripeObject
               # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
               sig { returns(T.nilable(String)) }
               def date; end
@@ -2705,7 +2705,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class PersonsProvided < Stripe::StripeObject
+            class PersonsProvided < ::Stripe::StripeObject
               # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
               sig { returns(T.nilable(T::Boolean)) }
               def directors; end
@@ -2725,8 +2725,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class TermsOfService < Stripe::StripeObject
-              class Account < Stripe::StripeObject
+            class TermsOfService < ::Stripe::StripeObject
+              class Account < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
                 def date; end
@@ -2743,7 +2743,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Storer < Stripe::StripeObject
+              class Storer < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
                 def date; end
@@ -2797,8 +2797,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class BusinessDetails < Stripe::StripeObject
-            class Address < Stripe::StripeObject
+          class BusinessDetails < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -2827,9 +2827,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class AnnualRevenue < Stripe::StripeObject
+            class AnnualRevenue < ::Stripe::StripeObject
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(Stripe::V2::Amount)) }
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
               def amount; end
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
               sig { returns(T.nilable(String)) }
@@ -2841,8 +2841,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Documents < Stripe::StripeObject
-              class BankAccountOwnershipVerification < Stripe::StripeObject
+            class Documents < ::Stripe::StripeObject
+              class BankAccountOwnershipVerification < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2856,7 +2856,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class CompanyLicense < Stripe::StripeObject
+              class CompanyLicense < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2870,7 +2870,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class CompanyMemorandumOfAssociation < Stripe::StripeObject
+              class CompanyMemorandumOfAssociation < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2884,7 +2884,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class CompanyMinisterialDecree < Stripe::StripeObject
+              class CompanyMinisterialDecree < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2898,7 +2898,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class CompanyRegistrationVerification < Stripe::StripeObject
+              class CompanyRegistrationVerification < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2912,7 +2912,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class CompanyTaxIdVerification < Stripe::StripeObject
+              class CompanyTaxIdVerification < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2926,8 +2926,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class PrimaryVerification < Stripe::StripeObject
-                class FrontBack < Stripe::StripeObject
+              class PrimaryVerification < ::Stripe::StripeObject
+                class FrontBack < ::Stripe::StripeObject
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
@@ -2954,7 +2954,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class ProofOfAddress < Stripe::StripeObject
+              class ProofOfAddress < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2968,7 +2968,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class ProofOfRegistration < Stripe::StripeObject
+              class ProofOfRegistration < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -2982,7 +2982,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class ProofOfUltimateBeneficialOwnership < Stripe::StripeObject
+              class ProofOfUltimateBeneficialOwnership < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -3044,7 +3044,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class IdNumber < Stripe::StripeObject
+            class IdNumber < ::Stripe::StripeObject
               # The registrar of the ID number (Only valid for DE ID number types).
               sig { returns(T.nilable(String)) }
               def registrar; end
@@ -3058,9 +3058,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class MonthlyEstimatedRevenue < Stripe::StripeObject
+            class MonthlyEstimatedRevenue < ::Stripe::StripeObject
               # A non-negative integer representing the amount in the smallest currency unit.
-              sig { returns(T.nilable(Stripe::V2::Amount)) }
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
               def amount; end
               def self.inner_class_types
                 @inner_class_types = {}
@@ -3069,8 +3069,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class ScriptAddresses < Stripe::StripeObject
-              class Kana < Stripe::StripeObject
+            class ScriptAddresses < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -3099,7 +3099,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Kanji < Stripe::StripeObject
+              class Kanji < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -3141,8 +3141,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class ScriptNames < Stripe::StripeObject
-              class Kana < Stripe::StripeObject
+            class ScriptNames < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
                 # Registered name of the business.
                 sig { returns(T.nilable(String)) }
                 def registered_name; end
@@ -3153,7 +3153,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Kanji < Stripe::StripeObject
+              class Kanji < ::Stripe::StripeObject
                 # Registered name of the business.
                 sig { returns(T.nilable(String)) }
                 def registered_name; end
@@ -3225,8 +3225,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Individual < Stripe::StripeObject
-            class AdditionalAddress < Stripe::StripeObject
+          class Individual < ::Stripe::StripeObject
+            class AdditionalAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -3258,7 +3258,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class AdditionalName < Stripe::StripeObject
+            class AdditionalName < ::Stripe::StripeObject
               # The individual's full name.
               sig { returns(T.nilable(String)) }
               def full_name; end
@@ -3278,8 +3278,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class AdditionalTermsOfService < Stripe::StripeObject
-              class Account < Stripe::StripeObject
+            class AdditionalTermsOfService < ::Stripe::StripeObject
+              class Account < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
                 def date; end
@@ -3306,7 +3306,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Address < Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
               def city; end
@@ -3335,7 +3335,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class DateOfBirth < Stripe::StripeObject
+            class DateOfBirth < ::Stripe::StripeObject
               # The day of birth, between 1 and 31.
               sig { returns(Integer) }
               def day; end
@@ -3352,8 +3352,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Documents < Stripe::StripeObject
-              class CompanyAuthorization < Stripe::StripeObject
+            class Documents < ::Stripe::StripeObject
+              class CompanyAuthorization < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -3367,7 +3367,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Passport < Stripe::StripeObject
+              class Passport < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -3381,8 +3381,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class PrimaryVerification < Stripe::StripeObject
-                class FrontBack < Stripe::StripeObject
+              class PrimaryVerification < ::Stripe::StripeObject
+                class FrontBack < ::Stripe::StripeObject
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
@@ -3409,8 +3409,8 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class SecondaryVerification < Stripe::StripeObject
-                class FrontBack < Stripe::StripeObject
+              class SecondaryVerification < ::Stripe::StripeObject
+                class FrontBack < ::Stripe::StripeObject
                   # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
@@ -3437,7 +3437,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Visa < Stripe::StripeObject
+              class Visa < ::Stripe::StripeObject
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
@@ -3479,7 +3479,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class IdNumber < Stripe::StripeObject
+            class IdNumber < ::Stripe::StripeObject
               # The ID number type of an individual.
               sig { returns(String) }
               def type; end
@@ -3490,7 +3490,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Relationship < Stripe::StripeObject
+            class Relationship < ::Stripe::StripeObject
               # Whether the individual is an authorizer of the Account’s legal entity.
               sig { returns(T.nilable(T::Boolean)) }
               def authorizer; end
@@ -3522,8 +3522,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class ScriptAddresses < Stripe::StripeObject
-              class Kana < Stripe::StripeObject
+            class ScriptAddresses < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -3552,7 +3552,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Kanji < Stripe::StripeObject
+              class Kanji < ::Stripe::StripeObject
                 # City, district, suburb, town, or village.
                 sig { returns(T.nilable(String)) }
                 def city; end
@@ -3594,8 +3594,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class ScriptNames < Stripe::StripeObject
-              class Kana < Stripe::StripeObject
+            class ScriptNames < ::Stripe::StripeObject
+              class Kana < ::Stripe::StripeObject
                 # The person's first or given name.
                 sig { returns(T.nilable(String)) }
                 def given_name; end
@@ -3609,7 +3609,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Kanji < Stripe::StripeObject
+              class Kanji < ::Stripe::StripeObject
                 # The person's first or given name.
                 sig { returns(T.nilable(String)) }
                 def given_name; end
@@ -3749,9 +3749,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Requirements < Stripe::StripeObject
-          class Entry < Stripe::StripeObject
-            class Error < Stripe::StripeObject
+        class Requirements < ::Stripe::StripeObject
+          class Entry < ::Stripe::StripeObject
+            class Error < ::Stripe::StripeObject
               # Machine-readable code describing the error.
               sig { returns(String) }
               def code; end
@@ -3765,9 +3765,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Impact < Stripe::StripeObject
-              class RestrictsCapability < Stripe::StripeObject
-                class Deadline < Stripe::StripeObject
+            class Impact < ::Stripe::StripeObject
+              class RestrictsCapability < ::Stripe::StripeObject
+                class Deadline < ::Stripe::StripeObject
                   # The current status of the requirement's impact.
                   sig { returns(String) }
                   def status; end
@@ -3804,7 +3804,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class MinimumDeadline < Stripe::StripeObject
+            class MinimumDeadline < ::Stripe::StripeObject
               # The current status of the requirement's impact.
               sig { returns(String) }
               def status; end
@@ -3815,7 +3815,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Reference < Stripe::StripeObject
+            class Reference < ::Stripe::StripeObject
               # If `inquiry` is the type, the inquiry token.
               sig { returns(T.nilable(String)) }
               def inquiry; end
@@ -3832,7 +3832,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class RequestedReason < Stripe::StripeObject
+            class RequestedReason < ::Stripe::StripeObject
               # Machine-readable description of Stripe's reason for collecting the requirement.
               sig { returns(String) }
               def code; end
@@ -3877,8 +3877,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Summary < Stripe::StripeObject
-            class MinimumDeadline < Stripe::StripeObject
+          class Summary < ::Stripe::StripeObject
+            class MinimumDeadline < ::Stripe::StripeObject
               # The current strictest status of all requirements on the Account.
               sig { returns(String) }
               def status; end

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Core
-      class AccountRetrieveParams < Stripe::RequestParams
+      class AccountRetrieveParams < ::Stripe::RequestParams
         # Additional fields to include in the response.
         sig { returns(T.nilable(T::Array[String])) }
         def include; end

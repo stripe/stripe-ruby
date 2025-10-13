@@ -16,7 +16,7 @@ module Stripe
       sig { returns(String) }
       def object; end
       # A paginated list of owners for this account.
-      sig { returns(Stripe::ListObject) }
+      sig { returns(::Stripe::ListObject) }
       def owners; end
     end
   end

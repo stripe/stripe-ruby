@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SubscriptionResumeParams < Stripe::RequestParams
+  class SubscriptionResumeParams < ::Stripe::RequestParams
     # The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
     # Specifies which fields in the response should be expanded.

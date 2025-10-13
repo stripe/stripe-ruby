@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class ProfileUpdateParams < Stripe::RequestParams
+      class ProfileUpdateParams < ::Stripe::RequestParams
         # The ID of the payment method object.
         attr_accessor :default_payment_method
         # A customer-facing name for the billing profile.

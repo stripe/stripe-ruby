@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Entitlements
-    class FeatureListParams < Stripe::RequestParams
+    class FeatureListParams < ::Stripe::RequestParams
       # If set, filter results to only include features with the given archive status.
       sig { returns(T.nilable(T::Boolean)) }
       def archived; end

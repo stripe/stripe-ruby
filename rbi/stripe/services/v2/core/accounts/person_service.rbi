@@ -9,31 +9,31 @@ module Stripe
         class PersonService < StripeService
           # Create a Person associated with an Account.
           sig {
-            params(account_id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::AccountPerson)
+            params(account_id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::AccountPerson)
            }
           def create(account_id, params = {}, opts = {}); end
 
           # Delete a Person associated with an Account.
           sig {
-            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::DeletedObject)
+            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::DeletedObject)
            }
           def delete(account_id, id, params = {}, opts = {}); end
 
           # Returns a list of Persons associated with an Account.
           sig {
-            params(account_id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)
+            params(account_id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
            }
           def list(account_id, params = {}, opts = {}); end
 
           # Retrieves a Person associated with an Account.
           sig {
-            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::AccountPerson)
+            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::AccountPerson)
            }
           def retrieve(account_id, id, params = {}, opts = {}); end
 
           # Updates a Person associated with an Account.
           sig {
-            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::AccountPerson)
+            params(account_id: String, id: String, params: T.any(::Stripe::V2::Core::Accounts::PersonUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::AccountPerson)
            }
           def update(account_id, id, params = {}, opts = {}); end
         end

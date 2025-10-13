@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class ReceivedCreditRetrieveParams < Stripe::RequestParams; end
+      class ReceivedCreditRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

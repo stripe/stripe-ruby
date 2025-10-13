@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAddressListParams < Stripe::RequestParams
+      class FinancialAddressListParams < ::Stripe::RequestParams
         # The ID of the FinancialAccount for which FinancialAddresses are to be returned.
         attr_accessor :financial_account
         # Open Enum. A list of fields to reveal in the FinancialAddresses returned.

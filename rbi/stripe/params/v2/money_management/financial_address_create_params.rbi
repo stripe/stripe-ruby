@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class FinancialAddressCreateParams < Stripe::RequestParams
+      class FinancialAddressCreateParams < ::Stripe::RequestParams
         # The ID of the FinancialAccount the new FinancialAddress should be associated with.
         sig { returns(String) }
         def financial_account; end

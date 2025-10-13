@@ -17,7 +17,7 @@ module Stripe
     sig { returns(T.nilable(Integer)) }
     def expires_at; end
     # The file object this link points to.
-    sig { returns(T.any(String, Stripe::File)) }
+    sig { returns(T.any(String, ::Stripe::File)) }
     def file; end
     # Unique identifier for the object.
     sig { returns(String) }
@@ -36,19 +36,19 @@ module Stripe
     def url; end
     # Creates a new file link object.
     sig {
-      params(params: T.any(::Stripe::FileLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FileLink)
+      params(params: T.any(::Stripe::FileLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FileLink)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of file links.
     sig {
-      params(params: T.any(::Stripe::FileLinkListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::FileLinkListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates an existing file link object. Expired links can no longer be updated.
     sig {
-      params(link: String, params: T.any(::Stripe::FileLinkUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FileLink)
+      params(link: String, params: T.any(::Stripe::FileLinkUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FileLink)
      }
     def self.update(link, params = {}, opts = {}); end
   end

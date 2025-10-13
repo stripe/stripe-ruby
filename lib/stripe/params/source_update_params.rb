@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SourceUpdateParams < Stripe::RequestParams
-    class Mandate < Stripe::RequestParams
-      class Acceptance < Stripe::RequestParams
-        class Offline < Stripe::RequestParams
+  class SourceUpdateParams < ::Stripe::RequestParams
+    class Mandate < ::Stripe::RequestParams
+      class Acceptance < ::Stripe::RequestParams
+        class Offline < ::Stripe::RequestParams
           # An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
           attr_accessor :contact_email
 
@@ -14,7 +14,7 @@ module Stripe
           end
         end
 
-        class Online < Stripe::RequestParams
+        class Online < ::Stripe::RequestParams
           # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
           attr_accessor :date
           # The IP address from which the mandate was accepted or refused by the customer.
@@ -87,8 +87,8 @@ module Stripe
       end
     end
 
-    class Owner < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Owner < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -135,8 +135,8 @@ module Stripe
       end
     end
 
-    class SourceOrder < Stripe::RequestParams
-      class Item < Stripe::RequestParams
+    class SourceOrder < ::Stripe::RequestParams
+      class Item < ::Stripe::RequestParams
         # Attribute for param field amount
         attr_accessor :amount
         # Attribute for param field currency
@@ -167,8 +167,8 @@ module Stripe
         end
       end
 
-      class Shipping < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).

@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class SetupIntentCancelParams < Stripe::RequestParams
+  class SetupIntentCancelParams < ::Stripe::RequestParams
     # Reason for canceling this SetupIntent. Possible values are: `abandoned`, `requested_by_customer`, or `duplicate`
     sig { returns(T.nilable(String)) }
     def cancellation_reason; end

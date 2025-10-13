@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  class TokenCreateParams < Stripe::RequestParams
-    class Account < Stripe::RequestParams
-      class Company < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+  class TokenCreateParams < ::Stripe::RequestParams
+    class Account < ::Stripe::RequestParams
+      class Company < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -49,7 +49,7 @@ module Stripe
             state: nil
           ); end
         end
-        class AddressKana < Stripe::RequestParams
+        class AddressKana < ::Stripe::RequestParams
           # City or ward.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -98,7 +98,7 @@ module Stripe
             town: nil
           ); end
         end
-        class AddressKanji < Stripe::RequestParams
+        class AddressKanji < ::Stripe::RequestParams
           # City or ward.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -147,7 +147,7 @@ module Stripe
             town: nil
           ); end
         end
-        class DirectorshipDeclaration < Stripe::RequestParams
+        class DirectorshipDeclaration < ::Stripe::RequestParams
           # The Unix timestamp marking when the directorship declaration attestation was made.
           sig { returns(T.nilable(Integer)) }
           def date; end
@@ -168,7 +168,7 @@ module Stripe
            }
           def initialize(date: nil, ip: nil, user_agent: nil); end
         end
-        class OwnershipDeclaration < Stripe::RequestParams
+        class OwnershipDeclaration < ::Stripe::RequestParams
           # The Unix timestamp marking when the beneficial owner attestation was made.
           sig { returns(T.nilable(Integer)) }
           def date; end
@@ -189,7 +189,7 @@ module Stripe
            }
           def initialize(date: nil, ip: nil, user_agent: nil); end
         end
-        class RegistrationDate < Stripe::RequestParams
+        class RegistrationDate < ::Stripe::RequestParams
           # The day of registration, between 1 and 31.
           sig { returns(Integer) }
           def day; end
@@ -208,8 +208,29 @@ module Stripe
           sig { params(day: Integer, month: Integer, year: Integer).void }
           def initialize(day: nil, month: nil, year: nil); end
         end
-        class Verification < Stripe::RequestParams
-          class Document < Stripe::RequestParams
+        class RepresentativeDeclaration < ::Stripe::RequestParams
+          # The Unix timestamp marking when the representative declaration attestation was made.
+          sig { returns(T.nilable(Integer)) }
+          def date; end
+          sig { params(_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def date=(_date); end
+          # The IP address from which the representative declaration attestation was made.
+          sig { returns(T.nilable(String)) }
+          def ip; end
+          sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+          def ip=(_ip); end
+          # The user agent of the browser from which the representative declaration attestation was made.
+          sig { returns(T.nilable(String)) }
+          def user_agent; end
+          sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+          def user_agent=(_user_agent); end
+          sig {
+            params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
+           }
+          def initialize(date: nil, ip: nil, user_agent: nil); end
+        end
+        class Verification < ::Stripe::RequestParams
+          class Document < ::Stripe::RequestParams
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def back; end
@@ -343,6 +364,13 @@ module Stripe
         def registration_number; end
         sig { params(_registration_number: T.nilable(String)).returns(T.nilable(String)) }
         def registration_number=(_registration_number); end
+        # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+        sig { returns(T.nilable(TokenCreateParams::Account::Company::RepresentativeDeclaration)) }
+        def representative_declaration; end
+        sig {
+          params(_representative_declaration: T.nilable(TokenCreateParams::Account::Company::RepresentativeDeclaration)).returns(T.nilable(TokenCreateParams::Account::Company::RepresentativeDeclaration))
+         }
+        def representative_declaration=(_representative_declaration); end
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         sig { returns(T.nilable(T.any(String, String))) }
         def structure; end
@@ -373,7 +401,7 @@ module Stripe
          }
         def verification=(_verification); end
         sig {
-          params(address: T.nilable(TokenCreateParams::Account::Company::Address), address_kana: T.nilable(TokenCreateParams::Account::Company::AddressKana), address_kanji: T.nilable(TokenCreateParams::Account::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(TokenCreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(TokenCreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), registration_date: T.nilable(T.any(String, TokenCreateParams::Account::Company::RegistrationDate)), registration_number: T.nilable(String), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(TokenCreateParams::Account::Company::Verification)).void
+          params(address: T.nilable(TokenCreateParams::Account::Company::Address), address_kana: T.nilable(TokenCreateParams::Account::Company::AddressKana), address_kanji: T.nilable(TokenCreateParams::Account::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(TokenCreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(TokenCreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), registration_date: T.nilable(T.any(String, TokenCreateParams::Account::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(TokenCreateParams::Account::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(TokenCreateParams::Account::Company::Verification)).void
          }
         def initialize(
           address: nil,
@@ -394,6 +422,7 @@ module Stripe
           phone: nil,
           registration_date: nil,
           registration_number: nil,
+          representative_declaration: nil,
           structure: nil,
           tax_id: nil,
           tax_id_registrar: nil,
@@ -401,8 +430,8 @@ module Stripe
           verification: nil
         ); end
       end
-      class Individual < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Individual < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -445,7 +474,7 @@ module Stripe
             state: nil
           ); end
         end
-        class AddressKana < Stripe::RequestParams
+        class AddressKana < ::Stripe::RequestParams
           # City or ward.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -494,7 +523,7 @@ module Stripe
             town: nil
           ); end
         end
-        class AddressKanji < Stripe::RequestParams
+        class AddressKanji < ::Stripe::RequestParams
           # City or ward.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -543,7 +572,7 @@ module Stripe
             town: nil
           ); end
         end
-        class Dob < Stripe::RequestParams
+        class Dob < ::Stripe::RequestParams
           # The day of birth, between 1 and 31.
           sig { returns(Integer) }
           def day; end
@@ -562,7 +591,7 @@ module Stripe
           sig { params(day: Integer, month: Integer, year: Integer).void }
           def initialize(day: nil, month: nil, year: nil); end
         end
-        class RegisteredAddress < Stripe::RequestParams
+        class RegisteredAddress < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end
@@ -605,7 +634,7 @@ module Stripe
             state: nil
           ); end
         end
-        class Relationship < Stripe::RequestParams
+        class Relationship < ::Stripe::RequestParams
           # Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
           sig { returns(T.nilable(T::Boolean)) }
           def director; end
@@ -644,8 +673,8 @@ module Stripe
             title: nil
           ); end
         end
-        class Verification < Stripe::RequestParams
-          class AdditionalDocument < Stripe::RequestParams
+        class Verification < ::Stripe::RequestParams
+          class AdditionalDocument < ::Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def back; end
@@ -659,7 +688,7 @@ module Stripe
             sig { params(back: T.nilable(String), front: T.nilable(String)).void }
             def initialize(back: nil, front: nil); end
           end
-          class Document < Stripe::RequestParams
+          class Document < ::Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def back; end
@@ -890,7 +919,7 @@ module Stripe
         tos_shown_and_accepted: nil
       ); end
     end
-    class BankAccount < Stripe::RequestParams
+    class BankAccount < ::Stripe::RequestParams
       # The name of the person or business that owns the bank account. This field is required when attaching the bank account to a `Customer` object.
       sig { returns(T.nilable(String)) }
       def account_holder_name; end
@@ -945,8 +974,8 @@ module Stripe
         routing_number: nil
       ); end
     end
-    class Card < Stripe::RequestParams
-      class Networks < Stripe::RequestParams
+    class Card < ::Stripe::RequestParams
+      class Networks < ::Stripe::RequestParams
         # The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         sig { returns(T.nilable(String)) }
         def preferred; end
@@ -1041,7 +1070,7 @@ module Stripe
         number: nil
       ); end
     end
-    class CvcUpdate < Stripe::RequestParams
+    class CvcUpdate < ::Stripe::RequestParams
       # The CVC value, in string form.
       sig { returns(String) }
       def cvc; end
@@ -1050,9 +1079,9 @@ module Stripe
       sig { params(cvc: String).void }
       def initialize(cvc: nil); end
     end
-    class Person < Stripe::RequestParams
-      class AdditionalTosAcceptances < Stripe::RequestParams
-        class Account < Stripe::RequestParams
+    class Person < ::Stripe::RequestParams
+      class AdditionalTosAcceptances < ::Stripe::RequestParams
+        class Account < ::Stripe::RequestParams
           # The Unix timestamp marking when the account representative accepted the service agreement.
           sig { returns(T.nilable(Integer)) }
           def date; end
@@ -1085,7 +1114,7 @@ module Stripe
          }
         def initialize(account: nil); end
       end
-      class Address < Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -1128,7 +1157,7 @@ module Stripe
           state: nil
         ); end
       end
-      class AddressKana < Stripe::RequestParams
+      class AddressKana < ::Stripe::RequestParams
         # City or ward.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -1177,7 +1206,7 @@ module Stripe
           town: nil
         ); end
       end
-      class AddressKanji < Stripe::RequestParams
+      class AddressKanji < ::Stripe::RequestParams
         # City or ward.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -1226,7 +1255,7 @@ module Stripe
           town: nil
         ); end
       end
-      class Dob < Stripe::RequestParams
+      class Dob < ::Stripe::RequestParams
         # The day of birth, between 1 and 31.
         sig { returns(Integer) }
         def day; end
@@ -1245,8 +1274,8 @@ module Stripe
         sig { params(day: Integer, month: Integer, year: Integer).void }
         def initialize(day: nil, month: nil, year: nil); end
       end
-      class Documents < Stripe::RequestParams
-        class CompanyAuthorization < Stripe::RequestParams
+      class Documents < ::Stripe::RequestParams
+        class CompanyAuthorization < ::Stripe::RequestParams
           # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
           def files; end
@@ -1255,7 +1284,7 @@ module Stripe
           sig { params(files: T.nilable(T::Array[String])).void }
           def initialize(files: nil); end
         end
-        class Passport < Stripe::RequestParams
+        class Passport < ::Stripe::RequestParams
           # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
           def files; end
@@ -1264,7 +1293,7 @@ module Stripe
           sig { params(files: T.nilable(T::Array[String])).void }
           def initialize(files: nil); end
         end
-        class Visa < Stripe::RequestParams
+        class Visa < ::Stripe::RequestParams
           # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
           def files; end
@@ -1299,7 +1328,7 @@ module Stripe
          }
         def initialize(company_authorization: nil, passport: nil, visa: nil); end
       end
-      class RegisteredAddress < Stripe::RequestParams
+      class RegisteredAddress < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -1342,7 +1371,7 @@ module Stripe
           state: nil
         ); end
       end
-      class Relationship < Stripe::RequestParams
+      class Relationship < ::Stripe::RequestParams
         # Whether the person is the authorizer of the account's representative.
         sig { returns(T.nilable(T::Boolean)) }
         def authorizer; end
@@ -1399,8 +1428,8 @@ module Stripe
           title: nil
         ); end
       end
-      class UsCfpbData < Stripe::RequestParams
-        class EthnicityDetails < Stripe::RequestParams
+      class UsCfpbData < ::Stripe::RequestParams
+        class EthnicityDetails < ::Stripe::RequestParams
           # The persons ethnicity
           sig { returns(T.nilable(T::Array[String])) }
           def ethnicity; end
@@ -1418,7 +1447,7 @@ module Stripe
            }
           def initialize(ethnicity: nil, ethnicity_other: nil); end
         end
-        class RaceDetails < Stripe::RequestParams
+        class RaceDetails < ::Stripe::RequestParams
           # The persons race.
           sig { returns(T.nilable(T::Array[String])) }
           def race; end
@@ -1456,8 +1485,8 @@ module Stripe
          }
         def initialize(ethnicity_details: nil, race_details: nil, self_identified_gender: nil); end
       end
-      class Verification < Stripe::RequestParams
-        class AdditionalDocument < Stripe::RequestParams
+      class Verification < ::Stripe::RequestParams
+        class AdditionalDocument < ::Stripe::RequestParams
           # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
@@ -1471,7 +1500,7 @@ module Stripe
           sig { params(back: T.nilable(String), front: T.nilable(String)).void }
           def initialize(back: nil, front: nil); end
         end
-        class Document < Stripe::RequestParams
+        class Document < ::Stripe::RequestParams
           # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
@@ -1696,7 +1725,7 @@ module Stripe
         verification: nil
       ); end
     end
-    class Pii < Stripe::RequestParams
+    class Pii < ::Stripe::RequestParams
       # The `id_number` for the PII, in string form.
       sig { returns(T.nilable(String)) }
       def id_number; end

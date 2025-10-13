@@ -18,7 +18,7 @@ module Stripe
     # set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
     # on the Customer to the PaymentMethod's ID.
     sig {
-      params(payment_method: String, params: T.any(::Stripe::PaymentMethodAttachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(payment_method: String, params: T.any(::Stripe::PaymentMethodAttachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def attach(payment_method, params = {}, opts = {}); end
 
@@ -26,31 +26,31 @@ module Stripe
     #
     # Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
     sig {
-      params(params: T.any(::Stripe::PaymentMethodCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(params: T.any(::Stripe::PaymentMethodCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def create(params = {}, opts = {}); end
 
     # Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
     sig {
-      params(payment_method: String, params: T.any(::Stripe::PaymentMethodDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(payment_method: String, params: T.any(::Stripe::PaymentMethodDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def detach(payment_method, params = {}, opts = {}); end
 
     # Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
     sig {
-      params(params: T.any(::Stripe::PaymentMethodListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::PaymentMethodListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list(params = {}, opts = {}); end
 
     # Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
     sig {
-      params(payment_method: String, params: T.any(::Stripe::PaymentMethodRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(payment_method: String, params: T.any(::Stripe::PaymentMethodRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def retrieve(payment_method, params = {}, opts = {}); end
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
     sig {
-      params(payment_method: String, params: T.any(::Stripe::PaymentMethodUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(payment_method: String, params: T.any(::Stripe::PaymentMethodUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def update(payment_method, params = {}, opts = {}); end
   end

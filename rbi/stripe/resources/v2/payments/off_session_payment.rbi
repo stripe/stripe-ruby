@@ -7,9 +7,9 @@ module Stripe
     module Payments
       # OffSessionPayment resource.
       class OffSessionPayment < APIResource
-        class AmountDetails < Stripe::StripeObject
-          class LineItem < Stripe::StripeObject
-            class Tax < Stripe::StripeObject
+        class AmountDetails < ::Stripe::StripeObject
+          class LineItem < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
               # Total portion of the amount that is for tax.
               sig { returns(T.nilable(Integer)) }
               def total_tax_amount; end
@@ -45,7 +45,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Shipping < Stripe::StripeObject
+          class Shipping < ::Stripe::StripeObject
             # Portion of the amount that is for shipping.
             sig { returns(T.nilable(Integer)) }
             def amount; end
@@ -62,7 +62,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Tax < Stripe::StripeObject
+          class Tax < ::Stripe::StripeObject
             # Total portion of the amount that is for tax.
             sig { returns(T.nilable(Integer)) }
             def total_tax_amount; end
@@ -92,7 +92,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Capture < Stripe::StripeObject
+        class Capture < ::Stripe::StripeObject
           # The timestamp when this payment is no longer eligible to be captured.
           sig { returns(T.nilable(String)) }
           def capture_before; end
@@ -106,7 +106,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class PaymentsOrchestration < Stripe::StripeObject
+        class PaymentsOrchestration < ::Stripe::StripeObject
           # True when you want to enable payments orchestration for this off-session payment. False otherwise.
           sig { returns(T::Boolean) }
           def enabled; end
@@ -117,7 +117,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class RetryDetails < Stripe::StripeObject
+        class RetryDetails < ::Stripe::StripeObject
           # Number of authorization attempts so far.
           sig { returns(Integer) }
           def attempts; end
@@ -134,7 +134,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class TransferData < Stripe::StripeObject
+        class TransferData < ::Stripe::StripeObject
           # The amount transferred to the destination account. This transfer will occur
           # automatically after the payment succeeds. If no amount is specified, by default
           # the entire payment amount is transferred to the destination account. The amount
@@ -156,13 +156,13 @@ module Stripe
           end
         end
         # The amount available to be captured.
-        sig { returns(T.nilable(Stripe::V2::Amount)) }
+        sig { returns(T.nilable(::Stripe::V2::Amount)) }
         def amount_capturable; end
         # Provides industry-specific information about the amount.
         sig { returns(T.nilable(AmountDetails)) }
         def amount_details; end
         # The “presentment amount” to be collected from the customer.
-        sig { returns(Stripe::V2::Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount_requested; end
         # The frequency of the underlying payment.
         sig { returns(String) }

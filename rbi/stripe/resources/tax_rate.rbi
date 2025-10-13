@@ -7,7 +7,7 @@ module Stripe
   #
   # Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
   class TaxRate < APIResource
-    class FlatAmount < Stripe::StripeObject
+    class FlatAmount < ::Stripe::StripeObject
       # Amount of the tax when the `rate_type` is `flat_amount`. This positive integer represents how much to charge in the smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       sig { returns(Integer) }
       def amount; end
@@ -79,19 +79,19 @@ module Stripe
     def tax_type; end
     # Creates a new tax rate.
     sig {
-      params(params: T.any(::Stripe::TaxRateCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TaxRate)
+      params(params: T.any(::Stripe::TaxRateCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxRate)
      }
     def self.create(params = {}, opts = {}); end
 
     # Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
     sig {
-      params(params: T.any(::Stripe::TaxRateListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::TaxRateListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
 
     # Updates an existing tax rate.
     sig {
-      params(tax_rate: String, params: T.any(::Stripe::TaxRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TaxRate)
+      params(tax_rate: String, params: T.any(::Stripe::TaxRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxRate)
      }
     def self.update(tax_rate, params = {}, opts = {}); end
   end

@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class WebhookEndpointUpdateParams < Stripe::RequestParams
+  class WebhookEndpointUpdateParams < ::Stripe::RequestParams
     # An optional description of what the webhook is used for.
     sig { returns(T.nilable(String)) }
     def description; end

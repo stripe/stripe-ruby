@@ -3,7 +3,7 @@
 
 module Stripe
   module Radar
-    class EarlyFraudWarningRetrieveParams < Stripe::RequestParams
+    class EarlyFraudWarningRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

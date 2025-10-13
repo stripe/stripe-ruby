@@ -3,8 +3,8 @@
 
 module Stripe
   module Radar
-    class ValueListItemListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class ValueListItemListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
         # Minimum value to filter by (inclusive)

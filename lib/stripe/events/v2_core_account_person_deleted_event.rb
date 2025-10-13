@@ -9,7 +9,7 @@ module Stripe
         "v2.core.account_person.deleted"
       end
 
-      class V2CoreAccountPersonDeletedEventData < Stripe::StripeObject
+      class V2CoreAccountPersonDeletedEventData < ::Stripe::StripeObject
         # The ID of the v2 account.
         attr_reader :account_id
 

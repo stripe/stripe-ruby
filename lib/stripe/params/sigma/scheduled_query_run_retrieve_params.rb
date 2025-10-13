@@ -3,7 +3,7 @@
 
 module Stripe
   module Sigma
-    class ScheduledQueryRunRetrieveParams < Stripe::RequestParams
+    class ScheduledQueryRunRetrieveParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

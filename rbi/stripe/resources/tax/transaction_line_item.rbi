@@ -5,7 +5,7 @@
 module Stripe
   module Tax
     class TransactionLineItem < APIResource
-      class Reversal < Stripe::StripeObject
+      class Reversal < ::Stripe::StripeObject
         # The `id` of the line item to reverse in the original transaction.
         sig { returns(String) }
         def original_line_item; end

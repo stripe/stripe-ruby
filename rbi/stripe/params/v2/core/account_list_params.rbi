@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Core
-      class AccountListParams < Stripe::RequestParams
+      class AccountListParams < ::Stripe::RequestParams
         # Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
         sig { returns(T.nilable(T::Array[String])) }
         def applied_configurations; end

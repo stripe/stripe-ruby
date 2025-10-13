@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class CreditNoteCreateParams < Stripe::RequestParams
-    class Line < Stripe::RequestParams
-      class TaxAmount < Stripe::RequestParams
+  class CreditNoteCreateParams < ::Stripe::RequestParams
+    class Line < ::Stripe::RequestParams
+      class TaxAmount < ::Stripe::RequestParams
         # The amount, in cents (or local equivalent), of the tax.
         sig { returns(Integer) }
         def amount; end
@@ -88,21 +88,49 @@ module Stripe
         unit_amount_decimal: nil
       ); end
     end
-    class Refund < Stripe::RequestParams
+    class Refund < ::Stripe::RequestParams
+      class PaymentRecordRefund < ::Stripe::RequestParams
+        # The ID of the PaymentRecord with the refund to link to this credit note.
+        sig { returns(String) }
+        def payment_record; end
+        sig { params(_payment_record: String).returns(String) }
+        def payment_record=(_payment_record); end
+        # The PaymentRecord refund group to link to this credit note. For refunds processed off-Stripe, this will correspond to the `processor_details.custom.refund_reference` field provided when reporting the refund on the PaymentRecord.
+        sig { returns(String) }
+        def refund_group; end
+        sig { params(_refund_group: String).returns(String) }
+        def refund_group=(_refund_group); end
+        sig { params(payment_record: String, refund_group: String).void }
+        def initialize(payment_record: nil, refund_group: nil); end
+      end
       # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
       sig { returns(T.nilable(Integer)) }
       def amount_refunded; end
       sig { params(_amount_refunded: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def amount_refunded=(_amount_refunded); end
+      # The PaymentRecord refund details to link to this credit note. Required when `type` is `payment_record_refund`.
+      sig { returns(T.nilable(CreditNoteCreateParams::Refund::PaymentRecordRefund)) }
+      def payment_record_refund; end
+      sig {
+        params(_payment_record_refund: T.nilable(CreditNoteCreateParams::Refund::PaymentRecordRefund)).returns(T.nilable(CreditNoteCreateParams::Refund::PaymentRecordRefund))
+       }
+      def payment_record_refund=(_payment_record_refund); end
       # ID of an existing refund to link this credit note to. Required when `type` is `refund`.
       sig { returns(T.nilable(String)) }
       def refund; end
       sig { params(_refund: T.nilable(String)).returns(T.nilable(String)) }
       def refund=(_refund); end
-      sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }
-      def initialize(amount_refunded: nil, refund: nil); end
+      # Type of the refund, one of `refund` or `payment_record_refund`. Defaults to `refund`.
+      sig { returns(T.nilable(String)) }
+      def type; end
+      sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+      def type=(_type); end
+      sig {
+        params(amount_refunded: T.nilable(Integer), payment_record_refund: T.nilable(CreditNoteCreateParams::Refund::PaymentRecordRefund), refund: T.nilable(String), type: T.nilable(String)).void
+       }
+      def initialize(amount_refunded: nil, payment_record_refund: nil, refund: nil, type: nil); end
     end
-    class ShippingCost < Stripe::RequestParams
+    class ShippingCost < ::Stripe::RequestParams
       # The ID of the shipping rate to use for this order.
       sig { returns(T.nilable(String)) }
       def shipping_rate; end

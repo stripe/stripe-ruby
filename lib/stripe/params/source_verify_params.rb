@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SourceVerifyParams < Stripe::RequestParams
+  class SourceVerifyParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # The values needed to verify the source.

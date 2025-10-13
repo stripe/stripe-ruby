@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class QuoteMarkStaleParams < Stripe::RequestParams
+  class QuoteMarkStaleParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # Reason the Quote is being marked stale.

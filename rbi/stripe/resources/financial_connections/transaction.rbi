@@ -6,7 +6,7 @@ module Stripe
   module FinancialConnections
     # A Transaction represents a real transaction that affects a Financial Connections Account balance.
     class Transaction < APIResource
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Time at which this transaction posted. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
         def posted_at; end
@@ -58,7 +58,7 @@ module Stripe
       def updated; end
       # Returns a list of Financial Connections Transaction objects.
       sig {
-        params(params: T.any(::Stripe::FinancialConnections::TransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::FinancialConnections::TransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

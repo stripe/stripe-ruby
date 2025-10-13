@@ -8,8 +8,8 @@ module Stripe
       "payment_intent_amount_details_line_item"
     end
 
-    class PaymentMethodOptions < Stripe::StripeObject
-      class Card < Stripe::StripeObject
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
         # Attribute for field commodity_code
         attr_reader :commodity_code
 
@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      class CardPresent < Stripe::StripeObject
+      class CardPresent < ::Stripe::StripeObject
         # Attribute for field commodity_code
         attr_reader :commodity_code
 
@@ -35,7 +35,7 @@ module Stripe
         end
       end
 
-      class Klarna < Stripe::StripeObject
+      class Klarna < ::Stripe::StripeObject
         # Attribute for field image_url
         attr_reader :image_url
         # Attribute for field product_url
@@ -50,7 +50,7 @@ module Stripe
         end
       end
 
-      class Paypal < Stripe::StripeObject
+      class Paypal < ::Stripe::StripeObject
         # Type of the line item.
         attr_reader :category
         # Description of the line item.
@@ -84,7 +84,7 @@ module Stripe
       end
     end
 
-    class Tax < Stripe::StripeObject
+    class Tax < ::Stripe::StripeObject
       # Total portion of the amount that is for tax.
       attr_reader :total_tax_amount
 

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      class AdjustmentListParams < Stripe::RequestParams
+      class AdjustmentListParams < ::Stripe::RequestParams
         # Filter for Adjustments linked to a Flow.
         attr_accessor :adjusted_flow
         # Filter for objects created at the specified timestamp.

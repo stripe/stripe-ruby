@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Radar
-    class EarlyFraudWarningListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
+    class EarlyFraudWarningListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(T.nilable(Integer)) }
         def gt; end

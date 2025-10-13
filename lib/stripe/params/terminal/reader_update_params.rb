@@ -3,7 +3,7 @@
 
 module Stripe
   module Terminal
-    class ReaderUpdateParams < Stripe::RequestParams
+    class ReaderUpdateParams < ::Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # The new label of the reader.

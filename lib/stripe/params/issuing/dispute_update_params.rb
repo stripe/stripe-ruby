@@ -3,9 +3,9 @@
 
 module Stripe
   module Issuing
-    class DisputeUpdateParams < Stripe::RequestParams
-      class Evidence < Stripe::RequestParams
-        class Canceled < Stripe::RequestParams
+    class DisputeUpdateParams < ::Stripe::RequestParams
+      class Evidence < ::Stripe::RequestParams
+        class Canceled < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_accessor :additional_documentation
           # Date when order was canceled.
@@ -52,7 +52,7 @@ module Stripe
           end
         end
 
-        class Duplicate < Stripe::RequestParams
+        class Duplicate < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_accessor :additional_documentation
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
@@ -83,7 +83,7 @@ module Stripe
           end
         end
 
-        class Fraudulent < Stripe::RequestParams
+        class Fraudulent < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_accessor :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
@@ -95,7 +95,7 @@ module Stripe
           end
         end
 
-        class MerchandiseNotAsDescribed < Stripe::RequestParams
+        class MerchandiseNotAsDescribed < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_accessor :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
@@ -126,7 +126,7 @@ module Stripe
           end
         end
 
-        class NoValidAuthorization < Stripe::RequestParams
+        class NoValidAuthorization < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_accessor :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
@@ -138,7 +138,7 @@ module Stripe
           end
         end
 
-        class NotReceived < Stripe::RequestParams
+        class NotReceived < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_accessor :additional_documentation
           # Date when the cardholder expected to receive the product.
@@ -165,7 +165,7 @@ module Stripe
           end
         end
 
-        class Other < Stripe::RequestParams
+        class Other < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_accessor :additional_documentation
           # Explanation of why the cardholder is disputing this transaction.
@@ -188,7 +188,7 @@ module Stripe
           end
         end
 
-        class ServiceNotAsDescribed < Stripe::RequestParams
+        class ServiceNotAsDescribed < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           attr_accessor :additional_documentation
           # Date when order was canceled.

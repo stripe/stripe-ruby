@@ -6,10 +6,10 @@ module Stripe
   module Billing
     # A billing alert is a resource that notifies you when a certain usage threshold on a meter is crossed. For example, you might create a billing alert to notify you when a certain user made 100 API requests.
     class Alert < APIResource
-      class UsageThreshold < Stripe::StripeObject
-        class Filter < Stripe::StripeObject
+      class UsageThreshold < ::Stripe::StripeObject
+        class Filter < ::Stripe::StripeObject
           # Limit the scope of the alert to this customer ID
-          sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
+          sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
           def customer; end
           # Attribute for field type
           sig { returns(String) }
@@ -28,7 +28,7 @@ module Stripe
         sig { returns(Integer) }
         def gte; end
         # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
-        sig { returns(T.any(String, Stripe::Billing::Meter)) }
+        sig { returns(T.any(String, ::Stripe::Billing::Meter)) }
         def meter; end
         # Defines how the alert will behave.
         sig { returns(String) }
@@ -63,49 +63,49 @@ module Stripe
       def usage_threshold; end
       # Reactivates this alert, allowing it to trigger again.
       sig {
-        params(params: T.any(::Stripe::Billing::AlertActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Alert)
+        params(params: T.any(::Stripe::Billing::AlertActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)
        }
       def activate(params = {}, opts = {}); end
 
       # Reactivates this alert, allowing it to trigger again.
       sig {
-        params(id: String, params: T.any(::Stripe::Billing::AlertActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Alert)
+        params(id: String, params: T.any(::Stripe::Billing::AlertActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)
        }
       def self.activate(id, params = {}, opts = {}); end
 
       # Archives this alert, removing it from the list view and APIs. This is non-reversible.
       sig {
-        params(params: T.any(::Stripe::Billing::AlertArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Alert)
+        params(params: T.any(::Stripe::Billing::AlertArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)
        }
       def archive(params = {}, opts = {}); end
 
       # Archives this alert, removing it from the list view and APIs. This is non-reversible.
       sig {
-        params(id: String, params: T.any(::Stripe::Billing::AlertArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Alert)
+        params(id: String, params: T.any(::Stripe::Billing::AlertArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)
        }
       def self.archive(id, params = {}, opts = {}); end
 
       # Creates a billing alert
       sig {
-        params(params: T.any(::Stripe::Billing::AlertCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Alert)
+        params(params: T.any(::Stripe::Billing::AlertCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)
        }
       def self.create(params = {}, opts = {}); end
 
       # Deactivates this alert, preventing it from triggering.
       sig {
-        params(params: T.any(::Stripe::Billing::AlertDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Alert)
+        params(params: T.any(::Stripe::Billing::AlertDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)
        }
       def deactivate(params = {}, opts = {}); end
 
       # Deactivates this alert, preventing it from triggering.
       sig {
-        params(id: String, params: T.any(::Stripe::Billing::AlertDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Billing::Alert)
+        params(id: String, params: T.any(::Stripe::Billing::AlertDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)
        }
       def self.deactivate(id, params = {}, opts = {}); end
 
       # Lists billing active and inactive alerts
       sig {
-        params(params: T.any(::Stripe::Billing::AlertListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Billing::AlertListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

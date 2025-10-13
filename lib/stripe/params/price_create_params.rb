@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class PriceCreateParams < Stripe::RequestParams
-    class CurrencyOptions < Stripe::RequestParams
-      class CustomUnitAmount < Stripe::RequestParams
+  class PriceCreateParams < ::Stripe::RequestParams
+    class CurrencyOptions < ::Stripe::RequestParams
+      class CustomUnitAmount < ::Stripe::RequestParams
         # Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
         attr_accessor :enabled
         # The maximum unit amount the customer can specify for this item.
@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      class Tier < Stripe::RequestParams
+      class Tier < ::Stripe::RequestParams
         # The flat billing amount for an entire tier, regardless of the number of units in the tier.
         attr_accessor :flat_amount
         # Same as `flat_amount`, but accepts a decimal value representing an integer in the minor units of the currency. Only one of `flat_amount` and `flat_amount_decimal` can be set.
@@ -74,7 +74,7 @@ module Stripe
       end
     end
 
-    class CustomUnitAmount < Stripe::RequestParams
+    class CustomUnitAmount < ::Stripe::RequestParams
       # Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
       attr_accessor :enabled
       # The maximum unit amount the customer can specify for this item.
@@ -92,7 +92,7 @@ module Stripe
       end
     end
 
-    class ProductData < Stripe::RequestParams
+    class ProductData < ::Stripe::RequestParams
       # Whether the product is currently available for purchase. Defaults to `true`.
       attr_accessor :active
       # The identifier for the product. Must be unique. If not provided, an identifier will be randomly generated.
@@ -129,7 +129,7 @@ module Stripe
       end
     end
 
-    class Recurring < Stripe::RequestParams
+    class Recurring < ::Stripe::RequestParams
       # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
       attr_accessor :interval
       # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
@@ -156,7 +156,7 @@ module Stripe
       end
     end
 
-    class Tier < Stripe::RequestParams
+    class Tier < ::Stripe::RequestParams
       # The flat billing amount for an entire tier, regardless of the number of units in the tier.
       attr_accessor :flat_amount
       # Same as `flat_amount`, but accepts a decimal value representing an integer in the minor units of the currency. Only one of `flat_amount` and `flat_amount_decimal` can be set.
@@ -183,7 +183,7 @@ module Stripe
       end
     end
 
-    class TransformQuantity < Stripe::RequestParams
+    class TransformQuantity < ::Stripe::RequestParams
       # Divide usage by this number.
       attr_accessor :divide_by
       # After division, either round the result `up` or `down`.

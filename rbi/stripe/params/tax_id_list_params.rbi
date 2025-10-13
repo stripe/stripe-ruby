@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class TaxIdListParams < Stripe::RequestParams
-    class Owner < Stripe::RequestParams
+  class TaxIdListParams < ::Stripe::RequestParams
+    class Owner < ::Stripe::RequestParams
       # Account the tax ID belongs to. Required when `type=account`
       sig { returns(T.nilable(String)) }
       def account; end

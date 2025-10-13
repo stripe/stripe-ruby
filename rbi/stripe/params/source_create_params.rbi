@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  class SourceCreateParams < Stripe::RequestParams
-    class Mandate < Stripe::RequestParams
-      class Acceptance < Stripe::RequestParams
-        class Offline < Stripe::RequestParams
+  class SourceCreateParams < ::Stripe::RequestParams
+    class Mandate < ::Stripe::RequestParams
+      class Acceptance < ::Stripe::RequestParams
+        class Offline < ::Stripe::RequestParams
           # An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
           sig { returns(String) }
           def contact_email; end
@@ -15,7 +15,7 @@ module Stripe
           sig { params(contact_email: String).void }
           def initialize(contact_email: nil); end
         end
-        class Online < Stripe::RequestParams
+        class Online < ::Stripe::RequestParams
           # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
           sig { returns(T.nilable(Integer)) }
           def date; end
@@ -128,8 +128,8 @@ module Stripe
         notification_method: nil
       ); end
     end
-    class Owner < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Owner < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -199,7 +199,7 @@ module Stripe
        }
       def initialize(address: nil, email: nil, name: nil, phone: nil); end
     end
-    class Receiver < Stripe::RequestParams
+    class Receiver < ::Stripe::RequestParams
       # The method Stripe should use to request information needed to process a refund or mispayment. Either `email` (an email is sent directly to the customer) or `manual` (a `source.refund_attributes_required` event is sent to your webhooks endpoint). Refer to each payment method's documentation to learn which refund attributes may be required.
       sig { returns(T.nilable(String)) }
       def refund_attributes_method; end
@@ -208,7 +208,7 @@ module Stripe
       sig { params(refund_attributes_method: T.nilable(String)).void }
       def initialize(refund_attributes_method: nil); end
     end
-    class Redirect < Stripe::RequestParams
+    class Redirect < ::Stripe::RequestParams
       # The URL you provide to redirect the customer back to you after they authenticated their payment. It can use your application URI scheme in the context of a mobile application.
       sig { returns(String) }
       def return_url; end
@@ -217,8 +217,8 @@ module Stripe
       sig { params(return_url: String).void }
       def initialize(return_url: nil); end
     end
-    class SourceOrder < Stripe::RequestParams
-      class Item < Stripe::RequestParams
+    class SourceOrder < ::Stripe::RequestParams
+      class Item < ::Stripe::RequestParams
         # Attribute for param field amount
         sig { returns(T.nilable(Integer)) }
         def amount; end
@@ -261,8 +261,8 @@ module Stripe
           type: nil
         ); end
       end
-      class Shipping < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Shipping < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           def city; end

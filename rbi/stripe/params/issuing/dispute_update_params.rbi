@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module Issuing
-    class DisputeUpdateParams < Stripe::RequestParams
-      class Evidence < Stripe::RequestParams
-        class Canceled < Stripe::RequestParams
+    class DisputeUpdateParams < ::Stripe::RequestParams
+      class Evidence < ::Stripe::RequestParams
+        class Canceled < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(String)) }
           def additional_documentation; end
@@ -85,7 +85,7 @@ module Stripe
             returned_at: nil
           ); end
         end
-        class Duplicate < Stripe::RequestParams
+        class Duplicate < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(String)) }
           def additional_documentation; end
@@ -128,7 +128,7 @@ module Stripe
             original_transaction: nil
           ); end
         end
-        class Fraudulent < Stripe::RequestParams
+        class Fraudulent < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(String)) }
           def additional_documentation; end
@@ -144,7 +144,7 @@ module Stripe
            }
           def initialize(additional_documentation: nil, explanation: nil); end
         end
-        class MerchandiseNotAsDescribed < Stripe::RequestParams
+        class MerchandiseNotAsDescribed < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(String)) }
           def additional_documentation; end
@@ -193,7 +193,7 @@ module Stripe
             returned_at: nil
           ); end
         end
-        class NoValidAuthorization < Stripe::RequestParams
+        class NoValidAuthorization < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(String)) }
           def additional_documentation; end
@@ -209,7 +209,7 @@ module Stripe
            }
           def initialize(additional_documentation: nil, explanation: nil); end
         end
-        class NotReceived < Stripe::RequestParams
+        class NotReceived < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(String)) }
           def additional_documentation; end
@@ -250,7 +250,7 @@ module Stripe
             product_type: nil
           ); end
         end
-        class Other < Stripe::RequestParams
+        class Other < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(String)) }
           def additional_documentation; end
@@ -283,7 +283,7 @@ module Stripe
             product_type: nil
           ); end
         end
-        class ServiceNotAsDescribed < Stripe::RequestParams
+        class ServiceNotAsDescribed < ::Stripe::RequestParams
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(String)) }
           def additional_documentation; end

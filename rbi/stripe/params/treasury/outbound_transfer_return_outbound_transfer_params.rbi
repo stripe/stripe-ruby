@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Treasury
-    class OutboundTransferReturnOutboundTransferParams < Stripe::RequestParams
-      class ReturnedDetails < Stripe::RequestParams
+    class OutboundTransferReturnOutboundTransferParams < ::Stripe::RequestParams
+      class ReturnedDetails < ::Stripe::RequestParams
         # Reason for the return.
         sig { returns(T.nilable(String)) }
         def code; end

@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  class ChargeCaptureParams < Stripe::RequestParams
-    class PaymentDetails < Stripe::RequestParams
-      class CarRental < Stripe::RequestParams
-        class Affiliate < Stripe::RequestParams
+  class ChargeCaptureParams < ::Stripe::RequestParams
+    class PaymentDetails < ::Stripe::RequestParams
+      class CarRental < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           attr_accessor :name
 
@@ -14,8 +14,8 @@ module Stripe
           end
         end
 
-        class Delivery < Stripe::RequestParams
-          class Recipient < Stripe::RequestParams
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
             # The email of the recipient the ticket is delivered to.
             attr_accessor :email
             # The name of the recipient the ticket is delivered to.
@@ -40,7 +40,7 @@ module Stripe
           end
         end
 
-        class Distance < Stripe::RequestParams
+        class Distance < ::Stripe::RequestParams
           # Distance traveled.
           attr_accessor :amount
           # Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
@@ -52,7 +52,7 @@ module Stripe
           end
         end
 
-        class Driver < Stripe::RequestParams
+        class Driver < ::Stripe::RequestParams
           # Driver's identification number.
           attr_accessor :driver_identification_number
           # Driver's tax number.
@@ -67,7 +67,7 @@ module Stripe
           end
         end
 
-        class PickupAddress < Stripe::RequestParams
+        class PickupAddress < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -98,7 +98,7 @@ module Stripe
           end
         end
 
-        class ReturnAddress < Stripe::RequestParams
+        class ReturnAddress < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -230,8 +230,8 @@ module Stripe
         end
       end
 
-      class EventDetails < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class EventDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -262,7 +262,7 @@ module Stripe
           end
         end
 
-        class Affiliate < Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           attr_accessor :name
 
@@ -271,8 +271,8 @@ module Stripe
           end
         end
 
-        class Delivery < Stripe::RequestParams
-          class Recipient < Stripe::RequestParams
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
             # The email of the recipient the ticket is delivered to.
             attr_accessor :email
             # The name of the recipient the ticket is delivered to.
@@ -338,8 +338,8 @@ module Stripe
         end
       end
 
-      class Flight < Stripe::RequestParams
-        class Affiliate < Stripe::RequestParams
+      class Flight < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           attr_accessor :name
 
@@ -348,8 +348,8 @@ module Stripe
           end
         end
 
-        class Delivery < Stripe::RequestParams
-          class Recipient < Stripe::RequestParams
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
             # The email of the recipient the ticket is delivered to.
             attr_accessor :email
             # The name of the recipient the ticket is delivered to.
@@ -374,7 +374,7 @@ module Stripe
           end
         end
 
-        class Passenger < Stripe::RequestParams
+        class Passenger < ::Stripe::RequestParams
           # Full name of the person or entity on the flight reservation.
           attr_accessor :name
 
@@ -383,7 +383,7 @@ module Stripe
           end
         end
 
-        class Segment < Stripe::RequestParams
+        class Segment < ::Stripe::RequestParams
           # The flight segment amount.
           attr_accessor :amount
           # The International Air Transport Association (IATA) airport code for the arrival airport.
@@ -459,8 +459,8 @@ module Stripe
         end
       end
 
-      class Lodging < Stripe::RequestParams
-        class Address < Stripe::RequestParams
+      class Lodging < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -491,7 +491,7 @@ module Stripe
           end
         end
 
-        class Affiliate < Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           attr_accessor :name
 
@@ -500,8 +500,8 @@ module Stripe
           end
         end
 
-        class Delivery < Stripe::RequestParams
-          class Recipient < Stripe::RequestParams
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
             # The email of the recipient the ticket is delivered to.
             attr_accessor :email
             # The name of the recipient the ticket is delivered to.
@@ -526,7 +526,7 @@ module Stripe
           end
         end
 
-        class Passenger < Stripe::RequestParams
+        class Passenger < ::Stripe::RequestParams
           # Full name of the person or entity on the lodging reservation.
           attr_accessor :name
 
@@ -624,8 +624,8 @@ module Stripe
         end
       end
 
-      class Subscription < Stripe::RequestParams
-        class Affiliate < Stripe::RequestParams
+      class Subscription < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
           # The name of the affiliate that originated the purchase.
           attr_accessor :name
 
@@ -634,7 +634,7 @@ module Stripe
           end
         end
 
-        class BillingInterval < Stripe::RequestParams
+        class BillingInterval < ::Stripe::RequestParams
           # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
           attr_accessor :count
           # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
@@ -708,7 +708,7 @@ module Stripe
       end
     end
 
-    class TransferData < Stripe::RequestParams
+    class TransferData < ::Stripe::RequestParams
       # The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
       attr_accessor :amount
 

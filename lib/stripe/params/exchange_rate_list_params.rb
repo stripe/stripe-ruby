@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class ExchangeRateListParams < Stripe::RequestParams
+  class ExchangeRateListParams < ::Stripe::RequestParams
     # A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
     attr_accessor :ending_before
     # Specifies which fields in the response should be expanded.

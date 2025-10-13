@@ -3,8 +3,8 @@
 
 module Stripe
   module Terminal
-    class ReaderRefundPaymentParams < Stripe::RequestParams
-      class RefundPaymentConfig < Stripe::RequestParams
+    class ReaderRefundPaymentParams < ::Stripe::RequestParams
+      class RefundPaymentConfig < ::Stripe::RequestParams
         # Enables cancel button on transaction screens.
         attr_accessor :enable_customer_cancellation
 
@@ -24,7 +24,7 @@ module Stripe
       attr_accessor :payment_intent
       # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
       attr_accessor :refund_application_fee
-      # Configuration overrides
+      # Configuration overrides for this refund, such as customer cancellation settings.
       attr_accessor :refund_payment_config
       # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
       attr_accessor :reverse_transfer

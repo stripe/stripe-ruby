@@ -9,7 +9,7 @@ module Stripe
       "credit_note_line_item"
     end
 
-    class DiscountAmount < Stripe::StripeObject
+    class DiscountAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       attr_reader :amount
       # The discount that was applied to get this discount amount.
@@ -24,7 +24,7 @@ module Stripe
       end
     end
 
-    class PretaxCreditAmount < Stripe::StripeObject
+    class PretaxCreditAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       attr_reader :amount
       # The credit balance transaction that was applied to get this pretax credit amount.
@@ -43,7 +43,7 @@ module Stripe
       end
     end
 
-    class TaxCalculationReference < Stripe::StripeObject
+    class TaxCalculationReference < ::Stripe::StripeObject
       # The calculation identifier for tax calculation response.
       attr_reader :calculation_id
       # The calculation identifier for tax calculation response line item.
@@ -58,8 +58,8 @@ module Stripe
       end
     end
 
-    class Tax < Stripe::StripeObject
-      class TaxRateDetails < Stripe::StripeObject
+    class Tax < ::Stripe::StripeObject
+      class TaxRateDetails < ::Stripe::StripeObject
         # Attribute for field tax_rate
         attr_reader :tax_rate
 

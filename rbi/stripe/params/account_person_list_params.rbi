@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class AccountPersonListParams < Stripe::RequestParams
-    class Relationship < Stripe::RequestParams
+  class AccountPersonListParams < ::Stripe::RequestParams
+    class Relationship < ::Stripe::RequestParams
       # A filter on the list of people returned based on whether these people are authorizers of the account's representative.
       sig { returns(T.nilable(T::Boolean)) }
       def authorizer; end

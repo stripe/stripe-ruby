@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      class ProfileListParams < Stripe::RequestParams
+      class ProfileListParams < ::Stripe::RequestParams
         # Filter billing profiles by a customer. Mutually exclusive
         # with `lookup_keys` and `default_payment_method`.
         attr_accessor :customer

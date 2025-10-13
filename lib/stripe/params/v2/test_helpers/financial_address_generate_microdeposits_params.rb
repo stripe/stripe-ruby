@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module TestHelpers
-      class FinancialAddressGenerateMicrodepositsParams < Stripe::RequestParams; end
+      class FinancialAddressGenerateMicrodepositsParams < ::Stripe::RequestParams; end
     end
   end
 end

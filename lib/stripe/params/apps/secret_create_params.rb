@@ -3,8 +3,8 @@
 
 module Stripe
   module Apps
-    class SecretCreateParams < Stripe::RequestParams
-      class Scope < Stripe::RequestParams
+    class SecretCreateParams < ::Stripe::RequestParams
+      class Scope < ::Stripe::RequestParams
         # The secret scope type.
         attr_accessor :type
         # The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.

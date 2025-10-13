@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Core
-      class EventListParams < Stripe::RequestParams
+      class EventListParams < ::Stripe::RequestParams
         # The page size.
         sig { returns(T.nilable(Integer)) }
         def limit; end

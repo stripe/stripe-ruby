@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class EventListParams < Stripe::RequestParams
-    class Created < Stripe::RequestParams
+  class EventListParams < ::Stripe::RequestParams
+    class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
       sig { returns(T.nilable(Integer)) }
       def gt; end

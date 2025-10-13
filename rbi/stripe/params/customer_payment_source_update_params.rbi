@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  class CustomerPaymentSourceUpdateParams < Stripe::RequestParams
-    class Owner < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+  class CustomerPaymentSourceUpdateParams < ::Stripe::RequestParams
+    class Owner < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end

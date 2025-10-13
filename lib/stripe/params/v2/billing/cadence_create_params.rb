@@ -4,10 +4,10 @@
 module Stripe
   module V2
     module Billing
-      class CadenceCreateParams < Stripe::RequestParams
-        class BillingCycle < Stripe::RequestParams
-          class Day < Stripe::RequestParams
-            class Time < Stripe::RequestParams
+      class CadenceCreateParams < ::Stripe::RequestParams
+        class BillingCycle < ::Stripe::RequestParams
+          class Day < ::Stripe::RequestParams
+            class Time < ::Stripe::RequestParams
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -35,8 +35,8 @@ module Stripe
             end
           end
 
-          class Month < Stripe::RequestParams
-            class Time < Stripe::RequestParams
+          class Month < ::Stripe::RequestParams
+            class Time < ::Stripe::RequestParams
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -76,8 +76,8 @@ module Stripe
             end
           end
 
-          class Week < Stripe::RequestParams
-            class Time < Stripe::RequestParams
+          class Week < ::Stripe::RequestParams
+            class Time < ::Stripe::RequestParams
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -111,8 +111,8 @@ module Stripe
             end
           end
 
-          class Year < Stripe::RequestParams
-            class Time < Stripe::RequestParams
+          class Year < ::Stripe::RequestParams
+            class Time < ::Stripe::RequestParams
               # The hour at which the billing cycle ends.
               # This must be an integer between 0 and 23, inclusive.
               # 0 represents midnight, and 23 represents 11 PM.
@@ -174,7 +174,7 @@ module Stripe
           end
         end
 
-        class Payer < Stripe::RequestParams
+        class Payer < ::Stripe::RequestParams
           # The ID of the Billing Profile object which determines how a bill will be paid.
           attr_accessor :billing_profile
 
@@ -183,8 +183,8 @@ module Stripe
           end
         end
 
-        class Settings < Stripe::RequestParams
-          class Bill < Stripe::RequestParams
+        class Settings < ::Stripe::RequestParams
+          class Bill < ::Stripe::RequestParams
             # The ID of the referenced settings object.
             attr_accessor :id
             # An optional field to specify the version of the Settings to use.
@@ -197,7 +197,7 @@ module Stripe
             end
           end
 
-          class Collection < Stripe::RequestParams
+          class Collection < ::Stripe::RequestParams
             # The ID of the referenced settings object.
             attr_accessor :id
             # An optional field to specify the version of the Settings to use.

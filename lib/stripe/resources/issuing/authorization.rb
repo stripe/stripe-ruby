@@ -18,7 +18,7 @@ module Stripe
         "issuing.authorization"
       end
 
-      class AmountDetails < Stripe::StripeObject
+      class AmountDetails < ::Stripe::StripeObject
         # The fee charged by the ATM for the cash withdrawal.
         attr_reader :atm_fee
         # The amount of cash requested by the cardholder.
@@ -33,8 +33,8 @@ module Stripe
         end
       end
 
-      class Fleet < Stripe::StripeObject
-        class CardholderPromptData < Stripe::StripeObject
+      class Fleet < ::Stripe::StripeObject
+        class CardholderPromptData < ::Stripe::StripeObject
           # [Deprecated] An alphanumeric ID, though typical point of sales only support numeric entry. The card program can be configured to prompt for a vehicle ID, driver ID, or generic ID.
           attr_reader :alphanumeric_id
           # Driver ID.
@@ -57,8 +57,8 @@ module Stripe
           end
         end
 
-        class ReportedBreakdown < Stripe::StripeObject
-          class Fuel < Stripe::StripeObject
+        class ReportedBreakdown < ::Stripe::StripeObject
+          class Fuel < ::Stripe::StripeObject
             # Gross fuel amount that should equal Fuel Quantity multiplied by Fuel Unit Cost, inclusive of taxes.
             attr_reader :gross_amount_decimal
 
@@ -71,7 +71,7 @@ module Stripe
             end
           end
 
-          class NonFuel < Stripe::StripeObject
+          class NonFuel < ::Stripe::StripeObject
             # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
             attr_reader :gross_amount_decimal
 
@@ -84,7 +84,7 @@ module Stripe
             end
           end
 
-          class Tax < Stripe::StripeObject
+          class Tax < ::Stripe::StripeObject
             # Amount of state or provincial Sales Tax included in the transaction amount. `null` if not reported by merchant or not subject to tax.
             attr_reader :local_amount_decimal
             # Amount of national Sales Tax or VAT included in the transaction amount. `null` if not reported by merchant or not subject to tax.
@@ -134,7 +134,7 @@ module Stripe
         end
       end
 
-      class FraudChallenge < Stripe::StripeObject
+      class FraudChallenge < ::Stripe::StripeObject
         # The method by which the fraud challenge was delivered to the cardholder.
         attr_reader :channel
         # The status of the fraud challenge.
@@ -151,7 +151,7 @@ module Stripe
         end
       end
 
-      class Fuel < Stripe::StripeObject
+      class Fuel < ::Stripe::StripeObject
         # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
         attr_reader :industry_product_code
         # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
@@ -172,7 +172,7 @@ module Stripe
         end
       end
 
-      class MerchantData < Stripe::StripeObject
+      class MerchantData < ::Stripe::StripeObject
         # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
         attr_reader :category
         # The merchant category code for the seller’s business
@@ -205,7 +205,7 @@ module Stripe
         end
       end
 
-      class NetworkData < Stripe::StripeObject
+      class NetworkData < ::Stripe::StripeObject
         # Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be `null`.
         attr_reader :acquiring_institution_id
         # The System Trace Audit Number (STAN) is a 6-digit identifier assigned by the acquirer. Prefer `network_data.transaction_id` if present, unless you have special requirements.
@@ -222,8 +222,8 @@ module Stripe
         end
       end
 
-      class PendingRequest < Stripe::StripeObject
-        class AmountDetails < Stripe::StripeObject
+      class PendingRequest < ::Stripe::StripeObject
+        class AmountDetails < ::Stripe::StripeObject
           # The fee charged by the ATM for the cash withdrawal.
           attr_reader :atm_fee
           # The amount of cash requested by the cardholder.
@@ -261,8 +261,8 @@ module Stripe
         end
       end
 
-      class RequestHistory < Stripe::StripeObject
-        class AmountDetails < Stripe::StripeObject
+      class RequestHistory < ::Stripe::StripeObject
+        class AmountDetails < ::Stripe::StripeObject
           # The fee charged by the ATM for the cash withdrawal.
           attr_reader :atm_fee
           # The amount of cash requested by the cardholder.
@@ -310,7 +310,7 @@ module Stripe
         end
       end
 
-      class Treasury < Stripe::StripeObject
+      class Treasury < ::Stripe::StripeObject
         # The array of [ReceivedCredits](https://stripe.com/docs/api/treasury/received_credits) associated with this authorization
         attr_reader :received_credits
         # The array of [ReceivedDebits](https://stripe.com/docs/api/treasury/received_debits) associated with this authorization
@@ -327,8 +327,8 @@ module Stripe
         end
       end
 
-      class VerificationData < Stripe::StripeObject
-        class AuthenticationExemption < Stripe::StripeObject
+      class VerificationData < ::Stripe::StripeObject
+        class AuthenticationExemption < ::Stripe::StripeObject
           # The entity that requested the exemption, either the acquiring merchant or the Issuing user.
           attr_reader :claimed_by
           # The specific exemption claimed for this authorization.
@@ -343,7 +343,7 @@ module Stripe
           end
         end
 
-        class ThreeDSecure < Stripe::StripeObject
+        class ThreeDSecure < ::Stripe::StripeObject
           # The outcome of the 3D Secure authentication request.
           attr_reader :result
 

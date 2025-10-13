@@ -14,7 +14,7 @@ module Stripe
     #
     # Related guide: [Store data between page reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects)
     class Secret < APIResource
-      class Scope < Stripe::StripeObject
+      class Scope < ::Stripe::StripeObject
         # The secret scope type.
         sig { returns(String) }
         def type; end
@@ -57,25 +57,25 @@ module Stripe
       def scope; end
       # Create or replace a secret in the secret store.
       sig {
-        params(params: T.any(::Stripe::Apps::SecretCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Apps::Secret)
+        params(params: T.any(::Stripe::Apps::SecretCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Apps::Secret)
        }
       def self.create(params = {}, opts = {}); end
 
       # Deletes a secret from the secret store by name and scope.
       sig {
-        params(params: T.any(::Stripe::Apps::SecretDeleteWhereParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Apps::Secret)
+        params(params: T.any(::Stripe::Apps::SecretDeleteWhereParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Apps::Secret)
        }
       def self.delete_where(params = {}, opts = {}); end
 
       # Finds a secret in the secret store by name and scope.
       sig {
-        params(params: T.any(::Stripe::Apps::SecretFindParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Apps::Secret)
+        params(params: T.any(::Stripe::Apps::SecretFindParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Apps::Secret)
        }
       def self.find(params = {}, opts = {}); end
 
       # List all secrets stored on the given scope.
       sig {
-        params(params: T.any(::Stripe::Apps::SecretListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Apps::SecretListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
     end

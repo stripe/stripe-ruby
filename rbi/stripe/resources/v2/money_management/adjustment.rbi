@@ -7,7 +7,7 @@ module Stripe
     module MoneyManagement
       # Adjustments represent Stripe-initiated credits or debits to a user balance. They might be used to amend balances due to technical or operational error.
       class Adjustment < APIResource
-        class AdjustedFlow < Stripe::StripeObject
+        class AdjustedFlow < ::Stripe::StripeObject
           # Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
           sig { returns(String) }
           def type; end
@@ -40,7 +40,7 @@ module Stripe
         sig { returns(T.nilable(AdjustedFlow)) }
         def adjusted_flow; end
         # The amount of the Adjustment.
-        sig { returns(Stripe::V2::Amount) }
+        sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }

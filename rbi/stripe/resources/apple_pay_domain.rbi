@@ -25,25 +25,25 @@ module Stripe
     def deleted; end
     # Create an apple pay domain.
     sig {
-      params(params: T.any(::Stripe::ApplePayDomainCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ApplePayDomain)
+      params(params: T.any(::Stripe::ApplePayDomainCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplePayDomain)
      }
     def self.create(params = {}, opts = {}); end
 
     # Delete an apple pay domain.
     sig {
-      params(domain: String, params: T.any(::Stripe::ApplePayDomainDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ApplePayDomain)
+      params(domain: String, params: T.any(::Stripe::ApplePayDomainDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplePayDomain)
      }
     def self.delete(domain, params = {}, opts = {}); end
 
     # Delete an apple pay domain.
     sig {
-      params(params: T.any(::Stripe::ApplePayDomainDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ApplePayDomain)
+      params(params: T.any(::Stripe::ApplePayDomainDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplePayDomain)
      }
     def delete(params = {}, opts = {}); end
 
     # List apple pay domains.
     sig {
-      params(params: T.any(::Stripe::ApplePayDomainListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::ApplePayDomainListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

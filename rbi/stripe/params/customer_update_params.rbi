@@ -3,8 +3,8 @@
 
 # typed: true
 module Stripe
-  class CustomerUpdateParams < Stripe::RequestParams
-    class Address < Stripe::RequestParams
+  class CustomerUpdateParams < ::Stripe::RequestParams
+    class Address < ::Stripe::RequestParams
       # City, district, suburb, town, or village.
       sig { returns(T.nilable(String)) }
       def city; end
@@ -47,8 +47,8 @@ module Stripe
         state: nil
       ); end
     end
-    class CashBalance < Stripe::RequestParams
-      class Settings < Stripe::RequestParams
+    class CashBalance < ::Stripe::RequestParams
+      class Settings < ::Stripe::RequestParams
         # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
         sig { returns(T.nilable(String)) }
         def reconciliation_mode; end
@@ -68,8 +68,8 @@ module Stripe
       sig { params(settings: T.nilable(CustomerUpdateParams::CashBalance::Settings)).void }
       def initialize(settings: nil); end
     end
-    class InvoiceSettings < Stripe::RequestParams
-      class CustomField < Stripe::RequestParams
+    class InvoiceSettings < ::Stripe::RequestParams
+      class CustomField < ::Stripe::RequestParams
         # The name of the custom field. This may be up to 40 characters.
         sig { returns(String) }
         def name; end
@@ -83,7 +83,7 @@ module Stripe
         sig { params(name: String, value: String).void }
         def initialize(name: nil, value: nil); end
       end
-      class RenderingOptions < Stripe::RequestParams
+      class RenderingOptions < ::Stripe::RequestParams
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         sig { returns(T.nilable(T.any(String, String))) }
         def amount_tax_display; end
@@ -139,8 +139,8 @@ module Stripe
         rendering_options: nil
       ); end
     end
-    class Shipping < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class Shipping < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -205,7 +205,7 @@ module Stripe
        }
       def initialize(address: nil, name: nil, phone: nil); end
     end
-    class Tax < Stripe::RequestParams
+    class Tax < ::Stripe::RequestParams
       # A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
       sig { returns(T.nilable(String)) }
       def ip_address; end

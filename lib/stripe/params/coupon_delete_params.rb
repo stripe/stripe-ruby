@@ -2,5 +2,5 @@
 # frozen_string_literal: true
 
 module Stripe
-  class CouponDeleteParams < Stripe::RequestParams; end
+  class CouponDeleteParams < ::Stripe::RequestParams; end
 end

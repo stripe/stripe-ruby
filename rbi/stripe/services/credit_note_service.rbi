@@ -20,37 +20,37 @@ module Stripe
     # You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
     # post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
     sig {
-      params(params: T.any(::Stripe::CreditNoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(params: T.any(::Stripe::CreditNoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def create(params = {}, opts = {}); end
 
     # Returns a list of credit notes.
     sig {
-      params(params: T.any(::Stripe::CreditNoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::CreditNoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def list(params = {}, opts = {}); end
 
     # Get a preview of a credit note without creating it.
     sig {
-      params(params: T.any(::Stripe::CreditNotePreviewParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(params: T.any(::Stripe::CreditNotePreviewParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def preview(params = {}, opts = {}); end
 
     # Retrieves the credit note object with the given identifier.
     sig {
-      params(id: String, params: T.any(::Stripe::CreditNoteRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(id: String, params: T.any(::Stripe::CreditNoteRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def retrieve(id, params = {}, opts = {}); end
 
     # Updates an existing credit note.
     sig {
-      params(id: String, params: T.any(::Stripe::CreditNoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(id: String, params: T.any(::Stripe::CreditNoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def update(id, params = {}, opts = {}); end
 
     # Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
     sig {
-      params(id: String, params: T.any(::Stripe::CreditNoteVoidCreditNoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
+      params(id: String, params: T.any(::Stripe::CreditNoteVoidCreditNoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CreditNote)
      }
     def void_credit_note(id, params = {}, opts = {}); end
   end

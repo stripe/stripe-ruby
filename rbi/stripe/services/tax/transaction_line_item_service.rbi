@@ -7,7 +7,7 @@ module Stripe
     class TransactionLineItemService < StripeService
       # Retrieves the line items of a committed standalone transaction as a collection.
       sig {
-        params(transaction: String, params: T.any(::Stripe::Tax::TransactionLineItemListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(transaction: String, params: T.any(::Stripe::Tax::TransactionLineItemListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def list(transaction, params = {}, opts = {}); end
     end

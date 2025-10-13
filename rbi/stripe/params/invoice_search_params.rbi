@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class InvoiceSearchParams < Stripe::RequestParams
+  class InvoiceSearchParams < ::Stripe::RequestParams
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end

@@ -14,8 +14,8 @@ module Stripe
       "balance"
     end
 
-    class Available < Stripe::StripeObject
-      class SourceTypes < Stripe::StripeObject
+    class Available < ::Stripe::StripeObject
+      class SourceTypes < ::Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         attr_reader :bank_account
         # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
@@ -47,8 +47,8 @@ module Stripe
       end
     end
 
-    class ConnectReserved < Stripe::StripeObject
-      class SourceTypes < Stripe::StripeObject
+    class ConnectReserved < ::Stripe::StripeObject
+      class SourceTypes < ::Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         attr_reader :bank_account
         # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
@@ -80,9 +80,9 @@ module Stripe
       end
     end
 
-    class InstantAvailable < Stripe::StripeObject
-      class NetAvailable < Stripe::StripeObject
-        class SourceTypes < Stripe::StripeObject
+    class InstantAvailable < ::Stripe::StripeObject
+      class NetAvailable < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           attr_reader :bank_account
           # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
@@ -114,7 +114,7 @@ module Stripe
         end
       end
 
-      class SourceTypes < Stripe::StripeObject
+      class SourceTypes < ::Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         attr_reader :bank_account
         # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
@@ -148,9 +148,9 @@ module Stripe
       end
     end
 
-    class Issuing < Stripe::StripeObject
-      class Available < Stripe::StripeObject
-        class SourceTypes < Stripe::StripeObject
+    class Issuing < ::Stripe::StripeObject
+      class Available < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           attr_reader :bank_account
           # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
@@ -193,8 +193,8 @@ module Stripe
       end
     end
 
-    class Pending < Stripe::StripeObject
-      class SourceTypes < Stripe::StripeObject
+    class Pending < ::Stripe::StripeObject
+      class SourceTypes < ::Stripe::StripeObject
         # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         attr_reader :bank_account
         # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
@@ -226,9 +226,9 @@ module Stripe
       end
     end
 
-    class RefundAndDisputePrefunding < Stripe::StripeObject
-      class Available < Stripe::StripeObject
-        class SourceTypes < Stripe::StripeObject
+    class RefundAndDisputePrefunding < ::Stripe::StripeObject
+      class Available < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           attr_reader :bank_account
           # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
@@ -260,8 +260,8 @@ module Stripe
         end
       end
 
-      class Pending < Stripe::StripeObject
-        class SourceTypes < Stripe::StripeObject
+      class Pending < ::Stripe::StripeObject
+        class SourceTypes < ::Stripe::StripeObject
           # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           attr_reader :bank_account
           # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).

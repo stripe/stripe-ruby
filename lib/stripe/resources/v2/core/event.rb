@@ -11,8 +11,8 @@ module Stripe
           "v2.core.event"
         end
 
-        class Reason < Stripe::StripeObject
-          class Request < Stripe::StripeObject
+        class Reason < ::Stripe::StripeObject
+          class Request < ::Stripe::StripeObject
             # ID of the API request that caused the event.
             attr_reader :id
             # The idempotency key transmitted during the request.

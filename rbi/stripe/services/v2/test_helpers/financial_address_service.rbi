@@ -10,7 +10,7 @@ module Stripe
         #
         # ** raises FeatureNotEnabledError
         sig {
-          params(id: String, params: T.any(::Stripe::V2::TestHelpers::FinancialAddressCreditParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::FinancialAddressCreditSimulation)
+          params(id: String, params: T.any(::Stripe::V2::TestHelpers::FinancialAddressCreditParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::FinancialAddressCreditSimulation)
          }
         def credit(id, params = {}, opts = {}); end
 
@@ -18,7 +18,7 @@ module Stripe
         #
         # ** raises FeatureNotEnabledError
         sig {
-          params(id: String, params: T.any(::Stripe::V2::TestHelpers::FinancialAddressGenerateMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::FinancialAddressGeneratedMicrodeposits)
+          params(id: String, params: T.any(::Stripe::V2::TestHelpers::FinancialAddressGenerateMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::FinancialAddressGeneratedMicrodeposits)
          }
         def generate_microdeposits(id, params = {}, opts = {}); end
       end

@@ -9,10 +9,10 @@ module Stripe
   # `financial_addresses` field.
   # Related guide: [Customer balance funding instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
   class FundingInstructions < APIResource
-    class BankTransfer < Stripe::StripeObject
-      class FinancialAddress < Stripe::StripeObject
-        class Aba < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+    class BankTransfer < ::Stripe::StripeObject
+      class FinancialAddress < ::Stripe::StripeObject
+        class Aba < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -38,7 +38,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -95,8 +95,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Iban < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class Iban < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -122,7 +122,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -176,8 +176,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class SortCode < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class SortCode < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -203,7 +203,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -254,8 +254,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Spei < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class Spei < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -281,7 +281,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -335,8 +335,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Swift < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class Swift < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -362,7 +362,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -419,8 +419,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Zengin < Stripe::StripeObject
-          class AccountHolderAddress < Stripe::StripeObject
+        class Zengin < ::Stripe::StripeObject
+          class AccountHolderAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end
@@ -446,7 +446,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class BankAddress < Stripe::StripeObject
+          class BankAddress < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             sig { returns(T.nilable(String)) }
             def city; end

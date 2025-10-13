@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module Terminal
-    class LocationUpdateParams < Stripe::RequestParams
-      class Address < Stripe::RequestParams
+    class LocationUpdateParams < ::Stripe::RequestParams
+      class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -48,7 +48,7 @@ module Stripe
           state: nil
         ); end
       end
-      class AddressKana < Stripe::RequestParams
+      class AddressKana < ::Stripe::RequestParams
         # City or ward.
         sig { returns(T.nilable(String)) }
         def city; end
@@ -97,7 +97,7 @@ module Stripe
           town: nil
         ); end
       end
-      class AddressKanji < Stripe::RequestParams
+      class AddressKanji < ::Stripe::RequestParams
         # City or ward.
         sig { returns(T.nilable(String)) }
         def city; end

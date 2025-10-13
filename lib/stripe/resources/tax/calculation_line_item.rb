@@ -9,8 +9,8 @@ module Stripe
         "tax.calculation_line_item"
       end
 
-      class TaxBreakdown < Stripe::StripeObject
-        class Jurisdiction < Stripe::StripeObject
+      class TaxBreakdown < ::Stripe::StripeObject
+        class Jurisdiction < ::Stripe::StripeObject
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
           # A human-readable name for the jurisdiction imposing the tax.
@@ -29,7 +29,7 @@ module Stripe
           end
         end
 
-        class TaxRateDetails < Stripe::StripeObject
+        class TaxRateDetails < ::Stripe::StripeObject
           # A localized display name for tax type, intended to be human-readable. For example, "Local Sales and Use Tax", "Value-added tax (VAT)", or "Umsatzsteuer (USt.)".
           attr_reader :display_name
           # The tax rate percentage as a string. For example, 8.5% is represented as "8.5".

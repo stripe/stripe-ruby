@@ -9,9 +9,9 @@ module Stripe
       "quote_line"
     end
 
-    class Action < Stripe::StripeObject
-      class AddDiscount < Stripe::StripeObject
-        class DiscountEnd < Stripe::StripeObject
+    class Action < ::Stripe::StripeObject
+      class AddDiscount < ::Stripe::StripeObject
+        class DiscountEnd < ::Stripe::StripeObject
           # The discount end type.
           attr_reader :type
 
@@ -43,9 +43,9 @@ module Stripe
         end
       end
 
-      class AddItem < Stripe::StripeObject
-        class Discount < Stripe::StripeObject
-          class DiscountEnd < Stripe::StripeObject
+      class AddItem < ::Stripe::StripeObject
+        class Discount < ::Stripe::StripeObject
+          class DiscountEnd < ::Stripe::StripeObject
             # The discount end timestamp.
             attr_reader :timestamp
             # The discount end type.
@@ -77,7 +77,7 @@ module Stripe
           end
         end
 
-        class Trial < Stripe::StripeObject
+        class Trial < ::Stripe::StripeObject
           # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
           attr_reader :converts_to
           # Determines the type of trial for this item.
@@ -113,8 +113,8 @@ module Stripe
         end
       end
 
-      class RemoveDiscount < Stripe::StripeObject
-        class DiscountEnd < Stripe::StripeObject
+      class RemoveDiscount < ::Stripe::StripeObject
+        class DiscountEnd < ::Stripe::StripeObject
           # The discount end timestamp.
           attr_reader :timestamp
           # The discount end type.
@@ -146,7 +146,7 @@ module Stripe
         end
       end
 
-      class RemoveItem < Stripe::StripeObject
+      class RemoveItem < ::Stripe::StripeObject
         # ID of a price to remove.
         attr_reader :price
 
@@ -159,8 +159,8 @@ module Stripe
         end
       end
 
-      class SetDiscount < Stripe::StripeObject
-        class DiscountEnd < Stripe::StripeObject
+      class SetDiscount < ::Stripe::StripeObject
+        class DiscountEnd < ::Stripe::StripeObject
           # The discount end timestamp.
           attr_reader :timestamp
           # The discount end type.
@@ -192,9 +192,9 @@ module Stripe
         end
       end
 
-      class SetItem < Stripe::StripeObject
-        class Discount < Stripe::StripeObject
-          class DiscountEnd < Stripe::StripeObject
+      class SetItem < ::Stripe::StripeObject
+        class Discount < ::Stripe::StripeObject
+          class DiscountEnd < ::Stripe::StripeObject
             # The discount end timestamp.
             attr_reader :timestamp
             # The discount end type.
@@ -226,7 +226,7 @@ module Stripe
           end
         end
 
-        class Trial < Stripe::StripeObject
+        class Trial < ::Stripe::StripeObject
           # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
           attr_reader :converts_to
           # Determines the type of trial for this item.
@@ -298,7 +298,7 @@ module Stripe
       end
     end
 
-    class AppliesTo < Stripe::StripeObject
+    class AppliesTo < ::Stripe::StripeObject
       # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
       attr_reader :new_reference
       # The ID of the schedule the line applies to.
@@ -315,7 +315,7 @@ module Stripe
       end
     end
 
-    class CancelSubscriptionSchedule < Stripe::StripeObject
+    class CancelSubscriptionSchedule < ::Stripe::StripeObject
       # Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
       attr_reader :cancel_at
       # If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Boolean that defaults to `true`.
@@ -332,8 +332,8 @@ module Stripe
       end
     end
 
-    class EndsAt < Stripe::StripeObject
-      class DiscountEnd < Stripe::StripeObject
+    class EndsAt < ::Stripe::StripeObject
+      class DiscountEnd < ::Stripe::StripeObject
         # The ID of a specific discount.
         attr_reader :discount
 
@@ -346,7 +346,7 @@ module Stripe
         end
       end
 
-      class Duration < Stripe::StripeObject
+      class Duration < ::Stripe::StripeObject
         # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
         attr_reader :interval
         # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
@@ -380,8 +380,8 @@ module Stripe
       end
     end
 
-    class SetPauseCollection < Stripe::StripeObject
-      class Set < Stripe::StripeObject
+    class SetPauseCollection < ::Stripe::StripeObject
+      class Set < ::Stripe::StripeObject
         # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
         attr_reader :behavior
 
@@ -407,8 +407,8 @@ module Stripe
       end
     end
 
-    class StartsAt < Stripe::StripeObject
-      class DiscountEnd < Stripe::StripeObject
+    class StartsAt < ::Stripe::StripeObject
+      class DiscountEnd < ::Stripe::StripeObject
         # The ID of a specific discount.
         attr_reader :discount
 
@@ -421,7 +421,7 @@ module Stripe
         end
       end
 
-      class LineEndsAt < Stripe::StripeObject
+      class LineEndsAt < ::Stripe::StripeObject
         # Unique identifier for the object.
         attr_reader :id
 
@@ -453,8 +453,8 @@ module Stripe
       end
     end
 
-    class TrialSettings < Stripe::StripeObject
-      class EndBehavior < Stripe::StripeObject
+    class TrialSettings < ::Stripe::StripeObject
+      class EndBehavior < ::Stripe::StripeObject
         # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
         attr_reader :prorate_up_front
 

@@ -11,7 +11,7 @@ module Stripe
     sig { returns(String) }
     def currency; end
     # ID of the account that funds are being collected for.
-    sig { returns(T.any(String, Stripe::Account)) }
+    sig { returns(T.any(String, ::Stripe::Account)) }
     def destination; end
     # Unique identifier for the object.
     sig { returns(String) }

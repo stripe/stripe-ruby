@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class SetupIntentCancelParams < Stripe::RequestParams
+  class SetupIntentCancelParams < ::Stripe::RequestParams
     # Reason for canceling this SetupIntent. Possible values are: `abandoned`, `requested_by_customer`, or `duplicate`
     attr_accessor :cancellation_reason
     # Specifies which fields in the response should be expanded.

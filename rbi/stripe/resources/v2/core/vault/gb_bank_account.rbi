@@ -8,9 +8,9 @@ module Stripe
       module Vault
         # Use the GBBankAccounts API to create and manage GB bank account objects
         class GbBankAccount < APIResource
-          class ConfirmationOfPayee < Stripe::StripeObject
-            class Result < Stripe::StripeObject
-              class Matched < Stripe::StripeObject
+          class ConfirmationOfPayee < ::Stripe::StripeObject
+            class Result < ::Stripe::StripeObject
+              class Matched < ::Stripe::StripeObject
                 # The business type given by the bank for this account, in case of a MATCH or PARTIAL_MATCH.
                 # Closed enum.
                 sig { returns(T.nilable(String)) }
@@ -25,7 +25,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Provided < Stripe::StripeObject
+              class Provided < ::Stripe::StripeObject
                 # The provided or Legal Entity business type to match against the CoP service. Closed enum.
                 sig { returns(String) }
                 def business_type; end

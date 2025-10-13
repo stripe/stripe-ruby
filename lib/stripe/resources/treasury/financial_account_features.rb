@@ -11,8 +11,8 @@ module Stripe
         "treasury.financial_account_features"
       end
 
-      class CardIssuing < Stripe::StripeObject
-        class StatusDetail < Stripe::StripeObject
+      class CardIssuing < ::Stripe::StripeObject
+        class StatusDetail < ::Stripe::StripeObject
           # Represents the reason why the status is `pending` or `restricted`.
           attr_reader :code
           # Represents what the user should do, if anything, to activate the Feature.
@@ -44,8 +44,8 @@ module Stripe
         end
       end
 
-      class DepositInsurance < Stripe::StripeObject
-        class StatusDetail < Stripe::StripeObject
+      class DepositInsurance < ::Stripe::StripeObject
+        class StatusDetail < ::Stripe::StripeObject
           # Represents the reason why the status is `pending` or `restricted`.
           attr_reader :code
           # Represents what the user should do, if anything, to activate the Feature.
@@ -77,9 +77,9 @@ module Stripe
         end
       end
 
-      class FinancialAddresses < Stripe::StripeObject
-        class Aba < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+      class FinancialAddresses < ::Stripe::StripeObject
+        class Aba < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             attr_reader :code
             # Represents what the user should do, if anything, to activate the Feature.
@@ -124,9 +124,9 @@ module Stripe
         end
       end
 
-      class InboundTransfers < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+      class InboundTransfers < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             attr_reader :code
             # Represents what the user should do, if anything, to activate the Feature.
@@ -169,8 +169,8 @@ module Stripe
         end
       end
 
-      class IntraStripeFlows < Stripe::StripeObject
-        class StatusDetail < Stripe::StripeObject
+      class IntraStripeFlows < ::Stripe::StripeObject
+        class StatusDetail < ::Stripe::StripeObject
           # Represents the reason why the status is `pending` or `restricted`.
           attr_reader :code
           # Represents what the user should do, if anything, to activate the Feature.
@@ -202,9 +202,9 @@ module Stripe
         end
       end
 
-      class OutboundPayments < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+      class OutboundPayments < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             attr_reader :code
             # Represents what the user should do, if anything, to activate the Feature.
@@ -236,8 +236,8 @@ module Stripe
           end
         end
 
-        class UsDomesticWire < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+        class UsDomesticWire < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             attr_reader :code
             # Represents what the user should do, if anything, to activate the Feature.
@@ -282,9 +282,9 @@ module Stripe
         end
       end
 
-      class OutboundTransfers < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+      class OutboundTransfers < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             attr_reader :code
             # Represents what the user should do, if anything, to activate the Feature.
@@ -316,8 +316,8 @@ module Stripe
           end
         end
 
-        class UsDomesticWire < Stripe::StripeObject
-          class StatusDetail < Stripe::StripeObject
+        class UsDomesticWire < ::Stripe::StripeObject
+          class StatusDetail < ::Stripe::StripeObject
             # Represents the reason why the status is `pending` or `restricted`.
             attr_reader :code
             # Represents what the user should do, if anything, to activate the Feature.

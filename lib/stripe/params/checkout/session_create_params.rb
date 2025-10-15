@@ -96,13 +96,13 @@ module Stripe
         attr_accessor :border_style
         # A hex color value starting with `#` representing the button color for the Checkout Session.
         attr_accessor :button_color
-        # A string to override the business name shown on the Checkout Session.
+        # A string to override the business name shown on the Checkout Session. This only shows at the top of the Checkout page, and your business name still appears in terms, receipts, and other places.
         attr_accessor :display_name
         # The font family for the Checkout Session corresponding to one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
         attr_accessor :font_family
-        # The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        # The icon for the Checkout Session. For best results, use a square image.
         attr_accessor :icon
-        # The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        # The logo for the Checkout Session.
         attr_accessor :logo
 
         def initialize(

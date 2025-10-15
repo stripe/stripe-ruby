@@ -135,7 +135,7 @@ module Stripe
         def button_color; end
         sig { params(_button_color: T.nilable(String)).returns(T.nilable(String)) }
         def button_color=(_button_color); end
-        # A string to override the business name shown on the Checkout Session.
+        # A string to override the business name shown on the Checkout Session. This only shows at the top of the Checkout page, and your business name still appears in terms, receipts, and other places.
         sig { returns(T.nilable(String)) }
         def display_name; end
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
@@ -147,14 +147,14 @@ module Stripe
           params(_font_family: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
          }
         def font_family=(_font_family); end
-        # The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        # The icon for the Checkout Session. For best results, use a square image.
         sig { returns(T.nilable(Checkout::SessionCreateParams::BrandingSettings::Icon)) }
         def icon; end
         sig {
           params(_icon: T.nilable(Checkout::SessionCreateParams::BrandingSettings::Icon)).returns(T.nilable(Checkout::SessionCreateParams::BrandingSettings::Icon))
          }
         def icon=(_icon); end
-        # The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        # The logo for the Checkout Session.
         sig { returns(T.nilable(Checkout::SessionCreateParams::BrandingSettings::Logo)) }
         def logo; end
         sig {

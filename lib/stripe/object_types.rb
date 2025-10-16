@@ -59,6 +59,7 @@ module Stripe
         CustomerBalanceTransaction.object_name => CustomerBalanceTransaction,
         CustomerCashBalanceTransaction.object_name => CustomerCashBalanceTransaction,
         CustomerSession.object_name => CustomerSession,
+        DelegatedCheckout::RequestedSession.object_name => DelegatedCheckout::RequestedSession,
         Discount.object_name => Discount,
         Dispute.object_name => Dispute,
         Entitlements::ActiveEntitlement.object_name => Entitlements::ActiveEntitlement,

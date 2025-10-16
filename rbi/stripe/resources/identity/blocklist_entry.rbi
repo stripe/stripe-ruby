@@ -6,24 +6,13 @@ module Stripe
   module Identity
     # A BlocklistEntry represents an entry in our identity verification blocklist.
     # It helps prevent fraudulent users from repeatedly attempting verification with similar information.
-    # When you create a BlocklistEntry, we store data from a previous verification attempt,
+    # When you create a BlocklistEntry, we store data from a specified VerificationReport,
     # such as document details or facial biometrics.
     # This allows us to compare future verification attempts against these entries.
     # If a match is found, we categorize the new verification as unverified.
     #
     # To learn more, see [Identity Verification Blocklist](https://stripe.com/docs/identity/review-tools#block-list)
     class BlocklistEntry < APIResource
-      class Redaction < ::Stripe::StripeObject
-        # Indicates whether this object and its related objects have been redacted or not.
-        sig { returns(String) }
-        def status; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
@@ -42,9 +31,6 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
-      # Redaction status of the BlocklistEntry. If the BlocklistEntry isn't redacted, this field is null.
-      sig { returns(T.nilable(Redaction)) }
-      def redaction; end
       # The current status of the BlocklistEntry.
       sig { returns(String) }
       def status; end

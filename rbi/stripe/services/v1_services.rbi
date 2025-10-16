@@ -26,6 +26,7 @@ module Stripe
     attr_reader :credit_notes
     attr_reader :customers
     attr_reader :customer_sessions
+    attr_reader :delegated_checkout
     attr_reader :disputes
     attr_reader :entitlements
     attr_reader :ephemeral_keys

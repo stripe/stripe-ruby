@@ -29,12 +29,20 @@ module Stripe
             attr_accessor :image_url
             # URL to the product page. Max length, 4096 characters.
             attr_accessor :product_url
+            # Unique reference for this line item to correlate it with your system’s internal records. The field is displayed in the Klarna Consumer App if passed.
+            attr_accessor :reference
             # Reference for the subscription this line item is for.
             attr_accessor :subscription_reference
 
-            def initialize(image_url: nil, product_url: nil, subscription_reference: nil)
+            def initialize(
+              image_url: nil,
+              product_url: nil,
+              reference: nil,
+              subscription_reference: nil
+            )
               @image_url = image_url
               @product_url = product_url
+              @reference = reference
               @subscription_reference = subscription_reference
             end
           end

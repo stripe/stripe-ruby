@@ -36,15 +36,25 @@ module Stripe
             def product_url; end
             sig { params(_product_url: T.nilable(String)).returns(T.nilable(String)) }
             def product_url=(_product_url); end
+            # Unique reference for this line item to correlate it with your system’s internal records. The field is displayed in the Klarna Consumer App if passed.
+            sig { returns(T.nilable(String)) }
+            def reference; end
+            sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+            def reference=(_reference); end
             # Reference for the subscription this line item is for.
             sig { returns(T.nilable(String)) }
             def subscription_reference; end
             sig { params(_subscription_reference: T.nilable(String)).returns(T.nilable(String)) }
             def subscription_reference=(_subscription_reference); end
             sig {
-              params(image_url: T.nilable(String), product_url: T.nilable(String), subscription_reference: T.nilable(String)).void
+              params(image_url: T.nilable(String), product_url: T.nilable(String), reference: T.nilable(String), subscription_reference: T.nilable(String)).void
              }
-            def initialize(image_url: nil, product_url: nil, subscription_reference: nil); end
+            def initialize(
+              image_url: nil,
+              product_url: nil,
+              reference: nil,
+              subscription_reference: nil
+            ); end
           end
           class Paypal < ::Stripe::RequestParams
             # Type of the line item.

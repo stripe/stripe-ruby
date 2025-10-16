@@ -40,6 +40,8 @@ module Stripe
         attr_reader :image_url
         # Attribute for field product_url
         attr_reader :product_url
+        # Attribute for field reference
+        attr_reader :reference
 
         def self.inner_class_types
           @inner_class_types = {}

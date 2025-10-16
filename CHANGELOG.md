@@ -1,4 +1,7 @@
 # Changelog
+## 17.0.1 - 2025-10-16
+* [#1705](https://github.com/stripe/stripe-ruby/pull/1705) Require `V2::Amount` and `V2::DeletedObject` in gem
+
 ## 17.0.0 - 2025-10-09
 * [#1698](https://github.com/stripe/stripe-ruby/pull/1698) Remove expanded instance variables after a resource has been updated
   - ⚠️ Removes dynamically added instance variables on subsequent non-expanded updates to a resource that had previously been expanded. For example,

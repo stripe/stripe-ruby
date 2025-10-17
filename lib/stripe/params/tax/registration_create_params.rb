@@ -1411,6 +1411,15 @@ module Stripe
           end
         end
 
+        class Tw < ::Stripe::RequestParams
+          # Type of registration to be created in `country`.
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
         class Tz < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
@@ -1766,6 +1775,8 @@ module Stripe
         attr_accessor :tj
         # Options for the registration in TR.
         attr_accessor :tr
+        # Options for the registration in TW.
+        attr_accessor :tw
         # Options for the registration in TZ.
         attr_accessor :tz
         # Options for the registration in UA.
@@ -1877,6 +1888,7 @@ module Stripe
           th: nil,
           tj: nil,
           tr: nil,
+          tw: nil,
           tz: nil,
           ua: nil,
           ug: nil,
@@ -1977,6 +1989,7 @@ module Stripe
           @th = th
           @tj = tj
           @tr = tr
+          @tw = tw
           @tz = tz
           @ua = ua
           @ug = ug

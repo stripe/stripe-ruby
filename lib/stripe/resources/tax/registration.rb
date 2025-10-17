@@ -1680,6 +1680,19 @@ module Stripe
           end
         end
 
+        class Tw < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Tz < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
@@ -2051,6 +2064,8 @@ module Stripe
         attr_reader :tj
         # Attribute for field tr
         attr_reader :tr
+        # Attribute for field tw
+        attr_reader :tw
         # Attribute for field tz
         attr_reader :tz
         # Attribute for field ua
@@ -2163,6 +2178,7 @@ module Stripe
             th: Th,
             tj: Tj,
             tr: Tr,
+            tw: Tw,
             tz: Tz,
             ua: Ua,
             ug: Ug,

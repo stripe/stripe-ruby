@@ -1,12 +1,15 @@
 # Changelog
 
-## 17.1.0-alpha.2 - 2025-10-17
+## 17.1.0-alpha.3 - 2025-10-17
 * [#1702](https://github.com/stripe/stripe-ruby/pull/1702) Update generated code for private-preview
   * Add support for new resources `DelegatedCheckout::RequestedSession` and `Identity::BlocklistEntry`
   * Add support for `confirm`, `create`, `expire`, `retrieve`, and `update` methods on resource `DelegatedCheckout::RequestedSession`
   * Add support for `create`, `disable`, `list`, and `retrieve` methods on resource `Identity::BlocklistEntry`
   * Add support for `blocked_by_entry` on `Identity::VerificationReport::Document`, `Identity::VerificationReport::Selfie`, and `Identity::VerificationReportListParams`
 * [#1708](https://github.com/stripe/stripe-ruby/pull/1708) Merge to private-preview
+
+## 17.1.0-alpha.2 - 2025-10-16
+* [#1705](https://github.com/stripe/stripe-ruby/pull/1705) Require `V2::Amount` and `V2::DeletedObject` in gem
 
 ## 17.1.0-alpha.1 - 2025-10-09
 * Contains a breaking bug fix and other improvements from [v17.0.0](https://github.com/stripe/stripe-ruby/releases/tag/v17.0.0).

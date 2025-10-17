@@ -153,6 +153,9 @@ module Stripe
         # Sex as it appears in the document.
         sig { returns(T.nilable(String)) }
         def unparsed_sex; end
+        # If document was not verified due to extracted data being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        sig { returns(T.nilable(T.any(String, ::Stripe::Identity::BlocklistEntry))) }
+        def blocked_by_entry; end
         def self.inner_class_types
           @inner_class_types = {
             address: Address,
@@ -357,6 +360,9 @@ module Stripe
         # Status of this `selfie` check.
         sig { returns(String) }
         def status; end
+        # If selfie was not verified due to being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        sig { returns(T.nilable(T.any(String, ::Stripe::Identity::BlocklistEntry))) }
+        def blocked_by_entry; end
         def self.inner_class_types
           @inner_class_types = {error: Error}
         end

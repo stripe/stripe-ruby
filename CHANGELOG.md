@@ -1,5 +1,8 @@
 # Changelog
 
+## 17.1.0-alpha.2 - 2025-10-16
+* Contains a bug fix from [v17.0.1](https://github.com/stripe/stripe-ruby/releases/tag/v17.0.1)
+
 ## 17.1.0-alpha.1 - 2025-10-09
 * Contains a breaking bug fix and other improvements from [v17.0.0](https://github.com/stripe/stripe-ruby/releases/tag/v17.0.0).
 * [#1697](https://github.com/stripe/stripe-ruby/pull/1697) Update generated code for private-preview

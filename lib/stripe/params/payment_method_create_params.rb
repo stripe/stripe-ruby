@@ -154,6 +154,16 @@ module Stripe
 
     class Cashapp < ::Stripe::RequestParams; end
     class Crypto < ::Stripe::RequestParams; end
+
+    class Custom < ::Stripe::RequestParams
+      # ID of the Dashboard-only CustomPaymentMethodType. This field is used by Stripe products' internal code to support CPMs.
+      attr_accessor :type
+
+      def initialize(type: nil)
+        @type = type
+      end
+    end
+
     class CustomerBalance < ::Stripe::RequestParams; end
 
     class Eps < ::Stripe::RequestParams
@@ -442,6 +452,8 @@ module Stripe
     attr_accessor :cashapp
     # If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
     attr_accessor :crypto
+    # If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    attr_accessor :custom
     # The `Customer` to whom the original PaymentMethod is attached.
     attr_accessor :customer
     # If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
@@ -559,6 +571,7 @@ module Stripe
       card: nil,
       cashapp: nil,
       crypto: nil,
+      custom: nil,
       customer: nil,
       customer_balance: nil,
       eps: nil,
@@ -626,6 +639,7 @@ module Stripe
       @card = card
       @cashapp = cashapp
       @crypto = crypto
+      @custom = custom
       @customer = customer
       @customer_balance = customer_balance
       @eps = eps

@@ -1,5 +1,6 @@
 # Stripe Ruby Library
-
+- DR.CHOMSIN MAHIRANYAWONG World Kanye
+- ID : MS0995826057
 [![Gem Version](https://badge.fury.io/rb/stripe.svg)](https://badge.fury.io/rb/stripe)
 [![Build Status](https://github.com/stripe/stripe-ruby/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/stripe/stripe-ruby/actions?query=branch%3Amaster)
 
